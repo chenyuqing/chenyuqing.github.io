@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>DMwR-note-01-预测海藻数量(四) | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="数据挖掘">
+    <meta name="description" content="写在开头的话  Ok，上一节我们利用多元回归和回归树两种方法建立了数据模型，那么数据模型可不可靠呢？这一节的任务就是对模型进行评估。  模型的评价和选择  上一节给出了本案例的两个预测模型的例子。最明显的问题是，应该使用哪一个模型来获得7种海藻的140个测试样品的预测。为了回答这个问题，需要在可供选择的模型空间中指定一些模型的偏好标准，也就是说，需要详细说明应该如何评价模型的性能。  有多种评价(">
+<meta name="keywords" content="数据挖掘">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DMwR-note-01-预测海藻数量(四)">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在开头的话  Ok，上一节我们利用多元回归和回归树两种方法建立了数据模型，那么数据模型可不可靠呢？这一节的任务就是对模型进行评估。  模型的评价和选择  上一节给出了本案例的两个预测模型的例子。最明显的问题是，应该使用哪一个模型来获得7种海藻的140个测试样品的预测。为了回答这个问题，需要在可供选择的模型空间中指定一些模型的偏好标准，也就是说，需要详细说明应该如何评价模型的性能。  有多种评价(">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/DMwR/02_algae_model_judge/01_prediction_true.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/DMwR/02_algae_model_judge/02_nmse.PNG">
+<meta property="og:updated_time" content="2014-11-18T06:53:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DMwR-note-01-预测海藻数量(四)">
+<meta name="twitter:description" content="写在开头的话  Ok，上一节我们利用多元回归和回归树两种方法建立了数据模型，那么数据模型可不可靠呢？这一节的任务就是对模型进行评估。  模型的评价和选择  上一节给出了本案例的两个预测模型的例子。最明显的问题是，应该使用哪一个模型来获得7种海藻的140个测试样品的预测。为了回答这个问题，需要在可供选择的模型空间中指定一些模型的偏好标准，也就是说，需要详细说明应该如何评价模型的性能。  有多种评价(">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/DMwR/02_algae_model_judge/01_prediction_true.PNG">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">DMwR-note-01-预测海藻数量(四)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">DMwR-note-01-预测海藻数量(四)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-10-27T23:39:16.000Z" itemprop="datePublished" class="page-time">
+  2014-10-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘与R语言-案例学习/">数据挖掘与R语言-案例学习</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在开头的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在开头的话</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模型的评价和选择"><span class="post-toc-number">2.</span> <span class="post-toc-text">模型的评价和选择</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#预测函数predict"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">预测函数predict()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#平均绝对误差-MAE"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">平均绝对误差(MAE)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#均方误差-MSE"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">均方误差(MSE)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#标准化的平均绝对误差-NMSE"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">标准化的平均绝对误差(NMSE)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#可视化比较模型"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">可视化比较模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#k折交叉验证"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">k折交叉验证</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-DMwR-note-01-预测海藻数量(四)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">DMwR-note-01-预测海藻数量(四)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年10月28日 7:39" datetime="2014-10-27T23:39:16.000Z"  itemprop="datePublished">2014-10-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘与R语言-案例学习/">数据挖掘与R语言-案例学习</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在开头的话"><a href="#写在开头的话" class="headerlink" title="写在开头的话"></a>写在开头的话</h2><hr>
+<ul>
+<li>Ok，上一节我们利用多元回归和回归树两种方法建立了数据模型，那么数据模型可不可靠呢？这一节的任务就是对模型进行评估。</li>
+</ul>
+<h2 id="模型的评价和选择"><a href="#模型的评价和选择" class="headerlink" title="模型的评价和选择"></a>模型的评价和选择</h2><hr>
+<ul>
+<li><p>上一节给出了本案例的两个预测模型的例子。最明显的问题是，应该使用哪一个模型来获得7种海藻的140个测试样品的预测。为了回答这个问题，需要在可供选择的模型空间中指定一些模型的偏好标准，也就是说，需要详细说明应该如何评价模型的性能。</p>
+</li>
+<li><p>有多种评价(和比较)模型的标准。其中最流行的标准是计算模型的预测性能。当然还有其他衡量的标准，例如模型的可解释性，还有对大型数据挖掘特别重要的标准，即模型的计算效率。</p>
+<h3 id="预测函数predict"><a href="#预测函数predict" class="headerlink" title="预测函数predict()"></a>预测函数predict()</h3></li>
+<li><p>回归模型的预测性能是通过将目标变量的预测值与实际值进行比较得到的，并从这些比较中计算某些平均误差的度量。一种度量方法是平均绝对误差(MAE)。下面描述如何获得线性回归和回归树的平均绝对误差。第一步，获取需要评价模型预测性能的测试集个案的预测值。在R中，要获得任何模型的预测，就要使用函数predict()进行预测。函数predict()是一个泛型函数，它的一个参数为需要应用的模型，另一个参数为数据的测试集，输出结果为相应的模型预测值：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lm.predictions.a1 &lt;- predict(final.lm, clean.algae)</span><br><span class="line">rt.predictions.a1 &lt;- predict(rt.a1, algae)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上面连个命令得到预测海藻a1的两个模型的预测值。注意，因为原始训练集数据含有缺失值，所以在线性回归模型中使用的是数据框clean.algae。</p>
+<h3 id="平均绝对误差-MAE"><a href="#平均绝对误差-MAE" class="headerlink" title="平均绝对误差(MAE)"></a>平均绝对误差(MAE)</h3></li>
+<li><p>得到模型的预测值后，就可以计算出其平均绝对误差：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算平均绝对误差</span></span><br><span class="line">(mae.a1.lm &lt;- mean(abs(lm.predictions.a1 - algae[,<span class="string">"a1"</span>])))</span><br><span class="line">[1] 13.10681</span><br><span class="line"></span><br><span class="line">(mae.a1.rt &lt;- mean(abs(rt.predictions.a1 - algae[,<span class="string">"a1"</span>])))</span><br><span class="line">[1] 10.36242</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="均方误差-MSE"><a href="#均方误差-MSE" class="headerlink" title="均方误差(MSE)"></a>均方误差(MSE)</h3><ul>
+<li>另一种流行的误差度量是均方误差(MSE)。可以由下列代码计算均方误差：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算均方误差(MSE)</span></span><br><span class="line">(mse.a1.lm &lt;- mean((lm.predictions.a1 - algae[,<span class="string">"a1"</span>])^2))</span><br><span class="line">[1] 295.5407</span><br><span class="line"></span><br><span class="line">(mse.a1.rt &lt;- mean((rt.predictions.a1 - algae[,<span class="string">"a1"</span>])^2))</span><br><span class="line">[1] 227.0339</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="标准化的平均绝对误差-NMSE"><a href="#标准化的平均绝对误差-NMSE" class="headerlink" title="标准化的平均绝对误差(NMSE)"></a>标准化的平均绝对误差(NMSE)</h3><ul>
+<li><p>以上后一种误差度量方法的不足之处是：误差值和目标值变量的目标不统一，因此从用户的角度看，这种误差不好解释。即使应用平均绝对误差(MAE)来度量误差，问题是如何判断模型的得分是好还是差。能够解决这一问题的误差度量是标准化后的平均绝对误差(NMSE)。这一统计量是计算模型预测性能和基准模型的预测性能之间的比率。通常采用目标变量的平均值来作为基准模型，代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算标准化后的平均绝对误差(NMSE)</span></span><br><span class="line">(nmse.a1.lm &lt;- mean((lm.predictions.a1 - algae[,<span class="string">'a1'</span>])^2 / mean((mean(algae[,<span class="string">'a1'</span>])-algae[,<span class="string">'a1'</span>])^2)))</span><br><span class="line">[1] 0.6473034</span><br><span class="line"></span><br><span class="line">(nmse.a1.rt &lt;- mean(rt.predictions.a1-algae[,<span class="string">'a1'</span>])^2 / mean((mean(algae[,<span class="string">'a1'</span>])-algae[,<span class="string">'a1'</span>])^2))</span><br><span class="line">[1] 3.121937e-34</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>NMSE是一个比值，其取值范围通常为0-1。如果模型表现优于这个非常简单基准模型预测，那么NMSE应明显小于1。NMSE的值越小，模型的性能就越好。NMSE的值大于1，意味着模型预测还不如简单地把所有个案的平均值作为预测值。</p>
+</li>
+<li><p>在本书提供的R添加包中，函数regr.eval()用来计算线性回归模型的性能度量指标。下面给出应用该函数一个例子。可以查找该函数的帮助文档来获取这个函数的不同用法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">regr.eval(algae[,<span class="string">'a1'</span>], rt.predictions.a1, train.y = algae[,<span class="string">'a1'</span>])</span><br><span class="line">       mae         mse        rmse        mape        nmse        nmae </span><br><span class="line">10.3624227 227.0338940  15.0676439         Inf   0.4972574   0.6202654</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="可视化比较模型"><a href="#可视化比较模型" class="headerlink" title="可视化比较模型"></a>可视化比较模型</h3><ul>
+<li><p>可视化地查看模型的预测值将更加有趣。一种方法是绘制误差的散点图。代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可视化查看模型的预测值</span></span><br><span class="line">old.par &lt;- par(mfrow = c(1,2))</span><br><span class="line">plot(lm.predictions.a1, algae[,<span class="string">'a1'</span>], main=<span class="string">"Linear Model"</span>, xlab=<span class="string">"Predictions"</span>, ylab=<span class="string">"True Values"</span>)</span><br><span class="line">abline(0,1,lty=2)</span><br><span class="line">plot(rt.predictions.a1, algae[,<span class="string">'a1'</span>], main=<span class="string">"Regression Tree"</span>, xlab=<span class="string">"Predictions"</span>, ylab=<span class="string">"True Values"</span>)</span><br><span class="line">abline(0,1,lty=2)</span><br><span class="line">par(old.par)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>plot:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/DMwR/02_algae_model_judge/01_prediction_true.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li><p>由上图可以看出，这两个模型在许多个案上的性能比较差。在理想的情况下，模型对所有的个案做出正确的预测时，图中的所有圈应该在虚线上，这条虚线是通过函数abline(0,1,lty=2)来绘制的。这条虚线穿过坐标系的原点，代表x坐标和y坐标相等的点集。图中圆圈的x坐标和y坐标分别代表目标变量的预测值和真实值，如果他们相等，那么这些圆圈就会落在这条理想的直线上。但从上图可以看到，情况并非如此！可以用函数identify()来检查哪些预测特别差的样本点，该函数可以让用户通过互动方式点击图形中的点，代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># identify()</span></span><br><span class="line">plot(lm.predictions.a1, algae[,<span class="string">'a1'</span>],main=<span class="string">"Linear Model"</span>, xlab=<span class="string">"Predictions"</span>, ylab=<span class="string">"True Values"</span>)</span><br><span class="line">abline(0,1,lty=2)</span><br><span class="line">algae[identify(lm.predictions.a1, algae[,<span class="string">'a1'</span>]),]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行上面的代码，并在图形上点击，然后右击结束交互过程后，应该看到相应于所点击的圆圈的海藻数据框的行数据–因为这里用函数identify()得到的向量来索引海藻数据框。</p>
+</li>
+<li><p>观察上图的左图，他对应的是线性回归模型。注意，有一些个案的海藻频率的预测值为负值。在本案例中，海藻在出现频率为负值时没有意义(至少是0个)。因此，可以用以上知识和海藻频率的最小可能取值来优化上面的线性回归模型。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sensible.lm.predictions.a1 &lt;- ifelse(lm.predictions.a1 &lt;0,0,lm.predictions.a1)</span><br><span class="line">regr.eval(algae[,<span class="string">'a1'</span>], lm.predictions.a1,stats = c(<span class="string">"mae"</span>,<span class="string">"mse"</span>))</span><br><span class="line">     mae       mse </span><br><span class="line">13.10681 295.54069 </span><br><span class="line">regr.eval(algae[,<span class="string">'a1'</span>], sensible.lm.predictions.a1, stats = c(<span class="string">"mae"</span>,<span class="string">"mse"</span>))</span><br><span class="line">     mae       mse </span><br><span class="line">12.48276 286.28541</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上面代码应用函数ifelse()来改进模型的预测结果。该函数有三个参数，第一个参数是逻辑条件，第二个参数是当逻辑条件为真时函数的取值，第三个参数是当逻辑条件为假时的取值。注意，通过这一小的细节就提高了模型的性能。</p>
+</li>
+</ul>
+<h3 id="k折交叉验证"><a href="#k折交叉验证" class="headerlink" title="k折交叉验证"></a>k折交叉验证</h3><ul>
+<li><p>根据以上计算出的模型的性能指标，我们倾向于选择回归树模型来预测140个测试样品的频率值，因为该模型有较低的NMSE值。然而，这种推理有一种那个缺陷。我们的分析目标是获得能够对140个测试样品的频率进行预测的最佳模型。由于不知道这些测试样本的目标变量值，所以我们需要估计哪一个模型将在这些测试样本上有较好的性能。这里的关键问题是在不知道数据集真实的目标变量取值时，要获得模型在该数据集上可靠的性能估计。使用已有的训练数据获得模型的性能指标(如前面获得模型的过程)是不可靠的，因为这些计算是有偏的。</p>
+</li>
+<li><p>实际上，有的模型可以很容易地获得训练数据的零误差预测。然而，模型的这一优秀性能很难推广到目标变量值未知的心样本上。正如之前所述，这种现象通常称为过拟合训练数据。因为，为了选择一个合适的模型，我们需要获得模型在未知数据上预测性能的更加可靠的估计。k折交叉验证是获得模型性能可靠估计的一种常用方法，它适用于像本案例这样的小数据集。这种方法可以简要介绍如下。</p>
+<ul>
+<li>首先获取k个同样大小的随机训练数据子集。</li>
+<li>对于这k个子集的每一个子集，用除去它之外的其余k-1个子集建立模型，然后用第k个子集来评估这个模型，最后存储模型的性能指标</li>
+<li>对其余的每个子集重复以上过程，最后有K个性能指标的测量值，这些性能指标是通过在没有用于建模的数据上计算得到，这也是关键之处。</li>
+</ul>
+</li>
+<li><p>k折交叉验证估计是这k个性能指标的平均。常见的k=10.有时我们会重复进行多次k折交叉验证以获得更加可靠的估计。</p>
+<ul>
+<li>总之，党对一项预测任务时，需要作出以下决策：<ul>
+<li>为预测任务选择模型(同一算法的不同参数设定也可以认为是不同的模型)。</li>
+<li>选择比较模型性能的评估指标</li>
+<li>选择获取评估指标的可靠估计的实验方法。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在本书提供的R包中，提供了函数experimentalComparison()，它用来进行模型的选择和比较任务。它可以和不同的估计方法一起使用，如交叉验证法。这个函数有三个参数：1.用于比较的数据集，2.需要比较的可选模型，3.实验过程中的系数。我们以海藻数据集为例，用它来比较线性回归模型和几个不同回归树模型。</p>
+</li>
+<li><p>函数experimentalComparison()使用于任何模型和任何数据，在这个意义上，它是一个泛型函数。使用者提供一组实现待比较的模型的函数。其中每一个函数应该对训练集和测试集实现一个完整的“训练+测试+评估”周期。在评估过程的每一次迭代中，调用这些函数。这些函数应该返回一个向量，其元素为交叉验证中用户需要的性能评估指标值。下面给出两个目标模型的函数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cv.rpart &lt;- <span class="keyword">function</span>(form,train,<span class="built_in">test</span>,...)&#123;</span><br><span class="line">  m &lt;- rpartXse(from,train,...)</span><br><span class="line">  p &lt;- predict(m,<span class="built_in">test</span>)</span><br><span class="line">  mse &lt;- mean((p-resp(form,<span class="built_in">test</span>))^2)</span><br><span class="line">  c(nmse = mse/mean((mean(resp(form,train))-resp(form,<span class="built_in">test</span>))^2))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cv.lm &lt;- <span class="keyword">function</span>(form, train, <span class="built_in">test</span>,...)&#123;</span><br><span class="line">  m &lt;- lm(form,train,...)</span><br><span class="line">  p &lt;- predict(m,<span class="built_in">test</span>)</span><br><span class="line">  p &lt;- ifelse(p&lt;0,0,p)</span><br><span class="line">  mse &lt;- mean((p-resp(form,<span class="built_in">test</span>))^2)</span><br><span class="line">  c(nmse=mse/mean((mean(resp(form,train))-resp(form,<span class="built_in">test</span>))^2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在这个示例中，假设用NMSE作为线性回归模型和回归树模型的性能评估指标。所有这些用户定义的函数的前三个参数应该是公式、训练数据和测试数据。实验过程调用函数时可以应用的其他参数包括要评估模型所需要的参数。虽然所评估的两个模型应用了完全不同的学习算法，但是两个模型函数都有同样的“训练+测试+评估”周期。函数的定义还包括一个特殊参数“…”。这个特殊参数可以用在任意的R函数中，它允许一个特定函数具有可变的参数。这个结构用于给实际模型传递所需要的额外参数(例如在函数rpartXse()中和函数lm()中)。这些函数的另一个特殊之处是应用本书添加包提供的函数resp()，它用于根据公式获得数据集的目标变量值。</p>
+</li>
+<li><p>在定义好用于模型学习和测试的函数后，就可以按下列代码进行模型的交叉验证比较：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">res &lt;- experimentalComparison(</span><br><span class="line">  c(dataset(a1~.,clean.algae[,1:12],<span class="string">"a1"</span>)),</span><br><span class="line">  c(variants(<span class="string">'cv.lm'</span>),</span><br><span class="line">    variants(<span class="string">'cv.rpart'</span>,se=c(0,0.5,1))),</span><br><span class="line">    cvSettings(3,10,1234)</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#####  CROSS VALIDATION  EXPERIMENTAL COMPARISON #####</span></span><br><span class="line"></span><br><span class="line">** DATASET :: a1</span><br><span class="line"></span><br><span class="line">++ LEARNER :: cv.lm  variant -&gt;  cv.lm.v1 </span><br><span class="line"></span><br><span class="line"> 3 x 10 - Fold Cross Validation run with seed =  1234 </span><br><span class="line">Repetition  1 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line">Repetition  2 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line">Repetition  3 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">++ LEARNER :: cv.rpart  variant -&gt;  cv.rpart.v1 </span><br><span class="line"></span><br><span class="line"> 3 x 10 - Fold Cross Validation run with seed =  1234 </span><br><span class="line">Repetition  1 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line">Repetition  2 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line">Repetition  3 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">++ LEARNER :: cv.rpart  variant -&gt;  cv.rpart.v2 </span><br><span class="line"></span><br><span class="line"> 3 x 10 - Fold Cross Validation run with seed =  1234 </span><br><span class="line">Repetition  1 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line">Repetition  2 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line">Repetition  3 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">++ LEARNER :: cv.rpart  variant -&gt;  cv.rpart.v3 </span><br><span class="line"></span><br><span class="line"> 3 x 10 - Fold Cross Validation run with seed =  1234 </span><br><span class="line">Repetition  1 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line">Repetition  2 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br><span class="line">Repetition  3 </span><br><span class="line">Fold:  1  2  3  4  5  6  7  8  9  10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>像先前提到的那样，第一个参数是含有在实验比较中所应用数据集的一个向量。每个数据集的声明形式为dataset(<formular>,<data frame>,<label>)。函数experimentalComparison()的第二个参数包含要研究的可选的模型方法。每个模型方法通过函数variant()来指定，该函数的第一个参数是用户定义的用于“学习+测试+评估”周期的函数名称。其余的可选参数用来给出估计方法的其他参数的可选值。函数variantes()根据所有参数值的组合生成一组可选模型。在上面的例子代码中，模型“cv.lm”采用了默认参数值，而模型“cv.rpart”的参数se则给出了不同的取值。这意味着实验将包含回归树的三个版本，这点可以在上面的函数输出中得到确认。函数experimentalComparison()的第三个参数是设定交叉验证实验的参数，即k折交叉验证实验过程重复的次数(这里设为3)、k的取值(10)、随机数生成器的种子。最后的参数(随机数种子)设定可以保证在必要的情况之下可以重视我们的实验(例如更换了训练模型系统)。</label></data></formular></p>
+</li>
+<li><p>这个代码调用的结果是一个复杂的对象，它包含实验比较的所有信息。在本书的R添加包中提供了多种获取这些信息的函数。例如，下面代码提供了比较结果的概要：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">summary(res)</span><br><span class="line"></span><br><span class="line">== Summary of a  Cross Validation  Experiment ==</span><br><span class="line"></span><br><span class="line"> 3 x 10 - Fold Cross Validation run with seed =  1234 </span><br><span class="line"></span><br><span class="line">* Data sets ::  a1</span><br><span class="line">* Learners  ::  cv.lm.v1, cv.rpart.v1, cv.rpart.v2, cv.rpart.v3</span><br><span class="line"></span><br><span class="line">* Summary of Experiment Results:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-&gt; Datataset:  a1 </span><br><span class="line"></span><br><span class="line">	*Learner: cv.lm.v1 </span><br><span class="line">             nmse</span><br><span class="line">avg     0.7196105</span><br><span class="line">std     0.1833064</span><br><span class="line">min     0.4678248</span><br><span class="line">max     1.2218455</span><br><span class="line">invalid 0.0000000</span><br><span class="line"></span><br><span class="line">	*Learner: cv.rpart.v1 </span><br><span class="line">             nmse</span><br><span class="line">avg     0.6440843</span><br><span class="line">std     0.2521952</span><br><span class="line">min     0.2146359</span><br><span class="line">max     1.1712674</span><br><span class="line">invalid 0.0000000</span><br><span class="line"></span><br><span class="line">	*Learner: cv.rpart.v2 </span><br><span class="line">             nmse</span><br><span class="line">avg     0.6873747</span><br><span class="line">std     0.2669942</span><br><span class="line">min     0.2146359</span><br><span class="line">max     1.3356744</span><br><span class="line">invalid 0.0000000</span><br><span class="line"></span><br><span class="line">	*Learner: cv.rpart.v3 </span><br><span class="line">             nmse</span><br><span class="line">avg     0.7167122</span><br><span class="line">std     0.2579089</span><br><span class="line">min     0.3476446</span><br><span class="line">max     1.3356744</span><br><span class="line">invalid 0.0000000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从结果中可知，其中的一个回归树有最优的NMSE值。这个NMSE值是否明显优于其他模型，目前还不明显，本节的后面将回到这个问题。可以得到这些结果的可视化图形:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot(res)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>plot:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/DMwR/02_algae_model_judge/02_nmse.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-11-18T06:53:10.000Z" itemprop="dateUpdated">2014年11月18日 14:53</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/10/28/DMwR-note-01-预测海藻数量(四)/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据挖掘/">数据挖掘</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/&title=《DMwR-note-01-预测海藻数量(四)》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/&title=《DMwR-note-01-预测海藻数量(四)》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DMwR-note-01-预测海藻数量(四)》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/10/30/数据挖掘课堂算法总结_Junior/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">数据挖掘课堂算法总结_Junior</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/10/28/DMwR-note-01-预测海藻数量(三)/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">DMwR-note-01-预测海藻数量(三)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="DMwR-note-01-预测海藻数量(四)" data-title="DMwR-note-01-预测海藻数量(四)" data-url="http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/&title=《DMwR-note-01-预测海藻数量(四)》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/&title=《DMwR-note-01-预测海藻数量(四)》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DMwR-note-01-预测海藻数量(四)》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/10/28/DMwR-note-01-预测海藻数量(四)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvUlEQVR42u3a0WrjMBAFUP//T2dhnwrbuPeOJDcLR08hTm0fFaThjq4rHq+/493nr98kv//3l/e/uf9+w8DDw8Mbvfq7kTyyvcP9pORTdv9EPDw8vNO8fDNoJyWZrHY6is0DDw8P71d594CVwre9Mx4eHt7/wpsFBG+L3VEZjYeHh/c5vLY43jXa9PVg1oKHh4c3ueewAfb850f7e3h4eHhl+2rW4spj3DYgLt4KDw8P79SCd7XFaFLa3gcE7ZQtBcd4eHh4W3n54r7rMEFbsuf/jG/ugIeHh3eYl7SpZkcN2iJ7dljhh2IaDw8PbyuvzT+Tln+yqeR3u8dHuw0eHh7eJt4smEhi2eRqjsnL/Q25Cx4eHl7Aq1tKZRRbhwjxSYDoKh4eHt4jvNmt22V99ur1U/Dw8PC28tq2fVIi5387iyHyGAUPDw/vNK+9xayFVhyZajHtZTw8PLxl3qzRtbRwjya6eE88PDy8A7xZGz6JFdqWfz7R9WECPDw8vK28E23+lVdc2WDw8PDwnuHly3peyLbbxiz8bVtoeHh4eLt4w2NM5ZaQBxa73qQ+j4CHh4c3WVevlRfaFVW0UW9RUuPh4eEd4NXV9wjTHh1oJ72IJPDw8PA28ZImU9vsb4vpWXS7FOPi4eHhbeXly/Esik0w7UZVbAx4eHh4W3l5gZvz2gbYeliMh4eHd4LXxql5OfuKR9uQu/KBh4eHd4w3iyHagGDlYMEwYcDDw8PbynuVoy2v1wvl/InfXMXDw8M7wFspu9uDWbPv7yOPDQU3Hh4e3oiXxwR56ytpg83+Ngl/8fDw8J7hzQ4HzBpUbYA7iyTw8PDwPoeXT0FejrekZOPBw8PD+wReUcgu17T5ka8ojMDDw8M7wJu1/IsFeiGwSPDRHoKHh4e3ibfSAGs3j/WjWusbFR4eHt7Cs/4AfOFpztjKXGwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

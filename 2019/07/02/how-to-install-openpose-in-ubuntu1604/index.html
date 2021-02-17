@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>how_to_install_openpose_in_ubuntu1604 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="openpose">
+    <meta name="description" content="reference1  reference2  reference3   Download source from the github1git clone --recursive git@github.com:CMU-Perceptual-Computing-Lab/openpose.git   Remember to use the –recursive to download other">
+<meta name="keywords" content="openpose">
+<meta property="og:type" content="article">
+<meta property="og:title" content="how_to_install_openpose_in_ubuntu1604">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="reference1  reference2  reference3   Download source from the github1git clone --recursive git@github.com:CMU-Perceptual-Computing-Lab/openpose.git   Remember to use the –recursive to download other">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/install_openpose/cmake-gui.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/install_openpose/fill_path.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/install_openpose/cmake-setup.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/install_openpose/complie_complete.jpg">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/install_openpose/caffe_issues.jpg">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/install_openpose/protoc_version.jpg">
+<meta property="og:updated_time" content="2019-07-30T07:54:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="how_to_install_openpose_in_ubuntu1604">
+<meta name="twitter:description" content="reference1  reference2  reference3   Download source from the github1git clone --recursive git@github.com:CMU-Perceptual-Computing-Lab/openpose.git   Remember to use the –recursive to download other">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/install_openpose/cmake-gui.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">how_to_install_openpose_in_ubuntu1604</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">how_to_install_openpose_in_ubuntu1604</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-02T03:40:16.000Z" itemprop="datePublished" class="page-time">
+  2019-07-02
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Download-source-from-the-github"><span class="post-toc-number">1.</span> <span class="post-toc-text">Download source from the github</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Install-the-cmake-gui"><span class="post-toc-number">2.</span> <span class="post-toc-text">Install the cmake-gui</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Download-the-models"><span class="post-toc-number">3.</span> <span class="post-toc-text">Download the models</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Complie"><span class="post-toc-number">4.</span> <span class="post-toc-text">Complie</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#caffe-issue"><span class="post-toc-number">5.</span> <span class="post-toc-text">caffe issue</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Some-issues"><span class="post-toc-number">6.</span> <span class="post-toc-text">Some issues</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Python-API-complie"><span class="post-toc-number">7.</span> <span class="post-toc-text">Python API complie</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Add-path-to-bash"><span class="post-toc-number">8.</span> <span class="post-toc-text">Add path to bash</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Try-a-test-of-python"><span class="post-toc-number">9.</span> <span class="post-toc-text">Try a test of python</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-how-to-install-openpose-in-ubuntu1604"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">how_to_install_openpose_in_ubuntu1604</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年07月02日 11:40" datetime="2019-07-02T03:40:16.000Z"  itemprop="datePublished">2019-07-02</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><a href="https://blog.csdn.net/linhai1028/article/details/79452977" target="_blank" rel="noopener">reference1</a> </li>
+<li><a href="https://www.aiuai.cn/aifarm708.html" target="_blank" rel="noopener">reference2</a> </li>
+<li><a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/1027" target="_blank" rel="noopener">reference3</a> </li>
+</ul>
+<h3 id="Download-source-from-the-github"><a href="#Download-source-from-the-github" class="headerlink" title="Download source from the github"></a>Download source from the github</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --recursive git@github.com:CMU-Perceptual-Computing-Lab/openpose.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Remember to use the <strong>–recursive</strong> to download other source</li>
+</ul>
+<h3 id="Install-the-cmake-gui"><a href="#Install-the-cmake-gui" class="headerlink" title="Install the cmake-gui"></a>Install the cmake-gui</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install cmake-gui</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/install_openpose/cmake-gui.png" alt="cmake-gui" title>
+                </div>
+                <div class="image-caption">cmake-gui</div>
+            </figure> 
+
+</li>
+</ul>
+<h3 id="Download-the-models"><a href="#Download-the-models" class="headerlink" title="Download the models"></a>Download the models</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd openpose/models/</span><br><span class="line">./getModels.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>if it doesn’t work for you, you can try to download them directly<ul>
+<li><a href="http://posefs1.perception.cs.cmu.edu/OpenPose/models/pose/body_25/pose_iter_584000.caffemodel" target="_blank" rel="noopener">BODY_25 - pose_iter_584000.caffemodel</a> </li>
+<li><a href="http://posefs1.perception.cs.cmu.edu/OpenPose/models/pose/coco/pose_iter_440000.caffemodel" target="_blank" rel="noopener">COCO - pose_iter_440000.caffemodel</a> </li>
+<li><a href="http://posefs1.perception.cs.cmu.edu/OpenPose/models/pose/mpi/pose_iter_160000.caffemodel" target="_blank" rel="noopener">MPI - pose_iter_160000.caffemodel</a> </li>
+<li><a href="http://posefs1.perception.cs.cmu.edu/OpenPose/models/face/pose_iter_116000.caffemodel" target="_blank" rel="noopener">Face - pose_iter_116000.caffemodel</a> </li>
+<li><a href="http://posefs1.perception.cs.cmu.edu/OpenPose/models/hand/pose_iter_102000.caffemodel" target="_blank" rel="noopener">Hand - pose_iter_102000.caffemodel</a> </li>
+</ul>
+</li>
+</ul>
+<h3 id="Complie"><a href="#Complie" class="headerlink" title="Complie"></a>Complie</h3><ul>
+<li><p><strong>First you should have caffe&amp; OpenCV installed in your PC</strong></p>
+</li>
+<li><p>Open the cmake-gui and fill the source code and build path</p>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/install_openpose/fill_path.png" alt="fill_path" title>
+                </div>
+                <div class="image-caption">fill_path</div>
+            </figure> 
+</li>
+<li><p>Click the configure and choose the default button</p>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/install_openpose/cmake-setup.png" alt="cmake-setup" title>
+                </div>
+                <div class="image-caption">cmake-setup</div>
+            </figure> </li>
+<li><p>Then set up your path of <strong>Caffe</strong> and click the <strong>Configure</strong> button, after that, click the <strong>Generate</strong> button</p>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/install_openpose/complie_complete.jpg" alt="complete" title>
+                </div>
+                <div class="image-caption">complete</div>
+            </figure> </li>
+<li><p>When you see the <strong>Generating Done</strong>, you should do this </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd build</span><br><span class="line">make -j `nproc`</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="caffe-issue"><a href="#caffe-issue" class="headerlink" title="caffe issue"></a>caffe issue</h3><ul>
+<li><p>If you install the latest caffe, you may occur the problem like that </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">can&apos;t read the caffemodel or parase the model files</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>It may be two reasons </p>
+<ul>
+<li>caffe issue.</li>
+<li>the model file is broken, you can try to download it again.</li>
+</ul>
+</li>
+<li><p>So if it’s the caffe issue, you can download the caffe from openpose github and complie it alone.</p>
+</li>
+</ul>
+<h3 id="Some-issues"><a href="#Some-issues" class="headerlink" title="Some issues"></a>Some issues</h3><ul>
+<li><p>You may occur some issues like these</p>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/install_openpose/caffe_issues.jpg" alt="caffe_issue" title>
+                </div>
+                <div class="image-caption">caffe_issue</div>
+            </figure> 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SOLVED BY MUUPAN!</span><br><span class="line"></span><br><span class="line">You need to generate caffe.pb.h manually using protoc as follows.</span><br><span class="line"></span><br><span class="line">In the directory you installed Caffe to</span><br><span class="line"></span><br><span class="line">protoc src/caffe/proto/caffe.proto --cpp_out=.</span><br><span class="line">mkdir include/caffe/proto</span><br><span class="line">mv src/caffe/proto/caffe.pb.h include/caffe/proto</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>After that you complie again, you may incur the other issue about the version of protoc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/visionml/caffe-master/include/caffe/proto/caffe.pb.h:12:2: error: #error This file was generated by a newer version of protoc which is</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/install_openpose/protoc_version.jpg" alt="protoc_version" title>
+                </div>
+                <div class="image-caption">protoc_version</div>
+            </figure> </li>
+<li><p>You could try the older version of protoc </p>
+</li>
+</ul>
+<h3 id="Python-API-complie"><a href="#Python-API-complie" class="headerlink" title="Python API complie"></a>Python API complie</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd build/python/</span><br><span class="line">sudo make install -j `nproc`</span><br></pre></td></tr></table></figure>
+
+<h3 id="Add-path-to-bash"><a href="#Add-path-to-bash" class="headerlink" title="Add path to bash"></a>Add path to bash</h3><ul>
+<li><p>Fisrt way (Recommand)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line"># (Add this line to the end of the file)</span><br><span class="line">export PYTHONPATH=/path/to/openpose/build/python:</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Second way</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a. After a successful build, go look for the file - build/python/openpose/pyopenpose.cpython-35m-x86_64-linux-gnu.so and copy to /usr/local/lib/python3.5/dist-packages</span><br><span class="line"></span><br><span class="line">b. in /usr/local/lib/python3.6/dist-packages I create a symbolic link -</span><br><span class="line">-  sudo ln -s pyopenpose.cpython-35m-x86_64-linux-gnu.so pyopenpose</span><br><span class="line"></span><br><span class="line">c. Verify that your LD_LIBRARY_PATH from env has the entry /usr/local/lib/python3.5/dist-packages</span><br><span class="line"></span><br><span class="line">d. Now, go to build/examples/tutorial_api_python and do some modification to 1_body_from_image.py</span><br><span class="line"></span><br><span class="line">i) look for the line from openpose import pyopenpose as op and change to import pyopenpose as op</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Try-a-test-of-python"><a href="#Try-a-test-of-python" class="headerlink" title="Try a test of python"></a>Try a test of python</h3><ul>
+<li><p>Fisrt way (Recommand)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">&gt;&gt;&gt; import openpose</span><br><span class="line">&gt;&gt;&gt; from openpose import pyopenpose as op</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Second way</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">&gt;&gt;&gt; import pyopenpose as op</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-30T07:54:32.000Z" itemprop="dateUpdated">2019年7月30日 15:54</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2019/07/02/how-to-install-openpose-in-ubuntu1604/" target="_blank" rel="external">http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openpose/">openpose</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/&title=《how_to_install_openpose_in_ubuntu1604》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/&title=《how_to_install_openpose_in_ubuntu1604》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《how_to_install_openpose_in_ubuntu1604》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/07/09/unet-a-segementation-network/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Unet a segementation network</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/05/06/mtcnn-explained/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">mtcnn_explained</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="how-to-install-openpose-in-ubuntu1604" data-title="how_to_install_openpose_in_ubuntu1604" data-url="http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/&title=《how_to_install_openpose_in_ubuntu1604》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/&title=《how_to_install_openpose_in_ubuntu1604》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《how_to_install_openpose_in_ubuntu1604》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/07/02/how-to-install-openpose-in-ubuntu1604/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3aQW4jMQwEQP//09lrAO/Y3eTIyS5KpyDwjFQyINEkH494fH0bj9H4/uzVe54/kzx1w8DDw8NbLP15JJM9T3z1n6ttSrbvaj2v34yHh4d3jjc7ytuJX29csgX5mvHw8PB+D2+2oNfPJivBw8PD+z94SUCch+ObIB4PDw/v87z8yN4stFjW53MteHh4eDFvU776qb+P1Pfw8PDw1lX12YG+Cb6Tp4rV4uHh4R3gteFsEmrnoW2bwG3XiYeHh3eCN5tgU7hKFj1LH//lKTw8PLwDvGQRyTSzILtt6pptMR4eHt69vFnydNZi1Za1ZhfM5W8FPDw8vAO8tsg0O+7by2C1Tjw8PLwDvPxYT0pZmxTDvTO+Ca/x8PDw1mncvLw0C4U3DQH5ZXD5jeHh4eEd4LXJ0zakzo/7NjR/8/Xg4eHhHePNGqc2YXGbmBimVPDw8PAO8NpAed9EdVcI3pbi8PDw8O7i5YmATRi92ZrZxVD0auHh4eGVvLzAn6cD8nRDu3F5ngEPDw/vHC+5AGY/+9sGgtn738yLh4eHd4C3KfDX98+iAev1f95cJ3h4eHi38vZNV23BbNZQtboS8PDw8G7ltRPnad97Q+1kCy7fgIeHh/cRXj590haQNGBtSlxRAQwPDw/vI7xkQW1atm0vuKENCw8PD+8wrz3u8yO+XXr7nqizDA8PD+9W3l2hdttulSeU2/YvPDw8vJ/ibVK67XbUiYbkKTw8PLxbeV/lyJeYt2rNGryiTcHDw8M7wJu1WM1C6rYYtk9/4OHh4Z3jbS6DWSKjvQySeeumKzw8PLw173Vg2hb4Z5+89xrDw8PD+1d4s3C8LYnlqWc8PDy838BrGwX2Cdw2t4CHh4f3GV67rOSTeei8KW69eRYPDw/vAK/+eR+8Or9s2svgcWLg4eHhpeMP0JQr8J+LY3cAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

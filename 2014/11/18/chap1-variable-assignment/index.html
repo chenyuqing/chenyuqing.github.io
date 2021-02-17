@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>chap1-variable-assignment | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="R basics">
+    <meta name="description" content="Last TutorialVariable assignment(1) A basic concept in (statistical) programming is called a varibale. A variable allows you to store a value (e.g.4) or an object (e.g. a function description) in R. Y">
+<meta name="keywords" content="R basics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chap1-variable-assignment">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="Last TutorialVariable assignment(1) A basic concept in (statistical) programming is called a varibale. A variable allows you to store a value (e.g.4) or an object (e.g. a function description) in R. Y">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2015-01-05T07:40:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chap1-variable-assignment">
+<meta name="twitter:description" content="Last TutorialVariable assignment(1) A basic concept in (statistical) programming is called a varibale. A variable allows you to store a value (e.g.4) or an object (e.g. a function description) in R. Y">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">chap1-variable-assignment</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">chap1-variable-assignment</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-11-18T13:35:05.000Z" itemprop="datePublished" class="page-time">
+  2014-11-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/R-Tutorial/">R Tutorial</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Last-Tutorial"><span class="post-toc-number">1.</span> <span class="post-toc-text">Last Tutorial</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Variable-assignment-1"><span class="post-toc-number">2.</span> <span class="post-toc-text">Variable assignment(1)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Exercises1"><span class="post-toc-number">3.</span> <span class="post-toc-text">Exercises1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Variable-assignment-2"><span class="post-toc-number">4.</span> <span class="post-toc-text">Variable assignment(2)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Exercises2"><span class="post-toc-number">5.</span> <span class="post-toc-text">Exercises2</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Variable-assignment-3"><span class="post-toc-number">6.</span> <span class="post-toc-text">Variable assignment(3)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Exercise3"><span class="post-toc-number">7.</span> <span class="post-toc-text">Exercise3</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Apples-and-oranges"><span class="post-toc-number">8.</span> <span class="post-toc-text">Apples and oranges</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Exercise4"><span class="post-toc-number">9.</span> <span class="post-toc-text">Exercise4</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Next-Tutorial"><span class="post-toc-number">10.</span> <span class="post-toc-text">Next Tutorial</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-chap1-variable-assignment"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">chap1-variable-assignment</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年11月18日 21:35" datetime="2014-11-18T13:35:05.000Z"  itemprop="datePublished">2014-11-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/R-Tutorial/">R Tutorial</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Last-Tutorial"><a href="#Last-Tutorial" class="headerlink" title="Last Tutorial"></a><a href="http://chenyuqing.github.io/2014/11/18/chap1-little-arithmeics-with-R/" target="_blank" rel="noopener">Last Tutorial</a></h2><h2 id="Variable-assignment-1"><a href="#Variable-assignment-1" class="headerlink" title="Variable assignment(1)"></a>Variable assignment(1)</h2><ul>
+<li>A basic concept in (statistical) programming is called a <strong>varibale.</strong></li>
+<li>A variable allows you to store a value (e.g.4) or an object (e.g. a function description) in R. You can then later use this variable’s name to easily access the value or the object that is stored within this variable.</li>
+<li>You can assign a value 4 to a variable <font color="red">my_variable</font> with the command: <font color="red">my_variable = 4.</font></li>
+</ul>
+<h2 id="Exercises1"><a href="#Exercises1" class="headerlink" title="Exercises1"></a>Exercises1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># Assign the value 42 to x</span></span><br><span class="line">&gt; x = 42</span><br><span class="line">&gt; <span class="comment"># Print out the value of the variable x</span></span><br><span class="line">&gt; x</span><br><span class="line">[1] 42</span><br></pre></td></tr></table></figure>
+
+<h2 id="Variable-assignment-2"><a href="#Variable-assignment-2" class="headerlink" title="Variable assignment(2)"></a>Variable assignment(2)</h2><ul>
+<li>Suppose you have a fruit basket with five apples. As a data ananlyst in training, you want to store the number of apples in a variable with the name <font color="red">my_apples.</font></li>
+</ul>
+<h2 id="Exercises2"><a href="#Exercises2" class="headerlink" title="Exercises2"></a>Exercises2</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># Assign the value 5 to the variable called my_apples</span></span><br><span class="line">&gt; my_apples &lt;- 5</span><br><span class="line">&gt; <span class="comment"># Print out the value of the variable my_apples</span></span><br><span class="line">&gt; my_apples</span><br><span class="line">[1] 5</span><br></pre></td></tr></table></figure>
+
+<h2 id="Variable-assignment-3"><a href="#Variable-assignment-3" class="headerlink" title="Variable assignment(3)"></a>Variable assignment(3)</h2><ul>
+<li>Every tasty fruit basket needs oranges, so you decide to add six oranges. As a data ananlyst, your reflex is to immediately create the variable <font color="red">my_orange</font> and assign the value 6 to it. Next, you want to calculate how many pieces of fruit you have in total. Since you have given meaningful names to these values, you can now code this in a clear way:<font color="red">my_apples + my_oranges.</font></li>
+</ul>
+<h2 id="Exercise3"><a href="#Exercise3" class="headerlink" title="Exercise3"></a>Exercise3</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># Assign a value to the variables called my_apples and my_oranges</span></span><br><span class="line">&gt; my_apples = 5</span><br><span class="line">&gt; my_oranges = 6</span><br><span class="line">&gt; <span class="comment"># Add these two variables together and print the result</span></span><br><span class="line">&gt; <span class="built_in">print</span>(my_apples + my_oranges)</span><br><span class="line">[1] 11</span><br><span class="line">&gt; <span class="comment"># Create the variable my_fruit</span></span><br><span class="line">&gt; my_fruit = my_apples + my_oranges</span><br></pre></td></tr></table></figure>
+
+<h2 id="Apples-and-oranges"><a href="#Apples-and-oranges" class="headerlink" title="Apples and oranges"></a>Apples and oranges</h2><ul>
+<li>Common knowledge tells you not to add apples and oranges. But hey, that is what you just did, no:-)? The <font color="red">my_apples</font> and <font color="red">my_oranges</font> variables both contained a number in the previous exercise. The <font color="red"> + </font> operator works with numeric variables in R. If you really tried to add “apples” and “oranges”, and assigned a text value to the variable <font color="red"> my_oranges </font>(see the editor), you would be trying to assign the addition of a numeric a character variable to the variable <font color="red"> my_fruit. </font> This is not possible.</li>
+</ul>
+<h2 id="Exercise4"><a href="#Exercise4" class="headerlink" title="Exercise4"></a>Exercise4</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># Assign a value to the variable called my_apples</span></span><br><span class="line">&gt; my_apples = 5</span><br><span class="line">&gt; <span class="comment"># Print out the value of my_apples</span></span><br><span class="line">&gt; my_apples</span><br><span class="line">[1] 5</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># Add a character</span></span><br><span class="line">&gt; my_oranges = 6</span><br><span class="line">&gt; my_oranges</span><br><span class="line">[1] 6</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># New variable that contains total amount of fruit</span></span><br><span class="line">&gt; my_fruit = my_apples + my_oranges</span><br><span class="line">&gt; my_fruit</span><br><span class="line">[1] 11</span><br></pre></td></tr></table></figure>
+
+<h2 id="Next-Tutorial"><a href="#Next-Tutorial" class="headerlink" title="Next Tutorial"></a><a href="http://chenyuqing.github.io" target="_blank" rel="noopener">Next Tutorial</a></h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-01-05T07:40:26.000Z" itemprop="dateUpdated">2015年1月5日 15:40</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/11/18/chap1-variable-assignment/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/R-basics/">R basics</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/&title=《chap1-variable-assignment》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/&title=《chap1-variable-assignment》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《chap1-variable-assignment》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/11/18/chap1-basic-data-types-in-R/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">chap1-basic-data-types-in-R</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/11/18/chap1-little-arithmeics-with-R/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">chap1-little-arithmeics-with-R</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="chap1-variable-assignment" data-title="chap1-variable-assignment" data-url="http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/&title=《chap1-variable-assignment》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/&title=《chap1-variable-assignment》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《chap1-variable-assignment》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/18/chap1-variable-assignment/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvUlEQVR42u3aQU4kMRAEQP7/aVba82xPZpUNo1XMCTXgdhjJZdL19RV/vv9+8iff//gkb3ke5+vGBw8PD2809ecJzb7Ov/s8n3z5XoyJh4eHd433XAySyeXP8zcmS/nGgoeHh/ervHybzo/meHh4eP83L/9/PykY+e/i4eHhfSYvCSPylw2Dg9F8jmUteHh4eN2YxQXYJ3x98X4PDw8Pb3Gr3l6M5cFEHlusZoiHh4d3gZe/rN2B8yaAWQtCUTDw8PDwLvCeY9DkSXssbqebR71vwHh4eHhrXhvaJkHqLODYXHFFh2k8PDy8o7zn43XCyH8mvySbHeKLlcDDw8Mb8Z7DiNkxd99G0JaEN5EKHh4e3jVe2/aUB8F5wWivxKJx8PDw8K7x8oPs7KjdNgckB/2keODh4eHd5rXxxKaxoKXm4+Dh4eHd5uUX/GcjjP31WLHQeHh4eD/Cm11uzbb1fJnyeeLh4eHd4M3ig6QwJIFsftf/XKiG+TQeHh7eUd7sYN2C94v1ZgQ8PDy8C7zNlp0cndt4Nz9wt0uMh4eHd4o3O/62bVKzkdsruhdP8PDw8C7w8qlswLNNv229WlU8PDw8vJg3axFItu/kSRJAtKULDw8P73d57ZadtA5s8pK25ODh4eHd4OWhaj7p5JXt8/xoHv0l8fDw8A7xngvDZkL58m2C4yhMwcPDwzvEW6W/oxGStoN8OZ5ngoeHh3ebl0wxj2U3QW3evBXVOjw8PLxDvP1GPAsaZtds+SK+6CnDw8PDO8Rr99hjwwVbf3s5tyokeHh4eCWvjVY3zVXtdt8WBjw8PLyf5LWXYW04O4uA95EKHh4e3qfxZo0CbZAxi57x8PDwPoE3awKItu8ynrhypMbDw8O7EEbkgcWsVNRT3zcQ4OHh4S06lNqGgDzqzQtA8lubIzseHh7emvcHwny7YK92bKoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

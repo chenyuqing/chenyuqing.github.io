@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Encoding编码-http://www.saedsayas.com | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="www.saedsayad.com">
+    <meta name="description" content="编码 编码或者连续化处理是把分类变量转火车数值副本的过程。譬如，处理性别时，男的定为1，女的定为0.分类变量在许多模型方法中(譬如，线性回归，SVM，神经网络)必须进行编码。两种主要的编码类型是二进制编码和基于目标的编码。">
+<meta name="keywords" content="www.saedsayad.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Encoding编码-http:&#x2F;&#x2F;www.saedsayas.com">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="编码 编码或者连续化处理是把分类变量转火车数值副本的过程。譬如，处理性别时，男的定为1，女的定为0.分类变量在许多模型方法中(譬如，线性回归，SVM，神经网络)必须进行编码。两种主要的编码类型是二进制编码和基于目标的编码。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/Encoding_1.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/binary.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/target1.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/target2.png">
+<meta property="og:updated_time" content="2015-05-25T02:00:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Encoding编码-http:&#x2F;&#x2F;www.saedsayas.com">
+<meta name="twitter:description" content="编码 编码或者连续化处理是把分类变量转火车数值副本的过程。譬如，处理性别时，男的定为1，女的定为0.分类变量在许多模型方法中(譬如，线性回归，SVM，神经网络)必须进行编码。两种主要的编码类型是二进制编码和基于目标的编码。">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/Encoding_1.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Encoding编码-http://www.saedsayas.com</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Encoding编码-http://www.saedsayas.com</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-25T01:21:21.000Z" itemprop="datePublished" class="page-time">
+  2015-05-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编码"><span class="post-toc-number">1.</span> <span class="post-toc-text">编码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二进制编码-Binary-Encoding"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">二进制编码(Binary Encoding)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基于目标的编码-Target-based-Encoding"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">基于目标的编码(Target-based Encoding)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Encoding编码-http-www-saedsayas-com"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Encoding编码-http://www.saedsayas.com</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年05月25日 9:21" datetime="2015-05-25T01:21:21.000Z"  itemprop="datePublished">2015-05-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><ul>
+<li>编码或者连续化处理是把分类变量转火车数值副本的过程。譬如，处理性别时，男的定为1，女的定为0.分类变量在许多模型方法中(譬如，线性回归，SVM，神经网络)必须进行编码。两种主要的编码类型是二进制编码和基于目标的编码。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/Encoding_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+<h3 id="二进制编码-Binary-Encoding"><a href="#二进制编码-Binary-Encoding" class="headerlink" title="二进制编码(Binary Encoding)"></a>二进制编码(Binary Encoding)</h3><ul>
+<li>通过用0或者1来表示每个类别不存在或者存在是分类变量量化的一个方法。如果分类变量有k个分类，那么我们需要创建k个二进制变量(理论上来说，k-1个就已经足够了)。在下面的例子中，带3个值得分类变量“Trend”转换成3个分离的二进制数值变量。这中方法最大的缺点是当分类变量有很多个值得时候，数据的维度会大大增加。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/binary.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+<h3 id="基于目标的编码-Target-based-Encoding"><a href="#基于目标的编码-Target-based-Encoding" class="headerlink" title="基于目标的编码(Target-based Encoding)"></a>基于目标的编码(Target-based Encoding)</h3><ul>
+<li><p>基于目标的编码是通过目标来对分类变量量化。在这个方法中，我们把一个分类变量替换成一个数值变量，然后再计算该分类变量出现的目标概率(如果是分类的)或者平均值(如果是数值的)。这个方法的最大缺点是它比较依赖目标的分布，而且和二进制方法相比，它的预测能力比较低。</p>
+</li>
+<li><p><strong>例1</strong></p>
+</li>
+<li><p>用基于目标的编码处理分类目标。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/target1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+</li>
+<li><p><strong>例2</strong></p>
+</li>
+<li><p>用基于目标的编码处理数值目标。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/encoding/target2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+</li>
+</ul>
+<ul>
+<li><a href="http://www.saedsayad.com/encoding.htm" target="_blank" rel="noopener">Original Link</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-05-25T02:00:02.000Z" itemprop="dateUpdated">2015年5月25日 10:00</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/05/25/Encoding编码-http-www-saedsayas-com/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/www-saedsayad-com/">www.saedsayad.com</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/&title=《Encoding编码-http://www.saedsayas.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/&title=《Encoding编码-http://www.saedsayas.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Encoding编码-http://www.saedsayas.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Missing-Values-缺失值-http://www.saedsayad.com</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/05/24/binning装箱-http-www-saedsayad-com/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">binning装箱-http://www.saedsayad.com</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="Encoding编码-http-www-saedsayas-com" data-title="Encoding编码-http://www.saedsayas.com" data-url="http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/&title=《Encoding编码-http://www.saedsayas.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/&title=《Encoding编码-http://www.saedsayas.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Encoding编码-http://www.saedsayas.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/25/Encoding编码-http-www-saedsayas-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3aQZIiMQwEwPn/p9nzBrtQJdkMh+wTMfQ0ThNhCUk/P/H1eLr+d8/z/cmTn18n7x678PDw8NZLf17ca97rvyfg9t1kzXh4eHi3efmRnbPbpSebmK8ZDw8P79t4m2S3ONbLT8TDw8P7Tl5Cer2gPMwk/4WHh4f3W7z80Xli3R79s9LGsVoLHh4eXpe1Rknw97y+0t/Dw8PDWxcF2uN+FhiSdtpjdOHh4eHd4OUH7n68IEm+Z6XbN802PDw8vAu89rhvi795yTXfvnoj8PDw8A7xijZSOT61Gd7Kw9KBzh4eHh7e5CQfPmh2ZG9GuNpAgoeHh3eDNysl5MhZkNiPfOHh4eHd47WDAkkavU+s2+0bRj88PDy8Ba99UJLmthtR7H3wldTfAB4eHl7MO3sQJyWJ/J489Y8aYHh4eHjXeJtQ0RZ89wNVb7YDDw8P7wIvLwds2vZtkr0pNOPh4eF9njdbdJt258n0gZkIPDw8vI/wkrS1LQ3kJdo24X7zfDw8PLyjvE1IaMsQ7QjXbIV/PQcPDw/vAi+/NSm/5i3/Nh1PtnUYHvDw8PBK3qz8mh/9SeLbptrDoSs8PDy8Q7y8wT8rKOSbkgSYWVkZDw8P7wYvf8Ss7LsfQWiHWYexBQ8PD2/BO9X4n4WHpNiRD9ri4eHh3eDlB+6+ZTXc9TJ0DbN4PDw8vJLXwmbJdDJq0G7QmwCGh4eHd42XjwjMTuBZMKjDwOsqNR4eHt6a9yivpO2Ub1Z+0A+DBx4eHt4F3qxg0Q4TzIoaeen2wIWHh4dX8tqUerbEWTEiDwzHihF4eHh4Ma89lPPGf9v+PxXG8PDw8L6T1x76beGgHWv4x9Pw8PDwvoaX/+rfb1n7KXh4eHif4bXNp1npYdO+ar8GPDw8vHu8+ud9WYptRw1OjV7h4eHhXeD9AaFVDQFaJP+rAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

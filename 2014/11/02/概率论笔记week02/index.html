@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>概率论笔记week02 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="概率论">
+    <meta name="description" content="写在前面的话 本系列博客是Coursera上台大葉丙成老师的機率 (Probability)课程的笔记。其中涉及的版权内容均属原版权人所有。  本周主题 概率公理性质 条件概率  概率公理性质公理(Axioms) 公理，是指依据人类理性的不证自明的基本事实，经过人类长期反复实践的考验，不需要再加证明的基本命题。出自百度百科. 为什么需要公理？ 数学有数学的语言，就是数理逻辑过程，它不会相信那些所谓">
+<meta name="keywords" content="概率论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率论笔记week02">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在前面的话 本系列博客是Coursera上台大葉丙成老师的機率 (Probability)课程的笔记。其中涉及的版权内容均属原版权人所有。  本周主题 概率公理性质 条件概率  概率公理性质公理(Axioms) 公理，是指依据人类理性的不证自明的基本事实，经过人类长期反复实践的考验，不需要再加证明的基本命题。出自百度百科. 为什么需要公理？ 数学有数学的语言，就是数理逻辑过程，它不会相信那些所谓">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/axioms01.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/axioms02.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/axioms03.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/extend01.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/extend02.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/extend03.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/extend04.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/extend05.PNG">
+<meta property="og:updated_time" content="2014-11-11T08:07:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="概率论笔记week02">
+<meta name="twitter:description" content="写在前面的话 本系列博客是Coursera上台大葉丙成老师的機率 (Probability)课程的笔记。其中涉及的版权内容均属原版权人所有。  本周主题 概率公理性质 条件概率  概率公理性质公理(Axioms) 公理，是指依据人类理性的不证自明的基本事实，经过人类长期反复实践的考验，不需要再加证明的基本命题。出自百度百科. 为什么需要公理？ 数学有数学的语言，就是数理逻辑过程，它不会相信那些所谓">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/pro_twu/w02/axioms01.PNG">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">概率论笔记week02</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">概率论笔记week02</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-11-02T02:21:15.000Z" itemprop="datePublished" class="page-time">
+  2014-11-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/概率论笔记/">概率论笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#写在前面的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面的话</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#本周主题"><span class="post-toc-number">2.</span> <span class="post-toc-text">本周主题</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#概率公理性质"><span class="post-toc-number">3.</span> <span class="post-toc-text">概率公理性质</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#公理-Axioms"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">公理(Axioms)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概率三公理"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">概率三公理</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-概率论笔记week02"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">概率论笔记week02</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年11月02日 10:21" datetime="2014-11-02T02:21:15.000Z"  itemprop="datePublished">2014-11-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/概率论笔记/">概率论笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><ul>
+<li>本系列博客是Coursera上台大葉丙成老师的<a href="https://class.coursera.org/prob-001" target="_blank" rel="noopener">機率 (Probability)</a>课程的笔记。其中涉及的版权内容均属原版权人所有。</li>
+</ul>
+<h1 id="本周主题"><a href="#本周主题" class="headerlink" title="本周主题"></a>本周主题</h1><ul>
+<li>概率公理性质</li>
+<li>条件概率</li>
+</ul>
+<h1 id="概率公理性质"><a href="#概率公理性质" class="headerlink" title="概率公理性质"></a>概率公理性质</h1><h2 id="公理-Axioms"><a href="#公理-Axioms" class="headerlink" title="公理(Axioms)"></a>公理(Axioms)</h2><ul>
+<li>公理，是指依据人类理性的不证自明的基本事实，经过人类长期反复实践的考验，不需要再加证明的基本命题。<br>出自<a href="http://baike.baidu.com/view/326184.htm?fr=aladdin" target="_blank" rel="noopener">百度百科</a>.</li>
+<li>为什么需要公理？<ul>
+<li>数学有数学的语言，就是数理逻辑过程，它不会相信那些所谓显而易见的东西，只相信这个数理的逻辑过程，一切未经数学语言证明的东西都不能说是正确的。</li>
+<li>公理就是数理逻辑的原点、起点，其实任何逻辑过程都需要这样一个起点，由公理所证明是正确的东西，很多一部分我们称之为定理，然后，我们就可以直接利用定理推理其他的事物。没有公理，所有的定理都不存在，也就没有后面的数理逻辑过程了。</li>
+<li>所以数学本身一方面要坚持公理的存在，另一方面要坚持数理逻辑的证明过程，这两者是相互依存的。</li>
+</ul>
+</li>
+<li>什么样的数学最重要？<ul>
+<li>公理越少，公理越基本，越厉害！</li>
+</ul>
+</li>
+</ul>
+<h2 id="概率三公理"><a href="#概率三公理" class="headerlink" title="概率三公理"></a>概率三公理</h2><ul>
+<li><p>公理1(非负性)：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w02/axioms01.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>任何事件发生的概率都大于等于0</li>
+<li>特殊的，当事件发生的概率等于0，则称这个事件为不可能事件；当事件发生的概率等于1，则称这个事件为必然事件。</li>
+</ul>
+</li>
+<li><p>公理2(归一性)：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w02/axioms02.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>所有事件发生的概率相加和为1.</li>
+</ul>
+</li>
+<li><p>公理3(可加性)：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w02/axioms03.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li>概率的加法，公里3搭起了集合运算与概率运算的桥梁。</li>
+</ul>
+</li>
+</ul>
+<p>这就是传说中的“神圣三公理”。</p>
+<ul>
+<li>公理衍生之概率性质<ul>
+<li>Ρ(Φ) = 0</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w02/extend01.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>P(A) = 1 - P(Ac)</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w02/extend02.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>P(A) = P(A - B) + P(A ∩ B)</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w02/extend03.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w02/extend04.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>切面包定理：</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w02/extend05.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-11-11T08:07:04.000Z" itemprop="dateUpdated">2014年11月11日 16:07</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/11/02/概率论笔记week02/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/&title=《概率论笔记week02》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/&title=《概率论笔记week02》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《概率论笔记week02》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/11/04/数据挖掘-Aprior-Algorithm/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">数据挖掘-Aprior-Algorithm</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/11/01/概率论笔记week01/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">概率论笔记week01</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="概率论笔记week02" data-title="概率论笔记week02" data-url="http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/&title=《概率论笔记week02》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/&title=《概率论笔记week02》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《概率论笔记week02》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/02/概率论笔记week02/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIklEQVR42u3aMXLEIAwF0Nz/0k6TYhvjL8FmxvCoMt6MzaPQCEk/P/G6Ptbnk/Gvn0/u3jn+yuKFgYHxWsY1XMn/3PHG4N7zWyoGBsYBjHFAHG9uvJWclBzK7XMMDAyMVkjNU8z8WxgYGBhVRhJA56/HGBgYGGtTtCT49sp2y+7iGBgYL2TkVff///sr/Q0MDIxXMa7iysNikvbN7+fvbRgYGFsz8gCXp2jVtC9vKjyMZWBgYGzKqG6lx64W9arXYAwMjDMZq8r31TfkJb8o4GJgYGzByMcgkiGwPLzmh5IPbWBgYOzNiNKvL7QYq9QHJAYGxgGM6mhX0gyYbzkU0lAMDIytGb3SfC+A5uW8ZuKIgYGxKaM3PJEH4lUH9BCaMTAwDmBUk7MqtdqqbNYLMTAwjmH0wu58cT8v/EV3cQwMjI0YM8MQyWeqV9bqEWNgYJzAyMcp8mGLfIsJMirwYWBgbMqYSsKCADo/lhG9HwMDY2tG3oDMQ231SR52y5MjGBgYGzHyIle1oDYznLE4w8XAwNiCUd169bqbF+OqjQcMDIzTGNXk7Btb7IVpDAyMXRlXcfUK+tXGQ5mKgYGxNaN64UyCbC/gVq/K1Z1gYGC8nZEH2VWtgplAjIGBcTJjJvDNbKIXxDEwMDBWMdY2OB/eg4GBgTFRDqs2FXqNCgwMjBMYq8ZS17ZIC80GDAyMrRnzJf5etpYc3+KkEwMD432MXxNiQc+6pwfyAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

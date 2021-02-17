@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>chp4_JSP | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="JSP 网页开发">
+    <meta name="description" content="第四章 JSP编程技术(重点)  JSP的主要内容包括：3大编译指令，7大操作指令(课本6个)和9大隐含对象(课本7个)。 4.2 JSP页面结构(page68) JSP的页面主要包含3种元素：编译指令，操作指令和JSP代码。  编译指令 编译指令告诉JSP解释引擎，需要在编译时做什么动作，例如引入其他类，设置JSP页面使用什么语言编码等。   操作指令 操作指令则是在JSP页面被请求时动态执行的">
+<meta name="keywords" content="JSP 网页开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chp4_JSP">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="第四章 JSP编程技术(重点)  JSP的主要内容包括：3大编译指令，7大操作指令(课本6个)和9大隐含对象(课本7个)。 4.2 JSP页面结构(page68) JSP的页面主要包含3种元素：编译指令，操作指令和JSP代码。  编译指令 编译指令告诉JSP解释引擎，需要在编译时做什么动作，例如引入其他类，设置JSP页面使用什么语言编码等。   操作指令 操作指令则是在JSP页面被请求时动态执行的">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2014-10-20T23:25:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chp4_JSP">
+<meta name="twitter:description" content="第四章 JSP编程技术(重点)  JSP的主要内容包括：3大编译指令，7大操作指令(课本6个)和9大隐含对象(课本7个)。 4.2 JSP页面结构(page68) JSP的页面主要包含3种元素：编译指令，操作指令和JSP代码。  编译指令 编译指令告诉JSP解释引擎，需要在编译时做什么动作，例如引入其他类，设置JSP页面使用什么语言编码等。   操作指令 操作指令则是在JSP页面被请求时动态执行的">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">chp4_JSP</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">chp4_JSP</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-07-06T14:23:13.000Z" itemprop="datePublished" class="page-time">
+  2014-07-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JSP-Review/">JSP_Review</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第四章-JSP编程技术-重点"><span class="post-toc-number">1.</span> <span class="post-toc-text">第四章 JSP编程技术(重点)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-2-JSP页面结构-page68"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">4.2 JSP页面结构(page68)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-3-编译指令-page68"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">4.3 编译指令(page68)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-4-操作指令-page71"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">4.4 操作指令(page71)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-5-JSP代码-page72"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">4.5 JSP代码(page72)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-6-7大隐含对象-page75"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">4.6 7大隐含对象(page75)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-7-response对象-page76"><span class="post-toc-number">1.0.6.</span> <span class="post-toc-text">4.7 response对象(page76)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-8-request对象-page78"><span class="post-toc-number">1.0.7.</span> <span class="post-toc-text">4.8 request对象(page78)</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-chp4-JSP"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">chp4_JSP</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年07月06日 22:23" datetime="2014-07-06T14:23:13.000Z"  itemprop="datePublished">2014-07-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JSP-Review/">JSP_Review</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="第四章-JSP编程技术-重点"><a href="#第四章-JSP编程技术-重点" class="headerlink" title="第四章 JSP编程技术(重点)"></a>第四章 JSP编程技术(重点)</h1><hr>
+<ul>
+<li><p>JSP的主要内容包括：<strong>3大编译指令</strong>，<strong>7大操作指令</strong>(课本6个)和<strong>9大隐含对象</strong>(课本7个)。</p>
+<h3 id="4-2-JSP页面结构-page68"><a href="#4-2-JSP页面结构-page68" class="headerlink" title="4.2 JSP页面结构(page68)"></a>4.2 JSP页面结构(page68)</h3></li>
+<li><p>JSP的页面主要包含3种元素：<strong>编译指令</strong>，<strong>操作指令</strong>和<strong>JSP代码</strong>。</p>
+<ul>
+<li>编译指令<blockquote>
+<p><strong>编译指令告诉JSP解释引擎，需要在编译时做什么动作，例如引入其他类，设置JSP页面使用什么语言编码等。</strong></p>
+</blockquote>
+</li>
+<li>操作指令<blockquote>
+<p><strong>操作指令则是在JSP页面被请求时动态执行的，比如可以根据某个条件动态跳转到另一个页面。</strong></p>
+</blockquote>
+</li>
+<li>JSP代码<blockquote>
+<p><strong>JSP代码指我们嵌入JSP页面中的Java代码，分两种：变量和方法的声明，使用“&lt;%!”和“%&gt;”标记，另一种是常用到的用“&lt;%”和“%&gt;”包含的JSP代码块。</strong></p>
+<br>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-3-编译指令-page68"><a href="#4-3-编译指令-page68" class="headerlink" title="4.3 编译指令(page68)"></a>4.3 编译指令(page68)</h3><ul>
+<li><p>JSP指令的<strong>一般形式</strong>：<strong>&lt;%@ 指令名 属性1 = “value1” %&gt;</strong>，<strong>&lt;%@ 指令名 属性2 = “value2” %&gt;</strong>，多个指令也可以合并写为：<strong>&lt;%@ 指令名 属性1 = “value1” 属性2 = “value2” %&gt;</strong></p>
+</li>
+<li><p>JSP的3大编译指令：<strong>page指令</strong>，<strong>include指令</strong>，taglib指令(不考)。</p>
+<ul>
+<li><p>page指令：page 指令是最复杂的JSP指令，它的主要功能为设定整个JSP 网页的属性和相关功能。</p>
+<table>
+          <tr>
+              <th>属性</th>
+              <th>定义</th>
+          </tr>
+         <tr>
+            <td width="170">language=“语言"</td>
+            <td width="500">主要指定JSP 容器 要用什么语言来编译JSP 网页。JSP 1.2 规范中指出，目前只可以使用Java 语言，不过未来不排除增加其他语言，如C、C++、Perl 等等。默认值为Java语言 </td>      
+         </tr>
+         <tr>
+            <td>extends=“基类名"</td>
+            <td>主要定义此JSP 网页产生的Servlet 是继承哪个父类</td>     
+         </tr>
+          <tr>
+            <td>import= "importList"</td>
+            <td>定义此JSP 网页可以使用哪些Java类库</td>     
+         </tr>
+         <tr>
+            <td>errorPage="error_url" </td>
+            <td>表示如果发生异常错误时，网页会被重新指向指定的URL</td>     
+         </tr>
+          <tr>
+            <td>isErrorPage="true | false" </td>
+            <td>表示此JSP Page 是否为专门处理错误和异常的网页</td>     
+         </tr>
+          <tr>
+            <td>contentType = "ctinfo"</td>
+            <td>表示MIME 类型和JSP 网页的编码方式，其作用相当于HttpServletResponse接口的setContentType()方法</td>     
+         </tr>
+          <tr>
+            <td>isThreadSafe="true | false"</td>
+            <td>告诉JSP 容器，此JSP 网页是否能同时处理多个请求。默认值为true，如果此值设为false， 转义生成的Servlet会实现SingleThreadModel接口。</td>     
+         </tr>
+
+<pre><code>    &lt;tr&gt;
+      &lt;td&gt;session=&quot;true | false&quot;&lt;/td&gt;
+      &lt;td&gt;决定此JSP 网页是否可以使用session 对象。默认值为true&lt;/td&gt;     
+   &lt;/tr&gt;
+&lt;/table&gt;    </code></pre></table></li>
+<li><p>include指令(page70):用来指定怎样把另一个文件包含到当前的JSP页面中，这个文件可以是普通的文本文件，也可以是JSP页面。例如：<strong>&lt;%@include file=”login.htm”%&gt;</strong>。</p>
+<blockquote>
+<p>使用include指令，<strong>可以实现JSP页面的模块化，使JSP的开发和维护变得非常简单</strong>。</p>
+<br>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-4-操作指令-page71"><a href="#4-4-操作指令-page71" class="headerlink" title="4.4 操作指令(page71)"></a>4.4 操作指令(page71)</h3><ul>
+<li><p>操作指令和编译指令不同，编译指令是通知Servlet引擎的处理消息，而<strong>操作指令只是运行时的动作。</strong>编译指令在将JSP编译成Servlet时起作用；而<strong>操作指令通常可替换成JSP脚本，它只是JSP脚本的标准化写法</strong>。</p>
+</li>
+<li><p>JSP操作指令主要有如下的6个：</p>
+<ol>
+<li><p>jsp:include：用于引入静态和动态的资源，功能和include指令相同。格式：&lt;jsp:include page=”test.htm”/&gt; </p>
+</li>
+<li><p>jsp:forward：执行页面转向，将请求的处理转发到下一个页面。格式：&lt;jsp:forward page=”test.htm”/&gt;   </p>
+</li>
+<li><p>jsp:param：用于传递参数，必须与其他支持参数的标签一起使用。 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:forward page=<span class="string">"mypage.jsp"</span>&gt;  </span><br><span class="line">&lt;jsp:param name=<span class="string">"param1"</span> value=<span class="string">"value1"</span>/&gt;  </span><br><span class="line">&lt;jsp:param name=<span class="string">"param2"</span> value=<span class="string">"value2"</span>/&gt;  </span><br><span class="line">&lt;/jsp:forward&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>jsp:useBean：创建一个JavaBean的实例。  </p>
+</li>
+<li><p>jsp:setProperty：设置JavaBean实例的属性值。  </p>
+</li>
+<li><p>jsp:getProperty：输出JavaBean实例的属性值</p>
+</li>
+<li></li>
+</ol>
+</li>
+<li><p>JSP的操作指令均以<strong>“/&gt;”</strong>结束。</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-5-JSP代码-page72"><a href="#4-5-JSP代码-page72" class="headerlink" title="4.5 JSP代码(page72)"></a>4.5 JSP代码(page72)</h3><ul>
+<li>变量和方法(略)</li>
+<li>代码块(略)</li>
+</ul>
+<hr>
+<h3 id="4-6-7大隐含对象-page75"><a href="#4-6-7大隐含对象-page75" class="headerlink" title="4.6 7大隐含对象(page75)"></a>4.6 7大隐含对象(page75)</h3><ul>
+<li>隐含对象：有些对象不用声明就可以在JSP页面的脚本代码和表达式中随意使用，这些缺省对象统称为隐含对象。</li>
+<li>7大隐含对象：<ul>
+<li><strong>out</strong>        页面输出对象；</li>
+<li><strong>request</strong>    请求对象；</li>
+<li><strong>response</strong>    响应对象；</li>
+<li><strong>application</strong>    应用对象； </li>
+<li><strong>session</strong>    会话对象；</li>
+<li><strong>cookie</strong>        对象；</li>
+<li><strong>pageContext</strong>    对象；  <table>
+      <tr>
+          <th>对象名</th>
+          <th>对象类型</th>
+          <th>作用域</th>
+          <th>定义</th>
+      </tr>
+     <tr>
+        <td>out</td>
+        <td>JspWriter</td> 
+        <td>page</td>
+        <td>一个输出的缓冲流，给浏览器的客户返回内容</td>      
+     </tr>
+      <tr>
+        <td>request</td>
+        <td>HttpServletRequest</td> 
+        <td>request</td>
+        <td>用来得到客户端的信息</td>      
+     </tr>
+     <tr>
+        <td>response</td>
+        <td>HttpServletResponse</td> 
+        <td>page</td>
+        <td>处理服务器端对客户端的一些响应</td>      
+     </tr>
+      <tr>
+        <td>application</td>
+        <td>ServletContext</td> 
+        <td>application</td>
+        <td>用来保存网站的一些全局变量</td>      
+     </tr>
+     <tr>
+        <td>session</td>
+        <td>HttpSession</td> 
+        <td>session</td>
+        <td>用来保存单个用户访问时的一些信息</td>      
+     </tr> 
+      <tr>
+        <td>cookie</td>
+        <td>Cookie</td> 
+        <td>不清楚呢</td>
+        <td>将服务器端的一些信息写到客户端的浏览器中</td>      
+     </tr> 
+      <tr>
+        <td>pageContext</td>
+        <td>PageContext</td> 
+        <td>page</td>
+        <td>提供了访问和放置页面中共享数据的方式</td>      
+     </tr>   
+  </table>
+
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-7-response对象-page76"><a href="#4-7-response对象-page76" class="headerlink" title="4.7 response对象(page76)"></a>4.7 response对象(page76)</h3><ul>
+<li><p>网页转向：sendRedirect()方法，跳转到其他页面</p>
+<blockquote>
+<p>格式：response.sendRedirect(“URL 地址”);</p>
+</blockquote>
+</li>
+<li><p>与<a href="jsp:forward" target="_blank" rel="noopener">jsp:forward</a>的最大区别</p>
+<blockquote>
+<p>使用<a href="jsp:forward" target="_blank" rel="noopener">jsp:forward</a>只能在本站内跳转，但用response.sendRedirect(“URL 地址”)可以跳转到任何一个地址的页面。</p>
+</blockquote>
+</li>
+<li><p>其他(略，自己看书)</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-8-request对象-page78"><a href="#4-8-request对象-page78" class="headerlink" title="4.8 request对象(page78)"></a>4.8 request对象(page78)</h3><ul>
+<li>自己看书</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-10-20T23:25:28.000Z" itemprop="dateUpdated">2014年10月21日 7:25</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/07/06/chp4-JSP/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSP-网页开发/">JSP 网页开发</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/&title=《chp4_JSP》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/&title=《chp4_JSP》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《chp4_JSP》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/07/06/chp5-JSP/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">chp5_JSP</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/07/06/chp3-JSP/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">chp3_JSP</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="chp4-JSP" data-title="chp4_JSP" data-url="http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/&title=《chp4_JSP》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/&title=《chp4_JSP》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《chp4_JSP》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/07/06/chp4-JSP/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3a0W6DQAxE0fz/T9PXShXkzixUwnv3KVLowqGSY6/9+eB1/Fln35Lrf19zvc/NS4YMGa9lHJeru+bsccmLSO8rQ4aMfRjXAZEEwbPrefA9Y5BgLUOGDBnXWx9gpUFZhgwZMp4OuNchlZSyMmTIkNEVsenRW1fWPl6Ly5Ah44UMfur+/58f6W/IkCHjVYwjXLwB2aWV3ZIhQ8ZsRnebrg3AE8TueWTIkDGVwQ/I0jDKGaSg/RLuZciQMZqRHr7flfzx10TCugwZMmYzeErH3wof/0qTTpQaypAhYxyDD0x0SR665XL7U4YMGfsw0tDZBV9yrFb+B2TIkDGakR5vdd+SMbKuCSFDhowdGDzh69K4bnSj/DGQIUPGOEa63Xqg7A714mkRGTJkDGLw9mQ35sWDaTxawU/sZMiQMYLB/zhNHwmPH72hmREZMmSMY6yUnWmyyHdIi1sZMmTswOgecSWh5OEV3VGGDBmjGekt04Gwrgzu7iJDhow9Gd3ARLobP6r7kjjKkCFjA8Z67FppDKy3ImTIkLEPIy1KV2BBf5UXsTJkyBjHOMJV9kjDMS8ecFFmKkOGjJczujDHm47rCd/NIVuGDBmvZZAg241t8ReUNhJkyJCxJ4M/4vrYBG8hlLW4DBkytmfwB+oGOMqSVYYMGTLClmSa6qWF8c0BV4YMGS9h8NCZNg9I6OxaETJkyNiHsZJ3kWZkUIjetL8MGTIGMX4AKqz6CCC++O4AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

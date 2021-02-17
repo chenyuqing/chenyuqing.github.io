@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>双变量分析-分类VS数值-http://www.saedsayad.com | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="www.saedsayad.com">
+    <meta name="description" content="分类VS数值-Categorical &amp;amp; Numerical带误差线的曲线图 带误差线的折线图将信息显示为一系列的数据点连接的直线段。每个数据点是分类的分类变量对用的数值变量的平均值，附带标准差的误差线。它是一种总结有关系的琐碎信息和它们怎么相互影响的一种方法。">
+<meta name="keywords" content="www.saedsayad.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="双变量分析-分类VS数值-http:&#x2F;&#x2F;www.saedsayad.com">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="分类VS数值-Categorical &amp;amp; Numerical带误差线的曲线图 带误差线的折线图将信息显示为一系列的数据点连接的直线段。每个数据点是分类的分类变量对用的数值变量的平均值，附带标准差的误差线。它是一种总结有关系的琐碎信息和它们怎么相互影响的一种方法。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/Linechart_Errorbar.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/Bivar_sepal_length.gif">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/Ztest.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/ttest.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/t_exam.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/ANOVA.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/ANOVA_1.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/ANOVA_exam.png">
+<meta property="og:updated_time" content="2015-05-28T02:46:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="双变量分析-分类VS数值-http:&#x2F;&#x2F;www.saedsayad.com">
+<meta name="twitter:description" content="分类VS数值-Categorical &amp;amp; Numerical带误差线的曲线图 带误差线的折线图将信息显示为一系列的数据点连接的直线段。每个数据点是分类的分类变量对用的数值变量的平均值，附带标准差的误差线。它是一种总结有关系的琐碎信息和它们怎么相互影响的一种方法。">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/Linechart_Errorbar.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">双变量分析-分类VS数值-http://www.saedsayad.com</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">双变量分析-分类VS数值-http://www.saedsayad.com</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-26T01:10:14.000Z" itemprop="datePublished" class="page-time">
+  2015-05-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分类VS数值-Categorical-amp-Numerical"><span class="post-toc-number">1.</span> <span class="post-toc-text">分类VS数值-Categorical &amp; Numerical</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#带误差线的曲线图"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">带误差线的曲线图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组合图表-Combination-Chart"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">组合图表-Combination Chart</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Z检验-和-t检验-Z-test-and-t-test"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Z检验 和 t检验(Z test and t-test)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方差分析-变异数分析-ANOVA"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">方差分析/变异数分析(ANOVA)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-双变量分析-分类VS数值-http-www-saedsayad-com"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">双变量分析-分类VS数值-http://www.saedsayad.com</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年05月26日 9:10" datetime="2015-05-26T01:10:14.000Z"  itemprop="datePublished">2015-05-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="分类VS数值-Categorical-amp-Numerical"><a href="#分类VS数值-Categorical-amp-Numerical" class="headerlink" title="分类VS数值-Categorical &amp; Numerical"></a>分类VS数值-Categorical &amp; Numerical</h2><h3 id="带误差线的曲线图"><a href="#带误差线的曲线图" class="headerlink" title="带误差线的曲线图"></a>带误差线的曲线图</h3><ul>
+<li>带误差线的折线图将信息显示为一系列的数据点连接的直线段。每个数据点是分类的分类变量对用的数值变量的平均值，附带标准差的误差线。它是一种总结有关系的琐碎信息和它们怎么相互影响的一种方法。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/Linechart_Errorbar.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+<h3 id="组合图表-Combination-Chart"><a href="#组合图表-Combination-Chart" class="headerlink" title="组合图表-Combination Chart"></a>组合图表-Combination Chart</h3><ul>
+<li>组合图表是用两个或者多个图表类型来强调图表中包含不同的信息。这里，我们用柱状图来展示分类变量的分布和曲线图来展示已选的分类和第二个分类之间的百分比。组合图形是用来说明预测因子(自变量)对目标变量(因变量)的预测能力的最好的可视化方法。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/Bivar_sepal_length.gif" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+<h3 id="Z检验-和-t检验-Z-test-and-t-test"><a href="#Z检验-和-t检验-Z-test-and-t-test" class="headerlink" title="Z检验 和 t检验(Z test and t-test)"></a>Z检验 和 t检验(Z test and t-test)</h3><ul>
+<li>Z检验和t检验基本是一样的。它探索两组变量之间的平均值是否存在统计上的差异。它适合比较两组分类变量的变量值的数值平均值。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/Ztest.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>如果Z的概率很小，那么两个均值之间的差异很重要。</li>
+<li><strong>t检验</strong></li>
+<li>当n1或者n2小于30时，我们用t检验代替z检验。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/ttest.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li><strong>例子</strong></li>
+<li>数值变量(温度)的均值和类别变量(O-Ring Failure)中的两个值之间存在显著差异吗？<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/t_exam.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>小概率(0.0156)表示平均温度对肯定的O-Ring Failure和否定的O-Ring Failure都存在显著差异。</li>
+</ul>
+<h3 id="方差分析-变异数分析-ANOVA"><a href="#方差分析-变异数分析-ANOVA" class="headerlink" title="方差分析/变异数分析(ANOVA)"></a>方差分析/变异数分析(ANOVA)</h3><ul>
+<li>方差/变异数分析探索多于两组变量之间的均值是否存在统计学差异。这种方法适合比较多于两组类别变量的变量值中的数值变量的均值。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/ANOVA.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/ANOVA_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li><strong>例子</strong></li>
+<li>数值变量(湿度)的均值和分类变量(outlook)中的3个分类之间有显著差异吗吗？<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/cate-num/ANOVA_exam.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>它们之间没有显著差异。</li>
+</ul>
+<ul>
+<li><a href="http://www.saedsayad.com/categorical_numerical.htm" target="_blank" rel="noopener">Original Link</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-05-28T02:46:52.000Z" itemprop="dateUpdated">2015年5月28日 10:46</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/www-saedsayad-com/">www.saedsayad.com</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/&title=《双变量分析-分类VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/&title=《双变量分析-分类VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《双变量分析-分类VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/05/28/预测未来-http-www-saedsayad-com/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">预测未来-http://www.saedsayad.com</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/05/26/双变量分析-分类VS分类-http-www-saedsayad-com/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">双变量分析-分类VS分类-http://www.saedsayad.com</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="双变量分析-分类VS数值-http-www-saedsayad-com" data-title="双变量分析-分类VS数值-http://www.saedsayad.com" data-url="http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/&title=《双变量分析-分类VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/&title=《双变量分析-分类VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《双变量分析-分类VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/26/双变量分析-分类VS数值-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJ0lEQVR42u3aQY7bQAwEQP//084DFla6OTJg06VTIGjlqdGBGTYfj/h6/rn+3r9+/tUzr+5c/9bf+493XNjY2Nhfwn5eXteLSBiv/ipZer62/HlsbGzsrexXP5mQ8iff94bcgo2NjY2dHx7yZ04OG9jY2NjYLfs//8W/6ZDTvh8bGxsbu23c5AUpKTxJqJBHBTf30rCxsbE/np2nop//77fk29jY2NgfzH6WV1tm2iXOCmetwMbGxl7EzgtAO8TTbtZdx5V8/djY2Ng72LOhnPaZfBCnLY3D7cDGxsZezZ4Nx8yihVlYez0YFK0KGxsbex27bSe1nfa8dsxaTu0dbGxs7H3s95WZdnDzfLujEUxsbGzsRezzdlLePDpvLc3ihCIVwcbGxv5Cdvvqa9JsZHMWM7QfY5okYGNjY386u6515Za1UXG+zlnTChsbG3sfu23r14340RHlulV0Q/CAjY2NvYidL6i9ZoeEHN+u/DH7DtjY2Nhfwm6j03bIJjk8nJ+o8pgBGxsbexN71rLPQ4L2ydmYTn50wcbGxt7KzttDeaNnVg5PDhj12QsbGxt7KbstY3kMnA/0zNZWRMjY2NjY69jtpGJbqFr8rBwWnw0bGxt7KTtv09zVSGobWFFwmwTM2NjY2OvYeaB7Uqjao8gsPI4+EjY2NvYidjtM847GU1LS2nIVrQEbGxt7BTv54VngehIJt7A6YMDGxsb+GXYeuJ5vStKoOo97sbGxsX+Bnbfm2/AgH6xpN/p6JS97adjY2Ngr2G1rKY94Z9uXhxBtzHDUUcPGxsb+eHYblM5+/rxtNCu0j9krsLGxsb+QnY8/toeTu94/W210CMHGxsZexM7bQHl7KG/0n6yqLorY2NjYK9jP8koKSYvPR4VmMXBRsbGxsbG/kD0rACeDO+0R4qTBdMOmYGNjY38Je1aE8iPEc3Ql23H0PbGxsbHXsWcB8F1jNycHlVlhw8bGxv5ldl42ToLe2aBPXvawsbGxf5k9o5536aOylIcH2NjY2OvY50eIdoNOwua8qfRym7CxsbEXsc8bNCeRwF1TNAkYGxsbex37H0uO+HRpfkYiAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

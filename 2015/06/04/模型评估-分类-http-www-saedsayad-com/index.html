@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>模型评估-分类-http://www.saedsayad.com | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="www.saedsayad.com">
+    <meta name="description" content="模型评估-分类(Model Evaluation-Classification)混淆矩阵(Confusion Matrix) 混淆矩阵记录了分类模型得出的预测数据和数据当中的真实数据的比较，预测正确的和错误的个数。矩阵是NxN的，N表示的是目标类别的个数。这个矩阵就是通常用来验证模型的表现的。下面的2x2矩阵表示的是2个类别的(正和负)。">
+<meta name="keywords" content="www.saedsayad.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型评估-分类-http:&#x2F;&#x2F;www.saedsayad.com">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="模型评估-分类(Model Evaluation-Classification)混淆矩阵(Confusion Matrix) 混淆矩阵记录了分类模型得出的预测数据和数据当中的真实数据的比较，预测正确的和错误的个数。矩阵是NxN的，N表示的是目标类别的个数。这个矩阵就是通常用来验证模型的表现的。下面的2x2矩阵表示的是2个类别的(正和负)。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/03_pre_the_future/modeling/evaluation/confusion-matrix-1.png">
+<meta property="og:updated_time" content="2015-06-16T10:28:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模型评估-分类-http:&#x2F;&#x2F;www.saedsayad.com">
+<meta name="twitter:description" content="模型评估-分类(Model Evaluation-Classification)混淆矩阵(Confusion Matrix) 混淆矩阵记录了分类模型得出的预测数据和数据当中的真实数据的比较，预测正确的和错误的个数。矩阵是NxN的，N表示的是目标类别的个数。这个矩阵就是通常用来验证模型的表现的。下面的2x2矩阵表示的是2个类别的(正和负)。">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/03_pre_the_future/modeling/evaluation/confusion-matrix-1.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">模型评估-分类-http://www.saedsayad.com</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">模型评估-分类-http://www.saedsayad.com</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-06-04T11:50:18.000Z" itemprop="datePublished" class="page-time">
+  2015-06-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模型评估-分类-Model-Evaluation-Classification"><span class="post-toc-number">1.</span> <span class="post-toc-text">模型评估-分类(Model Evaluation-Classification)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#混淆矩阵-Confusion-Matrix"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">混淆矩阵(Confusion Matrix)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-模型评估-分类-http-www-saedsayad-com"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">模型评估-分类-http://www.saedsayad.com</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年06月04日 19:50" datetime="2015-06-04T11:50:18.000Z"  itemprop="datePublished">2015-06-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="模型评估-分类-Model-Evaluation-Classification"><a href="#模型评估-分类-Model-Evaluation-Classification" class="headerlink" title="模型评估-分类(Model Evaluation-Classification)"></a>模型评估-分类(Model Evaluation-Classification)</h2><h3 id="混淆矩阵-Confusion-Matrix"><a href="#混淆矩阵-Confusion-Matrix" class="headerlink" title="混淆矩阵(Confusion Matrix)"></a>混淆矩阵(Confusion Matrix)</h3><ul>
+<li><p>混淆矩阵记录了分类模型得出的预测数据和数据当中的真实数据的比较，预测正确的和错误的个数。矩阵是NxN的，N表示的是目标类别的个数。这个矩阵就是通常用来验证模型的表现的。下面的2x2矩阵表示的是2个类别的(正和负)。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/03_pre_the_future/modeling/evaluation/confusion-matrix-1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<ul>
+<li><strong>正确率</strong>：预测正确的占总数的比例</li>
+<li><strong>阳性预测值</strong>或者<strong>精度</strong>：预测正面的案例中被预测正确的所占比例</li>
+<li><strong>阴性预测值</strong>：预测负面的案例中被预测正确的所占比例</li>
+<li><strong>灵敏度</strong>或者<strong>查全率</strong>：真实正面的案例中被预测准确的所占比例</li>
+<li><strong>特指度</strong>：真实负面的案例中被预测准确的所占比例</li>
+</ul>
+</li>
+<li><p><strong>例子</strong></p>
+</li>
+</ul>
+<ul>
+<li><a href="http://www.saedsayad.com/model_evaluation_c.htm" target="_blank" rel="noopener">Original Link</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-06-16T10:28:28.000Z" itemprop="dateUpdated">2015年6月16日 18:28</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/06/04/模型评估-分类-http-www-saedsayad-com/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/www-saedsayad-com/">www.saedsayad.com</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/&title=《模型评估-分类-http://www.saedsayad.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/&title=《模型评估-分类-http://www.saedsayad.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《模型评估-分类-http://www.saedsayad.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/06/04/朴素贝叶斯-http-wwww-saedsayad-com/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">朴素贝叶斯-http://wwww.saedsayad.com</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/05/28/OneR-http-www-saedsayad-com/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">OneR-http://www.saedsayad.com</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="模型评估-分类-http-www-saedsayad-com" data-title="模型评估-分类-http://www.saedsayad.com" data-url="http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/&title=《模型评估-分类-http://www.saedsayad.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/&title=《模型评估-分类-http://www.saedsayad.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《模型评估-分类-http://www.saedsayad.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/06/04/模型评估-分类-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3aQW7DMAwEwPz/0+21h8bdJaUih/EpSB3L4wISveLrFR9fP46f3zyf+e6c51FOXe2Fh4eHd4339XjkwzwPn/z2He/d5+d7xsPDw7vNe77dZJh8cs9verYs4eHh4X0mL5nKN1XupqDHw8PD+zRe/td8MWiXHDw8PLxP4OU3NCu788/5Az2cteDh4eF1VWuxNfUJn6/s7+Hh4eGtd9Xb0GF2nVkDQTQKHh4e3gXeJnidLSdJWdxGt3+0IODh4eEd5eUv/O02WB4TtxFD3qyAh4eHd4/XhrbJwLOtr1l0W69meHh4eId4s42otrEgX2xmMe4v7wp4eHh413j7tqrNNWej1+1WeHh4eEd5m29mLVyzRaIIRPDw8PAu84a7Z6NOp9kGWzsuHh4e3v/w2pamWXSbF+iztoNVrxYeHh7eqObcxLJt42lbphcLBh4eHt4F3qmAdXPTm/bWos0LDw8P7xCvLYVvZKRtMV2MjoeHh3eB1073+xaB/GG1kXH09oCHh4d3gVdPuOUVWnbxTvBcxOPh4eEd4uUFawvOs5A8IM631vDw8PBu8zbTdL4AzNoR2iXhlxgXDw8P7yhvtgGWl9SbUntW0B9oHcDDw8MLeC1sxigi1zhivrIk4OHh4Y14eRjRLgBtOd42CvxyDh4eHt41XhIBbOLdvMEraQ5YNQ3g4eHhHeJttr7aR9OGsLOHgoeHh/efvCQknWGSKb7dhPvjfDw8PLyjvK/yyMF5AT0LgqMSHA8PD+8Cr51w89tKiuN2Q2sWXuDh4eHd4CWLwaYlq2XPFoa3/zc8PDy8a7xZtJovDPmtvxbHH50ReHh4eB/J25S/+XRfLE54eHh4H8PLt6lmQUPb/oWHh4f3/7x9ydsGGbOGg2FnBB4eHt5RXvuzvBTOr7MPI1ZBBh4eHl7K+wbYWSvwg/dP9wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

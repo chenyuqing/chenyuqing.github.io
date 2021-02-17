@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>单变量分析-http://www.saedsayad.com/ | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="www.saedsayad.com">
+    <meta name="description" content="单变量分析对变量(或者属性)逐一进行探索。变量可能使分类变量，也可能是数值变量。对不同类型的变量有不同的统计学和可视化技术的探索。数值变量可以通过装箱或者离散化的过程转换成分类副本。同样地，分类变量可以通过编码的过程转换成数值副本。最后，挖掘数据时对缺失数据的处理也是一个很重要的部分。   分类变量 数值变量">
+<meta name="keywords" content="www.saedsayad.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单变量分析-http:&#x2F;&#x2F;www.saedsayad.com&#x2F;">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="单变量分析对变量(或者属性)逐一进行探索。变量可能使分类变量，也可能是数值变量。对不同类型的变量有不同的统计学和可视化技术的探索。数值变量可以通过装箱或者离散化的过程转换成分类副本。同样地，分类变量可以通过编码的过程转换成数值副本。最后，挖掘数据时对缺失数据的处理也是一个很重要的部分。   分类变量 数值变量">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/Univariate_1.png">
+<meta property="og:updated_time" content="2015-05-25T01:16:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单变量分析-http:&#x2F;&#x2F;www.saedsayad.com&#x2F;">
+<meta name="twitter:description" content="单变量分析对变量(或者属性)逐一进行探索。变量可能使分类变量，也可能是数值变量。对不同类型的变量有不同的统计学和可视化技术的探索。数值变量可以通过装箱或者离散化的过程转换成分类副本。同样地，分类变量可以通过编码的过程转换成数值副本。最后，挖掘数据时对缺失数据的处理也是一个很重要的部分。   分类变量 数值变量">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/Univariate_1.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">单变量分析-http://www.saedsayad.com/</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">单变量分析-http://www.saedsayad.com/</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-24T11:55:35.000Z" itemprop="datePublished" class="page-time">
+  2015-05-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-单变量分析-http-www-saedsayad-com"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">单变量分析-http://www.saedsayad.com/</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年05月24日 19:55" datetime="2015-05-24T11:55:35.000Z"  itemprop="datePublished">2015-05-24</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>单变量分析对变量(或者属性)逐一进行探索。变量可能使分类变量，也可能是数值变量。对不同类型的变量有不同的统计学和可视化技术的探索。数值变量可以通过<a href>装箱</a>或者离散化的过程转换成分类副本。同样地，分类变量可以通过<a href>编码</a>的过程转换成数值副本。最后，挖掘数据时对<a href>缺失数据</a>的处理也是一个很重要的部分。</li>
+</ul>
+<ol>
+<li><a href>分类变量</a></li>
+<li><a href>数值变量</a><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/Univariate_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+</ol>
+<ul>
+<li><a href="http://www.saedsayad.com/univariate_analysis.htm" target="_blank" rel="noopener">Original Link</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-05-25T01:16:40.000Z" itemprop="dateUpdated">2015年5月25日 9:16</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/05/24/单变量分析-http-www-saedsayad-com/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/www-saedsayad-com/">www.saedsayad.com</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/&title=《单变量分析-http://www.saedsayad.com/》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/&title=《单变量分析-http://www.saedsayad.com/》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单变量分析-http://www.saedsayad.com/》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/05/24/binning装箱-http-www-saedsayad-com/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">binning装箱-http://www.saedsayad.com</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/05/24/数据探查-http-www-saedsayad-com/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">数据探查-http://www.saedsayad.com/</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="单变量分析-http-www-saedsayad-com" data-title="单变量分析-http://www.saedsayad.com/" data-url="http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/&title=《单变量分析-http://www.saedsayad.com/》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/&title=《单变量分析-http://www.saedsayad.com/》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单变量分析-http://www.saedsayad.com/》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/24/单变量分析-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3aQW7DQAgF0Nz/0qnUVatW4w+YJIvnVdRE9rypNGDg8Yiv5/d1/vbnb86f/97tGV+PjQsPDw+vtfTz7Xqfq9/mvMIW4OHh4a3xzsGgdyjnizj/5bxZFxY8PDy8t/KSAzpfdJKUJ0EIDw8P75N5kxQ8gfVSeTw8PLx38Xov/0nZN7nnPCDdUGvBw8PDW+gifc7nxf4eHh4e3qDM2gsGeVkhWe5zcOHh4eFt8KoPmyw3T9CrW3Oxcjw8PLwFXrUwWh266rXBJshmrRoPDw8v4O2NQJ3vnBdwq0+Pkmk8PDy8AS9v7Sd/ydnz0m0hocfDw8Nb4/UO7t5y5+GhUJjAw8PDW+BVj/vXFBTyO5fDAx4eHt6AV1160tTPA0Cejvc2Fw8PD2+DlxzZ1QiTj0MlT8xX1Zx0wMPDw2vxeunspHk2Oe7LDTA8PDy8W3m9YsGonDoICXkY+/XGgIeHh7fMyxeRFywmBY7q9l0EBjw8PLwFXjUM9EYEqs/KXwDw8PDwXs+rFmqrbbO8fBzNO5w3HQ8PD2+BV11EHgyqJYneIFf1H4OHh4e3wZsPSFULtfloQu8peHh4eHu8XnOr17iaHPT5aAIeHh7ea3i9lDcPLb121w1tOTw8PLwFXm+5eUI8GQKoNuGatRY8PDy8MS9PXntBJU+yexuEh4eHt8ebv/zn41n5oEDv9/+sGQ8PD2+Z10tqe02varLeK23g4eHh3ct7Fq/5g3shobplUc6Oh4eH1+L1ChN5479XOU62tTlAgIeHh3cTrxoMqgWLvBC80vTCw8PDW+NVl5JEmGpJYpIW31bGxcPDw1vm5SXdvY27iAJ4eHh4b+UVEtnxqMFdRQo8PDy8PV4+8JTA8iVWhwnKZWI8PDy8BV71Vb83EFANDNVxrmZnDw8PD6/G+wJWi5KXaOZ2LQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

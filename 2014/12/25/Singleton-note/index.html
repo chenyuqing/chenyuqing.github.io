@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>单例设计模式 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="单例设计模式">
+    <meta name="description" content="写在前面的话 本次笔记是在看了《毕向东Java基础》视频之后写的，对于毕老师讲课的优点，我想听过他的课的同学都应该知道的，所以我也不想多说了，但我还是忍不住再说一下，就是幽默风趣，讲课条理清晰，了解学生学习的难点，并能引领大家的思路。 另外，由于这是基础视频，所以讲的内容还是比较简单的。因此，我在课外进行了补充学习，希望能把这个单例模式问题学得更深更透！  什么是单例设计模式什么是设计模式？ 首先">
+<meta name="keywords" content="单例设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例设计模式">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/12/25/Singleton-note/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在前面的话 本次笔记是在看了《毕向东Java基础》视频之后写的，对于毕老师讲课的优点，我想听过他的课的同学都应该知道的，所以我也不想多说了，但我还是忍不住再说一下，就是幽默风趣，讲课条理清晰，了解学生学习的难点，并能引领大家的思路。 另外，由于这是基础视频，所以讲的内容还是比较简单的。因此，我在课外进行了补充学习，希望能把这个单例模式问题学得更深更透！  什么是单例设计模式什么是设计模式？ 首先">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2014-12-26T03:57:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单例设计模式">
+<meta name="twitter:description" content="写在前面的话 本次笔记是在看了《毕向东Java基础》视频之后写的，对于毕老师讲课的优点，我想听过他的课的同学都应该知道的，所以我也不想多说了，但我还是忍不住再说一下，就是幽默风趣，讲课条理清晰，了解学生学习的难点，并能引领大家的思路。 另外，由于这是基础视频，所以讲的内容还是比较简单的。因此，我在课外进行了补充学习，希望能把这个单例模式问题学得更深更透！  什么是单例设计模式什么是设计模式？ 首先">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">单例设计模式</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">单例设计模式</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-12-25T08:30:38.000Z" itemprop="datePublished" class="page-time">
+  2014-12-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/黑马程序员/">黑马程序员</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面的话</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是单例设计模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">什么是单例设计模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#什么是设计模式？"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">什么是设计模式？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单例设计模式解决的问题"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">单例设计模式解决的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#哪里应用了单例设计模式"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">哪里应用了单例设计模式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#单例设计模式的实现-Java"><span class="post-toc-number">3.</span> <span class="post-toc-text">单例设计模式的实现(Java)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单例设计模式的思路"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">单例设计模式的思路</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单例设计模式的代码实现步骤"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">单例设计模式的代码实现步骤</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现代码"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">实现代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#单例设计模式就那么简单吗？"><span class="post-toc-number">4.</span> <span class="post-toc-text">单例设计模式就那么简单吗？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#懒汉式单例设计模式"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">懒汉式单例设计模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#饿汉式单例设计模式"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">饿汉式单例设计模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#静态内部类的单例设计模式"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">静态内部类的单例设计模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#枚举Enum"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">枚举Enum</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">5.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Singleton-note"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">单例设计模式</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年12月25日 16:30" datetime="2014-12-25T08:30:38.000Z"  itemprop="datePublished">2014-12-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/黑马程序员/">黑马程序员</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><ul>
+<li>本次笔记是在看了《毕向东Java基础》视频之后写的，对于毕老师讲课的优点，我想听过他的课的同学都应该知道的，所以我也不想多说了，但我还是忍不住再说一下，就是幽默风趣，讲课条理清晰，了解学生学习的难点，并能引领大家的思路。</li>
+<li>另外，由于这是基础视频，所以讲的内容还是比较简单的。因此，我在课外进行了补充学习，希望能把这个单例模式问题学得更深更透！</li>
+</ul>
+<h2 id="什么是单例设计模式"><a href="#什么是单例设计模式" class="headerlink" title="什么是单例设计模式"></a>什么是单例设计模式</h2><h3 id="什么是设计模式？"><a href="#什么是设计模式？" class="headerlink" title="什么是设计模式？"></a>什么是设计模式？</h3><ul>
+<li>首先第一个问题就是：什么是单例设计模式？要弄懂这个问题，我们首先要理解什么是<a href="http://en.wikipedia.org/wiki/Software_design_pattern" target="_blank" rel="noopener">设计模式</a>。设计模式原本并不是软件开发领域首创的，它是建筑领域的一套理论知识。所谓设计模式，就是解决同一类问题的一种方法，它面向的是高层的抽象理念，和Java中的类和实例之间的关系有相似之处。</li>
+</ul>
+<h3 id="单例设计模式解决的问题"><a href="#单例设计模式解决的问题" class="headerlink" title="单例设计模式解决的问题"></a>单例设计模式解决的问题</h3><ul>
+<li>单例设计模式面向的问题是什么呢？保证内存中某个类的实例的唯一性。即是说，无论什么时候，在内存中只能存在一个实例。</li>
+</ul>
+<h3 id="哪里应用了单例设计模式"><a href="#哪里应用了单例设计模式" class="headerlink" title="哪里应用了单例设计模式"></a>哪里应用了单例设计模式</h3><ul>
+<li>这样的设计需要有哪些呢？举些例子来说吧，操作系统当中的垃圾桶，它在系统运行过程中都只有一个实例存在，无论你在C盘删除文件，还是在D盘删除文件，文件垃圾都是保存到同一个垃圾桶实例当中。这个最简单的验证就是：若果你把文件属性中的隐藏文件选择显示，那么你会在系统的任何地方都有一个垃圾桶文件夹，而这并不是说有多个垃圾桶实例，而是一个垃圾桶实例的多个引用。</li>
+<li>另外的例子还包括软件的配置文件，其实也是应用了单例设计模式。试想下，若果软件的配置的配置有多个，那么软件在下次运行时应该选择哪么配置文件呢？比如eclipse，你在使用时发现没有显示行数，那么狠明显你是修改配置，行号就可以显示出来，而当你下次启动eclipse时，行号还是显示的。所有配置文件只有一个，你任何的修改都是对一个配置文件进行，这样才能保证下次启动软件时持续生效。</li>
+</ul>
+<h2 id="单例设计模式的实现-Java"><a href="#单例设计模式的实现-Java" class="headerlink" title="单例设计模式的实现(Java)"></a>单例设计模式的实现(Java)</h2><h3 id="单例设计模式的思路"><a href="#单例设计模式的思路" class="headerlink" title="单例设计模式的思路"></a>单例设计模式的思路</h3><ul>
+<li>为了避免其他程序过多的建立该类对象。先禁止其他程序建立该类对象</li>
+<li>为了让其他程序可以访问到该类对象，只好在本类中，自定义一个对象。</li>
+<li>为了方便其他程序对自定义对象的访问，可以对外提供一些访问方式。</li>
+</ul>
+<h3 id="单例设计模式的代码实现步骤"><a href="#单例设计模式的代码实现步骤" class="headerlink" title="单例设计模式的代码实现步骤"></a>单例设计模式的代码实现步骤</h3><ul>
+<li>将构造函数私有化</li>
+<li>在类中创造一个本类对象</li>
+<li>提供一个方法可以获取到该对象</li>
+</ul>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemo</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 将构造函数私有化 </span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">SingletonDemo</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="comment">// 在类中创造一个本类对象</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> SingletonDemo s = <span class="keyword">new</span> SingletonDemo();</span><br><span class="line">	<span class="comment">// 提供一个方法可以获取到该对象</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonDemo <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> s;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单例设计模式就那么简单吗？"><a href="#单例设计模式就那么简单吗？" class="headerlink" title="单例设计模式就那么简单吗？"></a>单例设计模式就那么简单吗？</h2><ul>
+<li>咋看，觉得代码那么简单，其实并不是那么简单，其中的坑还是不少的。让我们逐层逐层揭开它的神秘面纱吧。</li>
+<li>单例设计模式一般有2种形式：懒汉式和饿汉式</li>
+</ul>
+<h3 id="懒汉式单例设计模式"><a href="#懒汉式单例设计模式" class="headerlink" title="懒汉式单例设计模式"></a>懒汉式单例设计模式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 懒汉式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 私有化构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="comment">// 创建空引用</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;</span><br><span class="line">	<span class="comment">// 创建实例，并返回对象</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">			instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>上面的代码看上去似乎没什么问题？但其实暗藏了一个安全问题，因为在getInstance()的方法中包含2个语句，并不是原子操作，存在线程安全的问题，导致可能产生多个实例对象。</p>
+</li>
+<li><p>线程安全的懒汉式单例设计模式(只改getInstance方法)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">		instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line">+ 以上的代码，在方法前面加了<span class="keyword">synchronized</span>关键字，表示了线程安全。但是把整个方法都同步了之后，程序的运行速度变得更慢了。为了解决慢的问题，又引出了双重检验锁。</span><br><span class="line">+ 双重检验锁(<span class="keyword">double</span> checked locking pattern)的懒汉式单例设计模式(只改getInstance方法)</span><br><span class="line">``` java</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;		<span class="comment">// Single checked</span></span><br><span class="line">		<span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">			<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;		<span class="comment">// Double checked</span></span><br><span class="line">				instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这段代码貌似很完美了，但很遗憾地，它还是有问题的。主要是instance = new Singleton()这句，这并非是一个原子操作，事实上在JVM中执行这个语句时做了以下3个事情。</p>
+</li>
+</ul>
+<ol>
+<li>给instance分配内存</li>
+<li>调用Singleton的构造函数来初始化成员变量</li>
+<li>将instance对象指向分配的内存空间(执行完这步instance才是非空)</li>
+</ol>
+<ul>
+<li><p>但在JVM的即时编译器中存在指令重排序的优化。也就是上面的第2步和第3步的顺序是不能保证的，最终的执行顺序可能是1-2-3，也可能是1-3-2.如果是后者，则在3执行完毕、2未执行前，被线程二抢占了，这时的instance已经是非null(但却没有初始化)，所以线程二会直接返回instance，然后使用，然后顺理成章地报错了。（摘抄自大牛原文）</p>
+</li>
+<li><p>那我们应该怎么办呢？我们把instance变量声明为volatile就可以了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance; </span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">				<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">					instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>(大牛解释）</p>
+</li>
+<li><p>有些人认为使用 volatile 的原因是可见性，也就是可以保证线程在本地不会存有 instance 的副本，每次都是去主内存中读取。但其实是不对的。使用 volatile 的主要原因是其另一个特性：禁止指令重排序优化。也就是说，在 volatile 变量的赋值操作后面会有一个内存屏障（生成的汇编代码上），读操作不会被重排序到内存屏障之前。比如上面的例子，取操作必须在执行完 1-2-3 之后或者 1-3-2 之后，不存在执行到 1-3 然后取到值的情况。从「先行发生原则」的角度理解的话，就是对于一个 volatile 变量的写操作都先行发生于后面对这个变量的读操作（这里的“后面”是时间上的先后顺序）。</p>
+</li>
+<li><p>但是特别注意在 Java 5 以前的版本使用了 volatile 的双检锁还是有问题的。其原因是 Java 5 以前的 JMM （Java 内存模型）是存在缺陷的，即时将变量声明成 volatile 也不能完全避免重排序，主要是 volatile 变量前后的代码仍然存在重排序问题。这个 volatile 屏蔽重排序的问题在 Java 5 中才得以修复，所以在这之后才可以放心使用 volatile。</p>
+</li>
+<li><p>相信你不会喜欢这种复杂又隐含问题的方式，当然我们有更好的实现线程安全的单例模式的办法。</p>
+</li>
+</ul>
+<h3 id="饿汉式单例设计模式"><a href="#饿汉式单例设计模式" class="headerlink" title="饿汉式单例设计模式"></a>饿汉式单例设计模式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 饿汉式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 类加载时就初始化</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这种方法非常简单，因为单例的实例被声明成static和final变量了，在第一次加载类到内存中时就会初始化，所以创建实例本身是线程安全的。</li>
+<li>但是这种方法还是有问题的，它的缺点是它不是一种懒加载模式(lazy initialization)，单例会在加载类后一开始就被初始化，即使客户端没有调用getInstance()方法。饿汉式的创建方式在一些场景中将无法使用：譬如Singleton实例的创建时依赖参数或者配置文件的，在getInstance()之前必须调用某个方法设置参数给它，那么这种单例写法就无法使用了。</li>
+</ul>
+<h3 id="静态内部类的单例设计模式"><a href="#静态内部类的单例设计模式" class="headerlink" title="静态内部类的单例设计模式"></a>静态内部类的单例设计模式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;</span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这种写法仍然使用JVM本身机制保证了线程安全问题；由于SingletonHolder 是私有的，除了getInstance()之外没有办法访问它，因此它是懒汉式的；同时读取实例的时候不会进行同步，没有性能缺陷；也不依赖JDK版本。</li>
+</ul>
+<h3 id="枚举Enum"><a href="#枚举Enum" class="headerlink" title="枚举Enum"></a>枚举Enum</h3><ul>
+<li><p>用枚举来实现单例真的太简单了！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> EasySingleton &#123;</span><br><span class="line">	INSTANCE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们可以通过EasySingleton.INSTANCE来访问实例，这比调用getInstance()方法简单多了。创建枚举默认就是线程安全的，所以不需要担心double checked locking，而且还能防止反序列化导致重新创建新的对象。但是还是很少看到有人这样写，可能是因为不太熟悉吧。</p>
+</li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><ul>
+<li>一般来说，在开发中常用的是饿汉式的单例模式。</li>
+<li>参考：<a href="http://wuchong.me/blog/2014/08/28/how-to-correctly-write-singleton-pattern/" target="_blank" rel="noopener">如何正确地写出单例模式</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-12-26T03:57:58.000Z" itemprop="dateUpdated">2014年12月26日 11:57</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/12/25/Singleton-note/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/12/25/Singleton-note/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/单例设计模式/">单例设计模式</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/&title=《单例设计模式》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/&title=《单例设计模式》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单例设计模式》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/12/26/Multithreading-note/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">多线程笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/11/18/chap1-basic-data-types-in-R/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">chap1-basic-data-types-in-R</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="Singleton-note" data-title="单例设计模式" data-url="http://chenyuqing.githubt.io/2014/12/25/Singleton-note/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/&title=《单例设计模式》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/&title=《单例设计模式》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单例设计模式》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/12/25/Singleton-note/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3aS27jMBAFQN//0p7NbAYZ2+81rQAiS6sgkEmWFg325/GIn+ePZ/b/n2u+2uVxxYOBgXFbxvPt0x7r/eHyd/KzYWBgnMN4HxBfbZy8n6zznpEEawwMDIx86SR0rrAxMDAw8oCbv5PkngkVAwMDY3ZFm4XdWZj+Wi6OgYFxQ8YsLP7O35f0NzAwMG7FeJbPSjvzivP8XRkDA2NrRr7NylUvbyTk1z4MDIxzGLPxiGSzPO1Mym0fGqgYGBgHMKKovNASmI2UJS3PfwIuBgbGpoy2ibgeNKMAGnxKDAyMcxgrbctv/bYN0P/ZBQMD4wBGUvz61vVuFmQ/fCAMDIytGe3lb7ZBW7xry3MYGBgnMPLks73qzRqTS6EcAwNjO0abiLbFuKKsvxL6MTAwDmDkA16zka88yOZtg+K2iIGBcXPGbMAiL5+t/7YN2RgYGPsx8mA3C4t5O2EWuDEwMM5hJCW29VGMC0t4GBgYWzOSZHIppRyV+5P7bDFygYGBsQUjL8fnG7Sl/7yQ9/IDYWBgHMCYNQDaVmibJOckDAyMExizcNkW6fImRN12xcDA2JTxLJ92LGPWNqgDLgYGxtaMNszNDpqvkCS6SyEbAwPjtoyVINsecfbJMDAwMGYDW/mI2ProRjRsgYGBgXHBaFe+e90YwMDAOJ6RHDQv6uWADytgYGAcwEiS2PYylye0bTkPAwPjNEY74tAyikS0/CgYGBgHMP4AbOOTYZrxfUYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

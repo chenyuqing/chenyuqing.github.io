@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>数据挖掘-FP-growth-tree | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="FP-growth-tree">
+    <meta name="description" content="写在前面的话 上次讨论完了关联规则中的Aprior Algorithm算法，这次我们讨论的是FP growth tree，它是Aprior Algorithm的一种改进的算法。那么，让我们开始吧！  FP growth tree算法背景 FP，即Frequent Pattern，中文是频繁模式的意思。  算法原理算法步骤算法应用算法不足与改进后记参考链接：百度百科推荐PPT">
+<meta name="keywords" content="FP-growth-tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘-FP-growth-tree">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在前面的话 上次讨论完了关联规则中的Aprior Algorithm算法，这次我们讨论的是FP growth tree，它是Aprior Algorithm的一种改进的算法。那么，让我们开始吧！  FP growth tree算法背景 FP，即Frequent Pattern，中文是频繁模式的意思。  算法原理算法步骤算法应用算法不足与改进后记参考链接：百度百科推荐PPT">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2014-11-04T15:04:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据挖掘-FP-growth-tree">
+<meta name="twitter:description" content="写在前面的话 上次讨论完了关联规则中的Aprior Algorithm算法，这次我们讨论的是FP growth tree，它是Aprior Algorithm的一种改进的算法。那么，让我们开始吧！  FP growth tree算法背景 FP，即Frequent Pattern，中文是频繁模式的意思。  算法原理算法步骤算法应用算法不足与改进后记参考链接：百度百科推荐PPT">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">数据挖掘-FP-growth-tree</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">数据挖掘-FP-growth-tree</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-11-04T14:06:29.000Z" itemprop="datePublished" class="page-time">
+  2014-11-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘算法总结/">数据挖掘算法总结</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#写在前面的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面的话</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#FP-growth-tree"><span class="post-toc-number">2.</span> <span class="post-toc-text">FP growth tree</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法背景"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">算法背景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法原理"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">算法原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法步骤"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">算法步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法应用"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">算法应用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#算法不足与改进"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">算法不足与改进</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#后记"><span class="post-toc-number">3.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-数据挖掘-FP-growth-tree"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">数据挖掘-FP-growth-tree</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年11月04日 22:06" datetime="2014-11-04T14:06:29.000Z"  itemprop="datePublished">2014-11-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘算法总结/">数据挖掘算法总结</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><ul>
+<li>上次讨论完了关联规则中的Aprior Algorithm算法，这次我们讨论的是FP growth tree，它是Aprior Algorithm的一种改进的算法。那么，让我们开始吧！</li>
+</ul>
+<h1 id="FP-growth-tree"><a href="#FP-growth-tree" class="headerlink" title="FP growth tree"></a>FP growth tree</h1><h2 id="算法背景"><a href="#算法背景" class="headerlink" title="算法背景"></a>算法背景</h2><ul>
+<li>FP，即Frequent Pattern，中文是频繁模式的意思。</li>
+</ul>
+<h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><h2 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h2><h2 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h2><h2 id="算法不足与改进"><a href="#算法不足与改进" class="headerlink" title="算法不足与改进"></a>算法不足与改进</h2><h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>参考链接：<br><a href="http://baike.baidu.com/view/3342544.htm" target="_blank" rel="noopener">百度百科</a><br><a href="https://www.google.com.hk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=8&cad=rja&uact=8&ved=0CFEQFjAH&url=http%3A%2F%2Fwww.cs.uvm.edu%2F~xwu%2Fkdd%2FFPTree-09.ppt&ei=selYVLf3HY7asAT2iYGoDA&usg=AFQjCNF_RmxJN4MYEfpeNnR76dbAJyYb5A&sig2=gVUQcXTpTA4JvZm9sJFLzQ" target="_blank" rel="noopener">推荐PPT</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-11-04T15:04:34.000Z" itemprop="dateUpdated">2014年11月4日 23:04</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/11/04/数据挖掘-FP-growth-tree/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FP-growth-tree/">FP-growth-tree</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/&title=《数据挖掘-FP-growth-tree》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/&title=《数据挖掘-FP-growth-tree》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据挖掘-FP-growth-tree》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/11/06/概率论基本概念1/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">概率论基本概念1</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/11/04/数据挖掘-Aprior-Algorithm/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">数据挖掘-Aprior-Algorithm</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="数据挖掘-FP-growth-tree" data-title="数据挖掘-FP-growth-tree" data-url="http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/&title=《数据挖掘-FP-growth-tree》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/&title=《数据挖掘-FP-growth-tree》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据挖掘-FP-growth-tree》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/04/数据挖掘-FP-growth-tree/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACv0lEQVR42u3aS27jQAwFQN//0hlgtjOyH3+BF6VV4ChWVwdoUiRfr/j6+Xv9+3N+z9MnyZ3vP1+48PDw8FpLf7qSpbz/2yf80yfV9bx/Lh4eHt4dLznon47+ZCOS3z4tvRec8PDw8L6Bl8Oah/hqWo+Hh4f3PbzkEM9DQjWo4OHh4X0PL3n57wWDpAibf+dhrQUPDw9vJ48dpdd3P/9Sfw8PDw+v2FXvNbSS4ztZw8Jq8fDw8A54eQpbbVDlZYh8TCGPAmvLxcPDw3s4M5u78rZ4Wg0qvQT6QzEXDw8P74A3b1PtFn+r21dtoeHh4eHNeXnjKm/nz2vJvUbaf+7Bw8PDO+NFyWgx5e0VJqpbFkU5PDw8vDPepDVVbVZNtiwpCuPh4eFd86rlg0nptpeCj4ZQ8fDw8FZ5VeTu8V1uX/XCFR4eHt4qrzfYlDymFySq6fhrN57g4eHhjdtOu+2o6p3VTfnwb8PDw8Nb4kXF0CCxzu+ft80KyToeHh7eAa/68p8f/b1ibjVBT8Zk8fDw8HZ5yZdWg0Evo++VHj5sKx4eHt4BbysA5EXhXmmjGh7w8PDw7ni9gsLkiE9Kur1Cxod3BTw8PLwDXl4sqC4oT9x7gwijBhgeHh7egJcweiMCuyXdQqDCw8PDO+BNhgZ2l5WPDvQCGB4eHt4Wb952qrbEqt/Qa7/h4eHh/T6vWgiotsGaaXH8XDw8PLw7XnWYqQqupuOTom1hW/Hw8PAGvJ/i1Sv+5gXifMuioQc8PDy8A14v8c1LBvkpnQ9srZHw8PDwBrzJgyeNrl4AKKfyeHh4eGe8eXE2x+dLz5/76kUqPDw8vGNekuAmhdpqMSIPPI/FXDw8PLwv4E1KurtNsrWUGg8PD6/Iy4sR+dhTL2nOvzN6AcDDw8M74FUbYPPZruogQnWgYdTfw8PDw3vH+wOuo8U6MCqlZgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

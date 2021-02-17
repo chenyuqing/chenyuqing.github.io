@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>面试题备集(Machine learning, Deep Learning) | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="问题1. 问什么深度学习近年来这么火热？  答：可以从以下几个方面来分析，  数据集规模：如今越来越数字化，数据量成爆炸性增长，使得人们想从巨量的数据中挖掘各种各样的模式和价值； 计算能力和大小：硬件方面的提升，主要是GPU的更新换代，使得计算机的计算能力越来越强，这样就可以训练到越来越复杂的模型，模型大小的提升，也增加了能解决问题的复杂度； 准确率，问题复杂度：深度学习在图像，NLP和语音识别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题备集(Machine learning, Deep Learning)">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="问题1. 问什么深度学习近年来这么火热？  答：可以从以下几个方面来分析，  数据集规模：如今越来越数字化，数据量成爆炸性增长，使得人们想从巨量的数据中挖掘各种各样的模式和价值； 计算能力和大小：硬件方面的提升，主要是GPU的更新换代，使得计算机的计算能力越来越强，这样就可以训练到越来越复杂的模型，模型大小的提升，也增加了能解决问题的复杂度； 准确率，问题复杂度：深度学习在图像，NLP和语音识别">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-05-25T08:07:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试题备集(Machine learning, Deep Learning)">
+<meta name="twitter:description" content="问题1. 问什么深度学习近年来这么火热？  答：可以从以下几个方面来分析，  数据集规模：如今越来越数字化，数据量成爆炸性增长，使得人们想从巨量的数据中挖掘各种各样的模式和价值； 计算能力和大小：硬件方面的提升，主要是GPU的更新换代，使得计算机的计算能力越来越强，这样就可以训练到越来越复杂的模型，模型大小的提升，也增加了能解决问题的复杂度； 准确率，问题复杂度：深度学习在图像，NLP和语音识别">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">面试题备集(Machine learning, Deep Learning)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">面试题备集(Machine learning, Deep Learning)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-25T03:32:15.000Z" itemprop="datePublished" class="page-time">
+  2017-05-25
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-interview-questions-I-collect"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">面试题备集(Machine learning, Deep Learning)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年05月25日 11:32" datetime="2017-05-25T03:32:15.000Z"  itemprop="datePublished">2017-05-25</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><p><strong><font color="blue">问题1. 问什么深度学习近年来这么火热？</font></strong></p>
+</li>
+<li><p><strong><font color="red">答：</font></strong>可以从以下几个方面来分析，</p>
+<ul>
+<li>数据集规模：如今越来越数字化，数据量成爆炸性增长，使得人们想从巨量的数据中挖掘各种各样的模式和价值；</li>
+<li>计算能力和大小：硬件方面的提升，主要是GPU的更新换代，使得计算机的计算能力越来越强，这样就可以训练到越来越复杂的模型，模型大小的提升，也增加了能解决问题的复杂度；</li>
+<li>准确率，问题复杂度：深度学习在图像，NLP和语音识别等诸多领域取得了不错的成果，在某些识别问题上甚至超过人类，解决着越来越多的复杂的问题；</li>
+<li>实际应用：深度学习能够解决人们很多需求，带来了很多价值，让人们逐渐对它倾心。</li>
+</ul>
+</li>
+<li><p><strong><font color="blue">问题2. 深度学习有什么弱点？</font></strong></p>
+</li>
+<li><p><strong><font color="red">答：</font></strong>可以列为已下几点：</p>
+<ul>
+<li>需要的数据量巨大</li>
+<li>需要计算开销巨大</li>
+<li>容易陷入局部最优</li>
+<li>难以解释，“玄乎”</li>
+</ul>
+</li>
+<li><p><strong><font color="blue">问题3. 什么样的数据集不适用于深度学习？</font></strong></p>
+</li>
+<li><p><strong><font color="red">答：</font></strong>主要以下两点：</p>
+<ul>
+<li><strong>数据集太小</strong>，数据样本不足时，深度学习相对其他机器学习算法，没有明显优势；</li>
+<li><strong>数据集没有局部相关性</strong>，目前的深度学习表现比较好的领域主要是图像/语音/自然语言处理等领域，这些领域的一个共性是局部相关性。图像中像素组成物体，语音信号中音位组合成单词，文本数据中单词组合成句子，这些特征元素的组合一旦被打乱，表示的含义同时也被改变。对于没有这样局部相关性的数据集，不适用于深度学习。</li>
+</ul>
+</li>
+<li><p><strong><font color="blue">问题4. 对所有优化问题来说，有没有可能找到比现有已知算法更好的算法？</font></strong></p>
+</li>
+<li><p><strong><font color="red">答：</font></strong>没有免费的午餐定理。<br>  + </p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-05-25T08:07:26.000Z" itemprop="dateUpdated">2017年5月25日 16:07</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/05/25/interview-questions-I-collect/" target="_blank" rel="external">http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/&title=《面试题备集(Machine learning, Deep Learning)》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/&title=《面试题备集(Machine learning, Deep Learning)》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《面试题备集(Machine learning, Deep Learning)》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/06/14/visual-proof-of-neural-networks/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">可视化证明：神经网络可以计算任何函数</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/05/17/modern-history-of-object-recognition-infographic/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">物体识别的现代史(2012~)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="interview-questions-I-collect" data-title="面试题备集(Machine learning, Deep Learning)" data-url="http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/&title=《面试题备集(Machine learning, Deep Learning)》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/&title=《面试题备集(Machine learning, Deep Learning)》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《面试题备集(Machine learning, Deep Learning)》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/05/25/interview-questions-I-collect/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3ay5LbMAwEwP3/n06um0qszADklg7tk2sfEpuuEuEBvr7i16+/Xt9/nv/l8xU+Xe3Tb4+98PDw8NZLf15cfvvkCrPfJmvGw8PDu837dNHZQmcbl/xlvmY8PDy89/Ce/7ctuJ8f63kpj4eHh/d+Xr649v0rDgY8PDy8gJdfOv9JGyi0R87hrAUPDw8v5uVdpPe8v9Lfw8PDw1t31dty+dROzyKMf6wWDw8P7wIvX8qeOivZ23IZDw8P7zZvMzSQxwd5iXw4GsbDw8O7xsvL3zbYnbHbILg5BPHw8PC2vJyRl7bP5XWetc6GDCIwHh4e3pq375vlRfZs1CAvrOvb4OHh4Y14+SM4v/TsCnkc/LwF/zke8PDw8Ba8TSyb3L7djs3IaTSHi4eHh7fm5VFpOy7QDg2c3Wg8PDy827w2RNgMGczq/U2ogYeHh/czvPzL/6bFleNXWQseHh7etZwzaWi1BW5eLl8JIPDw8PAu83JM8lCexQ1Fvy5R4OHh4V3jtdQ8XGibYXkMEa0QDw8P7wIvL5Tzxc3iiU0YEd0dDw8P7xBvE0Pkbf62aJ7FE8NPDA8PD2+UebZDUbPiON+UTaT78TPEw8PDO8qbNcba0KGNaPPtq7cDDw8P7wKvHRSYxbKnWmWrQQQ8PDy8Ea8dIMjL7tkVZodEEUbg4eHhHeLlzapNMb0JFPKD5OPoFR4eHt5RXltrzx7iq+p+Ezfg4eHhXYMlj9r88b1vqs2OmT+GrvDw8PCO8jYtsdnN2kGEfFjh2BGCh4eHt64896MAbYiQ3zf6YoCHh4d3jZfHCu1jvR2xOnWM4eHh4b2HlzBmLbT2GIiKezw8PLxX8vLm1qxMb7MFPDw8vJ/htU2v9hGfjwu00W10MODh4eEd5bVf71tqXgrnEfDhIAMPDw8v5f0GvQnFOu9vYPYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

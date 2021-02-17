@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>灰度直方图及其应用和特点 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="灰度直方图">
+    <meta name="description" content="写在开头的话本次笔记是上海交通大学在Coursera上开设的《医学图像处理技术》第二周课程的笔记之一。文中引用资料归原作者所有。 灰度直方图 灰度直方图是图像信息的另一种展示，从数字上模拟图像的某些特征，这个在图像处理当中是一个非常基本的操作。  更多：互动百科 什么是灰度直方图？ PPT：">
+<meta name="keywords" content="灰度直方图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="灰度直方图及其应用和特点">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在开头的话本次笔记是上海交通大学在Coursera上开设的《医学图像处理技术》第二周课程的笔记之一。文中引用资料归原作者所有。 灰度直方图 灰度直方图是图像信息的另一种展示，从数字上模拟图像的某些特征，这个在图像处理当中是一个非常基本的操作。  更多：互动百科 什么是灰度直方图？ PPT：">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/img-process-SHJU/week02/01-hist/02-hist-definition.JPG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/img-process-SHJU/week02/01-hist/03-hist-def.JPG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/img-process-SHJU/week02/01-hist/04-girl.JPG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/img-process-SHJU/week02/01-hist/05-girl-hist.JPG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/img-process-SHJU/week02/01-hist/06-hist-features.JPG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/img-process-SHJU/week02/01-hist/hist-area.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/img-process-SHJU/week02/01-hist/08-hist-application.JPG">
+<meta property="og:updated_time" content="2014-10-24T02:30:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="灰度直方图及其应用和特点">
+<meta name="twitter:description" content="写在开头的话本次笔记是上海交通大学在Coursera上开设的《医学图像处理技术》第二周课程的笔记之一。文中引用资料归原作者所有。 灰度直方图 灰度直方图是图像信息的另一种展示，从数字上模拟图像的某些特征，这个在图像处理当中是一个非常基本的操作。  更多：互动百科 什么是灰度直方图？ PPT：">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/img-process-SHJU/week02/01-hist/02-hist-definition.JPG">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">灰度直方图及其应用和特点</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">灰度直方图及其应用和特点</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-10-20T02:44:15.000Z" itemprop="datePublished" class="page-time">
+  2014-10-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/医学图像处理/">医学图像处理</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在开头的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在开头的话</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#灰度直方图"><span class="post-toc-number">2.</span> <span class="post-toc-text">灰度直方图</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#什么是灰度直方图？"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">什么是灰度直方图？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#灰度直方图的例子"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">灰度直方图的例子</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#灰度直方图的特征"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">灰度直方图的特征</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#灰度直方图与像素位置的关系"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">灰度直方图与像素位置的关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#灰度直方图与图像的面积关系"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">灰度直方图与图像的面积关系</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#灰度直方图的应用"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">灰度直方图的应用</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">3.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-灰度直方图及其应用和特点"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">灰度直方图及其应用和特点</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年10月20日 10:44" datetime="2014-10-20T02:44:15.000Z"  itemprop="datePublished">2014-10-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/医学图像处理/">医学图像处理</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在开头的话"><a href="#写在开头的话" class="headerlink" title="写在开头的话"></a>写在开头的话</h2><p>本次笔记是上海交通大学在Coursera上开设的<a href="https://www.coursera.org/course/sjtumia" target="_blank" rel="noopener">《医学图像处理技术》</a>第二周课程的笔记之一。文中引用资料归原作者所有。</p>
+<h2 id="灰度直方图"><a href="#灰度直方图" class="headerlink" title="灰度直方图"></a>灰度直方图</h2><ul>
+<li>灰度直方图是图像信息的另一种展示，从数字上模拟图像的某些特征，这个在图像处理当中是一个非常基本的操作。</li>
+</ul>
+<p>更多：<a href="http://www.baike.com/wiki/%E7%81%B0%E5%BA%A6%E7%9B%B4%E6%96%B9%E5%9B%BE" target="_blank" rel="noopener">互动百科</a></p>
+<h3 id="什么是灰度直方图？"><a href="#什么是灰度直方图？" class="headerlink" title="什么是灰度直方图？"></a>什么是灰度直方图？</h3><hr>
+<p>PPT：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/img-process-SHJU/week02/01-hist/02-hist-definition.JPG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/img-process-SHJU/week02/01-hist/03-hist-def.JPG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>灰度直方图是基于灰度值的像素频数分布函数图。</li>
+<li>X轴表示的是灰度值(范围：0-255)</li>
+<li>Y轴表示的该灰度值像素的频数(出现在图像上的个数)</li>
+</ul>
+<h3 id="灰度直方图的例子"><a href="#灰度直方图的例子" class="headerlink" title="灰度直方图的例子"></a>灰度直方图的例子</h3><hr>
+<p>PPT：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/img-process-SHJU/week02/01-hist/04-girl.JPG" alt="原图像" title>
+                </div>
+                <div class="image-caption">原图像</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/img-process-SHJU/week02/01-hist/05-girl-hist.JPG" alt="灰度直方图" title>
+                </div>
+                <div class="image-caption">灰度直方图</div>
+            </figure>
+
+<h3 id="灰度直方图的特征"><a href="#灰度直方图的特征" class="headerlink" title="灰度直方图的特征"></a>灰度直方图的特征</h3><hr>
+<h4 id="灰度直方图与像素位置的关系"><a href="#灰度直方图与像素位置的关系" class="headerlink" title="灰度直方图与像素位置的关系"></a>灰度直方图与像素位置的关系</h4><p>PPT：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/img-process-SHJU/week02/01-hist/06-hist-features.JPG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>灰度直方图丢失了像素的位置，只记录了像素的大小和个数。<ul>
+<li>只知道像素的个数</li>
+<li>无法得知像素的位置</li>
+<li>图像翻转，在图像中移动某个位置或者区域，灰度直方图不发生变化</li>
+<li><strong>推论：</strong>一个图像只对应一个灰度直方图，而一个灰度直方图则对应多个图像。</li>
+</ul>
+</li>
+</ul>
+<h4 id="灰度直方图与图像的面积关系"><a href="#灰度直方图与图像的面积关系" class="headerlink" title="灰度直方图与图像的面积关系"></a>灰度直方图与图像的面积关系</h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/img-process-SHJU/week02/01-hist/hist-area.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>灰度直方图求积分等于图像的面积。</li>
+</ul>
+<h3 id="灰度直方图的应用"><a href="#灰度直方图的应用" class="headerlink" title="灰度直方图的应用"></a>灰度直方图的应用</h3><hr>
+<p>PPT：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/img-process-SHJU/week02/01-hist/08-hist-application.JPG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>设置数字化参数，譬如，利用数字相机照相时，可以用自带的灰度直方图功能判别图像好坏。</li>
+<li>寻找图像的二值化值<ul>
+<li>图像的灰度直方图通常具有双峰性(即有2个波峰)</li>
+<li>2个波峰相交的地方就是波谷，波谷的周围大概就是二值化值的位置。</li>
+</ul>
+</li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>本次课只要学习了灰度直方图的概念，特点和应用。</p>
+<p>推荐学习：<a href="http://wenku.baidu.com/link?url=lH5fLvs96uA9hgMXovkBzm8_m11Q-_eumj9Dha6SALbqIO2AKRVVVyrl5Nj3FQ-8F6VOtOKRei79SyD3G9QM8cInvCv6NBzF5Jz4YBMaOUC" target="_blank" rel="noopener">灰度直方图_中国传媒大学课件</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-10-24T02:30:42.000Z" itemprop="dateUpdated">2014年10月24日 10:30</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/10/20/灰度直方图及其应用和特点/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/灰度直方图/">灰度直方图</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/&title=《灰度直方图及其应用和特点》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/&title=《灰度直方图及其应用和特点》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《灰度直方图及其应用和特点》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/10/20/图像二值化算法/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">图像二值化算法笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/10/18/RegularExpression/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">正则表达式课堂笔记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="灰度直方图及其应用和特点" data-title="灰度直方图及其应用和特点" data-url="http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/&title=《灰度直方图及其应用和特点》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/&title=《灰度直方图及其应用和特点》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《灰度直方图及其应用和特点》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/10/20/灰度直方图及其应用和特点/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3aQW7kQAgFUN//0jNStpErHzDujOZ51bI6dr1qqSDAdcXXn6/r++e7O/n98+fzex+78PDw8FpLv7vOpDP17jnn+73n3K0HDw8Pb4+XHN/nozlZdP7NZOOiUISHh4f3UV4OS55cDT94eHh4/yIveX11Kb2l4+Hh4f0GXrLE6J//IAXPn/bAevDw8PAWeJMG2Kc+v9Tfw8PDwyse0EnKWz2Oe4Xd3oWHh4e3wesNUU3a/NUhg8n38fDw8DZ4yRKT1leejldLFZMhBjw8PLw9Xt747xVbe8MH+fdv8Xh4eHgLvMngVC8AVMcFJoUJPDw8vA3e/PXVAzoPG9WgVYg2eHh4eNPz/MrHrXrp9aQo3JsTwMPDw9vm5Qdu3tqfp+O9MgceHh7eNm/S4kqovbJCtcxRrq/g4eHhjXl5GMgLENVNqTa6osQaDw8Pb5n3LODM2Bg+ePX3wcPD+4951SR1kkZXtzhP6PHw8PDe5PWGBvKwkQSevCxbTazx8PDw9nj5IyYHdzUFn6fjeHh4eBu8pBmWJNZvhpbq2/Hw8PA2eHkjvxpI8gCQh4RyQQQPDw/vFV4eKqoJcXWIahIe8PDw8PZ41eJC78juDVH1CsRRSwwPDw+vxcsP6Gqhdp469wq+Vy/+4OHh4T3E65UVkr/NqdWpqtvJCDw8PLyHeL3wkDe38mAzH9W6qjuKh4eH1+LlCXTvb6sbVP5lziENDw8P70Ve3oKab8okXP2QiOPh4eEt8KrH7jnNzRPieajIS714eHh4G7w8GDzFrm5odRwBDw8P7x1eb9AqT80nWzMqi+Dh4eF9lJcXZ8/5e3ULzgMHP9zHw8PD+wW8ScGily4/UIzAw8PD+1Cds9roysewqoteqbXg4eHhPVlTbbayqmNS1fDTG8/Cw8PDG/D+AiCUu2AJaxNoAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

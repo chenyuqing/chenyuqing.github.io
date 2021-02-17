@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>概率论笔记week01 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="概率论">
+    <meta name="description" content="写在前面的话 本系列博客是Coursera上台大葉丙成老师的機率 (Probability)课程的笔记。其中涉及的版权内容均属原版权人所有。  概率概述概率是什么？ 概率，又称或然率、机会率、机率或可能性，是概率论的基本概念。概率是对随机事件发生的可能性的度量，一般以一个在0到1之间的实数表示一个事件发生的可能性大小。越接近1，该事件更可能发生；越接近0，则该事件更不可能发生。 百度百科定义  概">
+<meta name="keywords" content="概率论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率论笔记week01">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在前面的话 本系列博客是Coursera上台大葉丙成老师的機率 (Probability)课程的笔记。其中涉及的版权内容均属原版权人所有。  概率概述概率是什么？ 概率，又称或然率、机会率、机率或可能性，是概率论的基本概念。概率是对随机事件发生的可能性的度量，一般以一个在0到1之间的实数表示一个事件发生的可能性大小。越接近1，该事件更可能发生；越接近0，则该事件更不可能发生。 百度百科定义  概">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w01/de_morgen.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w01/de_morgen_prove.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/pro_twu/w01/set_pro.PNG">
+<meta property="og:updated_time" content="2014-11-03T05:13:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="概率论笔记week01">
+<meta name="twitter:description" content="写在前面的话 本系列博客是Coursera上台大葉丙成老师的機率 (Probability)课程的笔记。其中涉及的版权内容均属原版权人所有。  概率概述概率是什么？ 概率，又称或然率、机会率、机率或可能性，是概率论的基本概念。概率是对随机事件发生的可能性的度量，一般以一个在0到1之间的实数表示一个事件发生的可能性大小。越接近1，该事件更可能发生；越接近0，则该事件更不可能发生。 百度百科定义  概">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/pro_twu/w01/de_morgen.PNG">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">概率论笔记week01</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">概率论笔记week01</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-11-01T05:58:18.000Z" itemprop="datePublished" class="page-time">
+  2014-11-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/概率论笔记/">概率论笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#写在前面的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面的话</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#概率概述"><span class="post-toc-number">2.</span> <span class="post-toc-text">概率概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概率是什么？"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">概率是什么？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概率示例"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">概率示例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么我们要研究概率？"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">为什么我们要研究概率？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概率和统计的差异"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">概率和统计的差异</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#集合论"><span class="post-toc-number">3.</span> <span class="post-toc-text">集合论</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#集合论复习"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">集合论复习</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概率论名词"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">概率论名词</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#集合论和概率的关系"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">集合论和概率的关系</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-概率论笔记week01"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">概率论笔记week01</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年11月01日 13:58" datetime="2014-11-01T05:58:18.000Z"  itemprop="datePublished">2014-11-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/概率论笔记/">概率论笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><ul>
+<li>本系列博客是Coursera上台大<strong>葉丙成</strong>老师的<a href="https://class.coursera.org/prob-001" target="_blank" rel="noopener">機率 (Probability)</a>课程的笔记。其中涉及的版权内容均属原版权人所有。</li>
+</ul>
+<h1 id="概率概述"><a href="#概率概述" class="headerlink" title="概率概述"></a>概率概述</h1><h2 id="概率是什么？"><a href="#概率是什么？" class="headerlink" title="概率是什么？"></a>概率是什么？</h2><ul>
+<li>概率，又称或然率、机会率、机率或可能性，是概率论的基本概念。概率是对随机事件发生的可能性的度量，一般以一个在0到1之间的实数表示一个事件发生的可能性大小。越接近1，该事件更可能发生；越接近0，则该事件更不可能发生。</li>
+<li><a href="http://baike.baidu.com/view/45320.htm?fr=aladdin" target="_blank" rel="noopener">百度百科定义</a></li>
+</ul>
+<h2 id="概率示例"><a href="#概率示例" class="headerlink" title="概率示例"></a>概率示例</h2><ul>
+<li>人们常说某人有百分之多少的把握能通过这次考试，某件事发生的可能性是多少，这都是概率的实例。</li>
+<li><a href="http://baike.baidu.com/view/45320.htm?fr=aladdin" target="_blank" rel="noopener">百度百科定义</a></li>
+</ul>
+<h2 id="为什么我们要研究概率？"><a href="#为什么我们要研究概率？" class="headerlink" title="为什么我们要研究概率？"></a>为什么我们要研究概率？</h2><ul>
+<li>我们对这个世界了解的太少，这世界的运作有很多事未知的</li>
+<li>世间事不见得都是必然的(deterministic)，有很多事情是有随机性的(random)</li>
+<li>我们学习概率的目的就是为了发现事物发展的规律，从而可以预先推测未发生的事物。</li>
+</ul>
+<h2 id="概率和统计的差异"><a href="#概率和统计的差异" class="headerlink" title="概率和统计的差异"></a>概率和统计的差异</h2><ul>
+<li>概率<ul>
+<li>概率模型已知，要学会怎么算某些事件的概率</li>
+</ul>
+</li>
+<li>统计<ul>
+<li>概率模型未知，要学会怎么从大量的实验结果中去建立概率模型</li>
+</ul>
+</li>
+</ul>
+<h1 id="集合论"><a href="#集合论" class="headerlink" title="集合论"></a>集合论</h1><h2 id="集合论复习"><a href="#集合论复习" class="headerlink" title="集合论复习"></a>集合论复习</h2><ul>
+<li>集合论名词复习<ul>
+<li>元素(Element)</li>
+<li>集合(Set)</li>
+<li>子集合(Subset)</li>
+<li></li>
+<li>全集(universal Set)</li>
+<li>空集合(Empty Set)</li>
+<li>交集(Intersection)</li>
+<li></li>
+<li>并集(Union)</li>
+<li>补集(Complement)</li>
+<li>差集(Difference)</li>
+<li></li>
+<li>不相交(disjoint)</li>
+<li>互斥(Mutually Exclusive)</li>
+</ul>
+</li>
+</ul>
+<p>参考：<a href="http://zh.wikipedia.org/wiki/%E9%9B%86%E5%90%88_(%E6%95%B0%E5%AD%A6" target="_blank" rel="noopener">维基百科条目</a></p>
+<ul>
+<li><p>De Morgan’s Law（德摩根定理）</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w01/de_morgen.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+</li>
+<li><p>证明：</p>
+<ul>
+<li>证明等式的方法就是“你中有我，我中有你”<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w01/de_morgen_prove.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="概率论名词"><a href="#概率论名词" class="headerlink" title="概率论名词"></a>概率论名词</h2><ul>
+<li><p>实验(Experiment)</p>
+<ul>
+<li>一个概率[实验]包含了：步骤(procedures)、模型(model)、观察(observation)</li>
+</ul>
+</li>
+<li><p>结果(Outcome)</p>
+<ul>
+<li>[结果]是实验中可能的结果</li>
+</ul>
+</li>
+<li><p>样本空间(Sample Space)</p>
+<ul>
+<li>[样本空间]是概率实验所有可能的结果的集合，通常用S来表示</li>
+</ul>
+</li>
+<li><p>事件(Event)</p>
+<ul>
+<li>[事件]指的是对于实验结果的某种叙述。</li>
+<li>概率就是在讲实验结果符合某事件叙述的机会多大</li>
+<li>在数学上，[事件]可以看成[结果]的结合，亦就是[样本空间]的子集。</li>
+</ul>
+</li>
+<li><p>事件空间(Event Space)</p>
+<ul>
+<li>[事件空间]是包含所有事件的结合</li>
+</ul>
+</li>
+<li><p>概率是一个函数</p>
+<ul>
+<li>P(事件) = [0,1]</li>
+<li>概率函数是从[事件空间]映射到[0,1]</li>
+</ul>
+</li>
+</ul>
+<h2 id="集合论和概率的关系"><a href="#集合论和概率的关系" class="headerlink" title="集合论和概率的关系"></a>集合论和概率的关系</h2><ul>
+<li>将随机试验的的所有可能结果组成的集合称为基本事件空间，事件是一个集合，因而事件间的关系与事件的运算自然可以按照集合论中的集合之间的关系和运算来处理。</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/pro_twu/w01/set_pro.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2014-11-03T05:13:42.000Z" itemprop="dateUpdated">2014年11月3日 13:13</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/11/01/概率论笔记week01/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/&title=《概率论笔记week01》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/&title=《概率论笔记week01》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《概率论笔记week01》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/11/02/概率论笔记week02/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">概率论笔记week02</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/10/30/数据挖掘课堂算法总结_Junior/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">数据挖掘课堂算法总结_Junior</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="概率论笔记week01" data-title="概率论笔记week01" data-url="http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/&title=《概率论笔记week01》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/&title=《概率论笔记week01》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《概率论笔记week01》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/01/概率论笔记week01/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3aQY7bMAwF0Nz/0i7QVTdWPkmngKynVZBJHD4tOKSozyde19919871z7p7J3/m+lujhYGBsS3jWq67oNdhTUK824672DAwMM5h5I9LUmeOX3+y8IsYGBgYxSDWz0zKSgwMDIxnE25SDq4LvoSEgYGBkTSx6zay+t3q9j3Wi2NgYGzIqA4G/ufrH843MDAwNmFcxfXUUDNpXAtRYWBgvJqRBJS/3yvdctKXdIyBgXEYo4fMg+ul6eapIQYGxuaMXiGYH7o9NWBYPx8DA+MERvXw69nLXvlY4vY1BgbGAYx52k0S8aQl/rI1GBgYBzB6ZWKvyMtLycK2YmBgHMCoXm7IAdWknLe7t5NYDAyM1zF6lxvyH5iMNvOkjIGB8W5GkhZ7B215as4bXQwMjDMZvysB18m3x2huDQYGxuaMXtNYTcTJX/NLY7f/NzAwMF7K6A0mJwdteYYs/8fAwMB4NaN5Ste6YJFfs8g/j4GBcSajGvr8Alm1fHygF8fAwNiEMR9MVoNOAk2271P9MgYGxuaMpPmcHMzlibUaGwYGxgmM5Ci/h0lC6VWsGBgYpzGu4qqOM3PeaFyKgYHxasb8etZkzFm9nDE6O8TAwNic8buGMx8w9K5rYGBgnMaYtKBPNbqTghIDAwMjCaU6mMwvYUSlJwYGBkb8Ywky+Xx1UIGBgXECozoMmA8MqiOEL1uAgYHxasbkpkZ+PNcbfOZlJQYGxksZfwDyFmqYz9HlLQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

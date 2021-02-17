@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>编程面试的10大算法概念-常考 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="面试算法">
+    <meta name="description" content="写在前面的话 本篇总结了编程面试中常考的10大算法，用Java实现。本文在转载文章的基础上做继续补充。 转自：伯乐在线  10大算法 字符串和数组 链表 树 图 排序 递归 VS.迭代 动态规划 位操作 概率问题 排列组合  后记">
+<meta name="keywords" content="面试算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程面试的10大算法概念-常考">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在前面的话 本篇总结了编程面试中常考的10大算法，用Java实现。本文在转载文章的基础上做继续补充。 转自：伯乐在线  10大算法 字符串和数组 链表 树 图 排序 递归 VS.迭代 动态规划 位操作 概率问题 排列组合  后记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2015-01-05T08:15:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编程面试的10大算法概念-常考">
+<meta name="twitter:description" content="写在前面的话 本篇总结了编程面试中常考的10大算法，用Java实现。本文在转载文章的基础上做继续补充。 转自：伯乐在线  10大算法 字符串和数组 链表 树 图 排序 递归 VS.迭代 动态规划 位操作 概率问题 排列组合  后记">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">编程面试的10大算法概念-常考</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">编程面试的10大算法概念-常考</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-01-05T04:10:16.000Z" itemprop="datePublished" class="page-time">
+  2015-01-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/面试分享/">面试分享</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面的话</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#10大算法"><span class="post-toc-number">2.</span> <span class="post-toc-text">10大算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">3.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-编程面试的10大算法概念-常考"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">编程面试的10大算法概念-常考</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年01月05日 12:10" datetime="2015-01-05T04:10:16.000Z"  itemprop="datePublished">2015-01-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/面试分享/">面试分享</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><ul>
+<li>本篇总结了编程面试中常考的10大算法，用Java实现。本文在转载文章的基础上做继续补充。</li>
+<li>转自：<a href="http://blog.jobbole.com/52144/#comments?sukey=fd39034cdd3ad7432f01db02a3895b1bcf134b997a0cb06fd9806fa76ebd482fb6342d366960a226aaf6635fa586fa88" target="_blank" rel="noopener">伯乐在线</a></li>
+</ul>
+<h2 id="10大算法"><a href="#10大算法" class="headerlink" title="10大算法"></a>10大算法</h2><ul>
+<li><a href="http://chenyuqing.github.io/2015/01/05/字符串-编程面试10大常考算法系列-1/" target="_blank" rel="noopener">字符串和数组</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">链表</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">树</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">图</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">排序</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">递归 VS.迭代</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">动态规划</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">位操作</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">概率问题</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">排列组合</a></li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-01-05T08:15:58.000Z" itemprop="dateUpdated">2015年1月5日 16:15</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/01/05/编程面试的10大算法概念-常考/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试算法/">面试算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/&title=《编程面试的10大算法概念-常考》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/&title=《编程面试的10大算法概念-常考》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《编程面试的10大算法概念-常考》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/01/05/字符串-编程面试10大常考算法系列-1/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">字符串-编程面试10大常考算法系列(1)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">【基础】常用的机器学习&amp;数据挖掘知识点</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="编程面试的10大算法概念-常考" data-title="编程面试的10大算法概念-常考" data-url="http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/&title=《编程面试的10大算法概念-常考》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/&title=《编程面试的10大算法概念-常考》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《编程面试的10大算法概念-常考》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/01/05/编程面试的10大算法概念-常考/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3aQW4bMRAEQP3/0w6QU4BY6+4hJ3aA4kmw5F0WBexQPXy94vHxe/z5+u/x7r/e/e/z9Z9fXx54eHh4o6k/T3oGeIbl18yX+JNr4uHh4a3xkmJwPpXZHWdXwMPDw/sJvBY52/cmJDw8PLz/hZc/smeBRU7Cw8PD+wm85Db5dJM4OPlLOx88PDy8f8ObNcC+9/V6fw8PDw9v1FVPRvL4bgPivAB8MTc8PDy8Bd4shG03uMmVk8Vqm2F4eHh4G7w2Ws2jhNlWeHaXt3fEw8PDW+C1BwXuhqdtI61txeHh4eHt8c4bXfkqXv41cPK94eHh4Y14SYQ6a4y1sUV7CCz6Cx4eHt4yb3bUabYFn5WBvKh8krXg4eHhXeLdakptf74tHnh4eHh7vPNJ5DFru+r5rN6+i4eHh7fAaytG+2678c2jjeLQAB4eHt5VXn6bfLXaYtMuZREN4+Hh4S3wZqFA2/5P3m0D32JB8fDw8K7yZkea8ohhFjS0i1WcjMDDw8M75iURwPmWNz8K0B7DqssDHh4e3jEvj26T8bxBzx/r5+EvHh4e3h6vnVC+1c4PE5y30+q6h4eHh3eJlzSW2mklV5uVpTpxwcPDw7vEm21ek1i2PUAwO4xVHBrAw8PDu8Q7mfp5rPCKx8lC4+Hh4W3z8gf9yaM/WYKTkOJ1MhU8PDy8gNcyksf0bGk+yhFt3/Hw8PDWeLNN82wD3RaVthWHh4eHt8e79SDOm1h5eDELIL7o7OHh4eEd82ZB6q0CMGuz5YUKDw8Pb4+XF4PzDffzBnr2mSKMwMPDw7vKy4tBsgTtwYJh1y4vDHh4eHg/kncSVbS7/nxx8fDw8L6Xl5eEWdDwzVtqPDw8vIUwYhbIzg54tcFHdDICDw8P7xKv/anfbnk3Wl/PXwAeHh7eGu8XiQcDJyGJ1tUAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

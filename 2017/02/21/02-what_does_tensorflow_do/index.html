@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Tensorflow到底干了什么？ | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="ML,Tensorflow tutorial,DL">
+    <meta name="description" content="译自learningtensorflow.com 一个简单的例子 Tensorflow当中的运算操作是直到请求时才会进行的。也就是说，它是一种懒惰的计算，这样对你的代码运行有很大的帮助和改善：  复合变量的快速运算 多系统的分布式计算，包括GPUs 减少了一些计算的冗余   让我们来看一下这段code的实践。一个非常简单的python script:(请保证您已经安装好python) 123x">
+<meta name="keywords" content="ML,Tensorflow tutorial,DL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow到底干了什么？">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="译自learningtensorflow.com 一个简单的例子 Tensorflow当中的运算操作是直到请求时才会进行的。也就是说，它是一种懒惰的计算，这样对你的代码运行有很大的帮助和改善：  复合变量的快速运算 多系统的分布式计算，包括GPUs 减少了一些计算的冗余   让我们来看一下这段code的实践。一个非常简单的python script:(请保证您已经安装好python) 123x">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/tf_tutorial/02_basic/code01.jpg">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/tf_tutorial/02_basic/code02.jpg">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/tf_tutorial/02_basic/code03.jpg">
+<meta property="og:updated_time" content="2017-02-21T09:33:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow到底干了什么？">
+<meta name="twitter:description" content="译自learningtensorflow.com 一个简单的例子 Tensorflow当中的运算操作是直到请求时才会进行的。也就是说，它是一种懒惰的计算，这样对你的代码运行有很大的帮助和改善：  复合变量的快速运算 多系统的分布式计算，包括GPUs 减少了一些计算的冗余   让我们来看一下这段code的实践。一个非常简单的python script:(请保证您已经安装好python) 123x">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/tf_tutorial/02_basic/code01.jpg">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Tensorflow到底干了什么？</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Tensorflow到底干了什么？</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-02-21T06:04:27.000Z" itemprop="datePublished" class="page-time">
+  2017-02-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Tensorflow/">Tensorflow</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一个简单的例子"><span class="post-toc-number">1.</span> <span class="post-toc-text">一个简单的例子</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-02-what_does_tensorflow_do"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Tensorflow到底干了什么？</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年02月21日 14:04" datetime="2017-02-21T06:04:27.000Z"  itemprop="datePublished">2017-02-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Tensorflow/">Tensorflow</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><p>译自<a href="http://learningtensorflow.com/lesson2/" target="_blank" rel="noopener">learningtensorflow.com</a></p>
+<h2 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h2></li>
+<li><p>Tensorflow当中的运算操作是直到请求时才会进行的。也就是说，它是一种懒惰的计算，这样对你的代码运行有很大的帮助和改善：</p>
+<ul>
+<li>复合变量的快速运算</li>
+<li>多系统的分布式计算，包括GPUs</li>
+<li>减少了一些计算的冗余</li>
+</ul>
+</li>
+<li><p>让我们来看一下这段code的实践。一个非常简单的python script:(请保证您已经安装好python)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">35</span></span><br><span class="line">y = x + <span class="number">5</span></span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/tf_tutorial/02_basic/code01.jpg" alt="tf_logo" title>
+                </div>
+                <div class="image-caption">tf_logo</div>
+            </figure></li>
+<li><p>这段script只是创建了一个值为35的变量x，然后创建一个新的变量y，它的值定为x+5，然后输出。那么这么一段简单的代码用tensorflow是怎么实现的呢？(请保证您已经安装好tensorflow)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">x = tf.constant(<span class="number">35</span>, name = <span class="string">"x"</span>)</span><br><span class="line">y = tf.Variable(x + <span class="number">5</span>, name = <span class="string">"y"</span>)</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/tf_tutorial/02_basic/code02.jpg" alt="tf_logo" title>
+                </div>
+                <div class="image-caption">tf_logo</div>
+            </figure>
+</li>
+<li><p>运行本段代码，你可能会返回类似上面的结果，这很明显不是40。</p>
+</li>
+<li><p>为什么呢？为什么这里输出的结果不是40呢？因为这段代码做了以下这些操作：</p>
+<ul>
+<li>导入module tensorflow并起了一个别名 <strong><font color="red">tf</font></strong></li>
+<li>创建了一个常量x，并且赋值为35</li>
+<li>创建了一个变量y，并且把它的值定义为等式：x + 5</li>
+<li>输出等式对象y</li>
+</ul>
+</li>
+<li><p>这段代码和python当中的微小区别是y并没有立刻计算了x + 5的值。它的定义是：当y被计算时，获取x当时的值，再加5就是y的值。所以，上面的y值的计算从来就没有被执行过。</p>
+</li>
+<li><p>我们来修改一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">x = tf.constant(<span class="number">35</span>, name = <span class="string">"x"</span>)</span><br><span class="line">y = tf.Variable(x + <span class="number">5</span>, name = <span class="string">"y"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最新版本的tensorflow已经改为 tf.global_variables_initializer()来对变量进行初始化</span></span><br><span class="line">model = tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">	sess.run(model)</span><br><span class="line">	print(sess.run(y))</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/tf_tutorial/02_basic/code03.jpg" alt="tf_logo" title>
+                </div>
+                <div class="image-caption">tf_logo</div>
+            </figure>
+</li>
+<li><p>我们把print(y)这个语句删掉了，然后我们创建了一个session，用它来实际上计算y的值。它确实非常像引用，但它实际上是这样工作的：</p>
+<ul>
+<li>导入module tensorflow并起了一个别名 <strong><font color="red">tf</font></strong></li>
+<li>创建了一个常量x，并且赋值为35</li>
+<li>创建了一个变量y，并且把它的值定义为等式：x + 5</li>
+<li>初始化所有变量 tf.global_variables_initializer()</li>
+<li>创建一个session来计算y的值</li>
+<li>运行第4句当中的model</li>
+<li>运行y的值，并且指向了y的当前值</li>
+</ul>
+</li>
+<li><p>上面的第4句：tf.global_variables_initializer()就是奇迹发生的地方。在这一步，一个保存着变量之间的依赖关系的图生成了。这里是y的值依赖x，然后把x的值加上5.请一定记住y的值的计算一直到session.run(y)这里才执行，然后这里再去计算变量之间的等式和关系。</p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-21T09:33:08.000Z" itemprop="dateUpdated">2017年2月21日 17:33</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/02/21/02-what_does_tensorflow_do/" target="_blank" rel="external">http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DL/">DL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tensorflow-tutorial/">Tensorflow tutorial</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/&title=《Tensorflow到底干了什么？》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/&title=《Tensorflow到底干了什么？》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Tensorflow到底干了什么？》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/02/21/03-what-is-neural-network/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">什么是神经网络？</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/02/20/01_overview_contents/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Overview of Tensorflow</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="02-what_does_tensorflow_do" data-title="Tensorflow到底干了什么？" data-url="http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/&title=《Tensorflow到底干了什么？》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/&title=《Tensorflow到底干了什么？》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Tensorflow到底干了什么？》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/02/21/02-what_does_tensorflow_do/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3aMXLDMAwEwPz/084DEst3gOhRsaoytkxxVRAIgJ+f+HpdXn/vvF7n3crX91+vvLrw8PDwDmz9FVzX273e6DXy3QrJ68bDw8M7x9sfysnjN79K9oOHh4f3ZN71tpKVk/tnK+Ph4eE9k/cuFW4/eXTcw8PDw7vktUtvkuY28Hyp1oKHh4fX7SHqIj3n7yP9PTw8PLx1V32W+CalhKRV1rbf/nkWHh4e3gFe29zalBXqIkLwgpLiCB4eHt4J3qxMkD+4OMTjcLKqVePh4eEteLM0dx9Irsuy+aH/gYqHh4d3gDdbYt/oar/NX/oHJB4eHt6aN0uLN8d0fpS3gwVFdMLDw8O7lTdcaJ1MJ/tpG2N4eHh4p3mbpv4mHW+DU/EtHh4e3gHe7GczfItsg8fb5+Lh4eHdytsMUeUV4jZRzhP3KCTg4eHh3crLR6Oul94k2fnKs5YbHh4e3jnebLxpdsRvGMlubxi9wsPDw5tkrQdLt5uMdzMAgYeHh3cXrx2oWg1CleGhHd76Zx08PDy8Y7wTiXU7LpCPWBXFCDw8PLxbeXlDKwfkxdlZETYJFVGejoeHh7fgJZ/s21HtqywYeHh4eF/k5c2kNkXOw0ZbtmhHEPDw8PDO8dojuy3jztZvE/SoDYaHh4e35rVFgVd5nR4yiGIdHh4e3jHebNwqb1wlhYZ2Px+oeHh4eF/h5els3ubfBINZqMDDw8M7wZslx+0j24GtNgy8fS4eHh7eAd5+u3lzaz8okBdKVrEFDw8PLx69mrX87xqQSp7bji/g4eHhneZtDuXZ0ECeKG/Gs/Dw8PCewNuUBtrRgVlBGQ8PD+9pvFny3Q4BtCNfTazAw8PDu4eXJ775a2oT5X2zbVXGxcPDw+uy3/6f/JvuHBZn773w8PDw0usXfuFUuQdUvOYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

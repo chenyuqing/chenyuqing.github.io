@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>how to use git quickly Part 1 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="github,git">
+    <meta name="description" content="Suppose you are new to git and github and you want to use it quickly. This is the situation I write this post.  Get a free account of github, that’s easy for you guys. Install the git on Windows or L">
+<meta name="keywords" content="github,git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="how to use git quickly Part 1">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="Suppose you are new to git and github and you want to use it quickly. This is the situation I write this post.  Get a free account of github, that’s easy for you guys. Install the git on Windows or L">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/git-tuto/part1/ssh-key.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/git-tuto/part1/set.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/git-tuto/part1/ssh.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/git-tuto/part1/newssh.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/git-tuto/part1/title-key.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/git-tuto/part1/check.png">
+<meta property="og:updated_time" content="2017-03-02T07:39:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="how to use git quickly Part 1">
+<meta name="twitter:description" content="Suppose you are new to git and github and you want to use it quickly. This is the situation I write this post.  Get a free account of github, that’s easy for you guys. Install the git on Windows or L">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/git-tuto/part1/ssh-key.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">how to use git quickly Part 1</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">how to use git quickly Part 1</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-03-02T04:34:23.000Z" itemprop="datePublished" class="page-time">
+  2017-03-02
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#configure-your-git-local"><span class="post-toc-number">1.</span> <span class="post-toc-text">configure your git local</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Generating-a-new-SSH-key"><span class="post-toc-number">2.</span> <span class="post-toc-text">Generating a new SSH key</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Adding-your-SSH-key-to-the-ssh-agent"><span class="post-toc-number">3.</span> <span class="post-toc-text">Adding your SSH key to the ssh-agent</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Testing-your-ssh-connection-with-github"><span class="post-toc-number">4.</span> <span class="post-toc-text">Testing your ssh connection with github</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Next-step"><span class="post-toc-number">5.</span> <span class="post-toc-text">Next step</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-how-to-use-git-quickly-part1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">how to use git quickly Part 1</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年03月02日 12:34" datetime="2017-03-02T04:34:23.000Z"  itemprop="datePublished">2017-03-02</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>Suppose you are new to git and github and you want to use it quickly. This is the situation I write this post. <ol>
+<li>Get a free account of github, that’s easy for you guys.</li>
+<li>Install the git on Windows or Linux, that’s easy too.</li>
+<li>Then I use the Ubuntu as an example.</li>
+</ol>
+</li>
+</ul>
+<h2 id="configure-your-git-local"><a href="#configure-your-git-local" class="headerlink" title="configure your git local"></a>configure your git local</h2><ul>
+<li>After you install git, open git bash and configure you git, like your user name and email of your github account.<a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup" target="_blank" rel="noopener">git official tutorial</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;John Doe&quot;</span><br><span class="line">$ git config --global user.email johndoe@example.com</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Generating-a-new-SSH-key"><a href="#Generating-a-new-SSH-key" class="headerlink" title="Generating a new SSH key"></a>Generating a new SSH key</h2><ul>
+<li><p>Then get your local ssh key and copy it to your github account, <a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/" target="_blank" rel="noopener">git official tutorial</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>This creates a new ssh key, using the provided email as a label.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>When you’re prompted to “Enter a file in which to save the key,” press Enter. This accepts the default file location.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>At the prompt, type a secure passphrase. And if you want to skip the password, just press Enter twice and it will be done.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase): [Type a passphrase]</span><br><span class="line">Enter same passphrase again: [Type passphrase again]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Adding-your-SSH-key-to-the-ssh-agent"><a href="#Adding-your-SSH-key-to-the-ssh-agent" class="headerlink" title="Adding your SSH key to the ssh-agent"></a>Adding your SSH key to the ssh-agent</h2><ul>
+<li><p>After you generate your ssh key, go to the destination and open the <strong>id_rsa.pub</strong> and copy the contents like this:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/git-tuto/part1/ssh-key.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure> </li>
+<li><p>Then log in your github account and find the setting part </p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/git-tuto/part1/set.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure> </li>
+<li><p>And then from the left menu to find the <strong>SSH and GPG Keys</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/git-tuto/part1/ssh.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure> </li>
+<li><p>Click the right button and add new ssh key</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/git-tuto/part1/newssh.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure> </li>
+<li><p>You will be asked add the title and ssh key</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/git-tuto/part1/title-key.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure> 
+<h2 id="Testing-your-ssh-connection-with-github"><a href="#Testing-your-ssh-connection-with-github" class="headerlink" title="Testing your ssh connection with github"></a>Testing your ssh connection with github</h2></li>
+<li><p>Now go back to your git bash, and type into </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>You will get the response like this</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/git-tuto/part1/check.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure> </li>
+<li><p>That means you connect to your github successfully! Congratuations!</p>
+</li>
+</ul>
+<h2 id="Next-step"><a href="#Next-step" class="headerlink" title="Next step"></a>Next step</h2><ul>
+<li>Since you have configured your git and github, let’s do a simple practice now.  <a href="http://chenyuqing.github.com/2017/03/02/how-to-use-git-quickly-part2/" target="_blank" rel="noopener">Go to Part2</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-03-02T07:39:20.000Z" itemprop="dateUpdated">2017年3月2日 15:39</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/03/02/how-to-use-git-quickly-part1/" target="_blank" rel="external">http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/&title=《how to use git quickly Part 1》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/&title=《how to use git quickly Part 1》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《how to use git quickly Part 1》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/03/02/how-to-use-git-quickly-part2/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">how to use git quickly part 2</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/02/28/how-to-install-googlepinyin-on-ubuntun/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">how to install Google-pinyin on Ubuntu</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="how-to-use-git-quickly-part1" data-title="how to use git quickly Part 1" data-url="http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/&title=《how to use git quickly Part 1》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/&title=《how to use git quickly Part 1》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《how to use git quickly Part 1》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/03/02/how-to-use-git-quickly-part1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqUlEQVR42u3aQW7bUAwE0Nz/0i7QVYHC9QwptinwtAocJ/rPC5Ee8usrvl4/rz+//vrlevdK/le///bdGR648PDw8EZHf3clR09I7+7YfhD5mfHw8PCueclDPy8e+ceRnCQ/Dx4eHt534717cLdHf6qQ4OHh4f0vvFlrm+CTjw8PDw/v+/CSMCIPXvMjtvHHYdaCh4eHF/PaAdh3+PlwvoeHh4e3mKrnpaIda83+Q31OPDw8vANeu+TUtrl5LLtpsj8UDzw8PLwDXtuRtsWgPVCygHXYcOPh4eEFJWHfLm9WATbl50ObjoeHh3fA22SeebVp/9sGNpzy4eHh4S14swXTp5YJ2oWqoiDh4eHhPcqbwfalYoMpshY8PDy8M94mRLgOMtp34uHh4V3zZksAyRGTotK277MmHg8PD++CtwkRcl4b+M6WtPDw8PDueJtQoG2+/2omvc888PDw8IJDzB79s1HZvjBEXwDw8PDwznjtzdoHd/Lon615FS01Hh4e3kO8aHS0GdvHB9qEEXVKjYeHh7fmtSOuTTBxsXQ1LAl4eHh4I95mWDUrJ/lHU0cPsx0xPDw8vJKXB695MNEOrvIYYjiQw8PDwzvgtXFDcvtZPJG/UnxjwMPDw3uU92xJyBvlvJC0DT0eHh7eNW8TAczWAmalZbZYgIeHh3fBe8VXPqqfLWPN7vjhnXh4eHgHvNmiQNLmJuDNykL9fjw8PLyHeK/yylvwp9a5VosOeHh4eAe8/NqHrbNDtI37kIqHh4dX8vIYoh2SPRYlxGeoqx8eHh7egjcbYm0e5Rcl5MPqFR4eHt4/4rUhbBvLtkUFDw8P7zvz2sd3vkawiX2jpQE8PDy8A14eRszG//mxHh6q4eHh4d3O64sGdxPXtnHwLHrGw8PDO+D9AFMXsYaIGtX/AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

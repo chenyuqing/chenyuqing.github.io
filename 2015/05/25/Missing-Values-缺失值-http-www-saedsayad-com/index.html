@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Missing-Values-缺失值-http://www.saedsayad.com | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="www.saedsayad.com">
+    <meta name="description" content="缺失值 缺失值是一个比较常见的情况，而且你需要谨慎处理好它。数据中的一个缺失值可以表示很多东西。可能是数据不存在或者不适用或者没发生。也可能是输入数据的那个人不知道输入的数据正确与否，或者忘记输入了。不同的数据挖掘方法对缺失值有不同的处理方式。一般上，它们跳过缺失值，或者直接把包含缺失值的记录排除掉，或者利用均值来代替缺失值，或者利用现有的数据代替缺失值。">
+<meta name="keywords" content="www.saedsayad.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Missing-Values-缺失值-http:&#x2F;&#x2F;www.saedsayad.com">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="缺失值 缺失值是一个比较常见的情况，而且你需要谨慎处理好它。数据中的一个缺失值可以表示很多东西。可能是数据不存在或者不适用或者没发生。也可能是输入数据的那个人不知道输入的数据正确与否，或者忘记输入了。不同的数据挖掘方法对缺失值有不同的处理方式。一般上，它们跳过缺失值，或者直接把包含缺失值的记录排除掉，或者利用均值来代替缺失值，或者利用现有的数据代替缺失值。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/missing-value/Missing_value.png">
+<meta property="og:updated_time" content="2015-05-25T04:48:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Missing-Values-缺失值-http:&#x2F;&#x2F;www.saedsayad.com">
+<meta name="twitter:description" content="缺失值 缺失值是一个比较常见的情况，而且你需要谨慎处理好它。数据中的一个缺失值可以表示很多东西。可能是数据不存在或者不适用或者没发生。也可能是输入数据的那个人不知道输入的数据正确与否，或者忘记输入了。不同的数据挖掘方法对缺失值有不同的处理方式。一般上，它们跳过缺失值，或者直接把包含缺失值的记录排除掉，或者利用均值来代替缺失值，或者利用现有的数据代替缺失值。">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/missing-value/Missing_value.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Missing-Values-缺失值-http://www.saedsayad.com</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Missing-Values-缺失值-http://www.saedsayad.com</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-25T02:01:41.000Z" itemprop="datePublished" class="page-time">
+  2015-05-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#缺失值"><span class="post-toc-number">1.</span> <span class="post-toc-text">缺失值</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#缺失值替代策略"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">缺失值替代策略</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Missing-Values-缺失值-http-www-saedsayad-com"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Missing-Values-缺失值-http://www.saedsayad.com</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年05月25日 10:01" datetime="2015-05-25T02:01:41.000Z"  itemprop="datePublished">2015-05-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="缺失值"><a href="#缺失值" class="headerlink" title="缺失值"></a>缺失值</h2><ul>
+<li>缺失值是一个比较常见的情况，而且你需要谨慎处理好它。数据中的一个缺失值可以表示很多东西。可能是数据不存在或者不适用或者没发生。也可能是输入数据的那个人不知道输入的数据正确与否，或者忘记输入了。不同的数据挖掘方法对缺失值有不同的处理方式。一般上，它们跳过缺失值，或者直接把包含缺失值的记录排除掉，或者利用均值来代替缺失值，或者利用现有的数据代替缺失值。<br><center><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/univariate_analysis/missing-value/Missing_value.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></center></li>
+</ul>
+<h3 id="缺失值替代策略"><a href="#缺失值替代策略" class="headerlink" title="缺失值替代策略"></a>缺失值替代策略</h3><ul>
+<li><p>忽视带缺失值的记录。</p>
+</li>
+<li><p>把缺失值换成一个全局常数</p>
+</li>
+<li><p>根据领域知识手动填充缺失值</p>
+</li>
+<li><p>如果是数值型的缺失值，换为它们的均值；如果是分类型的缺失值，换为它们出现最频繁的值。</p>
+</li>
+<li><p>利用模型方法，譬如最近邻居，贝叶斯规则，决策树或者最大期望值算法解决。</p>
+</li>
+<li><p><a href="http://www.saedsayad.com/missing_values.htm" target="_blank" rel="noopener">Original Link</a></p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-05-25T04:48:24.000Z" itemprop="dateUpdated">2015年5月25日 12:48</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/www-saedsayad-com/">www.saedsayad.com</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/&title=《Missing-Values-缺失值-http://www.saedsayad.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/&title=《Missing-Values-缺失值-http://www.saedsayad.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Missing-Values-缺失值-http://www.saedsayad.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/05/25/非监督性装箱法-Unsupervised-Binning-http-www-saedsayad-com/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">非监督的装箱法-Unsupervised-Binning-http://www.saedsayad.com</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/05/25/Encoding编码-http-www-saedsayas-com/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Encoding编码-http://www.saedsayas.com</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="Missing-Values-缺失值-http-www-saedsayad-com" data-title="Missing-Values-缺失值-http://www.saedsayad.com" data-url="http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/&title=《Missing-Values-缺失值-http://www.saedsayad.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/&title=《Missing-Values-缺失值-http://www.saedsayad.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Missing-Values-缺失值-http://www.saedsayad.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/25/Missing-Values-缺失值-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADIUlEQVR42u3aQXLjMAwEwPz/095r9mBlANBVFtQ6pZSYVlOHCQD+/MTX69f17rfv7lQ/lX/2+qkOXNjY2Ng3Yb8uryo734J361/jk/WvV8PGxsbeyq5ikjipbmUeSPmmvL2PjY2N/Xj2PKiSEJrHGzY2NjZ2zk4Kg/zve60ubGxs7CezT7V1JiF3vU3Jhn6kl4aNjY399ew8Kr7/54/Mt7GxsbG/mP0qXtWQyAcAPWrvwsbGxt7EzgNggsxXyIuZ3jrY2NjY+9jVOOkd6EkA+bi3NzaIfo2NjY19W3Y+ZK3GWG/kcL3Rk+/9L8CwsbGxV7BHMRC3jfIhcXK4J/mu6rEhbGxs7Luz84CpHqnphd+8tVR+q9jY2Ng3Z/fOtJz67GQYnG8cNjY29lZ2Tqren5QQ+f3q8/xxUgkbGxv7huz8T6vlSt6WSsqeavRG62BjY2M/hp0UGKdaVNXSIn8B5QDDxsbGvhU7acFPIi0vHiZj4GYvDRsbG3sd+3DjprWJ+WcPrI+NjY19c3Z1pJpsTe/h8tKiN4TGxsbG3spOmkfVgUFv43JwUjiVRwvY2NjYt2Un8ZNH1Px+dYTQDC1sbGzsRexeQz8/KFMNsMkIOY9bbGxs7K3sfFjbY0xGzvkAoPAisbGxsZeye//WV+PkbFj2BsPY2NjYu9m9jUja+tUY64Vf9BqwsbGxF7GTYEha+ZOMOLvdhTWxsbGxV7DzKOpF14SUxGF1YIyNjY29iV0NrXzsmh/QyZtQx54BGxsbexE7j4ckCeej4iSieq8q6qVhY2Nj35xdLQaqm5UPdKsFSfX5sbGxsXezP9fKqTaVqm2s5ngAGxsbeyl7Ej95A2hSchw4AISNjY29gv0qXr0G/WRgUC1doleFjY2NvYg9yb3eljXLhmIJlDeqsLGxsXewq49bDYbeliVr9g7uYGNjY29lJ0vnh2Z67aFk63ulxR9HdrCxsbEfxp7g5+v0Rr/l+TY2Njb2A9h5iTLvdX0iDrGxsbH3sfMyIC8Pqsd0ek2u3pFNbGxs7E3sZlOmOCo49UD5UOFAQwobGxv729n/AFxrxHB4AsDlAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

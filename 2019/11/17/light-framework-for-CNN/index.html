@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Review on 轻量级卷积神经网络的设计 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="deep learning,light framwork,convolution">
+    <meta name="description" content="为什么需要轻量网络？经典backbone网络存在的问题 尽管随着近年来backbone网络的快速发展，由AlexNet到VGG，由VGG到GoogleNet，由GoogleNet到ResNet等等。模型的精度越来越高， 但是通常模型占用内存很大，模型参数很多，这样的话在边缘设备上运行就会很慢。 所以我们需要设计一些参数量更少的网络结构，这样的模型占用内存小，在边缘设备上跑的更快。  怎么解决这个问">
+<meta name="keywords" content="deep learning,light framwork,convolution">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Review on 轻量级卷积神经网络的设计">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="为什么需要轻量网络？经典backbone网络存在的问题 尽管随着近年来backbone网络的快速发展，由AlexNet到VGG，由VGG到GoogleNet，由GoogleNet到ResNet等等。模型的精度越来越高， 但是通常模型占用内存很大，模型参数很多，这样的话在边缘设备上运行就会很慢。 所以我们需要设计一些参数量更少的网络结构，这样的模型占用内存小，在边缘设备上跑的更快。  怎么解决这个问">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/squeezeNet.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/mobilenetv1.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/orig-conv.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/depth-wise-sep-con.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/depth-wise-conv.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/bottleneck.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/inverted-residual.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/mobilenet-v2.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/channel-shuffle.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/shuffleNet-unit.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/shfln-v2-g1.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/shfln-v2-g2.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/shfln-v2-g3.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/light-cnn/shfln-v2-g4.png">
+<meta property="og:updated_time" content="2019-11-17T06:23:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Review on 轻量级卷积神经网络的设计">
+<meta name="twitter:description" content="为什么需要轻量网络？经典backbone网络存在的问题 尽管随着近年来backbone网络的快速发展，由AlexNet到VGG，由VGG到GoogleNet，由GoogleNet到ResNet等等。模型的精度越来越高， 但是通常模型占用内存很大，模型参数很多，这样的话在边缘设备上运行就会很慢。 所以我们需要设计一些参数量更少的网络结构，这样的模型占用内存小，在边缘设备上跑的更快。  怎么解决这个问">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/light-cnn/squeezeNet.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Review on 轻量级卷积神经网络的设计</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Review on 轻量级卷积神经网络的设计</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-11-17T04:54:30.000Z" itemprop="datePublished" class="page-time">
+  2019-11-17
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么需要轻量网络？"><span class="post-toc-number">1.</span> <span class="post-toc-text">为什么需要轻量网络？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#经典backbone网络存在的问题"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">经典backbone网络存在的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#怎么解决这个问题"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">怎么解决这个问题</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本Review只是讨论轻量网络的设计"><span class="post-toc-number">2.</span> <span class="post-toc-text">本Review只是讨论轻量网络的设计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SqueezeNet"><span class="post-toc-number">3.</span> <span class="post-toc-text">SqueezeNet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MobileNet"><span class="post-toc-number">4.</span> <span class="post-toc-text">MobileNet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MobileNetV2"><span class="post-toc-number">5.</span> <span class="post-toc-text">MobileNetV2</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ShuffleNet"><span class="post-toc-number">6.</span> <span class="post-toc-text">ShuffleNet</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ShuffleNetV2"><span class="post-toc-number">7.</span> <span class="post-toc-text">ShuffleNetV2</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Summary"><span class="post-toc-number">8.</span> <span class="post-toc-text">Summary</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#References"><span class="post-toc-number">9.</span> <span class="post-toc-text">References</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-light-framework-for-CNN"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Review on 轻量级卷积神经网络的设计</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年11月17日 12:54" datetime="2019-11-17T04:54:30.000Z"  itemprop="datePublished">2019-11-17</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="为什么需要轻量网络？"><a href="#为什么需要轻量网络？" class="headerlink" title="为什么需要轻量网络？"></a>为什么需要轻量网络？</h2><h3 id="经典backbone网络存在的问题"><a href="#经典backbone网络存在的问题" class="headerlink" title="经典backbone网络存在的问题"></a>经典backbone网络存在的问题</h3><ul>
+<li>尽管随着近年来backbone网络的快速发展，由AlexNet到VGG，由VGG到GoogleNet，由GoogleNet到ResNet等等。模型的精度越来越高，</li>
+<li>但是通常模型占用内存很大，模型参数很多，这样的话在边缘设备上运行就会很慢。</li>
+<li>所以我们需要设计一些参数量更少的网络结构，这样的模型占用内存小，在边缘设备上跑的更快。</li>
+</ul>
+<h3 id="怎么解决这个问题"><a href="#怎么解决这个问题" class="headerlink" title="怎么解决这个问题"></a>怎么解决这个问题</h3><pre><code>1. 网络压缩
+2. 轻量网络的设计</code></pre><h2 id="本Review只是讨论轻量网络的设计"><a href="#本Review只是讨论轻量网络的设计" class="headerlink" title="本Review只是讨论轻量网络的设计"></a>本Review只是讨论轻量网络的设计</h2><ul>
+<li>轻量网络设计的发展历程，我们按照提出的时间可以分为3个版本<br>  （1）Version 1， 【2016-2017】，SqueezeNet–&gt; MobileNet –&gt; ShuffleNet –&gt; Xception<br>  （2）Version 2， 【2017-2018】，SqueezeNext–&gt; MobileNetV2 –&gt; ShuffleNetV2<br>  （3）Version 3， 【2018-2019】，AutoShuffleNet–&gt; MobileNetV3</li>
+<li>这里我们总结一下5个轻量网络，<strong>SqueezeNet，MobileNet，ShuffleNet，MobileNetV2，ShuffleNetV2</strong></li>
+</ul>
+<h2 id="SqueezeNet"><a href="#SqueezeNet" class="headerlink" title="SqueezeNet"></a>SqueezeNet</h2><ol>
+<li>核心思想<br>a. 用更多的1*1卷积核替代3*3卷积核的使用，因为1*1卷积核可以在保output=input的同时减少了通道数<br>b. 在3*3卷积核中用更少的通道数，这样直接减少了模型的参数<br>c. 延迟下采样</li>
+<li>模块化卷积fire module<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/squeezeNet.png" alt="fire" title>
+                </div>
+                <div class="image-caption">fire</div>
+            </figure></li>
+</ol>
+<ul>
+<li>fire module包含2个部分：Squeeze Layer和Expend Layer。</li>
+<li>Squeeze Layer直接用1*1降低了通道数并保持output=input</li>
+<li>Expend Layer是1*1卷积和3*3卷积的混合使用</li>
+</ul>
+<ol start="3">
+<li>实验结果</li>
+</ol>
+<ul>
+<li>SqueezeNet的参数比AlexNet少50x，但是模型性能(accuracy)与AlexNet结晶。</li>
+</ul>
+<h2 id="MobileNet"><a href="#MobileNet" class="headerlink" title="MobileNet"></a>MobileNet</h2><ol>
+<li>核心思想，深度可分离卷积结构 depthwise separable convolution</li>
+</ol>
+<ul>
+<li>深度可分离卷积是把一个传统卷积层分解成了2个卷积层，depthwise -wise和point-wise convolutiion.<ul>
+<li>depthwise -wise卷积是单独在通道上做的卷积，是分组卷积中groups=channels的极端情况。</li>
+<li>point-wise卷积是用1*1卷积核连接通道之间的特征信息。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/mobilenetv1.png" alt="mobilenet" title>
+                </div>
+                <div class="image-caption">mobilenet</div>
+            </figure></li>
+</ul>
+</li>
+<li>可以计算参数如下<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/orig-conv.png" alt="traditional-convolution" title>
+                </div>
+                <div class="image-caption">traditional-convolution</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/depth-wise-sep-con.png" alt="depthwise-separable-convolution" title>
+                </div>
+                <div class="image-caption">depthwise-separable-convolution</div>
+            </figure></li>
+<li>结构图如下<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/depth-wise-conv.png" alt="depth-wise-convlution" title>
+                </div>
+                <div class="image-caption">depth-wise-convlution</div>
+            </figure></li>
+</ul>
+<ol start="2">
+<li>实验结果</li>
+</ol>
+<ul>
+<li>深度可分离卷积实现了和传统卷积相同的输入和输出操作，在保证准确率的条件下，但是计算参数量减少约为原来的1/7，计算时间减少约为原来的1/9。</li>
+</ul>
+<h2 id="MobileNetV2"><a href="#MobileNetV2" class="headerlink" title="MobileNetV2"></a>MobileNetV2</h2><ol>
+<li>核心思想，Inverted Residuals &amp; Linear Bottlenecks</li>
+</ol>
+<ul>
+<li><p>首先说一下ResNet中的Residual block的思想，就是在进行3*3卷积之前，插入1*1卷积进行通道数的“压缩”，在3*3卷积之后又插入1*1卷积进行通道数的“扩张”（input~=output）。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/bottleneck.png" alt="bottleneck" title>
+                </div>
+                <div class="image-caption">bottleneck</div>
+            </figure></li>
+<li><p>而Inverted Residuals则是反了过来，先用1*1卷积进行通道数的“扩张”，然后经过3*3的depthwise separable convolution，最后插入1*1卷积进行通道数的“压缩”(input~=output).</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/inverted-residual.png" alt="inverted-residuals" title>
+                </div>
+                <div class="image-caption">inverted-residuals</div>
+            </figure></li>
+<li><p>Linear Bottlenecks，original bottlenecks是在卷积层之后做elwise + Relu，而linear bottlenecks则是elwise + withou relu。原因是本来参数量不多的情况下，如果用relu让负半轴为0，那么模型的学习能力就更有限了，所以直接删除relu。</p>
+</li>
+<li><p>利用stride=2的卷积层做下采样。结构图如下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/mobilenet-v2.png" alt="mobilenet-v2" title>
+                </div>
+                <div class="image-caption">mobilenet-v2</div>
+            </figure>
+
+</li>
+</ul>
+<h2 id="ShuffleNet"><a href="#ShuffleNet" class="headerlink" title="ShuffleNet"></a>ShuffleNet</h2><ol>
+<li>核心思想，用1*1Group Conv做channel shuffle。<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/channel-shuffle.png" alt="channel-shuffle" title>
+                </div>
+                <div class="image-caption">channel-shuffle</div>
+            </figure>
+</li>
+</ol>
+<ul>
+<li>shuffle unit<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/shuffleNet-unit.png" alt="shuffle-unit" title>
+                </div>
+                <div class="image-caption">shuffle-unit</div>
+            </figure>
+
+</li>
+</ul>
+<h2 id="ShuffleNetV2"><a href="#ShuffleNetV2" class="headerlink" title="ShuffleNetV2"></a>ShuffleNetV2</h2><ol>
+<li>核心思想，Time = T(FLOPS) + T(I/O)。</li>
+</ol>
+<ul>
+<li>提出了4个指导原则，<br>  a, 当input channel=output channel，卷积计算所需的MAC(memory access cost)最为节省。  <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/shfln-v2-g1.png" alt="Guidie-1" title>
+                </div>
+                <div class="image-caption">Guidie-1</div>
+            </figure>
+  b, 过多的group convolution操作会加大MAC开销。  <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/shfln-v2-g2.png" alt="Guidie-2" title>
+                </div>
+                <div class="image-caption">Guidie-2</div>
+            </figure>
+  c, 网络结构整体的碎片化会减少其可并行优化的程序。  <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/shfln-v2-g3.png" alt="Guidie-3" title>
+                </div>
+                <div class="image-caption">Guidie-3</div>
+            </figure>
+  d, Else-wise操作小号的时间较多。  <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/light-cnn/shfln-v2-g4.png" alt="Guidie-4" title>
+                </div>
+                <div class="image-caption">Guidie-4</div>
+            </figure>
+
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>实践中，首选是ShuffleNet-V2/MobileNet-V2，第二选择是MoblileNet</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>SqueezeNet <a href="https://arxiv.org/abs/1602.07360" target="_blank" rel="noopener">https://arxiv.org/abs/1602.07360</a><br>MobileNet <a href="https://arxiv.org/abs/1704.04861" target="_blank" rel="noopener">https://arxiv.org/abs/1704.04861</a><br>ShuffleNet <a href="https://arxiv.org/abs/1707.01083" target="_blank" rel="noopener">https://arxiv.org/abs/1707.01083</a><br>MobileNetV2 <a href="https://arxiv.org/abs/1801.04381" target="_blank" rel="noopener">https://arxiv.org/abs/1801.04381</a><br>ShuffleNetV2 <a href="https://arxiv.org/abs/1807.11164" target="_blank" rel="noopener">https://arxiv.org/abs/1807.11164</a><br>Resnet <a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener">https://arxiv.org/abs/1512.03385</a></p>
+<p>SqueezeNet<br><a href="https://zhuanlan.zhihu.com/p/31558773" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/31558773</a><br><a href="https://blog.csdn.net/csdnldp/article/details/78648543" target="_blank" rel="noopener">https://blog.csdn.net/csdnldp/article/details/78648543</a></p>
+<p>MobileNet<br><a href="https://www.cnblogs.com/adong7639/p/7918527.html" target="_blank" rel="noopener">https://www.cnblogs.com/adong7639/p/7918527.html</a></p>
+<p>MobileNetV2<br><a href="https://blog.csdn.net/u011995719/article/details/79135818" target="_blank" rel="noopener">https://blog.csdn.net/u011995719/article/details/79135818</a></p>
+<p>ShuffleNetV2<br><a href="https://www.jianshu.com/p/71e32918ea0a" target="_blank" rel="noopener">https://www.jianshu.com/p/71e32918ea0a</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/35405071" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/35405071</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-11-17T06:23:43.000Z" itemprop="dateUpdated">2019年11月17日 14:23</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2019/11/17/light-framework-for-CNN/" target="_blank" rel="external">http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/convolution/">convolution</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/">deep learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/light-framwork/">light framwork</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/&title=《Review on 轻量级卷积神经网络的设计》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/&title=《Review on 轻量级卷积神经网络的设计》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Review on 轻量级卷积神经网络的设计》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/11/22/how-to-install-caffe-in-ubuntu16-04/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">how to install caffe in ubuntu16.04</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/09/14/pa-interview-record/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">pa-interview-record</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="light-framework-for-CNN" data-title="Review on 轻量级卷积神经网络的设计" data-url="http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/&title=《Review on 轻量级卷积神经网络的设计》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/&title=《Review on 轻量级卷积神经网络的设计》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Review on 轻量级卷积神经网络的设计》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/11/17/light-framework-for-CNN/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3cQW4jMQwEwPz/07vXBIm93aTkdYCak2FrZlQ6SAxJ5OMjvv58ur5/8/x6NP75959//f758IWHh4e3mHoyiZz3fIFm88znjIeHh3eblzzu0fh803805vn4/JDAw8PDe09ePpXZXfnC4eHh4f0W3ixcTp72C849PDw8vHXgO5t6sjRJSvdwrgUPDw8v5s1SqP/385X6Hh4eHt66qp5suHn6oA2+Z20KX+7Fw8PDu8DLN9wEuQnBc1I9Tzw8PLyjvH3Jf9aq1SZz85TElzF4eHh413j51t++Ji+Y5QdPkarAw8PDu8ZrA+VZS8EmHG+XGA8PD+8eL7kt35qjFqigqNb+WtTu8PDw8A7xNk1Rs3B509rVPgcPDw/vBi+fYtsI1T4nL3QVhxAeHh7eBd6maaBFzhq82gYsPDw8vHu8fGieLGifM0s9RIE4Hh4e3mXebBNv0xPtgrbf/NB0hYeHh3eBt08rzNqkVkmEJIWBh4eHd4G3YezTBwem296Fh4eHd4iXTzFPIsyemR8byQLh4eHh3eDl6YPZFp8UzNoUcNF8gIeHh3eZlz961kaQT3pzJNQ9C3h4eHgj3qxNKtqa4xauNkEcHTZ4eHh4l3n5C9rk76adq226KiJ3PDw8vPlOW/wTqDbUzqc1W46oIQwPDw/v5bxTXQn5MiVvLA4wPDw8vJfwToW/bRNVXnKLjgQ8PDy8l/D2Zao2ITtL2hZvxMPDwzvKm224ObttRNgkPn64Cw8PD+8C72yJaxNkFw0BoxIdHh4e3lleexhsWgf2sW4e3OPh4eHd5rU5jDaw3rxrc4Dh4eHhvQ8vSTrkx0DblJAsJR4eHt778PLxsxTGhn0gpMbDw8OLefvWgTyJMCtfDcF4eHh4F3j5H/mzz3kKo21BOFzfw8PDw/v39Rc/g2nO5K/9KAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

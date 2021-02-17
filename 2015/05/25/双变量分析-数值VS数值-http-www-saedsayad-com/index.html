@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>双变量分析-数值VS数值-http://www.saedsayad.com | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="www.saedsayad.com">
+    <meta name="description" content="双变量分析-数值VS数值散点图-Scatter Plot 散点图是一种常用的两个数值变量之间的关系的可视化展示，而且它通常在我们找两个变量之间的线性相关或者拟合回归直线之前就画出来了。散点图可以明确的看出两个变量之间的关系(线性还是非线性)和它们关系的强度。在二维的散点图中可以加入更多信息，譬如，我们可以给点标记记号来表示第三个变量。如果我们正在处理的变量多于两个的数据集，一次展示所有双变量分析的">
+<meta name="keywords" content="www.saedsayad.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="双变量分析-数值VS数值-http:&#x2F;&#x2F;www.saedsayad.com">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="双变量分析-数值VS数值散点图-Scatter Plot 散点图是一种常用的两个数值变量之间的关系的可视化展示，而且它通常在我们找两个变量之间的线性相关或者拟合回归直线之前就画出来了。散点图可以明确的看出两个变量之间的关系(线性还是非线性)和它们关系的强度。在二维的散点图中可以加入更多信息，譬如，我们可以给点标记记号来表示第三个变量。如果我们正在处理的变量多于两个的数据集，一次展示所有双变量分析的">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/ScatterPlot.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/ScatterPlot_Matrix_1.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/linear-correlation-1.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/linear-correlation-2.png">
+<meta property="og:updated_time" content="2015-05-26T01:07:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="双变量分析-数值VS数值-http:&#x2F;&#x2F;www.saedsayad.com">
+<meta name="twitter:description" content="双变量分析-数值VS数值散点图-Scatter Plot 散点图是一种常用的两个数值变量之间的关系的可视化展示，而且它通常在我们找两个变量之间的线性相关或者拟合回归直线之前就画出来了。散点图可以明确的看出两个变量之间的关系(线性还是非线性)和它们关系的强度。在二维的散点图中可以加入更多信息，譬如，我们可以给点标记记号来表示第三个变量。如果我们正在处理的变量多于两个的数据集，一次展示所有双变量分析的">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/ScatterPlot.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">双变量分析-数值VS数值-http://www.saedsayad.com</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">双变量分析-数值VS数值-http://www.saedsayad.com</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-05-25T14:44:06.000Z" itemprop="datePublished" class="page-time">
+  2015-05-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#双变量分析-数值VS数值"><span class="post-toc-number">1.</span> <span class="post-toc-text">双变量分析-数值VS数值</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#散点图-Scatter-Plot"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">散点图-Scatter Plot</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线性相关-Linear-Correlation"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">线性相关(Linear Correlation)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-双变量分析-数值VS数值-http-www-saedsayad-com"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">双变量分析-数值VS数值-http://www.saedsayad.com</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年05月25日 22:44" datetime="2015-05-25T14:44:06.000Z"  itemprop="datePublished">2015-05-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘系列翻译/">数据挖掘系列翻译</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="双变量分析-数值VS数值"><a href="#双变量分析-数值VS数值" class="headerlink" title="双变量分析-数值VS数值"></a>双变量分析-数值VS数值</h2><h3 id="散点图-Scatter-Plot"><a href="#散点图-Scatter-Plot" class="headerlink" title="散点图-Scatter Plot"></a>散点图-Scatter Plot</h3><ul>
+<li>散点图是一种常用的两个数值变量之间的关系的可视化展示，而且它通常在我们找两个变量之间的线性相关或者拟合回归直线之前就画出来了。散点图可以明确的看出两个变量之间的关系(线性还是非线性)和它们关系的强度。在二维的散点图中可以加入更多信息，譬如，我们可以给点标记记号来表示第三个变量。如果我们正在处理的变量多于两个的数据集，一次展示所有双变量分析的方法是利用散点图矩阵。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/ScatterPlot.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/ScatterPlot_Matrix_1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+<h3 id="线性相关-Linear-Correlation"><a href="#线性相关-Linear-Correlation" class="headerlink" title="线性相关(Linear Correlation)"></a>线性相关(Linear Correlation)</h3><ul>
+<li><p>线性相关量化了两个数值变量之间的线性关系的强度。当两个数值变量之间没有关系时，当其中一个变量值改变(增加或者减少)时，另一个变量值没有变化趋势。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/linear-correlation-1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+</li>
+<li><p><strong>r</strong>仅仅表示两个变量之间的关系强度，它值在-1到1之间。-1代表完美线性负相关，1代表完美线性正相关，0代表没有线性相关。</p>
+</li>
+<li><p>例子：<br><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/Data-Science-Translation/saed/02_explaining_the_past/data_exploration/bivariate_analysis/numerical_numerical/linear-correlation-2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+</li>
+<li><p><a href="http://www.saedsayad.com/numerical_numerical.htm" target="_blank" rel="noopener">Original Link</a></p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-05-26T01:07:32.000Z" itemprop="dateUpdated">2015年5月26日 9:07</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/www-saedsayad-com/">www.saedsayad.com</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/&title=《双变量分析-数值VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/&title=《双变量分析-数值VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《双变量分析-数值VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/05/26/双变量分析-分类VS分类-http-www-saedsayad-com/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">双变量分析-分类VS分类-http://www.saedsayad.com</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/05/25/双变量分析-Bivariate-Analysis-http-www-saedsayad-com/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">双变量分析-Bivariate_Analysis</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="双变量分析-数值VS数值-http-www-saedsayad-com" data-title="双变量分析-数值VS数值-http://www.saedsayad.com" data-url="http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/&title=《双变量分析-数值VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/&title=《双变量分析-数值VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《双变量分析-数值VS数值-http://www.saedsayad.com》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/05/25/双变量分析-数值VS数值-http-www-saedsayad-com/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADI0lEQVR42u3aS27jQAwFQN//0p5tgIycR7INyHRpNUhkuUsD5IGfxyO+nj+unz95fefv6/dn58+8+tSBCxsbG/tD2PlBk2NdAZJnXn0qOXNuwcbGxt7Kvnr066/J78xjJo+03v3Y2NjY2NVYSg5XfZXY2NjY2HN29VivX1m1MYSNjY2Nfaqhnzwn+W3O60UdNjY29m72qcC4w7/fMt/GxsbGvjH7ObjygW6vLZU0rZonx8bGxl7E7q3O9IavvWWgSbGEjY2N/W3s9zVo8ufPA+/xjmNhY2Nj35hdbdPng4FkHafKTsqS6D8AGxsbexH77LB2Uirk0ZWURuWQw8bGxv5YdhI284Wbaruq2sAqL/pgY2Njr2PnYXAqtHrx2RtOXAYYNjY29jp274h5aCWlSHVBp/dCsbGxsfexq2Pa6hgg/0n1dffCDBsbG/sb2L0CIF+1yZ+fR2M+PMDGxsbeyp7DeiPYcnO/WAgdyEBsbGzs27Pni49JUFUbQ70SKNpOwsbGxl7Erjblq+PYdw9uq9+OjY2NvY+dR8ip+/O4ymOsPELGxsbGXsTuLdBMSotqLJ0taR7VmgkbGxv79uxncFXHsdXnzyOz/DRsbGzsRezqQfPGzfyFTgqhaNyLjY2NvY79+qbJWHeylJNXVPm4GhsbG3sT+1Q4VQe38wjMk+g/n8XGxsZex85XZKrhNF/fmbSiLs+JjY2NvYidFwPvazlVX3o+cv7jnNjY2Ngr2KeiKA+2aoFx6kVE0YWNjY29gp3E2HwRs/fqE1gzwLCxsbE/ll390199QZMyZl4m/SHCxsbGXsHOG0PVMOut/szHwNG6DzY2NvYidnWIWy0P8sHAqEnUu7CxsbFXsJuT4bgldHa0UF3QuTwVNjY29iJ2729+PmrNv7466J2vkGJjY2NvYuclRBJLefHQa2n1zlBOb2xsbOwPZFebTb11n0k7qZq9hfEANjY29tew81Ihj6X5q++dBBsbG/s72b0xwOTOPESrLxQbGxt7H7s3iM1bUb3omhQ8USmCjY2NvYKdN2iqjZve0mQvkOYFFTY2NvYHsv8BNvVaPRtXMoYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

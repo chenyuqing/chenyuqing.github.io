@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>SVM入门系列博文-转自Jasper&#39;s Java Jacal-毕设系列 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="SVM入门">
+    <meta name="description" content="写在前面的话 首先这是一个博文的目录，然后它是我在学习SVM的艰难的路途上一束光，它给我带来了光明，让我看透了远方黑暗中的迷雾，把那些扰乱人心的恐惧推下了地平线。简单的说，这就是一篇非常通俗易懂的讲解SVM的系列文章。里面对每一步用到的数学或者概率统计中相关的术语或方法都讲解得很清晰，循循教导。所以，这是一篇不可多得的文章，不得不收藏！ 在此，衷心感谢博主的无私付出，万分钦佩博主的知识水平和讲解上">
+<meta name="keywords" content="SVM入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVM入门系列博文-转自Jasper&#39;s Java Jacal-毕设系列">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在前面的话 首先这是一个博文的目录，然后它是我在学习SVM的艰难的路途上一束光，它给我带来了光明，让我看透了远方黑暗中的迷雾，把那些扰乱人心的恐惧推下了地平线。简单的说，这就是一篇非常通俗易懂的讲解SVM的系列文章。里面对每一步用到的数学或者概率统计中相关的术语或方法都讲解得很清晰，循循教导。所以，这是一篇不可多得的文章，不得不收藏！ 在此，衷心感谢博主的无私付出，万分钦佩博主的知识水平和讲解上">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2015-01-08T11:11:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVM入门系列博文-转自Jasper&#39;s Java Jacal-毕设系列">
+<meta name="twitter:description" content="写在前面的话 首先这是一个博文的目录，然后它是我在学习SVM的艰难的路途上一束光，它给我带来了光明，让我看透了远方黑暗中的迷雾，把那些扰乱人心的恐惧推下了地平线。简单的说，这就是一篇非常通俗易懂的讲解SVM的系列文章。里面对每一步用到的数学或者概率统计中相关的术语或方法都讲解得很清晰，循循教导。所以，这是一篇不可多得的文章，不得不收藏！ 在此，衷心感谢博主的无私付出，万分钦佩博主的知识水平和讲解上">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SVM入门系列博文-转自Jasper&#39;s Java Jacal-毕设系列</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SVM入门系列博文-转自Jasper&#39;s Java Jacal-毕设系列</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-01-08T02:46:10.000Z" itemprop="datePublished" class="page-time">
+  2015-01-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/毕业设计系列/">毕业设计系列</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面的话</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#目录"><span class="post-toc-number">2.</span> <span class="post-toc-text">目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#本站备份"><span class="post-toc-number">3.</span> <span class="post-toc-text">本站备份</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">4.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SVM入门系列博文-转自Jasper's Java Jacal-毕设系列</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年01月08日 10:46" datetime="2015-01-08T02:46:10.000Z"  itemprop="datePublished">2015-01-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/毕业设计系列/">毕业设计系列</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><ul>
+<li>首先这是一个博文的目录，然后它是我在学习SVM的艰难的路途上一束光，它给我带来了光明，让我看透了远方黑暗中的迷雾，把那些扰乱人心的恐惧推下了地平线。简单的说，这就是一篇非常通俗易懂的讲解SVM的系列文章。里面对每一步用到的数学或者概率统计中相关的术语或方法都讲解得很清晰，循循教导。所以，这是一篇不可多得的文章，不得不收藏！</li>
+<li>在此，衷心感谢博主的无私付出，万分钦佩博主的知识水平和讲解上的通俗易懂的技巧。</li>
+</ul>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="http://www.blogjava.net/zhenandaci/archive/2009/02/13/254519.html" target="_blank" rel="noopener">SVM入门（一）至（三）Refresh</a></li>
+<li><a href="http://www.blogjava.net/zhenandaci/archive/2009/02/13/254578.html" target="_blank" rel="noopener">SVM入门（四）线性分类器的求解——问题的描述Part1</a></li>
+<li><a href="http://www.blogjava.net/zhenandaci/archive/2009/02/14/254630.html" target="_blank" rel="noopener">SVM入门（五）线性分类器的求解——问题的描述Part2</a></li>
+<li><a href="http://www.blogjava.net/zhenandaci/archive/2009/03/01/257237.html" target="_blank" rel="noopener">SVM入门（六）线性分类器的求解——问题的转化，直观角度</a></li>
+<li><a href="http://www.blogjava.net/zhenandaci/archive/2009/03/06/258288.html" target="_blank" rel="noopener">SVM入门（七）为何需要核函数</a></li>
+<li><a href="http://www.blogjava.net/zhenandaci/archive/2009/03/15/259786.html" target="_blank" rel="noopener">SVM入门（八）松弛变量</a></li>
+<li><a href="http://www.blogjava.net/zhenandaci/archive/2009/03/17/260315.html" target="_blank" rel="noopener">SVM入门（九）松弛变量（续）</a></li>
+<li><a href="http://www.blogjava.net/zhenandaci/archive/2009/03/26/262113.html" target="_blank" rel="noopener">SVM入门（十）将SVM用于多类分类</a></li>
+</ul>
+<h2 id="本站备份"><a href="#本站备份" class="headerlink" title="本站备份"></a>本站备份</h2><ul>
+<li><a href="http://chenyuqing.github.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-备份-毕设系列/" target="_blank" rel="noopener">SVM入门系列博文-转自Jasper’s Java Jacal-备份-毕设系列</a></li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><ul>
+<li>在阅读本系列文章中，我不但在知识上更加丰富了自己，而且在阅读博文上我也有了一种很深刻的体会，就是在看完了别人的博文后，一定要看一下评论，(特别是对于有深度的又有很多人评论的文章),这些评论不想一般论坛分享资料下的吐槽或僵尸贴，它的内容也是很有深度的，甚至有很多和你一样认真阅读了这篇博文的同志，提出了自己的问题或者自己的观点，这样我们在阅读这些评论的过程中，不但可以遇到一些自己在阅读文章时也有的问题，得到相关的讨论，加深了对文章问题的理解；另一方面也看到别人提出的对同一个问题更多的观点。这是一种思维发散的很好的体现。</li>
+<li>所以，我的总结是：读有深度的文章，交志同道合的朋友，发散更广的思维角度。</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-01-08T11:11:12.000Z" itemprop="dateUpdated">2015年1月8日 19:11</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SVM入门/">SVM入门</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/&title=《SVM入门系列博文-转自Jasper's Java Jacal-毕设系列》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/&title=《SVM入门系列博文-转自Jasper's Java Jacal-毕设系列》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SVM入门系列博文-转自Jasper's Java Jacal-毕设系列》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-备份-毕设系列/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">SVM入门系列博文-转自Jasper&#39;s Java Jacal-备份-毕设系列</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/01/05/字符串-编程面试10大常考算法系列-1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">字符串-编程面试10大常考算法系列(1)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列" data-title="SVM入门系列博文-转自Jasper's Java Jacal-毕设系列" data-url="http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/&title=《SVM入门系列博文-转自Jasper's Java Jacal-毕设系列》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/&title=《SVM入门系列博文-转自Jasper's Java Jacal-毕设系列》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SVM入门系列博文-转自Jasper's Java Jacal-毕设系列》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADNklEQVR42u3awW4bMQwEUP//T7tATy1a2zOkDXiVt6cgDrR6yoHmULdb/Nx/P/nvk3XufzzPP/33Lzd7uGFjY2Mfx74/fR5tKCflmOdvefSbZP3/7BkbGxv7OPa+2CRbbKtJ+66iyGFjY2P/SHbbqDw6svzTWXuDjY2Njb0pYPmL89bl+QFhY2NjY+ehUhLWJCvkh57v6oNZGjY2NvbXszdf97/t5w/Ot7GxsbG/kn0vnzbQb5uK2ae1AhsbG/sgdjuUTb7WJw1Afomn3c/z4y5SLmxsbOyLsN8VJyVXavZHkLccL/492NjY2MexZ6HSHpMUqrwFygfJ2NjY2Key84Fr25bkB7p5e7FDbGxs7OPY7TAgj5CSorI5rLZpiaYi2NjY2JdlJ+PYNojfrz8roi/WxMbGxj6anUc5efzUjg3aYtkOObCxsbFPYm9Gv5smYRP6521MfWsJGxsb+7Ls/DWbkjMLjNq3FwNpbGxs7IPYm0szsxaiPei20LbvwsbGxr4uuwXMgvt2AJAXs9kxYWNjY5/NTgrMZnjQBkD5ToqfsbGxsY9jz8L3PHhKoqUcmeNfFDBsbGzsg9j5FvdBz34ske9nOH/AxsbGvhQ7L055A5BvJQ+e2rCpKMDY2NjYF2fPwpokvmmHB/koIjnuFytjY2NjH8TOW5T8q/++EOZXiNqQ68XesLGxsY9gb2L6WVA1C5hmR3DbnBA2Njb2F7OTcGfTQmxamlnJjI4DGxsb+wh2Hvrk7cRsZLvZT13YsLGxsQ9iz0pOPqBNAqOEN2tUiv88NjY29mXZebyeL51HRfshRD7i/Ws1bGxs7IPYbXz/rlfmJXD2rmjYjI2NjX0Eu20q8os4s4Bp1pzUbQk2Njb2cexb+cwCo/wQ2wapXgcbGxv7OPbm635+1SYf0M7GD8VBY2NjYx/E3hStNkKqs65yCJ0XP2xsbOzz2JvrODksGRLM4v7hhR5sbGzs49ibopW3Cu0xbVqLF8eBjY2N/SPZSWFIVmvDoPeGX9jY2NjYSXFqMZvjzo8eGxsb+2z2LNyZNSf7t28OGhsbG/s89idGrQkmv76TjyjeUNiwsbGxr8T+BZ8w1JhEf1zSAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

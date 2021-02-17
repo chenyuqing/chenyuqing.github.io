@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>排序算法总结 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="排序,算法">
+    <meta name="description" content="排序算法是一个非常重要而且在日常生活中最常用的一种算法之一。面试官往往也是会常考的题目。所以，以下对排序算法做一下总结，而且排序顺序都是由小到大。  冒泡排序(Bubble Sort) 核心思想：按从小到大的排序，前面一个数和后面一个数比较，大的永远靠后，每次可以确定一个最大的数排到了最后，然后下次比较就可以忽略这个排好的数。 伪代码  do   swapped = false   for i">
+<meta name="keywords" content="排序,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法总结">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="排序算法是一个非常重要而且在日常生活中最常用的一种算法之一。面试官往往也是会常考的题目。所以，以下对排序算法做一下总结，而且排序顺序都是由小到大。  冒泡排序(Bubble Sort) 核心思想：按从小到大的排序，前面一个数和后面一个数比较，大的永远靠后，每次可以确定一个最大的数排到了最后，然后下次比较就可以忽略这个排好的数。 伪代码  do   swapped = false   for i">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/sort_algorithms/bubble_sort.gif">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/sort_algorithms/select_sort.gif">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/sort_algorithms/quick_sort.gif">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/sort_algorithms/insert_sort.gif">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/sort_algorithms/merge_sort.gif">
+<meta property="og:updated_time" content="2017-05-24T10:17:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序算法总结">
+<meta name="twitter:description" content="排序算法是一个非常重要而且在日常生活中最常用的一种算法之一。面试官往往也是会常考的题目。所以，以下对排序算法做一下总结，而且排序顺序都是由小到大。  冒泡排序(Bubble Sort) 核心思想：按从小到大的排序，前面一个数和后面一个数比较，大的永远靠后，每次可以确定一个最大的数排到了最后，然后下次比较就可以忽略这个排好的数。 伪代码  do   swapped = false   for i">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/sort_algorithms/bubble_sort.gif">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">排序算法总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">排序算法总结</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-06T11:41:47.000Z" itemprop="datePublished" class="page-time">
+  2017-05-06
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#冒泡排序-Bubble-Sort"><span class="post-toc-number">1.</span> <span class="post-toc-text">冒泡排序(Bubble Sort)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选择排序-Select-Sort"><span class="post-toc-number">2.</span> <span class="post-toc-text">选择排序(Select Sort)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#快速排序-Quick-sort"><span class="post-toc-number">3.</span> <span class="post-toc-text">快速排序(Quick sort)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#插入排序-Insert-sort"><span class="post-toc-number">4.</span> <span class="post-toc-text">插入排序(Insert sort)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#归并排序"><span class="post-toc-number">5.</span> <span class="post-toc-text">归并排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#References"><span class="post-toc-number">6.</span> <span class="post-toc-text">References</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-sort-algorithms"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">排序算法总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年05月06日 19:41" datetime="2017-05-06T11:41:47.000Z"  itemprop="datePublished">2017-05-06</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>排序算法是一个非常重要而且在日常生活中最常用的一种算法之一。面试官往往也是会常考的题目。所以，以下对排序算法做一下总结，而且排序顺序都是由小到大。</li>
+</ul>
+<h2 id="冒泡排序-Bubble-Sort"><a href="#冒泡排序-Bubble-Sort" class="headerlink" title="冒泡排序(Bubble Sort)"></a>冒泡排序(Bubble Sort)</h2><ul>
+<li>核心思想：按从小到大的排序，前面一个数和后面一个数比较，大的永远靠后，每次可以确定一个最大的数排到了最后，然后下次比较就可以忽略这个排好的数。</li>
+<li>伪代码<pre>
+<code>
+do
+  swapped = false
+  for i = 1 to indexOfLastUnsortedElement
+      if leftElement > rightElement
+          swap(leftElement, rightElement)
+          swap = true
+while swapped
+</code>
+</pre></li>
+<li>GIF process<img src="/img/sort_algorithms/bubble_sort.gif" class="[class names]" title="[Bubble sort process [https://visualgo.net/en/sorting]]"></li>
+<li>Python code<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(alist)</span>:</span>  </span><br><span class="line">    <span class="keyword">for</span> passnum <span class="keyword">in</span> range(len(alist)<span class="number">-1</span>,<span class="number">0</span>,<span class="number">-1</span>):  </span><br><span class="line">        <span class="comment">#print alist,passnum  </span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(passnum):  </span><br><span class="line">            <span class="keyword">if</span> alist[i]&gt;alist[i+<span class="number">1</span>]:  </span><br><span class="line">                temp = alist[i]  </span><br><span class="line">                alist[i] = alist[i+<span class="number">1</span>]  </span><br><span class="line">                alist[i+<span class="number">1</span>] = temp  </span><br><span class="line">    <span class="keyword">return</span> alist</span><br><span class="line"></span><br><span class="line">alist = [<span class="number">54</span>,<span class="number">26</span>,<span class="number">93</span>,<span class="number">17</span>,<span class="number">77</span>,<span class="number">31</span>,<span class="number">44</span>,<span class="number">55</span>,<span class="number">20</span>]  </span><br><span class="line">print(bubbleSort(alist))</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="选择排序-Select-Sort"><a href="#选择排序-Select-Sort" class="headerlink" title="选择排序(Select Sort)"></a>选择排序(Select Sort)</h2><ul>
+<li>核心思想：从左往右，设还没排序的数中的第一个数为最小的数(minimum)，并且记住最小数(minimum)的下标(index)，然后和它后面的所有数进行比较，如果发现有更小的数，就更新下标，比完一轮之后，如果下标有改变，就把下标位置上的数和第一个数进行交换，那么这个数就是已排序的了，往下移一个位置继续以上的动作，直到最后要给数为止。</li>
+<li>伪代码<pre>
+<code>
+repeat (numOfElements - 1) times
+set the first unsorted element as the minimum
+for each of the unsorted elements
+  if element < currentMinimum
+    set element as new minimum
+swap minimum with first unsorted position
+</code>
+</pre></li>
+<li>GIF proce<img src="/img/sort_algorithms/select_sort.gif" class="[class names]" title="[Select sort process [https://visualgo.net/en/sorting]]"></li>
+<li>Python code<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(alist)</span>:</span>  </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(alist)<span class="number">-1</span>):  </span><br><span class="line">        minimun = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, len(alist)):</span><br><span class="line">            <span class="keyword">if</span> alist[j]&lt;alist[minimun]:  </span><br><span class="line">                minimun = j  </span><br><span class="line">        temp = alist[i]   </span><br><span class="line">        alist[i] = alist[minimun]  </span><br><span class="line">        alist[minimun] = temp   </span><br><span class="line">    <span class="keyword">return</span> alist</span><br><span class="line"></span><br><span class="line">alist = [<span class="number">54</span>,<span class="number">26</span>,<span class="number">93</span>,<span class="number">17</span>,<span class="number">77</span>,<span class="number">31</span>,<span class="number">44</span>,<span class="number">55</span>,<span class="number">20</span>]  </span><br><span class="line">print(selectionSort(alist))</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="快速排序-Quick-sort"><a href="#快速排序-Quick-sort" class="headerlink" title="快速排序(Quick sort)"></a>快速排序(Quick sort)</h2><ul>
+<li>核心思想：<ul>
+<li>选定一个<strong>基准值(pivot)</strong></li>
+<li>将比<strong>基准值(pivot)</strong>小的数移到它的左边，形成<strong>左子序列</strong></li>
+<li>将比<strong>基准值(pivot)</strong>大的数移到它的右边，形成<strong>右子序列</strong></li>
+<li>分别对<strong>左子序列</strong>、<strong>右子序列</strong>作上述三个步骤,直到<strong>左子序列</strong>和<strong>右子序列</strong>都只剩一个数为止==》 递归(Recursive)</li>
+</ul>
+</li>
+<li>伪代码：<pre><code>
+for each (unsorted) partition
+set first element as pivot
+storeIndex = pivotIndex + 1
+for i = pivotIndex + 1 to rightmostIndex
+  if element[i] < element[pivot]
+    swap(i, storeIndex); storeIndex++
+swap(pivot, storeIndex - 1)
+</code></pre></li>
+<li>GIF process<img src="/img/sort_algorithms/quick_sort.gif" class="[class names]" title="[Quick sort process [https://visualgo.net/en/sorting]]"></li>
+<li>Python code<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(arr, left, right)</span>:</span></span><br><span class="line">    <span class="comment"># 只有left &lt; right 排序</span></span><br><span class="line">    <span class="keyword">if</span> left &lt; right:</span><br><span class="line">        pivot_index = partition(arr, left, right)</span><br><span class="line">        quickSort(arr, left, pivot_index - <span class="number">1</span>)</span><br><span class="line">        quickSort(arr, pivot_index + <span class="number">1</span>, right)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(arr, left, right)</span>:</span></span><br><span class="line">    <span class="string">"""找到基准位置, 并返回"""</span></span><br><span class="line">    pivot_index = left</span><br><span class="line">    pivot = arr[left]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(left + <span class="number">1</span>, right + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> arr[i] &lt; pivot:</span><br><span class="line">            <span class="comment"># 如果此处索引的值小于基准值, 基准值的位置后移一位</span></span><br><span class="line">            <span class="comment"># 并将后移一位的值和这个值交换, 让基准位置及之前的始终小于基准值</span></span><br><span class="line">            pivot_index += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> pivot_index != i:</span><br><span class="line">                arr[pivot_index], arr[i] = arr[i], arr[pivot_index]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将基准值移动到正确的位置</span></span><br><span class="line">    arr[left], arr[pivot_index] = arr[pivot_index], arr[left]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> pivot_index</span><br><span class="line"></span><br><span class="line">alist = [<span class="number">54</span>,<span class="number">26</span>,<span class="number">93</span>,<span class="number">17</span>,<span class="number">77</span>,<span class="number">31</span>,<span class="number">44</span>,<span class="number">55</span>,<span class="number">20</span>] </span><br><span class="line">quickSort(alist, <span class="number">0</span>, len(alist)<span class="number">-1</span>) </span><br><span class="line">print(alist)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="插入排序-Insert-sort"><a href="#插入排序-Insert-sort" class="headerlink" title="插入排序(Insert sort)"></a>插入排序(Insert sort)</h2><ul>
+<li>核心思想：在已排序的数中插入一个未排序的数。</li>
+<li>伪代码<pre><code>
+mark first element as sorted
+for each unsorted element
+'extract' the element
+for i = lastSortedIndex to 0
+  if currentSortedElement > extractedElement
+    move sorted element to the right by 1
+  else: insert extracted element
+</code></pre></li>
+<li>GIF process<img src="/img/sort_algorithms/insert_sort.gif" class="[class names]" title="[Insert sort process [https://visualgo.net/en/sorting]]"></li>
+<li>Python code<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertSort</span><span class="params">(a)</span>:</span>  </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(a)<span class="number">-1</span>):  </span><br><span class="line">        <span class="comment">#print a,i    </span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>,len(a)):  </span><br><span class="line">            <span class="keyword">if</span> a[i]&gt;a[j]:  </span><br><span class="line">                temp = a[i]  </span><br><span class="line">                a[i] = a[j]  </span><br><span class="line">                a[j] = temp  </span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line">alist = [<span class="number">54</span>,<span class="number">26</span>,<span class="number">93</span>,<span class="number">17</span>,<span class="number">77</span>,<span class="number">31</span>,<span class="number">44</span>,<span class="number">55</span>,<span class="number">20</span>]  </span><br><span class="line">print(insertSort(alist))</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><ul>
+<li>核心思想：把原始数组分成若干子数组,对每一个子数组进行排序,<br>继续把子数组与子数组合并,合并后仍然有序,直到全部合并完,形成有序的数组</li>
+<li>伪代码：<pre><code>
+split each element into partitions of size 1
+recursively merge adjancent partitions
+  for i = leftPartStartIndex to rightPartLastIndex
+  inclusive
+      if leftPartHeadValue <= rightpartheadvalue copy leftpartheadvalue else: elements back to original array < code></=></code></pre></li>
+<li>GIF process</li>
+<li><img src="/img/sort_algorithms/merge_sort.gif" class="[class names]" title="[Merge sort process [https://visualgo.net/en/sorting]]"></li>
+<li>Python code<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergesort</span><span class="params">(seq)</span>:</span>  </span><br><span class="line">    <span class="keyword">if</span> len(seq)&lt;=<span class="number">1</span>:  </span><br><span class="line">        <span class="keyword">return</span> seq  </span><br><span class="line">    mid=int(len(seq)/<span class="number">2</span>)  </span><br><span class="line">    left=mergesort(seq[:mid])  </span><br><span class="line">    right=mergesort(seq[mid:])  </span><br><span class="line">    <span class="keyword">return</span> merge(left,right)  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(left,right)</span>:</span>  </span><br><span class="line">    result=[]  </span><br><span class="line">    i,j=<span class="number">0</span>,<span class="number">0</span>  </span><br><span class="line">    <span class="keyword">while</span> i&lt;len(left) <span class="keyword">and</span> j&lt;len(right):  </span><br><span class="line">        <span class="keyword">if</span> left[i]&lt;=right[j]:  </span><br><span class="line">            result.append(left[i])  </span><br><span class="line">            i+=<span class="number">1</span>  </span><br><span class="line">        <span class="keyword">else</span>:  </span><br><span class="line">            result.append(right[j])  </span><br><span class="line">            j+=<span class="number">1</span>  </span><br><span class="line">    result+=left[i:]  </span><br><span class="line">    result+=right[j:]  </span><br><span class="line">    <span class="keyword">return</span> result     </span><br><span class="line"></span><br><span class="line">alist = [<span class="number">54</span>,<span class="number">26</span>,<span class="number">93</span>,<span class="number">17</span>,<span class="number">77</span>,<span class="number">31</span>,<span class="number">44</span>,<span class="number">55</span>,<span class="number">20</span>] </span><br><span class="line">print(mergesort(alist))</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="http://notepad.yehyeh.net/Content/Algorithm/Sort/Quick/Quick.php" target="_blank" rel="noopener">http://notepad.yehyeh.net/Content/Algorithm/Sort/Quick/Quick.php</a></li>
+<li><a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener">https://visualgo.net/en/sorting</a></li>
+<li><a href="http://www.jianshu.com/p/7ffa04799ab2" target="_blank" rel="noopener">http://www.jianshu.com/p/7ffa04799ab2</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-05-24T10:17:24.000Z" itemprop="dateUpdated">2017年5月24日 18:17</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/05/06/sort-algorithms/" target="_blank" rel="external">http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/&title=《排序算法总结》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/&title=《排序算法总结》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《排序算法总结》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/05/17/modern-history-of-object-recognition-infographic/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">物体识别的现代史(2012~)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/03/29/RNN-tutorial-Part-1-Introduction/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">循环神经网络 Part 1-简介</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="sort-algorithms" data-title="排序算法总结" data-url="http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/&title=《排序算法总结》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/&title=《排序算法总结》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《排序算法总结》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/05/06/sort-algorithms/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMElEQVR42u3awa4CIQxGYd//peduTa6D52/VhHJYGXUGPhYNLX088Liexv9vnr+/+//dO9OnWkOGDBnbMq7lIBPw5RL2erNuVyJDhowDGGR6/tTds+Qp/n8ZMmTIWC9lDSMhlVBlyJAho89Y80g6mm6HDBkyTmakAZGHSPIs37IP5OIyZMjYkMGr7r///JX7DRkyZGzFuMKRXkCm5bPakCFDxmxGmmrW0t3aETBejwwZMkYz0kMhx6SFM97kUTw+ypAhY0NGp2GCh8var8EaZMiQMZrRL+t3ivvp4bJYEZQhQ8bmjPWf+OvSS1BSsAvAMmTIOIBRm4yXvdIwHTeKyZAhYzSj32zBD4IdzIfbMmTIkLEho1Yg4+GVYNILS3QTK0OGjEGMDqBfgKtdeb7ZCBkyZIxjfCOA1hbU6hCRIUPGUEZaxE8BfMt409htz4gMGTJGM2rHRBJ8+Rv4tcSLX2XIkHEAgwfBWrNpLUkm6bEMGTJOYPDEklxVpq0YnRJbkNbKkCFjBIOnsq0dwiGbd4i8uImVIUPGAYzaxLULThLEg1AuQ4aMwxi1RjE+ca05DDVbyJAhYxzjCkfnmFhruUBHTxkyZIxm1MJcLcnkW5MW+2TIkHECgwTZX+7cB5JYGTJkDGXUGrbSC07+/rhZTYYMGTLChi2SvvLZg9OrDBkyZCyfSst2HIC2TIYMGQcwyJT9khk/8PHinQwZMk5gpOcu3kCWtpqlbRYyZMg4gPEHdlVLqdLAms8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

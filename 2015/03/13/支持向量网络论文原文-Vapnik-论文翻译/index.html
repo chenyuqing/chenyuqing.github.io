@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>支持向量网络论文原文-Vapnik-论文翻译 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="摘要： 支持向量网络是一种新的用于二类分类问题的学习机。这个机器(方法)概念地实现了以下想法：非线性的输入向量被映射到高维度的特征空间。在这个特征空间中找出一个线性决策超平面。决策超平">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支持向量网络论文原文-Vapnik-论文翻译">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="摘要： 支持向量网络是一种新的用于二类分类问题的学习机。这个机器(方法)概念地实现了以下想法：非线性的输入向量被映射到高维度的特征空间。在这个特征空间中找出一个线性决策超平面。决策超平">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/head.png">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/05.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/07.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/13.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/14.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/15.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/16.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/17.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/18.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/19.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/20.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/21.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/23.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/24.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/27.PNG)表示的是再特征空间中的支持向量zi和z的点积。决策函数能够被描述为一个两层的网络。(Fig.3.">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/01/25.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/01.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/02.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/04.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/03.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/05.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/08.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/10.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/11.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/15.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/19.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/20.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/22.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/28.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/30.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/33.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/34.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/37.PNG)还要大是不可能的">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/02/36.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/01.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/02.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/04.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/05.PNG)足够小，函数(21">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/06.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/07.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/09.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/11.PNG">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/03/12.PNG">
+<meta property="og:updated_time" content="2015-03-14T05:49:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="支持向量网络论文原文-Vapnik-论文翻译">
+<meta name="twitter:description" content="摘要： 支持向量网络是一种新的用于二类分类问题的学习机。这个机器(方法)概念地实现了以下想法：非线性的输入向量被映射到高维度的特征空间。在这个特征空间中找出一个线性决策超平面。决策超平">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/paperBlog/Support-Vector-Networks/head.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">支持向量网络论文原文-Vapnik-论文翻译</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">支持向量网络论文原文-Vapnik-论文翻译</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-03-13T10:58:23.000Z" itemprop="datePublished" class="page-time">
+  2015-03-13
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最佳化超平面"><span class="post-toc-number">2.</span> <span class="post-toc-text">最佳化超平面</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#最佳超平面算法"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">最佳超平面算法</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#软间隔超平面"><span class="post-toc-number">3.</span> <span class="post-toc-text">软间隔超平面</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-支持向量网络论文原文-Vapnik-论文翻译"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">支持向量网络论文原文-Vapnik-论文翻译</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年03月13日 18:58" datetime="2015-03-13T10:58:23.000Z"  itemprop="datePublished">2015-03-13</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/head.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ul>
+<li><strong>摘要</strong>：<ul>
+<li>支持向量网络是一种新的用于二类分类问题的学习机。这个机器(方法)概念地实现了以下想法：非线性的输入向量被映射到高维度的特征空间。在这个特征空间中找出一个线性决策超平面。决策超平面的特殊属性可以保证学习机的强泛化能力。这个支持向量网路的思想在训练资料严格线性可分的情况下已被实现。现在我们来谈一下在训练资料非线性可分的情况下的结果。</li>
+<li>支持向量网络的高泛化能力是利用多项式输入转换。我们同样比较了支持向量网络和和其他经典的学习算法在OCR(光学字符识别)这个基准上的表现。</li>
+</ul>
+</li>
+<li><strong>关键字</strong>：<ul>
+<li>模式识别， 有效的学习算法， 神经网络， 径向基函数分类器， 多类分类器</li>
+</ul>
+</li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>60多年前R.A. Fisher(Fisher, 1936)提出了模式识别的第一个算法。有两个服从正态分布的模型，<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/05.PNG" alt="](/img/paperBlog/Support-Vector-Networks/01/01.PNG)和![](/img/paperBlog/Support-Vector-Networks/01/02.PNG)，n维向量X，其中均值向量分别是m1和m2，方差分别是![](/img/paperBlog/Support-Vector-Networks/01/03.PNG)和![](/img/paperBlog/Support-Vector-Networks/01/04.PNG)，最后得到的最优解(贝叶斯)是一个二次规划函数：<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/01/01.PNG)和![](/img/paperBlog/Support-Vector-Networks/01/02.PNG)，n维向量X，其中均值向量分别是m1和m2，方差分别是![](/img/paperBlog/Support-Vector-Networks/01/03.PNG)和![](/img/paperBlog/Support-Vector-Networks/01/04.PNG)，最后得到的最优解(贝叶斯)是一个二次规划函数：<br>![</div>
+            </figure></li>
+<li>若果<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/07.PNG" alt="](/img/paperBlog/Support-Vector-Networks/01/06.PNG)，那么上式化简为一个线性函数：<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/01/06.PNG)，那么上式化简为一个线性函数：<br>![</div>
+            </figure></li>
+<li>要解式子(1)中的二次规划函数，必须有<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/13.PNG" alt="](/img/paperBlog/Support-Vector-Networks/01/08.PNG)个自由参数。要解式子(2)中线性函数仅仅要n个自由参数。观测量的数量小(比如说小于![](/img/paperBlog/Support-Vector-Networks/01/09.PNG)个)估算![](/img/paperBlog/Support-Vector-Networks/01/10.PNG)个参数是不可靠的。因此Fisher推荐，即使是在![](/img/paperBlog/Support-Vector-Networks/01/11.PNG)的情况下，仍然对线性判别函数(2)使用以下![](/img/paperBlog/Support-Vector-Networks/01/12.PNG)的形式：<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/01/08.PNG)个自由参数。要解式子(2)中线性函数仅仅要n个自由参数。观测量的数量小(比如说小于![](/img/paperBlog/Support-Vector-Networks/01/09.PNG)个)估算![](/img/paperBlog/Support-Vector-Networks/01/10.PNG)个参数是不可靠的。因此Fisher推荐，即使是在![](/img/paperBlog/Support-Vector-Networks/01/11.PNG)的情况下，仍然对线性判别函数(2)使用以下![](/img/paperBlog/Support-Vector-Networks/01/12.PNG)的形式：<br>![</div>
+            </figure></li>
+<li>上式中的<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/14.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>是一个常量。Fisher另外推荐了当两个分布不是服从正态的时候，利用一个线性决策函数。</li>
+<li>模式识别的算法最开始就和线性决策超平面的构建有关。</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/15.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>在1962年Rosenblatt(Rosenblatt, 1962)发明了一种新型的学习机：感知机或者神经网络。感知机包含多个相连的神经元，每个神经元实现一个分离超平面，所以整个感知机实现了分段的线性分离超平面。见图Fig.1。</li>
+<li>在Rosenblatt时期还没有算法通过调整网络的权值来最小化向量集的错误。根据其他权值的固定值，输入向量被非线性地转换到特征空间Z中,在单元的最后一层。在这个空间中一个线性决策函数被构造：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/16.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>通过调节从第i层隐藏层到输出单元的<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/17.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>的权值以最小化在整个训练资料上的一些误差。根据Rosenblatt的方法的结果来看，决策规则的构造再一次联系到信息超平面的构造，在某些空间上。</li>
+<li>第一次出现一个算法允许通过调整神经网络的权值来最小化属于模式识别问题的向量集的局部误差是在1986年,(Rumelhart, Hinton &amp; Williams, 1986, 1987; Parker, 1985; LeCun 1985)因为那个时候发现了反向传播算法。它的解法是一个轻微修改的神经元的数学模型。所以，神经网络实现了“分段线性类型”的决策函数。</li>
+<li>在本文中，我们构造一个新型的学习机(方法)，所谓的“支持向量网络”。支持向量网络实现了一下想法：它通过一些事先选择好的非线性的映射规则把输入向量映射到高维度的特征空间Z。在这个空间当中，通过一些特殊属性来构造线性决策超平面来保证网络的高泛化能力。</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/18.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>例子：要求得二次多项式的决策超平面，可以创建一个特征空间Z，它有 N= <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/19.PNG" alt="](/img/paperBlog/Support-Vector-Networks/01/08.PNG)个坐标形式：<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/01/08.PNG)个坐标形式：<br>![</div>
+            </figure></li>
+<li>上面的方法中有两个新的问题：一个是概念上的，一个是技术上的。概念上的问题是怎么才能找到一个推广能力较好的分离超平面：特征空间的维数将会很大，而且并不是所有的可分离训练资料的超平面都有很好的推广能力。然后技术上的问题是面对如此高维的空间，怎么简化计算量：在一个200维德空间中构造一个4次方或者5次方的多项式可能需要构造一个数以数以亿计的维数的空间。</li>
+<li>概念上的问题在1965(Vapnik, 1982)被解决了，鉴于<em>为线性可分的类寻找最佳化的分离超平面</em>这个case.这里定义的最佳化的超平面是两个可分的向量中寻找最大的分类间隔，看Fig.2.被证明说要构造这样一个最佳化的超平面只需要很少的训练数据，这些数据就被称为<em>支撑向量</em>，它们是用来决定间隔的。资料表明，如果训练资料被一个最佳化的超平面完美无误地分离，那么在测试例子中预测新数据的误差期望值等于支持向量的数量的期望值和训练向量的数量的比：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/20.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>注意到这个约束并没有明显的包含可分空间的维数。这个约束遵循这个规则的：如果构造最佳化的超平面包含的支持向量的数量越少，那么这个模型的泛化能力就越高–即使是在无穷的维数空间中。在Section 5我们会通过一个实际生活问题说明上面(5)式子的比值可以低到0.03，而且这个最佳化超平面在数以亿计的维数的特征空间中的推广能力很好。</li>
+<li>让<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/21.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>作为空间中最佳化超平面的表示。我们会把特征空间中的最佳化超平面的权值<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/23.PNG" alt="](/img/paperBlog/Support-Vector-Networks/01/22.PNG)写成支持向量的线性组合式<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/01/22.PNG)写成支持向量的线性组合式<br>![</div>
+            </figure></li>
+<li>特征空间中的线性决策函数<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/24.PNG" alt="](/img/paperBlog/Support-Vector-Networks/01/26.PNG)会相应地变成以下形式：![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/01/26.PNG)会相应地变成以下形式：![</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/27.PNG)表示的是再特征空间中的支持向量zi和z的点积。决策函数能够被描述为一个两层的网络。(Fig.3." alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>然而，即使最佳化超平面的推广能力比较好，但是关于怎样处理高维度空间的技术的问题还没解决。在1992年(Boser, Guyon, &amp; Vapnik, 1992)，构造决策函数的操作顺序是可以互换的：我们可以先比较输入空间中的两个向量(比如，计算它们的点积，或者一些距离测量)对结果的值做非线性转换，而不是拿特征空间中两个点积的向量做非线性的转换。这样促成了更多分类的决策超平面的构造，例如，任意次方的多项式决策超平面。我们把这种类型的学习机叫做支持向量网络。</li>
+<li>支持向量网络的技巧当初是为了毫无误差地找到更精准的分类训练数据的超平面。在这篇文章当中，我们对支持向量网络进行拓展，拓展到当不能毫无误差的进行分类数据的情况下也能使用。在这种情形之下，我们把支持向量网络当成一种新的学习机。一种像神经网络一样更强大更通用的学习机。在Section 5我们会对在一个高维空间(维度256)，多项式次方高达7的情形下，支持向量网络的泛化能力还能有多好进行说明。这种学习机的表现可以与那些经典的学习机(像线性分类器，k邻近分类器和神经网络等)相媲美。Section 2，3和4主要讲算法的推导和它的一些属性的讨论。关于推导的细节请看附录部分。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/01/25.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+<h2 id="最佳化超平面"><a href="#最佳化超平面" class="headerlink" title="最佳化超平面"></a>最佳化超平面</h2><ul>
+<li>在这个section当中，让我们来回顾一下0误差分离训练资料的最佳化超平面的方法(Vapnik, 1982).而在下一个section，我们介绍软间隔的记号，它允许在分类的过程当中存在误差。</li>
+</ul>
+<h3 id="最佳超平面算法"><a href="#最佳超平面算法" class="headerlink" title="最佳超平面算法"></a>最佳超平面算法</h3><ul>
+<li>训练模式的标签集<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/01.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>被认为是线性可分的，如果向量W和标量b满足以下不等式条件：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/02.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>被认为说是对(8)中的所有的训练集都是有效的。然后把(9)中的不等式写成一下形式：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/04.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/03.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>最佳化超平面是：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/05.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>它是唯一一个把训练资料分离出最大间隔：它保证了两个不同类别的训练向量映射在<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/08.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/06.PNG)方向上的距离是最大的。回顾Fig.2.这个距离![](/img/paperBlog/Support-Vector-Networks/02/07.PNG)表示如下：<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/06.PNG)方向上的距离是最大的。回顾Fig.2.这个距离![](/img/paperBlog/Support-Vector-Networks/02/07.PNG)表示如下：<br>![</div>
+            </figure></li>
+<li>最佳化超平面<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/10.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/09.PNG)是使得(12)中距离最大的参数。它符合(12)和(10)的约束![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/09.PNG)是使得(12)中距离最大的参数。它符合(12)和(10)的约束![</div>
+            </figure></li>
+<li>这就是说最佳化超平面在符合(10)式当中的约束的条件下是唯一一个可以最小化<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/11.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>的.所以构造最佳化超平面的问题就是一个二次规划问题。</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/15.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/13.PNG)当中的向量![](/img/paperBlog/Support-Vector-Networks/02/12.PNG)学术上被称为*支持向量*。在附录A.1中，我们说明了能够决定最佳化超平面的向量![](/img/paperBlog/Support-Vector-Networks/02/14.PNG)可以写成一个训练向量的线性组合形式：![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/13.PNG)当中的向量![](/img/paperBlog/Support-Vector-Networks/02/12.PNG)学术上被称为*支持向量*。在附录A.1中，我们说明了能够决定最佳化超平面的向量![](/img/paperBlog/Support-Vector-Networks/02/14.PNG)可以写成一个训练向量的线性组合形式：![</div>
+            </figure></li>
+<li>(14)中当<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/19.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/16.PNG).因为![](/img/paperBlog/Support-Vector-Networks/02/17.PNG)仅仅是符合支持向量(看附录)，(14)当中的表达式是![](/img/paperBlog/Support-Vector-Networks/02/14.PNG)的简写形式。我们也说明了要找参数![](/img/paperBlog/Support-Vector-Networks/02/18.PNG)的向量：<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/16.PNG).因为![](/img/paperBlog/Support-Vector-Networks/02/17.PNG)仅仅是符合支持向量(看附录)，(14)当中的表达式是![](/img/paperBlog/Support-Vector-Networks/02/14.PNG)的简写形式。我们也说明了要找参数![](/img/paperBlog/Support-Vector-Networks/02/18.PNG)的向量：<br>![</div>
+            </figure></li>
+<li>必须要解决以下的二次规划问题：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/20.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>其中<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/22.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/21.PNG)满足的约束条件是：<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/21.PNG)满足的约束条件是：<br>![</div>
+            </figure></li>
+<li>其中<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/28.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/23.PNG)是一个![](/img/paperBlog/Support-Vector-Networks/02/24.PNG)维的单位向量，![](/img/paperBlog/Support-Vector-Networks/02/25.PNG)是一个![](/img/paperBlog/Support-Vector-Networks/02/24.PNG)维的标签向量，![](/img/paperBlog/Support-Vector-Networks/02/26.PNG)是一个带元素的对称的![](/img/paperBlog/Support-Vector-Networks/02/27.PNG)矩阵<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/23.PNG)是一个![](/img/paperBlog/Support-Vector-Networks/02/24.PNG)维的单位向量，![](/img/paperBlog/Support-Vector-Networks/02/25.PNG)是一个![](/img/paperBlog/Support-Vector-Networks/02/24.PNG)维的标签向量，![](/img/paperBlog/Support-Vector-Networks/02/26.PNG)是一个带元素的对称的![](/img/paperBlog/Support-Vector-Networks/02/27.PNG)矩阵<br>![</div>
+            </figure></li>
+<li>(16)当中的不等式描述的是非负象限。所以我们在(17)的约束条件下最大化(15)中的二次规划式。</li>
+<li>当(8)中的训练资料可以0误差的分离时，我们同样在附录中进行了说明，(15)中的最大值，<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/30.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/29.PNG)对和(13)中的最大间隔![](/img/paperBlog/Support-Vector-Networks/02/35.PNG)的关系：<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/29.PNG)对和(13)中的最大间隔![](/img/paperBlog/Support-Vector-Networks/02/35.PNG)的关系：<br>![</div>
+            </figure></li>
+<li>对于某些<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/33.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/31.PNG)和大的常量![](/img/paperBlog/Support-Vector-Networks/02/32.PNG)，不等式<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/31.PNG)和大的常量![](/img/paperBlog/Support-Vector-Networks/02/32.PNG)，不等式<br>![</div>
+            </figure></li>
+<li>是合理的，有一个可以断言的是所有的可分离训练资料(8)的超平面都满足<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/34.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>如果(8)中的训练资料不能被一个超平面分离，那么两个模式类别之间的间隔将会非常小，导致函数<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/37.PNG)还要大是不可能的" alt="](/img/paperBlog/Support-Vector-Networks/02/36.PNG)的值非常大。在约束条件(16)和(17)下最大化函数(15)的值，其中一个达到最大值时(这种情况是其中一个通过最大间隔![](/img/paperBlog/Support-Vector-Networks/02/35.PNG)构建了一个超平面)，或者其中一个找到了最大值超过了给定的常量![](/img/paperBlog/Support-Vector-Networks/02/32.PNG)(这种情况是训练资料的分离超平面比![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/36.PNG)的值非常大。在约束条件(16)和(17)下最大化函数(15)的值，其中一个达到最大值时(这种情况是其中一个通过最大间隔![](/img/paperBlog/Support-Vector-Networks/02/35.PNG)构建了一个超平面)，或者其中一个找到了最大值超过了给定的常量![](/img/paperBlog/Support-Vector-Networks/02/32.PNG)(这种情况是训练资料的分离超平面比![</div>
+            </figure>。</li>
+<li>在约束条件(16)和(17)下最大化函数(15)的问题很有效地通过以下模式解决。把训练资料合理的分成多个不大的部分。首先利用第一部分的训练资料来解决二次规划的问题。对于这样的处理会有两种可能的结果：这部分的训练资料不能找打一个可分离的超平面(这样的话整个资料也是找不到可分离的超平面的)，或者在第一部分的训练资料中就找到了最佳化的分离超平面。</li>
+<li>如果是在第一部分的训练资料中就找到了分离超平面，我们把它称作向量<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/02/36.PNG" alt="](/img/paperBlog/Support-Vector-Networks/02/38.PNG)，让它来最大化函数(15).在向量![](/img/paperBlog/Support-Vector-Networks/02/38.PNG)当中有一些值是等于0的。它们对应于这部分资料的非支持向量。创建一个新的训练资料集，其中包含第一部分资料的支持向量和第二部分资料的那些不符合约束(10)的向量，其中![](/img/paperBlog/Support-Vector-Networks/02/39.PNG)是由![](/img/paperBlog/Support-Vector-Networks/02/38.PNG)决定的。在这个新的资料集当中创造了一个新的函数![](/img/paperBlog/Support-Vector-Networks/02/40.PNG)和这个函数在![](/img/paperBlog/Support-Vector-Networks/02/41.PNG)处达到最大。然后重复这样的做法，覆盖到所有的训练资料中，不断增加新的解法向量![](/img/paperBlog/Support-Vector-Networks/02/31.PNG)，如果找不到0误差的分离超平面，或者对所有训练资料可以构造一个最佳化分离超平面![](/img/paperBlog/Support-Vector-Networks/02/42.PNG).请注意，在这个过程当中，函数![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/02/38.PNG)，让它来最大化函数(15).在向量![](/img/paperBlog/Support-Vector-Networks/02/38.PNG)当中有一些值是等于0的。它们对应于这部分资料的非支持向量。创建一个新的训练资料集，其中包含第一部分资料的支持向量和第二部分资料的那些不符合约束(10)的向量，其中![](/img/paperBlog/Support-Vector-Networks/02/39.PNG)是由![](/img/paperBlog/Support-Vector-Networks/02/38.PNG)决定的。在这个新的资料集当中创造了一个新的函数![](/img/paperBlog/Support-Vector-Networks/02/40.PNG)和这个函数在![](/img/paperBlog/Support-Vector-Networks/02/41.PNG)处达到最大。然后重复这样的做法，覆盖到所有的训练资料中，不断增加新的解法向量![](/img/paperBlog/Support-Vector-Networks/02/31.PNG)，如果找不到0误差的分离超平面，或者对所有训练资料可以构造一个最佳化分离超平面![](/img/paperBlog/Support-Vector-Networks/02/42.PNG).请注意，在这个过程当中，函数![</div>
+            </figure>的值是单调递增的，因为越来越多的训练向量被划分为最佳化，导致两个类别之间的分隔越来越小。</li>
+</ul>
+<h2 id="软间隔超平面"><a href="#软间隔超平面" class="headerlink" title="软间隔超平面"></a>软间隔超平面</h2><ul>
+<li>考虑到那种不能0误差的把训练资料分离的情况。这样的话，我们想说要达到误差的最小化来分离资料。要正式地表达这个，让我们先引入一些非负变量<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/01.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>我们现在最小化函数<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/02.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>其中<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/04.PNG" alt="](/img/paperBlog/Support-Vector-Networks/03/03.PNG)，约束于<br>![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/03/03.PNG)，约束于<br>![</div>
+            </figure></li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/05.PNG)足够小，函数(21" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>描述的是训练错误的个数。</li>
+<li>最小化(21)，我们要找出一些最小的训练错误的子集：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/06.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>如果这些误差资料不包含在训练资料中，那么训练资料就可以毫无误差的进行分离，并且在两个类别之间找到一个超平面。</li>
+<li>这个想法可以正式的表达为：最小化函数<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/07.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>约束条件为(22)和(23)，其中<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/09.PNG" alt="](/img/paperBlog/Support-Vector-Networks/03/08.PNG)是一个单调的凸函数，![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/03/08.PNG)是一个单调的凸函数，![</div>
+            </figure>是一个常量。</li>
+<li>足够大的<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/11.PNG" alt="](/img/paperBlog/Support-Vector-Networks/03/09.PNG)和足够小的![](/img/paperBlog/Support-Vector-Networks/03/05.PNG)，在约束条件(22)和(23)下的最小化函数(24)的向量![](/img/paperBlog/Support-Vector-Networks/03/10.PNG)和常数![" title>
+                </div>
+                <div class="image-caption">](/img/paperBlog/Support-Vector-Networks/03/09.PNG)和足够小的![](/img/paperBlog/Support-Vector-Networks/03/05.PNG)，在约束条件(22)和(23)下的最小化函数(24)的向量![](/img/paperBlog/Support-Vector-Networks/03/10.PNG)和常数![</div>
+            </figure>，可以决定一个超平面，这个超平面是最小化在训练集上的错误个数和把剩余的元素利用最大间隔进行分离。</li>
+<li>注意到，在训练集上构造一个能够最小化错误数的超平面是一个正常的NPC问题(因不能用多项式算法而使问题无法解决的；非完全多项式).为避免我们的问题出现NPC问题，我们设定<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/paperBlog/Support-Vector-Networks/03/12.PNG" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-03-14T05:49:12.000Z" itemprop="dateUpdated">2015年3月14日 13:49</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/&title=《支持向量网络论文原文-Vapnik-论文翻译》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/&title=《支持向量网络论文原文-Vapnik-论文翻译》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《支持向量网络论文原文-Vapnik-论文翻译》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/04/06/1-1-随机事件-样本空间/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">1.1-随机事件-样本空间</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/03/11/KKT条件论文-论文翻译/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">非线性规划-KKT条件论文-论文翻译</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="支持向量网络论文原文-Vapnik-论文翻译" data-title="支持向量网络论文原文-Vapnik-论文翻译" data-url="http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/&title=《支持向量网络论文原文-Vapnik-论文翻译》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/&title=《支持向量网络论文原文-Vapnik-论文翻译》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《支持向量网络论文原文-Vapnik-论文翻译》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJUlEQVR42u3a0W7iQAwF0P7/T3dfV6qAe+0gkeHkqaIwmeNIGNvz8xNfv0+vv+/M10w++//rf++b37G+sLGxsW/CTkjPb/NoW49CMyM9v0v7eLCxsbHPY7cbyjNC8v52J5sVsLGxsbH36apNjW36xMbGxsaebShPOUko251gY2NjYydNpbzxlKS3pKjIG1hv7KVhY2Njfzy7Hcp+8t9vmW9jY2NjfzD7d3RdNdDdH+sZ7h8bGxv7IPamAdSmk83rbfkRjRawsbGxj2C3zfp2SJAnpP3rRWrExsbGPoid/NyfLb0ZFTx/DO3w4OGusLGxsQ9i5730WTt+X2wkHf7ZOtjY2NjnsTfJKQ9Ze5hydnAnSYTY2NjYZ7Dzn/vtWHczTmiHu224sbGxsc9gR0db4kZPG4J9sdG2n7CxsbHPY8/aSZvSYlZ+5CEYVmDY2NjYt2W3A91NCDbtofaYzoswYWNjYx/Ezr/6k6Ji1uhpR8V5GVPcBRsbG/u27E3bvU0nbSj3R3/eMm3AxsbG/mD2flv51Q4JZoPkF4NebGxs7CPYs+/5zQGd5yGelShtsYSNjY19KnvfBrp2GDBLqHXSwsbGxj6UvUk5+8JgP5AocjU2Njb2oew8HHmArlqnPaZTHNbBxsbGviF79qWfN+XbNlB+lyQ0D9+DjY2NfSg7b/fnZUN70KdtJw3HydjY2NgHsdu2fnvEZz+UzfF1GwsbGxv7a9htWydvIbWbvmqYgY2NjX0qe9O+n80l6uM1ZaPqRYCwsbGxj2DnrZn8v7OxQZ6W9gkSGxsb+yT2Pl3NWlGz8iPfQ5RWsbGxsY9gt0u06ScZGCef2pQ90WAAGxsb+7bsvCDJMbNgzYqQ9mFgY2Njn8eeHZpphwr5Onk50RYh2NjY2KeyZ8PUPDRXHdPZHN/BxsbG/gb2vsBok1M7KmgfyQVPEhsbG/uG7HakOitI2mQ2JCXpDRsbG/sr2W0a25QTLb5tRWFjY2N/J3s/Hp61mTYHd+r5NjY2NvZt2W1T6dryIG/6z0bOD0sRbGxs7CPYs176viDJ15mFezXZxsbGxr4H+x9JpvImjqNObwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

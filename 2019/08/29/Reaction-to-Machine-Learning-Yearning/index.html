@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Reaction to Machine Learning Yearning | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="Andrew Ng,Machine Learning,Strategy">
+    <meta name="description" content="Machine Learning Yearning 1. Why Machine Learning Strategy 为什么要选择策略，因为一个机器学习的project，我们可以有很多思路，譬如 增加图片 收集更多不同的训练数据集 增加训练时长 训练一个更多的网络 训练一个更小的网络 尝试添加正则化（如L2正则化） 改变神经网络的结构（激活函数， 隐藏单元个数等等） 。。。   所以，面对如此多">
+<meta name="keywords" content="Andrew Ng,Machine Learning,Strategy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reaction to Machine Learning Yearning">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="Machine Learning Yearning 1. Why Machine Learning Strategy 为什么要选择策略，因为一个机器学习的project，我们可以有很多思路，譬如 增加图片 收集更多不同的训练数据集 增加训练时长 训练一个更多的网络 训练一个更小的网络 尝试添加正则化（如L2正则化） 改变神经网络的结构（激活函数， 隐藏单元个数等等） 。。。   所以，面对如此多">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-29T03:20:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reaction to Machine Learning Yearning">
+<meta name="twitter:description" content="Machine Learning Yearning 1. Why Machine Learning Strategy 为什么要选择策略，因为一个机器学习的project，我们可以有很多思路，譬如 增加图片 收集更多不同的训练数据集 增加训练时长 训练一个更多的网络 训练一个更小的网络 尝试添加正则化（如L2正则化） 改变神经网络的结构（激活函数， 隐藏单元个数等等） 。。。   所以，面对如此多">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Reaction to Machine Learning Yearning</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Reaction to Machine Learning Yearning</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-08-29T01:20:35.000Z" itemprop="datePublished" class="page-time">
+  2019-08-29
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-Why-Machine-Learning-Strategy"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. Why Machine Learning Strategy</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-How-to-use-this-book-to-help-your-team"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. How to use this book to help your team</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-Prerequisites-and-Notation"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. Prerequisites and Notation</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-Scale-drives-machine-learning-progress"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. Scale drives machine learning progress</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-Your-development-and-test-sets"><span class="post-toc-number">5.</span> <span class="post-toc-text">5. Your development and test sets</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-Your-dev-and-test-sets-should-come-from-the-same-distribution"><span class="post-toc-number">6.</span> <span class="post-toc-text">6. Your dev and test sets should come from the same distribution</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-How-large-do-the-dev-test-sets-need-to-be"><span class="post-toc-number">7.</span> <span class="post-toc-text">7. How large do the dev/test sets need to be ?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-Establish-a-single-number-evaluation-metric-for-your-team-to-optimize"><span class="post-toc-number">8.</span> <span class="post-toc-text">8. Establish a single-number evaluation metric for your team to optimize</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Reaction-to-Machine-Learning-Yearning"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Reaction to Machine Learning Yearning</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年08月29日 9:20" datetime="2019-08-29T01:20:35.000Z"  itemprop="datePublished">2019-08-29</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><a href="https://www.deeplearning.ai/machine-learning-yearning/" target="_blank" rel="noopener">Machine Learning Yearning</a> <h3 id="1-Why-Machine-Learning-Strategy"><a href="#1-Why-Machine-Learning-Strategy" class="headerlink" title="1. Why Machine Learning Strategy"></a>1. Why Machine Learning Strategy</h3></li>
+<li>为什么要选择策略，因为一个机器学习的project，我们可以有很多思路，譬如<ul>
+<li>增加图片</li>
+<li>收集更多不同的训练数据集</li>
+<li>增加训练时长</li>
+<li>训练一个更多的网络</li>
+<li>训练一个更小的网络</li>
+<li>尝试添加正则化（如L2正则化）</li>
+<li>改变神经网络的结构（激活函数， 隐藏单元个数等等）</li>
+<li>。。。</li>
+</ul>
+</li>
+<li>所以，面对如此多的ideas，如果我们选择了好的ideas，那么我们就会事半功倍。本书会告诉我们，对于大多数的机器学习问题，哪些ideas是有效的，哪些ideas是无效的。这便是所谓的机器学习的策略。</li>
+</ul>
+<h3 id="2-How-to-use-this-book-to-help-your-team"><a href="#2-How-to-use-this-book-to-help-your-team" class="headerlink" title="2. How to use this book to help your team"></a>2. How to use this book to help your team</h3><ul>
+<li>简单来说，你可以把这本书打印出来，给你的teammates看，然后告诉他们，为什么你会推荐这样的机器学习策略。要知道，对于策略中优先次序的小小改变可能会对你团队的生产效率有巨大的影响。</li>
+</ul>
+<h3 id="3-Prerequisites-and-Notation"><a href="#3-Prerequisites-and-Notation" class="headerlink" title="3. Prerequisites and Notation"></a>3. Prerequisites and Notation</h3><ul>
+<li>请参考Courera上的课程<a href="http://ml-class.org" target="_blank" rel="noopener">Machine Learning</a> 。</li>
+</ul>
+<h3 id="4-Scale-drives-machine-learning-progress"><a href="#4-Scale-drives-machine-learning-progress" class="headerlink" title="4. Scale drives machine learning progress"></a>4. Scale drives machine learning progress</h3><ul>
+<li>大多数的深度学习思想已经被提出来数十年了，为什么现在才其作用呢？</li>
+<li>最重要的2大推动<ul>
+<li>数字数据爆炸式增长</li>
+<li>计算力爆棚</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-Your-development-and-test-sets"><a href="#5-Your-development-and-test-sets" class="headerlink" title="5. Your development and test sets"></a>5. Your development and test sets</h3><ul>
+<li>就拿识别猫的项目做例子。我们通常在网上爬了一批猫(正例)和非猫(反例)，然后把他们7/3比例划分训练集和测试集。就这样，我们训练了一个在训练集和测试集上表现比较好的模型。</li>
+<li>然而，当我们部署到手机上的时候，发现效果真的非常差。原因是用户从手机上上传的图片可能是非常差，像素低，模糊，亮度低。但是你的训练集和测试集是从网上爬取的，这两套图片是属于不同的分布的。</li>
+<li>另外，传统的数据划分大都是7/3。这在做demo时是有效的，但实际应用上往往是一个bad idea。</li>
+<li>dev set和test set的主要目的是指导你的团队如何对机器学习系统作出重大的改变的。</li>
+<li>总结来说，得保证训练的和实际上的数据是同分布的。这一点非常重要。</li>
+</ul>
+<h3 id="6-Your-dev-and-test-sets-should-come-from-the-same-distribution"><a href="#6-Your-dev-and-test-sets-should-come-from-the-same-distribution" class="headerlink" title="6. Your dev and test sets should come from the same distribution"></a>6. Your dev and test sets should come from the same distribution</h3><ul>
+<li>切记一点，你的训练集和测试集应该来自同一分布。</li>
+<li>如果你的团队做到了以上这一点，然而你的模型在训练集上的变现非常好，而在测试集上的表现非常差，那么我们可以清楚的知道，模型已经对训练集overfit了。最直接的解决方案是增加更多的训练集数据。</li>
+<li>但是，如果你的训练集和测试集是来自不同的分布， 而且又发生了上一条的情况的话，这样的情况比较不明朗。可能的原因是：<ul>
+<li>对训练集（dev set）overfit</li>
+<li>测试集比训练集更难拟合。你的算法尽力了。</li>
+<li>测试集没必要那么难，所以你对训练集上做的大部分努力都是白费的。</li>
+</ul>
+</li>
+<li>事实上，在一个分布上训练得到的模型在其他的分别上有强的泛化能力，这是一个很重要也很难的研究课题。但是现实中，如果我们是开发某一个特定的领域的应用，那么专注于同一分布的数据集来我们来说更有效，更有意义。</li>
+</ul>
+<h3 id="7-How-large-do-the-dev-test-sets-need-to-be"><a href="#7-How-large-do-the-dev-test-sets-need-to-be" class="headerlink" title="7. How large do the dev/test sets need to be ?"></a>7. How large do the dev/test sets need to be ?</h3><ul>
+<li>dev set size : 一般是100～10,000之间。</li>
+<li>test set size : 一般是总数据集的30%，但是现在是要大到足够给出系统性能的一个较高的置信。</li>
+</ul>
+<h3 id="8-Establish-a-single-number-evaluation-metric-for-your-team-to-optimize"><a href="#8-Establish-a-single-number-evaluation-metric-for-your-team-to-optimize" class="headerlink" title="8. Establish a single-number evaluation metric for your team to optimize"></a>8. Establish a single-number evaluation metric for your team to optimize</h3><ul>
+<li></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-08-29T03:20:36.000Z" itemprop="dateUpdated">2019年8月29日 11:20</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2019/08/29/Reaction-to-Machine-Learning-Yearning/" target="_blank" rel="external">http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Andrew-Ng/">Andrew Ng</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Strategy/">Strategy</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/&title=《Reaction to Machine Learning Yearning》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/&title=《Reaction to Machine Learning Yearning》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Reaction to Machine Learning Yearning》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/08/29/note-4-cv-2019-08-29/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">note-4-cv-class</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/08/27/Object-Detection-algo-RCNN-Fast-RCNN-Faster-RCNN-Yolo/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">物体识别算法-RCN, Fast-RCNN, Faster-RCNN和YOLO</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="Reaction-to-Machine-Learning-Yearning" data-title="Reaction to Machine Learning Yearning" data-url="http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/&title=《Reaction to Machine Learning Yearning》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/&title=《Reaction to Machine Learning Yearning》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Reaction to Machine Learning Yearning》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/08/29/Reaction-to-Machine-Learning-Yearning/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3aMXLCQAwF0Nz/0qRNJln4kixD8VwxNrPouVgJab++4uvx4zrd//s0X/n0+fT04gsPDw9vEPop3Mn95EU8Dz1Z7fiK8fDw8NZ4+ZZd3eifp40k6DwePDw8vM/k5ckgr3JPkeTfxMPDw/t8XlLy5k8/LjHg4eHhBbzq0tWWbhXZK77x8PDw7uHNx1T3f16Z7+Hh4eGNp+rzJJEUyklZ/GhdeHh4eBu8fMPtMao7dvU7UZx4eHh4C7ykBVBtRiQjsfwoVZ4emr1qPDw8vCJvMuzvJY+8NI82/ecKPDw8vFt4+TgqL7Krd6qwQjGNh4eHN+DlA/ioKi+mnGrDoprM8PDw8O7kTdoQk4bvJKn8sw4eHh7ejbz8D38S4gVVf9xubuY9PDw8vGKf8/lXqyOo8qGoVgFdnu/h4eHh3cjrDbd6RXnSVs6Hanh4eHgbvMmGmzQFei+xOhg7royHh4e3wLtq6WqDtXfcqto4xsPDw9vgTQ4NVMddearImwsvIsHDw8Nb5lXDyrf+XkndG3f9+nU8PDy8Zd5GuJMEkJfjxzXx8PDwFni9Irjc52i1Jy4+dIWHh4d3ES9vofYaBPnTXirCw8PDey+vut1PDhbMDxlEKQ0PDw9vgZcfC9gYfVVHa82DCHh4eHhrvF7DtDeaqjYgRsU3Hh4e3jIvDyLh9TC9VFQ+WYaHh4c35s2L6eQVFIb9gwsPDw9vj/coXvl230swvd89/j3Aw8PDW+BVt9reea6kfZDjq80LPDw8vA1etQ3R26Z7q+WJ4QjGw8PDW+OVDzMNxv/NUdYFjRc8PDy89/CqjYD8fi8NvIgNDw8P72N41TL62gFbIZHg4eHhrfHy4VN+LGDexq02i4+JAQ8PD+9SXu8ffW94X00Gi00KPDw8vA7vG57VxTq0EjMkAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

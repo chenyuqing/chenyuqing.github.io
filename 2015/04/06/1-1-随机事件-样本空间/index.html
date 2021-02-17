@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>1.1-随机事件-样本空间 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="随机事件与样本空间">
+    <meta name="description" content="引言 概率论与数理统计最早起源与赌博行业，而赌博行业又推动了概率论与数理统计的发展。而现在，概率论与数理统计的发展已经远远超出了赌博的范围，而广泛应用于各行各业当中。 概率论是数理统计的基础，而数理统计是概率论的应用延伸。  概率论的起源 概率论起源于17世纪； 1654年，Pascal和Fermat对“分赌本”问题的讨论； 使概率论成为数学的一个分支的真正奠基人是瑞士数学家J.伯努利； 而概率">
+<meta name="keywords" content="随机事件与样本空间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.1-随机事件-样本空间">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="引言 概率论与数理统计最早起源与赌博行业，而赌博行业又推动了概率论与数理统计的发展。而现在，概率论与数理统计的发展已经远远超出了赌博的范围，而广泛应用于各行各业当中。 概率论是数理统计的基础，而数理统计是概率论的应用延伸。  概率论的起源 概率论起源于17世纪； 1654年，Pascal和Fermat对“分赌本”问题的讨论； 使概率论成为数学的一个分支的真正奠基人是瑞士数学家J.伯努利； 而概率">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2015-04-06T14:51:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1.1-随机事件-样本空间">
+<meta name="twitter:description" content="引言 概率论与数理统计最早起源与赌博行业，而赌博行业又推动了概率论与数理统计的发展。而现在，概率论与数理统计的发展已经远远超出了赌博的范围，而广泛应用于各行各业当中。 概率论是数理统计的基础，而数理统计是概率论的应用延伸。  概率论的起源 概率论起源于17世纪； 1654年，Pascal和Fermat对“分赌本”问题的讨论； 使概率论成为数学的一个分支的真正奠基人是瑞士数学家J.伯努利； 而概率">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">1.1-随机事件-样本空间</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">1.1-随机事件-样本空间</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-04-06T12:19:38.000Z" itemprop="datePublished" class="page-time">
+  2015-04-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/概率论与数理统计-南京大学/">概率论与数理统计---南京大学</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引言"><span class="post-toc-number">1.</span> <span class="post-toc-text">引言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概率论的起源"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">概率论的起源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#举例子"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">举例子</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#随机试验的条件"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">随机试验的条件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#样本空间"><span class="post-toc-number">2.</span> <span class="post-toc-text">样本空间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#特殊的两种事件"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">特殊的两种事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件的分类"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">事件的分类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#例子"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事件的关系"><span class="post-toc-number">3.</span> <span class="post-toc-text">事件的关系</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-1-1-随机事件-样本空间"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">1.1-随机事件-样本空间</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年04月06日 20:19" datetime="2015-04-06T12:19:38.000Z"  itemprop="datePublished">2015-04-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/概率论与数理统计-南京大学/">概率论与数理统计---南京大学</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><ul>
+<li>概率论与数理统计最早起源与赌博行业，而赌博行业又推动了概率论与数理统计的发展。而现在，概率论与数理统计的发展已经远远超出了赌博的范围，而广泛应用于各行各业当中。</li>
+<li>概率论是数理统计的基础，而数理统计是概率论的应用延伸。</li>
+</ul>
+<h3 id="概率论的起源"><a href="#概率论的起源" class="headerlink" title="概率论的起源"></a>概率论的起源</h3><ul>
+<li>概率论起源于17世纪；</li>
+<li>1654年，Pascal和Fermat对“分赌本”问题的讨论；</li>
+<li>使概率论成为数学的一个分支的真正奠基人是瑞士数学家J.伯努利；</li>
+<li>而概率论的飞速发展则在17世纪微积分学说建立以后。</li>
+</ul>
+<h3 id="举例子"><a href="#举例子" class="headerlink" title="举例子"></a>举例子</h3><ol>
+<li>抛一枚均匀的硬币若干次</li>
+<li>测量物理量(如： 长度、时间etc)的误差</li>
+<li>某批产品的使用寿命<ul>
+<li>都有随机现象出现</li>
+<li>但是当量比较大的时候，就会出现某一些规律。</li>
+</ul>
+</li>
+<li>概率论和数理统计是研究随机现象的统计规律性的一门学科。</li>
+</ol>
+<h3 id="随机试验的条件"><a href="#随机试验的条件" class="headerlink" title="随机试验的条件"></a>随机试验的条件</h3><ul>
+<li>可以在相同的条件下重复进行</li>
+<li>试验的所有可能结果不止1个，至少2个或者2个以上，而且所有可能结果都是事前知道的</li>
+<li>不能预知出现的结果<ul>
+<li>试验发生的结果称作为事件或随机事件，通常用大写字母A,B,C来表示</li>
+</ul>
+</li>
+</ul>
+<h2 id="样本空间"><a href="#样本空间" class="headerlink" title="样本空间"></a>样本空间</h2><h3 id="特殊的两种事件"><a href="#特殊的两种事件" class="headerlink" title="特殊的两种事件"></a>特殊的两种事件</h3><ul>
+<li>必然会发生的事件，称为必然事件，一般用\(\Omega\)表示</li>
+<li>必然不会发生的事件，称为不可能事件，一般用\(\Phi\)（空集）表示</li>
+</ul>
+<h3 id="事件的分类"><a href="#事件的分类" class="headerlink" title="事件的分类"></a>事件的分类</h3><ul>
+<li>基本事件（发生的试验事件随机且是不可划分的）</li>
+<li>复合事件（多个基本事件的组合）</li>
+<li>样本空间：所有基本事件组成的集合，其中的每一个基本事件又称做样本点，样本空间用\(\Omega\)表示，样本点用\(\omega\)表示,\(\Omega=\{\omega\}\)</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ul>
+<li><p>ex1：将一枚硬币抛两次，正：H，反：T</p>
+<ul>
+<li>样本空间可以表示为：\(\Omega=\{HH,HT,TH,TT\}\)</li>
+</ul>
+</li>
+<li><p>ex2：连续向一目标射击，直到命中。</p>
+<ul>
+<li>\(\omega\_i=\{前i-1次未能命中，而第i次命中，i=1,2,3…\}\)</li>
+<li>样本空间表示为：\(\Omega=\{\omega\_i, i=1,2,3…\}\)</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件的关系"><a href="#事件的关系" class="headerlink" title="事件的关系"></a>事件的关系</h2><ul>
+<li>上一节讲到，样本空间和事件之间的关系是：\(\Omega=\{\omega\_i, i=1,2,3…\}\)，\(A\subset \Omega \)</li>
+<li>可以看出，随机事件之间的关系和运算和集合之间的关系和运算是一一对应的。</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-04-06T14:51:16.000Z" itemprop="dateUpdated">2015年4月6日 22:51</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/04/06/1-1-随机事件-样本空间/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随机事件与样本空间/">随机事件与样本空间</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/&title=《1.1-随机事件-样本空间》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/&title=《1.1-随机事件-样本空间》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《1.1-随机事件-样本空间》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/05/04/21世纪最性感的职业-数据科学家-哈弗时报翻译/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">21世纪最性感的职业---数据科学家-哈弗时报翻译</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/03/13/支持向量网络论文原文-Vapnik-论文翻译/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">支持向量网络论文原文-Vapnik-论文翻译</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="1-1-随机事件-样本空间" data-title="1.1-随机事件-样本空间" data-url="http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/&title=《1.1-随机事件-样本空间》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/&title=《1.1-随机事件-样本空间》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《1.1-随机事件-样本空间》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/04/06/1-1-随机事件-样本空间/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrUlEQVR42u3awU7kMBAEUP7/p0HihATKVnXbDCu9nEYwSfx8sD3V/fYWX++f19fPX6/v38nver73+a5jFx4eHt5o6M+Pe359MtBTU5OPGQ8PD+82b7YZtM9JhpvzojHg4eHhvZTXLtn5+TYZCR4eHt7/yEuQG+psuvHw8PBexUuW7DwCyIPX9o0XsxY8PDy8mDcrgL328/X6Hh4eHt6oqp4vuHnhv91I3hcXHh4e3g1eUrbf/z1vL0imoA128fDw8G7wkli2fX0e/raFrtlGhYeHh3eK1y707a/+/JntQp9sLXh4eHi3eTk1byNoWwSuZC14eHh4F3LOthEqf1x9rg9GkkzosE8BDw8PL+Alg5ttHhvArAMCDw8P73d4+zggOUDnbQHJJpTEwXh4eHj3eHnQ0MYEm+/kMfE/7sXDw8O7wJsdUvPS/izMzcOItsyGh4eHd4o3KyzNtopTpCKlxsPDw7vAmwUEm2J/vs3kTQbD7jA8PDy8NW9/tN2U0zaRxOp3Ax4eHl7M27dP5Qv95gnJpPzwXzw8PLxf5LXL976glUx3/V48PDy8C7x9KNAenZ+f0IazRVENDw8P7xBv3w6VNxbkzVj78BcPDw/vNu9Gq1N7UG7D3CKMwMPDw7vAu1Gyapu3zk4BHh4e3m3eLEI9tbW020xxfMfDw8O7wJst4skGMIsz2pJYFP7i4eHhHeUlN7cFsDaAmJXK8PDw8P4abza4NtJtI5L2uI+Hh4d3g5dfyUG5/ctmq8jLY3h4eHg3eLMY4sCcrY/pUWCBh4eHd413tvKeF8/yo/ysAQIPDw/vtby8aWDTgJW3IERlNjw8PLw/wEteNhvuqZBieKTGw8PDK3lt+1Qb7LatVHkJ7VjWgoeHhzd/2oFf9G3AsQmLD7cO4OHh4T3xPgDqNYi9PS588wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

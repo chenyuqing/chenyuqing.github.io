@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>数据挖掘课堂算法总结_Junior | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="数据挖掘">
+    <meta name="description" content="写在开头的话  这次的系列笔记是我大三下学期(2014-2至2014-7)上的数据挖掘课程的算法总结。虽然这课老师上的有点凌乱，可能是次序问题，但是整门课学完下来，还是可以把各种算法进行分门别类的。 这里先弄个算法目录。  目录  关联算法 Aprior Algorithm FP Tree   分类算法 决策树 朴素贝叶斯 神经网络   聚类算法 K-means KNN    后记 本系列课堂笔记">
+<meta name="keywords" content="数据挖掘">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘课堂算法总结_Junior">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="写在开头的话  这次的系列笔记是我大三下学期(2014-2至2014-7)上的数据挖掘课程的算法总结。虽然这课老师上的有点凌乱，可能是次序问题，但是整门课学完下来，还是可以把各种算法进行分门别类的。 这里先弄个算法目录。  目录  关联算法 Aprior Algorithm FP Tree   分类算法 决策树 朴素贝叶斯 神经网络   聚类算法 K-means KNN    后记 本系列课堂笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2015-01-05T07:37:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据挖掘课堂算法总结_Junior">
+<meta name="twitter:description" content="写在开头的话  这次的系列笔记是我大三下学期(2014-2至2014-7)上的数据挖掘课程的算法总结。虽然这课老师上的有点凌乱，可能是次序问题，但是整门课学完下来，还是可以把各种算法进行分门别类的。 这里先弄个算法目录。  目录  关联算法 Aprior Algorithm FP Tree   分类算法 决策树 朴素贝叶斯 神经网络   聚类算法 K-means KNN    后记 本系列课堂笔记">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">数据挖掘课堂算法总结_Junior</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">数据挖掘课堂算法总结_Junior</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-10-30T04:39:16.000Z" itemprop="datePublished" class="page-time">
+  2014-10-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘算法总结/">数据挖掘算法总结</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在开头的话"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在开头的话</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#目录"><span class="post-toc-number">2.</span> <span class="post-toc-text">目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">3.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-数据挖掘课堂算法总结_Junior"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">数据挖掘课堂算法总结_Junior</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年10月30日 12:39" datetime="2014-10-30T04:39:16.000Z"  itemprop="datePublished">2014-10-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据挖掘算法总结/">数据挖掘算法总结</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在开头的话"><a href="#写在开头的话" class="headerlink" title="写在开头的话"></a>写在开头的话</h2><hr>
+<ul>
+<li>这次的系列笔记是我大三下学期(2014-2至2014-7)上的数据挖掘课程的算法总结。虽然这课老师上的有点凌乱，可能是次序问题，但是整门课学完下来，还是可以把各种算法进行分门别类的。</li>
+<li>这里先弄个算法目录。</li>
+</ul>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><hr>
+<ol>
+<li>关联算法<ul>
+<li><a href="http://chenyuqing.github.io/2014/11/04/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Aprior-Algorithm/" target="_blank" rel="noopener">Aprior Algorithm</a></li>
+<li><a href="http://tim4chan.com/" target="_blank" rel="noopener">FP Tree</a></li>
+</ul>
+</li>
+<li>分类算法<ul>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">决策树</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">朴素贝叶斯</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">神经网络</a></li>
+</ul>
+</li>
+<li>聚类算法<ul>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">K-means</a></li>
+<li><a href="http://chenyuqing.github.io/" target="_blank" rel="noopener">KNN</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><ul>
+<li>本系列课堂笔记是为了巩固自己对算法的认知而做的，同时也方便日后进行回顾和复习。</li>
+<li>教材：<a href="http://www.amazon.cn/dp/B008RVQHHE/ref=oosr" target="_blank" rel="noopener">《数据挖掘-概念与技术》 韩家炜等著 (原书第3版)</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-01-05T07:37:36.000Z" itemprop="dateUpdated">2015年1月5日 15:37</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/10/30/数据挖掘课堂算法总结_Junior/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据挖掘/">数据挖掘</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/&title=《数据挖掘课堂算法总结_Junior》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/&title=《数据挖掘课堂算法总结_Junior》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据挖掘课堂算法总结_Junior》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/11/01/概率论笔记week01/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">概率论笔记week01</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/10/28/DMwR-note-01-预测海藻数量(四)/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">DMwR-note-01-预测海藻数量(四)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="数据挖掘课堂算法总结_Junior" data-title="数据挖掘课堂算法总结_Junior" data-url="http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/&title=《数据挖掘课堂算法总结_Junior》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/&title=《数据挖掘课堂算法总结_Junior》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据挖掘课堂算法总结_Junior》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/10/30/数据挖掘课堂算法总结_Junior/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3aQW7jQAwEQP//01lgr1nL3aTGTrClk6EgypQCDMdNPh7x9fX3Sj4/u/P9+v785AmPExceHh7eaOnXi3j2+foJ1y9ohmxfHB4eHt45XlsM8iXONvf2FT+9j4eHh/dRXrvdt4fg/Gl4eHh4v4WXFInkReTHcTw8PLyfzEv+zKwwbIpHHu/ekLXg4eHhbdOAYZF4z+eP9ffw8PD+e97X4tps/W0xGK4QDw8P7wDv+ri8OebmAcRmPCsqGHh4eHi38vJNPI8h2sLQ/rRoj+Hh4eEd4O0DiKgFFReVfYBbBBZ4eHh4B3jJpt9u9/vn7L8S4OHh4W14+XE2HyPIQ97ZeFY+uICHh4d3mpc/dBNJ1EsMDtl4eHh47+flx9w2IJht6/vj+IvJCDw8PLxbeW2Au19W/lLqxhgeHh7eAd6snZ+PSbXlYRYBFwNYeHh4eGte0hnLw4VZI7/tyxUFBg8PD+8wL29EzZpV7YBXG3BEMS4eHh7erbw8IGjnudq4dvP68PDw8N7J27fw8wbVpgAUR388PDy8t/DuakG1A1ubQvX0H4OHh4d3gLdpg7VNqVn5yVcYfQ3Aw8PDO8DbL/3eJlkbdtQ9NDw8PLwFL9my83giGcBKXsEmFMbDw8M7x2sD2fxOfj8PL+oQGQ8PD+8ALy8VCWb2W9d3NsMEeHh4eCd4m5bSfkQgP47n7bF/1D08PDy8A7y29dWOZ7UxbnE4nn1jwMPDwxvxzm3Ts6GEtgC8+F08PDy8A7x9MDGMUOOot402bs5d8PDw8J78dNb4T/58/sz2kJ0f6/Hw8PDO8doGWBsrtAMBbe3Cw8PD+8m8fHFtmZm9lBflAQ8PD++jvE07vy02RQcPDw8P70O8vOmVb+jtoXwWE9+WteDh4eHN55eG3+hnbf7NcEDyavDw8PBu5f0BMDuIvRWSO8sAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>note-4-cv-class | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="CV,machine learning,image processing">
+    <meta name="description" content="ch8 object detection   amusi-computer-vision    Class 2CONV &amp;amp; APP (low level) 时间， 2019年8月29日 下午4:24  图片上的一阶导和二阶导  一阶导是灰度值的变化率 图像函数， $$y = f(x)$$  一阶导，粗边（缘）$$f\prime(x) = y\prime = f(x+1) - f(x)$$">
+<meta name="keywords" content="CV,machine learning,image processing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="note-4-cv-class">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="ch8 object detection   amusi-computer-vision    Class 2CONV &amp;amp; APP (low level) 时间， 2019年8月29日 下午4:24  图片上的一阶导和二阶导  一阶导是灰度值的变化率 图像函数， $$y = f(x)$$  一阶导，粗边（缘）$$f\prime(x) = y\prime = f(x+1) - f(x)$$">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-09-02T17:47:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="note-4-cv-class">
+<meta name="twitter:description" content="ch8 object detection   amusi-computer-vision    Class 2CONV &amp;amp; APP (low level) 时间， 2019年8月29日 下午4:24  图片上的一阶导和二阶导  一阶导是灰度值的变化率 图像函数， $$y = f(x)$$  一阶导，粗边（缘）$$f\prime(x) = y\prime = f(x+1) - f(x)$$">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">note-4-cv-class</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">note-4-cv-class</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-08-29T08:22:23.000Z" itemprop="datePublished" class="page-time">
+  2019-08-29
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Class-2"><span class="post-toc-number">1.</span> <span class="post-toc-text">Class 2</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CONV-amp-APP-low-level"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">CONV &amp; APP (low level)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mid-level"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">mid level</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Class-3"><span class="post-toc-number">2.</span> <span class="post-toc-text">Class 3</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Class-7"><span class="post-toc-number">3.</span> <span class="post-toc-text">Class 7</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Initialization-Methods"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Initialization Methods</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Image-Preprocessing"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">Image Preprocessing</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-note-4-cv-2019-08-29"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">note-4-cv-class</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年08月29日 16:22" datetime="2019-08-29T08:22:23.000Z"  itemprop="datePublished">2019-08-29</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><p><a href="https://github.com/scutan90/DeepLearning-500-questions/blob/master/ch08_目标检测/第八章_目标检测.md" target="_blank" rel="noopener">ch8 object detection</a> </p>
+</li>
+<li><p><a href="https://github.com/amusi/Deep-Learning-Interview-Book/blob/master/docs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.md" target="_blank" rel="noopener">amusi-computer-vision</a> </p>
+</li>
+</ul>
+<h2 id="Class-2"><a href="#Class-2" class="headerlink" title="Class 2"></a>Class 2</h2><h3 id="CONV-amp-APP-low-level"><a href="#CONV-amp-APP-low-level" class="headerlink" title="CONV &amp; APP (low level)"></a>CONV &amp; APP (low level)</h3><ul>
+<li><p>时间， 2019年8月29日 下午4:24</p>
+</li>
+<li><p>图片上的一阶导和二阶导</p>
+<ul>
+<li><strong>一阶导</strong>是灰度值的变化率</li>
+<li>图像函数， $$y = f(x)$$ </li>
+<li>一阶导，粗边（缘）$$f\prime(x) = y\prime = f(x+1) - f(x)$$</li>
+<li><strong>二阶导</strong>是一阶导的导数</li>
+<li>二阶导，精细结构敏感(sensetive)，双边效应(double edge) $$f\prime\prime(x) = f\prime(x+1) - f\prime(x) = f(x+2) -f(x+1)-f(x+1)+f(x)$$</li>
+</ul>
+</li>
+<li><p>特别的kernels    </p>
+<ul>
+<li>高斯核(gaussian kernel)/中值化(median kernel)，图像模糊</li>
+<li>拉普拉斯(laplacian kernel), 图像锐化，颗粒感更强， ori+edge</li>
+<li>sobel kernel, 边缘检测</li>
+</ul>
+</li>
+</ul>
+<h3 id="mid-level"><a href="#mid-level" class="headerlink" title="mid level"></a>mid level</h3><h2 id="Class-3"><a href="#Class-3" class="headerlink" title="Class 3"></a>Class 3</h2><ul>
+<li><p>面试要求</p>
+<ul>
+<li><ol>
+<li>concept(说出具体流程) &amp; code(写出代码)</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>corner case(边界情况怎么处理)</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>分析算法时间复杂度</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>链式法则，chain Rule</p>
+<ul>
+<li>Problems, 梯度爆炸和梯度弥失</li>
+<li>coding more</li>
+</ul>
+</li>
+<li><p>regularization (正则化)</p>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+<h2 id="Class-7"><a href="#Class-7" class="headerlink" title="Class 7"></a>Class 7</h2><h3 id="Initialization-Methods"><a href="#Initialization-Methods" class="headerlink" title="Initialization Methods"></a>Initialization Methods</h3><ul>
+<li>网络参数初始化是一个很重要的开始，因为好的初始化会让网络更好更快的收敛。</li>
+<li>常见的参数初始化方法<ul>
+<li>Gaussian / Xavier / Kaiming Initialization，都是把参数初始化成一个均值(mean=0)为零，标准差为一个常数(constant)的正态分布。</li>
+<li>原因是， Help to pass the gradient/less explosion &amp; vanishing</li>
+<li><strong>Xavier: [Bengio 2010]</strong>, $$std(标准差)=\sqrt{\frac{2} {f_{in}+f_{out}}}$$, $$f_{in} =  input_channels * kernel_w * kernel_h$$，针对的是没有activation function或者activation function是线性的或者tanh等</li>
+<li><strong>Kaiming (MSRA/He) [He, 2015]</strong>,$$std(标准差)=\sqrt{\frac{2} {f_{in}}}$$，针对的activation function是relu</li>
+</ul>
+</li>
+</ul>
+<h3 id="Image-Preprocessing"><a href="#Image-Preprocessing" class="headerlink" title="Image Preprocessing"></a>Image Preprocessing</h3><ul>
+<li><p>Traditional Ways</p>
+<ul>
+<li><p>Mean subtraction</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X -= np.mean(X, axis=0) # 0: row, 1: col</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Normalization</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X /= np.std(X, axis=0)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PCA</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">X = np.random.randn(<span class="number">1000</span>, <span class="number">500</span>)</span><br><span class="line">X -= np.mean(X, axis=<span class="number">0</span>)</span><br><span class="line">cov = np.dot(X.T, X) / (X.shape[<span class="number">0</span>] - <span class="number">1</span>)</span><br><span class="line">U, S, V = np.linalg.svd(cov)</span><br><span class="line"><span class="comment"># Xrot = np.dot(X, U)</span></span><br><span class="line">Xrot_reduced = np.dot(X, U[:, :<span class="number">100</span>])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>找到相互正交投影方向，使得数据投影后最大的方差。方差越大，结果不可预测，信息量越大。</li>
+<li>先找一个轴，报上去方差最大</li>
+<li>再找2nd轴，报上去方差最大</li>
+<li>。。。</li>
+<li><strong>那如何找到方差最大的轴呢？</strong></li>
+</ul>
+</li>
+<li><p>Whitening (Seldom use)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Xwhite = Xrot / np.sqrt(S + 1e-5)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-02T17:47:41.000Z" itemprop="dateUpdated">2019年9月3日 1:47</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2019/08/29/note-4-cv-2019-08-29/" target="_blank" rel="external">http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CV/">CV</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image-processing/">image processing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/">machine learning</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/&title=《note-4-cv-class》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/&title=《note-4-cv-class》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《note-4-cv-class》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/09/12/pa-prepare/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">pa-prepare</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/08/29/Reaction-to-Machine-Learning-Yearning/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Reaction to Machine Learning Yearning</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="note-4-cv-2019-08-29" data-title="note-4-cv-class" data-url="http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/&title=《note-4-cv-class》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/&title=《note-4-cv-class》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《note-4-cv-class》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/08/29/note-4-cv-2019-08-29/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3aQW7DMAwEwPz/0+m1QBt7l2qCWh6diiCpNT4Q1IqPR7ye31b7/Ve/+vl5+5R6YWBgXJbxPFzHD0ge3P6fV98/eTUYGBg3YCSPT8rl8daPn/WKkRRrDAwMjJxxvOmEh4GBgbHOyFu3dnMYGBgYx4zZJpJmLvn+R8/iGBgYF2Tkqfvn/37L/QYGBsalGM9yzYrv7GKg2BUGBsbWjLzAJfFZfhk5uzw42Q8GBsYNGPk4RX4B0AZnbYEuJtEwMDAuy2g3Nztw5phhG4qBgbE1Iy+p66U2bxmPPz8puxgYGFsz8jZxpbDmB+Oah4GBsTWjjfXbuG0lkqtfEAYGxqaMWcFtS2p7YVAfoTEwMG7GyNvBWdltG76IioGBsSmjGLoadWIroVtOwsDA2JsxG+TKj7Jt3DaL+TAwMPZm5MfF9ribB/3t0NhJa4iBgbEpox7ACmAtdVa4MTAw7sNoW723xPrx6/vl1WBgYGzNSNasfczDtXbrxekcAwNjI0YuG+Z5ZeFOGtaTYQsMDIytGe0o2OyyM4/wMDAwMGaDDu34RRvhtUUfAwNjb8azXLO4bWU4NTp/Y2BgbM2YhW7rY6nH4f76xSoGBsZ+jFmRTaL8lUiubi4xMDBuwGhjsjwyWzk250gMDAyMlY3ONl1fQmBgYGCMLhrzCK8FvKXgYmBg/HtGG5z9QYlcHtrAwMC4D2NpUiN+EbOLgb86+mJgYFyW8QVJ8bJQZvtRVwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

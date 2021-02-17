@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>在tensorflow中实现一个简单的神经网络 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="ML,Tensorflow tutorial,DL">
+    <meta name="description" content="这是一个非常简单的神经网络的例子，而且在tensorflow当中实现非常的容易。那么按照上一篇介绍神经网络的文章：什么是神经网络？我们知道神经网络的架构就是包含了input layer，hidden layer和output layer三层。  第一步，我们先导入相关的module： 12import tensorflow as tfimport numpy as np  然后，创造一些trai">
+<meta name="keywords" content="ML,Tensorflow tutorial,DL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在tensorflow中实现一个简单的神经网络">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="这是一个非常简单的神经网络的例子，而且在tensorflow当中实现非常的容易。那么按照上一篇介绍神经网络的文章：什么是神经网络？我们知道神经网络的架构就是包含了input layer，hidden layer和output layer三层。  第一步，我们先导入相关的module： 12import tensorflow as tfimport numpy as np  然后，创造一些trai">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/tf_tutorial/04_sample/run.gif">
+<meta property="og:updated_time" content="2017-02-22T08:31:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在tensorflow中实现一个简单的神经网络">
+<meta name="twitter:description" content="这是一个非常简单的神经网络的例子，而且在tensorflow当中实现非常的容易。那么按照上一篇介绍神经网络的文章：什么是神经网络？我们知道神经网络的架构就是包含了input layer，hidden layer和output layer三层。  第一步，我们先导入相关的module： 12import tensorflow as tfimport numpy as np  然后，创造一些trai">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/tf_tutorial/04_sample/run.gif">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">在tensorflow中实现一个简单的神经网络</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">在tensorflow中实现一个简单的神经网络</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-02-21T10:01:03.000Z" itemprop="datePublished" class="page-time">
+  2017-02-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Tensorflow/">Tensorflow</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-04-a-simple-neural-network"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在tensorflow中实现一个简单的神经网络</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年02月21日 18:01" datetime="2017-02-21T10:01:03.000Z"  itemprop="datePublished">2017-02-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Tensorflow/">Tensorflow</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><p>这是一个非常简单的神经网络的例子，而且在tensorflow当中实现非常的容易。那么按照上一篇介绍神经网络的文章：<a href>什么是神经网络？</a>我们知道神经网络的架构就是包含了input layer，hidden layer和output layer三层。</p>
+</li>
+<li><p>第一步，我们先导入相关的module：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，创造一些training data：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_data = np.random.rand(<span class="number">100</span>).astype(np.float32)</span><br><span class="line">y_data = x_data * <span class="number">0.1</span> + <span class="number">0</span>,<span class="number">3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以上第一个语句是创造了100个(0,1)之间的随机数，并且把它的类型定义为float32。</p>
+</li>
+<li><p>第二个语句则是定义了training data的label。y_data = x_data * 0.1 + 0.3</p>
+</li>
+<li><p>下面开始创建tensorflow的structure。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## create tensorflow structue start ##</span></span><br><span class="line">Weights = tf.Variable(tf.random_uniform([<span class="number">1</span>], <span class="number">-1.0</span>, <span class="number">1.0</span>))</span><br><span class="line">biases = tf.Variable(tf.zeros([<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">y = Weights * x_data + biases</span><br><span class="line"></span><br><span class="line">loss = tf.reduce_mean(tf.square(y-y_data))</span><br><span class="line">optimizer = tf.train.GradientDescentOptimizer(<span class="number">0.5</span>)</span><br><span class="line">train = optimizer.minimize(loss)</span><br><span class="line"></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(init)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">    sess.run(train)</span><br><span class="line">    <span class="keyword">if</span> step % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">        print(step, sess.run(Weights), sess.run(biases), sess.run(loss))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第2，3句定义了<strong>权重(Weights)</strong>和<strong>偏置(bias)</strong></p>
+</li>
+<li><p>第5句创建了预测值y和输入X_data之间的等式关系</p>
+</li>
+<li><p>第7句定义了<strong>损失函数(loss)</strong>，y-y_data就是预测值和真实值之间的误差，而tf.sqaure()则是计算误差的平方和，tf.reduce_mean则是计算了向量的均值，如[1,2,3,4,5]的均值是3</p>
+</li>
+<li><p>第8句定义了一个优化器，tf.train.GradientDescentOptimizer(0.5)</p>
+</li>
+<li><p>第9句定义了优化器的优化规则，就是最小化</p>
+</li>
+<li><p>第11句是定义全局变量的初始化，这一步非常重要</p>
+</li>
+<li><p>第13句创建了一个Session来控制图的计算</p>
+</li>
+<li><p>第14句，当run的时候，才会执行之前定义的操作，包括全局变量的初始化</p>
+</li>
+<li><p>运行的结果：</p>
+</li>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/tf_tutorial/04_sample/run.gif" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-22T08:31:00.000Z" itemprop="dateUpdated">2017年2月22日 16:31</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/02/21/04-a-simple-neural-network/" target="_blank" rel="external">http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DL/">DL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tensorflow-tutorial/">Tensorflow tutorial</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/&title=《在tensorflow中实现一个简单的神经网络》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/&title=《在tensorflow中实现一个简单的神经网络》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在tensorflow中实现一个简单的神经网络》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/02/28/how-to-install-googlepinyin-on-ubuntun/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">how to install Google-pinyin on Ubuntu</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/02/21/03-what-is-neural-network/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">什么是神经网络？</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="04-a-simple-neural-network" data-title="在tensorflow中实现一个简单的神经网络" data-url="http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/&title=《在tensorflow中实现一个简单的神经网络》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/&title=《在tensorflow中实现一个简单的神经网络》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在tensorflow中实现一个简单的神经网络》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2017/02/21/04-a-simple-neural-network/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3aQU4DMRAEQP7/6XDhwCVJ94yNglR7QiHyuoxkm575+oqfx5Pn9feTz5+N1r5x9eDh4eEdmvrv4R7Bk0y3RT77bTITPDw8vNu815t4sinnk3v9ltkCPf0cDw8P72N4+SGR3HLzt+Dh4eH9R157tU0uxK9H/tODAQ8PDy/m5Vt8Ej3Mlqld7sNZCx4eHl7My6tIn/PzlfoeHh4e3rqqnoSqeeGqbRrYzPNnBDw8PLwLvLa4tXlxHSLEi/hmnnh4eHgXePm//W2BP1+CvOiVj4CHh4d3g9dOOilutSWuNg7O54yHh4d3g9cOkS/KrCEgOVqSIwcPDw/vHi93z9h5Ia39ZjQOHh4e3gVesr3mSUY+zuYIqeMJPDw8vKO8ZKLJZXcWB29KXKvKHh4eHt6al08xbzU4GysMUxY8PDy8C7xN09UsyMhLaPkSvwkm8PDw8C7w2g13Fk/MwtlZcFzk1nh4eHgLXg5rI4xZSJFfzet2Kzw8PLxDvM1mvZn6bKGHVDw8PLxDvPYAyKlnj4djVT48PDy8Ba8t57fNUrPx88D3TayMh4eHd4HXBg37KKFduPZIKCp4eHh4eCNevjUn0UC73ectVu0fAA8PD+8erw0a2sOjDSxmYUTeyoCHh4d3ipeEBS0vL2vN4oYigMbDw8O7xktOj8fomU19s0zRTRwPDw/vGm9TAGubqNqwI7q44+Hh4V3j5WHErMy/b7QaNmPh4eHhHeVtLsezGtOmYas+WvDw8PAu8NoNd8PehBR5Y9bwmMHDw8Mree3U82tx/nkbBEelLzw8PLzLvE1j0yx+vRdJ4OHh4X0mr4W1S9bGwUVKjYeHh/fnvORqOwt526C2aLrCw8PDu8DbtALUAcGobNYGxHh4eHj3eJv/6Pff3C/QgSADDw8PL33jNyU4DQGFzy9XAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

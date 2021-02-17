@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>字符串-编程面试10大常考算法系列(1) | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="字符串操作">
+    <meta name="description" content="题语 本文针对Java中字符串的常用操作进行整理，在原转载文章的基础上进行内容的补充。 出自：编程面试的10大算法概念-常考  字符串和数组Original 如果IDE没有代码自动补全功能，那么你应该记住下面这些方法：12345678// 字符串charAt(int x) // 获得某个索引处的字符length() // 字符串长度toCharArray() // 获得字符串对应的char数组//">
+<meta name="keywords" content="字符串操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串-编程面试10大常考算法系列(1)">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="题语 本文针对Java中字符串的常用操作进行整理，在原转载文章的基础上进行内容的补充。 出自：编程面试的10大算法概念-常考  字符串和数组Original 如果IDE没有代码自动补全功能，那么你应该记住下面这些方法：12345678// 字符串charAt(int x) // 获得某个索引处的字符length() // 字符串长度toCharArray() // 获得字符串对应的char数组//">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2015-01-05T09:12:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串-编程面试10大常考算法系列(1)">
+<meta name="twitter:description" content="题语 本文针对Java中字符串的常用操作进行整理，在原转载文章的基础上进行内容的补充。 出自：编程面试的10大算法概念-常考  字符串和数组Original 如果IDE没有代码自动补全功能，那么你应该记住下面这些方法：12345678// 字符串charAt(int x) // 获得某个索引处的字符length() // 字符串长度toCharArray() // 获得字符串对应的char数组//">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">字符串-编程面试10大常考算法系列(1)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">字符串-编程面试10大常考算法系列(1)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-01-05T07:22:21.000Z" itemprop="datePublished" class="page-time">
+  2015-01-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/面试分享/">面试分享</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题语"><span class="post-toc-number">1.</span> <span class="post-toc-text">题语</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字符串和数组"><span class="post-toc-number">2.</span> <span class="post-toc-text">字符串和数组</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Original"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Original</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#charAt-int-x"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">charAt(int x)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#length"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">length()</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#toCharArray"><span class="post-toc-number">2.1.3.</span> <span class="post-toc-text">toCharArray()</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#length-1"><span class="post-toc-number">2.1.4.</span> <span class="post-toc-text">length</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Arrays-sort"><span class="post-toc-number">2.1.5.</span> <span class="post-toc-text">Arrays.sort()</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Arrays-toString-char-a"><span class="post-toc-number">2.1.6.</span> <span class="post-toc-text">Arrays.toString(char[] a)</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后话"><span class="post-toc-number">3.</span> <span class="post-toc-text">后话</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-字符串-编程面试10大常考算法系列-1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">字符串-编程面试10大常考算法系列(1)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年01月05日 15:22" datetime="2015-01-05T07:22:21.000Z"  itemprop="datePublished">2015-01-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/面试分享/">面试分享</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="题语"><a href="#题语" class="headerlink" title="题语"></a>题语</h2><ul>
+<li>本文针对Java中字符串的常用操作进行整理，在原转载文章的基础上进行内容的补充。</li>
+<li>出自：<a href="http://chenyuqing.github.io/2015/01/05/编程面试的10大算法概念-常考/" target="_blank" rel="noopener">编程面试的10大算法概念-常考</a></li>
+</ul>
+<h2 id="字符串和数组"><a href="#字符串和数组" class="headerlink" title="字符串和数组"></a>字符串和数组</h2><h3 id="Original"><a href="#Original" class="headerlink" title="Original"></a>Original</h3><ul>
+<li>如果IDE没有代码自动补全功能，那么你应该记住下面这些方法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串</span></span><br><span class="line">charAt(<span class="keyword">int</span> x) <span class="comment">// 获得某个索引处的字符</span></span><br><span class="line">length() <span class="comment">// 字符串长度</span></span><br><span class="line">toCharArray() <span class="comment">// 获得字符串对应的char数组</span></span><br><span class="line"><span class="comment">// 数组</span></span><br><span class="line">length <span class="comment">// 数组大小</span></span><br><span class="line">Arrays.sort()  <span class="comment">// 数组排序</span></span><br><span class="line">Arrays.toString(<span class="keyword">char</span>[] a) <span class="comment">// 数组转成字符串</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="charAt-int-x"><a href="#charAt-int-x" class="headerlink" title="charAt(int x)"></a>charAt(int x)</h4><ul>
+<li><p>它是属于字符串的方法，功能是根据字符串的下标(从0开始)取出当前的字符。</p>
+</li>
+<li><p>源代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">charAt</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((index &lt; <span class="number">0</span>) || (index &gt;= value.length)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(index);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value[index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>它的思路是：首先根据判断输入的下标是否合法，然后直接取value[index]，其中value是String类中的一个字符数组，它就是为了把字符串转为字符数组而设的。</p>
+</li>
+</ul>
+<h4 id="length"><a href="#length" class="headerlink" title="length()"></a>length()</h4><ul>
+<li><p>它是属于字符串的方法，功能是返回字符串的长度。</p>
+</li>
+<li><p>源代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value.length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不必多说，参考上文。</p>
+</li>
+</ul>
+<h4 id="toCharArray"><a href="#toCharArray" class="headerlink" title="toCharArray()"></a>toCharArray()</h4><ul>
+<li><p>它是属于字符串的方法，功能是把字符串转换成字符串数组。</p>
+</li>
+<li><p>源代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * Converts this string to a new character array.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span>  a newly allocated character array whose length is the length</span></span><br><span class="line"><span class="comment">  *          of this string and whose contents are initialized to contain</span></span><br><span class="line"><span class="comment">  *          the character sequence represented by this string.</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">char</span>[] toCharArray() &#123;</span><br><span class="line">     <span class="comment">// Cannot use Arrays.copyOf because of class initialization order issues</span></span><br><span class="line">     <span class="keyword">char</span> result[] = <span class="keyword">new</span> <span class="keyword">char</span>[value.length];</span><br><span class="line">     System.arraycopy(value, <span class="number">0</span>, result, <span class="number">0</span>, value.length);</span><br><span class="line">     <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>它的思路是：先创建一个和原字符串长度一样的字符数组result[]，然后通过系统的arraycopy()方法把原字符串的每一个字符对应的复制到字符数组中。其中value是String类中的一个字符数组，它就是为了把字符串转为字符数组而设的，但为什么我们不直接返回value字符数组呢？因为value是private的，不可被调用。</p>
+</li>
+<li><p>自己实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// toCharArraySelf</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span>[] toCharArraySelf(String origin) &#123;</span><br><span class="line">	<span class="keyword">char</span>[] result = <span class="keyword">new</span> <span class="keyword">char</span>[origin.length()];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; origin.length(); i++) &#123;</span><br><span class="line">		<span class="comment">// System.out.println("origin.index()" +origin.charAt(i));</span></span><br><span class="line">		result[i] = (<span class="keyword">char</span>)origin.charAt(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="length-1"><a href="#length-1" class="headerlink" title="length"></a>length</h4><ul>
+<li>它是属于数组的一个属性，记录着数组的长度。</li>
+</ul>
+<h4 id="Arrays-sort"><a href="#Arrays-sort" class="headerlink" title="Arrays.sort()"></a>Arrays.sort()</h4><ul>
+<li><p>Arrays是Java的一个工具包，专门针对数组的操作。sort()方法是数组的排序，传入的参数是一个数组，然后把数组进行排序后返回。</p>
+</li>
+<li><p>源代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">char</span>[] a)</span> </span>&#123;</span><br><span class="line">    DualPivotQuicksort.sort(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以看到Java7中Arrays调用的是双基准快速排序算法(DualPivotQuicksort)。有兴趣的自行研究：<a href="http://algs4.cs.princeton.edu/23quicksort/QuickDualPivot.java.html" target="_blank" rel="noopener">QuickDualPivot.java</a></p>
+</li>
+</ul>
+<h4 id="Arrays-toString-char-a"><a href="#Arrays-toString-char-a" class="headerlink" title="Arrays.toString(char[] a)"></a>Arrays.toString(char[] a)</h4><ul>
+<li>它是属于Arrays工具包的一个方法，功能刚好是把数组转化为字符串。</li>
+<li>源代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toString</span><span class="params">(<span class="keyword">char</span>[] a)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (a == <span class="keyword">null</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="string">"null"</span>;</span><br><span class="line">       <span class="keyword">int</span> iMax = a.length - <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">if</span> (iMax == -<span class="number">1</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="string">"[]"</span>;</span><br><span class="line"></span><br><span class="line">       StringBuilder b = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">       b.append(<span class="string">'['</span>);</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; ; i++) &#123;</span><br><span class="line">           b.append(a[i]);</span><br><span class="line">           <span class="keyword">if</span> (i == iMax)</span><br><span class="line">               <span class="keyword">return</span> b.append(<span class="string">']'</span>).toString();</span><br><span class="line">           b.append(<span class="string">", "</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-01-05T09:12:00.000Z" itemprop="dateUpdated">2015年1月5日 17:12</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/01/05/字符串-编程面试10大常考算法系列-1/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串操作/">字符串操作</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/&title=《字符串-编程面试10大常考算法系列(1)》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/&title=《字符串-编程面试10大常考算法系列(1)》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《字符串-编程面试10大常考算法系列(1)》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/01/08/SVM入门系列博文-转自Jasper-s-Java-Jacal-毕设系列/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">SVM入门系列博文-转自Jasper&#39;s Java Jacal-毕设系列</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/01/05/编程面试的10大算法概念-常考/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">编程面试的10大算法概念-常考</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="字符串-编程面试10大常考算法系列-1" data-title="字符串-编程面试10大常考算法系列(1)" data-url="http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/&title=《字符串-编程面试10大常考算法系列(1)》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/&title=《字符串-编程面试10大常考算法系列(1)》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《字符串-编程面试10大常考算法系列(1)》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/01/05/字符串-编程面试10大常考算法系列-1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJ0lEQVR42u3aQW7jQAwEQP//097zIrHcJCeARZdOQSxLUxNgucPm4xFfz8sruSe589WnP1fy887HX1zY2NjYN2FXF/rqu9fPTL7V+26+9djY2Ni72a9e/+qe5NG9T6/fe31Pcj82NjY2drLoXiG8LlGntgkbGxsbu1pOkoPH5L3Y2NjY2HlTabId+af5GqoRBTY2NvZWdp6Kfv7Pf5JvY2NjY38w+1m8em39/KhQfWbvwsbGxt7EzgtAbzuSReeFMw+Yk/YTNjY29jew87Z+cmf1OXnrv1oIsbGxsTexqxFsr32fhLLVsDYfA3qTh2BjY2OvYFeHYKrBcG8j8gGdZOjnzSEEGxsb++bspE2TtG+qRSVZbu/P86YEYmNjYy9iV4tEzq5SD5SlydQSNjY29m3ZVVI+QFPdiMl4EDY2NvY3s3sFZvL75ODRi5PzPwY2Njb2bnbyb37e6DkbQlTXVggJsLGxsW/LnjCuS0XvWDI5tORFERsbG3sfO3/oJHnoPW3e9vrlCdjY2NiL2NX++aklJvheQU0CDGxsbOx97HyJ1VKXbN8EPPoWNjY29gp2dRCnN1gzYeTvLRRRbGxs7NXsPIjNA9q8gOXDQ9WtfNlLw8bGxl7H7oW4+ejMqdA3Dwl+eS82Njb2InYvcM3j1XxIqNrYaiInOTM2Njb2x7MnozCjPLlVinqrxcbGxt7Krh4eekeLScNo0vCK8m1sbGzsm7Or//WvRsLJRlS3r/rMZt3GxsbGvgk7f/2pVlRypMmLWV5i//s9NjY29jp2r/leDYbnAzdJLH2gMmNjY2Pflj2JSKsNo2ozqHooeiPCxsbGXsc+O46TRwXzo0UzbMbGxsZeze6N6SRF8dSY5nyUBxsbG3sH+1m8JlWgF8rmpa7QYMLGxsZexJ43jJKjyKkwIGmBVRtV2NjY2DvYSdHKC1K1hdQrPL0Rn0L1xsbGxr4hO2/r/OEYTTGuqG4NNjY2Nnb+rWoJrB5a5iUWGxsbG7sa6PbaT/OgFxsbG/t72HkEO3llNQbuhcfRdmNjY2MvYk966fkLTjWe8qGifPAIGxsb+7bsfwFEpYEBipt3AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

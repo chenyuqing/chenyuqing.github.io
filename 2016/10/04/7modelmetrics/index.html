@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>7个每人都应该知道的模型性能评估标准 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="ML,Interview,Translate">
+    <meta name="description" content="By TAVISH SRIVASTAVA , Original Link 19/02/2016   Introduction 预测模型遵循积极的反馈原则。你建了一个模型，通过评估标准(metrics)得到反馈，然后不断改善模型知道达到你预期的准确率。评估标准解释了模型的性能。评估标准很重要的一点是它能够辨别不同模型的结果。 很多坦率的分析学者，甚至都没有check模型的准确率。一旦他们建好了模型">
+<meta name="keywords" content="ML,Interview,Translate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7个每人都应该知道的模型性能评估标准">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="By TAVISH SRIVASTAVA , Original Link 19/02/2016   Introduction 预测模型遵循积极的反馈原则。你建了一个模型，通过评估标准(metrics)得到反馈，然后不断改善模型知道达到你预期的准确率。评估标准解释了模型的性能。评估标准很重要的一点是它能够辨别不同模型的结果。 很多坦率的分析学者，甚至都没有check模型的准确率。一旦他们建好了模型">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-02-15T09:37:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7个每人都应该知道的模型性能评估标准">
+<meta name="twitter:description" content="By TAVISH SRIVASTAVA , Original Link 19/02/2016   Introduction 预测模型遵循积极的反馈原则。你建了一个模型，通过评估标准(metrics)得到反馈，然后不断改善模型知道达到你预期的准确率。评估标准解释了模型的性能。评估标准很重要的一点是它能够辨别不同模型的结果。 很多坦率的分析学者，甚至都没有check模型的准确率。一旦他们建好了模型">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">7个每人都应该知道的模型性能评估标准</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">7个每人都应该知道的模型性能评估标准</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-10-04T04:51:01.000Z" itemprop="datePublished" class="page-time">
+  2016-10-04
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Introduction"><span class="post-toc-number">1.</span> <span class="post-toc-text">Introduction</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#热身：预测模型的类型"><span class="post-toc-number">2.</span> <span class="post-toc-text">热身：预测模型的类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#阐述性的例子"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">阐述性的例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#混淆矩阵"><span class="post-toc-number">3.</span> <span class="post-toc-text">混淆矩阵</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Gain-and-Lift-charts-获得和提升表"><span class="post-toc-number">4.</span> <span class="post-toc-text">Gain and Lift charts(获得和提升表)</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-7modelmetrics"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">7个每人都应该知道的模型性能评估标准</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016年10月04日 12:51" datetime="2016-10-04T04:51:01.000Z"  itemprop="datePublished">2016-10-04</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li>By TAVISH SRIVASTAVA , <a href="https://www.analyticsvidhya.com/blog/2016/02/7-important-model-evaluation-error-metrics/" target="_blank" rel="noopener">Original Link</a></li>
+<li>19/02/2016 </li>
+</ul>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>预测模型遵循积极的反馈原则。你建了一个模型，通过评估标准(metrics)得到反馈，然后不断改善模型知道达到你预期的准确率。评估标准解释了模型的性能。评估标准很重要的一点是它能够辨别不同模型的结果。</li>
+<li>很多坦率的分析学者，甚至都没有check模型的准确率。一旦他们建好了模型，他们就会用它来对新的数据进行预测。这是一个错误的做法。</li>
+<li>坦白说，建立一个预测模型并不是你的目的，而是你建好了模型还要从中选出一个对新数据预测有较高准确率的模型(泛化能力强)。所以，检测模型的准确率比计算预测值更重要。</li>
+<li>在我们的行业中，对于不同的模型有不同的评估标准。评估标准的选择完全依赖于模型的类型和模型的实现。当你建好了模型之后，以下7中模型评估标准的方法会帮助你评估模型的准确率。考虑到交叉验证(cross-validation)的日益流行。我也会本文中提及。</li>
+</ul>
+<h2 id="热身：预测模型的类型"><a href="#热身：预测模型的类型" class="headerlink" title="热身：预测模型的类型"></a>热身：预测模型的类型</h2><ul>
+<li><p>当我们谈及预测模型，我们要不是谈到回归模型(连续输出)就是谈到分类模型(名词性的或者二分类输出)。这两种模型所用的评估标准是有所不同的。</p>
+</li>
+<li><p>在分类问题当中，我们利用两种算法(根据输出的不同)：</p>
+<ol>
+<li><b><u>类别输出：</u></b>像SVM和KNN会产生一个类别输出。譬如，在一个二分类问题中，输出不是0就是1。然而，现在我们有了可以把二分类问题转化成概率。但这些方法目前并没有很好的被统计社区所接纳。</li>
+<li><b><u>概率输出：</u></b>像逻辑斯特回归，随机森林，Gradient Boosting，Adaboost等等算法，会得到概率输出。而把概率输出转化成类别输出只是产生一个阈值的问题。</li>
+</ol>
+</li>
+<li><p>在回归的问题中，我们没有断开的输出，输出都是连续的。</p>
+</li>
+</ul>
+<h3 id="阐述性的例子"><a href="#阐述性的例子" class="headerlink" title="阐述性的例子"></a>阐述性的例子</h3><ul>
+<li>关于分类模型评估的讨论。我用到了Kaggle上的<a href="https://www.kaggle.com/c/inria-bci-challenge" target="_blank" rel="noopener">BCI挑战问题</a>的预测结果。解决问题的方法和讨论是不相干的。但是训练集上的最后预测值被用到了本文中。这个问题的预测是概率输出，但是利用阈值0.5转化成了分类问题。</li>
+</ul>
+<h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><ul>
+<li>混淆矩阵是一个N X N的矩阵，N是待预测的类别个数。现有的问题中N = 2，所以我们会得到一个 2 X 2的矩阵。以下是一些定义。你需要记住：<ul>
+<li><b>准确率：</b>所有的预测当中预测正确的比例。</li>
+<li><b>Positive Predictive Value或者命中率：</b>即预测分类结果为正样本当中分类正确的比例。</li>
+<li><b>Negative Predictive Value：</b>即预测分类结果为负样本当中分类正确的比例。</li>
+<li><b>敏感率或者召回率：</b>即真实分类结果为正样本当中预测正确的比例。</li>
+<li><b>特异率：</b>即真实分类结果为负样本当中预测正确的比例。</li>
+</ul>
+</li>
+</ul>
+<p><img src alt="101"></p>
+<ul>
+<li>现在的问题准确率达到了88%。由上表你可以看到，Positive predictive Value非常高，但是negative predictive value就非常低。Senstivity和Specificity都是一样。主要是因为我们已经定好了阈值。如果我们减小我们的阈值，那么这两队明显不同的数字就会变得更近。</li>
+<li>通常我们会考虑以上的一对作为评估标准。譬如，在一间医药公司，他们就会更加关注更小的错误的正样本诊断。所以，他们就会想要高的Specificity(特异率)。另一方面，损耗模型就会更关注Senstivity(敏感率)。混淆矩阵通常用作分类模型的。</li>
+</ul>
+<h2 id="Gain-and-Lift-charts-获得和提升表"><a href="#Gain-and-Lift-charts-获得和提升表" class="headerlink" title="Gain and Lift charts(获得和提升表)"></a>Gain and Lift charts(获得和提升表)</h2><ul>
+<li><p>Gain and Lift charts主要是用来检测概率的排序。以下就是建立一个Gain/Life表的过程：</p>
+<ol>
+<li>计算每个观测量的概率</li>
+<li>根据概率对观测量从高到低排序</li>
+<li>建立十分位数，每组最多有10%的观测量</li>
+<li>为每组十分位数计算好的，坏的和总共的反应率</li>
+</ol>
+</li>
+<li><p>你会得到以下的Gain/Lift表：<br><img src alt="201"></p>
+</li>
+<li><p>这是一张很有信息量的表格。累计增益表是一个Cumulative %Right和Cumulative %Population之间的图。这个例子当中的图如下：<br><img src alt="202"></p>
+</li>
+<li><p>这个表格会告诉你你的模型有没有很好把responders和non-responders分离开来。譬如，</p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-15T09:37:16.000Z" itemprop="dateUpdated">2017年2月15日 17:37</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2016/10/04/7modelmetrics/" target="_blank" rel="external">http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Interview/">Interview</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Translate/">Translate</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/&title=《7个每人都应该知道的模型性能评估标准》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/&title=《7个每人都应该知道的模型性能评估标准》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《7个每人都应该知道的模型性能评估标准》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/02/11/intro-to-machine-learning-with-sklearn/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">intro_to_machine_learning_with_sklearn</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/10/03/40/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">40 道ML/Data Science的初创公司(可能)的面试题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="7modelmetrics" data-title="7个每人都应该知道的模型性能评估标准" data-url="http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/&title=《7个每人都应该知道的模型性能评估标准》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/&title=《7个每人都应该知道的模型性能评估标准》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《7个每人都应该知道的模型性能评估标准》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2016/10/04/7modelmetrics/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMklEQVR42u3awY6rMAwF0P7/T3e270kDvdehIxEOK1SqhMPCcmy/XvH1Prj+fXr+/3aX1zcuDAyM2zLep9e13+lonWTfD58GAwPjAYyjLc/vkxdNgm8eyg9/x8DAwDgNvrPt23sMDAyMFUaLOd8FAwMDY+UQm2x2xEsKc+d7XXYWx8DAuCEjL5P9/f1X+hsYGBi3YrzLKy/iJ0nkypv8tzIGBsbWjPao2b5im1DmaR8GBsYzGbPm4uyl2wZDErIxMDB2ZZyHubzs1Y5TzAL64VMMDIytGXX6tVCSmx19ixYmBgbGAxizNuSs3ThLRqMWAgYGxnaM9RJYXhr7RglvOK+BgYGxBSNvOs4mH9aH0qKAi4GBsR0jP2Ree4i9IDRjYGBszciTuZXmQV7W/5ACzloCGBgYGzHapWeNzKvOnnU3AwMD47aMa9O+lUCZ/B5luBgYGNsxZgExD5dFvC+LesX6GBgYWzDyQlgeFmdDGPmwxS9PMTAwHsDIC21ti7Et9w//iYGB8RjGSkMxT+aSoDxMDTEwMLZmzAYarmpVrgyHYWBgPI0xa17m7YS2zZm3CjAwMHZlvMtrnd2OXERpIgYGxtaMNswVZfq4VNcOWNTDFhgYGFsw2gPkSguz/WQYGBgYeWMgGdiaDVW0aV80bIGBgYGRNBSDtLJd7cMKGBgYGHGJf1bCy0P5ZakhBgbGDRnty7WH2DYot7tgYGDszVhJ1NpxipWRiwuamhgYGPdj/AD8IWqYejY4/wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

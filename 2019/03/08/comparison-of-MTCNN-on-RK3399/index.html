@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>comparison of MTCNN on RK3399 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="mtcnn,RK3399">
+    <meta name="description" content="在RK板上运行mtcnn的方案1. 运行caffe版本的mtcnn 在RK上安装OPENCL的Caffe(环境配置) 先装OPENBLAS，后装Caffe 中间遇到ViennaCL库没找到，但是安装出错   在RK板上运行python版的mtcnn-caffe 在RK板上运行C++版的mtcnn-caffe  2. 运行tensorflow-lite版本的mtcnn 在RK板上安装tensorfl">
+<meta name="keywords" content="mtcnn,RK3399">
+<meta property="og:type" content="article">
+<meta property="og:title" content="comparison of MTCNN on RK3399">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="在RK板上运行mtcnn的方案1. 运行caffe版本的mtcnn 在RK上安装OPENCL的Caffe(环境配置) 先装OPENBLAS，后装Caffe 中间遇到ViennaCL库没找到，但是安装出错   在RK板上运行python版的mtcnn-caffe 在RK板上运行C++版的mtcnn-caffe  2. 运行tensorflow-lite版本的mtcnn 在RK板上安装tensorfl">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-16T04:12:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="comparison of MTCNN on RK3399">
+<meta name="twitter:description" content="在RK板上运行mtcnn的方案1. 运行caffe版本的mtcnn 在RK上安装OPENCL的Caffe(环境配置) 先装OPENBLAS，后装Caffe 中间遇到ViennaCL库没找到，但是安装出错   在RK板上运行python版的mtcnn-caffe 在RK板上运行C++版的mtcnn-caffe  2. 运行tensorflow-lite版本的mtcnn 在RK板上安装tensorfl">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">comparison of MTCNN on RK3399</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">comparison of MTCNN on RK3399</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-08T04:04:23.000Z" itemprop="datePublished" class="page-time">
+  2019-03-08
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在RK板上运行mtcnn的方案"><span class="post-toc-number">1.</span> <span class="post-toc-text">在RK板上运行mtcnn的方案</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-运行caffe版本的mtcnn"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1. 运行caffe版本的mtcnn</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-运行tensorflow-lite版本的mtcnn"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2. 运行tensorflow-lite版本的mtcnn</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-测试mtcnn-tensorflow-在不同机器上的fps"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3. 测试mtcnn(tensorflow)在不同机器上的fps</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-优化mtcnn的思路"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">4. 优化mtcnn的思路</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-caffe2-VS-tensorflow-MTCNN"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">5. caffe2 VS tensorflow (MTCNN)</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-comparison-of-MTCNN-on-RK3399"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">comparison of MTCNN on RK3399</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019年03月08日 12:04" datetime="2019-03-08T04:04:23.000Z"  itemprop="datePublished">2019-03-08</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="在RK板上运行mtcnn的方案"><a href="#在RK板上运行mtcnn的方案" class="headerlink" title="在RK板上运行mtcnn的方案"></a>在RK板上运行mtcnn的方案</h2><h3 id="1-运行caffe版本的mtcnn"><a href="#1-运行caffe版本的mtcnn" class="headerlink" title="1. 运行caffe版本的mtcnn"></a>1. 运行caffe版本的mtcnn</h3><ul>
+<li>在RK上安装OPENCL的Caffe(环境配置)<ul>
+<li>先装OPENBLAS，后装Caffe</li>
+<li>中间遇到ViennaCL库没找到，但是安装出错</li>
+</ul>
+</li>
+<li>在RK板上运行python版的mtcnn-caffe</li>
+<li>在RK板上运行C++版的mtcnn-caffe</li>
+</ul>
+<h3 id="2-运行tensorflow-lite版本的mtcnn"><a href="#2-运行tensorflow-lite版本的mtcnn" class="headerlink" title="2. 运行tensorflow-lite版本的mtcnn"></a>2. 运行tensorflow-lite版本的mtcnn</h3><ul>
+<li>在RK板上安装tensorflow-lite(环境配置)<ul>
+<li>这一部分的教程较少，安装出错</li>
+</ul>
+</li>
+<li>把mtcnn的模型转换成lite模型</li>
+<li>运行mtcnn</li>
+</ul>
+<h3 id="3-测试mtcnn-tensorflow-在不同机器上的fps"><a href="#3-测试mtcnn-tensorflow-在不同机器上的fps" class="headerlink" title="3. 测试mtcnn(tensorflow)在不同机器上的fps"></a>3. 测试mtcnn(tensorflow)在不同机器上的fps</h3><p>星期五, 08. 三月 2019 11:32上午 </p>
+<ul>
+<li><p>test_video : outpy4.avi</p>
+</li>
+<li><p>image size : 480 x 640</p>
+</li>
+</ul>
+<hr>
+<table>
+<thead>
+<tr>
+<th>fps</th>
+<th>CPU</th>
+<th>GPU</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HP_Zhan(MX150)2G</td>
+<td>5.05</td>
+<td>12.04</td>
+</tr>
+<tr>
+<td>JTx2 (Pascal GPU) 8G</td>
+<td>4.00</td>
+<td>6.23</td>
+</tr>
+<tr>
+<td>RK3399   (No GPU)</td>
+<td>1.52</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li>image size : 216 x 512</li>
+</ul>
+<hr>
+<table>
+<thead>
+<tr>
+<th>fps</th>
+<th>CPU</th>
+<th>GPU</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HP_Zhan(MX150)/2G</td>
+<td>10.45</td>
+<td>22.96</td>
+</tr>
+<tr>
+<td>JTx2 (Pascal GPU) /8G</td>
+<td>8.64</td>
+<td>11.89</td>
+</tr>
+<tr>
+<td>RK3399  (No GPU)</td>
+<td>2.81</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<h3 id="4-优化mtcnn的思路"><a href="#4-优化mtcnn的思路" class="headerlink" title="4. 优化mtcnn的思路"></a>4. 优化mtcnn的思路</h3><p>reference : <a href="https://blog.csdn.net/Relocy/article/details/84075570" target="_blank" rel="noopener">MTCNN优化和另类用法</a></p>
+<ul>
+<li>MTCNN速度的瓶颈<ul>
+<li>图片越大Pnet耗时也就越大。</li>
+<li>人脸越多Onet和Rnet耗时越大。</li>
+<li>噪点比较多的夜晚图像会导致Pnet误检测增多。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>从input_size入手，缩小input_size可以加快速度，如：480x640 -&gt; 216 x 512，可以提高40%左右的速率</p>
+</li>
+<li><p>换caffe框架，想办法把RK板上的GPU利用起来实现加速</p>
+</li>
+</ul>
+<h3 id="5-caffe2-VS-tensorflow-MTCNN"><a href="#5-caffe2-VS-tensorflow-MTCNN" class="headerlink" title="5. caffe2 VS tensorflow (MTCNN)"></a>5. caffe2 VS tensorflow (MTCNN)</h3><ul>
+<li>在HP-Zhan-Tim上跑GPU，每个流程跑3次</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Framwork</th>
+<th>tensorflow</th>
+<th>caffe2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FPS</td>
+<td>GPU-1/GPU-2/GPU-3</td>
+<td>GPU-1/GPU-2/GPU-3</td>
+</tr>
+<tr>
+<td>480x640</td>
+<td><strong>13.41</strong>/13.08/12.75</td>
+<td>13.69/<strong>13.73</strong>/13.58</td>
+</tr>
+<tr>
+<td>216X512</td>
+<td>22.43/22.62/<strong>23.09</strong></td>
+<td><strong>30.01</strong>/29.25/29.82</td>
+</tr>
+</tbody></table>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-08-16T04:12:00.000Z" itemprop="dateUpdated">2019年8月16日 12:12</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2019/03/08/comparison-of-MTCNN-on-RK3399/" target="_blank" rel="external">http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RK3399/">RK3399</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mtcnn/">mtcnn</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/&title=《comparison of MTCNN on RK3399》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/&title=《comparison of MTCNN on RK3399》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《comparison of MTCNN on RK3399》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/05/06/mtcnn-explained/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">mtcnn_explained</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/08/how-to-train-yolov3-with-your-own-dataset-in-darknet/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">how to train yolov3 with your own dataset in darknet</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="comparison-of-MTCNN-on-RK3399" data-title="comparison of MTCNN on RK3399" data-url="http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/&title=《comparison of MTCNN on RK3399》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/&title=《comparison of MTCNN on RK3399》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《comparison of MTCNN on RK3399》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2019/03/08/comparison-of-MTCNN-on-RK3399/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3awU7DMBAE0P7/T4PECQmSzqztFqSXEypp4ueD1x3v4xFfH1/X97+/X1f3/HzCz28lb7z6ZNuFh4eHNxr61ZU8+h6ZTE0+qnzMeHh4eKd5eTG4GkReBu4/z6cpKSd4eHh47+WtL/0fwZVMEx4eHt5/4SWvaUOEWTyBh4eH9xd4Kz/+7+9fj4ZflLXg4eHhxbzZAdh7/z5+voeHh4c3OlXPF/02dFgpDMVo8fDw8A7w2vggD3DzT9rDtvZIDA8PD+8cL1/cZ09oo9iVp/1SGPDw8PA28VZC2La0tFHCbAxPfjHg4eHhbeKdbrdaaTtIGrAuJwUPDw/vGC9//YnhJt9t/xv9JsDDw8Mb8epNatkydWLrnG/r8fDw8M7x2oOrJN7N71mJdKOChIeHh3eM1365baJqpyMvQk/KEh4eHt5WXhKJzgKIlTA3ZzwZOR4eHt4BXlIekqh3VgZmpGGQgYeHh7eJ1y6vs0LSTuKsqQsPDw/vlby9W9tZu0AbcCRPw8PDwzvHa7e8s9aB2aK/En/g4eHhneCtLL6zCVovA0VhwMPDw3sTbyWMyDOBFV7UQICHh4e3lde2C+QlId+Ct81YSbnCw8PDeyWvHXS+OW5j33bi8PDw8E7zdi3Ws2asPMZt28Uee2sRHh4e3sLZUF428o14Pk1tTIyHh4d3grdyWJVvgtvvtiFykVLj4eHhLfN2xaOz5X7lqCyZUDw8PLzTvFl80IYFSZGYHYZdVjw8PDy8rbx2wc1fnxeMpOTsKht4eHh4u3izYpCHuW30kGzci8KAh4eHd4y30lhwjzm9RX5yJx4eHt5beXmTQV54ZshkQ4+Hh4f3d3gJMiktefCRhxFFZwQeHh7eMq9dpnNe21jQrup4eHh4r+e1B2CzjXW7NV8a7sr5Hh4eHt7d9Ql5RdpPvOCx4gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>【基础】常用的机器学习&amp;数据挖掘知识点 | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="机器学习基础">
+    <meta name="description" content="说明                                                                                                            转自：36大数据 本文总结了机器学习入门的基础知识的标题。相当于给我们入门者一个学习的架构。  Basis(基础) MSE(Mean Square Error (均方误差) LMS">
+<meta name="keywords" content="机器学习基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【基础】常用的机器学习&amp;数据挖掘知识点">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="说明                                                                                                            转自：36大数据 本文总结了机器学习入门的基础知识的标题。相当于给我们入门者一个学习的架构。  Basis(基础) MSE(Mean Square Error (均方误差) LMS">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://chenyuqing.githubt.io/img/repost/ml-basic.png">
+<meta property="og:updated_time" content="2015-08-03T00:31:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【基础】常用的机器学习&amp;数据挖掘知识点">
+<meta name="twitter:description" content="说明                                                                                                            转自：36大数据 本文总结了机器学习入门的基础知识的标题。相当于给我们入门者一个学习的架构。  Basis(基础) MSE(Mean Square Error (均方误差) LMS">
+<meta name="twitter:image" content="http://chenyuqing.githubt.io/img/repost/ml-basic.png">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">【基础】常用的机器学习&amp;数据挖掘知识点</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">【基础】常用的机器学习&amp;数据挖掘知识点</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-01-04T11:04:41.000Z" itemprop="datePublished" class="page-time">
+  2015-01-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/机器学习/">机器学习</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#说明"><span class="post-toc-number">1.</span> <span class="post-toc-text">说明</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Basis-基础"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Basis(基础)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Common-Distribution-常见分布"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Common Distribution(常见分布)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Discrete-Distribution-离散型分布"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">Discrete Distribution(离散型分布)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Continuous-Distribution-连续型分布"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">Continuous Distribution (连续型分布)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Three-Sampling-Distribution-三大抽样分布"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">Three Sampling Distribution(三大抽样分布)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Data-Pre-processing-数据预处理"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Data Pre-processing(数据预处理)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Sampling-采样"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">Sampling(采样)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Clustering-聚类"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">Clustering(聚类)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Classification-amp-Regression-分类-amp-回归"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">Classification&amp;Regression(分类&amp;回归)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Effectiveness-Evaluation-分类效果评估"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">Effectiveness Evaluation(分类效果评估)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PGM-Probabilistic-Graphical-Models概率图模型"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">PGM(Probabilistic Graphical Models概率图模型)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NN-Neural-Network神经网络"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">NN(Neural Network神经网络)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Deep-Learning-深度学习"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">Deep Learning(深度学习)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DimensionalityReduction-降维"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">DimensionalityReduction(降维)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Text-Mining-文本挖掘"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">Text Mining(文本挖掘)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Association-Mining-关联挖掘"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">Association Mining(关联挖掘)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Recommendation-Engine-推荐引擎"><span class="post-toc-number">1.14.</span> <span class="post-toc-text">Recommendation Engine(推荐引擎)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Similarity-Measure-amp-Distance-Measure-相似性与距离度量-："><span class="post-toc-number">1.15.</span> <span class="post-toc-text">Similarity Measure&amp;Distance Measure(相似性与距离度量)：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Optimization-最优化"><span class="post-toc-number">1.16.</span> <span class="post-toc-text">Optimization(最优化)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Non-constrainedOptimization-无约束优化"><span class="post-toc-number">1.16.1.</span> <span class="post-toc-text">Non-constrainedOptimization(无约束优化)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ConstrainedOptimization-有约束优化"><span class="post-toc-number">1.16.2.</span> <span class="post-toc-text">ConstrainedOptimization(有约束优化)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Feature-Selection-特征选择算法"><span class="post-toc-number">1.17.</span> <span class="post-toc-text">Feature Selection(特征选择算法)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Outlier-Detection-异常点检测算法"><span class="post-toc-number">1.18.</span> <span class="post-toc-text">Outlier Detection(异常点检测算法)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Learning-to-Rank-基于学习的排序"><span class="post-toc-number">1.19.</span> <span class="post-toc-text">Learning to Rank(基于学习的排序)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tool-工具"><span class="post-toc-number">1.20.</span> <span class="post-toc-text">Tool(工具)</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#End"><span class="post-toc-number">2.</span> <span class="post-toc-text">End</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-【基础】常用的机器学习-数据挖掘知识点"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">【基础】常用的机器学习&数据挖掘知识点</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015年01月04日 19:04" datetime="2015-01-04T11:04:41.000Z"  itemprop="datePublished">2015-01-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/机器学习/">机器学习</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><ul>
+<li><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/repost/ml-basic.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>转自：<a href="http://www.36dsj.com/archives/20135#rd" target="_blank" rel="noopener">36大数据</a></li>
+<li>本文总结了机器学习入门的基础知识的<font color="red"><strong>标题</strong></font>。相当于给我们入门者一个学习的架构。</li>
+</ul>
+<h2 id="Basis-基础"><a href="#Basis-基础" class="headerlink" title="Basis(基础)"></a>Basis(基础)</h2><ul>
+<li>MSE(Mean Square Error (均方误差)</li>
+<li>LMS(LeastMean Square (最小均方)</li>
+<li>LSM(Least Square Methods (最小二乘法)</li>
+<li>MLE(MaximumLikelihood Estimation (最大似然估计)</li>
+<li>QP(Quadratic Programming (二次规划) </li>
+<li>CP(Conditional Probability (条件概率)</li>
+<li>JP(Joint Probability (联合概率)</li>
+<li>MP(Marginal Probability (边缘概率)</li>
+<li>Bayesian Formula (贝叶斯公式)</li>
+<li>L1 /L2Regularization (L1/L2正则，以及更多的，现在比较火的L2.5正则等)</li>
+<li>GD (GradientDescent 梯度下降)</li>
+<li>SGD (Stochastic Gradient Descent 随机梯度下降)</li>
+<li>Eigenvalue (特征值)</li>
+<li>Eigenvector (特征向量)</li>
+<li>QR-decomposition (QR分解)</li>
+<li>Quantile (分位数)</li>
+<li>Covariance (协方差矩阵)</li>
+</ul>
+<h2 id="Common-Distribution-常见分布"><a href="#Common-Distribution-常见分布" class="headerlink" title="Common Distribution(常见分布)"></a>Common Distribution(常见分布)</h2><h3 id="Discrete-Distribution-离散型分布"><a href="#Discrete-Distribution-离散型分布" class="headerlink" title="Discrete Distribution(离散型分布)"></a>Discrete Distribution(离散型分布)</h3><ul>
+<li>BernoulliDistribution/Binomial(贝努利分布/二项分布)</li>
+<li>Negative BinomialDistribution(负二项分布)</li>
+<li>MultinomialDistribution(多项式分布)</li>
+<li>Geometric Distribution(几何分布)</li>
+<li>HypergeometricDistribution(超几何分布)</li>
+<li>Poisson Distribution (泊松分布)</li>
+</ul>
+<h3 id="Continuous-Distribution-连续型分布"><a href="#Continuous-Distribution-连续型分布" class="headerlink" title="Continuous Distribution (连续型分布)"></a>Continuous Distribution (连续型分布)</h3><ul>
+<li>UniformDistribution(均匀分布)</li>
+<li>Normal Distribution /Guassian Distribution(正态分布/高斯分布)</li>
+<li>ExponentialDistribution(指数分布)</li>
+<li>Lognormal Distribution(对数正态分布)</li>
+<li>GammaDistribution(Gamma分布)</li>
+<li>Beta Distribution(Beta分布)</li>
+<li>Dirichlet Distribution(狄利克雷分布)</li>
+<li>Rayleigh Distribution(瑞利分布)</li>
+<li>Cauchy Distribution(柯西分布)</li>
+<li>Weibull Distribution (韦伯分布)</li>
+</ul>
+<h3 id="Three-Sampling-Distribution-三大抽样分布"><a href="#Three-Sampling-Distribution-三大抽样分布" class="headerlink" title="Three Sampling Distribution(三大抽样分布)"></a>Three Sampling Distribution(三大抽样分布)</h3><ul>
+<li>Chi-squareDistribution(卡方分布)</li>
+<li>t-distribution(t-分布)</li>
+<li>F-distribution(F-分布)</li>
+</ul>
+<h2 id="Data-Pre-processing-数据预处理"><a href="#Data-Pre-processing-数据预处理" class="headerlink" title="Data Pre-processing(数据预处理)"></a>Data Pre-processing(数据预处理)</h2><ul>
+<li>Missing Value Imputation(缺失值填充)</li>
+<li>Discretization(离散化)</li>
+<li>Mapping(映射)</li>
+<li>Normalization(归一化/标准化)</li>
+</ul>
+<h2 id="Sampling-采样"><a href="#Sampling-采样" class="headerlink" title="Sampling(采样)"></a>Sampling(采样)</h2><ul>
+<li>Simple Random Sampling(简单随机采样)</li>
+<li>OfflineSampling(离线等可能K采样)</li>
+<li>Online Sampling(在线等可能K采样)</li>
+<li>Ratio-based Sampling(等比例随机采样)</li>
+<li>Acceptance-RejectionSampling(接受-拒绝采样)</li>
+<li>Importance Sampling(重要性采样)</li>
+<li>MCMC(MarkovChain Monte Carlo 马尔科夫蒙特卡罗采样算法：Metropolis-Hasting&amp; Gibbs)</li>
+</ul>
+<h2 id="Clustering-聚类"><a href="#Clustering-聚类" class="headerlink" title="Clustering(聚类)"></a>Clustering(聚类)</h2><ul>
+<li>K-Means</li>
+<li>K-Mediods</li>
+<li>二分K-Means</li>
+<li>FK-Means</li>
+<li>Canopy</li>
+<li>Spectral-KMeans(谱聚类)</li>
+<li>GMM-EM(混合高斯模型-期望最大化算法解决)</li>
+<li>K-Pototypes</li>
+<li>CLARANS(基于划分)</li>
+<li>BIRCH(基于层次)</li>
+<li>CURE(基于层次)</li>
+<li>DBSCAN(基于密度)</li>
+<li>CLIQUE(基于密度和基于网格)</li>
+</ul>
+<h2 id="Classification-amp-Regression-分类-amp-回归"><a href="#Classification-amp-Regression-分类-amp-回归" class="headerlink" title="Classification&amp;Regression(分类&amp;回归)"></a>Classification&amp;Regression(分类&amp;回归)</h2><ul>
+<li>LR(Linear Regression 线性回归)</li>
+<li>LR(LogisticRegression逻辑回归)</li>
+<li>SR(Softmax Regression 多分类逻辑回归)</li>
+<li>GLM(GeneralizedLinear Model 广义线性模型)</li>
+<li>RR(Ridge Regression 岭回归/L2正则最小二乘回归)</li>
+<li>LASSO(Least Absolute Shrinkage andSelectionator Operator L1正则最小二乘回归)</li>
+<li>RF(随机森林)</li>
+<li>DT(DecisionTree决策树)</li>
+<li>GBDT(Gradient BoostingDecision Tree 梯度下降决策树)</li>
+<li>CART(ClassificationAnd Regression Tree 分类回归树)</li>
+<li>KNN(K-Nearest Neighbor K近邻)</li>
+<li>SVM(Support VectorMachine)</li>
+<li>KF(KernelFunction 核函数)</li>
+<li>PolynomialKernel Function 多项式核函数</li>
+<li>Guassian KernelFunction 高斯核函数</li>
+<li>Radial BasisFunction RBF径向基函数</li>
+<li>String KernelFunction (字符串核函数)</li>
+<li>NB(Naive Bayes 朴素贝叶斯)</li>
+<li>BN(Bayesian Network/Bayesian Belief Network/ Belief Network 贝叶斯网络/贝叶斯信度网络/信念网络)</li>
+<li>LDA(Linear Discriminant Analysis/FisherLinear Discriminant 线性判别分析/Fisher线性判别)</li>
+<li>EL(Ensemble Learning集成学习Boosting，Bagging，Stacking)</li>
+<li>AdaBoost(Adaptive Boosting 自适应增强)</li>
+<li>MEM(MaximumEntropy Model最大熵模型)</li>
+</ul>
+<h2 id="Effectiveness-Evaluation-分类效果评估"><a href="#Effectiveness-Evaluation-分类效果评估" class="headerlink" title="Effectiveness Evaluation(分类效果评估)"></a>Effectiveness Evaluation(分类效果评估)</h2><ul>
+<li>Confusion Matrix(混淆矩阵)</li>
+<li>Precision(精确度)</li>
+<li>Recall(召回率)</li>
+<li>Accuracy(准确率)</li>
+<li>F-score(F得分)</li>
+<li>ROC Curve(ROC曲线)</li>
+<li>AUC(AUC面积)</li>
+<li>LiftCurve(Lift曲线) </li>
+<li>KS Curve(KS曲线)</li>
+</ul>
+<h2 id="PGM-Probabilistic-Graphical-Models概率图模型"><a href="#PGM-Probabilistic-Graphical-Models概率图模型" class="headerlink" title="PGM(Probabilistic Graphical Models概率图模型)"></a>PGM(Probabilistic Graphical Models概率图模型)</h2><ul>
+<li>BN(Bayesian Network/Bayesian Belief Network/ BeliefNetwork 贝叶斯网络/贝叶斯信度网络/信念网络)</li>
+<li>MC(Markov Chain 马尔科夫链)</li>
+<li>HMM(HiddenMarkov Model 马尔科夫模型)</li>
+<li>MEMM(Maximum Entropy Markov Model 最大熵马尔科夫模型)</li>
+<li>CRF(ConditionalRandom Field 条件随机场)</li>
+<li>MRF(MarkovRandom Field 马尔科夫随机场)</li>
+</ul>
+<h2 id="NN-Neural-Network神经网络"><a href="#NN-Neural-Network神经网络" class="headerlink" title="NN(Neural Network神经网络)"></a>NN(Neural Network神经网络)</h2><ul>
+<li>ANN(Artificial Neural Network 人工神经网络)</li>
+<li>BP(Error BackPropagation 误差反向传播)</li>
+</ul>
+<h2 id="Deep-Learning-深度学习"><a href="#Deep-Learning-深度学习" class="headerlink" title="Deep Learning(深度学习)"></a>Deep Learning(深度学习)</h2><ul>
+<li>Auto-encoder(自动编码器)</li>
+<li>SAE(Stacked Auto-encoders堆叠自动编码器：Sparse Auto-encoders稀疏自动编码器、Denoising Auto-encoders去噪自动编码器、Contractive Auto-encoders 收缩自动编码器)</li>
+<li>RBM(RestrictedBoltzmann Machine 受限玻尔兹曼机)</li>
+<li>DBN(Deep Belief Network 深度信念网络)</li>
+<li>CNN(ConvolutionalNeural Network 卷积神经网络)</li>
+<li>Word2Vec(词向量学习模型)</li>
+</ul>
+<h2 id="DimensionalityReduction-降维"><a href="#DimensionalityReduction-降维" class="headerlink" title="DimensionalityReduction(降维)"></a>DimensionalityReduction(降维)</h2><ul>
+<li>LDA LinearDiscriminant Analysis/Fisher Linear Discriminant 线性判别分析/Fisher线性判别</li>
+<li>PCA(Principal Component Analysis 主成分分析)</li>
+<li>ICA(IndependentComponent Analysis 独立成分分析)</li>
+<li>SVD(Singular Value Decomposition 奇异值分解)</li>
+<li>FA(FactorAnalysis 因子分析法)</li>
+</ul>
+<h2 id="Text-Mining-文本挖掘"><a href="#Text-Mining-文本挖掘" class="headerlink" title="Text Mining(文本挖掘)"></a>Text Mining(文本挖掘)</h2><ul>
+<li>VSM(Vector Space Model向量空间模型)</li>
+<li>Word2Vec(词向量学习模型)</li>
+<li>TF(Term Frequency词频)</li>
+<li>TF-IDF(Term Frequency-Inverse DocumentFrequency 词频-逆向文档频率)</li>
+<li>MI(MutualInformation 互信息)</li>
+<li>ECE(Expected Cross Entropy 期望交叉熵)</li>
+<li>QEMI(二次信息熵)</li>
+<li>IG(InformationGain 信息增益)</li>
+<li>IGR(Information Gain Ratio 信息增益率)</li>
+<li>Gini(基尼系数)，x2 Statistic(x2统计量)</li>
+<li>TEW(TextEvidence Weight文本证据权)</li>
+<li>OR(Odds Ratio 优势率)</li>
+<li>N-Gram Model，LSA(Latent Semantic Analysis 潜在语义分析)</li>
+<li>PLSA(ProbabilisticLatent Semantic Analysis 基于概率的潜在语义分析)</li>
+<li>LDA(Latent DirichletAllocation 潜在狄利克雷模型)</li>
+</ul>
+<h2 id="Association-Mining-关联挖掘"><a href="#Association-Mining-关联挖掘" class="headerlink" title="Association Mining(关联挖掘)"></a>Association Mining(关联挖掘)</h2><ul>
+<li>Apriori</li>
+<li>FP-growth(Frequency Pattern Tree Growth 频繁模式树生长算法)</li>
+<li>AprioriAll</li>
+<li>Spade</li>
+</ul>
+<h2 id="Recommendation-Engine-推荐引擎"><a href="#Recommendation-Engine-推荐引擎" class="headerlink" title="Recommendation Engine(推荐引擎)"></a>Recommendation Engine(推荐引擎)</h2><ul>
+<li>DBR(Demographic-based Recommendation 基于人口统计学的推荐)</li>
+<li>CBR(Context-basedRecommendation 基于内容的推荐)</li>
+<li>CF(Collaborative Filtering协同过滤)</li>
+<li>UCF(User-basedCollaborative Filtering Recommendation 基于用户的协同过滤推荐)</li>
+<li>ICF(Item-basedCollaborative Filtering Recommendation 基于项目的协同过滤推荐)</li>
+</ul>
+<h2 id="Similarity-Measure-amp-Distance-Measure-相似性与距离度量-："><a href="#Similarity-Measure-amp-Distance-Measure-相似性与距离度量-：" class="headerlink" title="Similarity Measure&amp;Distance Measure(相似性与距离度量)："></a>Similarity Measure&amp;Distance Measure(相似性与距离度量)：</h2><ul>
+<li>Euclidean Distance(欧式距离)</li>
+<li>ManhattanDistance(曼哈顿距离)</li>
+<li>Chebyshev Distance(切比雪夫距离)</li>
+<li>MinkowskiDistance(闵可夫斯基距离)</li>
+<li>Standardized Euclidean Distance(标准化欧氏距离)</li>
+<li>MahalanobisDistance(马氏距离)</li>
+<li>Cos(Cosine 余弦)</li>
+<li>HammingDistance/Edit Distance(汉明距离/编辑距离)</li>
+<li>JaccardDistance(杰卡德距离)</li>
+<li>Correlation Coefficient Distance(相关系数距离)</li>
+<li>InformationEntropy(信息熵)</li>
+<li>KL(Kullback-Leibler Divergence KL散度/Relative Entropy 相对熵)</li>
+</ul>
+<h2 id="Optimization-最优化"><a href="#Optimization-最优化" class="headerlink" title="Optimization(最优化)"></a>Optimization(最优化)</h2><ul>
+<li>Heuristic Algorithm(启发式算法)</li>
+<li>SA(SimulatedAnnealing，模拟退火算法)</li>
+<li>GA(genetic algorithm遗传算法)</li>
+</ul>
+<h3 id="Non-constrainedOptimization-无约束优化"><a href="#Non-constrainedOptimization-无约束优化" class="headerlink" title="Non-constrainedOptimization(无约束优化)"></a>Non-constrainedOptimization(无约束优化)</h3><ul>
+<li>Cyclic VariableMethods(变量轮换法)</li>
+<li>Pattern Search Methods(模式搜索法)</li>
+<li>VariableSimplex Methods(可变单纯形法)</li>
+<li>Gradient Descent Methods(梯度下降法)</li>
+<li>Newton Methods(牛顿法)</li>
+<li>Quasi-NewtonMethods(拟牛顿法)</li>
+<li>Conjugate Gradient Methods(共轭梯度法)</li>
+</ul>
+<h3 id="ConstrainedOptimization-有约束优化"><a href="#ConstrainedOptimization-有约束优化" class="headerlink" title="ConstrainedOptimization(有约束优化)"></a>ConstrainedOptimization(有约束优化)</h3><ul>
+<li>Approximation Programming Methods(近似规划法)</li>
+<li>FeasibleDirection Methods(可行方向法)</li>
+<li>Penalty Function Methods(罚函数法)</li>
+<li>Multiplier Methods(乘子法)</li>
+</ul>
+<h2 id="Feature-Selection-特征选择算法"><a href="#Feature-Selection-特征选择算法" class="headerlink" title="Feature Selection(特征选择算法)"></a>Feature Selection(特征选择算法)</h2><ul>
+<li>Mutual Information(互信息)</li>
+<li>DocumentFrequence(文档频率)</li>
+<li>Information Gain(信息增益)</li>
+<li>Chi-squared Test(卡方检验)</li>
+<li>Gini(基尼系数)</li>
+</ul>
+<h2 id="Outlier-Detection-异常点检测算法"><a href="#Outlier-Detection-异常点检测算法" class="headerlink" title="Outlier Detection(异常点检测算法)"></a>Outlier Detection(异常点检测算法)</h2><ul>
+<li>Statistic-based(基于统计)</li>
+<li>Distance-based(基于距离)</li>
+<li>Density-based(基于密度)</li>
+<li>Clustering-based(基于聚类)</li>
+</ul>
+<h2 id="Learning-to-Rank-基于学习的排序"><a href="#Learning-to-Rank-基于学习的排序" class="headerlink" title="Learning to Rank(基于学习的排序)"></a>Learning to Rank(基于学习的排序)</h2><ul>
+<li>Pointwise：McRank；</li>
+<li>Pairwise：RankingSVM，RankNet，Frank，RankBoost；</li>
+<li>Listwise：AdaRank，SoftRank，LamdaMART；</li>
+</ul>
+<h2 id="Tool-工具"><a href="#Tool-工具" class="headerlink" title="Tool(工具)"></a>Tool(工具)</h2><ul>
+<li>MPI，Hadoop生态圈，Spark，BSP，Weka，Mahout，Scikit-learn，PyBrain…</li>
+</ul>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-08-03T00:31:40.000Z" itemprop="dateUpdated">2015年8月3日 8:31</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/" target="_blank" rel="external">http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习基础/">机器学习基础</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/&title=《【基础】常用的机器学习&数据挖掘知识点》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/&title=《【基础】常用的机器学习&数据挖掘知识点》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【基础】常用的机器学习&数据挖掘知识点》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/01/05/编程面试的10大算法概念-常考/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">编程面试的10大算法概念-常考</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/01/03/手写数字识别-Kernel Support Vector Machine-博客翻译-毕设系列/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">手写数字识别-Kernel Support Vector Machine-论文翻译-毕设系列</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="【基础】常用的机器学习-数据挖掘知识点" data-title="【基础】常用的机器学习&数据挖掘知识点" data-url="http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/&title=《【基础】常用的机器学习&数据挖掘知识点》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/&title=《【基础】常用的机器学习&数据挖掘知识点》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【基础】常用的机器学习&数据挖掘知识点》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2015/01/04/【基础】常用的机器学习-数据挖掘知识点/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADN0lEQVR42u3ay26jQBAF0Pz/T89sIyX23FtFIug5rCyMoU8jpVKPj4/4+PPp+Hwm/21yz6/nvz7x1fHxEwc2Njb2Q9jJ7TaPfA97dWW7qnqd2NjY2Mex3y8357VLybfg/SbmFmxsbGzsdonvz+QBLEmKsLGxsbFn7DzxSIpT7bOwsbGxsfPyTcvbFJuSQPVLtTRsbGzs27PbZu2dP/9IfxsbGxv7xuw/5ZGEnzxQtanFrOXwjQIbGxv7IPasibsZx/npdKVYPzY2NvYR7Lz4vg9syfm2sDV8SdjY2NgHsTeDMpuBm6Sd0A4GJQNDF8wHYWNjY9+M3bZI8+CUL/3aAZ3ontjY2NgHsdtiTbvoJNlIhn6u2u5iXgkbGxv7Iew8YdgvblZayhvDxUZgY2NjH8TOjzwIzUpCbREqbwyvDmxsbOzbs5NFJ7zZGM0sqZi9nqi/jY2Njf1wdluaz8PPLJHIU5ELOtvY2NjYj2Xnf/RnAzT5E5NNyV9P0eLFxsbGPoKdt2DbVKQNQrP2Q95Ujvrb2NjY2I9iJ7x6nHFRmc83fdauwMbGxj6PfVUCsG/lzsY0L3s92NjY2A9nb8YiN1v2O4Ob2NjY2P8PO/9Z29zNm7h5MEu+/cfGYWNjYx/BzssxmyiQXzMrDLWNB2xsbOyz2fkgzqaJOxyvKROYl9djY2NjH8Rui/vJv/55QGpbFJvUaNXTwMbGxr4xe9/KnbUK2rJRPnwTbT02Njb2QexZeT1vr7awtm0wKy1hY2Njn8dObt1mNsn1+2CWlK7qd46NjY39QPZsBGe2u8UkUblZdRjDxsbGPo7dlubbUNeW+5MS0ux6bGxs7FPZv9++XWVOo1LUN70RbGxs7IPYm9ttgk1eKqpD1PtfYWNjYx/Bvqqtm4eN5Ntkg/KwesGwDjY2NvaN2ZtEYhNsZgWmfNOvCnvY2NjYT2HnQattAMzGgGbDQO1QETY2NvZ57FlRaZOKtM3aWVLxciuxsbGx/2N2/u0sNM6SnzY5wcbGxsa+rF4VB6FNQeqC/jY2Njb27dmz5u4msO3PJKHuZczCxsbGPoi9DyFtqagu5ZfNjE3Yw8bGxn4U+y+GijUAB7RMVgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

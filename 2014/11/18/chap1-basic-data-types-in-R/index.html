@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>chap1-basic-data-types-in-R | Tim Chan&#39;s Blog! | 记录生活点滴！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#691A99">
+    
+    
+    <meta name="keywords" content="R basics">
+    <meta name="description" content="Last TutorialBasic data types in R R works with numerous data types.Some of the most basic types to get started are:  Decimals values like 4.5 are called numeric Natural numbers like 4 are called inte">
+<meta name="keywords" content="R basics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chap1-basic-data-types-in-R">
+<meta property="og:url" content="http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/index.html">
+<meta property="og:site_name" content="Tim Chan&#39;s Blog!">
+<meta property="og:description" content="Last TutorialBasic data types in R R works with numerous data types.Some of the most basic types to get started are:  Decimals values like 4.5 are called numeric Natural numbers like 4 are called inte">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2015-01-05T07:40:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chap1-basic-data-types-in-R">
+<meta name="twitter:description" content="Last TutorialBasic data types in R R works with numerous data types.Some of the most basic types to get started are:  Decimals values like 4.5 are called numeric Natural numbers like 4 are called inte">
+    
+        <link rel="alternative" href="/atom.xml" title="Tim Chan&#39;s Blog!" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/favicon.ico">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Tim Chan</h5>
+          <a href="mailto:motoleisure@gmail.com" title="motoleisure@gmail.com" class="mail">motoleisure@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/chenyuqing" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2155417625" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">chap1-basic-data-types-in-R</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">chap1-basic-data-types-in-R</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-11-18T14:01:02.000Z" itemprop="datePublished" class="page-time">
+  2014-11-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/R-Tutorial/">R Tutorial</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Last-Tutorial"><span class="post-toc-number">1.</span> <span class="post-toc-text">Last Tutorial</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Basic-data-types-in-R"><span class="post-toc-number">2.</span> <span class="post-toc-text">Basic data types in R</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Exercise"><span class="post-toc-number">3.</span> <span class="post-toc-text">Exercise</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#What’s-that-data-type"><span class="post-toc-number">4.</span> <span class="post-toc-text">What’s that data type ?</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Exercise2"><span class="post-toc-number">5.</span> <span class="post-toc-text">Exercise2</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-chap1-basic-data-types-in-R"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">chap1-basic-data-types-in-R</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014年11月18日 22:01" datetime="2014-11-18T14:01:02.000Z"  itemprop="datePublished">2014-11-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/R-Tutorial/">R Tutorial</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Last-Tutorial"><a href="#Last-Tutorial" class="headerlink" title="Last Tutorial"></a><a href="http://chenyuqing.github.io/2014/11/18/chap1-variable-assignment/" target="_blank" rel="noopener">Last Tutorial</a></h2><h2 id="Basic-data-types-in-R"><a href="#Basic-data-types-in-R" class="headerlink" title="Basic data types in R"></a>Basic data types in R</h2><ul>
+<li><p>R works with numerous data types.Some of the most basic types to get started are:</p>
+<ul>
+<li>Decimals values like <font color="red">4.5</font> are called <strong>numeric</strong></li>
+<li>Natural numbers like <font color="red">4</font> are called <strong>integers</strong>.</li>
+<li>Boolean values (<font color="red">TRUE</font> or <font color="red">FALSE</font>) are called <strong>logical</strong> (<font color="red">TRUE</font> canbe abbreviated to <font color="red">T</font> and <font color="red">FALSE</font> to <font color="red">F</font>).</li>
+<li>Text (or string) values are called <strong>characters</strong>.</li>
+</ul>
+</li>
+<li><p>Note how the quotation marks on the right indicate that “some text” is a character.</p>
+</li>
+</ul>
+<h2 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># What's the answer to the universe</span></span><br><span class="line">&gt; my_numeric = 42</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># The quotation marks indicate that the variable is of type character</span></span><br><span class="line">&gt; my_character = <span class="string">"forty-two"</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; my_logical = FALSE</span><br></pre></td></tr></table></figure>
+
+<h2 id="What’s-that-data-type"><a href="#What’s-that-data-type" class="headerlink" title="What’s that data type ?"></a>What’s that data type ?</h2><ul>
+<li>Do you remember that when you added <font color="red"> 5+”six”</font>,you got an error due to a mismatch in data types ? You can avoid such embarrassing situations by checking the data type of a variable beforehand. You can do this as follows: <font color="red"> class(some_variable_name)</font>.</li>
+</ul>
+<h2 id="Exercise2"><a href="#Exercise2" class="headerlink" title="Exercise2"></a>Exercise2</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment"># Declare variables of different types</span></span><br><span class="line">&gt; my_numeric = 42</span><br><span class="line">&gt; my_character = <span class="string">"forty-two"</span></span><br><span class="line">&gt; my_logical = FALSE</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment"># Check which type these variables have:</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; class(my_numeric)</span><br><span class="line">[1] <span class="string">"numeric"</span></span><br><span class="line">&gt; class(my_character)</span><br><span class="line">[1] <span class="string">"character"</span></span><br><span class="line">&gt; class(my_logical)</span><br><span class="line">[1] <span class="string">"logical"</span></span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2015-01-05T07:40:36.000Z" itemprop="dateUpdated">2015年1月5日 15:40</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2014/11/18/chap1-basic-data-types-in-R/" target="_blank" rel="external">http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/</a>
+    </div>
+    <footer>
+        <a href="http://chenyuqing.githubt.io">
+            <img src="/img/favicon.ico" alt="Tim Chan">
+            Tim Chan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/R-basics/">R basics</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/&title=《chap1-basic-data-types-in-R》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/&title=《chap1-basic-data-types-in-R》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《chap1-basic-data-types-in-R》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/12/25/Singleton-note/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">单例设计模式</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/11/18/chap1-variable-assignment/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">chap1-variable-assignment</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="chap1-basic-data-types-in-R" data-title="chap1-basic-data-types-in-R" data-url="http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'ysblog', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'true';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span><span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span><span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>Tim Chan's Blog! &copy; 2012 - 2021</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/&title=《chap1-basic-data-types-in-R》 — Tim Chan's Blog!&pic=http://chenyuqing.githubt.io/img/favicon.ico" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/&title=《chap1-basic-data-types-in-R》 — Tim Chan's Blog!&source=This is description." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《chap1-basic-data-types-in-R》 — Tim Chan's Blog!&url=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/&via=http://chenyuqing.githubt.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://chenyuqing.githubt.io/2014/11/18/chap1-basic-data-types-in-R/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3aS3LDQAgFQN//0skBHEkPGFxOVWuVivWZ1mJAwOsVHz9vR/Wcq1+v7vb+6/2ZowMPDw9vvPSrRdw/LFno/avJr03WjIeHh7fNyzflZOuvvrjkRSRBAg8PD+87effgatpdvQoPDw/vP/LyrT+/Kgk/eHh4eN/GmyS+SWGih6+GIjw8PLzP8PIu0vf8vdLfw8PDwxt31fOtP19QssQ8qDysFg8PD2+BV31ktTyRJ9OTptdD8wwPDw/vKG/+eV8dApgMFlTPxMPDw9vj5c37U+38+/BQiGn31+Lh4eF9nJfcLl/QPb76iqPV4uHh4S3wqqWH3nhBXq6djCY0G2N4eHh4Ld5kQCr5T166rQaqaIV4eHh4y7zqB38vFa6WaJOQ8FCSwMPDwzvKyzfrXml1cvTGsPDw8PC2edWkOUlz502yasp+eR88PDy8o7zeht5bejVS9dZwOVOGh4eHd5TXW3oeEqr36TXqHiIeHh4e3lFedXFJU39Sou2l+H/cGQ8PD+/jvMmo6EOy2xrSKrfB8PDw8NZ4+Qd/kkZXy7LVZxWejoeHh7fGmzSuqqNXk3JwOVTg4eHhLfPyFtSptlaeavfGC/Dw8PA2eNUhp/zBvaR8ZaYMDw8Pb43Xe/yc3RtHKLTB8PDw8BZ48/Jr79qkYdaMbL2L8fDw8Iq8+226l9Qm5YlqMaJcBMHDw8Nb453aoE+l48cOPDw8vAVYdcPNQ0XePJtcdfnK8PDw8BZ48y/6pAibw6ol3ZUQgoeHhzfOPOel3snAVh4YCp09PDw8vEO8vKywMWJVbacVAhgeHh7e1/DyFtReGFgMDHh4eHhrOWevUFsNJ9UPADw8PLzP8ObNp7x0mwSPyTAWHh4e3javOphVbW7lA16FRHlctsDDw8Nr8X4BHWT5PqvnS2EAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
