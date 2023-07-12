@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            nms_and_iou |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">nms_and_iou</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2020-06-23 10:02:57</span>
+        <span class="mobile">2020-06-23 10:02</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2020-07-13 13:23:25</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/object-detection/">object detection</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/nms/">nms</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/iou/">iou</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/soft-nms/">soft-nms</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="IOU-Intersection-of-Union-，交并比"><a href="#IOU-Intersection-of-Union-，交并比" class="headerlink" title="IOU(Intersection of Union)，交并比"></a>IOU(Intersection of Union)，交并比</h2><ul>
+<li>给定2个框(bounding box)，计算其交集和并集的比例。</li>
+<li>通常bounding box的坐标表示有2种，第一种是2点坐标(x1, y1, x2, y2); 第二种是中心坐标和宽高(x, y, w, h)。在编写代码时我们会把第二种转换成2点坐标的形式进行计算。</li>
+<li>code</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># params: boxes1: [, [xmin, ymin, xmax, ymax]]</span></span><br><span class="line"><span class="comment"># params: boxes2: [num, [xmin, ymin, xmax, ymax]]</span></span><br><span class="line"><span class="comment"># returns: iou, [weights], length=len(boxes2)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bboxes_iou</span>(<span class="params">boxes1, boxes2</span>):</span><br><span class="line">	boxes1 = np.array(boxes1)</span><br><span class="line">	boxes2 = np.array(boxes2)</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 计算各自面积</span></span><br><span class="line">	boxes1_area = (boxes1[..., <span class="number">2</span>] - boxes1[..., <span class="number">0</span>]) * (boxes1[..., <span class="number">3</span>] - boxes1[..., <span class="number">1</span>])</span><br><span class="line">	boxes2_area = (boxes2[..., <span class="number">2</span>] - boxes2[..., <span class="number">0</span>]) * (boxes2[..., <span class="number">3</span>] - boxes2[..., <span class="number">1</span>])</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 计算交集</span></span><br><span class="line">	left_up = np.maximum(boxes1[..., :<span class="number">2</span>], boxes2[..., :<span class="number">2</span>])</span><br><span class="line">	right_down = np.maximum(boxes1[..., <span class="number">2</span>:], boxes2[..., <span class="number">2</span>:])</span><br><span class="line">	</span><br><span class="line">	inter_section = np.maximum(right_down - left_up, <span class="number">0.0</span>)</span><br><span class="line">	inter_area = inter_section[..., <span class="number">0</span>] * inter_section[..., <span class="number">1</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 计算并集</span></span><br><span class="line">	union_area = boxes1_area + boxes2_area - inter_area</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 计算IOU</span></span><br><span class="line">	iou = np.maximum(<span class="number">1.0</span> * inter_area / union_area, np.finfo(np.float32).eps)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> iou</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="NMS-Non-Maximum-Suppression-极大值抑制"><a href="#NMS-Non-Maximum-Suppression-极大值抑制" class="headerlink" title="NMS(Non-Maximum Suppression), 极大值抑制"></a>NMS(Non-Maximum Suppression), 极大值抑制</h2><ul>
+<li>通常在物体检测(object detection)中，在head中预测出了很多的框，每个框包含了物体的类别，类别得分和坐标信息。因为在检测过程产生很多冗余的预测框，那么这时候我们就会用到NMS来去除这些冗余。具体做法是：<ul>
+<li>(1) 取得某一张图片上的某一类别的所有预测框</li>
+<li>(2) 对其类别得分进行排序，取出得分最大的框做保留</li>
+<li>(3) 拿得分最大的框作为基准(pivot)，和剩余的框的坐标信息做IOU的计算，并将得到的IOU进行排序</li>
+<li>(4) 设定一个iou_threshold，把IOU大于iou_threshold过滤出来进行冗余处理</li>
+<li>(5) 冗余处理方案有2种，hard NMS和soft NMS，前者是直接把所有过滤的框的得分置为0，后者是利用高斯函数对其得分进行抑制或者减小，IOU越大的得分减少越多或者抑制程度越大，反之就减少越少或者抑制程度越小</li>
+<li>(6) soft NMS是为了防止2个同类密集的框被误删其中得分小的框</li>
+</ul>
+</li>
+<li>code<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># params: bboxes: (xmin, ymin, xmax, ymax, score, class)</span></span><br><span class="line"><span class="comment"># params: iou_threshold, scale value</span></span><br><span class="line"><span class="comment"># params: method, &#x27;nms&#x27;, &#x27;soft-nms&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># return: best_bboxes</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">nms</span>(<span class="params">bboxes, iou_threshold, sigma=<span class="number">0.3</span>, method=<span class="string">&#x27;nms&#x27;</span></span>):</span><br><span class="line">	<span class="comment"># 找出所有类别的唯一值</span></span><br><span class="line">	classes_in_img = <span class="built_in">list</span>(<span class="built_in">set</span>(bboxes[:<span class="number">5</span>]))</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 保留的框</span></span><br><span class="line">	best_bboxes = []</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 按每个class进行for循环</span></span><br><span class="line">	<span class="keyword">for</span> cls <span class="keyword">in</span> classes_in_img:</span><br><span class="line">		<span class="comment"># 首先过滤当前class的bboxes，得到cls_bboxes</span></span><br><span class="line">		cls_mask = (bboxes[:<span class="number">5</span>] == cls)</span><br><span class="line">		cls_bboxes = bboxes[cls_mask]</span><br><span class="line">		</span><br><span class="line">		<span class="comment"># NMS开始</span></span><br><span class="line">		<span class="keyword">while</span> <span class="built_in">len</span>(cls_bboxes) &gt; <span class="number">0</span>:</span><br><span class="line">			<span class="comment"># 按照score排序得到最大score的bboxes</span></span><br><span class="line">			max_ind = np.argmax(cls_bboxes[:, <span class="number">4</span>])</span><br><span class="line">			best_bbox = cls_bboxes[max_ind]</span><br><span class="line">			</span><br><span class="line">			<span class="comment"># 从cls_bboxes中剔除最大score的bbox</span></span><br><span class="line">			cls_bboxes = np.concatenate([cls_bboxes[:max_ind], cls_bboxes[max_ind+<span class="number">1</span>:]])</span><br><span class="line">			</span><br><span class="line">			<span class="comment"># 计算IOU</span></span><br><span class="line">			iou = bboxes_iou(best_bbox[np.newaxis, : <span class="number">4</span>], cls_bboxes[:, :<span class="number">4</span>])</span><br><span class="line">			</span><br><span class="line">			<span class="comment"># 初始化weight</span></span><br><span class="line">			weight = np.ones(<span class="built_in">len</span>(iou), dtype=np.float32)</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">assert</span> method <span class="keyword">in</span> [<span class="string">&#x27;nms&#x27;</span>, <span class="string">&#x27;sfot-nms&#x27;</span>]</span><br><span class="line">			</span><br><span class="line">			<span class="comment"># nms过滤冗余</span></span><br><span class="line">			<span class="keyword">if</span> method == <span class="string">&#x27;nms&#x27;</span>:</span><br><span class="line">				iou_mask = iou &gt; iou_threshold</span><br><span class="line">				<span class="comment"># 把满足冗余的weight设为0</span></span><br><span class="line">				weight[iou_mask] = <span class="number">0.0</span></span><br><span class="line">			</span><br><span class="line">			<span class="comment"># soft-nms		</span></span><br><span class="line">			<span class="keyword">if</span> method == <span class="string">&#x27;soft-nms&#x27;</span>:</span><br><span class="line">				<span class="comment"># 高斯函数</span></span><br><span class="line">				weight = np.exp(-(<span class="number">1.0</span> * iou **<span class="number">2</span> / sigma))</span><br><span class="line">			</span><br><span class="line">			<span class="comment"># 修改score的值</span></span><br><span class="line">			cls_bboxes[:, <span class="number">4</span>] *= weight</span><br><span class="line">			</span><br><span class="line">			<span class="comment"># 过滤score为0的预测框</span></span><br><span class="line">			score_mask = cls_bboxes[:, <span class="number">4</span>] &gt; <span class="number">0</span></span><br><span class="line">			cls_bboxes = cls_bboxes[score_mask]</span><br><span class="line">			</span><br><span class="line">		<span class="keyword">return</span> best_bboxes</span><br><span class="line">		</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="NMS另一种实现方法，from-B站Bubbling"><a href="#NMS另一种实现方法，from-B站Bubbling" class="headerlink" title="NMS另一种实现方法，from B站Bubbling.."></a>NMS另一种实现方法，from B站Bubbling..</h2><ul>
+<li>(0) backbone输出的格式是，boxes: [bs, all_boxes, 4+1+num_classes]</li>
+<li>(1) 先处理坐标转换</li>
+<li>(2) 再拿出1张图片中的所有boxes，对conf_threshold进行过滤</li>
+<li>(3) 处理每个box最后预测的结果num_classes，如共有20个分类，那么取20个分类中的max_score就是这个box预测的类别，在得到相应的下标index</li>
+<li>(4) 按类别划分boxes，然后每个类别进行如下循环<ul>
+<li>取得boxes的conf_score（正&#x2F;背分类得分），按从大到小进行排序</li>
+<li>将得分最大的box保留，然后得分最大的box与剩余的boxes进行iou计算</li>
+<li>nms_threshold就是iou得分的过滤，把iou得分高于nms_threshold的boxes去掉</li>
+<li>直至处理玩当前class的所有boxes</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">nms</span>(<span class="params">boxes, conf_threshold=<span class="number">0.5</span>, nms_threshold=<span class="number">0.4</span></span>):</span><br><span class="line">    <span class="comment"># boxes: [bs, all_boxes, 4+1+num_classes]</span></span><br><span class="line">    bs = np.shape(boxes)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将中心宽高转换成左上角和右下角的形式</span></span><br><span class="line">    shape_boxes = np.zeros_like(boxes[:,:,:<span class="number">4</span>])</span><br><span class="line">    shape_boxes[:,:,<span class="number">0</span>] = boxes[:,:,<span class="number">0</span>] - boxes[:,:,<span class="number">2</span>] / <span class="number">2</span></span><br><span class="line">    shape_boxes[:,:,<span class="number">1</span>] = boxes[:,:,<span class="number">1</span>] - boxes[:,:,<span class="number">3</span>] / <span class="number">2</span></span><br><span class="line">    shape_boxes[:,:,<span class="number">2</span>] = boxes[:,:,<span class="number">2</span>] + boxes[:,:,<span class="number">2</span>] / <span class="number">2</span></span><br><span class="line">    shape_boxes[:,:,<span class="number">3</span>] = boxes[:,:,<span class="number">3</span>] + boxes[:,:,<span class="number">3</span>] / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    boxes[:,:,:<span class="number">4</span>] = shape_boxes</span><br><span class="line">    output = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(bs):</span><br><span class="line">        <span class="comment"># 取每一张图片中的所有预测框prediction</span></span><br><span class="line">        prediction = boxes[i]</span><br><span class="line">        <span class="comment"># 取出每个预测框的前景的二分类得分</span></span><br><span class="line">        score = prediction[:, <span class="number">4</span>]</span><br><span class="line">        <span class="comment"># 过滤满足conf_threshold的框</span></span><br><span class="line">        mask = score &gt; conf_threshold</span><br><span class="line">        detections = prediction[mask]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 找出每个预测框box是属于哪个分类的，如80个分类中的哪一个分类label和score</span></span><br><span class="line">        class_conf = np.expand_dim(np.<span class="built_in">max</span>(detections[:,<span class="number">5</span>:], axis=-<span class="number">1</span>), axis=-<span class="number">1</span>)</span><br><span class="line">        class_pred = np.expand_dims(np.argmax(detections[:,<span class="number">5</span>:], axis=-<span class="number">1</span>), axis=-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        detections = np.concatenate(detections[:,:,<span class="number">5</span>], class_conf, class_pred, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        unique_class = np.unique(detections[:, -<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(unique_class) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        best_box = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> unique_class:</span><br><span class="line">            cls_mask = detection[:, -<span class="number">1</span>] == c</span><br><span class="line">            detection = detections[cls_mask]</span><br><span class="line">            scores = detection[:, <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">            arg_sort = np.argsort(scores)[:,:,-<span class="number">1</span>]</span><br><span class="line">            detection = detection[arg_sort]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> <span class="built_in">len</span>(detection) != <span class="number">0</span>:</span><br><span class="line">                best_box.append(detection[<span class="number">0</span>])</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(detection) == <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                ious = iou(detection[<span class="number">0</span>], detection[<span class="number">1</span>:])</span><br><span class="line">                detection = detection[<span class="number">1</span>:][ious &lt; nms_threshold]</span><br><span class="line">        output.append(best_box)</span><br><span class="line">    <span class="keyword">return</span> np.array(output)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">Post title</span>: <span class="content">nms_and_iou</span>
+        </li>
+        <li class="post-author">
+            <span class="type">Post author</span>: <span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">Create time</span>: <span class="content">2020-06-23 10:02:57</span>
+        </li>
+        <li class="post-link">
+            <span class="type">Post link</span>: <span class="content">2020/06/23/nms-and-iou/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">Copyright notice</span>: <span class="content">All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="Copy copyright info" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/object-detection/">#object detection</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/nms/">#nms</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/iou/">#iou</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/soft-nms/">#soft-nms</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2020/06/24/mAP/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">目标检测模型的metric-mAP</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2020/03/27/from-darknet-yolov3-to-tensorRT-yolov3/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">from darknet yolov3 to tensorRT yolov3</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IOU-Intersection-of-Union-%EF%BC%8C%E4%BA%A4%E5%B9%B6%E6%AF%94"><span class="nav-number">1.</span> <span class="nav-text">IOU(Intersection of Union)，交并比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NMS-Non-Maximum-Suppression-%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">NMS(Non-Maximum Suppression), 极大值抑制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NMS%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95%EF%BC%8Cfrom-B%E7%AB%99Bubbling"><span class="nav-number">3.</span> <span class="nav-text">NMS另一种实现方法，from B站Bubbling..</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+
+</body>
+</html>

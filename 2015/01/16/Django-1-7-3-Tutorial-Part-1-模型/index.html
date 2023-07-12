@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            Django-1.7.3-Tutorial-Part-1-模型 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Django-1.7.3-Tutorial-Part-1-模型</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2015-01-16 10:46:52</span>
+        <span class="mobile">2015-01-16 10:46</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2015-01-18 13:38:44</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Django/">Django</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Django-Models/">Django-Models</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="创建你的第一个Django-app-Part-1"><a href="#创建你的第一个Django-app-Part-1" class="headerlink" title="创建你的第一个Django app-Part 1"></a>创建你的第一个Django app-Part 1</h1><ul>
+<li>让我们从简单的例子开始吧。</li>
+<li>通过这个教程，我们将快速学习投票(poll)应用的创建。</li>
+<li>环境：windows 8 32 bits + Python 2.7.5 + Django 1.7.3</li>
+<li>它包含两个部分：<ul>
+<li>一个供人们查看和进行投票的公开的站点。</li>
+<li>一个管理员站点，可以让你进行添加，修改和查询投票。</li>
+</ul>
+</li>
+<li>我们假设你已经装好了Django.你可以通过以下命令查看你安装的版本。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -c <span class="string">&quot;import django; print(django.get_version())&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>如果你成功安装了Django，你就会看到版本号，否则，你就会得到一个错误信息：”No module named django”.</li>
+<li>我的Django信息如下：<br><img src="/img/Django-1-7-3-tutorial/get_version.png"></li>
+</ul>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><ul>
+<li>如果你是第一次使用Django，那么你应该注意一些初始化的设置。也就是说，你需要一些自生成的代码来构建一个Django项目，包括Django实例的设置文件，譬如数据库配置文件，Django指定选项和应用指定的设置。</li>
+<li>从命令行中切换到你想把项目存储的目录，然后输入以下命令:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ django-admin.py startproject mysite</span><br></pre></td></tr></table></figure></li>
+<li>在当前目录下就会生成一个mysite的目录。如果没有，请查看<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/faq/troubleshooting/#troubleshooting-django-admin-py" >问题反馈<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<blockquote>
+<p><strong>笔记</strong><br>请注意命名，不能和Python或者Django组件中的关键字重名，特别的，你不能使用django或者test。</p>
+</blockquote>
+<ul>
+<li>通过startproject命令创建的目录如下：<br><img src="/img/Django-1-7-3-tutorial/dir-startproject.png"></li>
+</ul>
+<blockquote>
+<p><strong>和你建的目录不同？</strong><br>默认项目布局最近有所改变。如果你看到一个’flat’布局(里面没有mysite&#x2F;目录)，你可能使用的Django和本教程的版本不同。请移步。</p>
+</blockquote>
+<ul>
+<li>目录路径解释：<ul>
+<li>外层mysite&#x2F;：你的项目的根目录。它的名字可以随意更改。</li>
+<li>manage.py文件：它是一个和Django进行多样化交互的命令行工具。你可以从以下链接查看详细内容<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/django-admin/" >django-admin.py and manage.py<i class="fas fa-external-link-alt"></i></a></li>
+<li>内层mysite&#x2F;：它是项目的真正的python包。名字不可随意更改，因为它是在其他地方可供导入的(例如：mysite.urls)</li>
+<li>mysite&#x2F;<strong>init</strong>.py：一个空文件，它的作用是标注自己是一个python包。</li>
+<li>mysite&#x2F;settings.py：Django项目的设置或配置。详细可查看<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/topics/settings/" >Django settings<i class="fas fa-external-link-alt"></i></a></li>
+<li>mysite&#x2F;urls.py：对Django项目的URL声明，就像是你的Django网站的目录列表。详细可查看<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/topics/http/urls/" >URL dispatcher<i class="fas fa-external-link-alt"></i></a></li>
+<li>mysite&#x2F;wsgi.py：它是配置WSGI服务器的入口点。详细可见：<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/" >How to deploy with WSGI<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h2><ul>
+<li><p>现在，编辑mysite&#x2F;settings.py文件。它是一个普通的Python模块，用模块级变量表示Django设置。</p>
+</li>
+<li><p>默认情况下，配置是用SQLite。如果你不熟悉数据库，或者你只想玩玩Django,这是最快捷的选择。SQLite包含在Python中，所以不需要你安装。</p>
+</li>
+<li><p>如果你想用其他数据库，安装相应<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/topics/install/#database-installation" >数据库绑定<i class="fas fa-external-link-alt"></i></a>,然后修改DATABASES中的默认选项来匹配你的数据库连接设置：</p>
+<ul>
+<li><strong>ENGINE</strong>-数据库引擎，SQLite(默认)：**’django.db.backends.sqlite3’<strong>;postgresql：</strong>‘django.db.backends.postgresql_psycopg2’<strong>；mysql：</strong>‘django.db.backends.mysql’**；Oracle： **’django.db.backends.oracle’**，或其他。</li>
+<li><strong>NAME</strong>-数据库名称。如果你用SQLite,那么他是电脑上的一个文件，这样的话，<strong>NAME</strong>应该是一个绝对路径，包括文件名。默认值是**os.path.join(BASE_DIR, ‘db.sqlite3’)**，它是存储在项目路径下的文件。</li>
+</ul>
+</li>
+<li><p>如果你不用SQLite，那么你需要添加<strong>USER</strong>,<strong>PASSWORD</strong>,<strong>HOST</strong>。详细可见：<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/settings/#std:setting-DATABASES" >DATABASES<i class="fas fa-external-link-alt"></i></a>。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>笔记</strong><br>如果你在使用PostgreSQL或者MySQL，你必须要创建好数据库。通过命令**CREATE DATABASE database_name;**。<br>如果你在使用SQLite,那么它会自动创建，必须手动创建。</p>
+</blockquote>
+<ul>
+<li><p>当你在编辑mysite&#x2F;settings.py时，请把<strong>TIME_ZONE</strong>设置为自己的时区。</p>
+</li>
+<li><p>另外，文件开头的<strong>INSTALLED_APPS</strong>配置，它Django实例中被激活的Django应用的名字。Apps可以被多个项目使用，你可以把Apps打包和发布给其他项目使用。</p>
+</li>
+<li><p>默认情况下，<strong>INSTALLED_APPS</strong>配置包含Django中的apps，如下：</p>
+<ul>
+<li><strong>django.contrib.admin</strong>-管理员站点，你在Part2中会用到。</li>
+<li><strong>django.contrib.auth</strong>-认证系统</li>
+<li><strong>django.contrib.contenttypes</strong>-一个内容类型的框架</li>
+<li><strong>django.contrib.sessions</strong>-session框架</li>
+<li><strong>django.contrib.messages</strong>-messaging框架</li>
+<li><strong>django.contrib.staticfiles</strong>-管理静态文件的框架</li>
+</ul>
+</li>
+<li><p>这些apps默认添加的，你可以根据自己需求修改。</p>
+</li>
+<li><p>这些apps中可能要用到数据库表，所以，我们应该先要在数据库中创建表，然后再使用。命令如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py migrate</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>migrate</strong>命令会查看<strong>INSTALLED_APPS</strong>配置，然后根据<strong>mysite&#x2F;settings.py</strong>文件创建一些需要的数据库表，并把数据库迁移到相应的应用中。n你可以查看信息：运行数据库客户端，在命令行中输入\dt (PostgreSQL), SHOW TABLES; (MySQL), or .schema (SQLite)。</p>
+</li>
+</ul>
+<h2 id="发布到服务器"><a href="#发布到服务器" class="headerlink" title="发布到服务器"></a>发布到服务器</h2><ul>
+<li>验证你的项目是否可运行，在外层mysite目录下，运行一下命令：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure></li>
+<li>你可以看到以下输出(我的版本如下)：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">January 16, 2015 - 14:18:47</span><br><span class="line">Django version 1.7.3, using settings &#x27;mysite.settings&#x27;</span><br><span class="line">Starting development server at http://127.0.0.1:8000/</span><br><span class="line">Quit the server with CTRL-BREAK.</span><br></pre></td></tr></table></figure></li>
+<li>你已经把项目成功发布到服务器上了，它是一个用纯python实现的轻量级的Web server。它已经被包含到Django当中，方便我们进行快速的开发。</li>
+<li>它不可以用于商用，因为能力有限。我们是开发框架而不是服务器。</li>
+<li>现在打开浏览器，输入”127.0.0.1:8000&#x2F;“，你就可以访问到你的项目页面了。效果如下：<br><img src="/img/Django-1-7-3-tutorial/worked.png"></li>
+</ul>
+<blockquote>
+<p><strong>修改端口</strong><br>默认端口是8000，如果你想修改，可以按如下格式发布项目</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python mange.py runserver <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你想修改服务器的IP，如下格式：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8000</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>详细文档参考<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/django-admin/#django-admin-runserver" >runserver<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<blockquote>
+<p>服务器自动加载，不用重新发布项目。</p>
+</blockquote>
+<h2 id="创建模型-models"><a href="#创建模型-models" class="headerlink" title="创建模型(models)"></a>创建模型(models)</h2><ul>
+<li><p>现在你项目的基本环境已经搭建好，你可以开始做事了。</p>
+</li>
+<li><p>在Django中创建的app都有相同的目录结构，但是Django已经用过工具自动生成了，而不必你操心，你只要专注于写代码就好了。</p>
+<blockquote>
+<p>Projects VS apps<br>项目和app之间有什么不同呢？一个app表示网站程序中的一个功能，譬如，一个网路博客系统，一个公开记录或公共投票的数据库应用。而一个项目(project)往往是app的集合，几个app组成一个project，另外，一个app可以被多个项目包含。</p>
+</blockquote>
+</li>
+<li><p>如果你的python环境已经配置好，那么你的app可以在任何地方创建。这里我们把polls应用创建在manage.py的旁边，所以，它可以被当成自己的顶级模块导入，而不是mysite的子模块。</p>
+</li>
+<li><p>创建app,请到manage.py所在目录下，执行命令：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py startapp polls</span><br></pre></td></tr></table></figure></li>
+<li><p>创建了一个polls目录，结构如下：<br><img src="/img/Django-1-7-3-tutorial/dir-polls.png"></p>
+</li>
+<li><p>这个目录包含polls应用。</p>
+</li>
+<li><p>通过Django写数据库网页应用的第一步是定义自己的模块(models)-主要的是，你的数据库布局，加上额外的元数据。</p>
+</li>
+</ul>
+<blockquote>
+<p>哲学<br>一个模型是一个独立的，明确的数据资源。它包含主要的字段和你存储的数据的行为。Django遵循<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/misc/design-philosophies/#dry" >DRY原则<i class="fas fa-external-link-alt"></i></a>。目的是从一个地方定义和导出数据。<br>还包括迁移，不像Ruby On Rails，例如，模型中的数据可以全部迁移，但它只不过是Django中的一个历史记录，可以随时回滚到当前适应的模型。</p>
+</blockquote>
+<ul>
+<li>在简单的投票(polls)应用中，我们创建2个模型：<strong>Question</strong>和<strong>Choice</strong>。<strong>Question</strong>有一个问题和发表日期。<strong>Choice</strong>有两个域：选择文本和投票计数器。每一个<strong>Choice</strong>关联一个<strong>Question</strong>。</li>
+<li>这些概念都能通过简单的Python类实现。编辑<strong>polls&#x2F;models.py</strong>文件，如下：</li>
+<li><font color="green">polls&#x2F;models.py</font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Question</span>(models.Model):</span><br><span class="line">    question_text = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">    pub_date = models.DateTimeField(<span class="string">&#x27;date published&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Choice</span>(models.Model):</span><br><span class="line">    question = models.ForeignKey(Question)</span><br><span class="line">    choice_text = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">    votes = models.IntegerField(default=<span class="number">0</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>代码非常简单明了。每个<strong>模型</strong>都是继承类**<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/models/instances/#django.db.models.Model" >django.db.models.Model<i class="fas fa-external-link-alt"></i></a><strong>。每个</strong>模型<strong>都有一些类变量，其中每个变量都代表数据库中的一个</strong>字段**。</li>
+<li>每个<strong>字段</strong>都是一个<strong>字段<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/models/fields/#django.db.models.Field" >(Field)<i class="fas fa-external-link-alt"></i></a>类</strong>的实例–譬如，<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/models/fields/#django.db.models.CharField" >CharField<i class="fas fa-external-link-alt"></i></a>代表字符域，<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/models/fields/#django.db.models.DateTimeField" >DateTimeField<i class="fas fa-external-link-alt"></i></a>代表数据库实时间。这样Django就知道每个字段是什么类型的。</li>
+<li>每个域实例的名字(譬如<strong>question_text</strong>或者<strong>pub_date</strong>)就是字段名称，它是机器能够识别的形式。字段的值会用python代码表示，数据库就会把字段名称当成一个列名。</li>
+<li>你还可以为每个字段起一个易于让人读懂的名字。在Django中是支持的，而且也可以记录到文档中。如果你美誉定义这个名字，那么Django就会用机器识别的名字。例如，我们只为<strong>Question.pub_date</strong>定义一个易于让人都懂的名字。对于模型中的其他字段，机读和人读的名字是一样的。</li>
+<li>一些字段类中有写必需的参数，例如<strong>CharField</strong>，我们必须给它指定一个最大长度**(max_length)**。它不仅仅需要数据库模式，还需要验证的，后面我们就会将到。</li>
+<li>一个字段还可以有多个可选的参数，譬如，我们把vote的默认值设为0.</li>
+<li>最后，要定义一个关系，用<strong>ForeignKey</strong>，即是外键。它向Django表明每个<strong>Choice</strong>关联一个<strong>Question</strong>。Django支持多种数据库映射关系：多对一，多对多，一对一。</li>
+</ul>
+<h2 id="激活模型-Activating-models"><a href="#激活模型-Activating-models" class="headerlink" title="激活模型(Activating models)"></a>激活模型(Activating models)</h2><ul>
+<li><p>上面一小段代码给了Django很多的信息。通过代码，Django可以做到：</p>
+<ul>
+<li>为这个app创建一个数据库模式(<strong>CREATE TABLE 语句</strong>)</li>
+<li>创建一个Python数据库可用API，用于使用<strong>Question</strong>和<strong>Choice</strong>对象。</li>
+</ul>
+</li>
+<li><p>但是我们先要告知项目polls已经安装了。</p>
+<blockquote>
+<p><strong>哲学</strong><br>Django的app是可插的(像USB一样，适配多台电脑)：你的app可以插入到多个项目当中，你也可以发布app，这样它(app)就不用绑定到Django中用于安装了。</p>
+</blockquote>
+</li>
+<li><p>再一次编辑<strong>mysite&#x2F;settings.py</strong>文件，然后修改<strong>INSTALLED_APPS</strong>的内容，让它包含’<strong>polls</strong>‘，修改后的文件是：</p>
+</li>
+<li><p><font color="green">mysite&#x2F;settings.py</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = (</span><br><span class="line">    <span class="string">&#x27;django.contrib.admin&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.auth&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.contenttypes&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.sessions&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.messages&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.staticfiles&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;polls&#x27;</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>现在Django知道应该包含polls这个app了。让我们运行另外一个命令：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py makemigrations polls</span><br></pre></td></tr></table></figure></li>
+<li><p>你应该看到以下的输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Migrations for &#x27;polls&#x27;:</span><br><span class="line">  0001_initial.py:</span><br><span class="line">    - Create model Choice</span><br><span class="line">    - Create model Question</span><br><span class="line">    - Add field question to choice</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>通过<strong>makemigrations</strong>口令，你在告诉Django你的模型有了修改(这样，你就新建了一个模型)，你希望修改转存的过程当成迁移。</p>
+</li>
+<li><p>Migrations记录着你对模型做了什么修改(也即是数据库模式)-它们只是硬盘上的文件。你可以读取你新模型的migration如果你喜欢，它保存在<strong>polls&#x2F;migrations&#x2F;0001_initial.py</strong>文件当中。不要担心，你不需要每当Django创建一个的时候就读取一次，但它还是可编辑的，当你想对它进行修改的时候。</p>
+</li>
+<li><p>有一个口令可以帮你运行migration并且自动管理你的数据库模式，它是<strong>migrate</strong>，我们就要将到它了，但首先，让我们看一下migration会运行什么样的SQL代码。<strong>sqlmigrate</strong>口令得到migration的名字并且返回它们的SQL。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py sqlmigrate polls 0001</span><br></pre></td></tr></table></figure></li>
+<li><p>你应该会看到以下相似的代码：(我们已经把代码格式化了，为了让我们更易读懂它)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> polls_question (</span><br><span class="line">    &quot;id&quot; serial <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    &quot;question_text&quot; <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    &quot;pub_date&quot; <span class="type">timestamp</span> <span class="keyword">with</span> <span class="type">time</span> zone <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> polls_choice (</span><br><span class="line">    &quot;id&quot; serial <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    &quot;question_id&quot; <span class="type">integer</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    &quot;choice_text&quot; <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    &quot;votes&quot; <span class="type">integer</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> INDEX polls_choice_7aa0f6ee <span class="keyword">ON</span> &quot;polls_choice&quot; (&quot;question_id&quot;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &quot;polls_choice&quot;</span><br><span class="line">  <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> polls_choice_question_id_246c99a640fbbd72_fk_polls_question_id</span><br><span class="line">    <span class="keyword">FOREIGN</span> KEY (&quot;question_id&quot;)</span><br><span class="line">    <span class="keyword">REFERENCES</span> &quot;polls_question&quot; (&quot;id&quot;)</span><br><span class="line">    DEFERRABLE INITIALLY DEFERRED;</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>注意一下内容：</p>
+<ul>
+<li>确切的输出会和你用的数据库而有所不同。上面的例子是用PostgreSQL生成的。</li>
+<li>表名是自动取app的名字加上模型的名字(小写格式)，如polls_question和polls_choice。(你可以自己更改)</li>
+<li>主见(IDs)是自增长的，你也可以自行修改。</li>
+<li>按照惯例，Django会在外键字段名字后面加上**_id**,(当然这个你也可以修改)。</li>
+<li>外键关系是通过<strong>FOREIGN KEY</strong>这个约束来清晰定义的。不要担心不同的部分，它仅仅是告知PostgreSQL在结束事务之前不要强行实施外键。</li>
+<li>它是根据你用的数据库来适配的，所以数据库指定的域类型，好像，自动适配<strong>auto_increment</strong>(MySQL),<strong>serial</strong>(PostgreSQL)，或者<strong>integer primary key autoincrement</strong>(SQLite)，给字段名加引号是一样的，加单引号或双引号。</li>
+<li><strong>sqlmigrate</strong>口令并不会真正在你的数据库上运行migtaration-只是把它打印到屏幕上，让你知道Django需要什么SQL。知道Django正在做什么或者你拥有可以修改SQL资格的数据库管理员是非常有用的。</li>
+</ul>
+</li>
+<li><p>如果你有兴趣，你也可以运行<strong>python manage.py check</strong>口令，它会检测你的项目是否有问题或者创建数据库是否顺利。</p>
+</li>
+<li><p>现在，再次运行<strong>migrate</strong>来创建你数据库上的模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Operations to perform:</span><br><span class="line">  Apply <span class="built_in">all</span> migrations: admin, contenttypes, polls, auth, sessions</span><br><span class="line">Running migrations:</span><br><span class="line">  Applying polls<span class="number">.0001</span>_initial... OK</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>migrate</strong>口令处理所有那些没被处理的migrations。(Django通过你数据库当中的特殊表<strong>django_migrations</strong>来跟踪那些被处理了或者那些没有处理)</p>
+</li>
+<li><p><strong>migrations</strong>非常强大，而且当你在开发你的项目时，它可以让你随着时间变化修改你的模型，而不需要删除当前的数据库去创建一个新的。我们稍后再对这部分做深入研究，现在，请记住以下三步来对你的模型进行修改：</p>
+<ul>
+<li>修改模型(在<strong>models.py</strong>文件中)</li>
+<li>运行<strong>python manage.py makemigrations</strong>来为这些修改创建migrations</li>
+<li>运行<strong>python manage.py migrate</strong>把这些修改应用(apply)到数据库</li>
+</ul>
+</li>
+<li><p>为什么make和apply这两步要分开执行呢？原因是你要首先提交migrations到你的版本控制系统，然后在把它们和你的app一起执行。这样会不仅会令你的开发更容易，还便于其他的开发者使用和再次开发。</p>
+</li>
+<li><p>阅读<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/django-admin/" >django-admin.py documentation<i class="fas fa-external-link-alt"></i></a>得到<strong>manage.py</strong>工具类的更详细的信息。</p>
+</li>
+</ul>
+<h2 id="玩转API"><a href="#玩转API" class="headerlink" title="玩转API"></a>玩转API</h2><ul>
+<li>现在，让我们投进可交互的Python shell，玩一下Django提供给我们的免费的API。进入Python Shell，用这个命令：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py shell</span><br></pre></td></tr></table></figure></li>
+<li>我们用python manage.py而不用python的原因是<strong>manage.py</strong>设置了<strong>DJANGO_SETTINGS_MODULE</strong>的环境变量，也就是说，Django和python的路径都加入了你的<strong>mysite&#x2F;settings.py</strong>文件中。</li>
+</ul>
+<blockquote>
+<p><strong>跳过manage.py(Bypassing manage.py)</strong><br>如果你不想使用<strong>manage.py</strong>，没问题，只需要把<strong>DJANGO_SETTINGS_MODULE</strong>的环境变量设置到<strong>mysite.settings</strong>中，新开一个纯净的Python shell，然后设置Django：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> django</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>django.setup()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果这样报了一个<strong>AttributeError</strong>错误，那么你现在使用的是一个不匹配的Django版本。请更换不同的Django版本。<br>你必须在manage.py的目录下运行<strong>python</strong>，或者确保你的目录加入了Python路径，这样<strong>import mysite</strong>才起作用。<br>更多详情，请看<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/django-admin/" >django-admin.py documentation<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<ul>
+<li><p>当你进入了shell，可以探索[database API](database API:)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">In [<span class="number">1</span>]: <span class="keyword">from</span> polls.models <span class="keyword">import</span> Question, Choice <span class="comment"># Import the model classes we just wrote</span></span><br><span class="line"><span class="comment"># No questions are in the system yet.</span></span><br><span class="line">In [<span class="number">2</span>]: Question.objects.<span class="built_in">all</span>()</span><br><span class="line">Out[<span class="number">2</span>]: []</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a new Question.</span></span><br><span class="line"><span class="comment"># Support for time zones is enabled in the default settings file, so Django experts a datatime with tzinfo for </span></span><br><span class="line"><span class="comment"># pub_date.Use timezone.now()</span></span><br><span class="line"><span class="comment"># Instead of datatime.datetime.now() and it will do the right thing. </span></span><br><span class="line">In [<span class="number">3</span>]: <span class="keyword">from</span> django.utils <span class="keyword">import</span> timezone</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: q = Question(question_text=<span class="string">&quot;What&#x27;s new?&quot;</span>, pub_date = timezone.now())</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save the object into the database. You have to call save() explicitly.</span></span><br><span class="line">In [<span class="number">5</span>]: q.save()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Now it has an ID. Note that this might say &quot;1L&quot; instead of &quot;1&quot;, depending on which database you&#x27;re using. That&#x27;s no biggie; </span></span><br><span class="line"><span class="comment"># it just means your database backend prefers to returns to return integers as Python long integer objects.</span></span><br><span class="line">In [<span class="number">6</span>]: q.<span class="built_in">id</span></span><br><span class="line">Out[<span class="number">6</span>]: <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Access model field values via Python attributes.</span></span><br><span class="line">In [<span class="number">7</span>]: q.question_text</span><br><span class="line">Out[<span class="number">7</span>]: <span class="string">&quot;What&#x27;s new?&quot;</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: q.pub_date</span><br><span class="line">Out[<span class="number">8</span>]: datetime.datetime(<span class="number">2015</span>, <span class="number">1</span>, <span class="number">18</span>, <span class="number">2</span>, <span class="number">22</span>, <span class="number">53</span>, <span class="number">431000</span>, tzinfo=&lt;UTC&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Change values by changing the attributes, then calling save().</span></span><br><span class="line">In [<span class="number">9</span>]: q.question_text = <span class="string">&quot;What&#x27;s up?&quot;</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: q.save()</span><br><span class="line"></span><br><span class="line"><span class="comment"># objects.all() displays all the questions in the database.</span></span><br><span class="line">In [<span class="number">11</span>]: Question.objects.<span class="built_in">all</span>()</span><br><span class="line">Out[<span class="number">11</span>]: [&lt;Question: Question <span class="built_in">object</span>&gt;]</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>等一下，**&lt;Question: Question object&gt;<strong>似乎对这个对象来说表现很差。我们可以这样来修正它，修改</strong>Question<strong>模型(在</strong>polls&#x2F;models.py<strong>文件中)，为</strong>Question<strong>和</strong>Choice<strong>分别添加一个</strong><strong>unicode</strong>**方法(就像java中重写toString()方法一样)。</p>
+</li>
+<li><p><font color="green">polls&#x2F;models.py</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Question</span>(models.Model):</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__unicode__</span>(<span class="params">self</span>):              <span class="comment"># __str__ on Python 3</span></span><br><span class="line">        <span class="keyword">return</span> self.question_text</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Choice</span>(models.Model):</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__unicode__</span>(<span class="params">self</span>):              <span class="comment"># __str__ on Python 3</span></span><br><span class="line">        <span class="keyword">return</span> self.choice_text</span><br></pre></td></tr></table></figure></li>
+<li><p>为你的模型添加__unicode__()方法非常重要，不仅仅方便于你和Python进行交互，还方便通过Django自动生成的管理员对对象的展现。</p>
+<blockquote>
+<p><strong><strong>str</strong>()方法还是__unicode__()方法</strong><br>在Python 3，就简单的用**<strong>str</strong>()<strong>方法<br>在Python 2中，你应该定义</strong><strong>unicode</strong>()<strong>方法返回的是</strong>unicode<strong>值。Django模型有一个默认的</strong><strong>str</strong>()<strong>方法，它调用了</strong><strong>unicode</strong>()<strong>方法并且把结果转化成了一个UTF-8字节型字符串。也就是说</strong><strong>unicode</strong>(p)<strong>方法返回的是一个Unicode字符串，而</strong>str(p)<strong>返回的是一个字节型的字符串，编码格式是UTF-8。Python刚好相反：</strong>object<strong>有一个</strong><strong>unicode</strong>()<strong>方法，它调用了</strong><strong>str</strong>()**方法，并把结果解释成一个ASCII的字节型的字符串。这些不同很容易混淆。<br>如果你觉得以上内容很混乱，那请直接用Python 3吧。</p>
+</blockquote>
+</li>
+<li><p>看完了一般的Python方法，让我们添加一个自定义的方法，说明一下：</p>
+</li>
+<li><p><font color="green">polls&#x2F;models.py</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.utils <span class="keyword">import</span> timezone</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Question</span>(models.Model):</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">was_published_recently</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.pub_date &gt;= timezone.now() - datetime.timedelta(days=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>注意到加入了<strong>import datetime</strong>和<strong>from django.utils import timezone</strong>，请参考Python的标准<strong>datetime</strong>模型和从<strong>django.utils.timezone</strong>中了解到Django相关的时区工具类。如果你还没熟悉控制Python中的时区，你可以参考这里<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/topics/i18n/timezones/" >time zone support docs<i class="fas fa-external-link-alt"></i></a>。</p>
+</li>
+<li><p>保存修改后，通过<strong>python manage.py shell</strong>打开一个新的Python shell交互:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question, Choice</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make sure our __str__() addition worked.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Question.objects.<span class="built_in">all</span>()</span><br><span class="line">[&lt;Question: What<span class="string">&#x27;s up?&gt;]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Django provides a rich database lookup API that&#x27;</span>s entirely driven by</span><br><span class="line"><span class="comment"># keyword arguments.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Question.objects.<span class="built_in">filter</span>(<span class="built_in">id</span>=<span class="number">1</span>)</span><br><span class="line">[&lt;Question: What<span class="string">&#x27;s up?&gt;]</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; Question.objects.filter(question_text__startswith=&#x27;</span>What<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">[&lt;Question: What&#x27;</span>s up?&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the question that was published this year.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> django.utils <span class="keyword">import</span> timezone</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>current_year = timezone.now().year</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Question.objects.get(pub_date__year=current_year)</span><br><span class="line">&lt;Question: What<span class="string">&#x27;s up?&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Request an ID that doesn&#x27;</span>t exist, this will <span class="keyword">raise</span> an exception.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Question.objects.get(<span class="built_in">id</span>=<span class="number">2</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">    ...</span><br><span class="line">DoesNotExist: Question matching query does <span class="keyword">not</span> exist.</span><br><span class="line"></span><br><span class="line"><span class="comment"># Lookup by a primary key is the most common case, so Django provides a</span></span><br><span class="line"><span class="comment"># shortcut for primary-key exact lookups.</span></span><br><span class="line"><span class="comment"># The following is identical to Question.objects.get(id=1).</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Question.objects.get(pk=<span class="number">1</span>)</span><br><span class="line">&lt;Question: What<span class="string">&#x27;s up?&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Make sure our custom method worked.</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; q = Question.objects.get(pk=1)</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; q.was_published_recently()</span></span><br><span class="line"><span class="string">True</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Give the Question a couple of Choices. The create call constructs a new</span></span><br><span class="line"><span class="string"># Choice object, does the INSERT statement, adds the choice to the set</span></span><br><span class="line"><span class="string"># of available choices and returns the new Choice object. Django creates</span></span><br><span class="line"><span class="string"># a set to hold the &quot;other side&quot; of a ForeignKey relation</span></span><br><span class="line"><span class="string"># (e.g. a question&#x27;</span>s choice) which can be accessed via the API.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q = Question.objects.get(pk=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display any choices from the related object set -- none so far.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.choice_set.<span class="built_in">all</span>()</span><br><span class="line">[]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create three choices.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.choice_set.create(choice_text=<span class="string">&#x27;Not much&#x27;</span>, votes=<span class="number">0</span>)</span><br><span class="line">&lt;Choice: Not much&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.choice_set.create(choice_text=<span class="string">&#x27;The sky&#x27;</span>, votes=<span class="number">0</span>)</span><br><span class="line">&lt;Choice: The sky&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = q.choice_set.create(choice_text=<span class="string">&#x27;Just hacking again&#x27;</span>, votes=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Choice objects have API access to their related Question objects.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.question</span><br><span class="line">&lt;Question: What<span class="string">&#x27;s up?&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># And vice versa: Question objects get access to Choice objects.</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; q.choice_set.all()</span></span><br><span class="line"><span class="string">[&lt;Choice: Not much&gt;, &lt;Choice: The sky&gt;, &lt;Choice: Just hacking again&gt;]</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; q.choice_set.count()</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># The API automatically follows relationships as far as you need.</span></span><br><span class="line"><span class="string"># Use double underscores to separate relationships.</span></span><br><span class="line"><span class="string"># This works as many levels deep as you want; there&#x27;</span>s no limit.</span><br><span class="line"><span class="comment"># Find all Choices for any question whose pub_date is in this year</span></span><br><span class="line"><span class="comment"># (reusing the &#x27;current_year&#x27; variable we created above).</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Choice.objects.<span class="built_in">filter</span>(question__pub_date__year=current_year)</span><br><span class="line">[&lt;Choice: Not much&gt;, &lt;Choice: The sky&gt;, &lt;Choice: Just hacking again&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Let&#x27;s delete one of the choices. Use delete() for that.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = q.choice_set.<span class="built_in">filter</span>(choice_text__startswith=<span class="string">&#x27;Just hacking&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.delete()</span><br></pre></td></tr></table></figure></li>
+<li><p>关于更多信息，请看</p>
+</li>
+<li><p>[Accessing related objects](Accessing related objects),</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/topics/db/queries/#field-lookups-intro" >Field lookups<i class="fas fa-external-link-alt"></i></a>,</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/topics/db/queries/" >Database API reference<i class="fas fa-external-link-alt"></i></a>.</p>
+</li>
+<li><p>如果你熟悉了API，那么请读下一篇<a href="">Part2-Django’s automatic admin working</a>.</p>
+</li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">Post title</span>: <span class="content">Django-1.7.3-Tutorial-Part-1-模型</span>
+        </li>
+        <li class="post-author">
+            <span class="type">Post author</span>: <span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">Create time</span>: <span class="content">2015-01-16 10:46:52</span>
+        </li>
+        <li class="post-link">
+            <span class="type">Post link</span>: <span class="content">2015/01/16/Django-1-7-3-Tutorial-Part-1-模型/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">Copyright notice</span>: <span class="content">All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="Copy copyright info" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Django-Models/">#Django-Models</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2015/01/19/Django-1-7-3-Tutorial-Part-2-%E7%AE%A1%E7%90%86%E7%AB%99%E7%82%B9/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">Django-1-7-3-Tutorial-Part-2-管理站点</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2015/01/16/Django-1-7-3-Tutorial/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Django-1.7.3-Tutorial</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AADjango-app-Part-1"><span class="nav-number">1.</span> <span class="nav-text">创建你的第一个Django app-Part 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">数据库配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">发布到服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B-models"><span class="nav-number">1.4.</span> <span class="nav-text">创建模型(models)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E6%A8%A1%E5%9E%8B-Activating-models"><span class="nav-number">1.5.</span> <span class="nav-text">激活模型(Activating models)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%A9%E8%BD%ACAPI"><span class="nav-number">1.6.</span> <span class="nav-text">玩转API</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+
+</body>
+</html>

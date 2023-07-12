@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            程序员必须知道的10大基础实用算法及其讲解-@慕可网制作 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">程序员必须知道的10大基础实用算法及其讲解-@慕可网制作</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2015-02-08 11:24:07</span>
+        <span class="mobile">2015-02-08 11:24</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2015-02-11 21:49:30</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/10%E5%A4%A7%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%94%A8%E7%AE%97%E6%B3%95/">10大基础实用算法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="算法一：快速排序算法"><a href="#算法一：快速排序算法" class="headerlink" title="算法一：快速排序算法"></a>算法一：快速排序算法</h2><ul>
+<li>快速排序算法是由东尼.霍尔所发展的一种排序算法。在平均状况下，排序n个项目要O(nlog n)次比较。在最坏状况下则需要O(n2)次比较，但这种状况并不常见。事实上，快速排序O(n log n)通常明显比其他算法更快，因为它的内部循环结构(inner loop)可以在大部分的架构上很有效率地被实现出来。</li>
+<li>快速排序使用分治法(Divide and conquer)策略来把一个串行(list)分为两个子串行(sub-lists)。</li>
+<li>gif动图</li>
+<li>算法步骤：<ol>
+<li>从数列中挑出一个元素，称为“基准”(pivot)。</li>
+<li>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆放基准的后面(相同的数可以到任一边)。在这个分区退出之后，该基准就处在数列的中间位置。这个称为分区(partition)操作。</li>
+<li>递归地(recursive)把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
+</ol>
+</li>
+<li>递归的最底部情形，数列的大小是零或者一，也就是永远都已经被排序好了。虽然一直递归下去，但是这个算法总会退出，因为在每次的迭代(iteration)中，它至少会把一个元素摆到它最后的位置去。</li>
+</ul>
+<h2 id="算法二：堆排序算法"><a href="#算法二：堆排序算法" class="headerlink" title="算法二：堆排序算法"></a>算法二：堆排序算法</h2><ul>
+<li>堆排序(Heapsort)是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子节点的键值或索引总是小于(或者大于)它的父节点。</li>
+<li>堆排序的平均时间复杂度为O(nlog n)。</li>
+<li>gif动图</li>
+<li>算法步骤：<ol>
+<li>创建一个堆H[0…n-1]。</li>
+<li>把堆首(最大值)和堆尾互换。</li>
+<li>把堆的尺寸缩小1，并调用shift_down(0)，目的是把新的数组顶端数据调整到相应位置。</li>
+<li>重复步骤2，直到堆的尺寸为1。</li>
+</ol>
+</li>
+</ul>
+<h2 id="算法三：归并排序"><a href="#算法三：归并排序" class="headerlink" title="算法三：归并排序"></a>算法三：归并排序</h2><ul>
+<li>归并排序(Merge sort，台湾译作：合并排序)是建立在归并操作上的一种有限的排序算法。该算法是采用分治法(Divide and conquer)的一个非常典型的应用。</li>
+<li>算法步骤：<ol>
+<li>申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列。</li>
+<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置。</li>
+<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置。</li>
+<li>重复步骤3直到某一指针达到序列尾。</li>
+<li>将另一序列剩下的所有元素直接复制到合并序列尾。</li>
+</ol>
+</li>
+<li>gif动图</li>
+</ul>
+<h2 id="算法四：二分查找算法"><a href="#算法四：二分查找算法" class="headerlink" title="算法四：二分查找算法"></a>算法四：二分查找算法</h2><ul>
+<li>二分查找算法是一种在有序数组中查找某一特定元素的搜索算法。搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束；如果某一特定元素大于或小于中间元素，则在数组大于或者小于中间元素的那一半查找，而且跟开始一样从中间元素开始比较。如果在某一步骤数组为空，则代表找不到。这种搜索算法每一次比较都使搜索范围缩小一半。折半搜索每次把搜索区域减少一半，时间复杂度为O(log n)。</li>
+</ul>
+<h2 id="算法五：BFPRT-线性查找算法"><a href="#算法五：BFPRT-线性查找算法" class="headerlink" title="算法五：BFPRT(线性查找算法)"></a>算法五：BFPRT(线性查找算法)</h2><ul>
+<li>BFPRT算法解决的问题十分经典，即从某n个元素的序列中选出第k大(第k小)的元素，通过巧妙的分析，BFPRT可以保证在最坏情况下仍为线性时间复杂度。该算法的思想与快速排序思想相似，当然，为使得算法在最坏情况下，依然能达到O(n)的时间复杂度，五位算法作者做了精妙的处理。</li>
+<li>算法步骤：<ol>
+<li>将n个元素每5个一组，分成n&#x2F;5(上界)组。</li>
+<li>取出每一组的中位数，任意排序方法，比如插入排序。</li>
+<li>递归地调用selection算法查找上一步中所有中位数的中位数，设为x，偶数个中位数的情况下设定为选取中间小的一个。</li>
+<li>用x来分割数组，设小于等于x的个数为k，大于x的个数即为n-k。</li>
+<li>用i &#x3D;&#x3D; k， 返回x;若i&gt;k，在大于x的元素中递归查找第i-k的元素。终止条件：n &#x3D; 1时，返回的即使i小元素。</li>
+</ol>
+</li>
+</ul>
+<h2 id="算法六：DES-深度优先搜索"><a href="#算法六：DES-深度优先搜索" class="headerlink" title="算法六：DES(深度优先搜索)"></a>算法六：DES(深度优先搜索)</h2><ul>
+<li>深度优先搜索算法(Depth-First-Search)，是搜索算法的一种。它沿着树的深度遍历 树的节点，尽可能深的搜索树的分支。当节点v的所有边都已被探寻过，搜索将回溯到发现节点v的那条边的起始节点。这一过程一直进行到已发现从源节点可达的所有节点为止。如果还存在未被发现的节点，则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。DFS属于盲目搜索。</li>
+<li>深度优先搜索是图论中的经典算法，利用深度优先搜索算法可以产生目标图的相应拓扑排序表，利用拓扑排序表可以方便的解决很多相关的图论问题，如最大路径问题等等。一般用堆数据结构来辅助实现DFS算法。</li>
+<li>深度优先遍历图算法步骤：<ol>
+<li>访问顶点v。</li>
+<li>依次从v的未被访问的临接点出发，对图进行深度优先遍历；直至图中和v有路径相通的顶点都被访问。</li>
+<li>若此时图中尚有顶点未被访问，则从一个未被访问的顶点出发，重新进行深度优先遍历，直到图中所有顶点均被访问过为止。</li>
+</ol>
+</li>
+<li>上述描述可能比较抽象，举个例子：<ul>
+<li>DFS在访问途中某一起始顶点v后，由v出发，访问它的任一邻接顶点w1;再从w1出发，访问与w1邻接但还没有访问过的顶点w2；然后再从w2出发，进行类似的访问，。。。如此进行下去，直至到达所有的邻接顶点都被访问过的顶点u为止。</li>
+<li>接着，退回一步，退回前一次刚访问过的顶点，看是否还有其他没有被访问的邻接顶点。如果有，则访问此顶点，之后再从此顶点出发，进行与前述类似的访问；如果没有，就再退回一步进行搜索。重复上述过程，直到连通图中所有顶点都被访问过为止。</li>
+</ul>
+</li>
+</ul>
+<h2 id="算法七：BFS-广度优先搜索"><a href="#算法七：BFS-广度优先搜索" class="headerlink" title="算法七：BFS(广度优先搜索)"></a>算法七：BFS(广度优先搜索)</h2><ul>
+<li>广度优先搜索算法(Breadth-First-Search),是一种图形搜索算法。简单的说，BFS是从跟节点开始，沿着树(图)的宽度遍历树(图)的节点。如果所有节点均未被访问，则算法终止。BFS同样属于盲目搜索。一般用队列数据结构来辅助实现BFS算法。</li>
+<li>算法步骤：<ol>
+<li>首先将根节点放入队列中。</li>
+<li>从队列中取出第一个节点，并检验它是否为目标。如果找到目标，则结束搜寻并回传结果，否则将它所有尚未检验过的直接子节点加入队列中。</li>
+<li>若队列为空，表示整张图都检查过了–亦即图中没有欲搜寻的目标。结束搜寻并回传“找不到目标”。</li>
+<li>重复步骤2.</li>
+</ol>
+</li>
+<li>gif动图。</li>
+</ul>
+<h2 id="算法八：Dijkstra算法"><a href="#算法八：Dijkstra算法" class="headerlink" title="算法八：Dijkstra算法"></a>算法八：Dijkstra算法</h2><ul>
+<li>戴克斯特拉算法(Dijkstra’s algorithm)是有荷兰计算机科学家艾兹赫尔.戴克斯特拉提出。迪克斯切算法使用了广度优先搜索解决非负权有向图的单源最短路径问题，算法最终得到了一个最短路径树。该算法常用于路由算法或者作为其他图算法的一个子模块。</li>
+<li>该算法的输入包含了一个有权重的有向图G，以及G中的一个来源顶点S。我们以V表示G中所有顶点的集合。每一个图中的边，都是两个顶点所形成的有序元素树。(u, v)表示从顶点u到v有路径相连。我们以E表示G中所有边的集合，而边的权重则由权重函数w: E –&gt; [0, 无穷大]定义。因此，w(u, v)就是从顶点u到顶点v的非负权重(weight)。边的权重可以想象成两个顶点之间的距离。任何两点间的路径的权重，就是该路径上所有边的权重总和。已知有V中有顶点s及t,Dijkstra算法可以找到s到t的最低权重路径(例如，最短路径)。这个路径也可以在一个图中，找到从一个顶点s到任何其他顶点的最短路径。对于不含负权的有向图，Dijkstra算法是目前已知的最快的单源最短路径算法。</li>
+<li>算法步骤：<ol>
+<li>初始时令 S&#x3D;{V0}，T&#x3D;{其他顶点}，T中为顶点对应的距离值，若存在，d(V0,Vi)为弧上的权值，若不存在，d(V0,Vi)为无穷大。</li>
+<li>从T中选取一个其距离值为最小的顶点W且其不再S中，加入S。</li>
+<li>对其余T中顶点的距离值进行修改：若加进W作中间顶点，从V0到Vi的距离值缩短，则修改此距离值。</li>
+<li>重复上述步骤2，3，直到S中包含所有顶点，即W&#x3D;Vi为止。</li>
+</ol>
+</li>
+<li>图片</li>
+</ul>
+<h2 id="算法九：动态规划算法"><a href="#算法九：动态规划算法" class="headerlink" title="算法九：动态规划算法"></a>算法九：动态规划算法</h2><ul>
+<li>动态规划(Dynamic Programming)是一种在数学，计算机科学和经济学中使用的，通过把原问题分解为相对简单的子问题求解复杂问题的方法。动态规划常常适用于重叠子问题和最优子结构性质的问题，动态规划方法所耗时间往往少于朴素解法。</li>
+<li>动态规划背后的基本思想非常简单。大致上，若要了解一个给定问题，我们需要解其不同的部分(即子问题)，再合并子问题的解以得出原问题的解。通常许多子问题非常相似，为此动态规划试图仅仅解决每个子问题一次，从而减少计算量：一旦某个给定子问题的解已经算出，则将其记忆化存储，以便下次需要同一个子问题解之时直接查表。这种做法在重复子问题的数目关于输入的规模呈指数增长时特别有用。</li>
+<li>关于动态规划最经典的问题当属背包问题。</li>
+<li>算法步骤：<ol>
+<li>最优子结构性质。如果问题的最优解所包含的子问题也是最优的，我们就称该问题具有最优子结构性质(即满足最优化原理)。最优子结构性质为动态规划算法解决问题提供了重要线索。</li>
+<li>子问题重叠性质。子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对美一个子问题只计算一次，然后将子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率。</li>
+</ol>
+</li>
+</ul>
+<h2 id="算法十：朴素贝叶斯分类算法"><a href="#算法十：朴素贝叶斯分类算法" class="headerlink" title="算法十：朴素贝叶斯分类算法"></a>算法十：朴素贝叶斯分类算法</h2><ul>
+<li>朴素贝叶斯分类算法是一种基于贝叶斯定理的简单概率分类算法。贝叶斯分类的基础是概率推理，就是在各种条件的存在不确定，仅知其出现概率的情况下，如何完成推理和决策任务。概率推理是与确定性推理相对应的。而朴素贝叶斯分类器是基于独立假设的，即假设样本每个特征与其他特征都不相关。</li>
+<li>朴素贝叶斯分类器依靠精确的自然概率模型，在有监督学习的样本集中能获得非常好的分类效果。在许多实际应用中，朴素贝叶斯模型参数估计使用最大似然估计方法，换言之朴素贝叶斯模型能工作并没有用到贝叶斯概率或者任何贝叶斯模型。</li>
+<li>尽管是带着这些朴素思想和过于简单化的假设，但朴素贝叶斯分类器在很多复杂的现实情形中仍能够取得相当好的效果。</li>
+<li>文章来源：36大数据</li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">Post title</span>: <span class="content">程序员必须知道的10大基础实用算法及其讲解-@慕可网制作</span>
+        </li>
+        <li class="post-author">
+            <span class="type">Post author</span>: <span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">Create time</span>: <span class="content">2015-02-08 11:24:07</span>
+        </li>
+        <li class="post-link">
+            <span class="type">Post link</span>: <span class="content">2015/02/08/程序员必须知道的10大基础实用算法及其讲解-慕可网制作/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">Copyright notice</span>: <span class="content">All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="Copy copyright info" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/10%E5%A4%A7%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%94%A8%E7%AE%97%E6%B3%95/">#10大基础实用算法</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2015/03/10/%E6%AF%95%E8%AE%BE%E6%8A%A5%E5%91%8A-2015-03-10/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">毕设报告-2015-03-10</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2015/02/03/%E5%BA%8F%E5%88%97-Python%E7%AC%94%E8%AE%B0/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">序列-Python笔记</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%B8%80%EF%BC%9A%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">算法一：快速排序算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">算法二：堆排序算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%B8%89%EF%BC%9A%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">算法三：归并排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%9B%9B%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">算法四：二分查找算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%BA%94%EF%BC%9ABFPRT-%E7%BA%BF%E6%80%A7%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">算法五：BFPRT(线性查找算法)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%85%AD%EF%BC%9ADES-%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="nav-number">6.</span> <span class="nav-text">算法六：DES(深度优先搜索)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%B8%83%EF%BC%9ABFS-%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="nav-number">7.</span> <span class="nav-text">算法七：BFS(广度优先搜索)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%85%AB%EF%BC%9ADijkstra%E7%AE%97%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">算法八：Dijkstra算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%B9%9D%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">算法九：动态规划算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%8D%81%EF%BC%9A%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">算法十：朴素贝叶斯分类算法</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+
+</body>
+</html>

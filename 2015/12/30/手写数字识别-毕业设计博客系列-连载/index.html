@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            基于SVM技术的手写数字识别-毕业设计博客系列-连载 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">基于SVM技术的手写数字识别-毕业设计博客系列-连载</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2015-12-30 22:33:42</span>
+        <span class="mobile">2015-12-30 22:33</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2015-03-10 12:59:16</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%B3%BB%E5%88%97/">毕业设计系列</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97-SVM/">手写数字 SVM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><ul>
+<li>本系列博客是为记录本人大学毕业设计过程所有点滴而设。因为人生只有一次毕业设计，它如流水，一去不复返，错过了就永远失去了。很多时候，每件事情的发生，都会带着甜酸苦辣，而文字可以记录它们的痕迹，日后可让我细细品味这段曾经的奋斗。</li>
+</ul>
+<h1 id="毕业设计简介"><a href="#毕业设计简介" class="headerlink" title="毕业设计简介"></a>毕业设计简介</h1><ul>
+<li>本人的毕业设计的题目和其他同学的选题都不大相同，同学一般都选了做个系统或网站，而我选的是“基于SVM技术的手写数字识别的设计和实现”，它是属于模式识别的范畴，模式识别这个名字看上去就感觉到好高大上。根据<a class="link"   target="_blank" rel="noopener" href="http://baike.baidu.com/link?url=QmW1EdwddM0FNenkkuump1MyXVxQNQ4KJYIo2QWOcUMDHb4HYwLxo44kqgwI6jUofmuHy7t2MI3OBd7Z4iBFD_" >百度百科<i class="fas fa-external-link-alt"></i></a>的解释：模式识别（英语：Pattern Recognition），就是通过计算机用数学技术方法来研究模式的自动处理和判读。通俗的来说，就是想让机器模仿人的认知，比如“听”懂人说的话(语音识别)，“看”懂人写的文字(自然语言处理)，甚至乎拥有人的思维能力。而我的“手写数字识别”就是看“懂”人写的文字的一部分，它是属于光学字符识别的一个子分支。所以，这个毕业设计还是比较有难度的，对我来说，如果我能很好的完成了这个选题，那么无论是对我个人能力的提升，还是以后的发展都是有很大的帮助的。所以，我要好好对待我的毕业设计，用心做好它。</li>
+</ul>
+<h1 id="毕业设计时间安排"><a href="#毕业设计时间安排" class="headerlink" title="毕业设计时间安排"></a>毕业设计时间安排</h1><ul>
+<li><img src="/img/paperBlog/schedule.png"></li>
+</ul>
+<h1 id="毕业设计流程"><a href="#毕业设计流程" class="headerlink" title="毕业设计流程"></a>毕业设计流程</h1><h2 id="开题报告-11月30日"><a href="#开题报告-11月30日" class="headerlink" title="开题报告(11月30日)"></a>开题报告(11月30日)</h2><h3 id="什么是开题报告"><a href="#什么是开题报告" class="headerlink" title="什么是开题报告"></a>什么是开题报告</h3><ul>
+<li>开题报告是是指开题者对科研课题的一种文字说明材料。开题报告包括综述、关键技术、可行性分析和时间安排等四个方面 。由于开题报告是用文字体现的论文总构想,因而篇幅不必过大,但要把计划研究的课题、如何研究、理论适用等主要问题写清楚。开题报告一般为表格式，它把要报告的每一项内容转换成相应的栏目，这样做，既避免遗漏；又便于评审者一目了然，把握要点。</li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://baike.baidu.com/link?url=raHVwGFA26__ZMa8ds-SdM539mknHb5BSxwqmpFZ7eYRvUE3eCGiZ_GMIkf-tVXFEs_SV40JFjxOviu3sSCes_" >百度百科<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h3 id="开题报告格式"><a href="#开题报告格式" class="headerlink" title="开题报告格式"></a>开题报告格式</h3><ul>
+<li><p>毕业论文开题报告提纲</p>
+<ul>
+<li>一、开题报告封面：论文题目、系别、专业、年级、姓名、导师</li>
+<li>二、目的意义和国内外研究概况</li>
+<li>三、论文的理论依据、研究方法、研究内容</li>
+<li>四、研究条件和可能存在的问题</li>
+<li>五、预期的结果</li>
+<li>六、进度安排</li>
+</ul>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="http://wenku.baidu.com/link?url=XOQOwUC-yYYg0y4JhSQq3RIi8FiGF-Mlynw81eeUglTJNYA27GhXzZ3lxl9s3uthkHR0gkEtcemzLDeLy2DQLc2W81IHODwJSot2befvShlkKWlFWPPNSERlu6OmdKsf" >参考模板<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+</ul>
+<h3 id="参考文献规范"><a href="#参考文献规范" class="headerlink" title="参考文献规范"></a>参考文献规范</h3><ul>
+<li><p>参考文献的书写也是有一定的要求，所以这个不可随意乱写的。参考文献书写格式要符合GB7714-2005《文后参考文献著录规则》。</p>
+</li>
+<li><p>文献标注</p>
+<ul>
+<li>参考文献类型<ul>
+<li>专著[M]，论文集[C]，报纸文章[N]，期刊文章[J]，学位论文[D]，报告[R]，标准[S]，专利[P]，论文集中的析出文献[A]</li>
+</ul>
+</li>
+<li>电子文献类型<ul>
+<li>数据库[DB]，计算机[CP]，电子公告[EB]</li>
+</ul>
+</li>
+<li>电子文献的载体类型<ul>
+<li>互联网[OL]，光盘[CD]，磁带[MT]，磁盘[DK]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>参考示例</p>
+<ul>
+<li>专著、论文集、学位论文、报告<ul>
+<li>[序号]主要责任者.文献题名[文献类型标识].出版地：出版者，出版年.起止页码（任选）.</li>
+<li>[1]刘国钧，陈绍业，王凤翥. 图书馆目录[M]. 北京：高等教育出版社，1957.15-18.</li>
+</ul>
+</li>
+<li>期刊文章<ul>
+<li>[序号]主要责任者.文献题名[J].刊名，年，卷（期）：起止页码.</li>
+<li>[8] Heider,E.R.&amp; D.C.Oliver. The structure of color space in naming and memory of two languages [J]. Foreign Language Teaching and Research,1999⑶： 62-67.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="http://baike.baidu.com/link?url=14wUrtxW1meyj7N7pKRq79lDfLSRIq6zieEF8WB9aboaiL5M9ATQE5fTr9evBGAi39b1QWrDVcKgVqv-z8j5yq" >百度百科<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="http://www.360doc.com/content/12/1016/17/9728351_241853882.shtml" >360图书馆<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+</ul>
+<h3 id="我的开题报告"><a href="#我的开题报告" class="headerlink" title="我的开题报告"></a>我的开题报告</h3><p><a href="">本地内存中</a></p>
+<h2 id="我的毕业设计规划-12月22日"><a href="#我的毕业设计规划-12月22日" class="headerlink" title="我的毕业设计规划(12月22日)"></a>我的毕业设计规划(12月22日)</h2><ul>
+<li>由于我的毕业设计偏向理论，所以我给自己定了两条计划路线，一条是系统实现路线(偏软件实现的)，另一条是理论学习路线(偏理论的)。整体规划如下图：<br><img src="/img/paperBlog/plan-routine.png"></li>
+<li>系统实现这一块，算法实现用的是Python语言，GUI用PyGame库实现；理论学习这一块，只要是参考了July的博客<a class="link"   target="_blank" rel="noopener" href="http://blog.csdn.net/v_july_v/article/details/7624837" >支持向量机通俗导论（理解SVM的三层境界）<i class="fas fa-external-link-alt"></i></a>为主线对SVM进行系统的学习。其只要学习路线如下：<br> <img src="/img/paperBlog/SVM-three.png"></li>
+</ul>
+<h2 id="中期检查-12月24日"><a href="#中期检查-12月24日" class="headerlink" title="中期检查(12月24日)"></a>中期检查(12月24日)</h2><h3 id="毕业设计完成情况"><a href="#毕业设计完成情况" class="headerlink" title="毕业设计完成情况"></a>毕业设计完成情况</h3><ul>
+<li>由于课程安排，本人在前一个月中都在做HIS系统的实训，搁置了毕业设计，所以毕业设计的完成情况还是处于初始阶段。在初始阶段，我主要做了以下工作。<ul>
+<li>系统的原型设计</li>
+<li>手写画板的实现</li>
+<li>学习线性分类器-感知机</li>
+</ul>
+</li>
+</ul>
+<h3 id="做了哪些工作"><a href="#做了哪些工作" class="headerlink" title="做了哪些工作"></a>做了哪些工作</h3><hr>
+<h4 id="系统实现路线"><a href="#系统实现路线" class="headerlink" title="系统实现路线"></a>系统实现路线</h4><ul>
+<li><p>系统的原型设计</p>
+<ul>
+<li>系统主面板的设计</li>
+<li><img src="/img/paperBlog/main-borad.png"></li>
+<li>数据集训练等待过程面板的设计</li>
+<li><img src="/img/paperBlog/wait-borad.png"></li>
+<li>数据集训练完成面板的设计</li>
+<li><img src="/img/paperBlog/train-result-borad.png"></li>
+</ul>
+</li>
+<li><p>手写画板的实现(Demo)</p>
+<ul>
+<li><img src="/img/paperBlog/painting-board-demo.png"></li>
+</ul>
+</li>
+<li><p>参考资料</p>
+</li>
+</ul>
+<iframe height=498 width=510 src="http://player.youku.com/embed/XODYxMDI2ODA0" frameborder=0 allowfullscreen></iframe>
+
+<h4 id="理论实现路线"><a href="#理论实现路线" class="headerlink" title="理论实现路线"></a>理论实现路线</h4><ul>
+<li>学习线性分类器-感知机<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="http://chenyuqing.github.io/2015/01/01/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-%E6%AF%95%E8%AE%BE%E7%B3%BB%E5%88%97/" >最小二乘法论文翻译<i class="fas fa-external-link-alt"></i></a></li>
+<li>梯度下降法</li>
+<li>对偶形式</li>
+<li>感知机</li>
+</ul>
+</li>
+</ul>
+<h4 id="线路图完成度-中期检查"><a href="#线路图完成度-中期检查" class="headerlink" title="线路图完成度(中期检查)"></a>线路图完成度(中期检查)</h4><ul>
+<li><img src="/img/paperBlog/plan-routine-00.png"></li>
+</ul>
+<h3 id="遇到了哪些问题"><a href="#遇到了哪些问题" class="headerlink" title="遇到了哪些问题"></a>遇到了哪些问题</h3><h3 id="哪些问题已经解决了，哪些没有解决"><a href="#哪些问题已经解决了，哪些没有解决" class="headerlink" title="哪些问题已经解决了，哪些没有解决"></a>哪些问题已经解决了，哪些没有解决</h3><h3 id="下一步的计划"><a href="#下一步的计划" class="headerlink" title="下一步的计划"></a>下一步的计划</h3><ul>
+<li>根据线路图，下一步的计划是继续完善面板框架，学习SVM理论知识，实现SVM识别手写数字的算法。</li>
+</ul>
+<h2 id="末期检查"><a href="#末期检查" class="headerlink" title="末期检查"></a>末期检查</h2><h2 id="参加答辩"><a href="#参加答辩" class="headerlink" title="参加答辩"></a>参加答辩</h2><h2 id="答辩成绩"><a href="#答辩成绩" class="headerlink" title="答辩成绩"></a>答辩成绩</h2><h2 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h2><h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1>
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">Post title</span>: <span class="content">基于SVM技术的手写数字识别-毕业设计博客系列-连载</span>
+        </li>
+        <li class="post-author">
+            <span class="type">Post author</span>: <span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">Create time</span>: <span class="content">2015-12-30 22:33:42</span>
+        </li>
+        <li class="post-link">
+            <span class="type">Post link</span>: <span class="content">2015/12/30/手写数字识别-毕业设计博客系列-连载/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">Copyright notice</span>: <span class="content">All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="Copy copyright info" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97-SVM/">#手写数字 SVM</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2016/09/05/usingRcellminder/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">Using rcellminer</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2015/10/27/Aprior-Algorithm/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Apriori Algorithm</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2%E7%9A%84%E8%AF%9D"><span class="nav-number">1.</span> <span class="nav-text">写在前面的话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">毕业设计简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E6%97%B6%E9%97%B4%E5%AE%89%E6%8E%92"><span class="nav-number">3.</span> <span class="nav-text">毕业设计时间安排</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">毕业设计流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A-11%E6%9C%8830%E6%97%A5"><span class="nav-number">4.1.</span> <span class="nav-text">开题报告(11月30日)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A"><span class="nav-number">4.1.1.</span> <span class="nav-text">什么是开题报告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.1.2.</span> <span class="nav-text">开题报告格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E8%A7%84%E8%8C%83"><span class="nav-number">4.1.3.</span> <span class="nav-text">参考文献规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%BC%80%E9%A2%98%E6%8A%A5%E5%91%8A"><span class="nav-number">4.1.4.</span> <span class="nav-text">我的开题报告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E8%A7%84%E5%88%92-12%E6%9C%8822%E6%97%A5"><span class="nav-number">4.2.</span> <span class="nav-text">我的毕业设计规划(12月22日)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%9C%9F%E6%A3%80%E6%9F%A5-12%E6%9C%8824%E6%97%A5"><span class="nav-number">4.3.</span> <span class="nav-text">中期检查(12月24日)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E5%AE%8C%E6%88%90%E6%83%85%E5%86%B5"><span class="nav-number">4.3.1.</span> <span class="nav-text">毕业设计完成情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9A%E4%BA%86%E5%93%AA%E4%BA%9B%E5%B7%A5%E4%BD%9C"><span class="nav-number">4.3.2.</span> <span class="nav-text">做了哪些工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%AE%9E%E7%8E%B0%E8%B7%AF%E7%BA%BF"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">系统实现路线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E5%AE%9E%E7%8E%B0%E8%B7%AF%E7%BA%BF"><span class="nav-number">4.3.2.2.</span> <span class="nav-text">理论实现路线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%AE%8C%E6%88%90%E5%BA%A6-%E4%B8%AD%E6%9C%9F%E6%A3%80%E6%9F%A5"><span class="nav-number">4.3.2.3.</span> <span class="nav-text">线路图完成度(中期检查)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">4.3.3.</span> <span class="nav-text">遇到了哪些问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%E5%B7%B2%E7%BB%8F%E8%A7%A3%E5%86%B3%E4%BA%86%EF%BC%8C%E5%93%AA%E4%BA%9B%E6%B2%A1%E6%9C%89%E8%A7%A3%E5%86%B3"><span class="nav-number">4.3.4.</span> <span class="nav-text">哪些问题已经解决了，哪些没有解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E4%B8%80%E6%AD%A5%E7%9A%84%E8%AE%A1%E5%88%92"><span class="nav-number">4.3.5.</span> <span class="nav-text">下一步的计划</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AB%E6%9C%9F%E6%A3%80%E6%9F%A5"><span class="nav-number">4.4.</span> <span class="nav-text">末期检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E5%8A%A0%E7%AD%94%E8%BE%A9"><span class="nav-number">4.5.</span> <span class="nav-text">参加答辩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%94%E8%BE%A9%E6%88%90%E7%BB%A9"><span class="nav-number">4.6.</span> <span class="nav-text">答辩成绩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93"><span class="nav-number">4.7.</span> <span class="nav-text">个人总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+
+</body>
+</html>

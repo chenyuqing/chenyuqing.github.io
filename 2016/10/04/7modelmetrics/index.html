@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            7个每人都应该知道的模型性能评估标准 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">7个每人都应该知道的模型性能评估标准</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2016-10-04 12:51:01</span>
+        <span class="mobile">2016-10-04 12:51</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2017-02-15 17:37:16</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/ML/">ML</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Interview/">Interview</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Translate/">Translate</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ul>
+<li>By TAVISH SRIVASTAVA , <a class="link"   target="_blank" rel="noopener" href="https://www.analyticsvidhya.com/blog/2016/02/7-important-model-evaluation-error-metrics/" >Original Link<i class="fas fa-external-link-alt"></i></a></li>
+<li>19&#x2F;02&#x2F;2016</li>
+</ul>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>预测模型遵循积极的反馈原则。你建了一个模型，通过评估标准(metrics)得到反馈，然后不断改善模型知道达到你预期的准确率。评估标准解释了模型的性能。评估标准很重要的一点是它能够辨别不同模型的结果。</li>
+<li>很多坦率的分析学者，甚至都没有check模型的准确率。一旦他们建好了模型，他们就会用它来对新的数据进行预测。这是一个错误的做法。</li>
+<li>坦白说，建立一个预测模型并不是你的目的，而是你建好了模型还要从中选出一个对新数据预测有较高准确率的模型(泛化能力强)。所以，检测模型的准确率比计算预测值更重要。</li>
+<li>在我们的行业中，对于不同的模型有不同的评估标准。评估标准的选择完全依赖于模型的类型和模型的实现。当你建好了模型之后，以下7中模型评估标准的方法会帮助你评估模型的准确率。考虑到交叉验证(cross-validation)的日益流行。我也会本文中提及。</li>
+</ul>
+<h2 id="热身：预测模型的类型"><a href="#热身：预测模型的类型" class="headerlink" title="热身：预测模型的类型"></a>热身：预测模型的类型</h2><ul>
+<li><p>当我们谈及预测模型，我们要不是谈到回归模型(连续输出)就是谈到分类模型(名词性的或者二分类输出)。这两种模型所用的评估标准是有所不同的。</p>
+</li>
+<li><p>在分类问题当中，我们利用两种算法(根据输出的不同)：</p>
+<ol>
+<li><b><u>类别输出：</u></b>像SVM和KNN会产生一个类别输出。譬如，在一个二分类问题中，输出不是0就是1。然而，现在我们有了可以把二分类问题转化成概率。但这些方法目前并没有很好的被统计社区所接纳。</li>
+<li><b><u>概率输出：</u></b>像逻辑斯特回归，随机森林，Gradient Boosting，Adaboost等等算法，会得到概率输出。而把概率输出转化成类别输出只是产生一个阈值的问题。</li>
+</ol>
+</li>
+<li><p>在回归的问题中，我们没有断开的输出，输出都是连续的。</p>
+</li>
+</ul>
+<h3 id="阐述性的例子"><a href="#阐述性的例子" class="headerlink" title="阐述性的例子"></a>阐述性的例子</h3><ul>
+<li>关于分类模型评估的讨论。我用到了Kaggle上的<a class="link"   target="_blank" rel="noopener" href="https://www.kaggle.com/c/inria-bci-challenge" >BCI挑战问题<i class="fas fa-external-link-alt"></i></a>的预测结果。解决问题的方法和讨论是不相干的。但是训练集上的最后预测值被用到了本文中。这个问题的预测是概率输出，但是利用阈值0.5转化成了分类问题。</li>
+</ul>
+<h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><ul>
+<li>混淆矩阵是一个N X N的矩阵，N是待预测的类别个数。现有的问题中N &#x3D; 2，所以我们会得到一个 2 X 2的矩阵。以下是一些定义。你需要记住：<ul>
+<li><b>准确率：</b>所有的预测当中预测正确的比例。</li>
+<li><b>Positive Predictive Value或者命中率：</b>即预测分类结果为正样本当中分类正确的比例。</li>
+<li><b>Negative Predictive Value：</b>即预测分类结果为负样本当中分类正确的比例。</li>
+<li><b>敏感率或者召回率：</b>即真实分类结果为正样本当中预测正确的比例。</li>
+<li><b>特异率：</b>即真实分类结果为负样本当中预测正确的比例。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/" alt="101"></p>
+<ul>
+<li>现在的问题准确率达到了88%。由上表你可以看到，Positive predictive Value非常高，但是negative predictive value就非常低。Senstivity和Specificity都是一样。主要是因为我们已经定好了阈值。如果我们减小我们的阈值，那么这两队明显不同的数字就会变得更近。</li>
+<li>通常我们会考虑以上的一对作为评估标准。譬如，在一间医药公司，他们就会更加关注更小的错误的正样本诊断。所以，他们就会想要高的Specificity(特异率)。另一方面，损耗模型就会更关注Senstivity(敏感率)。混淆矩阵通常用作分类模型的。</li>
+</ul>
+<h2 id="Gain-and-Lift-charts-获得和提升表"><a href="#Gain-and-Lift-charts-获得和提升表" class="headerlink" title="Gain and Lift charts(获得和提升表)"></a>Gain and Lift charts(获得和提升表)</h2><ul>
+<li><p>Gain and Lift charts主要是用来检测概率的排序。以下就是建立一个Gain&#x2F;Life表的过程：</p>
+<ol>
+<li>计算每个观测量的概率</li>
+<li>根据概率对观测量从高到低排序</li>
+<li>建立十分位数，每组最多有10%的观测量</li>
+<li>为每组十分位数计算好的，坏的和总共的反应率</li>
+</ol>
+</li>
+<li><p>你会得到以下的Gain&#x2F;Lift表：<br><img src="/" alt="201"></p>
+</li>
+<li><p>这是一张很有信息量的表格。累计增益表是一个Cumulative %Right和Cumulative %Population之间的图。这个例子当中的图如下：<br><img src="/" alt="202"></p>
+</li>
+<li><p>这个表格会告诉你你的模型有没有很好把responders和non-responders分离开来。譬如，</p>
+</li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">Post title</span>: <span class="content">7个每人都应该知道的模型性能评估标准</span>
+        </li>
+        <li class="post-author">
+            <span class="type">Post author</span>: <span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">Create time</span>: <span class="content">2016-10-04 12:51:01</span>
+        </li>
+        <li class="post-link">
+            <span class="type">Post link</span>: <span class="content">2016/10/04/7modelmetrics/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">Copyright notice</span>: <span class="content">All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="Copy copyright info" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ML/">#ML</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Interview/">#Interview</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Translate/">#Translate</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2017/02/11/intro-to-machine-learning-with-sklearn/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">intro_to_machine_learning_with_sklearn</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2016/10/03/40/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">40 道ML/Data Science的初创公司(可能)的面试题</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E8%BA%AB%EF%BC%9A%E9%A2%84%E6%B5%8B%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">热身：预测模型的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%90%E8%BF%B0%E6%80%A7%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">2.1.</span> <span class="nav-text">阐述性的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5"><span class="nav-number">3.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gain-and-Lift-charts-%E8%8E%B7%E5%BE%97%E5%92%8C%E6%8F%90%E5%8D%87%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">Gain and Lift charts(获得和提升表)</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+
+</body>
+</html>

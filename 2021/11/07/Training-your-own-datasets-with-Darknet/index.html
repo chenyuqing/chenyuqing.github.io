@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            Training your own datasets with Darknet |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Training your own datasets with Darknet</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2021-11-07 14:48:57</span>
+        <span class="mobile">2021-11-07 14:48</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2020-06-23 09:07:56</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/yolov3/">yolov3</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/darknet/">darknet</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ul>
+<li>date, 2018-11-07 14:48:57</li>
+</ul>
+<h3 id="Data-collection-amp-labeling"><a href="#Data-collection-amp-labeling" class="headerlink" title="Data collection &amp; labeling"></a>Data collection &amp; labeling</h3><ol>
+<li>Use your own way to collect your data, usually the size of image doesn’t matter. It’ll better to be fit in (48, 48) ~ (1280, 720)</li>
+<li>When you finished your own dataset, you should label your images.<ul>
+<li>tools : <a class="link"   target="_blank" rel="noopener" href="https://github.com/tzutalin/labelImg" >labelImage<i class="fas fa-external-link-alt"></i></a> </li>
+<li>Usage : refer to the github</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="Install-Darknet"><a href="#Install-Darknet" class="headerlink" title="Install Darknet"></a>Install Darknet</h3><ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://pjreddie.com/darknet/install/" >Darknet Installation<i class="fas fa-external-link-alt"></i></a> , compile with GPU and Opencv if it’s necessary</li>
+</ol>
+<hr>
+<h3 id="Create-VOC-format-dataset"><a href="#Create-VOC-format-dataset" class="headerlink" title="Create VOC format dataset"></a>Create VOC format dataset</h3><ul>
+<li><p>(1)  In the root of darknet, create a folder names ‘VOCdevkit’, and create a folder names what you want to name your dataset. like ‘VOC2019_oppo’, which has to start with ‘VOC’.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /path/darknet</span><br><span class="line">mkdir VOCdevkit</span><br><span class="line">cd VOCdevkit</span><br><span class="line">mkdir VOC2019_oppo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>(2) Directory like this :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">└── VOCdevkit</span><br><span class="line">    └── VOC2019_oppo</span><br><span class="line">        ├── Annotations</span><br><span class="line">        ├── ImageSets</span><br><span class="line">        │   └── Main</span><br><span class="line">        └── JPEGImages</span><br></pre></td></tr></table></figure></li>
+<li><p>(3) Move the images into <strong>JPEGImages</strong> and xml files into <strong>Annotations</strong>.</p>
+</li>
+<li><p>(4) Split the train, val and test, create a py script like belows</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## split_train_val.py</span></span><br><span class="line"><span class="keyword">import</span> os,random</span><br><span class="line"></span><br><span class="line"><span class="comment"># read the filenames from a file</span></span><br><span class="line">dirname = <span class="string">&#x27;./Annotations&#x27;</span></span><br><span class="line">files = [f[:-<span class="number">4</span>] <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(dirname) <span class="keyword">if</span> f[-<span class="number">4</span>:].lower() == <span class="string">&#x27;.xml&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># random divide  </span></span><br><span class="line">trainval = random.sample(files, <span class="built_in">len</span>(files)//<span class="number">2</span>)</span><br><span class="line">test = [f <span class="keyword">for</span> f <span class="keyword">in</span> files <span class="keyword">if</span> f <span class="keyword">not</span> <span class="keyword">in</span> trainval]</span><br><span class="line"></span><br><span class="line"><span class="comment"># random divide </span></span><br><span class="line">train = random.sample(trainval, <span class="built_in">len</span>(trainval)//<span class="number">2</span>)</span><br><span class="line">val = [f <span class="keyword">for</span> f <span class="keyword">in</span> trainval <span class="keyword">if</span> f <span class="keyword">not</span> <span class="keyword">in</span> train]</span><br><span class="line"></span><br><span class="line"><span class="comment"># save to txt file</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">list2txt</span>(<span class="params">arr, fname</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(fname+<span class="string">&#x27;.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> arr:</span><br><span class="line">            f.write(a+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">list2txt(trainval, <span class="string">&#x27;trainval&#x27;</span>)</span><br><span class="line">list2txt(test, <span class="string">&#x27;test&#x27;</span>)</span><br><span class="line">list2txt(train, <span class="string">&#x27;train&#x27;</span>)</span><br><span class="line">list2txt(val, <span class="string">&#x27;val&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>then run the script, you will get four files, then move them into the <strong>ImageSets&#x2F;Main&#x2F;</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python split_train_val.py</span><br><span class="line"></span><br><span class="line">mv test.txt ImageSets/Main/</span><br><span class="line">mv train.txt ImageSets/Main/</span><br><span class="line">mv trainval.txt ImageSets/Main/</span><br><span class="line">mv val.txt ImageSets/Main/</span><br></pre></td></tr></table></figure></li>
+<li><p>(5) Now you have the directory like this</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">└── VOCdevkit</span><br><span class="line">    └── VOC2019_oppo</span><br><span class="line">        ├── Annotations</span><br><span class="line">        ├── ImageSets</span><br><span class="line">        │   └── Main</span><br><span class="line">        │       ├── test.txt</span><br><span class="line">        │       ├── train.txt</span><br><span class="line">        │       ├── trainval.txt</span><br><span class="line">        │       └── val.txt</span><br><span class="line">        ├── JPEGImages</span><br><span class="line">        └── split_train_val.py</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="Use-the-voc-labe-to-generate-Image-path-list"><a href="#Use-the-voc-labe-to-generate-Image-path-list" class="headerlink" title="Use the voc_labe to generate Image path list"></a>Use the voc_labe to generate Image path list</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /path/darknet</span><br><span class="line">touch voc_label.py</span><br><span class="line">vim voc_label.py</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(1) create a python script<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## name voc_label.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> xml.etree.ElementTree <span class="keyword">as</span> ET</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> listdir, getcwd</span><br><span class="line"><span class="keyword">from</span> os.path <span class="keyword">import</span> join</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. change to your labels</span></span><br><span class="line"><span class="comment"># oppo for example</span></span><br><span class="line"><span class="comment"># 4 classes, A5s, A7, reno, reno10x</span></span><br><span class="line">sets = [(<span class="string">&#x27;2019_oppo&#x27;</span>, <span class="string">&#x27;train&#x27;</span>), (<span class="string">&#x27;2019_oppo&#x27;</span>, <span class="string">&#x27;val&#x27;</span>), (<span class="string">&#x27;2019_oppo&#x27;</span>, <span class="string">&#x27;test&#x27;</span>)]</span><br><span class="line">classes = [<span class="string">&#x27;A5s&#x27;</span>, <span class="string">&#x27;A7&#x27;</span>, <span class="string">&#x27;reno&#x27;</span>, <span class="string">&#x27;reno10x&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">convert</span>(<span class="params">size, box</span>):</span><br><span class="line">    dw = <span class="number">1.</span>/(size[<span class="number">0</span>])</span><br><span class="line">    dh = <span class="number">1.</span>/(size[<span class="number">1</span>])</span><br><span class="line">    x = (box[<span class="number">0</span>] + box[<span class="number">1</span>])/<span class="number">2.0</span> - <span class="number">1</span></span><br><span class="line">    y = (box[<span class="number">2</span>] + box[<span class="number">3</span>])/<span class="number">2.0</span> - <span class="number">1</span></span><br><span class="line">    w = box[<span class="number">1</span>] - box[<span class="number">0</span>]</span><br><span class="line">    h = box[<span class="number">3</span>] - box[<span class="number">2</span>]</span><br><span class="line">    x = x*dw</span><br><span class="line">    w = w*dw</span><br><span class="line">    y = y*dh</span><br><span class="line">    h = h*dh</span><br><span class="line">    <span class="keyword">return</span> (x,y,w,h)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">convert_annotation</span>(<span class="params">year, image_id</span>):</span><br><span class="line">    <span class="comment"># 2. change to your path </span></span><br><span class="line">    in_file = <span class="built_in">open</span>(<span class="string">&#x27;/home/ares2/darknet/VOCdevkit/VOC%s/Annotations/%s.xml&#x27;</span>%(year, image_id))</span><br><span class="line">    out_file = <span class="built_in">open</span>(<span class="string">&#x27;/home/ares2/darknet/VOCdevkit/VOC%s/labels/%s.txt&#x27;</span>%(year, image_id), <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">    tree=ET.parse(in_file)</span><br><span class="line">    root = tree.getroot()</span><br><span class="line">    size = root.find(<span class="string">&#x27;size&#x27;</span>)</span><br><span class="line">    w = <span class="built_in">int</span>(size.find(<span class="string">&#x27;width&#x27;</span>).text)</span><br><span class="line">    h = <span class="built_in">int</span>(size.find(<span class="string">&#x27;height&#x27;</span>).text)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> obj <span class="keyword">in</span> root.<span class="built_in">iter</span>(<span class="string">&#x27;object&#x27;</span>):</span><br><span class="line">        difficult = obj.find(<span class="string">&#x27;difficult&#x27;</span>).text</span><br><span class="line">        cls = obj.find(<span class="string">&#x27;name&#x27;</span>).text</span><br><span class="line">        <span class="keyword">if</span> cls <span class="keyword">not</span> <span class="keyword">in</span> classes <span class="keyword">or</span> <span class="built_in">int</span>(difficult)==<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        cls_id = classes.index(cls)</span><br><span class="line">        xmlbox = obj.find(<span class="string">&#x27;bndbox&#x27;</span>)</span><br><span class="line">        b = (<span class="built_in">float</span>(xmlbox.find(<span class="string">&#x27;xmin&#x27;</span>).text), <span class="built_in">float</span>(xmlbox.find(<span class="string">&#x27;xmax&#x27;</span>).text), <span class="built_in">float</span>(xmlbox.find(<span class="string">&#x27;ymin&#x27;</span>).text), <span class="built_in">float</span>(xmlbox.find(<span class="string">&#x27;ymax&#x27;</span>).text))</span><br><span class="line">        bb = convert((w,h), b)</span><br><span class="line">        out_file.write(<span class="built_in">str</span>(cls_id) + <span class="string">&quot; &quot;</span> + <span class="string">&quot; &quot;</span>.join([<span class="built_in">str</span>(a) <span class="keyword">for</span> a <span class="keyword">in</span> bb]) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">wd = getcwd()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> year, image_set <span class="keyword">in</span> sets:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(<span class="string">&#x27;VOCdevkit/VOC%s/labels/&#x27;</span>%(year)):</span><br><span class="line">        os.makedirs(<span class="string">&#x27;VOCdevkit/VOC%s/labels/&#x27;</span>%(year))</span><br><span class="line">    <span class="comment"># 3. change to your path</span></span><br><span class="line">    image_ids = <span class="built_in">open</span>(<span class="string">&#x27;/home/ares2/darknet/VOCdevkit/VOC%s/ImageSets/Main/%s.txt&#x27;</span>%(year, image_set)).read().strip().split()</span><br><span class="line">    list_file = <span class="built_in">open</span>(<span class="string">&#x27;%s_%s.txt&#x27;</span>%(year, image_set), <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> image_id <span class="keyword">in</span> image_ids:</span><br><span class="line">        list_file.write(<span class="string">&#x27;%s/VOCdevkit/VOC%s/JPEGImages/%s.jpg\n&#x27;</span>%(wd, year, image_id))</span><br><span class="line">        convert_annotation(year, image_id)</span><br><span class="line">    list_file.close()</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>remember that there are 3 places you need to change</li>
+<li>this will generate 3 files: <ul>
+<li><strong>2019_oppo_train.txt</strong></li>
+<li><strong>2019_oppo_val.txt</strong></li>
+<li><strong>2019_oppo_test.txt</strong></li>
+</ul>
+</li>
+<li>Usually I merge <strong>2019_oppo_train.txt</strong> and <strong>2019_oppo_test.txt</strong> as <strong>2019_oppo_train.txt</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /path/darknet</span><br><span class="line">mkdir oppo_od_bak</span><br><span class="line">cd oppo_od_bak</span><br><span class="line">mkdir cfg</span><br></pre></td></tr></table></figure></li>
+<li>from the <strong>darknet&#x2F;cfg&#x2F;</strong> you can find the <strong>yolo-voc.cfg</strong> and the <strong>yolo-tiny.cfg</strong> and from the <a class="link"   target="_blank" rel="noopener" href="https://pjreddie.com/darknet/yolo/" >official website<i class="fas fa-external-link-alt"></i></a> you can download the <strong>pretrained models</strong>, like for the <strong>yolo-voc</strong> is <a class="link"   target="_blank" rel="noopener" href="https://pjreddie.com/media/files/darknet53.conv.74" >darknet53.conv.74<i class="fas fa-external-link-alt"></i></a>.</li>
+</ul>
+<hr>
+<h3 id="Prepare-your-cfg-file"><a href="#Prepare-your-cfg-file" class="headerlink" title="Prepare your cfg file"></a>Prepare your cfg file</h3><ul>
+<li>the 3 files you use to train the yolo is <ul>
+<li><strong>yourdata.names</strong></li>
+<li><strong>yourdata.data</strong></li>
+<li><strong>yourcfg.cfg</strong></li>
+</ul>
+</li>
+<li>(1) <strong>yourdata.names</strong> contains the labels of your dataset, each label for a line</li>
+<li>(2) <strong>yourdata.data</strong> example<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">classes= #classes #类别数目</span><br><span class="line">train  = /path/yourfilename_train.txt # 训练数据</span><br><span class="line">valid  = /path/yourfilenane_val.txt # 验证数据</span><br><span class="line">names = data/yourname.names # class labels</span><br><span class="line">backup = /backup/ # 权重保存所在文件</span><br></pre></td></tr></table></figure></li>
+<li>remember to delete the comments</li>
+<li>(3) <strong>yourcfg.cfg</strong><ul>
+<li>you can use the <strong>yolo-voc.cfg</strong> or the <strong>yolo-tiny.cfg</strong></li>
+<li>remember to change these places</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vim yolo-voc.cfg</span><br><span class="line"></span><br><span class="line">## Remember to comment the testing and uncomment the training</span><br><span class="line">[net]</span><br><span class="line"># Testing</span><br><span class="line"># batch=1</span><br><span class="line"># subdivisions=1</span><br><span class="line"># Training</span><br><span class="line">batch=64</span><br><span class="line">subdivisions=16</span><br></pre></td></tr></table></figure>
+<ul>
+<li>YOU should change every [yolo] layer.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[convolutional]</span><br><span class="line">size=1</span><br><span class="line">stride=1</span><br><span class="line">pad=1</span><br><span class="line">filters=27 ## YOU SHOULD CHANGE THE # OF FILTERS</span><br><span class="line">## filters = (classes + 5) * 3</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[yolo]</span><br><span class="line">mask = 6,7,8</span><br><span class="line">anchors = 10,13,  16,30,  33,23,  30,61,  62,45,  59,119,  116,90,  156,198,  373,326</span><br><span class="line">classes=4  ## CHANGE TO THE NUMBER OF YOUR LABELS</span><br><span class="line">num=9</span><br><span class="line">jitter=.3</span><br><span class="line">ignore_thresh = .5</span><br><span class="line">truth_thresh = 1</span><br><span class="line">random=1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="Start-Training"><a href="#Start-Training" class="headerlink" title="Start Training"></a>Start Training</h3><ul>
+<li>First time you train, use the pretrained classification model<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd path/darknet/</span><br><span class="line"># yolo-tiny</span><br><span class="line">./darknet detector train cfg/yourdata.data cfg/yourcfg.cfg backup/bo_can_tiny_176.weights</span><br><span class="line"># yolo-voc</span><br><span class="line">./darknet detector train cfg/yourdata.data cfg/yourcfg.cfg backup/darknet53.conv.74</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="Know-your-log"><a href="#Know-your-log" class="headerlink" title="Know your log"></a>Know your log</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Region <span class="number">82</span> Avg IOU: <span class="number">0.801934</span>, Class: <span class="number">0.737764</span>, Obj: <span class="number">0.782024</span>, No Obj: <span class="number">0.006216</span>, <span class="number">.5</span>R: <span class="number">1.000000</span>, <span class="number">.75</span>R: <span class="number">1.000000</span>, count: <span class="number">5</span> </span><br><span class="line">Region <span class="number">94</span> Avg IOU: <span class="number">0.706899</span>, Class: <span class="number">0.073915</span>, Obj: <span class="number">0.544467</span>, No Obj: <span class="number">0.000506</span>, <span class="number">.5</span>R: <span class="number">1.000000</span>, <span class="number">.75</span>R: <span class="number">0.000000</span>, count: <span class="number">1</span> </span><br><span class="line">Region <span class="number">106</span> Avg IOU: <span class="number">0.831056</span>, Class: <span class="number">0.037965</span>, Obj: <span class="number">0.026004</span>, No Obj: <span class="number">0.000057</span>, <span class="number">.5</span>R: <span class="number">1.000000</span>, <span class="number">.75</span>R: <span class="number">1.000000</span>, count: <span class="number">1</span> </span><br><span class="line">Region <span class="number">82</span> Avg IOU: <span class="number">0.731572</span>, Class: <span class="number">0.800899</span>, Obj: <span class="number">0.793200</span>, No Obj: <span class="number">0.005694</span>, <span class="number">.5</span>R: <span class="number">1.000000</span>, <span class="number">.75</span>R: <span class="number">0.333333</span>, count: <span class="number">3</span> </span><br><span class="line">Region <span class="number">94</span> Avg IOU: <span class="number">0.607969</span>, Class: <span class="number">0.199724</span>, Obj: <span class="number">0.884315</span>, No Obj: <span class="number">0.000286</span>, <span class="number">.5</span>R: <span class="number">1.000000</span>, <span class="number">.75</span>R: <span class="number">0.000000</span>, count: <span class="number">1</span> </span><br><span class="line">Region <span class="number">106</span> Avg IOU: -nan, Class: -nan, Obj: -nan, No Obj: <span class="number">0.000015</span>, <span class="number">.5</span>R: -nan, <span class="number">.75</span>R: -nan, count:</span><br></pre></td></tr></table></figure>
+<ul>
+<li>（1）以上输出显示了所有训练图片的一个批次（batch），批次大小的划分根据我们在 .cfg 文件中设置的subdivisions参数。在我使用的 .cfg 文件中 batch &#x3D; 64 ，subdivision &#x3D; 16，所以在训练输出中，训练迭代包含了16组，每组又包含了4张图片，跟设定的batch和subdivision的值一致。<br>但是此处有16*3条信息，每组包含三条信息，分别是：<br>Region 82 Avg IOU:<br>Region 94 Avg IOU:<br>Region 106 Avg IOU:<br>三个尺度上预测不同大小的框 82卷积层 为最大的预测尺度，使用较大的mask，但是可以预测出较小的物体 94卷积层 为中间的预测尺度，使用中等的mask， 106卷积层为最小的预测尺度，使用较小的mask，可以预测出较大的物体</li>
+<li>（2）每个batch都会有这样一个输出：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2706: 1.350835, 1.386559 avg, 0.001000 rate, 3.323842 seconds, 173184 images</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>2706：batch是第几组。<br>1.350835：总损失<br>1.386559 avg ： 平均损失<br>0.001000 rate：当前的学习率<br>3.323842 seconds： 当前batch训练所花的时间<br>173184 images ： 目前为止参与训练的图片总数 &#x3D; 2706 * 64 </p>
+<ul>
+<li>（3）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Region 82 Avg IOU: 0.798032, Class: 0.559781, Obj: 0.515851, No Obj: 0.006533, .5R: 1.000000, .75R: 1.000000,  count: 2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>Region Avg IOU: 表示在当前subdivision内的图片的平均IOU，代表预测的矩形框和真实目标的交集与并集之比.<br>Class: 标注物体分类的正确率，期望该值趋近于1。<br>Obj: 越接近1越好。<br>No Obj: 期望该值越来越小，但不为零。<br>count: count后的值是所有的当前subdivision图片（本例中一共4张）中包含正样本的图片的数量。</p>
+<ul>
+<li>参考：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33444963/article/details/80842179" >https://blog.csdn.net/qq_33444963&#x2F;article&#x2F;details&#x2F;80842179<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<hr>
+<h3 id="Training-experience"><a href="#Training-experience" class="headerlink" title="Training experience"></a>Training experience</h3><ul>
+<li><p><strong>YOLO-TINY</strong></p>
+<ul>
+<li>It’s a simple network for feature extraction, fit to the simple circumstances.</li>
+<li>Each class should have more than 500 images</li>
+<li>Training more than 1000 epoches</li>
+<li>Fast but low accurate.</li>
+</ul>
+</li>
+<li><p><strong>YOLO-VOC</strong></p>
+<ul>
+<li>It’s a complicated network training on the Imagenet</li>
+<li>Each class should have more than 300 images</li>
+<li>Traing more than 10000 epoches.</li>
+<li>Slow but accurate</li>
+</ul>
+</li>
+<li><p>Overall, more images, the model will be better. You can try to add images slowly.</p>
+</li>
+</ul>
+<h3 id="How-to-run-your-own-yolov3-model-with-Opencv"><a href="#How-to-run-your-own-yolov3-model-with-Opencv" class="headerlink" title="How to run your own yolov3 model with Opencv"></a>How to run your own yolov3 model with Opencv</h3><ul>
+<li>first you need to install the opencv</li>
+<li>then, you just copy three files from what you have trained<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yourname.name</span><br><span class="line">yourcfg.cfg</span><br><span class="line">yourweights.weights</span><br></pre></td></tr></table></figure></li>
+<li>then set them in the config file<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class FLAGS:</span><br><span class="line">    # Initialize the parameters</span><br><span class="line">    confThreshold = 0.65  # Confidence threshold</span><br><span class="line">    nmsThreshold = 0.3  # Non-maximum suppression threshold</span><br><span class="line">    inpWidth = 416  # Width of network&#x27;s input image</span><br><span class="line">    inpHeight = 416  # Height of network&#x27;s input image</span><br><span class="line"></span><br><span class="line">    camera_id = 0</span><br><span class="line"></span><br><span class="line">    # Load names of classes</span><br><span class="line">    classesFile = &quot;./shelves_od_300/shelves_od.names&quot;</span><br><span class="line">    classes = None</span><br><span class="line">    with open(classesFile, &#x27;rt&#x27;) as f:</span><br><span class="line">        classes = f.read().rstrip(&#x27;\n&#x27;).split(&#x27;\n&#x27;)</span><br><span class="line"></span><br><span class="line">    # Give the configuration and weight files for the model and load the network using them</span><br><span class="line">    modelConfiguration = &quot;./shelves_od_300/yolov3-voc.cfg&quot;</span><br><span class="line">    modelWeights = &quot;./shelves_od_300/yolov3-voc_latest.weights&quot;</span><br></pre></td></tr></table></figure></li>
+<li>Finally, run the script below<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><span class="line"># This code is written at BigVision LLC. It is based on the OpenCV project. It is subject to the license terms in the LICENSE file found in this distribution and at http://opencv.org/license.html</span><br><span class="line"></span><br><span class="line"># Usage example:  python3 object_detection_yolo.py --video=run.mp4</span><br><span class="line">#                 python3 object_detection_yolo.py --image=bird.jpg</span><br><span class="line"></span><br><span class="line">import cv2 as cv</span><br><span class="line">import argparse</span><br><span class="line">import sys</span><br><span class="line">import numpy as np</span><br><span class="line">import os.path</span><br><span class="line">import uuid</span><br><span class="line"></span><br><span class="line">from config import FLAGS</span><br><span class="line"></span><br><span class="line"># Initialize the parameters</span><br><span class="line">confThreshold = FLAGS.confThreshold  #Confidence threshold</span><br><span class="line">nmsThreshold = FLAGS.nmsThreshold   #Non-maximum suppression threshold</span><br><span class="line">inpWidth = FLAGS.inpWidth       #Width of network&#x27;s input image</span><br><span class="line">inpHeight = FLAGS.inpHeight      #Height of network&#x27;s input image</span><br><span class="line"></span><br><span class="line">classes = FLAGS.classes</span><br><span class="line">global _i</span><br><span class="line">_i = 1000</span><br><span class="line"># Get the =-.l2 of the output layers</span><br><span class="line">def getOutputsNames(net):</span><br><span class="line">    # Get the names of all the layers in the network</span><br><span class="line">    layersNames = net.getLayerNames()</span><br><span class="line">    # Get the names of the output layers, i.e. the layers with unconnected outputs</span><br><span class="line">    return [layersNames[i[0] - 1] for i in net.getUnconnectedOutLayers()]</span><br><span class="line"></span><br><span class="line"># Draw the predicted bounding box</span><br><span class="line">def drawPred(frame, classId, conf, left, top, right, bottom):</span><br><span class="line">    # Draw a bounding box.</span><br><span class="line">    cv.rectangle(frame, (left, top), (right, bottom), (255, 178, 50), 3)</span><br><span class="line">    </span><br><span class="line">    label = &#x27;%.2f&#x27; % conf</span><br><span class="line">        </span><br><span class="line">    # Get the label for the class name and its confidence</span><br><span class="line">    if classes:</span><br><span class="line">        assert(classId &lt; len(classes))</span><br><span class="line">        label = &#x27;%s:%s&#x27; % (classes[classId], label)</span><br><span class="line"></span><br><span class="line">    #Display the label at the top of the bounding box</span><br><span class="line">    labelSize, baseLine = cv.getTextSize(label, cv.FONT_HERSHEY_SIMPLEX, 0.5, 1)</span><br><span class="line">    top = max(top, labelSize[1])</span><br><span class="line">    cv.rectangle(frame, (left, top - round(1.5*labelSize[1])), (left + round(1.5*labelSize[0]), top + baseLine), (255, 255, 255), cv.FILLED)</span><br><span class="line">    cv.putText(frame, label, (left, top), cv.FONT_HERSHEY_SIMPLEX, 0.75, (0,0,0), 1)</span><br><span class="line"></span><br><span class="line"># Remove the bounding boxes with low confidence using non-maxima suppression</span><br><span class="line">def postprocess(frame, outs):</span><br><span class="line">    frameHeight = frame.shape[0]</span><br><span class="line">    frameWidth = frame.shape[1]</span><br><span class="line"></span><br><span class="line">    # Scan through all the bounding boxes output from the network and keep only the</span><br><span class="line">    # ones with high confidence scores. Assign the box&#x27;s class label as the class with the highest score.</span><br><span class="line">    classIds = []</span><br><span class="line">    confidences = []</span><br><span class="line">    boxes = []</span><br><span class="line">    for out in outs:</span><br><span class="line">        for detection in out:</span><br><span class="line">            scores = detection[5:]</span><br><span class="line">            classId = np.argmax(scores)</span><br><span class="line">            confidence = scores[classId]</span><br><span class="line">            if confidence &gt; confThreshold:</span><br><span class="line">                center_x = int(detection[0] * frameWidth)</span><br><span class="line">                center_y = int(detection[1] * frameHeight)</span><br><span class="line">                width = int(detection[2] * frameWidth)</span><br><span class="line">                height = int(detection[3] * frameHeight)</span><br><span class="line">                left = int(center_x - width / 2)</span><br><span class="line">                top = int(center_y - height / 2)</span><br><span class="line">                classIds.append(classId)</span><br><span class="line">                confidences.append(float(confidence))</span><br><span class="line">                boxes.append([left, top, width, height])</span><br><span class="line">    global _i</span><br><span class="line">    # Perform non maximum suppression to eliminate redundant overlapping boxes with</span><br><span class="line">    # lower confidences.</span><br><span class="line">    indices = cv.dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThreshold)</span><br><span class="line">    for i in indices:</span><br><span class="line">        i = i[0]</span><br><span class="line">        box = boxes[i]</span><br><span class="line">        left = box[0]</span><br><span class="line">        top = box[1]</span><br><span class="line">        width = box[2]</span><br><span class="line">        height = box[3]</span><br><span class="line"></span><br><span class="line">        ## save crop image</span><br><span class="line">        crop_img = frame[top:top+height, left:left+width, ]</span><br><span class="line">        #resized_img = cv.resize(crop_img, (100, 100))</span><br><span class="line">        #if _i % 5 == 0:</span><br><span class="line">        #cv.imwrite(&#x27;save_imgs/&#x27;+str(uuid.uuid1())+&#x27;.jpg&#x27;, crop_img)</span><br><span class="line">        _i = _i + 1</span><br><span class="line">        drawPred(frame, classIds[i], confidences[i], left, top, left + width, top + height)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def processing_yolov3(args):</span><br><span class="line"></span><br><span class="line">    net = cv.dnn.readNetFromDarknet(FLAGS.modelConfiguration, FLAGS.modelWeights)</span><br><span class="line">    net.setPreferableBackend(cv.dnn.DNN_BACKEND_OPENCV)</span><br><span class="line">    net.setPreferableTarget(cv.dnn.DNN_TARGET_CPU)</span><br><span class="line"></span><br><span class="line">    # Process inputs</span><br><span class="line">    winName = &#x27;Deep learning object detection in OpenCV&#x27;</span><br><span class="line">    cv.namedWindow(winName, cv.WINDOW_NORMAL)</span><br><span class="line"></span><br><span class="line">    outputFile = &quot;yolo_out_py.avi&quot;</span><br><span class="line">    if (args.image):</span><br><span class="line">        # Open the image file</span><br><span class="line">        if not os.path.isfile(args.image):</span><br><span class="line">            print(&quot;Input image file &quot;, args.image, &quot; doesn&#x27;t exist&quot;)</span><br><span class="line">            sys.exit(1)</span><br><span class="line">        cap = cv.VideoCapture(args.image)</span><br><span class="line">        outputFile = args.image[:-4]+&#x27;_yolo_out_py.jpg&#x27;</span><br><span class="line">    elif (args.video):</span><br><span class="line">        # Open the video file</span><br><span class="line">        if not os.path.isfile(args.video):</span><br><span class="line">            print(&quot;Input video file &quot;, args.video, &quot; doesn&#x27;t exist&quot;)</span><br><span class="line">            sys.exit(1)</span><br><span class="line">        cap = cv.VideoCapture(args.video)</span><br><span class="line">        outputFile = args.video[:-4]+&#x27;_yolo_out_py.avi&#x27;</span><br><span class="line">    else:</span><br><span class="line">        # Webcam input</span><br><span class="line">        cap = cv.VideoCapture(FLAGS.camera_id)</span><br><span class="line"></span><br><span class="line">        cap.set(3, 720)</span><br><span class="line">        cap.set(4, 1280)</span><br><span class="line"></span><br><span class="line">    # Get the video writer initialized to save the output video</span><br><span class="line">    if (not args.image):</span><br><span class="line">        vid_writer = cv.VideoWriter(outputFile, cv.VideoWriter_fourcc(&#x27;M&#x27;,&#x27;J&#x27;,&#x27;P&#x27;,&#x27;G&#x27;), 30, (round(cap.get(cv.CAP_PROP_FRAME_WIDTH)),round(cap.get(cv.CAP_PROP_FRAME_HEIGHT))))</span><br><span class="line"></span><br><span class="line">    while cv.waitKey(1) &lt; 0:</span><br><span class="line"></span><br><span class="line">        # get frame from the video</span><br><span class="line">        hasFrame, frame = cap.read()</span><br><span class="line"></span><br><span class="line">        # Stop the program if reached end of video</span><br><span class="line">        if not hasFrame:</span><br><span class="line">            print(&quot;Done processing !!!&quot;)</span><br><span class="line">            print(&quot;Output file is stored as &quot;, outputFile)</span><br><span class="line">            cv.waitKey(3000)</span><br><span class="line">            # Release device</span><br><span class="line">            cap.release()</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        # Create a 4D blob from a frame.</span><br><span class="line">        blob = cv.dnn.blobFromImage(frame, 1/255, (inpWidth, inpHeight), [0,0,0], 1, crop=False)</span><br><span class="line"></span><br><span class="line">        # Sets the input to the network</span><br><span class="line">        net.setInput(blob)</span><br><span class="line"></span><br><span class="line">        # Runs the forward pass to get output of the output layers</span><br><span class="line">        outs = net.forward(getOutputsNames(net))</span><br><span class="line"></span><br><span class="line">        # Remove the bounding boxes with low confidence</span><br><span class="line">        postprocess(frame, outs)</span><br><span class="line"></span><br><span class="line">        # Put efficiency information. The function getPerfProfile returns the overall time for inference(t) and the timings for each of the layers(in layersTimes)</span><br><span class="line">        t, _ = net.getPerfProfile()</span><br><span class="line">        label = &#x27;Inference time: %.2f ms&#x27; % (t * 1000.0 / cv.getTickFrequency())</span><br><span class="line">        cv.putText(frame, label, (0, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))</span><br><span class="line"></span><br><span class="line">        # Write the frame with the detection boxes</span><br><span class="line">        if (args.image):</span><br><span class="line">            cv.imwrite(outputFile, frame.astype(np.uint8))</span><br><span class="line">        else:</span><br><span class="line">            vid_writer.write(frame.astype(np.uint8))</span><br><span class="line"></span><br><span class="line">        cv.imshow(winName, frame)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    parser = argparse.ArgumentParser(description=&#x27;Object Detection using YOLO in OPENCV&#x27;)</span><br><span class="line">    parser.add_argument(&#x27;--image&#x27;, help=&#x27;Path to image file.&#x27;)</span><br><span class="line">    parser.add_argument(&#x27;--video&#x27;, help=&#x27;Path to video file.&#x27;)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    processing_yolov3(args)</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">Post title</span>: <span class="content">Training your own datasets with Darknet</span>
+        </li>
+        <li class="post-author">
+            <span class="type">Post author</span>: <span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">Create time</span>: <span class="content">2021-11-07 14:48:57</span>
+        </li>
+        <li class="post-link">
+            <span class="type">Post link</span>: <span class="content">2021/11/07/Training-your-own-datasets-with-Darknet/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">Copyright notice</span>: <span class="content">All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="Copy copyright info" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/yolov3/">#yolov3</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/darknet/">#darknet</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2021/08/08/Simple-REST-api/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Simple REST api to implement the age_gender_pred model</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-collection-amp-labeling"><span class="nav-number">1.</span> <span class="nav-text">Data collection &amp; labeling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Darknet"><span class="nav-number">2.</span> <span class="nav-text">Install Darknet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-VOC-format-dataset"><span class="nav-number">3.</span> <span class="nav-text">Create VOC format dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-the-voc-labe-to-generate-Image-path-list"><span class="nav-number">4.</span> <span class="nav-text">Use the voc_labe to generate Image path list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prepare-your-cfg-file"><span class="nav-number">5.</span> <span class="nav-text">Prepare your cfg file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-Training"><span class="nav-number">6.</span> <span class="nav-text">Start Training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Know-your-log"><span class="nav-number">7.</span> <span class="nav-text">Know your log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-experience"><span class="nav-number">8.</span> <span class="nav-text">Training experience</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-run-your-own-yolov3-model-with-Opencv"><span class="nav-number">9.</span> <span class="nav-text">How to run your own yolov3 model with Opencv</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+
+</body>
+</html>

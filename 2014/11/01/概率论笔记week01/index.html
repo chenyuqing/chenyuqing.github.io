@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            概率论笔记week01 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">概率论笔记week01</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2014-11-01 13:58:18</span>
+        <span class="mobile">2014-11-01 13:58</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2014-11-03 13:13:42</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%A6%82%E7%8E%87%E8%AE%BA%E7%AC%94%E8%AE%B0/">概率论笔记</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><ul>
+<li>本系列博客是Coursera上台大<strong>葉丙成</strong>老师的<a class="link"   target="_blank" rel="noopener" href="https://class.coursera.org/prob-001" >機率 (Probability)<i class="fas fa-external-link-alt"></i></a>课程的笔记。其中涉及的版权内容均属原版权人所有。</li>
+</ul>
+<h1 id="概率概述"><a href="#概率概述" class="headerlink" title="概率概述"></a>概率概述</h1><h2 id="概率是什么？"><a href="#概率是什么？" class="headerlink" title="概率是什么？"></a>概率是什么？</h2><ul>
+<li>概率，又称或然率、机会率、机率或可能性，是概率论的基本概念。概率是对随机事件发生的可能性的度量，一般以一个在0到1之间的实数表示一个事件发生的可能性大小。越接近1，该事件更可能发生；越接近0，则该事件更不可能发生。</li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://baike.baidu.com/view/45320.htm?fr=aladdin" >百度百科定义<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h2 id="概率示例"><a href="#概率示例" class="headerlink" title="概率示例"></a>概率示例</h2><ul>
+<li>人们常说某人有百分之多少的把握能通过这次考试，某件事发生的可能性是多少，这都是概率的实例。</li>
+<li><a class="link"   target="_blank" rel="noopener" href="http://baike.baidu.com/view/45320.htm?fr=aladdin" >百度百科定义<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h2 id="为什么我们要研究概率？"><a href="#为什么我们要研究概率？" class="headerlink" title="为什么我们要研究概率？"></a>为什么我们要研究概率？</h2><ul>
+<li>我们对这个世界了解的太少，这世界的运作有很多事未知的</li>
+<li>世间事不见得都是必然的(deterministic)，有很多事情是有随机性的(random)</li>
+<li>我们学习概率的目的就是为了发现事物发展的规律，从而可以预先推测未发生的事物。</li>
+</ul>
+<h2 id="概率和统计的差异"><a href="#概率和统计的差异" class="headerlink" title="概率和统计的差异"></a>概率和统计的差异</h2><ul>
+<li>概率<ul>
+<li>概率模型已知，要学会怎么算某些事件的概率</li>
+</ul>
+</li>
+<li>统计<ul>
+<li>概率模型未知，要学会怎么从大量的实验结果中去建立概率模型</li>
+</ul>
+</li>
+</ul>
+<h1 id="集合论"><a href="#集合论" class="headerlink" title="集合论"></a>集合论</h1><h2 id="集合论复习"><a href="#集合论复习" class="headerlink" title="集合论复习"></a>集合论复习</h2><ul>
+<li>集合论名词复习<ul>
+<li>元素(Element)</li>
+<li>集合(Set)</li>
+<li>子集合(Subset)</li>
+<li></li>
+<li>全集(universal Set)</li>
+<li>空集合(Empty Set)</li>
+<li>交集(Intersection)</li>
+<li></li>
+<li>并集(Union)</li>
+<li>补集(Complement)</li>
+<li>差集(Difference)</li>
+<li></li>
+<li>不相交(disjoint)</li>
+<li>互斥(Mutually Exclusive)</li>
+</ul>
+</li>
+</ul>
+<p>参考：<a class="link"   target="_blank" rel="noopener" href="http://zh.wikipedia.org/wiki/%E9%9B%86%E5%90%88_(%E6%95%B0%E5%AD%A6" >维基百科条目<i class="fas fa-external-link-alt"></i></a></p>
+<ul>
+<li><p>De Morgan’s Law（德摩根定理）<br><img src="/img/pro_twu/w01/de_morgen.PNG"></p>
+</li>
+<li><p>证明：</p>
+<ul>
+<li>证明等式的方法就是“你中有我，我中有你”<br><img src="/img/pro_twu/w01/de_morgen_prove.PNG"></li>
+</ul>
+</li>
+</ul>
+<h2 id="概率论名词"><a href="#概率论名词" class="headerlink" title="概率论名词"></a>概率论名词</h2><ul>
+<li><p>实验(Experiment)</p>
+<ul>
+<li>一个概率[实验]包含了：步骤(procedures)、模型(model)、观察(observation)</li>
+</ul>
+</li>
+<li><p>结果(Outcome)</p>
+<ul>
+<li>[结果]是实验中可能的结果</li>
+</ul>
+</li>
+<li><p>样本空间(Sample Space)</p>
+<ul>
+<li>[样本空间]是概率实验所有可能的结果的集合，通常用S来表示</li>
+</ul>
+</li>
+<li><p>事件(Event)</p>
+<ul>
+<li>[事件]指的是对于实验结果的某种叙述。</li>
+<li>概率就是在讲实验结果符合某事件叙述的机会多大</li>
+<li>在数学上，[事件]可以看成[结果]的结合，亦就是[样本空间]的子集。</li>
+</ul>
+</li>
+<li><p>事件空间(Event Space)</p>
+<ul>
+<li>[事件空间]是包含所有事件的结合</li>
+</ul>
+</li>
+<li><p>概率是一个函数</p>
+<ul>
+<li>P(事件) &#x3D; [0,1]</li>
+<li>概率函数是从[事件空间]映射到[0,1]</li>
+</ul>
+</li>
+</ul>
+<h2 id="集合论和概率的关系"><a href="#集合论和概率的关系" class="headerlink" title="集合论和概率的关系"></a>集合论和概率的关系</h2><ul>
+<li>将随机试验的的所有可能结果组成的集合称为基本事件空间，事件是一个集合，因而事件间的关系与事件的运算自然可以按照集合论中的集合之间的关系和运算来处理。</li>
+</ul>
+<p><img src="/img/pro_twu/w01/set_pro.PNG"></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">Post title</span>: <span class="content">概率论笔记week01</span>
+        </li>
+        <li class="post-author">
+            <span class="type">Post author</span>: <span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">Create time</span>: <span class="content">2014-11-01 13:58:18</span>
+        </li>
+        <li class="post-link">
+            <span class="type">Post link</span>: <span class="content">2014/11/01/概率论笔记week01/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">Copyright notice</span>: <span class="content">All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="Copy copyright info" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">#概率论</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2014/11/02/%E6%A6%82%E7%8E%87%E8%AE%BA%E7%AC%94%E8%AE%B0week02/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">概率论笔记week02</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2014/10/30/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E8%AF%BE%E5%A0%82%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93_Junior/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">数据挖掘课堂算法总结_Junior</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2%E7%9A%84%E8%AF%9D"><span class="nav-number">1.</span> <span class="nav-text">写在前面的话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">概率概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">概率是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">概率示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E7%A0%94%E7%A9%B6%E6%A6%82%E7%8E%87%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">为什么我们要研究概率？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E5%92%8C%E7%BB%9F%E8%AE%A1%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-number">2.4.</span> <span class="nav-text">概率和统计的差异</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%AE%BA"><span class="nav-number">3.</span> <span class="nav-text">集合论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%AE%BA%E5%A4%8D%E4%B9%A0"><span class="nav-number">3.1.</span> <span class="nav-text">集合论复习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E8%AE%BA%E5%90%8D%E8%AF%8D"><span class="nav-number">3.2.</span> <span class="nav-text">概率论名词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%AE%BA%E5%92%8C%E6%A6%82%E7%8E%87%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">3.3.</span> <span class="nav-text">集合论和概率的关系</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            Reaction to Machine Learning Yearning |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Reaction to Machine Learning Yearning</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2019-08-29 09:20:35</span>
+        <span class="mobile">2019-08-29 09:20</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2019-08-29 11:20:36</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Andrew-Ng/">Andrew Ng</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Strategy/">Strategy</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.deeplearning.ai/machine-learning-yearning/" >Machine Learning Yearning<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h3 id="1-Why-Machine-Learning-Strategy"><a href="#1-Why-Machine-Learning-Strategy" class="headerlink" title="1. Why Machine Learning Strategy"></a>1. Why Machine Learning Strategy</h3><ul>
+<li>为什么要选择策略，因为一个机器学习的project，我们可以有很多思路，譬如<ul>
+<li>增加图片</li>
+<li>收集更多不同的训练数据集</li>
+<li>增加训练时长</li>
+<li>训练一个更多的网络</li>
+<li>训练一个更小的网络</li>
+<li>尝试添加正则化（如L2正则化）</li>
+<li>改变神经网络的结构（激活函数， 隐藏单元个数等等）</li>
+<li>。。。</li>
+</ul>
+</li>
+<li>所以，面对如此多的ideas，如果我们选择了好的ideas，那么我们就会事半功倍。本书会告诉我们，对于大多数的机器学习问题，哪些ideas是有效的，哪些ideas是无效的。这便是所谓的机器学习的策略。</li>
+</ul>
+<h3 id="2-How-to-use-this-book-to-help-your-team"><a href="#2-How-to-use-this-book-to-help-your-team" class="headerlink" title="2. How to use this book to help your team"></a>2. How to use this book to help your team</h3><ul>
+<li>简单来说，你可以把这本书打印出来，给你的teammates看，然后告诉他们，为什么你会推荐这样的机器学习策略。要知道，对于策略中优先次序的小小改变可能会对你团队的生产效率有巨大的影响。</li>
+</ul>
+<h3 id="3-Prerequisites-and-Notation"><a href="#3-Prerequisites-and-Notation" class="headerlink" title="3. Prerequisites and Notation"></a>3. Prerequisites and Notation</h3><ul>
+<li>请参考Courera上的课程<a class="link"   target="_blank" rel="noopener" href="http://ml-class.org/" >Machine Learning<i class="fas fa-external-link-alt"></i></a> 。</li>
+</ul>
+<h3 id="4-Scale-drives-machine-learning-progress"><a href="#4-Scale-drives-machine-learning-progress" class="headerlink" title="4. Scale drives machine learning progress"></a>4. Scale drives machine learning progress</h3><ul>
+<li>大多数的深度学习思想已经被提出来数十年了，为什么现在才其作用呢？</li>
+<li>最重要的2大推动<ul>
+<li>数字数据爆炸式增长</li>
+<li>计算力爆棚</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-Your-development-and-test-sets"><a href="#5-Your-development-and-test-sets" class="headerlink" title="5. Your development and test sets"></a>5. Your development and test sets</h3><ul>
+<li>就拿识别猫的项目做例子。我们通常在网上爬了一批猫(正例)和非猫(反例)，然后把他们7&#x2F;3比例划分训练集和测试集。就这样，我们训练了一个在训练集和测试集上表现比较好的模型。</li>
+<li>然而，当我们部署到手机上的时候，发现效果真的非常差。原因是用户从手机上上传的图片可能是非常差，像素低，模糊，亮度低。但是你的训练集和测试集是从网上爬取的，这两套图片是属于不同的分布的。</li>
+<li>另外，传统的数据划分大都是7&#x2F;3。这在做demo时是有效的，但实际应用上往往是一个bad idea。</li>
+<li>dev set和test set的主要目的是指导你的团队如何对机器学习系统作出重大的改变的。</li>
+<li>总结来说，得保证训练的和实际上的数据是同分布的。这一点非常重要。</li>
+</ul>
+<h3 id="6-Your-dev-and-test-sets-should-come-from-the-same-distribution"><a href="#6-Your-dev-and-test-sets-should-come-from-the-same-distribution" class="headerlink" title="6. Your dev and test sets should come from the same distribution"></a>6. Your dev and test sets should come from the same distribution</h3><ul>
+<li>切记一点，你的训练集和测试集应该来自同一分布。</li>
+<li>如果你的团队做到了以上这一点，然而你的模型在训练集上的变现非常好，而在测试集上的表现非常差，那么我们可以清楚的知道，模型已经对训练集overfit了。最直接的解决方案是增加更多的训练集数据。</li>
+<li>但是，如果你的训练集和测试集是来自不同的分布， 而且又发生了上一条的情况的话，这样的情况比较不明朗。可能的原因是：<ul>
+<li>对训练集（dev set）overfit</li>
+<li>测试集比训练集更难拟合。你的算法尽力了。</li>
+<li>测试集没必要那么难，所以你对训练集上做的大部分努力都是白费的。</li>
+</ul>
+</li>
+<li>事实上，在一个分布上训练得到的模型在其他的分别上有强的泛化能力，这是一个很重要也很难的研究课题。但是现实中，如果我们是开发某一个特定的领域的应用，那么专注于同一分布的数据集来我们来说更有效，更有意义。</li>
+</ul>
+<h3 id="7-How-large-do-the-dev-x2F-test-sets-need-to-be"><a href="#7-How-large-do-the-dev-x2F-test-sets-need-to-be" class="headerlink" title="7. How large do the dev&#x2F;test sets need to be ?"></a>7. How large do the dev&#x2F;test sets need to be ?</h3><ul>
+<li>dev set size : 一般是100～10,000之间。</li>
+<li>test set size : 一般是总数据集的30%，但是现在是要大到足够给出系统性能的一个较高的置信。</li>
+</ul>
+<h3 id="8-Establish-a-single-number-evaluation-metric-for-your-team-to-optimize"><a href="#8-Establish-a-single-number-evaluation-metric-for-your-team-to-optimize" class="headerlink" title="8. Establish a single-number evaluation metric for your team to optimize"></a>8. Establish a single-number evaluation metric for your team to optimize</h3><p>- 
+    </p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">Post title</span>: <span class="content">Reaction to Machine Learning Yearning</span>
+        </li>
+        <li class="post-author">
+            <span class="type">Post author</span>: <span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">Create time</span>: <span class="content">2019-08-29 09:20:35</span>
+        </li>
+        <li class="post-link">
+            <span class="type">Post link</span>: <span class="content">2019/08/29/Reaction-to-Machine-Learning-Yearning/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">Copyright notice</span>: <span class="content">All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="Copy copyright info" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Andrew-Ng/">#Andrew Ng</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Machine-Learning/">#Machine Learning</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Strategy/">#Strategy</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2019/08/29/note-4-cv-2019-08-29/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">note-4-cv-class</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2019/08/27/Object-Detection-algo-RCNN-Fast-RCNN-Faster-RCNN-Yolo/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">物体识别算法-RCN, Fast-RCNN, Faster-RCNN和YOLO</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Why-Machine-Learning-Strategy"><span class="nav-number">1.</span> <span class="nav-text">1. Why Machine Learning Strategy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-How-to-use-this-book-to-help-your-team"><span class="nav-number">2.</span> <span class="nav-text">2. How to use this book to help your team</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Prerequisites-and-Notation"><span class="nav-number">3.</span> <span class="nav-text">3. Prerequisites and Notation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Scale-drives-machine-learning-progress"><span class="nav-number">4.</span> <span class="nav-text">4. Scale drives machine learning progress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Your-development-and-test-sets"><span class="nav-number">5.</span> <span class="nav-text">5. Your development and test sets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Your-dev-and-test-sets-should-come-from-the-same-distribution"><span class="nav-number">6.</span> <span class="nav-text">6. Your dev and test sets should come from the same distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-How-large-do-the-dev-x2F-test-sets-need-to-be"><span class="nav-number">7.</span> <span class="nav-text">7. How large do the dev&#x2F;test sets need to be ?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Establish-a-single-number-evaluation-metric-for-your-team-to-optimize"><span class="nav-number">8.</span> <span class="nav-text">8. Establish a single-number evaluation metric for your team to optimize</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2020</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+
+</body>
+</html>
