@@ -211,9 +211,9 @@
     
     <category term="yolov3" scheme="http://example.com/tags/yolov3/"/>
     
-    <category term="darknet" scheme="http://example.com/tags/darknet/"/>
-    
     <category term="object detection" scheme="http://example.com/tags/object-detection/"/>
+    
+    <category term="darknet" scheme="http://example.com/tags/darknet/"/>
     
     <category term="TensorRT" scheme="http://example.com/tags/TensorRT/"/>
     
