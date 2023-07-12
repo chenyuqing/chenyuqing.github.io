@@ -32,7 +32,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {}
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":false,"preload":false},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
     KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
     KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
@@ -126,9 +126,15 @@
                         </li>
                     
                     
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
                 </ul>
             </div>
             <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
                 <div class="icon-item menu-bar">
                     <div class="menu-bar-middle"></div>
@@ -248,6 +254,14 @@
 
     
     
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>281 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+        </span>
     
     
         <span class="article-pv article-meta-item">
@@ -271,7 +285,7 @@
 </li>
 <li><p><strong>T. M. Mitchell</strong>: Machine Learning Department, Carnegie Mellon University, Pittsburgh, PA, USA.</p>
 </li>
-<li><p><strong>Corresponding author. E-mail</strong>: <a class="link"   href="mailto:&#106;&#111;&#x72;&#x64;&#97;&#110;&#64;&#99;&#x73;&#x2e;&#x62;&#101;&#114;&#107;&#x65;&#x6c;&#x65;&#121;&#x2e;&#101;&#100;&#x75;" >&#106;&#111;&#x72;&#x64;&#97;&#110;&#64;&#99;&#x73;&#x2e;&#x62;&#101;&#114;&#107;&#x65;&#x6c;&#x65;&#121;&#x2e;&#101;&#100;&#x75;<i class="fas fa-external-link-alt"></i></a>(M.I.J.); <a class="link"   href="mailto:&#116;&#111;&#x6d;&#x2e;&#109;&#105;&#x74;&#x63;&#104;&#101;&#108;&#x6c;&#64;&#99;&#115;&#x2e;&#99;&#109;&#117;&#46;&#x65;&#x64;&#117;" >&#116;&#111;&#x6d;&#x2e;&#109;&#105;&#x74;&#x63;&#104;&#101;&#108;&#x6c;&#64;&#99;&#115;&#x2e;&#99;&#109;&#117;&#46;&#x65;&#x64;&#117;<i class="fas fa-external-link-alt"></i></a>(T.M.M.)</p>
+<li><p><strong>Corresponding author. E-mail</strong>: <a class="link"   href="mailto:&#x6a;&#x6f;&#114;&#x64;&#x61;&#110;&#x40;&#x63;&#115;&#46;&#x62;&#101;&#114;&#x6b;&#x65;&#108;&#101;&#121;&#46;&#x65;&#x64;&#117;" >&#x6a;&#x6f;&#114;&#x64;&#x61;&#110;&#x40;&#x63;&#115;&#46;&#x62;&#101;&#114;&#x6b;&#x65;&#108;&#101;&#121;&#46;&#x65;&#x64;&#117;<i class="fas fa-external-link-alt"></i></a>(M.I.J.); <a class="link"   href="mailto:&#116;&#111;&#x6d;&#x2e;&#x6d;&#105;&#116;&#x63;&#x68;&#x65;&#108;&#108;&#x40;&#99;&#115;&#46;&#x63;&#x6d;&#x75;&#46;&#x65;&#x64;&#x75;" >&#116;&#111;&#x6d;&#x2e;&#x6d;&#105;&#116;&#x63;&#x68;&#x65;&#108;&#108;&#x40;&#99;&#115;&#46;&#x63;&#x6d;&#x75;&#46;&#x65;&#x64;&#x75;<i class="fas fa-external-link-alt"></i></a>(T.M.M.)</p>
 </li>
 <li><p><strong>摘要</strong>：机器学习提出了如何建造一个可以通过经验而自动改善的计算机的问题。它是当下发展神速的一个科技领域，以人工智能和数据科学为核心，基于计算机科学和统计学的交叉学科。当前机器学习的进程受到新的学习算法和理论的发展和在线数据与低成本的计算爆炸式增长和可获取的影响。数据密集型的机器学习方法应用到了科学，工业和商业当中，使得各行各业中的决策更加有说服力，包括医疗行业、工业、教育行业、金融模型、政策和市场营销。</p>
 </li>
@@ -550,6 +564,35 @@
 
 
     
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
 
 </main>
 
@@ -568,6 +611,10 @@
 
 
 
+
+
+    
+<script src="/js/local-search.js"></script>
 
 
 

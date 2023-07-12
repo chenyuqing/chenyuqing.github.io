@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-06-23T01:07:56.000Z</updated>
+  <updated>2023-07-12T14:21:14.231Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>佛学讲座</title>
+    <link href="http://example.com/2023/02/20/buddish_study/"/>
+    <id>http://example.com/2023/02/20/buddish_study/</id>
+    <published>2023-02-20T06:08:12.000Z</published>
+    <updated>2023-07-12T14:21:14.231Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="佛学讲座"><a href="#佛学讲座" class="headerlink" title="佛学讲座"></a>佛学讲座</h2><h3 id="【淨薈主辦】常霖法師講「學佛修行信願行」之一-信"><a href="#【淨薈主辦】常霖法師講「學佛修行信願行」之一-信" class="headerlink" title="【淨薈主辦】常霖法師講「學佛修行信願行」之一: 信"></a>【淨薈主辦】常霖法師講「學佛修行信願行」之一: 信</h3><iframe width="100%" height="100%" src="https://youtu.be/UQiJj-gldWw" frameborder="0" allowfullscreen></iframe><h3 id="【淨薈主辦】常霖法師講「學佛修行信願行」之二-願"><a href="#【淨薈主辦】常霖法師講「學佛修行信願行」之二-願" class="headerlink" title="【淨薈主辦】常霖法師講「學佛修行信願行」之二: 願"></a>【淨薈主辦】常霖法師講「學佛修行信願行」之二: 願</h3><iframe width="100%" height="100%" src="https://youtu.be/TupysCEEJHA" frameborder="0" allowfullscreen></iframe><h3 id="【淨薈主辦】常霖法師講「學佛修行信願行」之三-行"><a href="#【淨薈主辦】常霖法師講「學佛修行信願行」之三-行" class="headerlink" title="【淨薈主辦】常霖法師講「學佛修行信願行」之三: 行"></a>【淨薈主辦】常霖法師講「學佛修行信願行」之三: 行</h3><iframe width="100%" height="100%" src="https://youtu.be/Qizh3j_GPG4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h3 id="b站视频测试"><a href="#b站视频测试" class="headerlink" title="b站视频测试"></a>b站视频测试</h3><iframe width="760" height="427" src="https://www.bilibili.com/video/BV1jj411Z7dt/?share_source=copy_web&vd_source=2bf64aa5c52522d3c2fa0b10d4f4f4cd" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;佛学讲座&quot;&gt;&lt;a href=&quot;#佛学讲座&quot; class=&quot;headerlink&quot; title=&quot;佛学讲座&quot;&gt;&lt;/a&gt;佛学讲座&lt;/h2&gt;&lt;h3 id=&quot;【淨薈主辦】常霖法師講「學佛修行信願行」之一-信&quot;&gt;&lt;a href=&quot;#【淨薈主辦】常霖法師講「學佛修行信願行」之</summary>
+      
+    
+    
+    
+    <category term="佛学" scheme="http://example.com/categories/%E4%BD%9B%E5%AD%A6/"/>
+    
+    
+    <category term="佛学" scheme="http://example.com/tags/%E4%BD%9B%E5%AD%A6/"/>
+    
+    <category term="禅" scheme="http://example.com/tags/%E7%A6%85/"/>
+    
+    <category term="和解" scheme="http://example.com/tags/%E5%92%8C%E8%A7%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>Training your own datasets with Darknet</title>
@@ -211,9 +239,9 @@
     
     <category term="yolov3" scheme="http://example.com/tags/yolov3/"/>
     
-    <category term="object detection" scheme="http://example.com/tags/object-detection/"/>
-    
     <category term="darknet" scheme="http://example.com/tags/darknet/"/>
+    
+    <category term="object detection" scheme="http://example.com/tags/object-detection/"/>
     
     <category term="TensorRT" scheme="http://example.com/tags/TensorRT/"/>
     
@@ -536,27 +564,6 @@
     <category term="RCNN" scheme="http://example.com/tags/RCNN/"/>
     
     <category term="YOLO" scheme="http://example.com/tags/YOLO/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iou tracker implementation</title>
-    <link href="http://example.com/2019/08/14/iou-tracker-implementation/"/>
-    <id>http://example.com/2019/08/14/iou-tracker-implementation/</id>
-    <published>2019-08-14T02:11:09.000Z</published>
-    <updated>2019-08-14T06:43:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><a class="link"   href="http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf" >[paper] High-Speed Tracking-by-Detection Without Using Image Information<i class="fas fa-external-link-alt"></i></a> </li><li>It’s a simple tracker algorithm that just use the IOU (Intersection over Union). Obviously it’s so fast if the detector runs fast.</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf&quot; &gt;[paper] High-Speed Tracking-by-Detection Witho</summary>
-      
-    
-    
-    
     
   </entry>
   
