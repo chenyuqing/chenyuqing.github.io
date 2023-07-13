@@ -29,8 +29,8 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {}
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":"16px","font_family":"STSong, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"header_transparent":true,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
     KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
     KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
@@ -46,6 +46,9 @@
     
 
     
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
 </div>
 
 
@@ -57,7 +60,7 @@
 
         <div class="page-main-content-top">
             
-<header class="header-wrapper transparent-1">
+<header class="header-wrapper">
 
     <div class="header-content">
         <div class="left">
@@ -109,17 +112,17 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/links"
+                               href="/about"
                             >
-                                LINKS
+                                ABOUT
                             </a>
                         </li>
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/about"
+                               href="/changelog"
                             >
-                                ABOUT
+                                CHANGELOG
                             </a>
                         </li>
                     
@@ -166,12 +169,12 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/links">LINKS</a>
+                       href="/about">ABOUT</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/about">ABOUT</a>
+                       href="/changelog">CHANGELOG</a>
                 </li>
             
         </ul>
@@ -197,19 +200,18 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2020/02/17/how-to-build-self-discipline/">
-                        how to build self discipline(如何自律)
+                    <a href="/2015/01/16/Django-1-7-3-Tutorial-Part-1-%E6%A8%A1%E5%9E%8B/">
+                        Django-1.7.3-Tutorial-Part-1-模型
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        Marcus Aurelius
-hello, you are amazing!
-YT-How to build self-discipline
-
-Self discipline starts with finding your purpose.
-(1...
+                        创建你的第一个Django app-Part 1
+让我们从简单的例子开始吧。
+通过这个教程，我们将快速学习投票(poll)应用的创建。
+环境：windows 8 32 bits + Python 2.7.5 + Django 1.7.3
+它包含两个部...
                     
                 </div>
 
@@ -217,85 +219,22 @@ Self discipline starts with finding your purpose.
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed Feb 19 2020 01:16:44 GMT+0800">
-                2020-02-19
+            <span class="home-article-date" data-updated="Sun Jan 18 2015 13:38:44 GMT+0800">
+                2015-01-18
             </span>
         </span>
         
-        
-    </div>
-
-    <a class="read-more" href="/2020/02/17/how-to-build-self-discipline/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2020/02/10/tensorRT-yolov3/">
-                        tensorRT-yolov3
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
                     
-                        TesorRT model process
-
-
-Train your own yolov3 model(cpkt &#x2F; pb)
-Since I train the yolov3 with darknet, I need to transfer...
+                        <li>
+                            
+                            <a href="/categories/Django/">Django</a>&nbsp;
+                        </li>
                     
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon Feb 10 2020 15:07:04 GMT+0800">
-                2020-02-10
+                    
+                </ul>
             </span>
-        </span>
-        
-        
-    </div>
-
-    <a class="read-more" href="/2020/02/10/tensorRT-yolov3/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2020/02/03/rebuild-my-own-blog-after-system-changed/">
-                        rebuild my own blog after system changed
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        System info
-Ubuntu 16.04
-Git 
-Node
-
-Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安装低版本的node，然后再升级最新...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon Feb 03 2020 14:16:30 GMT+0800">
-                2020-02-03
-            </span>
-        </span>
         
         
             <span class="home-article-tag">
@@ -304,22 +243,7 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
                     
                         <li>
                             
-                            <a href="/tags/hexo/">hexo</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/blog/">blog</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/rebuild/">rebuild</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/myself/">myself</a>&nbsp;
+                            <a href="/tags/Django-Models/">Django-Models</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -327,7 +251,7 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
         
     </div>
 
-    <a class="read-more" href="/2020/02/03/rebuild-my-own-blog-after-system-changed/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2015/01/16/Django-1-7-3-Tutorial-Part-1-%E6%A8%A1%E5%9E%8B/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -337,15 +261,19 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/11/22/A-way-to-deal-with-git-clone-slow/">
-                        A way to deal with git clone slow
+                    <a href="/2015/01/08/SVM%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E5%8D%9A%E6%96%87-%E8%BD%AC%E8%87%AAJasper-s-Java-Jacal-%E5%A4%87%E4%BB%BD-%E6%AF%95%E8%AE%BE%E7%B3%BB%E5%88%97/">
+                        SVM入门系列博文-转自Jasper&#39;s Java Jacal-备份-毕设系列
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        转-git clone速度太慢的解决办法
+                        写在前面的话
+本文是一个备份，转自：Jasper’s Java Jacal
+以下是原文。请细赏！
 
+SVM入门（一）之SVM的八股简介
+支持向量机(Support Vector Machine)是Cortes和Vapnik于1995年首先提出的，它在...
                     
                 </div>
 
@@ -353,10 +281,22 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon Feb 03 2020 14:25:20 GMT+0800">
-                2020-02-03
+            <span class="home-article-date" data-updated="Thu Jan 08 2015 19:05:16 GMT+0800">
+                2015-01-08
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%B3%BB%E5%88%97/">毕业设计系列</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -365,22 +305,7 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
                     
                         <li>
                             
-                            <a href="/tags/git/">git</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/github/">github</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/slow/">slow</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/repost/">repost</a>&nbsp;
+                            <a href="/tags/SVM%E5%85%A5%E9%97%A8/">SVM入门</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -388,7 +313,7 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
         
     </div>
 
-    <a class="read-more" href="/2019/11/22/A-way-to-deal-with-git-clone-slow/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2015/01/08/SVM%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E5%8D%9A%E6%96%87-%E8%BD%AC%E8%87%AAJasper-s-Java-Jacal-%E5%A4%87%E4%BB%BD-%E6%AF%95%E8%AE%BE%E7%B3%BB%E5%88%97/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -398,16 +323,22 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/11/17/light-framework-for-CNN/">
-                        Review on 轻量级卷积神经网络的设计
+                    <a href="/2015/01/04/%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%91%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%9F%A5%E8%AF%86%E7%82%B9/">
+                        【基础】常用的机器学习&amp;数据挖掘知识点
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        为什么需要轻量网络？经典backbone网络存在的问题
-尽管随着近年来backbone网络的快速发展，由AlexNet到VGG，由VGG到GoogleNet，由GoogleNet到ResNet等等。模型的精度越来越高，
-但是通常模型占用内存很大，模型...
+                        说明
+
+转自：36大数据
+本文总结了机器学习入门的基础知识的标题。相当于给我们入门者一个学习的架构。
+
+Basis(基础)
+MSE(Mean Square Error (均方误差)
+LMS(LeastMean Square (最小均方)
+LSM(Le...
                     
                 </div>
 
@@ -415,10 +346,22 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Sun Nov 17 2019 14:23:44 GMT+0800">
-                2019-11-17
+            <span class="home-article-date" data-updated="Mon Aug 03 2015 08:31:40 GMT+0800">
+                2015-08-03
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -427,17 +370,7 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
                     
                         <li>
                             
-                            <a href="/tags/deep-learning/">deep learning</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/light-framwork/">light framwork</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/convolution/">convolution</a>&nbsp;
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">机器学习基础</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -445,7 +378,7 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
         
     </div>
 
-    <a class="read-more" href="/2019/11/17/light-framework-for-CNN/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2015/01/04/%E3%80%90%E5%9F%BA%E7%A1%80%E3%80%91%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%9F%A5%E8%AF%86%E7%82%B9/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -455,25 +388,16 @@ Todosinstall nodeks and npm1234567891011121314# 更新sudo apt-get update# 安�
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/09/14/pa-interview-record/">
-                        pa-interview-record
+                    <a href="/2015/01/03/%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB-Kernel%20Support%20Vector%20Machine-%E5%8D%9A%E5%AE%A2%E7%BF%BB%E8%AF%91-%E6%AF%95%E8%AE%BE%E7%B3%BB%E5%88%97/">
+                        手写数字识别-Kernel Support Vector Machine-论文翻译-毕设系列
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        2019-09-12 面试记录Yolo的发展历程
-我的回答是这样的
-
-YoloV1
-
-把检测变成回归问题，去掉region proposal这一步
-将输入图像划分为7*7区域，每个区域回归2个bounding box并做分类
-
-
-YoloV2
-
-改进...
+                        写在前面的话
+本篇博文是翻译自Code Project上的César de Souza教授的关于用Kernel Support Vector Machine手写数字识别的博客。认真学习借鉴一下。
+出处：Handwriting Recognition ...
                     
                 </div>
 
@@ -481,10 +405,22 @@ YoloV2
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon Feb 17 2020 10:26:52 GMT+0800">
-                2020-02-17
+            <span class="home-article-date" data-updated="Sat Jan 03 2015 21:30:58 GMT+0800">
+                2015-01-03
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%B3%BB%E5%88%97/">毕业设计系列</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -493,7 +429,7 @@ YoloV2
                     
                         <li>
                             
-                            <a href="/tags/interview/">interview</a>&nbsp;
+                            <a href="/tags/%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB-Kernel-Support-Vector-Machine/">手写数字识别 Kernel Support Vector Machine</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -501,7 +437,7 @@ YoloV2
         
     </div>
 
-    <a class="read-more" href="/2019/09/14/pa-interview-record/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2015/01/03/%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB-Kernel%20Support%20Vector%20Machine-%E5%8D%9A%E5%AE%A2%E7%BF%BB%E8%AF%91-%E6%AF%95%E8%AE%BE%E7%B3%BB%E5%88%97/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -511,25 +447,20 @@ YoloV2
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/09/12/pa-prepare/">
-                        pa-prepare
+                    <a href="/2015/01/01/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-%E6%AF%95%E8%AE%BE%E7%B3%BB%E5%88%97/">
+                        最小二乘法论文翻译-毕设系列
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        数据结构与算法
-快排
-算法描述
+                        写在前面的话
+本篇论文是布朗大学数学系Steven J. Miller∗教授的论文翻译。
+出处：The Method of Least Squares-Steven J. Miller∗
 
-
-先从序列中取出一个数作为基准数
-分区过程, 将比这个数大的数全部放到它的右边, 小于或等于它的数全部放到它的左边
-再对左右区间重复第二步, 直到各区间只有一个数
-
-
-算法时间复杂度分析
-$$T(n) &#x3D; ...
+最小二乘法
+Steven J. Miller*
+布朗大学，数...
                     
                 </div>
 
@@ -537,10 +468,22 @@ $$T(n) &#x3D; ...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Sep 12 2019 13:43:40 GMT+0800">
-                2019-09-12
+            <span class="home-article-date" data-updated="Fri Jan 02 2015 13:01:18 GMT+0800">
+                2015-01-02
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%B3%BB%E5%88%97/">毕业设计系列</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -549,12 +492,7 @@ $$T(n) &#x3D; ...
                     
                         <li>
                             
-                            <a href="/tags/interview/">interview</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/computer-vision/">computer vision</a>&nbsp;
+                            <a href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95-%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/">最小二乘法 论文翻译</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -562,7 +500,7 @@ $$T(n) &#x3D; ...
         
     </div>
 
-    <a class="read-more" href="/2019/09/12/pa-prepare/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2015/01/01/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-%E6%AF%95%E8%AE%BE%E7%B3%BB%E5%88%97/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -572,25 +510,16 @@ $$T(n) &#x3D; ...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/08/29/note-4-cv-2019-08-29/">
-                        note-4-cv-class
+                    <a href="/2014/12/25/Singleton-note/">
+                        单例设计模式
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-ch8 object detection 
-
-amusi-computer-vision
-
-
-Class 2CONV &amp; APP (low level)
-时间， 2019年8月29日 下午4:24
-
-图片上的一阶导和二阶导
-
-一阶导是灰度值...
+                        写在前面的话
+本次笔记是在看了《毕向东Java基础》视频之后写的，对于毕老师讲课的优点，我想听过他的课的同学都应该知道的，所以我也不想多说了，但我还是忍不住再说一下，就是幽默风趣，讲课条理清晰，了解学生学习的难点，并能引领大家的思路。
+另外，由于这是...
                     
                 </div>
 
@@ -598,10 +527,22 @@ Class 2CONV &amp; APP (low level)
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Tue Sep 03 2019 01:47:42 GMT+0800">
-                2019-09-03
+            <span class="home-article-date" data-updated="Fri Dec 26 2014 11:57:58 GMT+0800">
+                2014-12-26
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/">黑马程序员</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -610,17 +551,7 @@ Class 2CONV &amp; APP (low level)
                     
                         <li>
                             
-                            <a href="/tags/CV/">CV</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/machine-learning/">machine learning</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/image-processing/">image processing</a>&nbsp;
+                            <a href="/tags/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">单例设计模式</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -628,7 +559,7 @@ Class 2CONV &amp; APP (low level)
         
     </div>
 
-    <a class="read-more" href="/2019/08/29/note-4-cv-2019-08-29/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/12/25/Singleton-note/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -638,21 +569,205 @@ Class 2CONV &amp; APP (low level)
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/08/29/Reaction-to-Machine-Learning-Yearning/">
-                        Reaction to Machine Learning Yearning
+                    <a href="/2014/11/06/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B51/">
+                        概率论基本概念1
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-Machine Learning Yearning
+                        定量数据的统计特征
+在对一组统计数据的分布变化进行深入研究之前，我们首先研究一组数据的特征。为了比较精确地描述一组统计资料的特征，需要使用一些统计指标来描述它。下面我们讨论一下数据统计特征的四个方面。
 
-1. Why Machine Learning Strategy
-为什么要选择策略，因为一个机器学习的project，我们可以有很多思路，譬如
-增加图片
-收集更多不同的训练数据集
-增加训练时长
+集中趋势
+集中趋势，也称做中心位置。即表示一组...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span>
+            <i class="fas fa-history"></i>&nbsp;
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 12:12:43 GMT+0800">
+                2023-07-13
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%A6%82%E7%8E%87%E8%AE%BA/">概率论</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">概率论基本概念</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a class="read-more" href="/2014/11/06/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B51/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2014/10/28/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E4%B8%89)/">
+                        DMwR-note-01-预测海藻数量(三)
+                    </a>
+                </h3>
+
+                <div class="home-article-content keep-markdown-body">
+                    
+                        写在开头的话
+讨论了缺失值的处理，相当于对数据进行了简单的预处理，今天我们来继续探讨数据集模型的建立。
+数据的模型
+
+数据的模型简单的说就是一个函数，输入就是我们之前的数据algae，而输出就是我们预期的一些值。
+本案例的主要研究目的是预测140个水...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span>
+            <i class="fas fa-history"></i>&nbsp;
+            <span class="home-article-date" data-updated="Mon Nov 17 2014 20:35:12 GMT+0800">
+                2014-11-17
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8ER%E8%AF%AD%E8%A8%80-%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0/">数据挖掘与R语言-案例学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a class="read-more" href="/2014/10/28/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E4%B8%89)/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2014/10/28/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E5%9B%9B)/">
+                        DMwR-note-01-预测海藻数量(四)
+                    </a>
+                </h3>
+
+                <div class="home-article-content keep-markdown-body">
+                    
+                        写在开头的话
+
+Ok，上一节我们利用多元回归和回归树两种方法建立了数据模型，那么数据模型可不可靠呢？这一节的任务就是对模型进行评估。
+
+模型的评价和选择
+
+上一节给出了本案例的两个预测模型的例子。最明显的问题是，应该使用哪一个模型来获得7种海藻的14...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span>
+            <i class="fas fa-history"></i>&nbsp;
+            <span class="home-article-date" data-updated="Tue Nov 18 2014 14:53:10 GMT+0800">
+                2014-11-18
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8ER%E8%AF%AD%E8%A8%80-%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0/">数据挖掘与R语言-案例学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a class="read-more" href="/2014/10/28/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E5%9B%9B)/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2014/10/26/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E4%BA%8C)/">
+                        DMwR-note-01-预测海藻数量(二)
+                    </a>
+                </h3>
+
+                <div class="home-article-content keep-markdown-body">
+                    
+                        写在开头的话
+上次的笔记讲了数据的读取，窥探和可视化，这次我们来分析一下数据当中的缺失值。对于缺失值的正确处理也是数据分析当中很重要的一步。
+数据缺失
+
+数据缺失是一种非常普遍的情形，但是有些数据分析的方法无法对缺失值进行处理，这样就会带来问题。
+
 ...
                     
                 </div>
@@ -661,10 +776,22 @@ Machine Learning Yearning
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Aug 29 2019 11:20:36 GMT+0800">
-                2019-08-29
+            <span class="home-article-date" data-updated="Mon Jan 05 2015 15:36:16 GMT+0800">
+                2015-01-05
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8ER%E8%AF%AD%E8%A8%80-%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0/">数据挖掘与R语言-案例学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -673,17 +800,7 @@ Machine Learning Yearning
                     
                         <li>
                             
-                            <a href="/tags/Andrew-Ng/">Andrew Ng</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Machine-Learning/">Machine Learning</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Strategy/">Strategy</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -691,80 +808,7 @@ Machine Learning Yearning
         
     </div>
 
-    <a class="read-more" href="/2019/08/29/Reaction-to-Machine-Learning-Yearning/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2019/08/27/Object-Detection-algo-RCNN-Fast-RCNN-Faster-RCNN-Yolo/">
-                        物体识别算法-RCN, Fast-RCNN, Faster-RCNN和YOLO
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-Origin link,  R-CNN, Fast R-CNN, Faster R-CNN, YOLO — Object Detection Algorithms
- 
-
-
-
-
-简介
-计算机视觉是一个交叉学科，(自从CNN发展以来)它已经取得了极大的...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Tue Aug 27 2019 13:05:42 GMT+0800">
-                2019-08-27
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/translation/">translation</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E7%89%A9%E4%BD%93%E8%AF%86%E5%88%AB/">物体识别</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Faster-RCNN/">Faster-RCNN</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/RCNN/">RCNN</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/YOLO/">YOLO</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2019/08/27/Object-Detection-algo-RCNN-Fast-RCNN-Faster-RCNN-Yolo/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/10/26/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E4%BA%8C)/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -811,7 +855,7 @@ Origin link,  R-CNN, Fast R-CNN, Faster R-CNN, YOLO — Object Detection Algorit
             
         </div>
         
-            <script async 
+            <script async data-pjax
                     src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <div class="website-count info-item">
                 
@@ -860,6 +904,10 @@ Origin link,  R-CNN, Fast R-CNN, Faster R-CNN, YOLO — Object Detection Algorit
         
 
         
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
 
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
@@ -870,11 +918,6 @@ Origin link,  R-CNN, Fast R-CNN, Faster R-CNN, YOLO — Object Detection Algorit
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
         
     </ul>
 </div>
@@ -950,9 +993,43 @@ Origin link,  R-CNN, Fast R-CNN, Faster R-CNN, YOLO — Object Detection Algorit
 
 
 
-<div class="post-scripts">
+<div class="post-scripts pjax">
     
 </div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
 
 
 

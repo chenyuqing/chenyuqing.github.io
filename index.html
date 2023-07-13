@@ -29,8 +29,8 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {}
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":"16px","font_family":"STSong, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"header_transparent":true,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
     KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
     KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
@@ -46,79 +46,13 @@
     
 
     
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
 </div>
 
 
 <main class="page-container">
-
-    
-        
-<div class="first-screen-container flex-center fade-in-down-animation">
-    <div class="content flex-center">
-        
-            <div class="description hitokoto">
-                
-                    <div class="desc-item">Love the people who treat you right, forget the ones who don&#39;t.</div>
-                
-            </div>
-        
-        
-            <script async 
-                    src="https://v1.hitokoto.cn/?encode=js"
-            >
-            </script>
-        
-        
-            <div class="s-icon-list">
-                
-                    
-                        
-                        <div class="tooltip s-icon-item "
-                             data-content="GitHub"
-                             data-name="github"
-                             
-                        >
-                            
-                                
-                                    <a target="_blank" href="https://github.com/chenyuqing">
-                                        <i class="fab fa-github"></i>
-                                    </a>
-                                
-                            
-                        </div>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                        
-                        <div class="tooltip s-icon-item "
-                             data-content="Email"
-                             data-name="email"
-                             
-                        >
-                            
-                                <a href="mailto:motoleisure@163.com">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            
-                        </div>
-                    
-                
-            </div>
-        
-    </div>
-</div>
 
     
 
@@ -126,9 +60,9 @@
 
         <div class="page-main-content-top">
             
-<header class="header-wrapper transparent-1">
+<header class="header-wrapper">
 
-    <div class="header-content has-first-screen">
+    <div class="header-content">
         <div class="left">
             
                 <a class="logo-image" href="/">
@@ -178,17 +112,17 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/links"
+                               href="/about"
                             >
-                                LINKS
+                                ABOUT
                             </a>
                         </li>
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/about"
+                               href="/changelog"
                             >
-                                ABOUT
+                                CHANGELOG
                             </a>
                         </li>
                     
@@ -235,12 +169,12 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/links">LINKS</a>
+                       href="/about">ABOUT</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/about">ABOUT</a>
+                       href="/changelog">CHANGELOG</a>
                 </li>
             
         </ul>
@@ -266,80 +200,6 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2023/02/20/buddish_study/">
-                        佛学讲座
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        佛学讲座【淨薈主辦】常霖法師講「學佛修行信願行」之一: 信
-
-【淨薈主辦】常霖法師講「學佛修行信願行」之二: 願
-
-【淨薈主辦】常霖法師講「學佛修行信願行」之三: 行
-
-b站视频测试
-
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed Jul 12 2023 22:21:14 GMT+0800">
-                2023-07-12
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/%E4%BD%9B%E5%AD%A6/">佛学</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E4%BD%9B%E5%AD%A6/">佛学</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E7%A6%85/">禅</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E5%92%8C%E8%A7%A3/">和解</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2023/02/20/buddish_study/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
                     <a href="/2021/11/07/Training-your-own-datasets-with-Darknet/">
                         Training your own datasets with Darknet
                     </a>
@@ -359,10 +219,22 @@ Use your own way to collect your data, usually the size of image d...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Tue Jun 23 2020 09:07:56 GMT+0800">
-                2020-06-23
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 12:01:28 GMT+0800">
+                2023-07-13
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -394,128 +266,6 @@ Use your own way to collect your data, usually the size of image d...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2021/08/08/Simple-REST-api/">
-                        Simple REST api to implement the age_gender_pred model
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-As we can see that the simeple REST api like this
-
-
-
-
-Client123456789101112131415161718192021222324252627282930313233343536d...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Tue Jun 23 2020 09:07:12 GMT+0800">
-                2020-06-23
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/keras/">keras</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/REST-api/">REST api</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/redis/">redis</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/deep-learning/">deep learning</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2021/08/08/Simple-REST-api/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2021/03/08/comparison-of-MTCNN-on-RK3399/">
-                        comparison of MTCNN on RK3399
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-date, 2019-03-08 12:04:23
-
-在RK板上运行mtcnn的方案1. 运行caffe版本的mtcnn
-在RK上安装OPENCL的Caffe(环境配置)
-先装OPENBLAS，后装Caffe
-中间遇到ViennaCL库没找到，但是...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Tue Jun 23 2020 09:08:20 GMT+0800">
-                2020-06-23
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/mtcnn/">mtcnn</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/RK3399/">RK3399</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2021/03/08/comparison-of-MTCNN-on-RK3399/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
                     <a href="/2021/02/03/Training-your-own-data-with-TF-object-detection-API/">
                         Training your own data with TF object detection API
                     </a>
@@ -538,10 +288,22 @@ ref1-tensorflow+ssd_mobilenet实现目标检测...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Tue Jun 23 2020 09:06:15 GMT+0800">
-                2020-06-23
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 12:10:49 GMT+0800">
+                2023-07-13
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -556,21 +318,6 @@ ref1-tensorflow+ssd_mobilenet实现目标检测...
                         <li>
                             | 
                             <a href="/tags/object-detection/">object detection</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/API/">API</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/COCO/">COCO</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/SSD-Mobilenet/">SSD-Mobilenet</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -588,17 +335,20 @@ ref1-tensorflow+ssd_mobilenet实现目标检测...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2020/06/24/mAP/">
-                        目标检测模型的metric-mAP
+                    <a href="/2017/06/14/visual-proof-of-neural-networks/">
+                        可视化证明：神经网络可以计算任何函数
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        mAP, mean average precision
-mAP，英文直译是平均精确度(average precision)的平均(mean)，它是目标检测中目前主要的metric。在深入理解mAP之前，我们先来了解一下相关的概念。
+                        
+Original Post
 
-什么是preci...
+神经网络当中一个最显著的事实是：神经网络能够计算任何的函数。也就是说，假如有人给你一个复杂的，波形弯弯曲曲的函数，$f(x):$
+
+
+无论是什么的函数，我们都可以保证能找到一个网络，对于所有可能的输入，$x$，$f(x...
                     
                 </div>
 
@@ -606,10 +356,22 @@ mAP，英文直译是平均精确度(average precision)的平均(mean)，它是�
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed Jun 24 2020 10:03:58 GMT+0800">
-                2020-06-24
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 12:04:26 GMT+0800">
+                2023-07-13
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -618,27 +380,7 @@ mAP，英文直译是平均精确度(average precision)的平均(mean)，它是�
                     
                         <li>
                             
-                            <a href="/tags/deep-learning/">deep learning</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/object-detection/">object detection</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/mAP/">mAP</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/classification/">classification</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/CNN/">CNN</a>&nbsp;
+                            <a href="/tags/Translation/">Translation</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -646,7 +388,7 @@ mAP，英文直译是平均精确度(average precision)的平均(mean)，它是�
         
     </div>
 
-    <a class="read-more" href="/2020/06/24/mAP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2017/06/14/visual-proof-of-neural-networks/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -656,16 +398,17 @@ mAP，英文直译是平均精确度(average precision)的平均(mean)，它是�
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2020/06/23/nms-and-iou/">
-                        nms_and_iou
+                    <a href="/2017/03/29/RNN-tutorial-Part-1-Introduction/">
+                        循环神经网络 Part 1-简介
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        IOU(Intersection of Union)，交并比
-给定2个框(bounding box)，计算其交集和并集的比例。
-通常bounding box的坐标表示有2种，第一种是2点坐标(x1, y1, x2, y2); 第二种是中心坐标和宽高(...
+                        
+本文翻自WILDML
+
+循环神经网络(RNNs)是一个目前在许多的自然语言处理(NLP)任务当中表现了出色的性能的模型。但是，除了它最近的火热之外，我能找到的关于RNNs模型的工作原理和实现的资源非常的有限。所以我才着手写了这个tutorial。我...
                     
                 </div>
 
@@ -673,10 +416,22 @@ mAP，英文直译是平均精确度(average precision)的平均(mean)，它是�
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon Jul 13 2020 13:23:25 GMT+0800">
-                2020-07-13
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 12:04:53 GMT+0800">
+                2023-07-13
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -685,22 +440,17 @@ mAP，英文直译是平均精确度(average precision)的平均(mean)，它是�
                     
                         <li>
                             
-                            <a href="/tags/object-detection/">object detection</a>&nbsp;
+                            <a href="/tags/Translation/">Translation</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/nms/">nms</a>&nbsp;
+                            <a href="/tags/ML/">ML</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/iou/">iou</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/soft-nms/">soft-nms</a>&nbsp;
+                            <a href="/tags/DL/">DL</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -708,7 +458,7 @@ mAP，英文直译是平均精确度(average precision)的平均(mean)，它是�
         
     </div>
 
-    <a class="read-more" href="/2020/06/23/nms-and-iou/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2017/03/29/RNN-tutorial-Part-1-Introduction/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -718,18 +468,22 @@ mAP，英文直译是平均精确度(average precision)的平均(mean)，它是�
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2020/03/27/from-darknet-yolov3-to-tensorRT-yolov3/">
-                        from darknet yolov3 to tensorRT yolov3
+                    <a href="/2016/10/03/40/">
+                        40 道ML/Data Science的初创公司(可能)的面试题
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        Training your own yolov3 with darknet
-Training your own datasets with Darknet
-An Improved Darknet from AlexeyAB
+                        
+By Manish Saraswat, Original Link
+09&#x2F;16&#x2F;2016
 
-TensorRT dar...
+Introduction
+留心，这些问题你要三思！
+
+
+在今天，机器学习和数据科学家被认为是下一代工业改革的驱动力。这也意味着有很多新进...
                     
                 </div>
 
@@ -737,10 +491,22 @@ TensorRT dar...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Fri Mar 27 2020 16:32:23 GMT+0800">
-                2020-03-27
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 11:47:55 GMT+0800">
+                2023-07-13
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -749,22 +515,7 @@ TensorRT dar...
                     
                         <li>
                             
-                            <a href="/tags/yolov3/">yolov3</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/darknet/">darknet</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/object-detection/">object detection</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/TensorRT/">TensorRT</a>&nbsp;
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%EF%BC%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">数据科学，机器学习</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -772,7 +523,7 @@ TensorRT dar...
         
     </div>
 
-    <a class="read-more" href="/2020/03/27/from-darknet-yolov3-to-tensorRT-yolov3/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2016/10/03/40/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -782,18 +533,17 @@ TensorRT dar...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2020/03/09/leetcode-binary-tree-series/">
-                        leetcode_binary_tree_series
+                    <a href="/2015/03/13/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E7%BD%91%E7%BB%9C%E8%AE%BA%E6%96%87%E5%8E%9F%E6%96%87-Vapnik-%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/">
+                        支持向量网络论文原文-Vapnik-论文翻译
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        什么是树
-**树(Tree)**是一种非线性结构，用来模拟具有树状结构性质的数据集合。它是由n(n&gt;0)个有限节点组成一个具有层次关系的集合。树是递归结构，在树的定义中又用到了树的概念。
+                        
 
-什么是二叉树
-**二叉树(Binary tree)**...
+摘要：
+支持向量网络是一种新的用于二类分类问题的学习机。这个机器(方法)概念地实现了以下想法：非线性的输入向量被映射到高维度的特征空间。在这个特征空间中找出一个线性决策超平面。决策超平面的特殊属性可以保证学习机的强泛化能力。这个支持向量网路的思想...
                     
                 </div>
 
@@ -801,10 +551,22 @@ TensorRT dar...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Mar 12 2020 00:01:52 GMT+0800">
-                2020-03-12
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 12:02:43 GMT+0800">
+                2023-07-13
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%B3%BB%E5%88%97/">毕业设计系列</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -813,27 +575,7 @@ TensorRT dar...
                     
                         <li>
                             
-                            <a href="/tags/Tree/">Tree</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/binary-tree/">binary tree</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/binary-search-tree/">binary search tree</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/pre-order/">pre-order</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/in-order/">in-order</a>&nbsp;
+                            <a href="/tags/SVM%E5%85%A5%E9%97%A8/">SVM入门</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -841,7 +583,7 @@ TensorRT dar...
         
     </div>
 
-    <a class="read-more" href="/2020/03/09/leetcode-binary-tree-series/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2015/03/13/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E7%BD%91%E7%BB%9C%E8%AE%BA%E6%96%87%E5%8E%9F%E6%96%87-Vapnik-%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -851,19 +593,15 @@ TensorRT dar...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2020/02/19/YT-The-Age-of-AI-01-How-far-is-too-far/">
-                        YouTube The Age of AI 01 How far is too far
+                    <a href="/2015/03/10/%E6%AF%95%E8%AE%BE%E6%8A%A5%E5%91%8A-2015-03-10/">
+                        毕设报告-2015-03-10
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        Changes of Era
-writing to printing press, to email
-
-Now it seems to we have been to the new age , the age of AI
-
-The best way...
+                        毕业设计完成情况我的感受
+写论文绝不是一件轻松的工作，特别是如果你选的题目和你现在的水平相差甚远时。自从上一次的毕业论文中期检查之后，我实习了一个月，然后回家过了个年，所以把时间分配到做毕设的也不多，而且我现在明白到了做理论这一块的论文，特别是面对一...
                     
                 </div>
 
@@ -871,10 +609,22 @@ The best way...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed Feb 19 2020 03:36:26 GMT+0800">
-                2020-02-19
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 12:09:46 GMT+0800">
+                2023-07-13
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%B3%BB%E5%88%97/">毕业设计系列</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -883,12 +633,7 @@ The best way...
                     
                         <li>
                             
-                            <a href="/tags/Youtbue/">Youtbue</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/AgeofAI/">AgeofAI</a>&nbsp;
+                            <a href="/tags/SVM%E5%85%A5%E9%97%A8/">SVM入门</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -896,7 +641,185 @@ The best way...
         
     </div>
 
-    <a class="read-more" href="/2020/02/19/YT-The-Age-of-AI-01-How-far-is-too-far/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2015/03/10/%E6%AF%95%E8%AE%BE%E6%8A%A5%E5%91%8A-2015-03-10/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2015/02/08/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E7%9F%A5%E9%81%93%E7%9A%8410%E5%A4%A7%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%94%A8%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6%E8%AE%B2%E8%A7%A3-%E6%85%95%E5%8F%AF%E7%BD%91%E5%88%B6%E4%BD%9C/">
+                        程序员必须知道的10大基础实用算法及其讲解-@慕可网制作
+                    </a>
+                </h3>
+
+                <div class="home-article-content keep-markdown-body">
+                    
+                        算法一：快速排序算法
+快速排序算法是由东尼.霍尔所发展的一种排序算法。在平均状况下，排序n个项目要O(nlog n)次比较。在最坏状况下则需要O(n2)次比较，但这种状况并不常见。事实上，快速排序O(n log n)通常明显比其他算法更快，因为它的内...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span>
+            <i class="fas fa-history"></i>&nbsp;
+            <span class="home-article-date" data-updated="Wed Feb 11 2015 21:49:30 GMT+0800">
+                2015-02-11
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/10%E5%A4%A7%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%94%A8%E7%AE%97%E6%B3%95/">10大基础实用算法</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a class="read-more" href="/2015/02/08/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E7%9F%A5%E9%81%93%E7%9A%8410%E5%A4%A7%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%94%A8%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6%E8%AE%B2%E8%A7%A3-%E6%85%95%E5%8F%AF%E7%BD%91%E5%88%B6%E4%BD%9C/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2015/01/27/Django-1-7-3-Tutorial-Part-3-%E8%A7%86%E5%9B%BE%E5%92%8C%E6%A8%A1%E6%9D%BF/">
+                        Django-1-7-3-Tutorial-Part-3-视图和模板
+                    </a>
+                </h3>
+
+                <div class="home-article-content keep-markdown-body">
+                    
+                        
+本教程是接着上一节教程继续的。我们继续讨论网页投票(Web-poll)应用程序，然后关注与创建公共接口–“视图”。
+
+哲学
+一个视图是在你的Django应用中一种有特定应用功能和有一个模板的网页的“类型”。譬如，在一个博客应用中，你可能需要以下视图...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span>
+            <i class="fas fa-history"></i>&nbsp;
+            <span class="home-article-date" data-updated="Mon Oct 26 2015 15:43:52 GMT+0800">
+                2015-10-26
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Django/">Django</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Django-Models/">Django-Models</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a class="read-more" href="/2015/01/27/Django-1-7-3-Tutorial-Part-3-%E8%A7%86%E5%9B%BE%E5%92%8C%E6%A8%A1%E6%9D%BF/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2015/01/19/Django-1-7-3-Tutorial-Part-2-%E7%AE%A1%E7%90%86%E7%AB%99%E7%82%B9/">
+                        Django-1-7-3-Tutorial-Part-2-管理站点
+                    </a>
+                </h3>
+
+                <div class="home-article-content keep-markdown-body">
+                    
+                        
+本节教程接着Part-1-模型继续，我们继续网络民意调查(Web-poll)应用，然后把焦点放在Django的自生成的管理员站点。
+哲学为你的员工或客户自动生成管理员站点，让它可以很方便的对内容进行增删改是一件不需要太多创新的比较乏味的事情。Dja...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span>
+            <i class="fas fa-history"></i>&nbsp;
+            <span class="home-article-date" data-updated="Mon Oct 26 2015 15:38:30 GMT+0800">
+                2015-10-26
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/Django/">Django</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Django-Models/">Django-Models</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a class="read-more" href="/2015/01/19/Django-1-7-3-Tutorial-Part-2-%E7%AE%A1%E7%90%86%E7%AB%99%E7%82%B9/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -939,7 +862,7 @@ The best way...
             
         </div>
         
-            <script async 
+            <script async data-pjax
                     src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <div class="website-count info-item">
                 
@@ -988,6 +911,10 @@ The best way...
         
 
         
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
 
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
@@ -998,11 +925,6 @@ The best way...
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
         
     </ul>
 </div>
@@ -1078,9 +1000,43 @@ The best way...
 
 
 
-<div class="post-scripts">
+<div class="post-scripts pjax">
     
 </div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
 
 
 

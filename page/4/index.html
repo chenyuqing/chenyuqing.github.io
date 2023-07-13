@@ -29,8 +29,8 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {}
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":"16px","font_family":"STSong, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"header_transparent":true,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
     KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
     KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
@@ -46,6 +46,9 @@
     
 
     
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
 </div>
 
 
@@ -57,7 +60,7 @@
 
         <div class="page-main-content-top">
             
-<header class="header-wrapper transparent-1">
+<header class="header-wrapper">
 
     <div class="header-content">
         <div class="left">
@@ -109,17 +112,17 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/links"
+                               href="/about"
                             >
-                                LINKS
+                                ABOUT
                             </a>
                         </li>
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/about"
+                               href="/changelog"
                             >
-                                ABOUT
+                                CHANGELOG
                             </a>
                         </li>
                     
@@ -166,12 +169,12 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/links">LINKS</a>
+                       href="/about">ABOUT</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/about">ABOUT</a>
+                       href="/changelog">CHANGELOG</a>
                 </li>
             
         </ul>
@@ -197,20 +200,21 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2017/06/14/visual-proof-of-neural-networks/">
-                        可视化证明：神经网络可以计算任何函数
+                    <a href="/2014/07/06/chp2-JSP/">
+                        chp2_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-Original Post
+                        第二章
+2.3 安装和配置Tomcat(page15)
+Tomcat 服务器的默认端口是 8080
+访问Tomcat的默认路径是：http://localhost:8080
 
-神经网络当中一个最显著的事实是：神经网络能够计算任何的函数。也就是说，假如有人给你一个复杂的，波形弯弯曲曲的函数，$f(x):$
 
-
-无论是什么的函数，我们都可以保证能找到一个网络，对于所有可能的输入，$x$，$f(x...
+2.3.1 配置Tomcat(page18)
+更改服务端口：在Tomca...
                     
                 </div>
 
@@ -218,187 +222,8 @@ Original Post
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Jun 15 2017 22:37:46 GMT+0800">
-                2017-06-15
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Translation/">Translation</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2017/06/14/visual-proof-of-neural-networks/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2017/05/25/interview-questions-I-collect/">
-                        面试题备集(Machine learning, Deep Learning)
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-问题1. 问什么深度学习近年来这么火热？
-
-**答：**可以从以下几个方面来分析，
-
-数据集规模：如今越来越数字化，数据量成爆炸性增长，使得人们想从巨量的数据中挖掘各种各样的模式和价值；
-计算能力和大小：硬件方面的提升，主要是GPU的更新换代，使得...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu May 25 2017 16:07:26 GMT+0800">
-                2017-05-25
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a class="read-more" href="/2017/05/25/interview-questions-I-collect/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2017/05/17/modern-history-of-object-recognition-infographic/">
-                        物体识别的现代史(2012~)
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-重要的卷积神经网络(CNN)概念
-特征(Feature)(模式，神经元的激活，特征检测器)
-
-当一个特定的模式(特征)在它的输入区域(receptive field)中展现时,一个隐藏的神经元就会被激活
-能被神经元检测的模式看通过一下方式可视化：(...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed May 24 2017 18:23:32 GMT+0800">
-                2017-05-24
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a class="read-more" href="/2017/05/17/modern-history-of-object-recognition-infographic/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2017/05/06/sort-algorithms/">
-                        排序算法总结
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-排序算法是一个非常重要而且在日常生活中最常用的一种算法之一。面试官往往也是会常考的题目。所以，以下对排序算法做一下总结，而且排序顺序都是由小到大。
-
-冒泡排序(Bubble Sort)
-核心思想：按从小到大的排序，前面一个数和后面一个数比较，大的永...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed May 24 2017 18:17:24 GMT+0800">
-                2017-05-24
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2017/05/06/sort-algorithms/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2017/03/29/RNN-tutorial-Part-1-Introduction/">
-                        循环神经网络 Part 1-简介
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-本文翻自WILDML
-
-循环神经网络(RNNs)是一个目前在许多的自然语言处理(NLP)任务当中表现了出色的性能的模型。但是，除了它最近的火热之外，我能找到的关于RNNs模型的工作原理和实现的资源非常的有限。所以我才着手写了这个tutorial。我...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Mar 30 2017 22:18:00 GMT+0800">
-                2017-03-30
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:25:34 GMT+0800">
+                2014-10-21
             </span>
         </span>
         
@@ -407,7 +232,7 @@ Original Post
                     
                         <li>
                             
-                            <a href="/categories/Translation/">Translation</a>&nbsp;
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
                         </li>
                     
                     
@@ -421,17 +246,7 @@ Original Post
                     
                         <li>
                             
-                            <a href="/tags/ML/">ML</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/DL/">DL</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Translation/">Translation</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -439,7 +254,7 @@ Original Post
         
     </div>
 
-    <a class="read-more" href="/2017/03/29/RNN-tutorial-Part-1-Introduction/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp2-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -449,17 +264,22 @@ Original Post
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2017/03/02/how-to-use-git-quickly-part2/">
-                        how to use git quickly part 2
+                    <a href="/2014/07/06/chp1-JSP/">
+                        chp1_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        One simple example to push your code to your github account
-After you’re done with Part 1 , Let’s practice now.
+                        第一章
+1.3.3 JSP 概述(page5)
+jsp的最大优点是：开放的，跨平台的结构，它可以运行在所有的服务器系统上。
 
-Create a new...
+JSP与ASP的区别：
+
+每次访问asp文件，服务器都要将该文件解释一遍，然后将标准的HTML代码发送到客户端；
+
+而JSP...
                     
                 </div>
 
@@ -467,111 +287,8 @@ Create a new...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Mar 02 2017 15:39:26 GMT+0800">
-                2017-03-02
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/git/">git</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/github/">github</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2017/03/02/how-to-use-git-quickly-part2/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2017/03/02/how-to-use-git-quickly-part1/">
-                        how to use git quickly Part 1
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-Suppose you are new to git and github and you want to use it quickly. This is the situation I write this post. 
-Get a free a...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Mar 02 2017 15:39:20 GMT+0800">
-                2017-03-02
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/git/">git</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/github/">github</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2017/03/02/how-to-use-git-quickly-part1/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2017/02/28/how-to-install-googlepinyin-on-ubuntun/">
-                        how to install Google-pinyin on Ubuntu
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-Recently I have been tried used the Ubuntu for a while. And I have re-installed system for so many times. And I found that i...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Fri Jun 02 2017 14:07:12 GMT+0800">
-                2017-06-02
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:24:40 GMT+0800">
+                2014-10-21
             </span>
         </span>
         
@@ -580,7 +297,7 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
                     
                         <li>
                             
-                            <a href="/categories/Ubuntu/">Ubuntu</a>&nbsp;
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
                         </li>
                     
                     
@@ -594,7 +311,7 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
                     
                         <li>
                             
-                            <a href="/tags/Google-pinyin/">Google-pinyin</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -602,7 +319,7 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
         
     </div>
 
-    <a class="read-more" href="/2017/02/28/how-to-install-googlepinyin-on-ubuntun/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp1-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -612,16 +329,21 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2017/02/21/04-a-simple-neural-network/">
-                        在tensorflow中实现一个简单的神经网络
+                    <a href="/2012/06/27/Linux-develop-C/">
+                        Linux_develop_C-我的第一篇博客
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-这是一个非常简单的神经网络的例子，而且在tensorflow当中实现非常的容易。那么按照上一篇介绍神经网络的文章：什么是神经网络？我们知道神经网络的架构就是包含了input layer，hidden layer和output layer三层。
-第一...
+                        目录在linux下编写C程序，必须要学会Vi编辑器的使用
+我的linux界面：
+
+桌面单击右键，选择终端打开
+便可进入终端界面
+输入vi，便可以查看vi的版本信息，同时进入vi编辑器
+因为当前文件未命名，故在编辑完成后无法保存，我们重新回到开始界面
+...
                     
                 </div>
 
@@ -629,8 +351,8 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed Feb 22 2017 16:31:00 GMT+0800">
-                2017-02-22
+            <span class="home-article-date" data-updated="Thu Jul 13 2023 11:49:18 GMT+0800">
+                2023-07-13
             </span>
         </span>
         
@@ -639,7 +361,7 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
                     
                         <li>
                             
-                            <a href="/categories/Tensorflow/">Tensorflow</a>&nbsp;
+                            <a href="/categories/C%E5%BC%80%E5%8F%91/">C开发</a>&nbsp;
                         </li>
                     
                     
@@ -653,17 +375,7 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
                     
                         <li>
                             
-                            <a href="/tags/ML/">ML</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Tensorflow-tutorial/">Tensorflow tutorial</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/DL/">DL</a>&nbsp;
+                            <a href="/tags/linux-C/">linux C</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -671,76 +383,7 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
         
     </div>
 
-    <a class="read-more" href="/2017/02/21/04-a-simple-neural-network/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2017/02/21/03-what-is-neural-network/">
-                        什么是神经网络？
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        为什么需要神经网络？
-
-神经网络原本是生物学当中的知识。如上图所示，就是一个神经网络的放大图，在图中我们可以看到好几个大的节点，生物术语叫做神经元，而神经元之间可以看到连接着小的神经线。这就如同一个图的结构一样，包含了节点和连接节点的边。那么不同的神...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon Mar 06 2017 17:03:04 GMT+0800">
-                2017-03-06
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/Tensorflow/">Tensorflow</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/ML/">ML</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Tensorflow-tutorial/">Tensorflow tutorial</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/DL/">DL</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2017/02/21/03-what-is-neural-network/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2012/06/27/Linux-develop-C/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -755,10 +398,6 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
         >Prev</a>
     
 
-    
-        <a class="next btn"
-           href="/page/5/"
-        >Next</a>
     
 </div>
 
@@ -787,7 +426,7 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
             
         </div>
         
-            <script async 
+            <script async data-pjax
                     src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <div class="website-count info-item">
                 
@@ -836,6 +475,10 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
         
 
         
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
 
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
@@ -846,11 +489,6 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
         
     </ul>
 </div>
@@ -926,9 +564,43 @@ Recently I have been tried used the Ubuntu for a while. And I have re-installed 
 
 
 
-<div class="post-scripts">
+<div class="post-scripts pjax">
     
 </div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
 
 
 

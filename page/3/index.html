@@ -29,8 +29,8 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {}
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en"}
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":null,"font_family":null,"hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Love the people who treat you right, forget the ones who don't.","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/images/favicon.ico","favicon":"/images/favicon.ico","avatar":"/images/favicon.ico","font_size":"16px","font_family":"STSong, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"header_transparent":true,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":null,"repository":"hexo-site-comments","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
     KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
     KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
@@ -46,6 +46,9 @@
     
 
     
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
 </div>
 
 
@@ -57,7 +60,7 @@
 
         <div class="page-main-content-top">
             
-<header class="header-wrapper transparent-1">
+<header class="header-wrapper">
 
     <div class="header-content">
         <div class="left">
@@ -109,17 +112,17 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/links"
+                               href="/about"
                             >
-                                LINKS
+                                ABOUT
                             </a>
                         </li>
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/about"
+                               href="/changelog"
                             >
-                                ABOUT
+                                CHANGELOG
                             </a>
                         </li>
                     
@@ -166,12 +169,12 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/links">LINKS</a>
+                       href="/about">ABOUT</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/about">ABOUT</a>
+                       href="/changelog">CHANGELOG</a>
                 </li>
             
         </ul>
@@ -197,16 +200,22 @@
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/08/14/iou-tracker-implementation/">
-                        iou tracker implementation
+                    <a href="/2014/10/23/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E4%B8%80)/">
+                        DMwR-note-01-预测海藻数量(一)
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-[paper] High-Speed Tracking-by-Detection Without Using Image Information 
-It’s a simple tracker algorithm that just use the ...
+                        问题描述与目标
+描述：有害藻类的高浓度会对河流生态环境造成强大的破坏，所以对有害藻类的数量进行预测对提高河流质量有很重要的意义。   
+目标：影响藻类繁殖的因素有什么特征。  
+数据说明
+本案例有2个数据集：训练集和测试集
+变量说明： 
+
+名义变量
+...
                     
                 </div>
 
@@ -214,15 +223,39 @@ It’s a simple tracker algorithm that just use the ...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed Aug 14 2019 14:43:10 GMT+0800">
-                2019-08-14
+            <span class="home-article-date" data-updated="Mon Oct 27 2014 23:09:16 GMT+0800">
+                2014-10-27
             </span>
         </span>
         
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8ER%E8%AF%AD%E8%A8%80-%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0/">数据挖掘与R语言-案例学习</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
         
     </div>
 
-    <a class="read-more" href="/2019/08/14/iou-tracker-implementation/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/10/23/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E4%B8%80)/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -232,22 +265,14 @@ It’s a simple tracker algorithm that just use the ...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/08/01/openpose-keypoints-image/">
-                        keypoints
+                    <a href="/2014/10/18/RegularExpression/">
+                        正则表达式课堂笔记
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-The keypoints of openpose are list like these images
-
-Body keypoints
-
-Face keypoints
-
-Hand keypoints
-
+                        写在开头的话题：最近我在炼数成金社区上《R七种武器之网络爬虫RCurl》这一门课，然后三周的短课程在最后一周就提到了正则表达式。刚好我在大二的时候有听过传智播客的老师讲过，还有点印象，听起课来还蛮舒服的，倒也觉得这个东西还是挺重要的，它就像是一个模式...
                     
                 </div>
 
@@ -255,8 +280,8 @@ Hand keypoints
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Aug 01 2019 15:41:26 GMT+0800">
-                2019-08-01
+            <span class="home-article-date" data-updated="Sun Oct 19 2014 10:26:38 GMT+0800">
+                2014-10-19
             </span>
         </span>
         
@@ -267,27 +292,7 @@ Hand keypoints
                     
                         <li>
                             
-                            <a href="/tags/openpose/">openpose</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/keypoints/">keypoints</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/face/">face</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/hand/">hand</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/body/">body</a>&nbsp;
+                            <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -295,7 +300,7 @@ Hand keypoints
         
     </div>
 
-    <a class="read-more" href="/2019/08/01/openpose-keypoints-image/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/10/18/RegularExpression/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -305,15 +310,21 @@ Hand keypoints
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/08/01/simple-pyopenpose-usage/">
-                        simple pyopenpose usage
+                    <a href="/2014/07/06/chp0-JSP/">
+                        chp0_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-Before last post, the introduction of installation of openpose . For now, as you are a learner of python, so you should lear...
+                        JSP-Review-201407JSP的课本重点整理—《JSP应用教程（修订本）》石志国
+11医用（1）班 整理者：陈玉庆 教授：陈国华
+2014今年大题考背代码
+page175 必背
+page223 必背
+page256 必背 9-25.jsp
+
+
                     
                 </div>
 
@@ -321,10 +332,22 @@ Before last post, the introduction of installation of openpose . For now, as you
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Aug 01 2019 12:24:50 GMT+0800">
-                2019-08-01
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:24:26 GMT+0800">
+                2014-10-21
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -333,17 +356,7 @@ Before last post, the introduction of installation of openpose . For now, as you
                     
                         <li>
                             
-                            <a href="/tags/openpose/">openpose</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/pyopenpose/">pyopenpose</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/python/">python</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -351,7 +364,7 @@ Before last post, the introduction of installation of openpose . For now, as you
         
     </div>
 
-    <a class="read-more" href="/2019/08/01/simple-pyopenpose-usage/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp0-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -361,19 +374,23 @@ Before last post, the introduction of installation of openpose . For now, as you
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/07/02/how-to-install-openpose-in-ubuntu1604/">
-                        how_to_install_openpose_in_ubuntu1604
+                    <a href="/2014/07/06/chp9-JSP/">
+                        chp9_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-reference1 
-reference2 
-reference3
+                        第九章 XML数据操作接口
+9.1 XML(page233)
+XML：（eXtensible Markup Language）即可扩展的标记语言，可以定义语义标记，是元标记语言。
 
-Download source from the github1git clone --recursive git@github.com:CMU-Perceptual-Comp...
+XML的结构：序言和文档元素
+
+序言
+XML声明、处理指令、注释
+
+...
                     
                 </div>
 
@@ -381,10 +398,22 @@ Download source from the github1git clone --recursive git@github.com:CMU-Percept
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Tue Jul 30 2019 15:54:32 GMT+0800">
-                2019-07-30
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:24:58 GMT+0800">
+                2014-10-21
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -393,7 +422,7 @@ Download source from the github1git clone --recursive git@github.com:CMU-Percept
                     
                         <li>
                             
-                            <a href="/tags/openpose/">openpose</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -401,7 +430,7 @@ Download source from the github1git clone --recursive git@github.com:CMU-Percept
         
     </div>
 
-    <a class="read-more" href="/2019/07/02/how-to-install-openpose-in-ubuntu1604/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp9-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -411,23 +440,21 @@ Download source from the github1git clone --recursive git@github.com:CMU-Percept
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2019/05/06/mtcnn-explained/">
-                        mtcnn_explained
+                    <a href="/2014/07/06/chp8-JSP/">
+                        chp8_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
+                        第八章 Hibernate数据持久化技术
+8.1.1 ORM的基本概念(page211)
+ORM
+（Object&#x2F;Relation Mapping）对象关系映射
 
 
-what? MTCNN是什么?
-MTCNN是Kaipeng Zhang 2016年提出的一个把人脸检测, 人脸框回归和人脸关键点检测合在一起做的一篇文章.
-
-how? MTCNN怎么实现?网络结构
-
-
-可以看到, MTCNN的网络是由3个全卷积...
+作用
+实现了Java应用中的对象到关系数据库中的表的自动的（和透明的）持久...
                     
                 </div>
 
@@ -435,10 +462,22 @@ how? MTCNN怎么实现?网络结构
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed Aug 21 2019 16:27:44 GMT+0800">
-                2019-08-21
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:25:04 GMT+0800">
+                2014-10-21
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -447,17 +486,7 @@ how? MTCNN怎么实现?网络结构
                     
                         <li>
                             
-                            <a href="/tags/mtcnn/">mtcnn</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/face-detection/">face detection</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/face-aligment/">face aligment</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -465,7 +494,7 @@ how? MTCNN怎么实现?网络结构
         
     </div>
 
-    <a class="read-more" href="/2019/05/06/mtcnn-explained/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp8-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -475,24 +504,23 @@ how? MTCNN怎么实现?网络结构
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2018/11/08/how-to-train-yolov3-with-your-own-dataset-in-darknet/">
-                        how to train yolov3 with your own dataset in darknet
+                    <a href="/2014/07/06/chp7-JSP/">
+                        chp7_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-Yolov3
+                        第七章 JDBC数据库开发接口
+7.3.1 JDBC的四种类型(page171)
+JDBC-ODBC桥加ODBC驱动程序
+本地API
+JDBC网络纯Java驱动程序
+本地协议纯Java驱动程序
 
-Install Darknet
-参考以下
-Darknet
 
-Prepare your own dataset in VOC format and label your images
-参考以下
-LabelImage
-wget http...
+7.3.2 数据驱动程序(page172)
+加载Or...
                     
                 </div>
 
@@ -500,10 +528,22 @@ wget http...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Thu Nov 08 2018 12:38:14 GMT+0800">
-                2018-11-08
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:25:10 GMT+0800">
+                2014-10-21
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -512,17 +552,7 @@ wget http...
                     
                         <li>
                             
-                            <a href="/tags/yolov3/">yolov3</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/darknet/">darknet</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/object-detection/">object detection</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -530,7 +560,7 @@ wget http...
         
     </div>
 
-    <a class="read-more" href="/2018/11/08/how-to-train-yolov3-with-your-own-dataset-in-darknet/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp7-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -540,24 +570,21 @@ wget http...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2018/09/18/Run-your-own-dataset-with-keras-yolov3/">
-                        Run your own dataset with keras-yolov3
+                    <a href="/2014/07/06/chp6-JSP/">
+                        chp6_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-Oringal Github
+                        第六章 JSP经典开发技巧
+6.1.2 三种网页对话框(page115)
+使用window.open打开的网页
+使用Web模式对话框
+使用Web非模式对话框
 
-Environment Setup (It depends.)
-Python 3.6.5
-Keras 2.2.2
-tensorflow 1.4.0
 
-Clone from the github
-   
-      g...
+三种对话框的区别是：利用window.open打开的页面和其他的窗口一样，可以在几个窗口...
                     
                 </div>
 
@@ -565,10 +592,22 @@ Clone from the github
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon May 06 2019 15:17:12 GMT+0800">
-                2019-05-06
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:25:18 GMT+0800">
+                2014-10-21
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -577,22 +616,7 @@ Clone from the github
                     
                         <li>
                             
-                            <a href="/tags/github/">github</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/yolov3/">yolov3</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/keras/">keras</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/tutorial/">tutorial</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -600,7 +624,7 @@ Clone from the github
         
     </div>
 
-    <a class="read-more" href="/2018/09/18/Run-your-own-dataset-with-keras-yolov3/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp6-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -610,18 +634,19 @@ Clone from the github
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2018/09/18/how-to-install-ss-qt5-in-Ubuntu-16-04/">
-                        how to install ss-qt5 in Ubuntu 16.04
+                    <a href="/2014/07/06/chp5-JSP/">
+                        chp5_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        It’s so easy to use the apt-get
+                        第五章 JavaBean编程技术
+5.1.3 JavaBean简介(page98)
+JavaBean的4个特性：独立性，可重用性，在可视化开发工具中使用，状态可以保存。
 
-sudo add-apt-repository ppa:hzwhuang/ss-qt5
-sudo apt-get update
-sudo apt-get install shadows...
+5.2.1 JavaBean的特点(page98)
+编写JavaBean就是编...
                     
                 </div>
 
@@ -629,10 +654,22 @@ sudo apt-get install shadows...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon May 06 2019 15:17:58 GMT+0800">
-                2019-05-06
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:25:22 GMT+0800">
+                2014-10-21
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -641,12 +678,7 @@ sudo apt-get install shadows...
                     
                         <li>
                             
-                            <a href="/tags/ss-qt5/">ss-qt5</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/ubuntu-16-04/">ubuntu 16.04</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -654,7 +686,7 @@ sudo apt-get install shadows...
         
     </div>
 
-    <a class="read-more" href="/2018/09/18/how-to-install-ss-qt5-in-Ubuntu-16-04/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp5-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -664,16 +696,22 @@ sudo apt-get install shadows...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2018/09/17/How-to-install-MX150-driver-in-HP-ZHAN-66ProG1/">
-                        How to install MX150 driver in HP ZHAN 66ProG1
+                    <a href="/2014/07/06/chp4-JSP/">
+                        chp4_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-Install the Ubuntu system(Recommand 16.04) and select your best server and make your system updated.
-reboot and turn into th...
+                        第四章 JSP编程技术(重点)
+
+JSP的主要内容包括：3大编译指令，7大操作指令(课本6个)和9大隐含对象(课本7个)。
+
+4.2 JSP页面结构(page68)
+JSP的页面主要包含3种元素：编译指令，操作指令和JSP代码。
+
+编译指令
+编译指令...
                     
                 </div>
 
@@ -681,10 +719,22 @@ reboot and turn into th...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Mon May 06 2019 15:18:48 GMT+0800">
-                2019-05-06
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:25:28 GMT+0800">
+                2014-10-21
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -693,22 +743,7 @@ reboot and turn into th...
                     
                         <li>
                             
-                            <a href="/tags/MX150-driver/">MX150 driver</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Ubuntu-16-04/">Ubuntu 16.04</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/nvidia/">nvidia</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/terminal-installation/">terminal installation</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -716,7 +751,7 @@ reboot and turn into th...
         
     </div>
 
-    <a class="read-more" href="/2018/09/17/How-to-install-MX150-driver-in-HP-ZHAN-66ProG1/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp4-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -726,24 +761,23 @@ reboot and turn into th...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2017/06/20/imple-perceptron-from-scratch/">
-                        从零入门-利用python实现一个感知器
+                    <a href="/2014/07/06/chp3-JSP/">
+                        chp3_JSP
                     </a>
                 </h3>
 
                 <div class="home-article-content keep-markdown-body">
                     
-                        
-感知器是一种最简单的神经网络。
+                        第三章 Servlet编程技术
+3.1.1 Servlet概念(page45)
+Servlet
 
-它是一个利用单个神经元来完成二分类问题的一个模型并且它也是后续建造更大的网络的基础。
+Servlet是一个标准的Java类，它的特殊之处是可以处理HTTP请求。
 
-在本教程中，你会探索如何利用python从零开始实现一个感知器。
 
-看完本教程，你应该会了解：
+JSP与Servlet有什么关系？  
 
-怎么训练感知器的权重
-怎么利...
+JSP是以另一种方式实现的Se...
                     
                 </div>
 
@@ -751,10 +785,22 @@ reboot and turn into th...
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Wed Jun 21 2017 15:57:40 GMT+0800">
-                2017-06-21
+            <span class="home-article-date" data-updated="Tue Oct 21 2014 07:25:40 GMT+0800">
+                2014-10-21
             </span>
         </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/JSP-Review/">JSP_Review</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
         
         
             <span class="home-article-tag">
@@ -763,7 +809,7 @@ reboot and turn into th...
                     
                         <li>
                             
-                            <a href="/tags/Translation/">Translation</a>&nbsp;
+                            <a href="/tags/JSP-%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91/">JSP 网页开发</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -771,7 +817,7 @@ reboot and turn into th...
         
     </div>
 
-    <a class="read-more" href="/2017/06/20/imple-perceptron-from-scratch/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a class="read-more" href="/2014/07/06/chp3-JSP/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -818,7 +864,7 @@ reboot and turn into th...
             
         </div>
         
-            <script async 
+            <script async data-pjax
                     src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <div class="website-count info-item">
                 
@@ -867,6 +913,10 @@ reboot and turn into th...
         
 
         
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
 
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
@@ -877,11 +927,6 @@ reboot and turn into th...
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
         
     </ul>
 </div>
@@ -957,9 +1002,43 @@ reboot and turn into th...
 
 
 
-<div class="post-scripts">
+<div class="post-scripts pjax">
     
 </div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
 
 
 
