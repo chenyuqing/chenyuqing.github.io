@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            conda docker git vim ssr |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">conda docker git vim ssr</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv4</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-06-12 22:46:10</span>
+        <span class="mobile">2023-06-12 22:46</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-16 19:46:27</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5/">技能-修行-进步</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/conda-docker-git-vim-ssr/">conda-docker-git-vim-ssr</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="自建ssr服务器"><a href="#自建ssr服务器" class="headerlink" title="自建ssr服务器"></a>自建ssr服务器</h1><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B" >https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h1 id="conda的使用笔记"><a href="#conda的使用笔记" class="headerlink" title="conda的使用笔记"></a>conda的使用笔记</h1><ol>
+<li>创建环境conda create -n name python&#x3D;3.8</li>
+<li>激活环境conda activate name</li>
+<li>关闭环境conda deactivate</li>
+<li>查看当前环境conda env –list</li>
+<li>查看前期环境中pip列表pip list</li>
+<li>查看指定pip包的安装pip list | grep packagename</li>
+<li>删除环境conda remove -n name –all</li>
+<li>克隆环境conda create -n BBB –clone AAA，B是A的克隆</li>
+<li>转移环境<ol>
+<li>conda转移：conda env export &gt; name.yaml,然后新系统下执行conda env create -f name.yaml</li>
+<li>pip转移：pip freeze &gt; requirements.txt,然后新系统下pip install -r requirements.txt</li>
+</ol>
+</li>
+</ol>
+<h1 id="docker的使用笔记，轻量化虚拟技术"><a href="#docker的使用笔记，轻量化虚拟技术" class="headerlink" title="docker的使用笔记，轻量化虚拟技术"></a>docker的使用笔记，轻量化虚拟技术</h1><ol start="0">
+<li><p>缺点：争抢资源，权限过高；优点：可移植性高，环境封闭</p>
+</li>
+<li><p>基础概念：dockfile，images，container, volume</p>
+<ol>
+<li>dockfile：docker的配置文件</li>
+<li>image：docker的镜像文件，用来创建container的母本</li>
+<li>container：俗称容器，docker最终落地的形态，是一个运行程序的隔离环境。</li>
+<li>volume：数据卷，</li>
+</ol>
+</li>
+<li><p>dockerfile常见的命令(大写形式)：</p>
+<ol>
+<li>FROM：</li>
+<li>WORKDIR：</li>
+<li>COPY</li>
+<li>RUN</li>
+<li>CMD</li>
+</ol>
+</li>
+<li><p>docker 常见命令</p>
+<ol>
+<li>docker create</li>
+<li>docker ps -aq，查看所有的容器</li>
+<li>docker images -q，查看所有的镜像</li>
+<li>docker build</li>
+<li>docker run -p -v<ol>
+<li>数据和命令，通过映射的方式在宿主和容器之间进行传递，其中-p表示port，端口，-v表示volume，卷。 -d,daemon，在后台运行。–name，表示名字<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d --name music -p 264:264 -v /opt/musciplayer:/var/www/html/cache/music-player-docker</span></span><br></pre></td></tr></table></figure></li>
+<li>例子：通过冒号作为宿主和容器之间的分隔符!<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">宿主 : 容器</span><br></pre></td></tr></table></figure></li>
+<li></li>
+</ol>
+</li>
+<li>docker stop <container id>，停止指定容器，docker stop $(docker ps -aq)，停止所有容器</li>
+<li>docker restart <container id></li>
+<li>docker rm <container id>，删除指定容器，docker rm $(docker ps -aq)，删除所有容器</li>
+<li>docker rmi <container id>，删除指定镜像，docker rmi $(docker images -q)，删除所有镜像</li>
+<li>docker exec -it <container id> &#x2F;bin&#x2F;bash</li>
+<li>docker volume create </li>
+<li>docker cp <container id>:&#x2F;opt&#x2F;file.txt &#x2F;opt&#x2F;local&#x2F;</li>
+<li>docker cp &#x2F;opt&#x2F;local&#x2F;file.txt <container id>:&#x2F;opt&#x2F;</li>
+<li>docker有了专门清理资源(container、image、网络)的命令，docker system prune</li>
+<li>docker image prune –force –all 或者docker image prune -f -a 删除所有不使用的镜像</li>
+<li>docker container prune -f 删除所有停止的容器</li>
+</ol>
+</li>
+<li><p>docker compose</p>
+<ol>
+<li>docker compose up</li>
+<li>docker compose down</li>
+</ol>
+</li>
+</ol>
+<h1 id="git的使用笔记"><a href="#git的使用笔记" class="headerlink" title="git的使用笔记"></a>git的使用笔记</h1><h1 id="vim的使用笔记"><a href="#vim的使用笔记" class="headerlink" title="vim的使用笔记"></a>vim的使用笔记</h1><h1 id="ssh知识和问题集"><a href="#ssh知识和问题集" class="headerlink" title="ssh知识和问题集"></a>ssh知识和问题集</h1><ol>
+<li><p>ssh连接发生错误信息：kex_exchange_identification: Connection closed by remote host</p>
+<ul>
+<li>解决方法：可能是认证的key失效了，进入~&#x2F;.ssh，删除know_hosts目录，重新连接一下</li>
+</ul>
+</li>
+<li><p>基本命令<br>pwd 打印当前文件夹的路径<br>cd  改变目录, 相当于 windows 下的打开文件夹<br>ls  展示当前目录下的所有文件内容<br>mkdir 创建目录, 创建文件夹<br>rmdir 删除文件夹<br>touch 创建文件<br>rm 删除文件<br>cat 原意是指将文件与终端输出流连接, 通俗的说输出文件内容<br>less 或 more( Unix ) 命令可以分页的打开文件, 注意使用 q 退出<br>echo 命令 打印</p>
+<blockquote>
+<p>重定向, 如果文件存在, 则将文件截断, 并重新输入.</p>
+<blockquote>
+<p> 重定向. 不截断重定向<br>ipconfig&#x2F;all  查看ip信息<br>ping IP地址    查看是否连接成功<br>tips:<br>注意: 换行问题:在 linux 中使用 \n 表示换行;在 windows 中使用 \r\n 表示换行<br>注意:文件截断是指将文件的所有内容删除, 但是文件的创建时间等信息不更改</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>查看某一目录下所有文件夹的内存占用</p>
+</li>
+</ol>
+<ul>
+<li>du -sh .&#x2F;* –exclude proc</li>
+</ul>
+<ol start="4">
+<li>查看各磁盘内存情况</li>
+</ol>
+<ul>
+<li>df -h</li>
+</ul>
+<ol start="5">
+<li><p>开启ssh远程连接服务</p>
+<ol>
+<li>测试是否安装了openssh server，sudo service ssh start</li>
+<li>如果没有安装，则安装，sudo apt update &amp;&amp; sudo apt install openssh-server</li>
+<li>安装完毕则可以开始连接了</li>
+</ol>
+</li>
+<li><p>本地机器和远程服务器之间传送文件</p>
+<ol>
+<li>scp命令，scp  [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文件路径&gt;</li>
+<li>#拷贝文件夹，加-r参数</li>
+<li>例子；scp -r &#x2F;home&#x2F;tim&#x2F;workspace&#x2F;github&#x2F;style <a class="link"   href="mailto:&#x74;&#105;&#x6d;&#x40;&#x31;&#57;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#120;&#x78;&#120;&#x2e;&#x78;&#x78;" >&#x74;&#105;&#x6d;&#x40;&#x31;&#57;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#120;&#x78;&#120;&#x2e;&#x78;&#x78;<i class="fas fa-external-link-alt"></i></a>:&#x2F;home&#x2F;tim&#x2F;github&#x2F;style</li>
+</ol>
+</li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">conda docker git vim ssr</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-06-12 22:46:10</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/06/12/conda_docker_git_vim/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/conda-docker-git-vim-ssr/">#conda-docker-git-vim-ssr</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/06/15/monica-ai-exam1/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">monica AI GPT 总结视频内容1</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/05/31/FLOPs/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">FLOPs</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%BB%BAssr%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">自建ssr服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conda%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">conda的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%EF%BC%8C%E8%BD%BB%E9%87%8F%E5%8C%96%E8%99%9A%E6%8B%9F%E6%8A%80%E6%9C%AF"><span class="nav-number">3.</span> <span class="nav-text">docker的使用笔记，轻量化虚拟技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">4.</span> <span class="nav-text">git的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">vim的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh%E7%9F%A5%E8%AF%86%E5%92%8C%E9%97%AE%E9%A2%98%E9%9B%86"><span class="nav-number">6.</span> <span class="nav-text">ssh知识和问题集</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
