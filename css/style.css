@@ -2682,6 +2682,17 @@ pre .javascript .function {
   height: 100vh;
   overflow: hidden;
   background: url("/img/bg.svg") center center/cover no-repeat;
+  background-position-y: 70px;
+}
+@media (max-width: 800px) {
+  .first-screen-container {
+    background-position-y: 63px;
+  }
+}
+@media (max-width: 500px) {
+  .first-screen-container {
+    background-position-y: 56px;
+  }
 }
 .first-screen-container .content {
   position: relative;
