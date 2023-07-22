@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chan">
+    
+    <title>
+        
+            chap1-Intro to basics |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">chap1-Intro to basics</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chan</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2014-11-18 20:09:15</span>
+        <span class="mobile">2014-11-18 20:09</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 10:11:56</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-R%E8%AF%AD%E8%A8%80/">技能-修行-进步-R语言</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/R-Tutorial/">R Tutorial</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>9 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><ul>
+<li>In the editor on the right you should type R code to solve the exercises.</li>
+<li>R makes use of the <font color="red">#</font> sign to add comments, so that you and others can understand what the R code is about. Just like Twitter! Comments are not run as R-code,so they will not influence your result.</li>
+<li>The ouput of your R code is shown in the <strong>console</strong> int the lower right corner, while <strong>graphs</strong> are shown in the upper right corner.</li>
+</ul>
+<h2 id="Instructions"><a href="#Instructions" class="headerlink" title="Instructions"></a>Instructions</h2><ul>
+<li>In its most basic form, R can thus be used as a calculator or as a means to generate plots, but there is much more;-)!</li>
+<li>You can see that R has generated some cool visualizations in the upper right corner. Use the arrows above the graphs to browse through these.</li>
+</ul>
+<h2 id="Exercises"><a href="#Exercises" class="headerlink" title="Exercises"></a>Exercises</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show some demo graphs generated with R</span></span><br><span class="line">demo(<span class="string">&quot;graphics&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; require(datasets)</span><br><span class="line"></span><br><span class="line">&gt; require(grDevices); require(graphics)</span><br><span class="line"></span><br><span class="line">&gt; <span class="comment">## Here is some code which illustrates some of the differences between</span></span><br><span class="line">&gt; <span class="comment">## R and S graphics capabilities.  Note that colors are generally specified</span></span><br><span class="line">&gt; <span class="comment">## by a character string name (taken from the X11 rgb.txt file) and that line</span></span><br><span class="line">&gt; <span class="comment">## textures are given similarly.  The parameter &quot;bg&quot; sets the background</span></span><br><span class="line">&gt; <span class="comment">## parameter for the plot and there is also an &quot;fg&quot; parameter which sets</span></span><br><span class="line">&gt; <span class="comment">## the foreground color.</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; </span><br><span class="line">&gt; x &lt;- stats::rnorm(50)</span><br><span class="line"></span><br><span class="line">&gt; opar &lt;- par(<span class="built_in">bg</span> = <span class="string">&quot;white&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; plot(x, ann = FALSE, <span class="built_in">type</span> = <span class="string">&quot;n&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt; abline(h = 0, col = gray(.90))</span><br><span class="line"></span><br><span class="line">&gt; lines(x, col = <span class="string">&quot;green4&quot;</span>, lty = <span class="string">&quot;dotted&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; points(x, <span class="built_in">bg</span> = <span class="string">&quot;limegreen&quot;</span>, pch = 21)</span><br><span class="line"></span><br><span class="line">&gt; title(main = <span class="string">&quot;Simple Use of Color In a Plot&quot;</span>,</span><br><span class="line">+       xlab = <span class="string">&quot;Just a Whisper of a Label&quot;</span>,</span><br><span class="line">+       col.main = <span class="string">&quot;blue&quot;</span>, col.lab = gray(.8),</span><br><span class="line">+       cex.main = 1.2, cex.lab = 1.0, font.main = 4, font.lab = 3)</span><br><span class="line"></span><br><span class="line">&gt; <span class="comment">## A little color wheel.	 This code just plots equally spaced hues in</span></span><br><span class="line">&gt; <span class="comment">## a pie chart.	If you have a cheap SVGA monitor (like me) you will</span></span><br><span class="line">&gt; <span class="comment">## probably find that numerically equispaced does not mean visually</span></span><br><span class="line">&gt; <span class="comment">## equispaced.  On my display at home, these colors tend to cluster at</span></span><br><span class="line">&gt; <span class="comment">## the RGB primaries.  On the other hand on the SGI Indy at work the</span></span><br><span class="line">&gt; <span class="comment">## effect is near perfect.</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; par(<span class="built_in">bg</span> = <span class="string">&quot;gray&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; pie(rep(1,24), col = rainbow(24), radius = 0.9)</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/01-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; title(main = <span class="string">&quot;A Sample Color Wheel&quot;</span>, cex.main = 1.4, font.main = 3)</span><br><span class="line"></span><br><span class="line">&gt; title(xlab = <span class="string">&quot;(Use this as a test of monitor linearity)&quot;</span>,</span><br><span class="line">+       cex.lab = 0.8, font.lab = 3)</span><br><span class="line"></span><br><span class="line">&gt; <span class="comment">## We have already confessed to having these.  This is just showing off X11</span></span><br><span class="line">&gt; <span class="comment">## color names (and the example (from the postscript manual) is pretty &quot;cute&quot;.</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; pie.sales &lt;- c(0.12, 0.3, 0.26, 0.16, 0.04, 0.12)</span><br><span class="line"></span><br><span class="line">&gt; names(pie.sales) &lt;- c(<span class="string">&quot;Blueberry&quot;</span>, <span class="string">&quot;Cherry&quot;</span>,</span><br><span class="line">+ 		      <span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Boston Cream&quot;</span>, <span class="string">&quot;Other&quot;</span>, <span class="string">&quot;Vanilla Cream&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; pie(pie.sales,</span><br><span class="line">+     col = c(<span class="string">&quot;purple&quot;</span>,<span class="string">&quot;violetred1&quot;</span>,<span class="string">&quot;green3&quot;</span>,<span class="string">&quot;cornsilk&quot;</span>,<span class="string">&quot;cyan&quot;</span>,<span class="string">&quot;white&quot;</span>))</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/02-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; title(main = <span class="string">&quot;January Pie Sales&quot;</span>, cex.main = 1.8, font.main = 1)</span><br><span class="line"></span><br><span class="line">&gt; title(xlab = <span class="string">&quot;(Don&#x27;t try this at home kids)&quot;</span>, cex.lab = 0.8, font.lab = 3)</span><br><span class="line"></span><br><span class="line">&gt; <span class="comment">## Boxplots:  I couldn&#x27;t resist the capability for filling the &quot;box&quot;.</span></span><br><span class="line">&gt; <span class="comment">## The use of color seems like a useful addition, it focuses attention</span></span><br><span class="line">&gt; <span class="comment">## on the central bulk of the data.</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; par(<span class="built_in">bg</span>=<span class="string">&quot;cornsilk&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; n &lt;- 10</span><br><span class="line"></span><br><span class="line">&gt; g &lt;- gl(n, 100, n*100)</span><br><span class="line"></span><br><span class="line">&gt; x &lt;- rnorm(n*100) + sqrt(as.numeric(g))</span><br><span class="line"></span><br><span class="line">&gt; boxplot(<span class="built_in">split</span>(x,g), col=<span class="string">&quot;lavender&quot;</span>, notch=TRUE)</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/03-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; title(main=<span class="string">&quot;Notched Boxplots&quot;</span>, xlab=<span class="string">&quot;Group&quot;</span>, font.main=4, font.lab=1)</span><br><span class="line"></span><br><span class="line">&gt; <span class="comment">## An example showing how to fill between curves.</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; par(<span class="built_in">bg</span>=<span class="string">&quot;white&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; n &lt;- 100</span><br><span class="line"></span><br><span class="line">&gt; x &lt;- c(0,cumsum(rnorm(n)))</span><br><span class="line"></span><br><span class="line">&gt; y &lt;- c(0,cumsum(rnorm(n)))</span><br><span class="line"></span><br><span class="line">&gt; xx &lt;- c(0:n, n:0)</span><br><span class="line"></span><br><span class="line">&gt; yy &lt;- c(x, rev(y))</span><br><span class="line"></span><br><span class="line">&gt; plot(xx, yy, <span class="built_in">type</span>=<span class="string">&quot;n&quot;</span>, xlab=<span class="string">&quot;Time&quot;</span>, ylab=<span class="string">&quot;Distance&quot;</span>)</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/04-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; polygon(xx, yy, col=<span class="string">&quot;gray&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; title(<span class="string">&quot;Distance Between Brownian Motions&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; <span class="comment">## Colored plot margins, axis labels and titles.	 You do need to be</span></span><br><span class="line">&gt; <span class="comment">## careful with these kinds of effects.	It&#x27;s easy to go completely</span></span><br><span class="line">&gt; <span class="comment">## over the top and you can end up with your lunch all over the keyboard.</span></span><br><span class="line">&gt; <span class="comment">## On the other hand, my market research clients love it.</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; x &lt;- c(0.00, 0.40, 0.86, 0.85, 0.69, 0.48, 0.54, 1.09, 1.11, 1.73, 2.05, 2.02)</span><br><span class="line"></span><br><span class="line">&gt; par(<span class="built_in">bg</span>=<span class="string">&quot;lightgray&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; plot(x, <span class="built_in">type</span>=<span class="string">&quot;n&quot;</span>, axes=FALSE, ann=FALSE)</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/05-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; usr &lt;- par(<span class="string">&quot;usr&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; rect(usr[1], usr[3], usr[2], usr[4], col=<span class="string">&quot;cornsilk&quot;</span>, border=<span class="string">&quot;black&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; lines(x, col=<span class="string">&quot;blue&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; points(x, pch=21, <span class="built_in">bg</span>=<span class="string">&quot;lightcyan&quot;</span>, cex=1.25)</span><br><span class="line"></span><br><span class="line">&gt; axis(2, col.axis=<span class="string">&quot;blue&quot;</span>, las=1)</span><br><span class="line"></span><br><span class="line">&gt; axis(1, at=1:12, lab=month.abb, col.axis=<span class="string">&quot;blue&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; box()</span><br><span class="line"></span><br><span class="line">&gt; title(main= <span class="string">&quot;The Level of Interest in R&quot;</span>, font.main=4, col.main=<span class="string">&quot;red&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; title(xlab= <span class="string">&quot;1996&quot;</span>, col.lab=<span class="string">&quot;red&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; <span class="comment">## A filled histogram, showing how to change the font used for the</span></span><br><span class="line">&gt; <span class="comment">## main title without changing the other annotation.</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; par(<span class="built_in">bg</span>=<span class="string">&quot;cornsilk&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; x &lt;- rnorm(1000)</span><br><span class="line"></span><br><span class="line">&gt; hist(x, xlim=range(-4, 4, x), col=<span class="string">&quot;lavender&quot;</span>, main=<span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/06-plot.PNG)</center>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> title<span class="punctuation">(</span>main<span class="operator">=</span><span class="string">&quot;1000 Normal Random Variates&quot;</span><span class="punctuation">,</span> font.main<span class="operator">=</span><span class="number">3</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="operator">&gt;</span> <span class="comment">## A scatterplot matrix</span></span><br><span class="line"><span class="operator">&gt;</span> <span class="comment">## The good old Iris data (yet again)</span></span><br><span class="line"><span class="operator">&gt;</span> </span><br><span class="line"><span class="operator">&gt;</span> pairs<span class="punctuation">(</span>iris<span class="punctuation">[</span><span class="number">1</span><span class="operator">:</span><span class="number">4</span><span class="punctuation">]</span><span class="punctuation">,</span> main<span class="operator">=</span><span class="string">&quot;Edgar Anderson&#x27;s Iris Data&quot;</span><span class="punctuation">,</span> font.main<span class="operator">=</span><span class="number">4</span><span class="punctuation">,</span> pch<span class="operator">=</span><span class="number">19</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/07-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pairs(iris[1:4], main=<span class="string">&quot;Edgar Anderson&#x27;s Iris Data&quot;</span>, pch=21,</span><br><span class="line">+       <span class="built_in">bg</span> = c(<span class="string">&quot;red&quot;</span>, <span class="string">&quot;green3&quot;</span>, <span class="string">&quot;blue&quot;</span>)[unclass(iris<span class="variable">$Species</span>)])</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/08-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">## Contour plotting</span></span><br><span class="line">&gt; <span class="comment">## This produces a topographic map of one of Auckland&#x27;s many volcanic &quot;peaks&quot;.</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; x &lt;- 10*1:nrow(volcano)</span><br><span class="line"></span><br><span class="line">&gt; y &lt;- 10*1:ncol(volcano)</span><br><span class="line"></span><br><span class="line">&gt; lev &lt;- pretty(range(volcano), 10)</span><br><span class="line"></span><br><span class="line">&gt; par(<span class="built_in">bg</span> = <span class="string">&quot;lightcyan&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; pin &lt;- par(<span class="string">&quot;pin&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; xdelta &lt;- diff(range(x))</span><br><span class="line"></span><br><span class="line">&gt; ydelta &lt;- diff(range(y))</span><br><span class="line"></span><br><span class="line">&gt; xscale &lt;- pin[1]/xdelta</span><br><span class="line"></span><br><span class="line">&gt; yscale &lt;- pin[2]/ydelta</span><br><span class="line"></span><br><span class="line">&gt; scale &lt;- min(xscale, yscale)</span><br><span class="line"></span><br><span class="line">&gt; xadd &lt;- 0.5*(pin[1]/scale - xdelta)</span><br><span class="line"></span><br><span class="line">&gt; yadd &lt;- 0.5*(pin[2]/scale - ydelta)</span><br><span class="line"></span><br><span class="line">&gt; plot(numeric(0), numeric(0),</span><br><span class="line">+      xlim = range(x)+c(-1,1)*xadd, ylim = range(y)+c(-1,1)*yadd,</span><br><span class="line">+      <span class="built_in">type</span> = <span class="string">&quot;n&quot;</span>, ann = FALSE)</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/09-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&gt; usr &lt;- par(<span class="string">&quot;usr&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; rect(usr[1], usr[3], usr[2], usr[4], col=<span class="string">&quot;green3&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; contour(x, y, volcano, levels = lev, col=<span class="string">&quot;yellow&quot;</span>, lty=<span class="string">&quot;solid&quot;</span>, add=TRUE)</span><br><span class="line"></span><br><span class="line">&gt; box()</span><br><span class="line"></span><br><span class="line">&gt; title(<span class="string">&quot;A Topographic Map of Maunga Whau&quot;</span>, font= 4)</span><br><span class="line"></span><br><span class="line">&gt; title(xlab = <span class="string">&quot;Meters North&quot;</span>, ylab = <span class="string">&quot;Meters West&quot;</span>, font= 3)</span><br><span class="line"></span><br><span class="line">&gt; mtext(<span class="string">&quot;10 Meter Contour Spacing&quot;</span>, side=3, line=0.35, outer=FALSE,</span><br><span class="line">+       at = mean(par(<span class="string">&quot;usr&quot;</span>)[1:2]), cex=0.7, font=3)</span><br><span class="line"></span><br><span class="line">&gt; <span class="comment">## Conditioning plots</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; par(<span class="built_in">bg</span>=<span class="string">&quot;cornsilk&quot;</span>)</span><br><span class="line"></span><br><span class="line">&gt; coplot(lat ~ long | depth, data = quakes, pch = 21, <span class="built_in">bg</span> = <span class="string">&quot;green3&quot;</span>)</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/10-plot.PNG)</center>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; par(opar)</span><br></pre></td></tr></table></figure>
+<center>![](/img/r-tutorial-datacamp/01-basics/11-plot.PNG)</center>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Calculate 3+4</span></span><br><span class="line">3 + 4</span><br><span class="line">[1] 7</span><br></pre></td></tr></table></figure>
+<h2 id="Next-Tutorial"><a href="#Next-Tutorial" class="headerlink" title="Next Tutorial"></a><a class="link"   target="_blank" rel="noopener" href="http://chenyuqing.github.io/2014/11/18/chap1-little-arithmeics-with-R/" >Next Tutorial<i class="fas fa-external-link-alt"></i></a></h2>
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">chap1-Intro to basics</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Tim Chan</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2014-11-18 20:09:15</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2014/11/18/chap1-Intro-to-basics/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/R-Tutorial/">#R Tutorial</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2014/11/18/chap1-variable-assignment/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">chap1-variable-assignment</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2014/11/06/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B51/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">概率论基本概念1</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#How-it-works"><span class="nav-number">1.</span> <span class="nav-text">How it works</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Instructions"><span class="nav-number">2.</span> <span class="nav-text">Instructions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercises"><span class="nav-number">3.</span> <span class="nav-text">Exercises</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Next-Tutorial"><span class="nav-number">4.</span> <span class="nav-text">Next Tutorial</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chan</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
