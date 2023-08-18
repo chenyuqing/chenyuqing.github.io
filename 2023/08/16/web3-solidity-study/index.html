@@ -9,7 +9,7 @@
     
     <title>
         
-            conda docker git vim ssr |
+            solidity学习笔记 |
         
         In Web3.0 We Trust
     </title>
@@ -186,7 +186,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">conda docker git vim ssr</span>
+                <span class="title-hover-animation">solidity学习笔记</span>
             </div>
 
             
@@ -208,13 +208,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2023-06-12 22:46:10</span>
-        <span class="mobile">2023-06-12 22:46</span>
+        <span class="pc">2023-08-16 10:32:30</span>
+        <span class="mobile">2023-08-16 10:32</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-07-20 12:01:42</span>
+        <span class="pc">2023-08-18 11:09:49</span>
     </span>
     
     
@@ -223,7 +223,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E5%B0%8F%E8%80%8C%E7%BE%8E-%E5%B7%A5%E5%85%B7/">小而美-工具</a>&nbsp;
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/">技能-修行-进步-Web3</a>&nbsp;
                     </li>
                 
             </ul>
@@ -235,7 +235,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/conda-docker-git-vim-ssr/">conda-docker-git-vim-ssr</a>&nbsp;
+                        <a href="/tags/solidity/">solidity</a>&nbsp;
                     </li>
                 
             </ul>
@@ -245,12 +245,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>752 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>3 分钟</span>
         </span>
     
     
@@ -268,118 +268,162 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="自建ssr服务器"><a href="#自建ssr服务器" class="headerlink" title="自建ssr服务器"></a>自建ssr服务器</h1><ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B" >https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B<i class="fas fa-external-link-alt"></i></a></li>
-</ul>
-<h1 id="conda的使用笔记"><a href="#conda的使用笔记" class="headerlink" title="conda的使用笔记"></a>conda的使用笔记</h1><ol>
-<li>创建环境conda create -n name python&#x3D;3.8</li>
-<li>激活环境conda activate name</li>
-<li>关闭环境conda deactivate</li>
-<li>查看当前环境conda env –list</li>
-<li>查看前期环境中pip列表pip list</li>
-<li>查看指定pip包的安装pip list | grep packagename</li>
-<li>删除环境conda remove -n name –all</li>
-<li>克隆环境conda create -n BBB –clone AAA，B是A的克隆</li>
-<li>转移环境<ol>
-<li>conda转移：conda env export &gt; name.yaml,然后新系统下执行conda env create -f name.yaml</li>
-<li>pip转移：pip freeze &gt; requirements.txt,然后新系统下pip install -r requirements.txt</li>
-</ol>
+                <ul>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" >以太坊白皮书<i class="fas fa-external-link-alt"></i></a></p>
 </li>
-</ol>
-<h1 id="docker的使用笔记，轻量化虚拟技术"><a href="#docker的使用笔记，轻量化虚拟技术" class="headerlink" title="docker的使用笔记，轻量化虚拟技术"></a>docker的使用笔记，轻量化虚拟技术</h1><ol start="0">
-<li><p>缺点：争抢资源，权限过高；优点：可移植性高，环境封闭</p>
-</li>
-<li><p>基础概念：dockfile，images，container, volume</p>
-<ol>
-<li>dockfile：docker的配置文件</li>
-<li>image：docker的镜像文件，用来创建container的母本</li>
-<li>container：俗称容器，docker最终落地的形态，是一个运行程序的隔离环境。</li>
-<li>volume：数据卷，</li>
-</ol>
-</li>
-<li><p>dockerfile常见的命令(大写形式)：</p>
-<ol>
-<li>FROM：</li>
-<li>WORKDIR：</li>
-<li>COPY</li>
-<li>RUN</li>
-<li>CMD</li>
-</ol>
-</li>
-<li><p>docker 常见命令</p>
-<ol>
-<li>docker create</li>
-<li>docker ps -aq，查看所有的容器</li>
-<li>docker images -q，查看所有的镜像</li>
-<li>docker build</li>
-<li>docker run -p -v<ol>
-<li>数据和命令，通过映射的方式在宿主和容器之间进行传递，其中-p表示port，端口，-v表示volume，卷。 -d,daemon，在后台运行。–name，表示名字<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d --name music -p 264:264 -v /opt/musciplayer:/var/www/html/cache/music-player-docker</span></span><br></pre></td></tr></table></figure></li>
-<li>例子：通过冒号作为宿主和容器之间的分隔符!<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">宿主 : 容器</span><br></pre></td></tr></table></figure></li>
-<li></li>
-</ol>
-</li>
-<li>docker stop <container id>，停止指定容器，docker stop $(docker ps -aq)，停止所有容器</li>
-<li>docker restart <container id></li>
-<li>docker rm <container id>，删除指定容器，docker rm $(docker ps -aq)，删除所有容器</li>
-<li>docker rmi <container id>，删除指定镜像，docker rmi $(docker images -q)，删除所有镜像</li>
-<li>docker exec -it <container id> &#x2F;bin&#x2F;bash</li>
-<li>docker volume create </li>
-<li>docker cp <container id>:&#x2F;opt&#x2F;file.txt &#x2F;opt&#x2F;local&#x2F;</li>
-<li>docker cp &#x2F;opt&#x2F;local&#x2F;file.txt <container id>:&#x2F;opt&#x2F;</li>
-<li>docker有了专门清理资源(container、image、网络)的命令，docker system prune</li>
-<li>docker image prune –force –all 或者docker image prune -f -a 删除所有不使用的镜像</li>
-<li>docker container prune -f 删除所有停止的容器</li>
-</ol>
-</li>
-<li><p>docker compose</p>
-<ol>
-<li>docker compose up</li>
-<li>docker compose down</li>
-</ol>
-</li>
-</ol>
-<h1 id="git的使用笔记"><a href="#git的使用笔记" class="headerlink" title="git的使用笔记"></a>git的使用笔记</h1><h1 id="vim的使用笔记"><a href="#vim的使用笔记" class="headerlink" title="vim的使用笔记"></a>vim的使用笔记</h1><h1 id="ssh知识和问题集"><a href="#ssh知识和问题集" class="headerlink" title="ssh知识和问题集"></a>ssh知识和问题集</h1><ol>
-<li><p>ssh连接发生错误信息：kex_exchange_identification: Connection closed by remote host</p>
+<li><p>极力推荐入门教程，配合食用更佳！写智能合约，节省gas费用永远放在第一位。</p>
 <ul>
-<li>解决方法：可能是认证的key失效了，进入~&#x2F;.ssh，删除know_hosts目录，重新连接一下</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://solidity-cn.readthedocs.io/zh/develop/" >solidity中文网<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://cryptozombies.io/en/solidity" >僵尸打怪-Solidity: Beginner to Intermediate Smart Contracts<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.wtf.academy/solidity-start" >WTF-Solidity 101 入门<i class="fas fa-external-link-alt"></i></a></li>
+<li>Solidity8.0全面精通-B站崔棉大师<ul>
+<li><iframe src="//player.bilibili.com/player.html?aid=810148091&bvid=BV1E34y147JC&cid=562223215&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></li>
 </ul>
 </li>
-<li><p>基本命令<br>pwd 打印当前文件夹的路径<br>cd  改变目录, 相当于 windows 下的打开文件夹<br>ls  展示当前目录下的所有文件内容<br>mkdir 创建目录, 创建文件夹<br>rmdir 删除文件夹<br>touch 创建文件<br>rm 删除文件<br>cat 原意是指将文件与终端输出流连接, 通俗的说输出文件内容<br>less 或 more( Unix ) 命令可以分页的打开文件, 注意使用 q 退出<br>echo 命令 打印</p>
-<blockquote>
-<p>重定向, 如果文件存在, 则将文件截断, 并重新输入.</p>
-<blockquote>
-<p> 重定向. 不截断重定向<br>ipconfig&#x2F;all  查看ip信息<br>ping IP地址    查看是否连接成功<br>tips:<br>注意: 换行问题:在 linux 中使用 \n 表示换行;在 windows 中使用 \r\n 表示换行<br>注意:文件截断是指将文件的所有内容删除, 但是文件的创建时间等信息不更改</p>
-</blockquote>
-</blockquote>
+</ul>
 </li>
-<li><p>查看某一目录下所有文件夹的内存占用</p>
+<li><p>solidity是一门编译性语言，需要经过编译器编译成字节码，然后再部署到区块链上，所以需要安装编译器，推荐使用<a class="link"   target="_blank" rel="noopener" href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a>在线编译器，也可以使用<a class="link"   target="_blank" rel="noopener" href="https://www.trufflesuite.com/" >truffle<i class="fas fa-external-link-alt"></i></a>本地编译器，但是truffle需要安装nodejs，npm，ganache等环境，比较麻烦，所以推荐使用remix。</p>
 </li>
-</ol>
+<li><p>solidity是一门面向合约的语言，所以需要有合约的概念，合约是一种特殊的类，合约中可以定义状态变量，函数，事件，修饰器，结构体，枚举等。</p>
+</li>
+<li><p><img src="/img/wuweiwu/solidity-study/solidity-basic.png"></p>
+</li>
+</ul>
+<h2 id="Remix-IDE"><a href="#Remix-IDE" class="headerlink" title="Remix-IDE"></a>Remix-IDE</h2><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a></li>
+<li>面板介绍<ul>
+<li><img src="/img/wuweiwu/solidity-study/remix-ide.png"></li>
+</ul>
+</li>
+</ul>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="类型和值"><a href="#类型和值" class="headerlink" title="类型和值"></a>类型和值</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract dataType&#123;</span><br><span class="line">    uint <span class="keyword">public</span> uint_min = <span class="built_in">type</span>(uint).min;</span><br><span class="line">    uint <span class="keyword">public</span> uint_max = <span class="built_in">type</span>(uint).max;</span><br><span class="line">    uint <span class="keyword">public</span> uint_def;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_min = <span class="built_in">type</span>(<span class="type">int</span>).min;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_max = <span class="built_in">type</span>(<span class="type">int</span>).max;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_def;</span><br><span class="line"></span><br><span class="line">    address <span class="keyword">public</span> addr;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">public</span> bol;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>du -sh .&#x2F;* –exclude proc</li>
+<li><img src="/img/wuweiwu/solidity-study/sol-datatype-1.png"></li>
+<li>有符号整数，无符号整数</li>
 </ul>
-<ol start="4">
-<li>查看各磁盘内存情况</li>
-</ol>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>默认值</th>
+<th>最小值</th>
+<th>最大值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int(默认: int256)</td>
+<td>0</td>
+<td>-2**256</td>
+<td>2**256-1</td>
+</tr>
+<tr>
+<td>int128</td>
+<td>0</td>
+<td>-2**128</td>
+<td>2**128-1</td>
+</tr>
+<tr>
+<td>int64</td>
+<td>0</td>
+<td>-2**64</td>
+<td>2**64-1</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>0</td>
+<td>-2**32</td>
+<td>2**32-1</td>
+</tr>
+<tr>
+<td>int16</td>
+<td>0</td>
+<td>-2**16</td>
+<td>2**16-1</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>0</td>
+<td>-2**8</td>
+<td>2**8-1</td>
+</tr>
+<tr>
+<td>uint(默认: uint256)</td>
+<td>0</td>
+<td>0</td>
+<td>2**256-1</td>
+</tr>
+<tr>
+<td>uint128</td>
+<td>0</td>
+<td>0</td>
+<td>2**128-1</td>
+</tr>
+<tr>
+<td>uint64</td>
+<td>0</td>
+<td>0</td>
+<td>2**64-1</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>0</td>
+<td>0</td>
+<td>2**32-1</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>0</td>
+<td>0</td>
+<td>2**16-1</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>0</td>
+<td>0</td>
+<td>2**8-1</td>
+</tr>
+</tbody></table>
 <ul>
-<li>df -h</li>
+<li>字节，布尔值</li>
 </ul>
-<ol start="5">
-<li><p>开启ssh远程连接服务</p>
-<ol>
-<li>测试是否安装了openssh server，sudo service ssh start</li>
-<li>如果没有安装，则安装，sudo apt update &amp;&amp; sudo apt install openssh-server</li>
-<li>安装完毕则可以开始连接了</li>
-</ol>
-</li>
-<li><p>本地机器和远程服务器之间传送文件</p>
-<ol>
-<li>scp命令，scp  [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文件路径&gt;</li>
-<li>#拷贝文件夹，加-r参数</li>
-<li>例子；scp -r &#x2F;home&#x2F;tim&#x2F;workspace&#x2F;github&#x2F;style <a class="link"   href="mailto:&#116;&#105;&#x6d;&#x40;&#x31;&#57;&#50;&#x2e;&#x31;&#54;&#x38;&#46;&#120;&#120;&#x78;&#46;&#120;&#120;" >&#116;&#105;&#x6d;&#x40;&#x31;&#57;&#50;&#x2e;&#x31;&#54;&#x38;&#46;&#120;&#120;&#x78;&#46;&#120;&#120;<i class="fas fa-external-link-alt"></i></a>:&#x2F;home&#x2F;tim&#x2F;github&#x2F;style</li>
-</ol>
-</li>
-</ol>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>address</td>
+<td>0x0…(total 40 zeros)</td>
+</tr>
+<tr>
+<td>｜bool</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<h2 id="异常报错"><a href="#异常报错" class="headerlink" title="异常报错"></a>异常报错</h2><ul>
+<li>gas费用：require &gt; assert &gt; error</li>
+<li>asser()：断言，不能带说明信息，如果断言失败，会消耗所有的gas，所有的状态变量都会被重置，所以不要使用断言。一般不会用，通常在调试的时候使用。</li>
+</ul>
+<h2 id="Modifier，修饰器"><a href="#Modifier，修饰器" class="headerlink" title="Modifier，修饰器"></a>Modifier，修饰器</h2><ul>
+<li>类似于java中的注解，可以在函数前面加修饰器，修饰器可以用来检查函数的输入，比如检查函数的调用者是否是合约的拥有者，是否是合约的管理员，是否是合约的成员等等。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract PauseFuncion&#123;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">public</span> paused;</span><br><span class="line">    uint <span class="keyword">public</span> num;</span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">setPause</span><span class="params">(<span class="type">bool</span> _paused)</span> external </span>&#123;</span><br><span class="line">        paused = _paused;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">modifier <span class="title">whenNotPaused</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(!paused, <span class="string">&quot;paused&quot;</span>);</span><br><span class="line">        _; <span class="comment">// _;代表被调用的代码块如果符合条件会在这里继续运行</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">inc</span><span class="params">()</span> external whenNotPaused</span>&#123;</span><br><span class="line">        <span class="comment">// require(!paused, &quot;paused&quot;);</span></span><br><span class="line">        num += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">dec</span><span class="params">()</span> external whenNotPaused</span>&#123;</span><br><span class="line">        <span class="comment">// require(!paused, &quot;paused&quot;);</span></span><br><span class="line">        num -= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h2><h2 id="数组Array"><a href="#数组Array" class="headerlink" title="数组Array"></a>数组Array</h2><ul>
+<li>在memory中不能定义动态数组，不能使用push()和pop()方法</li>
+<li>动态数组只能存在于状态变量中,stableVariable</li>
+</ul>
+<h2 id="mapping，映射"><a href="#mapping，映射" class="headerlink" title="mapping，映射"></a>mapping，映射</h2><ul>
+<li>delete map[key]，不会删除value，而是把value重置为默认值了</li>
+</ul>
+<h2 id="enum，枚举"><a href="#enum，枚举" class="headerlink" title="enum，枚举"></a>enum，枚举</h2><ul>
+<li>枚举：是对一个对象的所有可能取到的值的集合。</li>
+<li>delete会重置默认值，默认值是枚举定义中的第一个值。</li>
+</ul>
 
             </div>
 
@@ -389,16 +433,16 @@
 <div class="article-copyright-info-container">
     <ul class="copyright-info-content">
         <li class="post-title">
-            <span class="type">本文标题</span>：<span class="content">conda docker git vim ssr</span>
+            <span class="type">本文标题</span>：<span class="content">solidity学习笔记</span>
         </li>
         <li class="post-author">
             <span class="type">本文作者</span>：<span class="content">Tim Chan</span>
         </li>
         <li class="post-time">
-            <span class="type">创建时间</span>：<span class="content">2023-06-12 22:46:10</span>
+            <span class="type">创建时间</span>：<span class="content">2023-08-16 10:32:30</span>
         </li>
         <li class="post-link">
-            <span class="type">本文链接</span>：<span class="content">2023/06/12/conda_docker_git_vim/</span>
+            <span class="type">本文链接</span>：<span class="content">2023/08/16/web3-solidity-study/</span>
         </li>
         <li class="post-license">
             <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
@@ -416,7 +460,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/conda-docker-git-vim-ssr/">#conda-docker-git-vim-ssr</a>&nbsp;
+                            <a href="/tags/solidity/">#solidity</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -428,13 +472,13 @@
                         <div class="article-prev">
                             <a class="prev"
                                rel="prev"
-                               href="/2023/06/15/monica-ai-exam1/"
+                               href="/2023/08/16/evm-core/"
                             >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                                 <span class="title flex-center">
-                                <span class="post-nav-title-item">monica AI GPT 总结视频内容1</span>
+                                <span class="post-nav-title-item">EVM硬核底层原理</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                             </a>
@@ -444,10 +488,10 @@
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/05/31/FLOPs/"
+                               href="/2023/08/07/%E4%B8%AD%E5%9B%BD%E8%BF%91%E4%BB%A3%E5%8F%B2%E5%A4%A7%E4%BA%8B%E4%BB%B6/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">FLOPs</span>
+                                <span class="post-nav-title-item">近代史大事件</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -525,7 +569,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%BB%BAssr%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">自建ssr服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conda%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">conda的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%EF%BC%8C%E8%BD%BB%E9%87%8F%E5%8C%96%E8%99%9A%E6%8B%9F%E6%8A%80%E6%9C%AF"><span class="nav-number">3.</span> <span class="nav-text">docker的使用笔记，轻量化虚拟技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">4.</span> <span class="nav-text">git的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">vim的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh%E7%9F%A5%E8%AF%86%E5%92%8C%E9%97%AE%E9%A2%98%E9%9B%86"><span class="nav-number">6.</span> <span class="nav-text">ssh知识和问题集</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Remix-IDE"><span class="nav-number">1.</span> <span class="nav-text">Remix-IDE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">2.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">类型和值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%8A%A5%E9%94%99"><span class="nav-number">4.</span> <span class="nav-text">异常报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modifier%EF%BC%8C%E4%BF%AE%E9%A5%B0%E5%99%A8"><span class="nav-number">5.</span> <span class="nav-text">Modifier，修饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">6.</span> <span class="nav-text">函数返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84Array"><span class="nav-number">7.</span> <span class="nav-text">数组Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mapping%EF%BC%8C%E6%98%A0%E5%B0%84"><span class="nav-number">8.</span> <span class="nav-text">mapping，映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enum%EF%BC%8C%E6%9E%9A%E4%B8%BE"><span class="nav-number">9.</span> <span class="nav-text">enum，枚举</span></a></li></ol>
     </div>
 </div>
 

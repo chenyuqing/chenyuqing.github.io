@@ -9,7 +9,7 @@
     
     <title>
         
-            conda docker git vim ssr |
+            EVM硬核底层原理 |
         
         In Web3.0 We Trust
     </title>
@@ -186,7 +186,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">conda docker git vim ssr</span>
+                <span class="title-hover-animation">EVM硬核底层原理</span>
             </div>
 
             
@@ -208,13 +208,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2023-06-12 22:46:10</span>
-        <span class="mobile">2023-06-12 22:46</span>
+        <span class="pc">2023-08-16 18:54:30</span>
+        <span class="mobile">2023-08-16 18:54</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2023-07-20 12:01:42</span>
+        <span class="pc">2023-08-17 15:35:28</span>
     </span>
     
     
@@ -223,7 +223,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E5%B0%8F%E8%80%8C%E7%BE%8E-%E5%B7%A5%E5%85%B7/">小而美-工具</a>&nbsp;
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/">技能-修行-进步-Web3</a>&nbsp;
                     </li>
                 
             </ul>
@@ -235,7 +235,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/conda-docker-git-vim-ssr/">conda-docker-git-vim-ssr</a>&nbsp;
+                        <a href="/tags/EVM/">EVM</a>&nbsp;
                     </li>
                 
             </ul>
@@ -245,12 +245,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>965 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>3 分钟</span>
         </span>
     
     
@@ -268,118 +268,144 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="自建ssr服务器"><a href="#自建ssr服务器" class="headerlink" title="自建ssr服务器"></a>自建ssr服务器</h1><ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B" >https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B<i class="fas fa-external-link-alt"></i></a></li>
-</ul>
-<h1 id="conda的使用笔记"><a href="#conda的使用笔记" class="headerlink" title="conda的使用笔记"></a>conda的使用笔记</h1><ol>
-<li>创建环境conda create -n name python&#x3D;3.8</li>
-<li>激活环境conda activate name</li>
-<li>关闭环境conda deactivate</li>
-<li>查看当前环境conda env –list</li>
-<li>查看前期环境中pip列表pip list</li>
-<li>查看指定pip包的安装pip list | grep packagename</li>
-<li>删除环境conda remove -n name –all</li>
-<li>克隆环境conda create -n BBB –clone AAA，B是A的克隆</li>
-<li>转移环境<ol>
-<li>conda转移：conda env export &gt; name.yaml,然后新系统下执行conda env create -f name.yaml</li>
-<li>pip转移：pip freeze &gt; requirements.txt,然后新系统下pip install -r requirements.txt</li>
-</ol>
-</li>
-</ol>
-<h1 id="docker的使用笔记，轻量化虚拟技术"><a href="#docker的使用笔记，轻量化虚拟技术" class="headerlink" title="docker的使用笔记，轻量化虚拟技术"></a>docker的使用笔记，轻量化虚拟技术</h1><ol start="0">
-<li><p>缺点：争抢资源，权限过高；优点：可移植性高，环境封闭</p>
-</li>
-<li><p>基础概念：dockfile，images，container, volume</p>
-<ol>
-<li>dockfile：docker的配置文件</li>
-<li>image：docker的镜像文件，用来创建container的母本</li>
-<li>container：俗称容器，docker最终落地的形态，是一个运行程序的隔离环境。</li>
-<li>volume：数据卷，</li>
-</ol>
-</li>
-<li><p>dockerfile常见的命令(大写形式)：</p>
-<ol>
-<li>FROM：</li>
-<li>WORKDIR：</li>
-<li>COPY</li>
-<li>RUN</li>
-<li>CMD</li>
-</ol>
-</li>
-<li><p>docker 常见命令</p>
-<ol>
-<li>docker create</li>
-<li>docker ps -aq，查看所有的容器</li>
-<li>docker images -q，查看所有的镜像</li>
-<li>docker build</li>
-<li>docker run -p -v<ol>
-<li>数据和命令，通过映射的方式在宿主和容器之间进行传递，其中-p表示port，端口，-v表示volume，卷。 -d,daemon，在后台运行。–name，表示名字<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d --name music -p 264:264 -v /opt/musciplayer:/var/www/html/cache/music-player-docker</span></span><br></pre></td></tr></table></figure></li>
-<li>例子：通过冒号作为宿主和容器之间的分隔符!<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">宿主 : 容器</span><br></pre></td></tr></table></figure></li>
-<li></li>
-</ol>
-</li>
-<li>docker stop <container id>，停止指定容器，docker stop $(docker ps -aq)，停止所有容器</li>
-<li>docker restart <container id></li>
-<li>docker rm <container id>，删除指定容器，docker rm $(docker ps -aq)，删除所有容器</li>
-<li>docker rmi <container id>，删除指定镜像，docker rmi $(docker images -q)，删除所有镜像</li>
-<li>docker exec -it <container id> &#x2F;bin&#x2F;bash</li>
-<li>docker volume create </li>
-<li>docker cp <container id>:&#x2F;opt&#x2F;file.txt &#x2F;opt&#x2F;local&#x2F;</li>
-<li>docker cp &#x2F;opt&#x2F;local&#x2F;file.txt <container id>:&#x2F;opt&#x2F;</li>
-<li>docker有了专门清理资源(container、image、网络)的命令，docker system prune</li>
-<li>docker image prune –force –all 或者docker image prune -f -a 删除所有不使用的镜像</li>
-<li>docker container prune -f 删除所有停止的容器</li>
-</ol>
-</li>
-<li><p>docker compose</p>
-<ol>
-<li>docker compose up</li>
-<li>docker compose down</li>
-</ol>
-</li>
-</ol>
-<h1 id="git的使用笔记"><a href="#git的使用笔记" class="headerlink" title="git的使用笔记"></a>git的使用笔记</h1><h1 id="vim的使用笔记"><a href="#vim的使用笔记" class="headerlink" title="vim的使用笔记"></a>vim的使用笔记</h1><h1 id="ssh知识和问题集"><a href="#ssh知识和问题集" class="headerlink" title="ssh知识和问题集"></a>ssh知识和问题集</h1><ol>
-<li><p>ssh连接发生错误信息：kex_exchange_identification: Connection closed by remote host</p>
-<ul>
-<li>解决方法：可能是认证的key失效了，进入~&#x2F;.ssh，删除know_hosts目录，重新连接一下</li>
+                <h2 id="一问：智能合约是怎么部署到链上的？"><a href="#一问：智能合约是怎么部署到链上的？" class="headerlink" title="一问：智能合约是怎么部署到链上的？"></a>一问：智能合约是怎么部署到链上的？</h2><ul>
+<li>字节码 bytecode：智能合约通过编译器编译后生成的二进制代码，它是一种中间代码，可以被EVM虚拟机执行。</li>
+<li>操作码&#x2F;指令码 <a class="link"   target="_blank" rel="noopener" href="https://www.ethervm.io/" >opcode<i class="fas fa-external-link-alt"></i></a>：操作码是一种特殊的字节码，它是EVM虚拟机的指令集，用于执行智能合约的逻辑。</li>
+<li>GitHub Copilot的回答：<ul>
+<li>GitHub Copilot: 您好！智能合约是通过将其编译为字节码(bytecode)，然后将字节码发送到区块链网络上的节点来部署的。一旦节点接收到字节码，它将创建一个合约地址，并将字节码存储在该地址下。这样，其他用户就可以通过调用该地址上的函数来与合约进行交互。</li>
 </ul>
 </li>
-<li><p>基本命令<br>pwd 打印当前文件夹的路径<br>cd  改变目录, 相当于 windows 下的打开文件夹<br>ls  展示当前目录下的所有文件内容<br>mkdir 创建目录, 创建文件夹<br>rmdir 删除文件夹<br>touch 创建文件<br>rm 删除文件<br>cat 原意是指将文件与终端输出流连接, 通俗的说输出文件内容<br>less 或 more( Unix ) 命令可以分页的打开文件, 注意使用 q 退出<br>echo 命令 打印</p>
-<blockquote>
-<p>重定向, 如果文件存在, 则将文件截断, 并重新输入.</p>
-<blockquote>
-<p> 重定向. 不截断重定向<br>ipconfig&#x2F;all  查看ip信息<br>ping IP地址    查看是否连接成功<br>tips:<br>注意: 换行问题:在 linux 中使用 \n 表示换行;在 windows 中使用 \r\n 表示换行<br>注意:文件截断是指将文件的所有内容删除, 但是文件的创建时间等信息不更改</p>
-</blockquote>
-</blockquote>
-</li>
-<li><p>查看某一目录下所有文件夹的内存占用</p>
-</li>
-</ol>
-<ul>
-<li>du -sh .&#x2F;* –exclude proc</li>
+<li>ChatGPT的回答：</li>
 </ul>
-<ol start="4">
-<li>查看各磁盘内存情况</li>
-</ol>
-<ul>
-<li>df -h</li>
+<h2 id="opcode的分类"><a href="#opcode的分类" class="headerlink" title="opcode的分类"></a>opcode的分类</h2><ul>
+<li>GitHub Copilot: 您好！EVM虚拟机的操作码可以分为以下几类：<br>GitHub Copilot: 以下是EVM操作码按类分类的列表：</li>
 </ul>
-<ol start="5">
-<li><p>开启ssh远程连接服务</p>
+<h3 id="栈操作（Stack-Operations）17个"><a href="#栈操作（Stack-Operations）17个" class="headerlink" title="栈操作（Stack Operations）17个"></a>栈操作（Stack Operations）17个</h3><ul>
+<li>0x80 - 0x8f: DUP1-DUP16</li>
+<li>0x90 - 0x9f: SWAP1-SWAP16</li>
+<li>0x58: POP</li>
+<li>0x59: MLOAD</li>
+<li>0x5a: MSTORE</li>
+<li>0x5b: MSTORE8</li>
+<li>0x50: PUSH1</li>
+<li>0x51: PUSH2</li>
+<li>…</li>
+<li>0x5f: PUSH32</li>
+<li>PUSH1 - PUSH32共32个</li>
+</ul>
+<h3 id="流程控制（Flow-Control）3个"><a href="#流程控制（Flow-Control）3个" class="headerlink" title="流程控制（Flow Control）3个"></a>流程控制（Flow Control）3个</h3><ul>
+<li>0x56: JUMP</li>
+<li>0x57: JUMPI</li>
+<li>0x5b: JUMPDEST</li>
+</ul>
+<h3 id="环境信息（Environmental-Information）15个"><a href="#环境信息（Environmental-Information）15个" class="headerlink" title="环境信息（Environmental Information）15个"></a>环境信息（Environmental Information）15个</h3><ul>
+<li>0x30: ADDRESS</li>
+<li>0x31: BALANCE</li>
+<li>0x32: ORIGIN</li>
+<li>0x33: CALLER</li>
+<li>0x34: CALLVALUE</li>
+<li>0x35: CALLDATALOAD</li>
+<li>0x36: CALLDATASIZE</li>
+<li>0x37: CALLDATACOPY</li>
+<li>0x38: CODESIZE</li>
+<li>0x39: CODECOPY</li>
+<li>0x3a: GASPRICE</li>
+<li>0x3b: EXTCODESIZE</li>
+<li>0x3c: EXTCODECOPY</li>
+<li>0x3d: RETURNDATASIZE</li>
+<li>0x3e: RETURNDATACOPY</li>
+</ul>
+<h3 id="存储和内存（Storage-and-Memory）4个"><a href="#存储和内存（Storage-and-Memory）4个" class="headerlink" title="存储和内存（Storage and Memory）4个"></a>存储和内存（Storage and Memory）4个</h3><ul>
+<li>0x54: SLOAD</li>
+<li>0x55: SSTORE</li>
+<li>0x5a: MSTORE</li>
+<li>0x5b: MSTORE8</li>
+</ul>
+<h3 id="数学运算（Mathematical-Operations）11个"><a href="#数学运算（Mathematical-Operations）11个" class="headerlink" title="数学运算（Mathematical Operations）11个"></a>数学运算（Mathematical Operations）11个</h3><ul>
+<li>0x01: ADD</li>
+<li>0x02: MUL</li>
+<li>0x03: SUB</li>
+<li>0x04: DIV</li>
+<li>0x05: SDIV</li>
+<li>0x06: MOD</li>
+<li>0x07: SMOD</li>
+<li>0x08: ADDMOD</li>
+<li>0x09: MULMOD</li>
+<li>0x0a: EXP</li>
+<li>0x0b: SIGNEXTEND</li>
+</ul>
+<h3 id="比较和逻辑运算（Comparison-and-Bitwise-Logic-Operations）15个"><a href="#比较和逻辑运算（Comparison-and-Bitwise-Logic-Operations）15个" class="headerlink" title="比较和逻辑运算（Comparison and Bitwise Logic Operations）15个"></a>比较和逻辑运算（Comparison and Bitwise Logic Operations）15个</h3><ul>
+<li>0x10: LT</li>
+<li>0x11: GT</li>
+<li>0x12: SLT</li>
+<li>0x13: SGT</li>
+<li>0x14: EQ</li>
+<li>0x15: ISZERO</li>
+<li>0x16: AND</li>
+<li>0x17: OR</li>
+<li>0x18: XOR</li>
+<li>0x19: NOT</li>
+<li>0x1a: BYTE</li>
+<li>0x1b: SHL</li>
+<li>0x1c: SHR</li>
+<li>0x1d: SAR</li>
+</ul>
+<h3 id="加载和存储（Loading-and-Storing）14个"><a href="#加载和存储（Loading-and-Storing）14个" class="headerlink" title="加载和存储（Loading and Storing）14个"></a>加载和存储（Loading and Storing）14个</h3><ul>
+<li>0x32: ORIGIN</li>
+<li>0x33: CALLER</li>
+<li>0x34: CALLVALUE</li>
+<li>0x35: CALLDATALOAD</li>
+<li>0x36: CALLDATASIZE</li>
+<li>0x37: CALLDATACOPY</li>
+<li>0x38: CODESIZE</li>
+<li>0x39: CODECOPY</li>
+<li>0x3a: GASPRICE</li>
+<li>0x3b: EXTCODESIZE</li>
+<li>0x3c: EXTCODECOPY</li>
+<li>0x3d: RETURNDATASIZE</li>
+<li>0x3e: RETURNDATACOPY</li>
+</ul>
+<h3 id="合约调用（Contract-Calls）10个"><a href="#合约调用（Contract-Calls）10个" class="headerlink" title="合约调用（Contract Calls）10个"></a>合约调用（Contract Calls）10个</h3><ul>
+<li>0xf0: CREATE</li>
+<li>0xf1: CALL</li>
+<li>0xf2: CALLCODE</li>
+<li>0xf3: RETURN</li>
+<li>0xf4: DELEGATECALL</li>
+<li>0xf5: CREATE2</li>
+<li>0xfa: STATICCALL</li>
+<li>0xfd: REVERT</li>
+<li>0xff: SELFDESTRUCT</li>
+</ul>
+<h3 id="杂项（Miscellaneous）11个"><a href="#杂项（Miscellaneous）11个" class="headerlink" title="杂项（Miscellaneous）11个"></a>杂项（Miscellaneous）11个</h3><ul>
+<li>0x00: STOP</li>
+<li>0x0f: BREAKPOINT</li>
+<li>0x3f: BLOCKHASH</li>
+<li>0x40: COINBASE</li>
+<li>0x41: TIMESTAMP</li>
+<li>0x42: NUMBER</li>
+<li>0x43: DIFFICULTY</li>
+<li>0x44: GASLIMIT</li>
+<li>0x45: CHAINID</li>
+<li>0x46: SELFBALANCE</li>
+<li>0x47: BASEFEE</li>
+</ul>
+<p>了解这些操作码的分类可以帮助开发者更好地理解EVM虚拟机的指令集，从而更好地编写和优化智能合约的代码。</p>
+<h2 id="二问：如何写智能合约才能更省gas费用？"><a href="#二问：如何写智能合约才能更省gas费用？" class="headerlink" title="二问：如何写智能合约才能更省gas费用？"></a>二问：如何写智能合约才能更省gas费用？</h2><ul>
+<li>GitHub Copilot: 在Solidity中，通常有以下几种省费用的操作码：</li>
+</ul>
 <ol>
-<li>测试是否安装了openssh server，sudo service ssh start</li>
-<li>如果没有安装，则安装，sudo apt update &amp;&amp; sudo apt install openssh-server</li>
-<li>安装完毕则可以开始连接了</li>
-</ol>
+<li><p>使用<code>view</code>和<code>pure</code>关键字：在Solidity中，如果一个函数不修改合约状态并且不访问合约存储，那么可以使用<code>view</code>或<code>pure</code>关键字来标记该函数。这样可以避免在执行函数时进行状态变更和存储访问，从而减少gas费用。</p>
 </li>
-<li><p>本地机器和远程服务器之间传送文件</p>
-<ol>
-<li>scp命令，scp  [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文件路径&gt;</li>
-<li>#拷贝文件夹，加-r参数</li>
-<li>例子；scp -r &#x2F;home&#x2F;tim&#x2F;workspace&#x2F;github&#x2F;style <a class="link"   href="mailto:&#116;&#105;&#x6d;&#x40;&#x31;&#57;&#50;&#x2e;&#x31;&#54;&#x38;&#46;&#120;&#120;&#x78;&#46;&#120;&#120;" >&#116;&#105;&#x6d;&#x40;&#x31;&#57;&#50;&#x2e;&#x31;&#54;&#x38;&#46;&#120;&#120;&#x78;&#46;&#120;&#120;<i class="fas fa-external-link-alt"></i></a>:&#x2F;home&#x2F;tim&#x2F;github&#x2F;style</li>
-</ol>
+<li><p>使用<code>memory</code>关键字：在Solidity中，如果一个函数需要使用临时内存来存储数据，那么可以使用<code>memory</code>关键字来标记该数据。这样可以避免在执行函数时将数据存储到合约存储中，从而减少gas费用。</p>
+</li>
+<li><p>使用<code>bytes32</code>类型：在Solidity中，如果一个变量需要存储一个固定长度的字节序列，那么可以使用<code>bytes32</code>类型来存储。这样可以避免使用动态数组或映射类型，从而减少gas费用。</p>
+</li>
+<li><p>避免重复计算和存储：在Solidity中，如果一个变量的值可以通过其他变量计算得出，那么可以避免重复计算和存储该变量的值。这样可以减少gas费用。</p>
+</li>
+<li><p>避免使用循环：在Solidity中，循环语句的执行会消耗大量的gas费用。因此，如果可以使用其他方式来实现相同的功能，那么应该避免使用循环语句。</p>
 </li>
 </ol>
+<p>这些操作码可以帮助开发者减少智能合约的gas费用，从而提高智能合约的性能和可用性。</p>
 
             </div>
 
@@ -389,16 +415,16 @@
 <div class="article-copyright-info-container">
     <ul class="copyright-info-content">
         <li class="post-title">
-            <span class="type">本文标题</span>：<span class="content">conda docker git vim ssr</span>
+            <span class="type">本文标题</span>：<span class="content">EVM硬核底层原理</span>
         </li>
         <li class="post-author">
             <span class="type">本文作者</span>：<span class="content">Tim Chan</span>
         </li>
         <li class="post-time">
-            <span class="type">创建时间</span>：<span class="content">2023-06-12 22:46:10</span>
+            <span class="type">创建时间</span>：<span class="content">2023-08-16 18:54:30</span>
         </li>
         <li class="post-link">
-            <span class="type">本文链接</span>：<span class="content">2023/06/12/conda_docker_git_vim/</span>
+            <span class="type">本文链接</span>：<span class="content">2023/08/16/evm-core/</span>
         </li>
         <li class="post-license">
             <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
@@ -416,7 +442,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/conda-docker-git-vim-ssr/">#conda-docker-git-vim-ssr</a>&nbsp;
+                            <a href="/tags/EVM/">#EVM</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -425,29 +451,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                               rel="prev"
-                               href="/2023/06/15/monica-ai-exam1/"
-                            >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                                <span class="title flex-center">
-                                <span class="post-nav-title-item">monica AI GPT 总结视频内容1</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/05/31/FLOPs/"
+                               href="/2023/08/16/web3-solidity-study/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">FLOPs</span>
+                                <span class="post-nav-title-item">solidity学习笔记</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -525,7 +536,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%BB%BAssr%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">自建ssr服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conda%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">conda的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%EF%BC%8C%E8%BD%BB%E9%87%8F%E5%8C%96%E8%99%9A%E6%8B%9F%E6%8A%80%E6%9C%AF"><span class="nav-number">3.</span> <span class="nav-text">docker的使用笔记，轻量化虚拟技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">4.</span> <span class="nav-text">git的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">vim的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh%E7%9F%A5%E8%AF%86%E5%92%8C%E9%97%AE%E9%A2%98%E9%9B%86"><span class="nav-number">6.</span> <span class="nav-text">ssh知识和问题集</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E9%97%AE%EF%BC%9A%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%98%AF%E6%80%8E%E4%B9%88%E9%83%A8%E7%BD%B2%E5%88%B0%E9%93%BE%E4%B8%8A%E7%9A%84%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">一问：智能合约是怎么部署到链上的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#opcode%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">opcode的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E6%93%8D%E4%BD%9C%EF%BC%88Stack-Operations%EF%BC%8917%E4%B8%AA"><span class="nav-number">2.1.</span> <span class="nav-text">栈操作（Stack Operations）17个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%EF%BC%88Flow-Control%EF%BC%893%E4%B8%AA"><span class="nav-number">2.2.</span> <span class="nav-text">流程控制（Flow Control）3个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF%EF%BC%88Environmental-Information%EF%BC%8915%E4%B8%AA"><span class="nav-number">2.3.</span> <span class="nav-text">环境信息（Environmental Information）15个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%92%8C%E5%86%85%E5%AD%98%EF%BC%88Storage-and-Memory%EF%BC%894%E4%B8%AA"><span class="nav-number">2.4.</span> <span class="nav-text">存储和内存（Storage and Memory）4个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%EF%BC%88Mathematical-Operations%EF%BC%8911%E4%B8%AA"><span class="nav-number">2.5.</span> <span class="nav-text">数学运算（Mathematical Operations）11个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%92%8C%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%EF%BC%88Comparison-and-Bitwise-Logic-Operations%EF%BC%8915%E4%B8%AA"><span class="nav-number">2.6.</span> <span class="nav-text">比较和逻辑运算（Comparison and Bitwise Logic Operations）15个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%AD%98%E5%82%A8%EF%BC%88Loading-and-Storing%EF%BC%8914%E4%B8%AA"><span class="nav-number">2.7.</span> <span class="nav-text">加载和存储（Loading and Storing）14个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E7%BA%A6%E8%B0%83%E7%94%A8%EF%BC%88Contract-Calls%EF%BC%8910%E4%B8%AA"><span class="nav-number">2.8.</span> <span class="nav-text">合约调用（Contract Calls）10个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%82%E9%A1%B9%EF%BC%88Miscellaneous%EF%BC%8911%E4%B8%AA"><span class="nav-number">2.9.</span> <span class="nav-text">杂项（Miscellaneous）11个</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E9%97%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%89%8D%E8%83%BD%E6%9B%B4%E7%9C%81gas%E8%B4%B9%E7%94%A8%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">二问：如何写智能合约才能更省gas费用？</span></a></li></ol>
     </div>
 </div>
 
