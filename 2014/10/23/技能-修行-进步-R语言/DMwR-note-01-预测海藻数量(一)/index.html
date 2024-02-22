@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Doman Chen(motion$)">
+    
+    <title>
+        
+            DMwR-note-01-预测海藻数量(一) |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">DMwR-note-01-预测海藻数量(一)</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Doman Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2014-10-23 15:53:18</span>
+        <span class="mobile">2014-10-23 15:53</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 09:34:07</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-R%E8%AF%AD%E8%A8%80/">技能-修行-进步-R语言</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8ER%E8%AF%AD%E8%A8%80-%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0/">数据挖掘与R语言-案例学习</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="问题描述与目标"><a href="#问题描述与目标" class="headerlink" title="问题描述与目标"></a>问题描述与目标</h2><hr>
+<p><strong>描述：</strong>有害藻类的高浓度会对河流生态环境造成强大的破坏，所以对有害藻类的数量进行预测对提高河流质量有很重要的意义。   </p>
+<p><strong>目标：</strong>影响藻类繁殖的因素有什么特征。  </p>
+<h2 id="数据说明"><a href="#数据说明" class="headerlink" title="数据说明"></a>数据说明</h2><hr>
+<p>本案例有2个数据集：训练集和测试集</p>
+<p>变量说明： </p>
+<ul>
+<li><p><strong>名义变量</strong></p>
+<ul>
+<li>season ： 季节</li>
+<li>size : 河流规模</li>
+<li>speed ： 流速</li>
+</ul>
+</li>
+<li><p><strong>数值变量</strong></p>
+<ul>
+<li>mxPH : 最大PH值</li>
+<li>mnO2 : 最小含氧量</li>
+<li>Cl : 平均氯化物含量</li>
+<li>NO3 ： 平均硝酸盐含量</li>
+<li>NH4 ： 平均氨含量</li>
+<li>oPO4 ： 平均正磷酸盐含量</li>
+<li>PO4 ： 平均硝酸盐含量</li>
+<li>Chla ： 平均叶绿素含量</li>
+</ul>
+</li>
+</ul>
+<p><a class="link"   target="_blank" rel="noopener" href="https://archive.ics.uci.edu/ml/datasets/Coil+1999+Competition+Data" >UCI机器学习algae数据说明链接<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="数据加载到R"><a href="#数据加载到R" class="headerlink" title="数据加载到R"></a>数据加载到R</h2><hr>
+<p>本例直接下载”DMwR”包，然后载入R空间，就可以得到一个algae的数据框。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; library(<span class="string">&quot;DMwR&quot;</span>, lib.loc=<span class="string">&quot;e:/R/R-3.1.1/library&quot;</span>)</span><br><span class="line">Loading required package: lattice</span><br><span class="line">Loading required package: grid</span><br><span class="line">&gt; <span class="built_in">head</span>(algae)</span><br><span class="line">  season  size  speed mxPH mnO2     Cl    NO3     NH4</span><br><span class="line">1 winter small medium 8.00  9.8 60.800  6.238 578.000</span><br><span class="line">2 spring small medium 8.35  8.0 57.750  1.288 370.000</span><br><span class="line">3 autumn small medium 8.10 11.4 40.020  5.330 346.667</span><br><span class="line">4 spring small medium 8.07  4.8 77.364  2.302  98.182</span><br><span class="line">5 autumn small medium 8.06  9.0 55.350 10.416 233.700</span><br><span class="line">6 winter small   high 8.25 13.1 65.750  9.248 430.000</span><br><span class="line">     oPO4     PO4 Chla   a1   a2   a3  a4   a5   a6  a7</span><br><span class="line">1 105.000 170.000 50.0  0.0  0.0  0.0 0.0 34.2  8.3 0.0</span><br><span class="line">2 428.750 558.750  1.3  1.4  7.6  4.8 1.9  6.7  0.0 2.1</span><br><span class="line">3 125.667 187.057 15.6  3.3 53.6  1.9 0.0  0.0  0.0 9.7</span><br><span class="line">4  61.182 138.700  1.4  3.1 41.0 18.9 0.0  1.4  0.0 1.4</span><br><span class="line">5  58.222  97.580 10.5  9.2  2.9  7.5 0.0  7.5  4.1 1.0</span><br><span class="line">6  18.250  56.667 28.4 15.1 14.6  1.4 0.0 22.5 12.6 2.9</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数据框可以看做一种有列名称的矩阵或者表格，它是存储R数据表的一种理想的数据结构。函数head讲显示数据框的前6行。</li>
+</ul>
+<h2 id="数据可视化和摘要"><a href="#数据可视化和摘要" class="headerlink" title="数据可视化和摘要"></a>数据可视化和摘要</h2><hr>
+<h3 id="探索性数据分析-summary"><a href="#探索性数据分析-summary" class="headerlink" title="探索性数据分析-summary"></a>探索性数据分析-summary</h3><p>在没有充分了解数据之前，我们可以首先了解一下数据的统计特性。R中提供了一个非常便利的函数summary，下面我们从探索性数据分析着手进行分析。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&gt; summary(algae)</span><br><span class="line">    season       size       speed         mxPH      </span><br><span class="line"> autumn:40   large :45   high  :84   Min.   :5.600  </span><br><span class="line"> spring:53   medium:84   low   :33   1st Qu.:7.700  </span><br><span class="line"> summer:45   small :71   medium:83   Median :8.060  </span><br><span class="line"> winter:62                           Mean   :8.012  </span><br><span class="line">                                     3rd Qu.:8.400  </span><br><span class="line">                                     Max.   :9.700  </span><br><span class="line">                                     NA<span class="string">&#x27;s   :1      </span></span><br><span class="line"><span class="string">      mnO2              Cl               NO3        </span></span><br><span class="line"><span class="string"> Min.   : 1.500   Min.   :  0.222   Min.   : 0.050  </span></span><br><span class="line"><span class="string"> 1st Qu.: 7.725   1st Qu.: 10.981   1st Qu.: 1.296  </span></span><br><span class="line"><span class="string"> Median : 9.800   Median : 32.730   Median : 2.675  </span></span><br><span class="line"><span class="string"> Mean   : 9.118   Mean   : 43.636   Mean   : 3.282  </span></span><br><span class="line"><span class="string"> 3rd Qu.:10.800   3rd Qu.: 57.824   3rd Qu.: 4.446  </span></span><br><span class="line"><span class="string"> Max.   :13.400   Max.   :391.500   Max.   :45.650  </span></span><br><span class="line"><span class="string"> NA&#x27;</span>s   :2        NA<span class="string">&#x27;s   :10        NA&#x27;</span>s   :2       </span><br><span class="line">      NH4                oPO4             PO4        </span><br><span class="line"> Min.   :    5.00   Min.   :  1.00   Min.   :  1.00  </span><br><span class="line"> 1st Qu.:   38.33   1st Qu.: 15.70   1st Qu.: 41.38  </span><br><span class="line"> Median :  103.17   Median : 40.15   Median :103.29  </span><br><span class="line"> Mean   :  501.30   Mean   : 73.59   Mean   :137.88  </span><br><span class="line"> 3rd Qu.:  226.95   3rd Qu.: 99.33   3rd Qu.:213.75  </span><br><span class="line"> Max.   :24064.00   Max.   :564.60   Max.   :771.60  </span><br><span class="line"> NA<span class="string">&#x27;s   :2          NA&#x27;</span>s   :2        NA<span class="string">&#x27;s   :2       </span></span><br><span class="line"><span class="string">      Chla               a1              a2        </span></span><br><span class="line"><span class="string"> Min.   :  0.200   Min.   : 0.00   Min.   : 0.000  </span></span><br><span class="line"><span class="string"> 1st Qu.:  2.000   1st Qu.: 1.50   1st Qu.: 0.000  </span></span><br><span class="line"><span class="string"> Median :  5.475   Median : 6.95   Median : 3.000  </span></span><br><span class="line"><span class="string"> Mean   : 13.971   Mean   :16.92   Mean   : 7.458  </span></span><br><span class="line"><span class="string"> 3rd Qu.: 18.308   3rd Qu.:24.80   3rd Qu.:11.375  </span></span><br><span class="line"><span class="string"> Max.   :110.456   Max.   :89.80   Max.   :72.600  </span></span><br><span class="line"><span class="string"> NA&#x27;</span>s   :12                                        </span><br><span class="line">       a3               a4               a5        </span><br><span class="line"> Min.   : 0.000   Min.   : 0.000   Min.   : 0.000  </span><br><span class="line"> 1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.000  </span><br><span class="line"> Median : 1.550   Median : 0.000   Median : 1.900  </span><br><span class="line"> Mean   : 4.309   Mean   : 1.992   Mean   : 5.064  </span><br><span class="line"> 3rd Qu.: 4.925   3rd Qu.: 2.400   3rd Qu.: 7.500  </span><br><span class="line"> Max.   :42.800   Max.   :44.600   Max.   :44.400  </span><br><span class="line">                                                   </span><br><span class="line">       a6               a7        </span><br><span class="line"> Min.   : 0.000   Min.   : 0.000  </span><br><span class="line"> 1st Qu.: 0.000   1st Qu.: 0.000  </span><br><span class="line"> Median : 0.000   Median : 1.000  </span><br><span class="line"> Mean   : 5.964   Mean   : 2.495  </span><br><span class="line"> 3rd Qu.: 6.925   3rd Qu.: 2.400  </span><br><span class="line"> Max.   :77.600   Max.   :31.600  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>由结果可知，summary的作用是：<ul>
+<li>名义变量（R中用因子来表示）：统计数据中该变量某个值的频数。譬如，季节(season)当中秋季(autumn)出现的次数是40。</li>
+<li>数值变量：summary为我们提供了均值、中位数、四分位数、极值等一系列的统计信息。譬如，最大的PH值(mxPH)当中，最小值是5.600，最大值是9.700，中位数是8.060，第一个四分位数(1st Qu)，即数据排序后25%的地方，是7.700，第三个四分位数(3st Qu)，即数据排序后75%的地方，是8.400，还有缺失值(NA)的个数是1.000。</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据分布状况-hist"><a href="#数据分布状况-hist" class="headerlink" title="数据分布状况-hist"></a>数据分布状况-hist</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; hist(algae<span class="variable">$mxPH</span>, prob = T)</span><br></pre></td></tr></table></figure>
+<p>plot：<br><img src="/img/DMwR/02_algae/01-hist.PNG"></p>
+<ul>
+<li>该指令绘制变量mxPH的直方图。设置参数pro&#x3D;T，我们可以得到每个取值区间的概率，如果该参数设置为FALSE或者忽略该参数，它将给出频数。</li>
+<li>由图中观察，变量mxPH的分布非常接近正态分布，它的值大部分聚集在该均值的周围。我们通过QQ图来检验该变量是否为正态分布。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">library(<span class="string">&quot;car&quot;</span>, lib.loc=<span class="string">&quot;e:/R/R-3.1.1/library&quot;</span>)</span><br><span class="line">par(mfrow=c(1,2))</span><br><span class="line">hist(algae<span class="variable">$mxPH</span>,prob = T, xlab=<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">     main=<span class="string">&quot;Histogram of maximun pH value&quot;</span>, ylim=0:1)</span><br><span class="line">lines(density(algae<span class="variable">$mxPH</span>, na.rm = T))</span><br><span class="line">rug(jitter(algae<span class="variable">$mxPH</span>))</span><br><span class="line">qqplot(algae<span class="variable">$mxPH</span>, main=<span class="string">&quot;Normal QQ plot of maximum pH&quot;</span>)</span><br><span class="line">par(mfrow=c(1,1))</span><br></pre></td></tr></table></figure>
+<p>plot：<br><img src="/img/DMwR/02_algae/02-hist-qqplot.PNG"></p>
+<ul>
+<li>左图中的曲线是平滑版本的直方图，而在X轴上密密麻麻的小直线就是变量的实际值，利用它我们可以识别出离群点。譬如，小于6的两个奇异点。</li>
+<li>右图是<a class="link"   target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Q%E2%80%93Q_plot" >Q-Q图<i class="fas fa-external-link-alt"></i></a>，图中黑色实线是正态分布的理论分位数，而散点图就是实际变量值的描述。另外，虚线组成的区域就是符合正态分布的95%置信区间的带状图。由图可知，变量有几个小的值明显在95%的置信区间之外，它们不服从正态分布。</li>
+</ul>
+<h3 id="数据分布状况的另一种展示-箱型图"><a href="#数据分布状况的另一种展示-箱型图" class="headerlink" title="数据分布状况的另一种展示-箱型图"></a>数据分布状况的另一种展示-箱型图</h3><p>百度百科：<a class="link"   target="_blank" rel="noopener" href="http://baike.baidu.com/view/1376547.htm?fr=aladdin" >箱型图<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">boxplot(algae<span class="variable">$oPO4</span>, ylab = <span class="string">&quot;Orthophosphate(oPO4)&quot;</span>)</span><br><span class="line">rug(jitter(algae<span class="variable">$oPO4</span>),side=2)</span><br><span class="line">abline(h = mean(algae<span class="variable">$oPO4</span>, na.rm = T), lty = 2)</span><br></pre></td></tr></table></figure>
+<p>plot:<br><img src="/img/DMwR/02_algae/03-boxplot.PNG"></p>
+<h3 id="lattice版本的箱图-bwplot"><a href="#lattice版本的箱图-bwplot" class="headerlink" title="lattice版本的箱图-bwplot"></a>lattice版本的箱图-bwplot</h3><p>条件绘图室依赖于某个特定因子的图形表示。因子是一个取值为有限集合的名义的变量。例如，对于变量size的不同取值，可以绘制变量a1的一组箱图。每个箱图是对应于变量size的某个特定值的水样子集。通过这些箱图可以研究名义变量size如何影响变量a1值的分布。   </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">library(lattice)</span><br><span class="line">bwplot(size ~ a1, data = algae, ylab=<span class="string">&#x27;River Size&#x27;</span>, xlab=<span class="string">&#x27;Algal A1&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>plot：<br><img src="/img/DMwR/02_algae/04-bwplot.PNG"></p>
+<ul>
+<li>由上图可知，在规模较小的河流中，海藻a1的频率较高，这是很有用的信息。</li>
+</ul>
+<h3 id="Hmisc版本的箱图-bwplot"><a href="#Hmisc版本的箱图-bwplot" class="headerlink" title="Hmisc版本的箱图-bwplot"></a>Hmisc版本的箱图-bwplot</h3><p>分位箱图</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">library(Hmisc)</span><br><span class="line">bwplot(size ~ a1, data = algae, panel = panel.bpplot,</span><br><span class="line">       probs=<span class="built_in">seq</span>(.01,.49,by=.01), datadensity = TRUE,</span><br><span class="line">       ylab = <span class="string">&#x27;River Size&#x27;</span>, xlab = <span class="string">&#x27;Algal A1&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>plot：<br><img src="/img/DMwR/02_algae/05-bwplot.PNG"></p>
+<ul>
+<li>图中的点代表均值，而图中的竖线分别代表变量的第一个分位数、中位数和第三个分位数。图中的小竖线代表数据的真实取值，这些值的分布则由分位数图来体现。分位数箱图比上一个箱图提供了更多的信息。</li>
+<li>我们可以得到以下结论：小型的河流有更高频率的海藻，但我们也观察到小型河流的海藻频率的分布比其他类型的河流频率的分布分散。</li>
+</ul>
+<h3 id="Hmisc版本的升级箱图-多个变量"><a href="#Hmisc版本的升级箱图-多个变量" class="headerlink" title="Hmisc版本的升级箱图-多个变量"></a>Hmisc版本的升级箱图-多个变量</h3><p>这种类型的条件绘图不局限于名义变量，也不局限于单个因子。只要先把连续变量“离散化”，也同样可以进行条件绘图。下面给出一个两个因子条件绘图的例子。考虑变量a3在给定变量season和变量mnO2下的条件绘图，变量mnO2是一个连续变量，绘图代码如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">minO2 &lt;- equal.count(na.omit(algae<span class="variable">$mnO2</span>),number=4, overlap=1/5)</span><br><span class="line">stripplot(season ~ a3|minO2,</span><br><span class="line">          data = algae[!is.na(algae<span class="variable">$mnO2</span>),])</span><br></pre></td></tr></table></figure>
+<p>plot：<br><img src="/img/DMwR/02_algae/06-stripplot.PNG"></p>
+<ul>
+<li>第一行调用equal.count()对连续变量mnO2离散化，把该变量转换为因子类型。参数number设置需要的区间个数，参数overlap设置两个区间之间的靠近边界的重合(这意味着某些观测值将被分配到相邻的区间中)。每个区间的观测值的个数相等。注意，变量algae$mnO2中含有NA值，所以上面的指令中没有直接应用该变量，否则会导致其后的绘图函数出错。函数na.omit()可以用来剔除向量中的任何NA值。</li>
+<li>第二行调用绘图函数stripplot()，该函数是lattice包中的一个绘图函数，它根据另一个变量(这里是season)把变量的实际值绘制到不同的图形。这些区间按照从左到右，从下到上的顺序排列。即与左下方的图形相对应的是较小的mnO2值。变量mnO2中的NA值也会对图形的绘制产生影响。不能像绘制上图中那样直接应用参数data&#x3D;algae，而应该先剔除水样中变量mnO2含有NA值才行。</li>
+<li>所以，下一次的笔记是针对缺失值的处理的。</li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><hr>
+<p>本次博文是根据《数据挖掘与R语言(Luis Torgo著)》这本书的内容而写的笔记，本博文中所涉及的内容版权均归原作者所有。</p>
+<ul>
+<li>下节讨论的主题是数据缺失值的处理。</li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">DMwR-note-01-预测海藻数量(一)</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2014-10-23 15:53:18</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2014/10/23/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(一)/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8ER%E8%AF%AD%E8%A8%80-%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0/">#数据挖掘与R语言-案例学习</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2014/10/26/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-R%E8%AF%AD%E8%A8%80/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E4%BA%8C)/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">DMwR-note-01-预测海藻数量(二)</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2014/10/18/ML/RegularExpression/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">正则表达式课堂笔记</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0%E4%B8%8E%E7%9B%AE%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">问题描述与目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%88%B0R"><span class="nav-number">3.</span> <span class="nav-text">数据加载到R</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%92%8C%E6%91%98%E8%A6%81"><span class="nav-number">4.</span> <span class="nav-text">数据可视化和摘要</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E6%80%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-summary"><span class="nav-number">4.1.</span> <span class="nav-text">探索性数据分析-summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83%E7%8A%B6%E5%86%B5-hist"><span class="nav-number">4.2.</span> <span class="nav-text">数据分布状况-hist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83%E7%8A%B6%E5%86%B5%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%B1%95%E7%A4%BA-%E7%AE%B1%E5%9E%8B%E5%9B%BE"><span class="nav-number">4.3.</span> <span class="nav-text">数据分布状况的另一种展示-箱型图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lattice%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%B1%E5%9B%BE-bwplot"><span class="nav-number">4.4.</span> <span class="nav-text">lattice版本的箱图-bwplot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hmisc%E7%89%88%E6%9C%AC%E7%9A%84%E7%AE%B1%E5%9B%BE-bwplot"><span class="nav-number">4.5.</span> <span class="nav-text">Hmisc版本的箱图-bwplot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hmisc%E7%89%88%E6%9C%AC%E7%9A%84%E5%8D%87%E7%BA%A7%E7%AE%B1%E5%9B%BE-%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F"><span class="nav-number">4.6.</span> <span class="nav-text">Hmisc版本的升级箱图-多个变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Doman Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

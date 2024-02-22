@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Doman Chen(motion$)">
+    
+    <title>
+        
+            现代机器学习监控的混乱局面：重新思考流媒体评估（3/4） |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">现代机器学习监控的混乱局面：重新思考流媒体评估（3/4）</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Doman Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-05-24 19:12:16</span>
+        <span class="mobile">2023-05-24 19:12</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 09:34:53</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-MLOps/">技能-修行-进步-MLOps</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/MLOps/">MLOps</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>11 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ul>
+<li>作者：Shreya Shankar</li>
+<li>原文连接：<a class="link"   target="_blank" rel="noopener" href="https://www.shreya-shankar.com/rethinking-ml-monitoring-3/" >rethinking ml monitoring 3<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<hr>
+<ul>
+<li>在上一篇文章中，我调查了现有的部署后问题，并将它们分为两个轴：状态和组件。我提到，监控跨组件的状态指标，如模型的准确性，对于维护ML管道至关重要，但在现有的工具中却很困难。在这篇文章中，我们将亲身体验这些困难：我们将用Prometheus（一种流行的软件监控工具）扩展一个玩具ML管道，以提供ML监控。在这个过程中，我们将看到Prometheus的许多不足之处，从代码混乱到算法的低效率</li>
+</ul>
+<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><ul>
+<li>有一天在工作中，当我在Slack频道中浏览AWS警报的时候，我突然意识到我的infra同事和我对 “标签 “一词的解释非常不同。他指的是一个标识符。我是指预测的真实值。我们只是在一个大项目进行了几个月后才发现我们是错位的。值得庆幸的是，我们从未在同一个任务上合作过，所以对我们没有任何影响。但我想知道这种错位是否会在其他组织中造成问题。</li>
+<li>我认为关于ML监测的讨论中最令人困惑的方面是术语。像 “度量 “和 “标签 “这样的术语是超载的。在这篇文章中，我将利用以下定义：<ul>
+<li>指标：一个汇总数据的函数，以评估管道的性能如何（例如，平均值、准确度）。</li>
+<li>普罗米修斯公制：数字测量的时间序列</li>
+<li>标识符：分配给一个对象或对象集合的唯一名称</li>
+<li>预测：由一个ML模型做出的输出</li>
+<li>反馈：预测的 “真实 “值</li>
+<li>服务水平指标（SLI）：一个汇总预测和反馈的函数，以评估管道的性能如何（例如，准确性）</li>
+</ul>
+</li>
+</ul>
+<h2 id="ML任务，数据源，和管道"><a href="#ML任务，数据源，和管道" class="headerlink" title="ML任务，数据源，和管道"></a>ML任务，数据源，和管道</h2><ul>
+<li>在这个练习中，我使用纽约市出租车联盟的数据构建了一个ML管道来预测出租车乘客是否会给司机高额小费（二元分类）。使用Prometheus，我们将监测<strong>累积的准确性</strong>，或者说自部署以来所有预测的准确性。训练和推理管道在架构上共享一些组件，看起来像这样：</li>
+<li><img src="/img/wuweiwu/ml/model_monitor_translate/pipeline.svg" alt="ml pipeline"></li>
+<li>图1：ML管道架构。</li>
+<li>由于这是一个二元分类问题，推理组件产生0和1之间的浮动值预测，而反馈组件返回0或1的值。我把我的管道和实验代码寄存在这个资源库中，结构如下：</li>
+<li><img src="/img/wuweiwu/ml/model_monitor_translate/repo_structure.png"></li>
+<li>我在2020年1月的数据上运行训练管道，模拟2020年2月1日开始的部署。我没有进行任何再训练，主要是因为这个练习的目的是展示Prometheus的故障模式，而不是调试由 “数据漂移 “导致的低SLI。</li>
+</ul>
+<h2 id="Prometheus入门"><a href="#Prometheus入门" class="headerlink" title="Prometheus入门"></a>Prometheus入门</h2><ul>
+<li><p>普罗米修斯(Prometheus)是一个开源的软件监控工具：</p>
+<ol>
+<li>收集和存储指标，如响应延迟</li>
+<li>允许用户通过一种名为PromQL的查询语言查询公制值的集合（例如平均延迟）。</li>
+</ol>
+</li>
+<li><p>普罗米修斯支持四种类型的度量值：</p>
+<ul>
+<li><strong>计数器</strong>：一个单调增长的累积度量。例如，可用于跟踪预测服务的数量。</li>
+<li><strong>仪表</strong>：一个代表单一数值的度量，可以任意改变。例如，可以用来跟踪当前的内存使用情况。</li>
+<li><strong>直方图</strong>：一个将观察到的数值归类到用户预先定义的桶中的度量衡。这有很高的服务器端成本，因为服务器在查询时要计算量值。</li>
+<li><strong>摘要</strong>：在一个滑动的时间窗口中跟踪用户预先定义的量化指标。这具有较低的服务器端成本，因为量值是在登录时配置和跟踪的。另外，摘要指标一般不支持查询中的聚合。</li>
+</ul>
+</li>
+<li><p>通常情况下，企业的DevOps或SRE人员使用Prometheus来监控软件SLO。用户用他们的应用程序代码来记录Metric值。这些值被刮取并存储在Prometheus服务器中。这些值可以使用PromQL进行查询，并导出到Grafana等可视化工具中。该架构看起来像这样：</p>
+</li>
+<li><p><img src="/img/wuweiwu/ml/model_monitor_translate/promarchitecture.png" alt="prom architecture"></p>
+</li>
+<li><p>图2：普罗米修斯架构。</p>
+</li>
+<li><p>Ivan Velichko的这一系列教育性的帖子很好地解释了普罗米修斯。我将总结他的一些关键点：</p>
+<ul>
+<li>普罗米修斯不是一个时间序列数据库（TSDB）。它只是利用了一个TSDB。</li>
+<li>由于普罗米修斯定期刮取数值，如果度量值的变化比刮取间隔更频繁，一些度量类型（如仪表）会失去精度。这个问题不适用于单调增长的度量（如计数器）。</li>
+<li>Metrics可以用任意的标识符来记录，这样在查询时，用户可以通过标识符的值来过滤Metrics。</li>
+<li>PromQL很灵活–用户可以在不同的窗口大小上计算许多不同的度量值聚集，这些参数可以在查询时指定。</li>
+</ul>
+</li>
+<li><p>Velichko承认，PromQL在实际软件应用中的使用 “远非微不足道”（也就是说，令人讨厌）。然而，在学习了矢量匹配和其他语法之后，我认为它并不太糟糕–特别是当我们不需要加入Metrics的时候。PromQL查询通常不会太长，而且在查询时有许多辅助函数可以使用。但我们会看到它对ML监控的情况有多糟糕。</p>
+</li>
+</ul>
+<h2 id="Prometheus-🤝-ML"><a href="#Prometheus-🤝-ML" class="headerlink" title="Prometheus 🤝 ML"></a>Prometheus 🤝 ML</h2><ul>
+<li>以下问题将有助于评估Prometheus是否是一个合适的ML监控解决方案：<ol>
+<li>我们可以使用Prometheus Metrics来跟踪我们的ML管道中的任何ML指标吗？将 “ML度量 “映射到Prometheus Metric类型并不直接。对于单一组件的有状态指标，也许我们想使用直方图或汇总指标。如果我们对跨组件的有状态度量感兴趣，我们需要考虑如何将不同组件的度量 “连接 “起来，以计算ML SLI，如准确度和精确度。</li>
+<li>用PromQL编写ML SLI有多难？</li>
+<li>ML SLI的查询延时是多少？</li>
+</ol>
+</li>
+</ul>
+<h2 id="管线仪表"><a href="#管线仪表" class="headerlink" title="管线仪表"></a>管线仪表</h2><h3 id="跨组件的有状态度量"><a href="#跨组件的有状态度量" class="headerlink" title="跨组件的有状态度量"></a>跨组件的有状态度量</h3><ul>
+<li>普罗米修斯的指标类型（计数器、测量仪、直方图或摘要）没有一个明显地映射到我们想要测量的SLI：累积精度。相反，我们将使用2个Gauge Metric3–一个用于管道预测，一个用于反馈–并在PromQL中聚合它们来计算准确性。在mext&#x2F;prometheus_ml_ext.py中，我定义了一个BinaryClassificationMetric类，其中包含Gauge Metrics以及logOutputs和logFeedbacks方法，以便在每次推理调用后更新它们。对应用程序进行仪表化是非常直接的。下面是inference&#x2F;main.py中的Prometheus专用代码：</li>
+<li><img src="/img/wuweiwu/ml/model_monitor_translate/code1.png" alt="inference code"></li>
+<li>将累积的准确度表现为两个Gauge Metrics并不完全是直接的，但我仍将这种经验评为简单。</li>
+</ul>
+<h3 id="单一成分的有状态度量"><a href="#单一成分的有状态度量" class="headerlink" title="单一成分的有状态度量"></a>单一成分的有状态度量</h3><ul>
+<li>ML监控解决方案经常监控输入和输出的聚集，如中位数和p90，以粗略地测量 “数据漂移”。有时，他们还计算更复杂的统计测试（如Kolmogorov-Smirnov测试），我肯定永远无法用PromQL来写。这些方法既不健全也不完整，但为了这个练习的目的，我们可以用直方图度量来跟踪输出值的各种百分位数。下面是inference&#x2F;main.py中的相关仪表代码：</li>
+<li><img src="/img/wuweiwu/ml/model_monitor_translate/code2.png"></li>
+<li>这种整合比跨组件的情况更容易，但一个主要的缺点是，我们需要提前定义我们的直方图桶。这有两个原因：（1）我们常常不知道输出的分布是什么样子的，（2）分布可能随着数据的 “漂移 “而改变。</li>
+</ul>
+<h2 id="用于ML-SLI的PromQL"><a href="#用于ML-SLI的PromQL" class="headerlink" title="用于ML SLI的PromQL"></a>用于ML SLI的PromQL</h2><ul>
+<li><p>现在我们已经检测了我们的管道，我们可以通过Docker-Compose启动我们的容器，开始使用PromQL刮取记录的Metric值并提取我们的ML指标。使用PromQL结构和一个很大的白板，我想出了以下查询：</p>
+</li>
+<li><p><img src="/img/wuweiwu/ml/model_monitor_translate/cmp.png"></p>
+</li>
+<li><p>在ML SLI中使用PromQL有几个问题：</p>
+</li>
+<li><p><strong>不正确性</strong>。当我第一次运行查询的准确性时，我很惊讶，结果并不完全准确（哈哈）。这是因为我的搜刮间隔是15秒，这对于我产生新预测的速度来说太大了。把搜刮间隔缩短到5秒，提高了查询的精确性，但使Prometheus容器的速度变慢，消耗更多的内存和计算资源。</p>
+</li>
+<li><p><strong>滑动窗口的挑战</strong>。即使在几个小时后，我也无法弄清楚如何在固定的窗口大小上计算前3个指标中的任何一个（交叉成分）。我没有发现关于在滑动窗口上计算PromQL中的连接的资源。我不太擅长使用Prometheus，所以请让我知道是否有可能通过窗口计算这些指标。</p>
+</li>
+<li><p><strong>复杂的查询</strong>。表中的最后3个指标（单成分）并不像前3个（跨成分）那样错综复杂。我不会期望任何数据科学家编写这些跨组件的PromQL查询，特别是对于那些简单地调用scikit-learn模块的函数。一个理想的监测工具应该允许用户将自定义的Python函数作为指标传入，并在后端有效地产生这些指标的值。</p>
+</li>
+</ul>
+<h2 id="查询延时"><a href="#查询延时" class="headerlink" title="查询延时"></a>查询延时</h2><ul>
+<li>在本小节中，我将重点讨论延迟问题，特别是跨组件查询的延迟。为了计算类似SLI的准确性，如上一小节所示，我们需要对output_id做一个连接。这是对Prometheus的严重滥用，因为output_id的cardinality显然会随着ML管道的预测数量而增长。<strong>Prometheus并不是为了处理高卡数的标识符，更不用说高卡数的连接了。</strong></li>
+<li>为了证明Prometheus的扩展性有多差，我设计了一个小型的Postgres后端，将预测和反馈放在以时间戳为索引的表中。我计算了PromQL和PostgreSQL的准确度，并测量了与管道产生的预测数量有关的延时：</li>
+<li><img src="/img/wuweiwu/ml/model_monitor_translate/querylatency.png"></li>
+<li>图3：ML查询的延迟。</li>
+<li>由于Prometheus度量值不是急于计算的（也就是说，当用户想在Grafana上查询或绘制一段时间的度量值时，它们都会被计算出来）、<strong>这种延迟是不可接受的，而且不能扩展。</strong> 随着更多预测的产生，许多想要跟踪实时ML SLI的组织可能无法足够快地更新或刷新他们的SLI。也许在某些领域，每天甚至每小时计算一次SLI可能就足够了，但对于数据和用户偏好经常变化的领域来说，这就不适用了。我知道我在使用Prometheus的情况下，它并不是为之设计的，但总的来说，这些问题共同突出了企业的需要：（1）有一个ML监控团队，在Postgres或现有的DBMS之上创建一个层，或者（2）利用一个专门用于ML监控的专有供应商。我相信，现在、<strong>我们需要更好的ML监测实践和工具。</strong></li>
+</ul>
+<h2 id="回顾总结"><a href="#回顾总结" class="headerlink" title="回顾总结"></a>回顾总结</h2><ul>
+<li><p>在这篇文章中，我强调了使用Prometheus进行ML监控的一些主要隐患，最明显的是：</p>
+</li>
+<li><p>需要使用多个普罗米修斯公制类型进行跨组件监测</p>
+</li>
+<li><p>需要提前定义直方图桶以进行单组件监控</p>
+</li>
+<li><p>查询结果的正确性取决于搜刮时间间隔</p>
+</li>
+<li><p>无法处理滑动窗口</p>
+</li>
+<li><p>看起来很恶心的PromQL查询</p>
+</li>
+<li><p>跨组件指标的高延迟（即高cardinality连接）。</p>
+</li>
+<li><p>在这个系列的下一篇也是最后一篇文章中，我将讨论建立一个通用的ML监控工具的一些关键要求和想法。我非常高兴能与大家分享，同时还有一个监测实时ML SLI的原型。更多的内容将陆续推出，新年快乐!</p>
+</li>
+<li><p>感谢Divyahans Gupta, Preetum Nakkiran, 和Peter Schafhalter对许多草案的反馈。</p>
+</li>
+</ul>
+<hr>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><ol>
+<li>这个帖子是针对ML工程师和信息员的。我建议对数据库（如表、连接、索引）、ML SLI（如准确性、精确性、召回率）和查询语言（如SQL、PromQL）有基本认识。</li>
+<li>我用大写的Metric来指代Prometheus Metric的抽象概念。</li>
+<li>我为预测和反馈选择了Gauge Metric，因为它们表示可以上升或下降的数值。由于反馈和推理组件在ML管道中通常是相互分离的，所以真的没有办法（我能想到的）避免连接。</li>
+<li>如果这些查询是错误的，我也不会感到惊讶。如果有错误，请纠正我。</li>
+<li>也许这不是一个失败的模式–我只是想不通。如果我错了，请让我知道!</li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">现代机器学习监控的混乱局面：重新思考流媒体评估（3/4）</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-05-24 19:12:16</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part03/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/MLOps/">#MLOps</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/05/24/%E7%8E%B0%E4%BB%A3%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9B%91%E6%8E%A7%E7%9A%84%E6%B7%B7%E4%B9%B1%E5%B1%80%E9%9D%A2/model_monitoring_mess_part04/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">现代机器学习监控的混乱局面：重新思考流媒体评估（4/4）</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/05/24/%E7%8E%B0%E4%BB%A3%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9B%91%E6%8E%A7%E7%9A%84%E6%B7%B7%E4%B9%B1%E5%B1%80%E9%9D%A2/model_monitoring_mess_part02/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">现代机器学习监控的混乱局面：重新思考流媒体评估（2/4）</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ML%E4%BB%BB%E5%8A%A1%EF%BC%8C%E6%95%B0%E6%8D%AE%E6%BA%90%EF%BC%8C%E5%92%8C%E7%AE%A1%E9%81%93"><span class="nav-number">2.</span> <span class="nav-text">ML任务，数据源，和管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prometheus%E5%85%A5%E9%97%A8"><span class="nav-number">3.</span> <span class="nav-text">Prometheus入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prometheus-%F0%9F%A4%9D-ML"><span class="nav-number">4.</span> <span class="nav-text">Prometheus 🤝 ML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%BA%BF%E4%BB%AA%E8%A1%A8"><span class="nav-number">5.</span> <span class="nav-text">管线仪表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%89%E7%8A%B6%E6%80%81%E5%BA%A6%E9%87%8F"><span class="nav-number">5.1.</span> <span class="nav-text">跨组件的有状态度量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E6%88%90%E5%88%86%E7%9A%84%E6%9C%89%E7%8A%B6%E6%80%81%E5%BA%A6%E9%87%8F"><span class="nav-number">5.2.</span> <span class="nav-text">单一成分的有状态度量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E4%BA%8EML-SLI%E7%9A%84PromQL"><span class="nav-number">6.</span> <span class="nav-text">用于ML SLI的PromQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%BB%B6%E6%97%B6"><span class="nav-number">7.</span> <span class="nav-text">查询延时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E9%A1%BE%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">回顾总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E"><span class="nav-number">9.</span> <span class="nav-text">声明</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Doman Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Doman Chen(motion$)">
+    
+    <title>
+        
+            Django-1-7-3-Tutorial-Part-3-视图和模板 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Django-1-7-3-Tutorial-Part-3-视图和模板</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Doman Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2015-01-27 16:46:50</span>
+        <span class="mobile">2015-01-27 16:46</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 09:33:42</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Django/">技能-修行-进步-Django</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Django-Models/">Django-Models</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>15 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ul>
+<li>本教程是接着上一节教程继续的。我们继续讨论网页投票(Web-poll)应用程序，然后关注与创建公共接口–“视图”。</li>
+</ul>
+<h2 id="哲学"><a href="#哲学" class="headerlink" title="哲学"></a>哲学</h2><ul>
+<li><p>一个视图是在你的Django应用中一种有特定应用功能和有一个模板的网页的“类型”。譬如，在一个博客应用中，你可能需要以下视图：</p>
+<ul>
+<li>博客首页–显示最新的博客</li>
+<li>“具体”页面的入口–单独入口的固定链接</li>
+<li>把博客按照年排序的架构页面–给定年份，按月列出所有的文章</li>
+<li>把博客按照月排序的架构页面–给定月份，按日列出所有的文章</li>
+<li>把博客按照日排序的架构页面–给定日期，列出所有的文章</li>
+<li>评论操作–给指定的文章下评论</li>
+</ul>
+</li>
+<li><p>在我们的投票应用中(poll)，我们已经有了以下四个页面：</p>
+<ul>
+<li>问题“首页”–显示最新的问题</li>
+<li>问题“具体页”–显示一个问题文本，不能显示结果，但是提供投票表格</li>
+<li>问题“结果页”–为指定的问题显示投票结果</li>
+<li>投票操作–在给定的问题中投给定的选项</li>
+</ul>
+</li>
+<li><p>在Django中，网页和其他的内容页是通过视图展示的。每一个视图是通过一个简单的Python功能展示的(或者方法，如果在基于类的视图下)。Django通过测试请求的URL而选择视图(更准确的说，是跟在域名后面的URL部分)。</p>
+</li>
+<li><p>现在你在浏览网页的时候可能看过这样的网页链接：<strong>“ME2&#x2F;Sites&#x2F;dirmod.asp?sid&#x3D;&amp;type&#x3D;gen&amp;mod&#x3D;Core+Pages&amp;gid&#x3D;A6CD4967199A42D9B65B1B”</strong>。但是更值得我们高兴的是，Django允许我们使用比以上更优雅的链接模式。</p>
+</li>
+<li><p>一个URL模式是一个简单的URL通常格式–譬如：<img src="/img/Django-1-7-3-tutorial/url-01.png"></p>
+</li>
+<li><p>要从一个URL得到一个视图，Django利用了我们熟知的’URLconfs’。一个URLconf把一个URL模式(通常被描述为正则表达式)映射到一个视图。</p>
+</li>
+<li><p>本节教程提供了URLconfs的基本用法，然后你可以参考<strong>django.core.urlresolvers</strong>得到更多信息。</p>
+</li>
+</ul>
+<h2 id="写你的第一个视图"><a href="#写你的第一个视图" class="headerlink" title="写你的第一个视图"></a>写你的第一个视图</h2><ul>
+<li><p>让我们开始写第一个视图吧。打开文件<strong>polls&#x2F;views.py</strong>然后写入以下python代码：</p>
+</li>
+<li><p><font color="green"><strong>polls&#x2F;views.py</strong></font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>(<span class="params">request</span>):</span><br><span class="line">	<span class="keyword">return</span> HttpResponse(<span class="string">&quot;Hello, world. You&#x27;re at the polls index.&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>这可能是Django中最简单的视图了。要调用这个视图，我们需要把它映射到一个URL–然后我们就需要一个URLconf。</p>
+</li>
+<li><p>在polls目录下创建一个URLconf，创建一个<strong>urls.py</strong>文件。你的app目录应该看起来是这样：<br><img src="/img/Django-1-7-3-tutorial/polls-urls.png"></p>
+</li>
+<li><p>在<strong>polls&#x2F;urls.py</strong>文件中加入以下代码：</p>
+</li>
+<li><p><font color="green"><strong>polls&#x2F;urls.py</strong></font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> patterns, url</span><br><span class="line"><span class="keyword">from</span> polls <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = patterns(<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">	url(<span class="string">r&#x27;^$&#x27;</span>, views.index, name=<span class="string">&#x27;index&#x27;</span>),</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>下一步就是在<strong>polls.urls</strong>模块中指定根URLconf。在<strong>mysite&#x2F;urls.py</strong>中插入一个**include()**，像这样：</p>
+</li>
+<li><p><font color="green"><strong>mysite&#x2F;urls.py</strong></font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> patterns, include, url</span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line">urlpatterns = patterns(<span class="string">&#x27;&#x27;</span>, </span><br><span class="line">	url(<span class="string">r&#x27;^polls/&#x27;</span>, include(<span class="string">&#x27;polls.urls&#x27;</span>)),</span><br><span class="line">	url(<span class="string">r&#x27;^admin/&#x27;</span>, include(admin.site.urls)),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>和你所见的不匹配吗？</strong><br>如果你在<strong>urlpatterns</strong>定义之前就看见了**admin.autodiscover()**，你可能是在用一个和本教程不匹配的版本，你应该更改Django的版本。</p>
+</blockquote>
+</li>
+<li><p>你现在可以把**首页(index)<strong>视图转换为URLconf。在你的浏览器中输入<a class="link"   target="_blank" rel="noopener" href="http://localhost:8000/polls/" >http://localhost:8000/polls/<i class="fas fa-external-link-alt"></i></a>，按下Enter键，你应该可以看到文本“Hello, world. You’re at the polls index.”，它是在</strong>首页(index)**视图所定义的。</p>
+</li>
+<li><p><strong>url()<strong>函数有四个参数，其中两个是必须的：</strong>regex(正则表达式)<strong>和</strong>view(视图)</strong>,两个是可选的：<strong>kwargs</strong>和**name(名字)**。现在，让我们来了解一下这些参数具体是什么来的。</p>
+</li>
+</ul>
+<h3 id="url-参数：regex"><a href="#url-参数：regex" class="headerlink" title="url()参数：regex"></a><strong>url()参数：regex</strong></h3><ul>
+<li>术语<strong>regex</strong>通常是**regular expression(正则表达式)**的缩写，它是一个字符串匹配的语法规则，在这里，它是url模式的匹配。Django从第一个正则表达式开始，然后把它们造一个列表，把请求的URL和每一个正则表达式单元进行比较，然后找到匹配的那一个。</li>
+<li>请注意，这些正则表达式不会搜寻GET和POST的参数或者域名。譬如，在请求URL<strong><a class="link"   target="_blank" rel="noopener" href="http://www.example.com/myapp/**%E4%B8%AD%EF%BC%8CURLconf%E4%BC%9A%E5%AF%BB%E6%89%BE**myapp/**%E3%80%82%E8%80%8C%E5%9C%A8%E8%AF%B7%E6%B1%82URL**http://www.example.com/myapp/?page=3" >http://www.example.com/myapp/**中，URLconf会寻找**myapp/**。而在请求URL**http://www.example.com/myapp/?page=3<i class="fas fa-external-link-alt"></i></a></strong>中，URLconf也会寻找**myapp&#x2F;**。</li>
+<li>如果你不了解正则表达式，请看<a class="link"   target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Regular_expression" >Wikipedia’s entry<i class="fas fa-external-link-alt"></i></a>或者<a target="_blank" rel="noopener" href="http://docs.python.org/3/library/re.html#module-re"><strong>re</strong></a>模块的文档。另外，O’Reilly的书–Jeffrey Friedl著的《Mastering Regular Expressions》非常不错。实际上，你不需要成为<strong>正则表达式</strong>方面的专家，如果你仅仅需要知道一些简单的模式匹配的话。事实上，复杂的正则表达式有比较弱的检查能力，所以，你不太可能依赖正则表达式。</li>
+<li>最后，性能笔记：这些正则表达式在URLconf模块加载时会被首次编译。它们非常快(只要查找的不是太复杂的正则表达式)。</li>
+</ul>
+<h3 id="url-参数：view"><a href="#url-参数：view" class="headerlink" title="url()参数：view"></a><strong>url()参数：view</strong></h3><ul>
+<li>当Django匹配到了正则表达式时，Django调用指定的视图函数，第一个参数是一个<strong>HttpRequest</strong>对象，其他的参数是根据需要从正则表达式中捕捉的任意值。如果正则表达式是用简单的捕捉，值就会当成位置参数来传递；如果正则表达式是用命名捕捉，值就会被当成关键字参数来传递。我们稍后会给出例子进行说明。</li>
+</ul>
+<h3 id="url-参数：kwargs"><a href="#url-参数：kwargs" class="headerlink" title="url()参数：kwargs"></a><strong>url()参数：kwargs</strong></h3><ul>
+<li>任意的关键字参数都可以传递到目标视图中的字典。在这个教程中我们不会讨论这个特性。</li>
+</ul>
+<h3 id="url-参数：name"><a href="#url-参数：name" class="headerlink" title="url()参数：name"></a><strong>url()参数：name</strong></h3><ul>
+<li>对你的URL命名可以让你清楚地从Django中的任何地方中引用，特别是在模板中。这个有力的特性让你对项目中的url模式做全局的修改，当你仅仅创建了单个文件时。</li>
+</ul>
+<h2 id="写更多的视图"><a href="#写更多的视图" class="headerlink" title="写更多的视图"></a>写更多的视图</h2><ul>
+<li><p>现在让我们在<strong>polls&#x2F;views.py</strong>文件中添加更多的视图。这些视图可能有小小的不同，因为它们有一个参数。</p>
+</li>
+<li><p><font color="green"><strong>polls&#x2F;views.py</strong></font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">detail</span>(<span class="params">request, question_id</span>):</span><br><span class="line">	<span class="keyword">return</span> HttpResponse(<span class="string">&quot;You&#x27;re looking at question %s.&quot;</span> % question_id)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">results</span>(<span class="params">request, question_id</span>):</span><br><span class="line">	response = <span class="string">&quot;You&#x27;re looking at the results of question %s.&quot;</span></span><br><span class="line">	<span class="keyword">return</span> HttpResponse(response % question_id)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">vote</span>(<span class="params">request, question_id</span>):</span><br><span class="line">	<span class="keyword">return</span> HttpResponse(<span class="string">&quot;You&#x27;re voting on question %s.&quot;</span> % question_id)</span><br></pre></td></tr></table></figure></li>
+<li><p>把这些新的视图通过添加以下的<strong>url()<strong>调用写进</strong>polls.urls</strong>模块：</p>
+</li>
+<li><p><font color="green"><strong>polls&#x2F;urls.py</strong></font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> patterns, url</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> polls <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = patterns(<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">	<span class="comment"># ex: /polls/</span></span><br><span class="line">	url(<span class="string">r&#x27;^$&#x27;</span>, views.index, name=<span class="string">&#x27;index&#x27;</span>),</span><br><span class="line">	<span class="comment"># ex: /polls/5/</span></span><br><span class="line">	url(<span class="string">r&#x27;^(?P&lt;question_id&gt;\d+)/$&#x27;</span>, views.detail, name=<span class="string">&#x27;detail&#x27;</span>),</span><br><span class="line">	<span class="comment"># ex: /polls/5/results/</span></span><br><span class="line">	url(<span class="string">r&#x27;^(?P&lt;question_id&gt;\d+)/results/$&#x27;</span>, views.results, name=<span class="string">&#x27;results&#x27;</span>),</span><br><span class="line">	<span class="comment"># ex: /polls/5/vote/</span></span><br><span class="line">	url(<span class="string">r&#x27;^(?P&lt;question_id&gt;\d+)/vote/$&#x27;</span>, views.vote, name=<span class="string">&#x27;vote&#x27;</span>),</span><br><span class="line">	)</span><br></pre></td></tr></table></figure></li>
+<li><p>在浏览器中打开**”&#x2F;polls&#x2F;34&#x2F;“<strong>浏览一下。它运行</strong>detail()<strong>方法并且根据你的URL提供的ID显示你的东西。试一下</strong>“&#x2F;polls&#x2F;34&#x2F;results&#x2F;”<strong>和</strong>&#x2F;polls&#x2F;34&#x2F;vote&#x2F;**–这些会显示占位符结果和投票页面。</p>
+</li>
+<li><p>当某人从你的网站请求网页时–譬如，**&#x2F;polls&#x2F;34&#x2F;<strong>,Django将会加载</strong>mysite.urls<strong>模块，因为它是被</strong>ROOT_URLCONF<strong>设置所指向的。它找到名叫</strong>urlpatterns<strong>的变量然后遍历正则表达式。</strong>include()<strong>函数只是引用了其他的URLconfs。注意到关于</strong>include()<strong>方法的正则表达式没有</strong>$<strong>(字符串匹配的结束符)而只有末尾斜杠。无论何时Django遇上了</strong>include()**方法，它会发送剩余的字符串到包含的URLconf给下一步做准备，而砍掉其他的部分。</p>
+</li>
+<li><p>**include()<strong>背后的思想是使得URLs即插即用，用起来非常简单。由于polls在它们自己的URLconf(<strong>polls&#x2F;urls.py</strong>)中，它们可以被放在</strong>&#x2F;polls&#x2F;<strong>或者</strong>&#x2F;fun_polls&#x2F;<strong>或者</strong>&#x2F;content&#x2F;polls&#x2F;**或者其它的根路径后面，应用还是可以运行的。</p>
+</li>
+<li><p>如果用户去到系统中的**&#x2F;polls&#x2F;34&#x2F;**，它会发生以下事情：</p>
+<ul>
+<li>Django会对**^polls&#x2F;**进行匹配</li>
+<li>然后，Django会去掉匹配的文本(<strong>“polls&#x2F;”</strong>)并且把剩下的文本<strong>34&#x2F;<strong>发送到</strong>polls.urls</strong>URLconf作进一步的操作，**34&#x2F;<strong>是匹配<img src="/img/Django-1-7-3-tutorial/reg-1.png">,然后对</strong>detail()**视图进行调用：</li>
+<li><img src="/img/Django-1-7-3-tutorial/reg-4.png"></li>
+</ul>
+</li>
+<li><p>**question_id&#x3D;’34’<strong>是来自<img src="/img/Django-1-7-3-tutorial/reg-2.png">。用圆括号把匹配到的模式文本括起来当成一个参数传到视图函数；<img src="/img/Django-1-7-3-tutorial/reg-3.png">定义了将要确定匹配模式的名字；而</strong>\d+**是一个匹配一串数字的正则表达式。</p>
+</li>
+<li><p>因为URL模式是一个正则表达式，它们没有任何限制。没必要添加URL烂尾，譬如**.html**,除非你想要加，然后你可以这样做：</p>
+</li>
+<li><p><img src="/img/Django-1-7-3-tutorial/reg-5.png"></p>
+</li>
+<li><p>但是不要这样做，它看起来傻傻的。</p>
+</li>
+</ul>
+<h2 id="写一些起作用的视图"><a href="#写一些起作用的视图" class="headerlink" title="写一些起作用的视图"></a>写一些起作用的视图</h2><ul>
+<li>每一个视图都应该做一到两样事情：返回一个包含请求页的内容的<strong>HttpResponse</strong>对象，或者产生一个像<strong>Http404</strong>这样的异常。剩下的就由你决定。</li>
+<li>你的视图能够从数据库中读取记录，或者不读。它能够使用一个像Django这样的模板系统，或者第三方模板系统，又或者不用。它能够生成一个PDF文件，输出XML，飞速创建一个ZIP文件，或者任何你想要的文件，使用任何你想要的Python库。</li>
+<li>Django想做的就是一个<strong>HttpResponse</strong>，或者一个异常。</li>
+<li>由于方便，我们使用Django默认的数据库API，就是我们在教程1当中介绍的。下面是我们在**index()**视图中插入新的东西，它显示了系统中最新的5个投票问题，根据发布日期通过逗号隔开：</li>
+<li><font color="green"><strong>polls&#x2F;views.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>(<span class="params">request</span>):</span><br><span class="line">	latest_question_list = Question.objects.order_by(<span class="string">&#x27;-pub_date&#x27;</span>)[:<span class="number">5</span>]</span><br><span class="line">	output = <span class="string">&#x27;,&#x27;</span>.join([p.question_text <span class="keyword">for</span> p <span class="keyword">in</span> latest_question_list])</span><br><span class="line"></span><br><span class="line"><span class="comment"># leave the rest of views (detail, results, vote) unchanged</span></span><br></pre></td></tr></table></figure></li>
+<li>但还有一个问题：页面的设计是在视图硬性写定了。如果你像更改页面的设计，你需要重新编辑Python 代码。所以让我们使用Django的模板系统把设计和Python代码通过创建一个视图可调用的模板来分开。</li>
+<li>首先，在你的<strong>polls</strong>目录下创建一个名为<strong>templates</strong>的文件。Django会在那里进行搜寻的。</li>
+<li>Django的<strong>TEMPLATE_LOADERS</strong>设置包含一系列知道如何从不同资源中导入模板的可调用方法。其中默认的方法是<strong>django.template.loaders.app_directories.Loader</strong>，它在每一个<strong>INSTALLED_APPS</strong>中寻找一个“模板”子目录。这就是为什么Django在没有修改<strong>TEMPLATE_DIRS</strong>的情况下知道怎么找到poll模板的原因。</li>
+</ul>
+<blockquote>
+<p><strong>组织模板</strong><br>我们可以把所有的模板放在一起，在一个大的模板目录中，而且它可以工作的很顺利。但是，这个模板是属于polls应用的，所以不像上一个教程中我们介绍的管理员模板那样，我们把它放在程序的模板目录而不是项目的模板目录。我们会讨论更多关于这个更多的可重用的app教程，并对其进行解释。</p>
+</blockquote>
+<ul>
+<li>在你刚刚创建的<strong>template</strong>模板目录中，创建另外一个叫做<strong>polls</strong>的目录，然后再里面创建一个<strong>index.html</strong>文件。换句话说，你的模板应该是在<strong>polls&#x2F;templates&#x2F;polls&#x2F;index.html</strong>目录中。正是由于上面我们讨论的关于<strong>app_directories</strong>模板加载器是如何工作的，你可以像<strong>polls&#x2F;index.html</strong>一样通过Django简单的找到模板文件。</li>
+</ul>
+<blockquote>
+<p><strong>模板命名空间</strong><br>现在我们可能不需要把我们的模板放进<strong>polls&#x2F;templates</strong>目录(而不是在<strong>polls</strong>的子目录下新建一个)，但这确实是一个坏主意。Django会选择它第一个匹配到的模板名字，如果你在不同的目录下有相同的名字的应用，Django就不会对它们进行分辨。我们应该要为Django正确指定哪一个模板，最简单的方法来保证这样的事情就是通过给它们创建命名空间。也就是说，把那些模板放进另一个为本应用命名的目录。</p>
+</blockquote>
+<ul>
+<li>在模板中写进以下代码：</li>
+<li><font color="green"><strong>polls&#x2F;templates&#x2F;polls&#x2F;index.html</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> latest_question_list %&#125;</span><br><span class="line">	&lt;ul&gt;</span><br><span class="line">	&#123;% <span class="keyword">for</span> question <span class="keyword">in</span> latest_question_list %&#125;</span><br><span class="line">		&lt;li&gt;&lt;a href=<span class="string">&quot;/polls.&#123;&#123; question.id &#125;&#125;/&quot;</span>&gt;&#123;&#123; question.question_text &#125;&#125;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">	&#123;% endfor %&#125;</span><br><span class="line">	&lt;/ul&gt;</span><br><span class="line">&#123;% <span class="keyword">else</span> %&#125;</span><br><span class="line">	&lt;p&gt;No polls are available.&lt;/p&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>现在让我们更新<strong>polls&#x2F;views.py</strong>中的视图来使用模板：</li>
+<li><font color="green"><strong>polls&#x2F;views.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">from</span> django.template <span class="keyword">import</span> RequestContext, loader</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>(<span class="params">request</span>):</span><br><span class="line">	latest_question_list = Question.objects.order_by(<span class="string">&#x27;-pub_date&#x27;</span>)[:<span class="number">5</span>]</span><br><span class="line">	template = loader.get_template(<span class="string">&#x27;polls/index.html&#x27;</span>)</span><br><span class="line">	context = RequestionContext(request, &#123;</span><br><span class="line">		<span class="string">&#x27;latest_question_list&#x27;</span>: latest_question_list,</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">return</span> HttpResponse(template.render(context))</span><br></pre></td></tr></table></figure></li>
+<li>上面的代码加载了<strong>polls&#x2F;index.html</strong>模板，然后传递了一个context。context是一个匹配模板变量名到Python对象的字典。</li>
+<li>在你的浏览器里点击**”&#x2F;polls&#x2F;“<strong>加载页面，你会看到包含Tutorial_1中的</strong>“What’s up”**问题的无序列表。这个链接指向问题详细内容页。</li>
+</ul>
+<h2 id="一个快捷键-render"><a href="#一个快捷键-render" class="headerlink" title="一个快捷键:render()"></a>一个快捷键:render()</h2><ul>
+<li>这是一种常用的语法：加载一个模板，传递一个context，然后返回一个对显示模板结果的<strong>HttpResponse</strong>对象。Django提供一个快捷键。下面是完整的**index()**视图，重写：</li>
+<li><font color="green"><strong>polls&#x2F;views.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>(<span class="params">request</span>):</span><br><span class="line">	lastest_question_list = Question.objects.order_by(<span class="string">&#x27;-pub_date&#x27;</span>)[:<span class="number">5</span>]</span><br><span class="line">	context = &#123;<span class="string">&#x27;lastest_question_list&#x27;</span>: lastest_question_list&#125;</span><br><span class="line">	<span class="keyword">return</span> render(request, <span class="string">&#x27;polls/index.html&#x27;</span>, context)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>既然我们搞好了所有的视图，我们不需要去导入<strong>loader,RequestContext</strong>和<strong>HttpResponse</strong>(如果你需要<strong>detail</strong>和<strong>results</strong>，<strong>vote</strong>的根方法，你需要保留<strong>HttpResponse</strong>对象)。</li>
+<li><strong>render()<strong>方法的第一个参数是</strong>Request</strong>对象，第二个参数是一个模板名，然后第三参数是可选的，它是一个字典类型。方法返回的是一个带根据给定的context而呈现的给定的模板的<strong>HttpResponse</strong>对象。</li>
+</ul>
+<h2 id="报告404错误"><a href="#报告404错误" class="headerlink" title="报告404错误"></a>报告404错误</h2><ul>
+<li>现在，让我们浏览一下问题详细视图-根据给定的poll显示问题文本的页面。这就是视图：</li>
+<li><font color="green"><strong>polls&#x2F;views.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> Http404</span><br><span class="line"><span class="keyword">from</span> djang.shortcuts <span class="keyword">import</span> render</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">detail</span>(<span class="params">request, question_id</span>):</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		question = Question.objects.get(pk = question_id)</span><br><span class="line">	<span class="keyword">except</span> Question.DoesNotExist:</span><br><span class="line">		<span class="keyword">raise</span> Http404(<span class="string">&quot;Question does not exist&quot;</span>)</span><br><span class="line">	<span class="keyword">return</span> render(request, <span class="string">&#x27;polls/detail.html&#x27;</span>, &#123;<span class="string">&#x27;question&#x27;</span>: question&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>新的概念：如果问题的请求ID不存在，那么视图就会产生要给404异常。</li>
+<li>我们会在稍后讨论你能够在<strong>polls&#x2F;detail.html</strong>模板中放入什么，但是如果你想快速地运行上面的例子，文件应该包含如下：</li>
+<li><font color="green"><strong>polls&#x2F;templates&#x2F;polls&#x2F;detail.html</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; question &#125;&#125;</span><br></pre></td></tr></table></figure></li>
+<li>会让你现在开始。</li>
+</ul>
+<h3 id="快捷键：get-object-or-404"><a href="#快捷键：get-object-or-404" class="headerlink" title="快捷键：get_object_or_404()"></a>快捷键：get_object_or_404()</h3><ul>
+<li>这是一种常用的语法：如果对象不存在，利用<strong>get()<strong>方法报告一个</strong>Http404</strong>异常。Django提供一个快捷键。下面是<strong>detial</strong>视图，重写：</li>
+<li><font color="green"><strong>polls&#x2F;views.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> get_object_or_404, render</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">detail</span>(<span class="params">request, question_id</span>):</span><br><span class="line">	question = get_object_or_404(Question, pk = question_id)</span><br><span class="line">	<span class="keyword">return</span> render(request, <span class="string">&#x27;polls/detail.html&#x27;</span>, &#123;<span class="string">&#x27;question&#x27;</span>:question&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><strong>get_object_or_404()<strong>函数的第一个参数是要给Django模型，然后有数个关键字参数，它们是被传递到模型管理的</strong>get()<strong>函数。如果对象不存在，它会报告</strong>Http404</strong>异常。</li>
+</ul>
+<blockquote>
+<p><strong>Philosophy</strong><br>为什么我们在更高的水平上使用帮助函数<strong>get_object_or_404()<strong>而不是自动获取</strong>ObjectDoesNotExist</strong>异常，或者通过模型API报告<strong>Http404</strong>异常而不是<strong>ObjectDoesNotExist</strong>异常。<br>因为这样会把模型层结合视图层。Django的一个最重要的设计目标是保持低耦合。在Django.shortcuts模型中引入了一些强耦合。</p>
+</blockquote>
+<ul>
+<li>还有一个<strong>get_list_or_404()<strong>函数，它就像</strong>get_object_or_404()<strong>函数一样工作。用</strong>filter()<strong>而不是</strong>get()<strong>方法。它会报告</strong>Http404</strong>异常，如果列表是空的话。</li>
+</ul>
+<h2 id="使用模板系统"><a href="#使用模板系统" class="headerlink" title="使用模板系统"></a>使用模板系统</h2><ul>
+<li>回到我们的poll应用的<strong>detail()<strong>视图。给定context变量</strong>question</strong>，这就是<strong>polls&#x2F;detail.html</strong>模板的代码：<br> <img src="/img/Django-1-7-3-tutorial/detail-01.png"></li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">Django-1-7-3-Tutorial-Part-3-视图和模板</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2015-01-27 16:46:50</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2015/01/27/技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-3-视图和模板/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Django-Models/">#Django-Models</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2015/02/08/alogrithms/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E9%A1%BB%E7%9F%A5%E9%81%93%E7%9A%8410%E5%A4%A7%E5%9F%BA%E7%A1%80%E5%AE%9E%E7%94%A8%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6%E8%AE%B2%E8%A7%A3-%E6%85%95%E5%8F%AF%E7%BD%91%E5%88%B6%E4%BD%9C/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">程序员必须知道的10大基础实用算法及其讲解-@慕可网制作</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2015/01/19/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Django/Django-1-7-3-Tutorial-Part-2-%E7%AE%A1%E7%90%86%E7%AB%99%E7%82%B9/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Django-1-7-3-Tutorial-Part-2-管理站点</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%B2%E5%AD%A6"><span class="nav-number">1.</span> <span class="nav-text">哲学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%A7%86%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">写你的第一个视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#url-%E5%8F%82%E6%95%B0%EF%BC%9Aregex"><span class="nav-number">2.1.</span> <span class="nav-text">url()参数：regex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#url-%E5%8F%82%E6%95%B0%EF%BC%9Aview"><span class="nav-number">2.2.</span> <span class="nav-text">url()参数：view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#url-%E5%8F%82%E6%95%B0%EF%BC%9Akwargs"><span class="nav-number">2.3.</span> <span class="nav-text">url()参数：kwargs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#url-%E5%8F%82%E6%95%B0%EF%BC%9Aname"><span class="nav-number">2.4.</span> <span class="nav-text">url()参数：name</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E6%9B%B4%E5%A4%9A%E7%9A%84%E8%A7%86%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">写更多的视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E4%B8%80%E4%BA%9B%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E8%A7%86%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">写一些起作用的视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%BF%AB%E6%8D%B7%E9%94%AE-render"><span class="nav-number">5.</span> <span class="nav-text">一个快捷键:render()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E5%91%8A404%E9%94%99%E8%AF%AF"><span class="nav-number">6.</span> <span class="nav-text">报告404错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%9Aget-object-or-404"><span class="nav-number">6.1.</span> <span class="nav-text">快捷键：get_object_or_404()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E7%B3%BB%E7%BB%9F"><span class="nav-number">7.</span> <span class="nav-text">使用模板系统</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Doman Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

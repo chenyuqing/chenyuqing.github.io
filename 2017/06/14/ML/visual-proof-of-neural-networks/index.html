@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Doman Chen(motion$)">
+    
+    <title>
+        
+            可视化证明：神经网络可以计算任何函数 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">可视化证明：神经网络可以计算任何函数</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Doman Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2017-06-14 17:49:20</span>
+        <span class="mobile">2017-06-14 17:49</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 09:36:25</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-ML/">技能-修行-进步-ML</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%81%E6%98%8E/">可视化证明</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ul>
+<li><p><a class="link"   target="_blank" rel="noopener" href="http://neuralnetworksanddeeplearning.com/chap4.html" >Original Post<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p>神经网络当中一个最显著的事实是：神经网络能够计算任何的函数。也就是说，假如有人给你一个复杂的，波形弯弯曲曲的函数，$f(x):$</p>
+<img src="/img/visual_proof_of_neural_networks/1_function.png" class="[class names]" title="[Function $f(x)$ []]">
+</li>
+<li><p>无论是什么的函数，我们都可以保证能找到一个网络，对于所有可能的输入，$x$，$f(x)$的值(或者其他的逼近)就是网络的输出，譬如：</p>
+<img src="/img/visual_proof_of_neural_networks/2_network.png" class="[class names]" title="[Neural Network []]">
+</li>
+<li><p>这个网络即使是网络的输入很多的时候也是成立的。$f&#x3D;f(x_1,…,x_m)$，然后还有很多的输出。譬如，以下就是一个网络，计算的函数，输入$m&#x3D;3$和输出$n&#x3D;2$：</p>
+<img src="/img/visual_proof_of_neural_networks/3_network.png" class="[class names]" title="[Neural Network []]">
+</li>
+<li><p>以上的网络告诉我们神经网络是有一种泛化性的。无论我们想要计算任何的函数，肯定存在一个网络可以满足我们的需求。</p>
+</li>
+<li><p>另外，更进一步，即使这个网络限制到只有一层隐含层，这个泛化理论也是成立的。这个网络就是所谓的单层隐含层。所以，即使是很简单的网络也是很厉害的。</p>
+</li>
+<li><p>搞神经网络的人都应该熟知这个泛化性理论，可是事实上它并没有让很多人能理解。大多数的解释都是偏技术性的。譬如，其中一篇原始的论文利用$Hahn-Banach$理论，$Riesz Representation$理论和一些傅里叶分析来证明这个泛化性理论。如果你不是一个数学家的话，你很难读懂里面的解释。很遗憾，这样很多人就很难懂这个泛化性理论了。但是其实背后的原理是非常简单和美好的。</p>
+</li>
+<li><p>在本章中，我会给出一个关于泛化性理论的简单的和非常可视化的解释。我们会循序渐进，一步一步来理解这个idea。你将会明白为什么神经网络能够计算任意的函数。你也会理解到这个理论的一些限制的地方。你会理解到这个理论和深度学习之间的关系。</p>
+</li>
+<li><p>要理解这章的内容，你并不需要读前面的内容。反而这一章是一个结构乐见和完整的文章。我会给你们讲一些神经网络的基本知识，这样你们会更容易看懂解释。我会提供一些临时的链接，以防填补你某一部分知识的缺口。</p>
+</li>
+<li><p>泛化性理论是计算机科学中一个老生常谈的东西，以至于我们有时候都忘记了它到底有多厉害了。但是我们应该时刻提醒自己：有能力去计算任意的函数真的是一件很厉害的事情。几乎你可以想象得到的任何进程都可以被认为是一个函数的计算。譬如，根据一些短的音乐片段去给一段音乐命名。这也是看作计算一个函数。又或者把中文翻译成英文，又或者给计算机一个mp4视频资料，它会生成一个关于视频的描绘图还有这个视频的拍摄质量。泛化性意味着，原则上，神经网络可以做任何的事情而且更多。</p>
+</li>
+<li><p>当然，仅仅因为我们知道存在一个网络能够把中文翻译成英文，那不意味着我们就很容易构造甚至识别出这个网络。这样的约束对于模型的传统的泛化性理论，譬如布尔回路，都是适用的。但是，像这本书前面所说的，神经网络对于学习函数有非常强的算法。学习算法和泛化性是一个绝妙的结合。直到现在，这本书还是关注在学习算法。在这一章，我们关注在泛化性理论，和它所代表的意思。</p>
+</li>
+</ul>
+<h2 id="两个说明"><a href="#两个说明" class="headerlink" title="两个说明"></a>两个说明</h2><ul>
+<li><p>在我们解释为什么泛化性理论成立之前，我想要提两个关于“一个神经网络能够计算任何的函数”的说明。</p>
+</li>
+<li><p>首先，并不是说一个神经网络被用来准确地计算任何的函数。而是，我们能够得到一个关于这个函数的一个很好的逼近。通过增加隐层神经元的个数，我们可以不断改进逼近的程度。譬如，前面我们谈到的神经网络，包含一个隐层。对于很多函数，只有3个隐层神经元的神经网络是一个并不好的逼近。通过增加隐层的神经元(假如，增加到5)，我们可以得到更好的逼近：</p>
+<img src="/img/visual_proof_of_neural_networks/4_network.png" class="[class names]" title="[Neural Network []]">
+</li>
+<li><p>如果我们继续增加神经元的个数，这个逼近就能做得更好。</p>
+</li>
+<li><p>更精确的说，假如给定我们一个函数$f(x)$，我们想要计算它的误差$\epsilon &gt; 0$。只要我们增加足够的隐层神经元，我们就能找到一个神经网络，它的输出$g(x)$满足$g(x)-f(x) &lt; \epsilon$,对于所有的输入$x$。换句话说，这个逼近函数$g(x)$对于所有可能的输入都在可预计的准确度范围之内。</p>
+</li>
+<li><p>第二个说明是能够用逼近的方式的函数类型是连续函数。如果一个函数是不连续的，譬如，突然断开的，或者跳动的函数，然后是没法用神经网络来进行逼近的。这并没有什么奇怪的，因为我们的网络计算输入的连续函数。然而，即使我们想要计算不连续的函数，但是利用连续的逼近来的效果更好。既然这样，那么我们就可以用神经网络。实际上，这并不是一个很重要的限制。</p>
+</li>
+<li><p>总结一下，关于泛化性理论的一个精确的说法是一个单隐层的神经网络能够用来逼近任何的连续函数到任何想要的精度。在本章中，我们实际上证明了一个微弱版本的理论，用两个隐层的神经网络代替单隐层的神经网络。在以下的我们将要解释的问题中，利用一些小技巧，适合的给出了单隐层的神经网络的证明。</p>
+</li>
+</ul>
+<h2 id="一个输入和一个输出的泛化理论"><a href="#一个输入和一个输出的泛化理论" class="headerlink" title="一个输入和一个输出的泛化理论"></a>一个输入和一个输出的泛化理论</h2><ul>
+<li><p>要理解为什么泛化性理论是可行的，让我们从理解如何构造一个能够逼近函数的只包含一个输入和一个输出的神经网络说起：</p>
+<img src="/img/visual_proof_of_neural_networks/5_network.png" class="[class names]" title="[Neural Network []]">
+</li>
+<li><p>其实最简单的神经网络(包含一个输入和一个输出)就是泛化性理论的核心。一旦我们能够理解这个简单的网络，那么我们也很容易扩展到其他的(包含多个输入和输出)复杂网络了。</p>
+</li>
+<li><p>想要深入理解如果构造能够计算函数$f$的网络，我们先来构造一个简单的神经网络，包含单个输入，一个包含2个神经元的隐层，单个输出的神经网络：</p>
+</li>
+</ul>
+<img src="/img/visual_proof_of_neural_networks/6_network.png" class="[class names]" title="[Neural Network []]">
+
+<ul>
+<li>为了感受一下神经网络中的组件是如何工作的，让我们先看上面的隐层神经元。在下面的图中，用鼠标点击然后拖动来改变权重$w$的值。你就可以立刻看到右边的函数图是如何变化的(原网页才能操作)：<img src="/img/visual_proof_of_neural_networks/7_gif_pic.gif" class="[class names]" title="[Neural Network []]"></li>
+<li>本书的前面讲过，$\sigma(wx+b)$是怎么计算的，其中$\sigma(z)&#x3D;1&#x2F;(1+e^{-z})$就是sigmoid函数。到现在，我们一直频繁的使用这种代数形式进行计算。但是要证明泛化性理论，我们应该忽视这种数学形式，然后通过通过操作和观察以上的图来获得更深的理解。</li>
+<li>要开始证明这个理论，请试着用鼠标点击偏置$b$，然后往右拉来增加它的数值。你会看到增加偏置$b$只会把图像往左移动，而不会改变图像的形状。</li>
+<li>接下来，你试着鼠标往左拉，偏置$b$的数值减小，你会看到图像是往右边移动的，同样的，图像的形状并没有改变。</li>
+<li>然后，我们来改变权重$w$的数值，把它的值改变到2或者3。你会看到减小权重$w$，曲线变得更宽了。你可能需要同时改变一下偏置$b$，以免图像跑出了框内。</li>
+<li>最后，把权重$w$的数值增加到100。你会发现，曲线变得更陡峭了，直到它看起来像一个step函数。可以观察一下下面的小视频：</li>
+</ul>
+<img src="/img/visual_proof_of_neural_networks/8_gif_pic.gif" class="[class names]" title="[Neural Network []]">
+
+<ul>
+<li>我们可以通过增加权重$w$直到它变成了一个step函数(逼近的精度越来越高)来简化我们的分析。下面右边的图像是当$w&#x3D;999$时的函数图。</li>
+</ul>
+<img src="/img/visual_proof_of_neural_networks/9_network.png" class="[class names]" title="[Neural Network []]">
+
+<ul>
+<li><p>其实step函数比一般的sigmoid函数表现更好。原因是输出层是前面所有的隐层的神经元计算来决定的。去分析一堆step函数的总和是件更容易的事，但是去分析一堆sigmoid函数的曲线计算后的结果就不是一件易事了。而且，把隐层的神经元输出step函数是一件更容易的事情。更确切的说，我们把权重$w$的值调得非常大，这样就可以得到了step函数了。然后通过调整偏置$b$来改变step(跃阶)的位置。当然，把输出当成一个step函数也是一种逼近，而且是一个很好的逼近，而现在我们正是这样做的。我稍后会再讨论这种逼近的求导的影响。</p>
+</li>
+<li><p>当$x$的数值是多少时达到跃阶(step)呢？换一种说法，step的位置是如何由权重$w$和偏置$b$来决定的？</p>
+</li>
+<li><p>要回答这个问题，我们再来试一下改变权重$w$和偏置$b$的数值。你可以弄清楚跃阶(step)和权重$w$与偏置$b$的关系吗？通过不断的观察图像的变化，你可能就会发现，跃阶(step)的位置是和偏置$b$成正比的，和权重$w$成反比的。</p>
+</li>
+<li><p>事实上，跃阶(step)的位置$s$满足$s&#x3D;-b&#x2F;w$.</p>
+<img src="/img/visual_proof_of_neural_networks/10_gif_pic.gif" class="[class names]" title="[Neural Network []]">
+</li>
+<li><p>这会大大简化了我们的生活，如果我们只是单单利用一个参数$s$来描述隐层的神经元的话。$s$就是跃阶(step)的位置，$s&#x3D;-b&#x2F;w$。</p>
+<img src="/img/visual_proof_of_neural_networks/11_gif_pic.gif" class="[class names]" title="[Neural Network []]">
+</li>
+<li><p>上面有提到，我们可以偷偷地把输入的权重$w$调到非常大，大到出来的step函数是一个很好的逼近。我们就可以很容易的在传统的模型当中把神经元参数按这样子来调整，偏置$b&#x3D;-ws$.</p>
+</li>
+<li><p>以上我们都是讨论上层神经元。现在我们来讨论一下整个网络。我们假设上层神经元通过step函数参数化跃阶(step)为$s_1$，下层神经元通过step函数参数化跃阶(step)为$s_2$.他们分别有输出权重$w_1$和$w_2$。以下就是网络：</p>
+<img src="/img/visual_proof_of_neural_networks/12_gif_pic.gif" class="[class names]" title="[Neural Network []]">
+</li>
+<li><p>右上方的图像是输出权重$(w_1a_1+w_2a_2)$的结果。其中$a_1$和$a_2$分别是上层神经元和下层神经元的输出。输出用$a$来表示是因为神经元通常包含一个激活函数(activation)。</p>
+</li>
+<li><p>让我们来看一下$s_1$和$s_2$相遇时会发生什么情况呢？看图：</p>
+<img src="/img/visual_proof_of_neural_networks/13_gif_pic.gif" class="[class names]" title="[Neural Network []]"></li>
+<li><p>可以看到，当我们操作$s_1$时，$S_1$和$s_2$相遇时，$S_1$就会带动$s_2$走。所以，图像的变动，我们也要分是$s_1$先动还是$s_2$先动。</p>
+</li>
+<li><p>$h_t$</p>
+</li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">可视化证明：神经网络可以计算任何函数</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2017-06-14 17:49:20</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2017/06/14/ML/visual-proof-of-neural-networks/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AF%81%E6%98%8E/">#可视化证明</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2019/07/02/ML/how-to-install-openpose-in-ubuntu1604/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">how_to_install_openpose_in_ubuntu1604</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2017/05/06/alogrithms/sort-algorithms/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">排序算法总结</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">两个说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E8%BE%93%E5%85%A5%E5%92%8C%E4%B8%80%E4%B8%AA%E8%BE%93%E5%87%BA%E7%9A%84%E6%B3%9B%E5%8C%96%E7%90%86%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">一个输入和一个输出的泛化理论</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Doman Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

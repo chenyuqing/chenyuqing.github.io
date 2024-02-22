@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Doman Chen(motion$)">
+    
+    <title>
+        
+            DMwR-note-01-预测海藻数量(三) |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">DMwR-note-01-预测海藻数量(三)</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Doman Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2014-10-28 07:39:16</span>
+        <span class="mobile">2014-10-28 07:39</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 09:34:13</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-R%E8%AF%AD%E8%A8%80/">技能-修行-进步-R语言</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8ER%E8%AF%AD%E8%A8%80-%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0/">数据挖掘与R语言-案例学习</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>6.1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>27 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="写在开头的话"><a href="#写在开头的话" class="headerlink" title="写在开头的话"></a>写在开头的话</h2><hr>
+<p>讨论了缺失值的处理，相当于对数据进行了简单的预处理，今天我们来继续探讨数据集模型的建立。</p>
+<h2 id="数据的模型"><a href="#数据的模型" class="headerlink" title="数据的模型"></a>数据的模型</h2><hr>
+<ul>
+<li>数据的模型简单的说就是一个函数，输入就是我们之前的数据algae，而输出就是我们预期的一些值。</li>
+<li>本案例的主要研究目的是预测140个水样中7种海藻的出现频率。假设海藻频率是数值型数据，因此可以考虑进行回归分析。简单地说，预测任务是建立一个模型来找到一个数值变量和一组解释变量的关系。这个模型既可以根据未来解释变量的值来预测目标变量，也可以帮助更好地理解问题中各个变量之间的相互联系。</li>
+</ul>
+<h3 id="多元化线性回归"><a href="#多元化线性回归" class="headerlink" title="多元化线性回归"></a>多元化线性回归</h3><hr>
+<ul>
+<li><p>多元线性回归模型是最常用的统计数据分析方法，该模型给出了一个有关目标变量与一组解释变量关系的线性函数。</p>
+</li>
+<li><p>数据缺失值的处理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">library(DMwR)</span><br><span class="line">data(algae)</span><br><span class="line">temp &lt;- algae</span><br><span class="line">temp &lt;- temp[-manyNAs(temp),]</span><br><span class="line">clean.algae &lt;- knnImputation(temp, k = 10)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上面的代码首先移除了第62条和第199条水样记录，因为在这两条记录的11个预测变量中有6个是有缺失值的。然后利用数据集个案的相似性来填补缺失值。以上代码运行之后，得到的数据框将不含缺失值。</p>
+</li>
+<li><p>接下来，将建立一个用于预测海藻频率的线性回归模型：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary(lm.a1)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数lm()建立一个线性回归模型，其中的第一个参数给出了模型的函数形式。在这个例子中，函数的形式是用数据中其他所有变量来预测变量a1，第一个参数中的点”.”代表数据框中除了a1之外的变量。如果需要用预测变量mxPH和NH4来预测变量a1，就要定义模型为“a1~mxPH + NH4”。还有很多其他定义模型的方式，这都称为R公式，后边用到时进行介绍。参数data是用来设定建模所用的数据集。</p>
+</li>
+<li><p>函数lm()的结果是一个含有线性模型信息的对象。可以通过下列代码获取更多线性模型的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">lm.a1 &lt;- lm(a1~., data = clean.algae[,1:12])</span><br><span class="line"></span><br><span class="line">Call:</span><br><span class="line">lm(formula = a1 ~ ., data = clean.algae[, 1:12])</span><br><span class="line"></span><br><span class="line">Residuals:</span><br><span class="line">    Min      1Q  Median      3Q     Max </span><br><span class="line">-37.679 -11.893  -2.567   7.410  62.190 </span><br><span class="line"></span><br><span class="line">Coefficients:</span><br><span class="line">              Estimate Std. Error t value Pr(&gt;|t|)   </span><br><span class="line">(Intercept)  42.942055  24.010879   1.788  0.07537 . </span><br><span class="line">seasonspring  3.726978   4.137741   0.901  0.36892   </span><br><span class="line">seasonsummer  0.747597   4.020711   0.186  0.85270   </span><br><span class="line">seasonwinter  3.692955   3.865391   0.955  0.34065   </span><br><span class="line">sizemedium    3.263728   3.802051   0.858  0.39179   </span><br><span class="line">sizesmall     9.682140   4.179971   2.316  0.02166 * </span><br><span class="line">speedlow      3.922084   4.706315   0.833  0.40573   </span><br><span class="line">speedmedium   0.246764   3.241874   0.076  0.93941   </span><br><span class="line">mxPH         -3.589118   2.703528  -1.328  0.18598   </span><br><span class="line">mnO2          1.052636   0.705018   1.493  0.13715   </span><br><span class="line">Cl           -0.040172   0.033661  -1.193  0.23426   </span><br><span class="line">NO3          -1.511235   0.551339  -2.741  0.00674 **</span><br><span class="line">NH4           0.001634   0.001003   1.628  0.10516   </span><br><span class="line">oPO4         -0.005435   0.039884  -0.136  0.89177   </span><br><span class="line">PO4          -0.052241   0.030755  -1.699  0.09109 . </span><br><span class="line">Chla         -0.088022   0.079998  -1.100  0.27265   </span><br><span class="line">---</span><br><span class="line">Signif. codes:  0 ?**?0.001 ?*?0.01 ??0.05 ??0.1 ??1</span><br><span class="line"></span><br><span class="line">Residual standard error: 17.65 on 182 degrees of freedom</span><br><span class="line">Multiple R-squared:  0.3731,	Adjusted R-squared:  0.3215 </span><br><span class="line">F-statistic: 7.223 on 15 and 182 DF,  p-value: 2.444e-12</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在解释函数summary()应用到线性模型对象所得到的信息之前，先介绍R如何处理3个名义变量。当像上面一样进行模型构建时，R会生成一组的辅助变量，即对每一个有k个水平的因子变量，R会生成k-1个辅助变量。这些辅助变量的值为0或者1.当辅助变量的值为1，表明该因子出现，同时表明其他所有辅助变量的值为0。如果所有的k-1个变量的值都是0，则表明因子变量的取值为第k个剩余的值。在以上的汇总结果中，可以看到R为因子变量season生成了3个辅助变量(seasonspring, seasonsummer和seasonwinter)。如果某个水样的season变量的取值为”autumn”，则所有3个赋值变量的值将全部为零。</p>
+</li>
+<li><p>对得到的线性模型对象应用函数summary()，将给出所建立模型的一些诊断信息。首先是有关线性模型中数据拟合的残差(residual)。残差应该是均值为0并且为正态分布。（显然残差最好尽可能的小！）</p>
+</li>
+<li><p>对于每个多元线性回归方程的系数(变量)，R显示它的估计值和标准误差(这些系数变化程度的估计)。为了检验这些系数的重要性，可以进行这些系数为0的假设检验，即<img src="/img/DMwR/02_algae_model/01_formula.PNG">。通常使用t检验来验证这些假设。R计算t值，该值定义为估计系数值与其标准误差的比，即<img src="/img/DMwR/02_algae_model/02_formula.PNG">。R将显示与系数相关联的一列(Pr(&gt; |t|))表示系数为0这一假设被拒绝的概率。因此，该值为0.0001表明有99.99%的置信度认为这个系数并非为0。对于每个测试，R都给出一个标志来表示相应的测试置信度水平。总之，仅对于这些前面有标志的系数，我们至少有90%的置信度来拒绝系数为0的一个假设。</p>
+</li>
+<li><p>另一个由R输出的模型诊断信息是R^2(或者多元R^2或调整R^2)。R^2表明模型与数据的吻合度，即数据所能解释的数据变差的比例。R^2越接近1(几乎100%地解释模型数据的变差)就说模型模拟得很好；R^2越小，说明模型拟合得越差。调整系数则更严格，它考虑回归模型中参数的数量。</p>
+</li>
+<li><p>最后，我们还可以检验任何解释变量和目标变量没有哦依赖这一原假设，即<img src="/img/DMwR/02_algae_model/03_formula.PNG">。可以通过把R给出的F统计值与一个临界值进行比较来进行检验。R提供一个拒绝原假设的置信度水平。因此p值为0.0001表示99.99%的置信度确定原假设是错误的。通常，如果一个模型不能通过这个检验(即得到的p值被认为太大，例如大于0.1)，则单个系数的t检验没有意义。</p>
+</li>
+<li><p>有些诊断信息也可以通过绘制线性模型来进行检验。实际上，可以用一个类似plot(lm.al)的命令得到一系列的线性模型图，它们有助于了解模型的性能。其中的一个图形绘制拟合的目标变量值和模型残差的散点图。误差相对较大时，R通常在该散点图中添加相应的行数，这样就可以方便地检查这些误差较大的记录。R给出的另一个图形是误差的正态Q-Q图，通过它可以检查误差是否符合应有的正态分布。</p>
+</li>
+<li><p>该模型解释的方差比例还不是很理想(大约32%)。还可以拒绝目标变量不依赖于预测变量的假设(F检验的p值很小)。检查某些系数的显著性，可能会质疑有些变量是否应该进入模型中。有多种方法可以用来精简回归模型。本节将介绍<strong>向后消元法</strong>。</p>
+</li>
+<li><p>首先用函数anova()来精简线性模型。当将anova()应用到简单线性模型时，这个函数提供一个模型拟合的方差序贯分析。也就是说，随着公式中项数的增加，模型的残差平方和减少。对前面的模型进行方差分析，结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">anova(lm.a1)</span><br><span class="line"></span><br><span class="line">Analysis of Variance Table</span><br><span class="line"></span><br><span class="line">Response: a1</span><br><span class="line">           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span><br><span class="line">season      3     85    28.2  0.0905 0.9651944    </span><br><span class="line">size        2  11401  5700.7 18.3088  5.69e-08 ***</span><br><span class="line">speed       2   3934  1967.2  6.3179 0.0022244 ** </span><br><span class="line">mxPH        1   1329  1328.8  4.2677 0.0402613 *  </span><br><span class="line">mnO2        1   2287  2286.8  7.3444 0.0073705 ** </span><br><span class="line">Cl          1   4304  4304.3 13.8239 0.0002671 ***</span><br><span class="line">NO3         1   3418  3418.5 10.9789 0.0011118 ** </span><br><span class="line">NH4         1    404   403.6  1.2963 0.2563847    </span><br><span class="line">oPO4        1   4788  4788.0 15.3774 0.0001246 ***</span><br><span class="line">PO4         1   1406  1405.6  4.5142 0.0349635 *  </span><br><span class="line">Chla        1    377   377.0  1.2107 0.2726544    </span><br><span class="line">Residuals 182  56668   311.4                      </span><br><span class="line">---</span><br><span class="line">Signif. codes:  0 ?**?0.001 ?*?0.01 ??0.05 ??0.1 ??1</span><br></pre></td></tr></table></figure></li>
+<li><p>上面结果表明变量season对减少模型拟合误差的贡献度最小下面将它从模型中剔除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lm2.a1 = update(lm.a1, .~.-season)</span><br></pre></td></tr></table></figure></li>
+<li><p>函数update()用于对已有的线性模型进行微小的调整。在上面的代码中，应用函数update()从模型lm.a1中移除变量season以得到一个新的模型。新的模型的汇总信息如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">summary(lm2.a1)</span><br><span class="line"></span><br><span class="line">Call:</span><br><span class="line">lm(formula = a1 ~ size + speed + mxPH + mnO2 + Cl + NO3 + NH4 + </span><br><span class="line">    oPO4 + PO4 + Chla, data = clean.algae[, 1:12])</span><br><span class="line"></span><br><span class="line">Residuals:</span><br><span class="line">    Min      1Q  Median      3Q     Max </span><br><span class="line">-36.460 -11.953  -3.044   7.444  63.730 </span><br><span class="line"></span><br><span class="line">Coefficients:</span><br><span class="line">              Estimate Std. Error t value Pr(&gt;|t|)   </span><br><span class="line">(Intercept) 44.9532874 23.2378377   1.934  0.05458 . </span><br><span class="line">sizemedium   3.3092102  3.7825221   0.875  0.38278   </span><br><span class="line">sizesmall   10.2730961  4.1223163   2.492  0.01358 * </span><br><span class="line">speedlow     3.0546270  4.6108069   0.662  0.50848   </span><br><span class="line">speedmedium -0.2976867  3.1818585  -0.094  0.92556   </span><br><span class="line">mxPH        -3.2684281  2.6576592  -1.230  0.22033   </span><br><span class="line">mnO2         0.8011759  0.6589644   1.216  0.22561   </span><br><span class="line">Cl          -0.0381881  0.0333791  -1.144  0.25407   </span><br><span class="line">NO3         -1.5334300  0.5476550  -2.800  0.00565 **</span><br><span class="line">NH4          0.0015777  0.0009951   1.586  0.11456   </span><br><span class="line">oPO4        -0.0062392  0.0395086  -0.158  0.87469   </span><br><span class="line">PO4         -0.0509543  0.0305189  -1.670  0.09669 . </span><br><span class="line">Chla        -0.0841371  0.0794459  -1.059  0.29096   </span><br><span class="line">---</span><br><span class="line">Signif. codes:  0 ?**?0.001 ?*?0.01 ??0.05 ??0.1 ??1</span><br><span class="line"></span><br><span class="line">Residual standard error: 17.57 on 185 degrees of freedom</span><br><span class="line">Multiple R-squared:  0.3682,	Adjusted R-squared:  0.3272 </span><br><span class="line">F-statistic: 8.984 on 12 and 185 DF,  p-value: 1.762e-13</span><br></pre></td></tr></table></figure></li>
+<li><p>新模型的拟合指标R^2提高到了32.8%，仍然不是太理想。下面使用anova()函数对两个模型进行正式的比较，但这次使用两个模型作为参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">anova(lm.a1, lm2.a1)</span><br><span class="line"></span><br><span class="line">Analysis of Variance Table</span><br><span class="line"></span><br><span class="line">Model 1: a1 ~ season + size + speed + mxPH + mnO2 + Cl + NO3 + NH4 + oPO4 + </span><br><span class="line">    PO4 + Chla</span><br><span class="line">Model 2: a1 ~ size + speed + mxPH + mnO2 + Cl + NO3 + NH4 + oPO4 + PO4 + </span><br><span class="line">    Chla</span><br><span class="line">  Res.Df   RSS Df Sum of Sq      F Pr(&gt;F)</span><br><span class="line">1    182 56668                           </span><br><span class="line">2    185 57116 -3   -447.62 0.4792 0.6971</span><br></pre></td></tr></table></figure></li>
+<li><p>上面的函数通过F检验对两个模型进行方差分析，据此评估两个模型是否有显著不同。这种情况下，尽管误差平方和减少了(-448),但是比较结果说明两者的差距并不显著(显著性值0.6971说明两个模型不同的可能性有30%)。注意，新模型比较简单。为了检查能否移除更多的系数，我们再次讨论对lm2.a1模型使用anova()函数。不断重复这个过程知道没有可剔除的候选系数。为了简化向后消元过程，R有一个函数来执行上面所有过程。</p>
+</li>
+<li><p>下面的代码对初始模型(lm.a1)用向后消元方法得到一个新的线性模型。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">final.lm = step(lm.a1)</span><br><span class="line"></span><br><span class="line">Start:  AIC=1152.03</span><br><span class="line">a1 ~ season + size + speed + mxPH + mnO2 + Cl + NO3 + NH4 + oPO4 + </span><br><span class="line">    PO4 + Chla</span><br><span class="line"></span><br><span class="line">         Df Sum of Sq   RSS    AIC</span><br><span class="line">- season  3    447.62 57116 1147.6</span><br><span class="line">- speed   2    269.60 56938 1149.0</span><br><span class="line">- oPO4    1      5.78 56674 1150.0</span><br><span class="line">- Chla    1    376.96 57045 1151.3</span><br><span class="line">- Cl      1    443.46 57112 1151.6</span><br><span class="line">- mxPH    1    548.76 57217 1151.9</span><br><span class="line">&lt;none&gt;                56668 1152.0</span><br><span class="line">- mnO2    1    694.11 57363 1152.4</span><br><span class="line">- NH4     1    825.67 57494 1152.9</span><br><span class="line">- PO4     1    898.42 57567 1153.1</span><br><span class="line">- size    2   1857.16 58526 1154.4</span><br><span class="line">- NO3     1   2339.36 59008 1158.0</span><br><span class="line"></span><br><span class="line">Step:  AIC=1147.59</span><br><span class="line">a1 ~ size + speed + mxPH + mnO2 + Cl + NO3 + NH4 + oPO4 + PO4 + </span><br><span class="line">    Chla</span><br><span class="line"></span><br><span class="line">        Df Sum of Sq   RSS    AIC</span><br><span class="line">- speed  2    210.64 57327 1144.3</span><br><span class="line">- oPO4   1      7.70 57124 1145.6</span><br><span class="line">- Chla   1    346.27 57462 1146.8</span><br><span class="line">- Cl     1    404.10 57520 1147.0</span><br><span class="line">- mnO2   1    456.37 57572 1147.2</span><br><span class="line">- mxPH   1    466.95 57583 1147.2</span><br><span class="line">&lt;none&gt;               57116 1147.6</span><br><span class="line">- NH4    1    776.11 57892 1148.3</span><br><span class="line">- PO4    1    860.62 57977 1148.5</span><br><span class="line">- size   2   2175.59 59292 1151.0</span><br><span class="line">- NO3    1   2420.47 59537 1153.8</span><br><span class="line"></span><br><span class="line">Step:  AIC=1144.31</span><br><span class="line">a1 ~ size + mxPH + mnO2 + Cl + NO3 + NH4 + oPO4 + PO4 + Chla</span><br><span class="line"></span><br><span class="line">       Df Sum of Sq   RSS    AIC</span><br><span class="line">- oPO4  1     16.29 57343 1142.4</span><br><span class="line">- Chla  1    223.29 57550 1143.1</span><br><span class="line">- mnO2  1    413.77 57740 1143.7</span><br><span class="line">- Cl    1    472.70 57799 1143.9</span><br><span class="line">- mxPH  1    483.56 57810 1144.0</span><br><span class="line">&lt;none&gt;              57327 1144.3</span><br><span class="line">- NH4   1    720.19 58047 1144.8</span><br><span class="line">- PO4   1    809.30 58136 1145.1</span><br><span class="line">- size  2   2060.95 59388 1147.3</span><br><span class="line">- NO3   1   2379.75 59706 1150.4</span><br><span class="line"></span><br><span class="line">Step:  AIC=1142.37</span><br><span class="line">a1 ~ size + mxPH + mnO2 + Cl + NO3 + NH4 + PO4 + Chla</span><br><span class="line"></span><br><span class="line">       Df Sum of Sq   RSS    AIC</span><br><span class="line">- Chla  1     207.7 57551 1141.1</span><br><span class="line">- mnO2  1     402.6 57746 1141.8</span><br><span class="line">- Cl    1     470.7 57814 1142.0</span><br><span class="line">- mxPH  1     519.7 57863 1142.2</span><br><span class="line">&lt;none&gt;              57343 1142.4</span><br><span class="line">- NH4   1     704.4 58047 1142.8</span><br><span class="line">- size  2    2050.3 59393 1145.3</span><br><span class="line">- NO3   1    2370.4 59713 1148.4</span><br><span class="line">- PO4   1    5818.4 63161 1159.5</span><br><span class="line"></span><br><span class="line">Step:  AIC=1141.09</span><br><span class="line">a1 ~ size + mxPH + mnO2 + Cl + NO3 + NH4 + PO4</span><br><span class="line"></span><br><span class="line">       Df Sum of Sq   RSS    AIC</span><br><span class="line">- mnO2  1     435.3 57986 1140.6</span><br><span class="line">- Cl    1     438.1 57989 1140.6</span><br><span class="line">&lt;none&gt;              57551 1141.1</span><br><span class="line">- NH4   1     746.9 58298 1141.6</span><br><span class="line">- mxPH  1     833.1 58384 1141.9</span><br><span class="line">- size  2    2217.5 59768 1144.6</span><br><span class="line">- NO3   1    2667.1 60218 1148.1</span><br><span class="line">- PO4   1    6309.7 63860 1159.7</span><br><span class="line"></span><br><span class="line">Step:  AIC=1140.58</span><br><span class="line">a1 ~ size + mxPH + Cl + NO3 + NH4 + PO4</span><br><span class="line"></span><br><span class="line">       Df Sum of Sq   RSS    AIC</span><br><span class="line">- NH4   1     531.0 58517 1140.4</span><br><span class="line">- Cl    1     584.9 58571 1140.6</span><br><span class="line">&lt;none&gt;              57986 1140.6</span><br><span class="line">- mxPH  1     819.1 58805 1141.4</span><br><span class="line">- size  2    2478.2 60464 1144.9</span><br><span class="line">- NO3   1    2251.4 60237 1146.1</span><br><span class="line">- PO4   1    9097.9 67084 1167.4</span><br><span class="line"></span><br><span class="line">Step:  AIC=1140.38</span><br><span class="line">a1 ~ size + mxPH + Cl + NO3 + PO4</span><br><span class="line"></span><br><span class="line">       Df Sum of Sq   RSS    AIC</span><br><span class="line">&lt;none&gt;              58517 1140.4</span><br><span class="line">- mxPH  1     784.1 59301 1141.0</span><br><span class="line">- Cl    1     835.6 59353 1141.2</span><br><span class="line">- NO3   1    1987.9 60505 1145.0</span><br><span class="line">- size  2    2664.3 61181 1145.2</span><br><span class="line">- PO4   1    8575.8 67093 1165.5</span><br></pre></td></tr></table></figure></li>
+<li><p>函数step()使用Akaike信息标准进行模型搜索。默认情况下，搜索使用向后消元方法，但通过设置参数direction，可以采用其他的方法(参考该函数的帮助文档以获取更多信息)。</p>
+</li>
+<li><p>可以通过下面的代码来获得最后模型的信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">summary(final.lm)</span><br><span class="line"></span><br><span class="line">Call:</span><br><span class="line">lm(formula = a1 ~ size + mxPH + Cl + NO3 + PO4, data = clean.algae[, </span><br><span class="line">    1:12])</span><br><span class="line"></span><br><span class="line">Residuals:</span><br><span class="line">    Min      1Q  Median      3Q     Max </span><br><span class="line">-28.874 -12.732  -3.741   8.424  62.926 </span><br><span class="line"></span><br><span class="line">Coefficients:</span><br><span class="line">            Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">(Intercept) 57.28555   20.96132   2.733  0.00687 ** </span><br><span class="line">sizemedium   2.80050    3.40190   0.823  0.41141    </span><br><span class="line">sizesmall   10.40636    3.82243   2.722  0.00708 ** </span><br><span class="line">mxPH        -3.97076    2.48204  -1.600  0.11130    </span><br><span class="line">Cl          -0.05227    0.03165  -1.651  0.10028    </span><br><span class="line">NO3         -0.89529    0.35148  -2.547  0.01165 *  </span><br><span class="line">PO4         -0.05911    0.01117  -5.291 3.32e-07 ***</span><br><span class="line">---</span><br><span class="line">Signif. codes:  0 ?**?0.001 ?*?0.01 ??0.05 ??0.1 ??1</span><br><span class="line"></span><br><span class="line">Residual standard error: 17.5 on 191 degrees of freedom</span><br><span class="line">Multiple R-squared:  0.3527,	Adjusted R-squared:  0.3324 </span><br><span class="line">F-statistic: 17.35 on 6 and 191 DF,  p-value: 5.554e-16</span><br></pre></td></tr></table></figure></li>
+<li><p>这个模型所解释的方差比例(R^2)仍然不是很可观，这样的R^2表明对海藻案例应用假定的线性模型是不合适的。</p>
+</li>
+</ul>
+<h3 id="回归树"><a href="#回归树" class="headerlink" title="回归树"></a>回归树</h3><hr>
+<ul>
+<li><p>本节给出R中的另一种回归模型。即本节描述了如何通过建立回归树来预测海藻a1出现的频率。由于这类模型能够处理缺失值，所以这里只需要如前面所述移除62号和199号水样。</p>
+</li>
+<li><p>建立回归树模型如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">library(rpart)</span><br><span class="line">data(algae)</span><br><span class="line">algae = algae[-manyNAs(algae),]</span><br><span class="line">rt.a1 = rpart(a1~., data = algae[,1:12])</span><br></pre></td></tr></table></figure></li>
+<li><p>对象rt.a1的内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">rt.a1</span><br><span class="line">n= 198 </span><br><span class="line"></span><br><span class="line">node), <span class="built_in">split</span>, n, deviance, yval</span><br><span class="line">      * denotes terminal node</span><br><span class="line"></span><br><span class="line"> 1) root 198 90401.290 16.996460  </span><br><span class="line">   2) PO4&gt;=43.818 147 31279.120  8.979592  </span><br><span class="line">     4) Cl&gt;=7.8065 140 21622.830  7.492857  </span><br><span class="line">       8) oPO4&gt;=51.118 84  3441.149  3.846429 *</span><br><span class="line">       9) oPO4&lt; 51.118 56 15389.430 12.962500  </span><br><span class="line">        18) mnO2&gt;=10.05 24  1248.673  6.716667 *</span><br><span class="line">        19) mnO2&lt; 10.05 32 12502.320 17.646880  </span><br><span class="line">          38) NO3&gt;=3.1875 9   257.080  7.866667 *</span><br><span class="line">          39) NO3&lt; 3.1875 23 11047.500 21.473910  </span><br><span class="line">            78) mnO2&lt; 8 13  2919.549 13.807690 *</span><br><span class="line">            79) mnO2&gt;=8 10  6370.704 31.440000 *</span><br><span class="line">     5) Cl&lt; 7.8065 7  3157.769 38.714290 *</span><br><span class="line">   3) PO4&lt; 43.818 51 22442.760 40.103920  </span><br><span class="line">     6) mxPH&lt; 7.87 28 11452.770 33.450000  </span><br><span class="line">      12) mxPH&gt;=7.045 18  5146.169 26.394440 *</span><br><span class="line">      13) mxPH&lt; 7.045 10  3797.645 46.150000 *</span><br><span class="line">     7) mxPH&gt;=7.87 23  8241.110 48.204350  </span><br><span class="line">      14) PO4&gt;=15.177 12  3047.517 38.183330 *</span><br><span class="line">      15) PO4&lt; 15.177 11  2673.945 59.136360 *</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回归树是对某些解释变量分层次的逻辑测试。基于树的模型自动筛选某些相关的变量，这样就会对树进行剪枝，减去某些变量。树从R标为1的根结点开始读，R在这个结点中提供相关的信息。即，可以再该结点中看到一共有198个水样（用于构建树的训练集数据样本量），在这198个水样中，海藻a1出现的平均频率为16.99，相对平均值的偏差为90401.29。树的每个结点有两个分支，这与预测变量的检验结果有关。例如，在根结点中有一个相应于测试“PO4&gt;&#x3D;43.818”为真（含有147个水样）的个案分支（R输出中标为2），同时也有另一个分支包含剩余的51个不满足这个测试的水样（R标记为3）。从结点2有两个分支分布连接到结点4和结点5，具体到哪个结点由对变量CI的检验来确定。不断进行以上的检验，直到达到某一个叶结点，这些叶结点在R中由星号标记出来。那么我们只要从根结点开始根据对该水样的检验结果，追踪某个分支，直到叶结点，我们就可以预测某个水样的频率。叶结点目标变量的平均值就是树的预测值。</p>
+</li>
+<li><p>我们也可以得到回归树的图形表示。可以用函数plot()和函数text()对树对象绘图即可。这两个函数有多个参数来控制树的可视化。为了方便地得到漂亮的树的可视化图形，本书的R添加包中提供了函数prettyTree()。对上面得到的树对象应用该函数，得到图形如图所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prettyTree(rt.a1)</span><br></pre></td></tr></table></figure></li>
+<li><p><img src="/img/DMwR/02_algae_model/04_plot.PNG"></p>
+</li>
+<li><p>函数summary()也可以用于树对象。此函数将给出许多有关于树的测试信息、其他可能考虑的测试以及中间分割等。这里的中间分割是R回归树处理缺失值的一种方法。</p>
+</li>
+<li><p>通常分两步来建立回归树。最初，生成一棵较大的树，然后通过统计估计删除底部的一些结点来对树进行修剪。这个过程的目的是繁殖过度拟合。事实上，一个过度大的树一般会很好地对训练数据集数据进行拟合，但是它会拟合给定数据集中的一写虚假的关系，因此当把该模型用于新数据的预测时，预测性能很差。在许多建模技术中存在过度拟合问题，尤其是当需要逼近的函数的假设条件不是很严格的时候。对于要求不严格的模型，虽然它们的要求不高，有广泛的应用范围，但却存在过度拟合问题，所以它需要一个事后统计估计步骤来避免过度拟合问题。</p>
+</li>
+<li><p>上面使用rpart()函数构建树，在构建树的过程中，当给定条件满足时构建过程就停止。当下列条件满足时，树就构建结束：</p>
+<ul>
+<li><ol>
+<li>偏差的减少小于某一个给定的界限值时；</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>当结点中的样本数量小于某个给定界限值时；</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>当树的深度大于一个给定的界限值。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>上面3个界限值分别由rpart()函数的三个参数（cp, minsplit, maxdepth）来确定。它们的默认值分别为0.01、20和30。如果要避免树的过度拟合问题，就要经常检查这些默认值的有效性。这可以通过对得到的树采取事后修剪过程来进行。</p>
+</li>
+<li><p>rpart()添加包实现了一种称为“复杂度损失修剪”的修剪方法（Breiman et al., 1984）。这个方法使用R在每个树结点计算的参数值cp。这种修剪方法试图估计cp值以确保达到预测的准确性和树的大小之间的最佳折中。给出一个由函数rpart()建立的回归树，R可以生成这棵树的一些子树，并估计这些树的性能。这些信息可以通过函数printcp()得到：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">printcp(rt.a1)</span><br><span class="line"></span><br><span class="line">Regression tree:</span><br><span class="line">rpart(formula = a1 ~ ., data = algae[, 1:12])</span><br><span class="line"></span><br><span class="line">Variables actually used <span class="keyword">in</span> tree construction:</span><br><span class="line">[1] Cl   mnO2 mxPH NO3  oPO4 PO4 </span><br><span class="line"></span><br><span class="line">Root node error: 90401/198 = 456.57</span><br><span class="line"></span><br><span class="line">n= 198 </span><br><span class="line"></span><br><span class="line">        CP nsplit rel error  xerror    xstd</span><br><span class="line">1 0.405740      0   1.00000 1.00909 0.13028</span><br><span class="line">2 0.071885      1   0.59426 0.72655 0.11938</span><br><span class="line">3 0.030887      2   0.52237 0.67966 0.11487</span><br><span class="line">4 0.030408      3   0.49149 0.70176 0.11781</span><br><span class="line">5 0.027872      4   0.46108 0.69623 0.11628</span><br><span class="line">6 0.027754      5   0.43321 0.69623 0.11628</span><br><span class="line">7 0.018124      6   0.40545 0.67679 0.11052</span><br><span class="line">8 0.016344      7   0.38733 0.70123 0.11415</span><br><span class="line">9 0.010000      9   0.35464 0.71140 0.11389</span><br></pre></td></tr></table></figure></li>
+<li><p>由rpart()函数建立的回归树是上面列表中的最后一个树（树9）。这个树的cp值为0.01（参数cp的默认值），该树包括九个测试和一个相对误差值（与根结点相比）0.354。然而，R应用10折交叉验证的内部过程，评估该树的平均相对误差为0.70241 ± 0.11523。根据这些更稳健的性能估计信息，可以避免过度拟合问题。可以看到，8号树的预测相对误差（0.67733）最小。另一个选择标准时根据1-SE规则来选择最好的回归树，这包括检查交叉验证的估计误差（“xerror”列），以及标准误差（“xstd”列）。在这个案例中，1-SE规则树是最小的树，误差小于0.67733 + 0.10892 &#x3D; 0.78625，而由1检验的2号树的估计误差为0.73358。如果我们选择这个树而不是R建议的树，我们就可以通过使用不同的cp值来建立这棵树。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">rt2.a1 &lt;- prune(rt.a1, <span class="built_in">cp</span> = 0.08)</span><br><span class="line">rt2.a1</span><br><span class="line"></span><br><span class="line">n= 198 </span><br><span class="line"></span><br><span class="line">node), <span class="built_in">split</span>, n, deviance, yval</span><br><span class="line">      * denotes terminal node</span><br><span class="line"></span><br><span class="line">1) root 198 90401.29 16.996460  </span><br><span class="line">  2) PO4&gt;=43.818 147 31279.12  8.979592 *</span><br><span class="line">  3) PO4&lt; 43.818 51 22442.76 40.103920 *</span><br></pre></td></tr></table></figure></li>
+<li><p>本书添加包中的rpartXse()函数可以自动运行这个过程，它的参数se的默认值为1.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(rt.a1 &lt;- rpartXse(a1~., data=algae[,1:12]))</span><br><span class="line"></span><br><span class="line">n= 198 </span><br><span class="line"></span><br><span class="line">node), <span class="built_in">split</span>, n, deviance, yval</span><br><span class="line">      * denotes terminal node</span><br><span class="line"></span><br><span class="line">1) root 198 90401.290 16.996460  </span><br><span class="line">  2) PO4&gt;=43.818 147 31279.120  8.979592  </span><br><span class="line">    4) Cl&gt;=7.1665 142 21763.160  7.530282 *</span><br><span class="line">    5) Cl&lt; 7.1665 5   746.792 50.140000 *</span><br><span class="line">  3) PO4&lt; 43.818 51 22442.760 40.103920 *</span><br></pre></td></tr></table></figure></li>
+<li><p>可以应用R的函数snip.rpart()来交互地对树进行修剪。这个函数可以通过两种方式生成一个修剪过的回归树。第一种方法是指出需要修剪那个地方的结点号（可以通过输出树对象来得到树的结点号）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">first.tree &lt;- rpart(a1~., data =algae[,1:12])</span><br><span class="line">snip.rpart(first.tree, c(4,7))</span><br><span class="line"></span><br><span class="line">n= 198 </span><br><span class="line"></span><br><span class="line">node), <span class="built_in">split</span>, n, deviance, yval</span><br><span class="line">      * denotes terminal node</span><br><span class="line"></span><br><span class="line"> 1) root 198 90401.290 16.996460  </span><br><span class="line">   2) PO4&gt;=43.818 147 31279.120  8.979592  </span><br><span class="line">     4) Cl&gt;=7.8065 140 21622.830  7.492857 *</span><br><span class="line">     5) Cl&lt; 7.8065 7  3157.769 38.714290 *</span><br><span class="line">   3) PO4&lt; 43.818 51 22442.760 40.103920  </span><br><span class="line">     6) mxPH&lt; 7.87 28 11452.770 33.450000  </span><br><span class="line">      12) mxPH&gt;=7.045 18  5146.169 26.394440 *</span><br><span class="line">      13) mxPH&lt; 7.045 10  3797.645 46.150000 *</span><br><span class="line">     7) mxPH&gt;=7.87 23  8241.110 48.204350 *</span><br></pre></td></tr></table></figure></li>
+<li><p>这个函数与rpart()函数一样返回一个数对象，所以可以用形如my.tree &lt;- snip.rpart(first.tree, c(4,7))这样的代码来保存这个修剪过的树。</p>
+</li>
+<li><p>另外，也可以再图形窗口下使用snip.rpart()函数。首先，画出回归树，然后调用没有第二个参数的函数。如果点击回归树的某些结点，R会在控制台输出这些结点的信息。如果继续点击这个结点，R就在这个结点对树进行修剪。可以在图形窗口继续修剪回归树，直到右击结束这一交互式的修剪过程。调用该函数的结果仍然是一个数对象：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">prettyTree(first.tree)</span><br><span class="line">snip.rpart(first.tree)</span><br><span class="line"></span><br><span class="line">node number: 2  n= 147 </span><br><span class="line">    response= 8.979592</span><br><span class="line">    Error (dev) =  31279.12 </span><br><span class="line">node number: 6  n= 28 </span><br><span class="line">    response= 33.45</span><br><span class="line">    Error (dev) =  11452.77 </span><br><span class="line">n= 198 </span><br><span class="line"></span><br><span class="line">node), <span class="built_in">split</span>, n, deviance, yval</span><br><span class="line">      * denotes terminal node</span><br><span class="line"></span><br><span class="line"> 1) root 198 90401.290 16.996460  </span><br><span class="line">   2) PO4&gt;=43.818 147 31279.120  8.979592  </span><br><span class="line">     4) Cl&gt;=7.8065 140 21622.830  7.492857  </span><br><span class="line">       8) oPO4&gt;=51.118 84  3441.149  3.846429 *</span><br><span class="line">       9) oPO4&lt; 51.118 56 15389.430 12.962500  </span><br><span class="line">        18) mnO2&gt;=10.05 24  1248.673  6.716667 *</span><br><span class="line">        19) mnO2&lt; 10.05 32 12502.320 17.646880  </span><br><span class="line">          38) NO3&gt;=3.1875 9   257.080  7.866667 *</span><br><span class="line">          39) NO3&lt; 3.1875 23 11047.500 21.473910  </span><br><span class="line">            78) mnO2&lt; 8 13  2919.549 13.807690 *</span><br><span class="line">            79) mnO2&gt;=8 10  6370.704 31.440000 *</span><br><span class="line">     5) Cl&lt; 7.8065 7  3157.769 38.714290 *</span><br><span class="line">   3) PO4&lt; 43.818 51 22442.760 40.103920  </span><br><span class="line">     6) mxPH&lt; 7.87 28 11452.770 33.450000  </span><br><span class="line">      12) mxPH&gt;=7.045 18  5146.169 26.394440 *</span><br><span class="line">      13) mxPH&lt; 7.045 10  3797.645 46.150000 *</span><br><span class="line">     7) mxPH&gt;=7.87 23  8241.110 48.204350  </span><br><span class="line">      14) PO4&gt;=15.177 12  3047.517 38.183330 *</span><br><span class="line">      15) PO4&lt; 15.177 11  2673.945 59.136360 *</span><br></pre></td></tr></table></figure></li>
+<li><p>在上例中，点击并修剪了节点2和结点6.</p>
+</li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><ul>
+<li>这一节我们建立了模型，用了2种方法，分别是多元回归和回归树。那么下一节就要对我们建立的模型进行评价了。</li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">DMwR-note-01-预测海藻数量(三)</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2014-10-28 07:39:16</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2014/10/28/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(三)/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8ER%E8%AF%AD%E8%A8%80-%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0/">#数据挖掘与R语言-案例学习</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2014/11/04/alogrithms/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Aprior-Algorithm/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">数据挖掘-Aprior-Algorithm</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2014/10/28/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-R%E8%AF%AD%E8%A8%80/DMwR-note-01-%E9%A2%84%E6%B5%8B%E6%B5%B7%E8%97%BB%E6%95%B0%E9%87%8F(%E5%9B%9B)/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">DMwR-note-01-预测海藻数量(四)</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%BC%80%E5%A4%B4%E7%9A%84%E8%AF%9D"><span class="nav-number">1.</span> <span class="nav-text">写在开头的话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">数据的模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E5%8C%96%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">2.1.</span> <span class="nav-text">多元化线性回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92%E6%A0%91"><span class="nav-number">2.2.</span> <span class="nav-text">回归树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Doman Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Doman Chen(motion$)">
+    
+    <title>
+        
+            现代机器学习监控的混乱局面：重新思考流媒体评估（4/4） |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">现代机器学习监控的混乱局面：重新思考流媒体评估（4/4）</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Doman Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-05-24 22:45:16</span>
+        <span class="mobile">2023-05-24 22:45</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 09:34:57</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-MLOps/">技能-修行-进步-MLOps</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/MLOps/">MLOps</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>7.3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>24 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="作者：Shreya-Shankar-原文连接：rethinking-ml-monitoring-4"><a href="#作者：Shreya-Shankar-原文连接：rethinking-ml-monitoring-4" class="headerlink" title=" 作者：Shreya Shankar- 原文连接：rethinking ml monitoring 4"></a> 作者：Shreya Shankar<br>- 原文连接：<a class="link"   target="_blank" rel="noopener" href="https://www.shreya-shankar.com/rethinking-ml-monitoring-4/" >rethinking ml monitoring 4<i class="fas fa-external-link-alt"></i></a></h2><ul>
+<li>在过去的几篇文章中，我讨论了流式ML评估，思考了要监控的内容（跨状态和组件轴），并探索了现有软件监控工具（如Prometheus）的故障模式。在这最后一篇文章中，<strong>我为ML监控中的问题提出了一个更广泛的研究议程</strong>，由 “真实世界 “的ML部署后问题所激发。</li>
+</ul>
+<h2 id="预备工作"><a href="#预备工作" class="headerlink" title="预备工作"></a>预备工作</h2><ul>
+<li>我们将用一个例子来阐述这个议程：</li>
+<li><strong>任务</strong>：对于乘坐出租车，我们想预测出租车乘客给司机的小费超过车费10%的概率。这是一个二元分类问题。预测值是在0和1之间的浮点数。</li>
+<li><strong>数据集</strong>：我们使用从纽约市出租车联盟收集的2020年1月1日至5月31日的数据。这是一个 “时间上演变的表格数据 “的例子（这句话是从阿伦-库马尔那里偷来的）。</li>
+<li><strong>SLI</strong>：我们衡量准确度，或者当四舍五入到最接近的整数时，正确预测的例子的分数。在ML社区，SLI通常被称为评估指标。</li>
+<li><strong>管道结构</strong>：我们的例子只包括一个模型。2有两条管道–代表训练和推理–共享一些组件，如清洗和特征生成。请参考本系列的第三篇文章中的图表。</li>
+</ul>
+<h2 id="挑战的保护伞"><a href="#挑战的保护伞" class="headerlink" title="挑战的保护伞"></a>挑战的保护伞</h2><ul>
+<li>我的研究议程主要集中在数据管理，而不是算法。</li>
+</ul>
+<h3 id="度量衡计算"><a href="#度量衡计算" class="headerlink" title="度量衡计算"></a>度量衡计算</h3><ul>
+<li>我将指标计算分为粗粒度和细粒度两类。3 粗粒度指标是SLI（如准确率、精确率、召回率），与商业价值最接近，需要一些反馈，或标签。我们使用粗粒度的指标来检测ML性能问题。细粒度指标是可能表明或解释粗粒度指标变化的指标，不一定需要标签（例如，一个特征的两个连续滑动窗口之间的KL分歧）。我们使用细粒度的指标来诊断ML的性能问题。相关的、<strong>我认为许多组织都落入了这样的陷阱，即首先监测细粒度的指标、</strong> 仿佛一个不起眼的特征的中位值的一些变化会对是否重新训练一个模型提供任何可操作的洞察力。<strong>当粗粒度的度量应该被视为一等公民时。</strong></li>
+</ul>
+<h4 id="粗粒度的监控：检测ML性能问题"><a href="#粗粒度的监控：检测ML性能问题" class="headerlink" title="粗粒度的监控：检测ML性能问题"></a>粗粒度的监控：检测ML性能问题</h4><ul>
+<li>令人惊讶的是，各组织发现要了解其SLI的实时价值具有挑战性。一些原因是：<ul>
+<li><p><strong>预测和反馈组件之间的分离</strong>。如果一条流水线进行预测，而另一条流水线摄取反馈，我们就需要对一个高权重的属性进行连接。这可能不是一个研究问题本身，但却是一个需要考虑的恼人的工程问题，特别是在流媒体环境中。</p>
+</li>
+<li><p><strong>改变感兴趣的子群体</strong>。许多组织监测不同子群体（如客户）的SLI 随着时间的推移，新的子群体或人口统计学可能逐渐进入数据流。组织很难知道要监测哪些子人群–考虑到覆盖面（即支持）、时间变化或高培训损失。</p>
+</li>
+<li><p><strong>标签滞后</strong>。由于预测和反馈部分的分离，在我们做出预测后，其相应的反馈（即标签）在一段时间后（或根本没有）到达系统中。不同的预测或子组之间的延迟可能并不一致。在需要人类手动标注数据的情况下，延迟会加剧。此外，我们假设<strong>标签滞后是一个非平稳的时间序列</strong>（即未预料到的问题可能导致滞后，而且可能没有一个模式）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Scalable-Monitoring-Infrastructure"><a href="#Scalable-Monitoring-Infrastructure" class="headerlink" title="Scalable Monitoring Infrastructure"></a>Scalable Monitoring Infrastructure</h5><ul>
+<li><p>解决前两个问题，特别是在规模上，需要更好的监控基础设施，优先考虑增量维护的连接，灵活定义SLI（即用户定义的功能），智能建议监控的内容，以及在部署后添加新的SLI定义并通过历史数据窗口计算的能力。我的上一篇文章展示了Prometheus如何不满足这些需求。为此，我正在考虑一个具有以下层次的ML监控系统：</p>
+</li>
+<li><p><strong>存储</strong>。我们需要一个时间序列数据库用于持久性存储（计算的度量值、直方图或总结、原始输出和反馈），以及用于快速连接和度量计算的内存流。</p>
+</li>
+<li><p><strong>执行</strong>。用户应该能够将度量函数指定为Python UDFs，我们可以用一个基于数据流的差分系统（Murray等人）在数据窗口上增量运行。考虑一个假想的用户工作流：</p>
+</li>
+<li><p><img src="/img/wuweiwu/ml/model_monitor_translate/code3.png"></p>
+</li>
+<li><p>在上面的工作流程中，用户定义他们自己的度量函数，并用记录函数来记录他们的代码。我们将需要加入输出和反馈–增量的，以节省时间–并在任意的窗口大小上计算度量。一个初步的原型4计算流式ML SLI，定义为Python UDFs，跨越不同的组件，显示出有希望的度量计算时间和最小的日志开销：</p>
+</li>
+<li><p><img src="/img/wuweiwu/ml/model_monitor_translate/querylatencyall.png"></p>
+</li>
+<li><p><img src="/img/wuweiwu/ml/model_monitor_translate/loggingtimeall.png"></p>
+</li>
+<li><p>图1：ML查询和记录的延迟。</p>
+</li>
+<li><p><strong>查询</strong>。支持快速和灵活的查询是最重要的。在用户查询之前预先计算和存储摘要–包括连接和度量值–会产生最低的延迟查询；然而，用户可能希望在查询时改变窗口大小和其他参数。在查询时间之前进行预计算和在飞行中计算所有内容之间的最佳权衡是什么？此外，随着用户添加新的UDF和新的子群的出现，我们如何有效地回填部署以来所有窗口的度量值？</p>
+</li>
+</ul>
+<h5 id="估计有标签滞后的实时SLI"><a href="#估计有标签滞后的实时SLI" class="headerlink" title="估计有标签滞后的实时SLI"></a>估计有标签滞后的实时SLI</h5><ul>
+<li>我们不仅需要考虑监测基础设施，而且还需要能够正确计算SLI。滞后为计算SLI引入了有趣的算法挑战。如果用户不能及时收到所有预测的标签（反馈），我们如何尽可能正确地估计实时SLI？</li>
+</ul>
+<h6 id="全面反馈"><a href="#全面反馈" class="headerlink" title="全面反馈"></a>全面反馈</h6><ul>
+<li>在这种情况下，为了计算一个窗口的SLI，我们只需要执行一个流式连接。挑战发生在规模上，或者当我们的窗口尺寸太大，无法在内存中容纳预测和反馈时。一个自然的解决方案可能是执行近似的流式连接，但是众所周知，在连接之前对流式进行均匀的子采样，可以在结果中产生四倍的少的图元（Chaudhuri等人）。现有的流式连接的近似查询处理（AQP）技术在图元的数量或所产生的连接的代表性之间权衡准确性。在我们的案例中，我们关心的是后者，因为我们想使我们的SLI近似的误差最小化（即近似的精度应该接近于精确的精度）。所以我们可能不想利用最先进的宇宙抽样技术（Kandula等人）来保留大量的连接结果图元，因为它们不一定能提供准确的估计（Huang等人）。</li>
+<li>为了优先考虑我们连接样本的代表性，我们可以从渐进式近似连接的分层抽样技术中得到启发（Tok等人）。直观地说，为了使我们的SLI近似值的误差最小化，我们应该构建具有相似预测误差（即ML模型目标认为的损失）的阶层或子组。不幸的是，在我们的高数据设置中，我们无法计算每个预测的误差（因为我们无法将每个预测连接到其相应的标签上）!也许我们可以在高层特征分组中识别 “典范”（即 “重要 “的数据点），并在分组标签上加入典范。例如，在我们的高尖预测问题中，我们可以将我们的预测和标签按邻里（例如FiDi、Tribeca、Midtown）分组，在这些组中挑选典范，汇总这些典范的预测和标签，并将它们连接起来以计算指标。研究的挑战在于设计出高效、高准确度的方法–可能是混合的ML和数据处理技术–来计算群体和典范。</li>
+</ul>
+<h6 id="无反馈"><a href="#无反馈" class="headerlink" title="无反馈"></a>无反馈</h6><ul>
+<li><p>这种情况通常在部署后立即发生。在我们纽约市出租车的例子中，假设我们有两个原始数据来源：出租车传感器遥测数据（如里程、位置）和计价器数据（如支付信息）。计价器数据可能会在以后分批出现，促使我们找到其他方法来估计没有标签的实时性能。</p>
+</li>
+<li><p>一个想法是使用重要性加权（IW）技术（Sugiyama等人）。在高层次上，我们可以根据输入特征确定子组，算出每个子组的训练SLI（例如准确度），并根据实时（部署后，未标记）数据中每个子组的点的数量来加权这些准确度。在我们的例子中，基本的子组定义可以是街区–对于纽约市的每一个街区，我们会找到训练的准确性，并通过相应街区中的实时点的比例来加权，以获得其 “估计 “的准确性。然后，我们将每个社区的估计值汇总，得到一个整体的估计精度。对于一个更复杂（和更高置信度）的方法，我们可以构建不同的分组，并对所产生的SLI估计值进行平均。同样，研究的挑战在于确定这些分组，当然也包括评估这些方法的效果。</p>
+</li>
+<li><p>我们可以在训练集或直播流中确定子群。最便宜的选择是根据训练数据点来计算子群，因为这可以做一次。然而，有了这个 “静态子群 “选项，实时的SLI估计就变得不那么准确了，因为子群的代表性随时间而变化。因此，我们希望在实时数据中计算出适应性的子群。我们可以利用流式聚类算法，这些算法对不断变化的数据分布具有明确的鲁棒性（Zubaroğlu等人）；然而，这在我们的案例中是额外昂贵的，因为每次有新的实时数据进来，我们都需要重复地将训练数据集的点重新分配给聚类。此外，集群在训练集中可能很少或没有相应的数据点，使我们无法估计出SLI。因此，我们需要<strong>研究在高维的、不断变化的数据流中有效识别子群的方法，并考虑到参考数据集（即训练集）</strong>。</p>
+</li>
+</ul>
+<h6 id="部分反馈"><a href="#部分反馈" class="headerlink" title="部分反馈"></a>部分反馈</h6><ul>
+<li>这种情况是我在 “野外 “看到的ML管线中最常见的。通常情况下，实时数据只在时间表上标注，更多的时候，一些上游的数据收集问题影响了反馈的到来（例如，在Tribeca的某个地区有一个手机塔的中断，导致支付表的数据比预期的晚到）。<strong>假设标签滞后的分布是未知和非平稳的</strong>, (即训练一个单独的模型来预测哪些预测不会有反馈可能是不可行的），在这种情况下，我们如何估计实时SLI？</li>
+<li>乍一看，也许我们可以简单地汇总全反馈和无反馈的估计值，按每个子组的数据点的数量加权。但现实情况是，标签滞后很少在各桶中均匀分布，识别具有类似反馈滞后时间的数据点组，对产生实时SLI的准确估计至关重要6。我们可以利用无反馈部分所描述的流式聚类算法，但这种聚类可能无法解释，或者只用谓词中的几个条款简单描述（Saisubramanian等人）。出于调试的目的，我们还关心这些 “滞后 “的数据点集群如何随时间变化，或者滞后的异常情况。</li>
+<li>也许我们可以从流模式挖掘算法中获得灵感，比如频繁项集（Rajaraman和Ullman等人）。然而，这类算法是在标签不变的数据点窗口中寻找特征组，而我们想要应用频繁项集算法的数据点–那些没有反馈的数据点（即 “滞后 “点）–在我们计算出频繁项集后可能会得到反馈。因此，<strong>我们如何扩展流式频繁项集算法，以便在删除数据点后有效地重新计算项集</strong>？我们可以在频繁项集的增量维护工作的基础上（Tobji等人）。</li>
+</ul>
+<h4 id="细致的监控：诊断ML性能问题"><a href="#细致的监控：诊断ML性能问题" class="headerlink" title="细致的监控：诊断ML性能问题"></a>细致的监控：诊断ML性能问题</h4><ul>
+<li>当SLI较低时，最优先考虑的是尽快使其回升。”细粒度 “监测类别涉及表现不佳的管道的 “根本原因分析”–模型是否应该重新训练，或者管道中的工程问题是否是失败的根本原因。此外，如果模型应该被重新训练（例如，有 “漂移 “或 “转移”），我们应该如何改变训练集以提高性能？</li>
+</ul>
+<h5 id="检测数据质量问题"><a href="#检测数据质量问题" class="headerlink" title="检测数据质量问题"></a>检测数据质量问题</h5><ul>
+<li>针对ML可观察性的数据管理研究在自动识别数据管道中的工程问题方面取得了进展（Schelter等人，Breck等人）。诸如模式验证、检测批次内的异常值以及对特征统计的约束（如预期平均值、完整性和范围）等技术可以标示出意外的数据质量问题，如传感器损坏和不完整的上游数据摄取。对于少量的特征和对问题领域的高度熟悉，宣布界限或预期可能是可行的，但这能否扩展到高维设置–例如，当数据科学家向xgboost模型投掷2000或更多的特征时？此外，<strong>在 “工程问题 “和 “漂移 “之间划清界限是很难的</strong>、特别是如果我们想自动检测问题。像TFX（Modi等人）这样的工具允许用户监测感兴趣的距离指标，如KL发散和Kolmogorov-Smirnov测试统计，但在视觉检查的L1距离很低的情况下，这些工具会失效–这可能发生在成千上万的数据点的规模上（Breck等人）。缓解这个问题的策略是假设拥有一个FAANG公司可能正在处理的数据点的数量（如果不是数十亿，也是数亿）。如果在FAANG公司之外，我们可以用什么技术来弥补经验漂移d(p̂, q̂)和理论漂移d(p, q)之间的差距，其中p和q是两个不同的分布？</li>
+</ul>
+<h5 id="朝着重新训练模型的方向发展"><a href="#朝着重新训练模型的方向发展" class="headerlink" title="朝着重新训练模型的方向发展"></a>朝着重新训练模型的方向发展</h5><ul>
+<li><p>在研究和实践界都存在一个巨大的问题，那就是 <strong>“分配转变 “是一个定义不明确的、负担过重的短语</strong>、造成全面的混乱。当人们说 “分布转移 “时，他们指的是一种现象，即一个数据集来自与另一个数据集不同的分布。”分布转移 “可能会导致ML性能下降–例如，在一个出租车公司供应商的数据上训练的模型在取自另一个出租车公司供应商的数据上可能表现不佳。这个重载的短语包含了不同类型的转变；例如：</p>
+</li>
+<li><p><strong>概念转变</strong>：输入特征和目标输出（即标签）之间关系的变化。这方面的一个例子是华尔街的年终奖金导致乘客在一周内多给小费。</p>
+</li>
+<li><p><strong>协变量转移</strong>：训练数据中输入变量分布的变化，而不是目标输出分布。这方面的一个例子是在新年前夕在中城（时代广场的落球）收到更多的出租车乘坐。</p>
+</li>
+<li><p><strong>年龄转移</strong>：一个输入变量的分布随着时间的推移预期增加或减少。这方面的一个例子是出租车的总里程数，它只能随着时间的推移而增加。</p>
+</li>
+<li><p>在 “分布转变 “方面的很多研究和现有方法都集中在比较两组有限的数据。正如我在本系列文章前面提到的，在实践中，我们关心的是在无限的数据流上部署模型，或在可预见的未来的数据。难道我们应该任意地将生产数据切割成两个固定大小的数据集，以想知道是否有 “分布转移”？这似乎并不正确。在流式ML设置中，我们真正关心的问题是：在什么时候我的模型对我当前的数据不能像预期那样工作？(即我何时需要重新训练我的模型？)。</p>
+</li>
+<li><p>在现实中，SLI的下降是由不同类型的转变组合而成的，特别是在高度非平稳的环境中。从产品的角度考虑，告诉用户 “78%来自概念转变，22%来自协变量转变”，即使我们能精确地确定这种细分，其可操作性如何？<strong>我们希望告诉用户何时以及如何在部署后重新训练模型</strong>,鉴于当前数据窗口中出现的 “异常”。假设我们有标签或反馈Y和输入数据或特征X，其中Xi代表所有数据点中第i个特征的数据。按照颗粒度增加的顺序，异常情况的类型可以包括：：</p>
+</li>
+<li><p>P(Y | X)有变化，但P(X)没有变化</p>
+</li>
+<li><p>P(Y | X)没有变化，但P(X)有变化</p>
+</li>
+<li><p>P(Xi)中的移位</p>
+</li>
+<li><p>P(Xi | Xj)中的移位，其中i ≠ j</p>
+</li>
+<li><p>P(Xi | Xj , Xk , …)中的移位，其中i ≠ j ≠ k</p>
+</li>
+<li><p><strong>在规模上跟踪许多距离度量</strong>。如前所述，为了接近上述的异常情况，现有的工作提出在连续的滑动窗口和训练集上跟踪KL分歧和Kolmogorov-Smirnov检验等指标（即Breck等人所述的训练-服务倾斜）。在内存中保留许多实时数据的窗口和训练集可能是不可行的，因此我们可以利用AQP技术来计算具有合理误差的距离指标。例如，度量计算功能可以在特征的直方图上运行，而不是在完整的数据流上运行；然而，直方图槽在流式设置中需要随着数据的演变而变化。研究的挑战在于将增量维护的近似直方图（Gibbons等人）的想法与自适应直方图（Leow等人）的想法相结合，以产生不断变化的数据窗口的总结。</p>
+</li>
+<li><p><strong>识别距离度量中的静止性</strong>。通常情况下，模型在周末、工作时间以外或节假日表现不佳。一个有趣的想法是训练一个模型来识别滑动窗口中观察到的P（Y | X）和P（X）之间的距离是否存在季节性模式。追踪所有的特征组合是不切实际的（Heise等人），那么是否有可能利用预测寻找算法（如Wu等人）来简化追踪距离指标的空间？</p>
+</li>
+<li><p><strong>自我调整的训练集</strong>。最后，根据检测到的异常类型，我们可以建议增加或改变训练集的方法。例如，在P(X)发生变化但P(Y | X)不变的情况下，我们可以建议对代表性不足的子群体进行增加采样。在P(Y | X)变化但P(X)不变的情况下，也许用户可以在最近的数据窗口上重新训练他们的模型。研究的挑战在于具体的、有用的提示，以构建新的训练数据集来避免低性能的陷阱。</p>
+</li>
+</ul>
+<h3 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h3><ul>
+<li><p><strong>目前的ML监控仪表盘信息量过大</strong>.用户看到数以百计，甚至数以千计的柱状图和图表，试图将 “分布转移 “可视化。<strong>这些图表没有可操作性，特别是当人们可以用同一组图表来讲述两个相互矛盾的故事时。</strong>例如，一个用户可以说，一个模型需要重新训练，因为一个特征的平均值在过去的几天里急剧下降了。另一方面，用户可以说这个特征不是三个最重要的特征之一，所以重新训练模型不会有很大影响。因此，从界面的角度来看，在给定数百个图形的情况下，在何时重新训练一个模型上划线是一个任意的过程。我们如何想出更好的可视化工具？</p>
+</li>
+<li><p><strong>仪表盘的目标</strong>。监测可视化的目的是帮助用户与他们的数据和模型保持同步。为此，好的监测仪表板应该毫不含糊地回答具体问题，如：：</p>
+<ul>
+<li>实时ML的性能是什么？</li>
+<li>这个性能是比预期的高还是低？比要求的（即满足SLOs）？</li>
+<li>性能降低的原因是数据质量问题吗？</li>
+<li>模型应该被重新训练吗？</li>
+</ul>
+</li>
+<li><p>仪表盘应该只包含少数几个描述 “统治它们的单一指标”（即SLI）的图，这样用户就不会被淹没了。</p>
+</li>
+<li><p><strong>仪表盘的挑战</strong>。在两个以上的维度上实现指标的可视化是非常困难的。不幸的是，在涉及到ML指标时，我们至少有以下几个维度：</p>
+<ul>
+<li>度量值</li>
+<li>组件（即管道中跨组件的连接，见本系列第二篇文章中的单组件与跨组件的讨论）。</li>
+<li>状态（即输入和输出的历史值）</li>
+<li>子种群（包括特征群）</li>
+<li>时间（一般意义上的时间，例如，绘制过去6个月内100天窗口的滚动平均值）</li>
+</ul>
+</li>
+<li><p>我们如何开发出能明确传达所有这些维度的信息而又没有太多认知开销的可视化产品？</p>
+</li>
+<li><p><strong>争取实现有洞察力的可视化</strong>。与前文所述的细粒度监测信息相结合，一个好的仪表盘将有深刻的可视化，让用户对分布如何变化有直观感受。ML工程师使用的现有的 “最先进的 “可视化（通过口口相传确定，所以要慎重对待8）包括比较两个数据集的静态条形图直方图。这在流式ML环境中很难推理。什么新的可视化类型可以解释细粒度指标的变化？这里有一个高尖预测的 “动态 “小提琴图的例子，显示了输出的分布如何随时间变化：</p>
+</li>
+<li><p><img src="/img/wuweiwu/ml/model_monitor_translate/output_violin.gif"></p>
+</li>
+<li><p>图2：产出随时间的分布。</p>
+</li>
+<li><p>在上面的例子中，由于我们有充分的反馈（即所有的预测都有标签），SLI（准确性）有确认的下降。在我们需要近似SLI和假设推理细粒度指标的情况下，也许用户可以直观地看到这样一个可视化的季节性。这绝对不是万能的解决方案，但要回到主要的问题：<strong>研究的挑战在于如何以有原则的方式提出更好的可视化来理解数据漂移，并根据用户工作的数据和ML任务自动将其呈现给用户。</strong></p>
+</li>
+</ul>
+<h3 id="数据集和基准"><a href="#数据集和基准" class="headerlink" title="数据集和基准"></a>数据集和基准</h3><ul>
+<li>由于缺乏对 “真实世界 “流式ML任务的访问，许多研究人员和开发人员主要用玩具数据或合成分布转移来工作。为此，有几个问题围绕着数据集和基准来加速ML监测的进展：</li>
+</ul>
+<ol>
+<li><strong>一个实时数据流的存储库，对应于可操作的ML任务。</strong>一个好的数据流的属性包括：它是无限的，代表了一个真实世界的现象，并且有一个比预测天气或股票价格更容易解决的ML任务。一个影响特别大的问题可能是以太坊天然气价格预测。具体来说，一个模型能否以95%的置信度输出未来一小时内一笔交易所需的最低天然气价格？另一个选择是将现有的基准转换为流格式（例如，从WILDS的训练和测试分布（D和D’）中取样点xt，用一个函数，当时间戳t小时，xt∈D的概率很高，当t大时，xt∈D’的概率很高）。理想情况下，我们收集更多的 “时间演化的表格数据流”，因为这种类型的数据在研究界大量存在。</li>
+<li><strong>以直观的方式从资源库中查询数据的接口</strong>,大多数数据科学家并不使用流式系统，那么我们如何让他们进行范围查询并接收Pandas或PyTorch数据集？我们如何保障用户在试验新想法时不被标签泄露或意外地偷看到未来？</li>
+<li><strong>用于创建和评估训练模型的策略的接口</strong>（我敢说是DSL？)mltrace的愿景是成为一个类似于React的库，用户在其中定义管道的组件，并在每个组件运行之前和之后运行触发器。在这些触发器中，用户可以根据自己的标准决定重新训练模型–比如数据漂移指标或预定更新。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>有了关于一个ML任务的足够的上下文，就有可能解决该任务特有的数据管理问题。但在构建一个通用的监控工具时，还有其他一些挑战，这些挑战源于ML管道和系统复杂性的增加，包括：</li>
+<li><strong>壮大的数据科学团队和工具栈</strong>。软件工程表明，团队和工具栈的分散性使其很难保持系统的可持续性。这将适用于ML，特别是当可能的ML数据管理工具的数量每年大量增加时。调试一个别人训练的模型是一件很痛苦的事情。</li>
+<li><strong>模型堆叠</strong>。许多组织将模型连锁在一起以产生最终的预测。漂移检测对于一个模型来说已经很困难了。将错误的预测追溯到需要调试的特定模型上，似乎更具挑战性。</li>
+<li><strong>无法解释的特征</strong>。许多组织使用ML来产生嵌入，并将其作为特征输入到下游的ML任务中。数据质量警报，如用户定义的特征列的约束，然后无法构建。</li>
+<li><strong>将组件作为容器化应用进行部署</strong>。在Kubernetes集群中很难做ML。容器化基础设施主要适用于无状态的应用程序，不幸的是，在线和持续学习是有状态的（即模型权重被更新，需要在预测服务荚之间共享）。</li>
+<li><strong>多模态数据</strong>。我在这篇文章中概述的许多解决方案想法都是针对表格数据的。我们可以在图像、音频和视频案例中使用什么技术？我敢说，信息的 “数据湖”？</li>
+<li>我还没有太深入地思考这些临时性的挑战，但我怀疑一个好的ML监测工具至少会意识到这些挑战。最后，我想以个人名义结束这个系列。10我很感激有时间批判性地思考ML监控，以及行业专家和学术合作者的支持。我很幸运能读博士，我为自己能写出的论文感到兴奋!</li>
+<li>感谢Divyahans Gupta和我的导师Aditya Parameswaran的头脑风暴帮助和对许多草案的反馈。</li>
+</ul>
+<hr>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><ol>
+<li>通常情况下，我谈论的是可观察性。监测是可观察性中的一个子问题，有最有趣的研究问题（在我看来）。</li>
+<li>新的挑战出现在模型的堆叠上，或者将模型串联在一起，形成最终的预测结果。</li>
+<li>不清楚 “粗粒度 “和 “细粒度 “是否是这里的最佳术语。DG建议采用 “外部 “与 “内部 “的衡量标准。如果您对此有任何想法，请告诉我！</li>
+<li>基于 timely-dataflow（基于Rust的差分数据流实现）。向Peter Schafhalter致敬，感谢他在这方面的快速工作。</li>
+<li>我应该进一步阐述这些方法。</li>
+<li>更不用说，确定哪些子组有较高的滞后时间，对调试工作有帮助。</li>
+<li>这里不点名，但如果你有兴趣，请查看ML监控公司的演示。</li>
+<li>我们RISELab的几个人正在进行一项采访研究，以正式撰写部署后ML维护的 “最佳实践”。</li>
+<li>深度学习的危险性就属于这个范畴。</li>
+<li>向那些能看完本系列所有4篇文章的人表示敬意。我是认真的。我很确定我还没有读完这里的所有字。</li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">现代机器学习监控的混乱局面：重新思考流媒体评估（4/4）</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-05-24 22:45:16</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part04/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/MLOps/">#MLOps</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/05/28/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/mozi91_luck/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">水墨先生算命</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/05/24/%E7%8E%B0%E4%BB%A3%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9B%91%E6%8E%A7%E7%9A%84%E6%B7%B7%E4%B9%B1%E5%B1%80%E9%9D%A2/model_monitoring_mess_part03/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">现代机器学习监控的混乱局面：重新思考流媒体评估（3/4）</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E8%80%85%EF%BC%9AShreya-Shankar-%E5%8E%9F%E6%96%87%E8%BF%9E%E6%8E%A5%EF%BC%9Arethinking-ml-monitoring-4"><span class="nav-number">1.</span> <span class="nav-text"> 作者：Shreya Shankar- 原文连接：rethinking ml monitoring 4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">预备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E7%9A%84%E4%BF%9D%E6%8A%A4%E4%BC%9E"><span class="nav-number">3.</span> <span class="nav-text">挑战的保护伞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%A6%E9%87%8F%E8%A1%A1%E8%AE%A1%E7%AE%97"><span class="nav-number">3.1.</span> <span class="nav-text">度量衡计算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B2%97%E7%B2%92%E5%BA%A6%E7%9A%84%E7%9B%91%E6%8E%A7%EF%BC%9A%E6%A3%80%E6%B5%8BML%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.1.</span> <span class="nav-text">粗粒度的监控：检测ML性能问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Scalable-Monitoring-Infrastructure"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">Scalable Monitoring Infrastructure</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%B0%E8%AE%A1%E6%9C%89%E6%A0%87%E7%AD%BE%E6%BB%9E%E5%90%8E%E7%9A%84%E5%AE%9E%E6%97%B6SLI"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">估计有标签滞后的实时SLI</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%A8%E9%9D%A2%E5%8F%8D%E9%A6%88"><span class="nav-number">3.1.1.2.1.</span> <span class="nav-text">全面反馈</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%97%A0%E5%8F%8D%E9%A6%88"><span class="nav-number">3.1.1.2.2.</span> <span class="nav-text">无反馈</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E5%8F%8D%E9%A6%88"><span class="nav-number">3.1.1.2.3.</span> <span class="nav-text">部分反馈</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%86%E8%87%B4%E7%9A%84%E7%9B%91%E6%8E%A7%EF%BC%9A%E8%AF%8A%E6%96%ADML%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.2.</span> <span class="nav-text">细致的监控：诊断ML性能问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">检测数据质量问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%9D%E7%9D%80%E9%87%8D%E6%96%B0%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%96%B9%E5%90%91%E5%8F%91%E5%B1%95"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">朝着重新训练模型的方向发展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E5%9F%BA%E5%87%86"><span class="nav-number">3.3.</span> <span class="nav-text">数据集和基准</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E"><span class="nav-number">5.</span> <span class="nav-text">声明</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Doman Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

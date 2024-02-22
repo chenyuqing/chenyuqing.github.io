@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Doman Chen(motion$)">
+    
+    <title>
+        
+            Training your own data with TF object detection API |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Training your own data with TF object detection API</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Doman Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2021-02-03 14:28:07</span>
+        <span class="mobile">2021-02-03 14:28</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 09:36:12</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-ML/">技能-修行-进步-ML</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/tensorflow/">tensorflow</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>18 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="System-Info"><a href="#System-Info" class="headerlink" title="System Info"></a>System Info</h2><ul>
+<li>Ubuntu 16.04</li>
+<li>Git</li>
+<li>TF 2.0</li>
+<li>pillow</li>
+<li>lxml</li>
+<li>protobuf ( &gt; 3.3 , my version, 3.11.2)</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/gezhuangzhuang/p/10613468.html" >ref1-tensorflow+ssd_mobilenet实现目标检测的训练<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/dy_guox/article/details/79111949" >ref2-（更新视频教程）Tensorflow object detection API 搭建属于自己的物体识别模型（2）——训练并使用自己的模型<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/linolzhang/article/details/87121875" >ref3-Tensorflow object detection API训练自己的数据<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h2 id="To-dos"><a href="#To-dos" class="headerlink" title="To-dos"></a>To-dos</h2><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/tensorflow/models/tree/master/research/object_detection" >TF object detection API<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h3 id="Env-prepare"><a href="#Env-prepare" class="headerlink" title="Env prepare"></a>Env prepare</h3><ul>
+<li>Clone the <a class="link"   target="_blank" rel="noopener" href="https://github.com/tensorflow/models" >model repository<i class="fas fa-external-link-alt"></i></a> into local</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md" >Guid for installation<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h3 id="Make-your-own-dataset"><a href="#Make-your-own-dataset" class="headerlink" title="Make your own dataset"></a>Make your own dataset</h3><ul>
+<li>For us, we have the yolo format annotaion files(txt files), but TFRecord format data is fit to the tensorlow.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yolo-2-voc.py</span><br><span class="line">voc-2-csv.py</span><br><span class="line">csv-2-tfrecord.py</span><br></pre></td></tr></table></figure>
+<h4 id="yolo-to-voc"><a href="#yolo-to-voc" class="headerlink" title="yolo to voc"></a>yolo to voc</h4><ul>
+<li>Prepare two folders, one for <strong>annotation files</strong> and the other for the <strong>image files</strong>. VOC format(xml files) will save into the <strong>converted_lanbels</strong> folder.</li>
+<li><strong>manual change your own data label-mappings</strong></li>
+<li>Notice that the value of <strong>(x, y, width, height) are integers</strong> .<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"># Script to convert yolo annotations to voc format</span><br><span class="line"></span><br><span class="line"># Sample format</span><br><span class="line"># &lt;annotation&gt;</span><br><span class="line">#     &lt;folder&gt;_image_fashion&lt;/folder&gt;</span><br><span class="line">#     &lt;filename&gt;brooke-cagle-39574.jpg&lt;/filename&gt;</span><br><span class="line">#     &lt;size&gt;</span><br><span class="line">#         &lt;width&gt;1200&lt;/width&gt;</span><br><span class="line">#         &lt;height&gt;800&lt;/height&gt;</span><br><span class="line">#         &lt;depth&gt;3&lt;/depth&gt;</span><br><span class="line">#     &lt;/size&gt;</span><br><span class="line">#     &lt;segmented&gt;0&lt;/segmented&gt;</span><br><span class="line">#     &lt;object&gt;</span><br><span class="line">#         &lt;name&gt;head&lt;/name&gt;</span><br><span class="line">#         &lt;pose&gt;Unspecified&lt;/pose&gt;</span><br><span class="line">#         &lt;truncated&gt;0&lt;/truncated&gt;</span><br><span class="line">#         &lt;difficult&gt;0&lt;/difficult&gt;</span><br><span class="line">#         &lt;bndbox&gt;</span><br><span class="line">#             &lt;xmin&gt;549&lt;/xmin&gt;</span><br><span class="line">#             &lt;ymin&gt;251&lt;/ymin&gt;</span><br><span class="line">#             &lt;xmax&gt;625&lt;/xmax&gt;</span><br><span class="line">#             &lt;ymax&gt;335&lt;/ymax&gt;</span><br><span class="line">#         &lt;/bndbox&gt;</span><br><span class="line">#     &lt;/object&gt;</span><br><span class="line"># &lt;annotation&gt;</span><br><span class="line">import os</span><br><span class="line">import xml.etree.cElementTree as ET</span><br><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">ANNOTATIONS_DIR_PREFIX = &quot;annotations&quot;</span><br><span class="line"></span><br><span class="line">DESTINATION_DIR = &quot;converted_labels&quot;</span><br><span class="line"></span><br><span class="line">CLASS_MAPPING = &#123;</span><br><span class="line">    &#x27;0&#x27;: &#x27;cream_hazelnut&#x27;,</span><br><span class="line">    &#x27;1&#x27;: &#x27;cream_berry&#x27;,</span><br><span class="line">    &#x27;2&#x27;: &#x27;cream_cherry&#x27;,</span><br><span class="line">    &#x27;3&#x27;: &#x27;yida_cool_lemon&#x27;,</span><br><span class="line">    &#x27;4&#x27;: &#x27;box_yogurt_mango&#x27;,</span><br><span class="line">    &#x27;5&#x27;: &#x27;white_strawberry&#x27;,</span><br><span class="line">    &#x27;6&#x27;: &#x27;cookies_lemon&#x27;,</span><br><span class="line">    &#x27;7&#x27;: &#x27;yogurt_cranberry&#x27;,</span><br><span class="line">    &#x27;8&#x27;: &#x27;box_cookies_matcha&#x27;,</span><br><span class="line">    &#x27;9&#x27;: &#x27;cookies_matcha&#x27;,</span><br><span class="line">    &#x27;10&#x27;: &#x27;yogurt_mango&#x27;,</span><br><span class="line">    &#x27;11&#x27;: &#x27;white_passionfruit&#x27;,</span><br><span class="line">    &#x27;12&#x27;: &#x27;yida_cool_litchi&#x27;,</span><br><span class="line">    &#x27;13&#x27;: &#x27;box_white_strawberry&#x27;</span><br><span class="line">    # Add your remaining classes here.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def create_root(file_prefix, width, height):</span><br><span class="line">    root = ET.Element(&quot;annotations&quot;)</span><br><span class="line">    ET.SubElement(root, &quot;filename&quot;).text = &quot;&#123;&#125;.jpg&quot;.format(file_prefix)</span><br><span class="line">    ET.SubElement(root, &quot;folder&quot;).text = &quot;images&quot;</span><br><span class="line">    size = ET.SubElement(root, &quot;size&quot;)</span><br><span class="line">    ET.SubElement(size, &quot;width&quot;).text = str(width)</span><br><span class="line">    ET.SubElement(size, &quot;height&quot;).text = str(height)</span><br><span class="line">    ET.SubElement(size, &quot;depth&quot;).text = &quot;3&quot;</span><br><span class="line">    return root</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def create_object_annotation(root, voc_labels):</span><br><span class="line">    for voc_label in voc_labels:</span><br><span class="line">        obj = ET.SubElement(root, &quot;object&quot;)</span><br><span class="line">        ET.SubElement(obj, &quot;name&quot;).text = voc_label[0]</span><br><span class="line">        ET.SubElement(obj, &quot;pose&quot;).text = &quot;Unspecified&quot;</span><br><span class="line">        ET.SubElement(obj, &quot;truncated&quot;).text = str(0)</span><br><span class="line">        ET.SubElement(obj, &quot;difficult&quot;).text = str(0)</span><br><span class="line">        bbox = ET.SubElement(obj, &quot;bndbox&quot;)</span><br><span class="line">        ET.SubElement(bbox, &quot;xmin&quot;).text = str(voc_label[1])</span><br><span class="line">        ET.SubElement(bbox, &quot;ymin&quot;).text = str(voc_label[2])</span><br><span class="line">        ET.SubElement(bbox, &quot;xmax&quot;).text = str(voc_label[3])</span><br><span class="line">        ET.SubElement(bbox, &quot;ymax&quot;).text = str(voc_label[4])</span><br><span class="line">    return root</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def create_file(file_prefix, width, height, voc_labels):</span><br><span class="line">    root = create_root(file_prefix, width, height)</span><br><span class="line">    root = create_object_annotation(root, voc_labels)</span><br><span class="line">    tree = ET.ElementTree(root)</span><br><span class="line">    tree.write(&quot;&#123;&#125;/&#123;&#125;.xml&quot;.format(DESTINATION_DIR, file_prefix))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def read_file(file_path):</span><br><span class="line">    file_prefix = file_path.split(&quot;.txt&quot;)[0]</span><br><span class="line">    image_file_name = &quot;&#123;&#125;.jpg&quot;.format(file_prefix)</span><br><span class="line">    img = Image.open(&quot;&#123;&#125;/&#123;&#125;&quot;.format(&quot;images&quot;, image_file_name))</span><br><span class="line">    w, h = img.size</span><br><span class="line">    </span><br><span class="line">    with open(&quot;&#123;&#125;/&#123;&#125;&quot;.format(ANNOTATIONS_DIR_PREFIX, file_path), &#x27;r&#x27;) as file:</span><br><span class="line">        lines = file.readlines()</span><br><span class="line">        voc_labels = []</span><br><span class="line">        for line in lines:</span><br><span class="line">            voc = []</span><br><span class="line">            line = line.strip()</span><br><span class="line">            data = line.split()</span><br><span class="line">            voc.append(CLASS_MAPPING.get(data[0]))</span><br><span class="line">            bbox_width = float(data[3]) * w</span><br><span class="line">            bbox_height = float(data[4]) * h</span><br><span class="line">            center_x = float(data[1]) * w</span><br><span class="line">            center_y = float(data[2]) * h</span><br><span class="line">            voc.append(int(center_x - (bbox_width / 2)))</span><br><span class="line">            voc.append(int(center_y - (bbox_height / 2)))</span><br><span class="line">            voc.append(int(center_x + (bbox_width / 2)))</span><br><span class="line">            voc.append(int(center_y + (bbox_height / 2)))</span><br><span class="line">            voc_labels.append(voc)</span><br><span class="line">        create_file(file_prefix, w, h, voc_labels)</span><br><span class="line">    print(&quot;Processing complete for file: &#123;&#125;/&#123;&#125;&quot;.format(ANNOTATIONS_DIR_PREFIX, file_path))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def start():</span><br><span class="line">    if not os.path.exists(DESTINATION_DIR):</span><br><span class="line">        os.makedirs(DESTINATION_DIR)</span><br><span class="line">    for filename in os.listdir(ANNOTATIONS_DIR_PREFIX):</span><br><span class="line">        if filename.endswith(&#x27;txt&#x27;):</span><br><span class="line">            read_file(filename)</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;Skipping file: &#123;&#125;&quot;.format(filename))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    start()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="train-test-split-on-xml-files"><a href="#train-test-split-on-xml-files" class="headerlink" title="train test split on xml files"></a>train test split on xml files</h4><ul>
+<li>You can change the percentage to split the dataset manually.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import random</span><br><span class="line">import time</span><br><span class="line">import shutil</span><br><span class="line"></span><br><span class="line">xmlfilepath = r&#x27;./Annotations&#x27;</span><br><span class="line">saveBasePath = r&quot;./&quot;</span><br><span class="line"></span><br><span class="line">trainval_percent = 0.8</span><br><span class="line">train_percent = 0.8</span><br><span class="line">total_xml = os.listdir(xmlfilepath)</span><br><span class="line">num = len(total_xml)</span><br><span class="line">list = range(num)</span><br><span class="line">tv = int(num * trainval_percent)</span><br><span class="line">tr = int(tv * train_percent)</span><br><span class="line">trainval = random.sample(list, tv)</span><br><span class="line">train = random.sample(trainval, tr)</span><br><span class="line">print(&quot;train and val size&quot;, tv)</span><br><span class="line">print(&quot;train size&quot;, tr)</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line"></span><br><span class="line">test_num = 0</span><br><span class="line">val_num = 0</span><br><span class="line">train_num = 0</span><br><span class="line">print(&#x27;total xml : &#123;&#125;&#x27;.format(total_xml))</span><br><span class="line"></span><br><span class="line">for i in list:</span><br><span class="line">    name = total_xml[i]</span><br><span class="line">    # print(&#x27;name : &#123;&#125;&#x27;.format(name))</span><br><span class="line">    if i in trainval:  # train and val set</span><br><span class="line">        if i in train:</span><br><span class="line">            directory = &quot;train&quot;</span><br><span class="line">            train_num += 1</span><br><span class="line">            xml_path = os.path.join(os.getcwd(), &#x27;&#123;&#125;&#x27;.format(directory))</span><br><span class="line">            if (not os.path.exists(xml_path)):</span><br><span class="line">                os.mkdir(xml_path)</span><br><span class="line">            filePath = os.path.join(xmlfilepath, name)</span><br><span class="line">            newfile = os.path.join(saveBasePath, os.path.join(directory, name))</span><br><span class="line">            # print(&#x27;newfile : &#123;&#125;&#x27;.format(newfile))</span><br><span class="line">            shutil.copyfile(filePath, newfile)</span><br><span class="line">        else:</span><br><span class="line">            directory = &quot;validation&quot;</span><br><span class="line">            xml_path = os.path.join(os.getcwd(), &#x27;&#123;&#125;&#x27;.format(directory))</span><br><span class="line">            if (not os.path.exists(xml_path)):</span><br><span class="line">                os.mkdir(xml_path)</span><br><span class="line">            val_num += 1</span><br><span class="line">            filePath = os.path.join(xmlfilepath, name)</span><br><span class="line">            newfile = os.path.join(saveBasePath, os.path.join(directory, name))</span><br><span class="line">            # print(&#x27;newfile : &#123;&#125;&#x27;.format(newfile))</span><br><span class="line">            shutil.copyfile(filePath, newfile)</span><br><span class="line">    else:</span><br><span class="line">        directory = &quot;test&quot;</span><br><span class="line">        xml_path = os.path.join(os.getcwd(), &#x27;&#123;&#125;&#x27;.format(directory))</span><br><span class="line">        if (not os.path.exists(xml_path)):</span><br><span class="line">            os.mkdir(xml_path)</span><br><span class="line">        test_num += 1</span><br><span class="line">        filePath = os.path.join(xmlfilepath, name)</span><br><span class="line">        newfile = os.path.join(saveBasePath, os.path.join(directory, name))</span><br><span class="line">        # print(&#x27;name : &#123;&#125;&#x27;.format(name))</span><br><span class="line">        shutil.copyfile(filePath, newfile)</span><br><span class="line"></span><br><span class="line">end = time.time()</span><br><span class="line">seconds = end - start</span><br><span class="line">print(&quot;train total : &quot; + str(train_num))</span><br><span class="line">print(&quot;validation total : &quot; + str(val_num))</span><br><span class="line">print(&quot;test total : &quot; + str(test_num))</span><br><span class="line">total_num = train_num + val_num + test_num</span><br><span class="line">print(&quot;total number : &quot; + str(total_num))</span><br><span class="line">print(&quot;Time taken : &#123;0&#125; seconds&quot;.format(seconds))</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="voc-to-csv"><a href="#voc-to-csv" class="headerlink" title="voc to csv"></a>voc to csv</h4><ul>
+<li>Transfer the xml files to csv for trian, test and validation folder individually.</li>
+<li>You should change the save path for your own csv files.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import glob</span><br><span class="line">import pandas as pd</span><br><span class="line">import xml.etree.ElementTree as ET</span><br><span class="line"></span><br><span class="line">def xml_to_csv(path):</span><br><span class="line">    xml_list = []</span><br><span class="line">    for xml_file in glob.glob(path + &#x27;/*.xml&#x27;):</span><br><span class="line">        tree = ET.parse(xml_file)</span><br><span class="line">        root = tree.getroot()</span><br><span class="line"></span><br><span class="line">        print(root.find(&#x27;filename&#x27;).text)</span><br><span class="line">        for member in root.findall(&#x27;object&#x27;):</span><br><span class="line">            value = (root.find(&#x27;filename&#x27;).text,</span><br><span class="line">                int(root.find(&#x27;size&#x27;)[0].text),   #width</span><br><span class="line">                int(root.find(&#x27;size&#x27;)[1].text),   #height</span><br><span class="line">                member[0].text,</span><br><span class="line">                int(member[4][0].text),</span><br><span class="line">                int(float(member[4][1].text)),</span><br><span class="line">                int(member[4][2].text),</span><br><span class="line">                int(member[4][3].text)</span><br><span class="line">                )</span><br><span class="line">            xml_list.append(value)</span><br><span class="line">    column_name = [&#x27;filename&#x27;, &#x27;width&#x27;, &#x27;height&#x27;, &#x27;class&#x27;, &#x27;xmin&#x27;, &#x27;ymin&#x27;, &#x27;xmax&#x27;, &#x27;ymax&#x27;]</span><br><span class="line">    xml_df = pd.DataFrame(xml_list, columns=column_name)</span><br><span class="line">    return xml_df</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    for directory in [&#x27;train&#x27;,&#x27;test&#x27;,&#x27;validation&#x27;]:</span><br><span class="line">        xml_path = os.path.join(os.getcwd(), &#x27;./&#123;&#125;&#x27;.format(directory))</span><br><span class="line"></span><br><span class="line">        xml_df = xml_to_csv(xml_path)</span><br><span class="line">        # xml_df.to_csv(&#x27;whsyxt.csv&#x27;, index=None)</span><br><span class="line">        xml_df.to_csv(&#x27;/home/tim/workspace/models/research/object_detection/data/dove_cholo_&#123;&#125;_labels.csv&#x27;.format(directory), index=None)</span><br><span class="line">        print(&#x27;Successfully converted xml to csv.&#x27;)</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="csv-to-tfrecord"><a href="#csv-to-tfrecord" class="headerlink" title="csv to tfrecord"></a>csv to tfrecord</h4><ul>
+<li>You should set your JPEGImage path.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Created on Tue Mar  5 15:28:55 2019</span><br><span class="line"></span><br><span class="line">@author: z</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Usage:</span><br><span class="line">  # From tensorflow/models/</span><br><span class="line">  # Create train data:</span><br><span class="line">  python generate_tfrecord.py --csv_input=data/tv_vehicle_labels.csv  --output_path=train.record</span><br><span class="line">  # Create test data:</span><br><span class="line">  python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=test.record</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line">import io</span><br><span class="line">import pandas as pd</span><br><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">from PIL import Image</span><br><span class="line">from object_detection.utils import dataset_util</span><br><span class="line">from collections import namedtuple, OrderedDict</span><br><span class="line"></span><br><span class="line">os.chdir(&#x27;/home/tim/workspace/models/research/&#x27;)</span><br><span class="line"></span><br><span class="line">flags = tf.app.flags</span><br><span class="line">flags.DEFINE_string(&#x27;csv_input&#x27;, &#x27;&#x27;, &#x27;Path to the CSV input&#x27;)</span><br><span class="line">flags.DEFINE_string(&#x27;output_path&#x27;, &#x27;&#x27;, &#x27;Path to output TFRecord&#x27;)</span><br><span class="line">FLAGS = flags.FLAGS</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># TO-DO replace this with label map</span><br><span class="line">def class_text_to_int(row_label):</span><br><span class="line">    # 你的所有类别, 必须从1开始，0被征用作为了背景。</span><br><span class="line">    if row_label == &#x27;cream_berry&#x27;:</span><br><span class="line">        return 1</span><br><span class="line">    elif row_label == &#x27;cream_cherry&#x27;:</span><br><span class="line">        return 2</span><br><span class="line">    elif row_label == &#x27;yida_cool_lemon&#x27;:</span><br><span class="line">        return 3</span><br><span class="line">    elif row_label == &#x27;box_yogurt_mango&#x27;:</span><br><span class="line">        return 4</span><br><span class="line">    elif row_label == &#x27;white_strawberry&#x27;:</span><br><span class="line">        return 5</span><br><span class="line">    elif row_label == &#x27;cookies_lemon&#x27;:</span><br><span class="line">        return 6</span><br><span class="line">    elif row_label == &#x27;yogurt_cranberry&#x27;:</span><br><span class="line">        return 7</span><br><span class="line">    elif row_label == &#x27;box_cookies_matcha&#x27;:</span><br><span class="line">        return 8</span><br><span class="line">    elif row_label == &#x27;cookies_matcha&#x27;:</span><br><span class="line">        return 9</span><br><span class="line">    elif row_label == &#x27;yogurt_mango&#x27;:</span><br><span class="line">        return 10</span><br><span class="line">    elif row_label == &#x27;white_passionfruit&#x27;:</span><br><span class="line">        return 11</span><br><span class="line">    elif row_label == &#x27;yida_cool_litchi&#x27;:</span><br><span class="line">        return 12</span><br><span class="line">    elif row_label == &#x27;box_white_strawberry&#x27;:</span><br><span class="line">        return 13</span><br><span class="line">    elif row_label == &#x27;cream_hazelnut&#x27;:</span><br><span class="line">        return 14</span><br><span class="line">    else:</span><br><span class="line">        return None</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def split(df, group):</span><br><span class="line">    data = namedtuple(&#x27;data&#x27;, [&#x27;filename&#x27;, &#x27;object&#x27;])</span><br><span class="line">    gb = df.groupby(group)</span><br><span class="line">    return [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def create_tf_example(group, path):</span><br><span class="line">    with tf.gfile.GFile(os.path.join(path, &#x27;&#123;&#125;&#x27;.format(group.filename)), &#x27;rb&#x27;) as fid:</span><br><span class="line">        encoded_jpg = fid.read()</span><br><span class="line">    encoded_jpg_io = io.BytesIO(encoded_jpg)</span><br><span class="line">    image = Image.open(encoded_jpg_io)</span><br><span class="line">    width, height = image.size</span><br><span class="line"></span><br><span class="line">    filename = group.filename.encode(&#x27;utf8&#x27;)</span><br><span class="line">    image_format = b&#x27;jpg&#x27;</span><br><span class="line">    xmins = []</span><br><span class="line">    xmaxs = []</span><br><span class="line">    ymins = []</span><br><span class="line">    ymaxs = []</span><br><span class="line">    classes_text = []</span><br><span class="line">    classes = []</span><br><span class="line"></span><br><span class="line">    for index, row in group.object.iterrows():</span><br><span class="line">        xmins.append(row[&#x27;xmin&#x27;] / width)</span><br><span class="line">        xmaxs.append(row[&#x27;xmax&#x27;] / width)</span><br><span class="line">        ymins.append(row[&#x27;ymin&#x27;] / height)</span><br><span class="line">        ymaxs.append(row[&#x27;ymax&#x27;] / height)</span><br><span class="line">        classes_text.append(row[&#x27;class&#x27;].encode(&#x27;utf8&#x27;))</span><br><span class="line">        classes.append(class_text_to_int(row[&#x27;class&#x27;]))</span><br><span class="line"></span><br><span class="line">    tf_example = tf.train.Example(features=tf.train.Features(feature=&#123;</span><br><span class="line">        &#x27;image/height&#x27;: dataset_util.int64_feature(height),</span><br><span class="line">        &#x27;image/width&#x27;: dataset_util.int64_feature(width),</span><br><span class="line">        &#x27;image/filename&#x27;: dataset_util.bytes_feature(filename),</span><br><span class="line">        &#x27;image/source_id&#x27;: dataset_util.bytes_feature(filename),</span><br><span class="line">        &#x27;image/encoded&#x27;: dataset_util.bytes_feature(encoded_jpg),</span><br><span class="line">        &#x27;image/format&#x27;: dataset_util.bytes_feature(image_format),</span><br><span class="line">        &#x27;image/object/bbox/xmin&#x27;: dataset_util.float_list_feature(xmins),</span><br><span class="line">        &#x27;image/object/bbox/xmax&#x27;: dataset_util.float_list_feature(xmaxs),</span><br><span class="line">        &#x27;image/object/bbox/ymin&#x27;: dataset_util.float_list_feature(ymins),</span><br><span class="line">        &#x27;image/object/bbox/ymax&#x27;: dataset_util.float_list_feature(ymaxs),</span><br><span class="line">        &#x27;image/object/class/text&#x27;: dataset_util.bytes_list_feature(classes_text),</span><br><span class="line">        &#x27;image/object/class/label&#x27;: dataset_util.int64_list_feature(classes),</span><br><span class="line">    &#125;))</span><br><span class="line">    return tf_example</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main(_):</span><br><span class="line">    writer = tf.python_io.TFRecordWriter(FLAGS.output_path)</span><br><span class="line">    path = os.path.join(os.getcwd(), &#x27;object_detection/VOCdevkit/VOC2020_dove_cholo/JPEGImages/&#x27;)</span><br><span class="line">    examples = pd.read_csv(FLAGS.csv_input)</span><br><span class="line">    grouped = split(examples, &#x27;filename&#x27;)</span><br><span class="line">    num = 0</span><br><span class="line">    for group in grouped:</span><br><span class="line">        num += 1</span><br><span class="line">        tf_example = create_tf_example(group, path)</span><br><span class="line">        writer.write(tf_example.SerializeToString())</span><br><span class="line">        if (num % 100 == 0):  # 每完成100个转换，打印一次</span><br><span class="line">            print(num)</span><br><span class="line"></span><br><span class="line">    writer.close()</span><br><span class="line">    output_path = os.path.join(os.getcwd(), FLAGS.output_path)</span><br><span class="line">    print(&#x27;Successfully created the TFRecords: &#123;&#125;&#x27;.format(output_path))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    tf.app.run()</span><br></pre></td></tr></table></figure></li>
+<li>command to generate tfrecord files<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd models/research/</span><br><span class="line"></span><br><span class="line">python generate_tfrecord.py --csv_input=object_detection/data/dove_cholo_test_labels.csv --output_path=dove_test.tfrecord</span><br><span class="line"></span><br><span class="line">python generate_tfrecord.py --csv_input=object_detection/data/dove_cholo_validation_labels.csv --output_path=dove_validation.tfrecord</span><br><span class="line"></span><br><span class="line">python generate_tfrecord.py --csv_input=object_detection/data/dove_cholo_train_labels.csv --output_path=dove_train.tfrecord</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Training-model"><a href="#Training-model" class="headerlink" title="Training model"></a>Training model</h3><ul>
+<li>Things to prepare<ul>
+<li>create your own label-map.pbtxt<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cd models/research/object_detection/data</span><br><span class="line">create label-map.pbtxt</span><br><span class="line">contents are belows</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	item &#123;</span><br><span class="line">	  id: 1    # id 从1开始编号</span><br><span class="line">	  name: &#x27;red pedestrian&#x27;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	item &#123;</span><br><span class="line">	  id: 2</span><br><span class="line">	  name: &#x27;green pedestrian&#x27;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></li>
+<li>model config file list<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">cd object_detection/samples/config/</span><br><span class="line"></span><br><span class="line">(base) tim@tim-System-Product-Name:~/workspace/models/research/object_detection/samples/configs$ tree</span><br><span class="line">.</span><br><span class="line">├── embedded_ssd_mobilenet_v1_coco.config</span><br><span class="line">├── facessd_mobilenet_v2_quantized_320x320_open_image_v4.config</span><br><span class="line">├── faster_rcnn_inception_resnet_v2_atrous_coco.config</span><br><span class="line">├── faster_rcnn_inception_resnet_v2_atrous_cosine_lr_coco.config</span><br><span class="line">├── faster_rcnn_inception_resnet_v2_atrous_oid.config</span><br><span class="line">├── faster_rcnn_inception_resnet_v2_atrous_oid_v4.config</span><br><span class="line">├── faster_rcnn_inception_resnet_v2_atrous_pets.config</span><br><span class="line">├── faster_rcnn_inception_v2_coco.config</span><br><span class="line">├── faster_rcnn_inception_v2_pets.config</span><br><span class="line">├── faster_rcnn_nas_coco.config</span><br><span class="line">├── faster_rcnn_resnet101_atrous_coco.config</span><br><span class="line">├── faster_rcnn_resnet101_ava_v2.1.config</span><br><span class="line">├── faster_rcnn_resnet101_coco.config</span><br><span class="line">├── faster_rcnn_resnet101_fgvc.config</span><br><span class="line">├── faster_rcnn_resnet101_kitti.config</span><br><span class="line">├── faster_rcnn_resnet101_pets.config</span><br><span class="line">├── faster_rcnn_resnet101_voc07.config</span><br><span class="line">├── faster_rcnn_resnet152_coco.config</span><br><span class="line">├── faster_rcnn_resnet152_pets.config</span><br><span class="line">├── faster_rcnn_resnet50_coco.config</span><br><span class="line">├── faster_rcnn_resnet50_fgvc.config</span><br><span class="line">├── faster_rcnn_resnet50_pets.config</span><br><span class="line">├── mask_rcnn_inception_resnet_v2_atrous_coco.config</span><br><span class="line">├── mask_rcnn_inception_v2_coco.config</span><br><span class="line">├── mask_rcnn_resnet101_atrous_coco.config</span><br><span class="line">├── mask_rcnn_resnet101_pets.config</span><br><span class="line">├── mask_rcnn_resnet50_atrous_coco.config</span><br><span class="line">├── rfcn_resnet101_coco.config</span><br><span class="line">├── rfcn_resnet101_pets.config</span><br><span class="line">├── ssd_inception_v2_coco.config</span><br><span class="line">├── ssd_inception_v2_pets.config</span><br><span class="line">├── ssd_inception_v3_pets.config</span><br><span class="line">├── ssdlite_mobilenet_edgetpu_320x320_coco.config</span><br><span class="line">├── ssdlite_mobilenet_edgetpu_320x320_coco_quant.config</span><br><span class="line">├── ssdlite_mobilenet_v1_coco.config</span><br><span class="line">├── ssdlite_mobilenet_v2_coco.config</span><br><span class="line">├── ssdlite_mobilenet_v3_large_320x320_coco.config</span><br><span class="line">├── ssdlite_mobilenet_v3_small_320x320_coco.config</span><br><span class="line">├── ssd_mobilenet_v1_0.75_depth_300x300_coco14_sync.config</span><br><span class="line">├── ssd_mobilenet_v1_0.75_depth_quantized_300x300_coco14_sync.config</span><br><span class="line">├── ssd_mobilenet_v1_0.75_depth_quantized_300x300_pets_sync.config</span><br><span class="line">├── ssd_mobilenet_v1_300x300_coco14_sync.config</span><br><span class="line">├── ssd_mobilenet_v1_coco.config</span><br><span class="line">├── ssd_mobilenet_v1_focal_loss_pets.config</span><br><span class="line">├── ssd_mobilenet_v1_focal_loss_pets_inference.config</span><br><span class="line">├── ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync.config</span><br><span class="line">├── ssd_mobilenet_v1_pets.config</span><br><span class="line">├── ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync.config</span><br><span class="line">├── ssd_mobilenet_v1_quantized_300x300_coco14_sync.config</span><br><span class="line">├── ssd_mobilenet_v2_coco.config</span><br><span class="line">├── ssd_mobilenet_v2_fpnlite_quantized_shared_box_predictor_256x256_depthmultiplier_75_coco14_sync.config</span><br><span class="line">├── ssd_mobilenet_v2_fullyconv_coco.config</span><br><span class="line">├── ssd_mobilenet_v2_oid_v4.config</span><br><span class="line">├── ssd_mobilenet_v2_pets_keras.config</span><br><span class="line">├── ssd_mobilenet_v2_quantized_300x300_coco.config</span><br><span class="line">├── ssd_resnet101_v1_fpn_shared_box_predictor_oid_512x512_sync.config</span><br><span class="line">└── ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync.config</span><br><span class="line"></span><br><span class="line">0 directories, 57 files</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>Custom your own model config, ssd_moblienet_v1_coco.config for example</li>
+<li>Open it and change the code.<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><span class="line"># SSD with Mobilenet v1 configuration for MSCOCO Dataset.</span><br><span class="line"># Users should configure the fine_tune_checkpoint field in the train config as</span><br><span class="line"># well as the label_map_path and input_path fields in the train_input_reader and</span><br><span class="line"># eval_input_reader. Search for &quot;PATH_TO_BE_CONFIGURED&quot; to find the fields that</span><br><span class="line"># should be configured.</span><br><span class="line"></span><br><span class="line">model &#123;</span><br><span class="line">  ssd &#123;</span><br><span class="line">    num_classes: 14  ## change here</span><br><span class="line">    box_coder &#123;</span><br><span class="line">      faster_rcnn_box_coder &#123;</span><br><span class="line">        y_scale: 10.0</span><br><span class="line">        x_scale: 10.0</span><br><span class="line">        height_scale: 5.0</span><br><span class="line">        width_scale: 5.0</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    matcher &#123;</span><br><span class="line">      argmax_matcher &#123;</span><br><span class="line">        matched_threshold: 0.5</span><br><span class="line">        unmatched_threshold: 0.5</span><br><span class="line">        ignore_thresholds: false</span><br><span class="line">        negatives_lower_than_unmatched: true</span><br><span class="line">        force_match_for_each_row: true</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    similarity_calculator &#123;</span><br><span class="line">      iou_similarity &#123;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    anchor_generator &#123;</span><br><span class="line">      ssd_anchor_generator &#123;</span><br><span class="line">        num_layers: 6</span><br><span class="line">        min_scale: 0.2</span><br><span class="line">        max_scale: 0.95</span><br><span class="line">        aspect_ratios: 1.0</span><br><span class="line">        aspect_ratios: 2.0</span><br><span class="line">        aspect_ratios: 0.5</span><br><span class="line">        aspect_ratios: 3.0</span><br><span class="line">        aspect_ratios: 0.3333</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    image_resizer &#123;</span><br><span class="line">      fixed_shape_resizer &#123;</span><br><span class="line">        height: 300</span><br><span class="line">        width: 300</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    box_predictor &#123;</span><br><span class="line">      convolutional_box_predictor &#123;</span><br><span class="line">        min_depth: 0</span><br><span class="line">        max_depth: 0</span><br><span class="line">        num_layers_before_predictor: 0</span><br><span class="line">        use_dropout: false</span><br><span class="line">        dropout_keep_probability: 0.8</span><br><span class="line">        kernel_size: 1</span><br><span class="line">        box_code_size: 4</span><br><span class="line">        apply_sigmoid_to_scores: false</span><br><span class="line">        conv_hyperparams &#123;</span><br><span class="line">          activation: RELU_6,</span><br><span class="line">          regularizer &#123;</span><br><span class="line">            l2_regularizer &#123;</span><br><span class="line">              weight: 0.00004</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          initializer &#123;</span><br><span class="line">            truncated_normal_initializer &#123;</span><br><span class="line">              stddev: 0.03</span><br><span class="line">              mean: 0.0</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          batch_norm &#123;</span><br><span class="line">            train: true,</span><br><span class="line">            scale: true,</span><br><span class="line">            center: true,</span><br><span class="line">            decay: 0.9997,</span><br><span class="line">            epsilon: 0.001,</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    feature_extractor &#123;</span><br><span class="line">      type: &#x27;ssd_mobilenet_v1&#x27;</span><br><span class="line">      min_depth: 16</span><br><span class="line">      depth_multiplier: 1.0</span><br><span class="line">      conv_hyperparams &#123;</span><br><span class="line">        activation: RELU_6,</span><br><span class="line">        regularizer &#123;</span><br><span class="line">          l2_regularizer &#123;</span><br><span class="line">            weight: 0.00004</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        initializer &#123;</span><br><span class="line">          truncated_normal_initializer &#123;</span><br><span class="line">            stddev: 0.03</span><br><span class="line">            mean: 0.0</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        batch_norm &#123;</span><br><span class="line">          train: true,</span><br><span class="line">          scale: true,</span><br><span class="line">          center: true,</span><br><span class="line">          decay: 0.9997,</span><br><span class="line">          epsilon: 0.001,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    loss &#123;</span><br><span class="line">      classification_loss &#123;</span><br><span class="line">        weighted_sigmoid &#123;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      localization_loss &#123;</span><br><span class="line">        weighted_smooth_l1 &#123;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      hard_example_miner &#123;</span><br><span class="line">        num_hard_examples: 3000</span><br><span class="line">        iou_threshold: 0.99</span><br><span class="line">        loss_type: CLASSIFICATION</span><br><span class="line">        max_negatives_per_positive: 3</span><br><span class="line">        min_negatives_per_image: 0</span><br><span class="line">      &#125;</span><br><span class="line">      classification_weight: 1.0</span><br><span class="line">      localization_weight: 1.0</span><br><span class="line">    &#125;</span><br><span class="line">    normalize_loss_by_num_matches: true</span><br><span class="line">    post_processing &#123;</span><br><span class="line">      batch_non_max_suppression &#123;</span><br><span class="line">        score_threshold: 1e-8</span><br><span class="line">        iou_threshold: 0.6</span><br><span class="line">        max_detections_per_class: 100</span><br><span class="line">        max_total_detections: 100</span><br><span class="line">      &#125;</span><br><span class="line">      score_converter: SIGMOID</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">train_config: &#123;</span><br><span class="line">  batch_size: 24   ## change here</span><br><span class="line">  optimizer &#123;</span><br><span class="line">    rms_prop_optimizer: &#123;</span><br><span class="line">      learning_rate: &#123;</span><br><span class="line">        exponential_decay_learning_rate &#123;</span><br><span class="line">          initial_learning_rate: 0.0004</span><br><span class="line">          decay_steps: 800720</span><br><span class="line">          decay_factor: 0.95</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      momentum_optimizer_value: 0.9</span><br><span class="line">      decay: 0.9</span><br><span class="line">      epsilon: 1.0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  fine_tune_checkpoint: &quot;object_detection/finetune_cpkt/ssd_mobilenet_v1_coco_2018_01_28/model.ckpt&quot;   ## change here</span><br><span class="line">  from_detection_checkpoint: true</span><br><span class="line">  # Note: The below line limits the training process to 200K steps, which we</span><br><span class="line">  # empirically found to be sufficient enough to train the pets dataset. This</span><br><span class="line">  # effectively bypasses the learning rate schedule (the learning rate will</span><br><span class="line">  # never decay). Remove the below line to train indefinitely.</span><br><span class="line">  num_steps: 10000    ## change here</span><br><span class="line">  data_augmentation_options &#123;</span><br><span class="line">    random_horizontal_flip &#123;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  data_augmentation_options &#123;</span><br><span class="line">    ssd_random_crop &#123;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">train_input_reader: &#123;</span><br><span class="line">  tf_record_input_reader &#123;</span><br><span class="line">    input_path: &quot;object_detection/data/dove_train.tfrecord&quot;   ## change here</span><br><span class="line">  &#125;</span><br><span class="line">  label_map_path: &quot;object_detection/data/dove_cholo_label_map.pbtxt&quot;   ## change here</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">eval_config: &#123;</span><br><span class="line">  num_examples: 3438    ## change here</span><br><span class="line">  # Note: The below line limits the evaluation process to 10 evaluations.</span><br><span class="line">  # Remove the below line to evaluate indefinitely.</span><br><span class="line">  max_evals: 10</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">eval_input_reader: &#123;</span><br><span class="line">  tf_record_input_reader &#123;</span><br><span class="line">    input_path: &quot;object_detection/data/dove_validation.tfrecord&quot;   ## change here</span><br><span class="line">  &#125;</span><br><span class="line">  label_map_path: &quot;object_detection/data/dove_cholo_label_map.pbtxt&quot;   ## change here</span><br><span class="line">  shuffle: false</span><br><span class="line">  num_readers: 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Download the pre-trained model<br>  <a class="link"   target="_blank" rel="noopener" href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md" >modle zoo<i class="fas fa-external-link-alt"></i></a></li>
+<li>fine_tune_checkpoint: “object_detection&#x2F;finetune_cpkt&#x2F;ssd_mobilenet_v1_coco_2018_01_28&#x2F;model.ckpt”   ## change here</li>
+</ul>
+</li>
+</ul>
+<h4 id="legacy-training-同时跑train-py和eval-py"><a href="#legacy-training-同时跑train-py和eval-py" class="headerlink" title="legacy training (同时跑train.py和eval.py)"></a>legacy training (同时跑train.py和eval.py)</h4><ul>
+<li><p>旧的训练方法，path,  &#x2F;models&#x2F;research&#x2F;object_detection&#x2F;legacy&#x2F;train.py</p>
+</li>
+<li><p>旧的训练方法，path,  &#x2F;models&#x2F;research&#x2F;object_detection&#x2F;legacy&#x2F;eval.py</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/zong596568821xp/article/details/84842688" >ref-eval的使用<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p>–logtostderr, 日志保存</p>
+</li>
+<li><p>–train_dir, 训练模型保存的位置</p>
+</li>
+<li><p>–pipeline_config_path, 模型配置文件的路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">## 可用GPU训练，但常常会cuda out of memory</span><br><span class="line">## 先在trian.py和eval.py中加入以下代码控制gpu的内存使用</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line"> </span><br><span class="line">os.environ[&quot;CUDA_VISIBLE_DEVICES&quot;] = &quot;0&quot;</span><br><span class="line">config = tf.ConfigProto(allow_soft_placement = True)</span><br><span class="line">gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction = 0.35)</span><br><span class="line">config.gpu_options.allow_growth = True</span><br><span class="line"> </span><br><span class="line">sess0 = tf.InteractiveSession(config = config)</span><br><span class="line"></span><br><span class="line"># 原文链接：https://blog.csdn.net/baidu_33597755/article/details/102311000</span><br><span class="line"></span><br><span class="line">cd models/research/</span><br><span class="line"></span><br><span class="line">python object_detection/legacy/train.py \</span><br><span class="line">    --pipeline_config_path=object_detection/dove_cholo_od/config/ssd_mobilenet_v2_coco.config \</span><br><span class="line">    --train_dir=object_detection/dove_cholo_od/dove_train_dir/ssd_m_v2/dove_train  \</span><br><span class="line">    --alsologtostderr</span><br><span class="line">    </span><br><span class="line"># 等train.py跑了一会之后，再运行eval.py</span><br><span class="line"></span><br><span class="line">python object_detection/legacy/eval.py \</span><br><span class="line">    --pipeline_config_path=object_detection/dove_cholo_od/config/ssd_mobilenet_v2_coco.config \</span><br><span class="line">    --checkpoint_dir=object_detection/dove_cholo_od/dove_train_dir/ssd_m_v2/dove_train  \</span><br><span class="line">    --eval_dir=object_detection/dove_cholo_od/dove_train_dir/ssd_m_v2/dove_eval  \</span><br><span class="line">    --logtostderr</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Then open the tensorboard to watch the training and eval progress</p>
+</li>
+<li><p>Open two tensorboard at the same time</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=object_detection/dove_cholo_od/dove_train_dir/ssd_m_v2/dove_train --port=6005</span><br><span class="line"></span><br><span class="line">tensorboard --logdir=object_detection/dove_cholo_od/dove_train_dir/ssd_m_v2/dove_eval</span><br></pre></td></tr></table></figure>
+
+<h4 id="modern-training-暂不支持GPU"><a href="#modern-training-暂不支持GPU" class="headerlink" title="modern training(暂不支持GPU)"></a>modern training(暂不支持GPU)</h4><ul>
+<li>新的训练方法，path,   &#x2F;models&#x2F;research&#x2F;object_detection&#x2F;model_main.py<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># From the tensorflow/models/research/ directory</span><br><span class="line">python object_detection/model_main.py \</span><br><span class="line">    --pipeline_config_path=object_detection/training/ssd_mobilenet_v1_coco.config \</span><br><span class="line">    --model_dir=object_detection/training \</span><br><span class="line">    --num_train_steps=50000 \</span><br><span class="line">    --num_eval_steps=2000 \</span><br><span class="line">    --alsologtostderr</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Model-evaluation"><a href="#Model-evaluation" class="headerlink" title="Model evaluation"></a>Model evaluation</h3><h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. ImportError: cannot import name &#x27;input_reader_pb2&#x27; from &#x27;object_detection.protos&#x27;</span><br><span class="line">solution:</span><br><span class="line"># From tensorflow/models/research/</span><br><span class="line">protoc object_detection/protos/*.proto --python_out=.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">2. from nets import inception_resnet_v2 ModuleNotFoundError: No module named &#x27;nets&#x27;</span><br><span class="line">solution:</span><br><span class="line">cd model/research/</span><br><span class="line">python setup.py build</span><br><span class="line">python setup.py install</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cd model/research/slim/</span><br><span class="line">python setup.py build</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3. Not found: PATH_TO_BE_CONFIGURED; No such file or directory</span><br><span class="line">solution:</span><br><span class="line">download pre-trained cpkt model</span><br><span class="line">go into the config file and Search for &quot;PATH_TO_BE_CONFIGURED&quot; to find the fields that should be configured.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4. No module named &#x27;pycocotools&#x27;</span><br><span class="line">pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI</span><br></pre></td></tr></table></figure>
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">Training your own data with TF object detection API</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2021-02-03 14:28:07</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2021/02/03/ML/Training-your-own-data-with-TF-object-detection-API/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/tensorflow/">#tensorflow</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">#目标检测</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2021/11/07/ML/Training-your-own-datasets-with-Darknet/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">Training your own datasets with Darknet</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2021/02/03/%E5%B0%8F%E8%80%8C%E7%BE%8E-%E5%B7%A5%E5%85%B7/linux_shell_cmd/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">linux shell常用的指令功能</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Info"><span class="nav-number">1.</span> <span class="nav-text">System Info</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#To-dos"><span class="nav-number">2.</span> <span class="nav-text">To-dos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Env-prepare"><span class="nav-number">2.1.</span> <span class="nav-text">Env prepare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Make-your-own-dataset"><span class="nav-number">2.2.</span> <span class="nav-text">Make your own dataset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#yolo-to-voc"><span class="nav-number">2.2.1.</span> <span class="nav-text">yolo to voc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#train-test-split-on-xml-files"><span class="nav-number">2.2.2.</span> <span class="nav-text">train test split on xml files</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#voc-to-csv"><span class="nav-number">2.2.3.</span> <span class="nav-text">voc to csv</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#csv-to-tfrecord"><span class="nav-number">2.2.4.</span> <span class="nav-text">csv to tfrecord</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-model"><span class="nav-number">2.3.</span> <span class="nav-text">Training model</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#legacy-training-%E5%90%8C%E6%97%B6%E8%B7%91train-py%E5%92%8Ceval-py"><span class="nav-number">2.3.1.</span> <span class="nav-text">legacy training (同时跑train.py和eval.py)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#modern-training-%E6%9A%82%E4%B8%8D%E6%94%AF%E6%8C%81GPU"><span class="nav-number">2.3.2.</span> <span class="nav-text">modern training(暂不支持GPU)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-evaluation"><span class="nav-number">2.4.</span> <span class="nav-text">Model evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">2.5.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Doman Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

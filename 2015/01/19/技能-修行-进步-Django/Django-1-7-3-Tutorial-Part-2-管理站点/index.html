@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Doman Chen(motion$)">
+    
+    <title>
+        
+            Django-1-7-3-Tutorial-Part-2-管理站点 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Django-1-7-3-Tutorial-Part-2-管理站点</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Doman Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2015-01-19 09:27:02</span>
+        <span class="mobile">2015-01-19 09:27</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-07-22 09:33:36</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Django/">技能-修行-进步-Django</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Django-Models/">Django-Models</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>4.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>16 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ul>
+<li>本节教程接着<a href="">Part-1-模型</a>继续，我们继续网络民意调查(Web-poll)应用，然后把焦点放在Django的自生成的管理员站点。<blockquote>
+<p><strong>哲学</strong><br>为你的员工或客户自动生成管理员站点，让它可以很方便的对内容进行增删改是一件不需要太多创新的比较乏味的事情。<br>Django是在一个新闻工作室的环境下编写的，“内容出版商”站点和“公共”站点之间有比较清晰的界限。站点管理员利用系统添加新闻故事，事件，体育等等，然后内容会显示在公共站点。Django为站点管理员编辑内容创建了统一的接口。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="新建一个管理用户"><a href="#新建一个管理用户" class="headerlink" title="新建一个管理用户"></a>新建一个管理用户</h2><ul>
+<li>首先我们需要创建一个能够登入管理站点的用户。运行以下命令：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py createsuperuser</span><br></pre></td></tr></table></figure></li>
+<li>然后输入你想要的用户名：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Username: admin</span><br></pre></td></tr></table></figure></li>
+<li>然后继续输入你的邮箱地址：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Email address: admin@example.com</span><br></pre></td></tr></table></figure></li>
+<li>最后一步就是输入你的密码。你需要输入2次来确认你的密码：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Password: **********</span><br><span class="line">Password (again): *********</span><br><span class="line">Superuser created successfully.</span><br></pre></td></tr></table></figure></li>
+<li>我的截图：<br><img src="/img/Django-1-7-3-tutorial/createUser.png"></li>
+</ul>
+<h2 id="打开开发者服务器"><a href="#打开开发者服务器" class="headerlink" title="打开开发者服务器"></a>打开开发者服务器</h2><ul>
+<li>Django管理站点默认是激活的。让我们开启开发者服务器对它一探究竟吧。</li>
+<li>回想一下<a href="">Part-1-模型</a>，你是怎么开始服务器的：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py runserver</span><br></pre></td></tr></table></figure></li>
+<li>现在，打开浏览器，然后再输入以下地址<a class="link"   target="_blank" rel="noopener" href="http://127.0.0.1:8000/admin/" >http://127.0.0.1:8000/admin/<i class="fas fa-external-link-alt"></i></a>。你就可以看到管理员登陆界面了：<br><img src="/img/Django-1-7-3-tutorial/admin-login.png"></li>
+<li>由于页面是自动<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/topics/i18n/translation/" >翻译<i class="fas fa-external-link-alt"></i></a>的，所以可能登陆页面是以你的语言显示的，取决于你的浏览器的设置了。<blockquote>
+<p><strong>和你的不同吗？</strong><br>如果你的登陆界面打不开，而是出现了这样的错误：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ImportError at/admin/</span><br><span class="line">cannot <span class="keyword">import</span> name patterns</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="进入管理站点"><a href="#进入管理站点" class="headerlink" title="进入管理站点"></a>进入管理站点</h2><ul>
+<li>现在，利用你刚才设置的账户和密码登录管理员站点，你应该看到这样的页面：<br><img src="/img/Django-1-7-3-tutorial/welcome-page.png"></li>
+<li>你应该会看到两种可编辑的内容：<strong>Groups</strong>和<strong>Users</strong>。它们是由<strong>django.contrib.auth</strong>提供的，这个认证框架是由Django支持的。</li>
+</ul>
+<h2 id="使投票-poll-应用在管理站点中被修改"><a href="#使投票-poll-应用在管理站点中被修改" class="headerlink" title="使投票(poll)应用在管理站点中被修改"></a>使投票(poll)应用在管理站点中被修改</h2><ul>
+<li>但是我们的投票(poll)应用在哪里？它并不再管理首页上展示。</li>
+<li>只需要做一件事情：我们需要告知管理站点<strong>Question</strong>对象有一个管理接口。打开<strong>polls&#x2F;admin.py</strong>文件，然后对它们进行以以下编辑：</li>
+<li><font color = "green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line">admin.site.register(Question)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="探索免费的管理功能"><a href="#探索免费的管理功能" class="headerlink" title="探索免费的管理功能"></a>探索免费的管理功能</h2><ul>
+<li>既然我们注册了<strong>Question</strong>，那么Django就会在管理首页进行显示了。<br><img src="/img/Django-1-7-3-tutorial/poll-resigster.png"></li>
+<li>点击<strong>Question</strong>。你就进入了question的修改列表。这个页面显示了数据库中的所有的问题，然后让你选择哪个进行修改。这里显示了问题“What’s up?”在上一部分教程中：<br><img src="/img/Django-1-7-3-tutorial/question-01.png"></li>
+<li>点击“What’s up?”，然后编辑它：<br><img src="/img/Django-1-7-3-tutorial/question-02.png"></li>
+<li>这里要注意的是：<ul>
+<li>这个表格是根据<strong>Question</strong>模型自动生成的。</li>
+<li>这个不同的模型的域类型(<strong>DateTimeField,CharField</strong>)对应到合适的HTML输入小部件。每一个字段类型明白自己在Django的管理站点中如何展示。</li>
+<li>每一个<strong>DateTimeField</strong>都有一个免费的Javascript快捷方式。日期(Date)会有一个“今天(today)”的快捷方式和日历弹框选择，然后时间(Time)会有一个“现在(now)”的快捷方式和一个便利的弹框，它有常用时间的输入。</li>
+</ul>
+</li>
+<li>页面的底部给你一些选项：<ul>
+<li>保存(save)—保存修改和返回当前对象类型的修改列表页面。</li>
+<li>保存并且继续编辑(Save and continue editing)—保存修改并且重载当前对象的管理页面。</li>
+<li>保存并且继续添加(Save and add another)—保存修改并且为当前对象加载一个新的空白的表格。</li>
+<li>删除(Detele)—显示一个删除确认页面。</li>
+</ul>
+</li>
+<li>如果发布日期(“Date published”)的值和你在第一部分创建的时间不相同，那很有可能你没有设置正确的时区。修改时区，然后重载当前页面看看是否准确。</li>
+<li>通过点击“今天”和“现在”快捷键来修改“发布日期”，然后点击“保存并且继续编辑”。点击上方的“历史记录”，你会看到一个通过Django管理对当前对象做的所有修改的列表页面，有时间戳和修改者的用户名：<br><img src="/img/Django-1-7-3-tutorial/history.png"></li>
+</ul>
+<h2 id="添加相关的对象"><a href="#添加相关的对象" class="headerlink" title="添加相关的对象"></a>添加相关的对象</h2><ul>
+<li>OK，我们有了<strong>Question</strong>管理页面。但是一个<strong>Question</strong>有多个<strong>Choices</strong>，而管理页面不显示choices.</li>
+<li>但是。</li>
+<li>有两种方法可以解决这个问题。第一个通过用户admin注册<strong>Choice</strong>就像我们注册<strong>Question</strong>一样。非常简单：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Choice, Question</span><br><span class="line"><span class="comment">#...</span></span><br><span class="line">admin.site.register(Choice)</span><br></pre></td></tr></table></figure></li>
+<li>现在，<strong>Choices</strong>在Django中是一个可用的选项。<strong>添加choice（Add choice）</strong>的页面应该像这样：<br><img src="/img/Django-1-7-3-tutorial/choice-01.png"></li>
+<li>在这个表格当中，<strong>Question</strong>属性是一个选择框(select box)，它包含了数据库当中的每一个问题(question)。Django知道**外键(ForeignKey)<strong>在管理页面中应该是一个</strong><select>**框。在我们的例子中，只有一个问题。</li>
+<li>注意到”Add Another”这个链接到下一个“Question”。每一个带<strong>外键</strong>的对象都会自动生成这个链接。当你点击”Add Another”这个链接时，你可以得到一个带有“Add question”表格的弹出窗口。如果你在那个窗口中添加一个问题，然后点击“保存”按钮，Django会把问题保存到数据库，并且动态把它添加为一个你所见到的在“Add choice”表格中可选的选项。</li>
+<li>但实际上，这并不是一个有效的添加<strong>Choice</strong>对象到系统的方法。如果能在创建<strong>Question</strong>的同时直接添加多个<strong>Choice</strong>，那样更好。让我们来试试吧。</li>
+<li>为<strong>Choice</strong>模型删除<strong>register()<strong>方法。然后，编辑</strong>Question</strong>注册代码如下：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># Register your models here.</span></span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question, Choice</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChoiceInline</span>(admin.StackedInline):</span><br><span class="line">	<span class="string">&quot;&quot;&quot;docstring for ChoiceInline&quot;&quot;&quot;</span></span><br><span class="line">	model = Choice</span><br><span class="line">	extra = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QuestionAdmin</span>(admin.ModelAdmin):</span><br><span class="line">	fieldsets = [</span><br><span class="line">		(<span class="literal">None</span>, &#123;<span class="string">&#x27;fields&#x27;</span>:[<span class="string">&#x27;question_text&#x27;</span>]&#125;),</span><br><span class="line">		(<span class="string">&#x27;Date information&#x27;</span>, &#123;<span class="string">&#x27;fields&#x27;</span>:[<span class="string">&#x27;pub_date&#x27;</span>], <span class="string">&#x27;classes&#x27;</span>:[<span class="string">&#x27;collapse&#x27;</span>]&#125;),</span><br><span class="line">	]</span><br><span class="line">	inlines = [ChoiceInline]</span><br><span class="line"></span><br><span class="line">admin.site.register(Question,QuestionAdmin)</span><br></pre></td></tr></table></figure></li>
+<li>它告诉Django：<strong>Choice</strong>对象在<strong>Question</strong>管理页面上边界。默认情况下，提供3个choice填写属性。</li>
+<li>加载“Add question”页面来看一下：<br><img src="/img/Django-1-7-3-tutorial/choice-02.png"></li>
+<li>它是这样子工作的：相关的Choice有三个可填—由<strong>Extra</strong>指定的，每一次你返回一个已经创建好的对象的<strong>Change</strong>页面，你又可以得到3个额外的choice可填。</li>
+<li>在3个choice的底部，你可以找到一个“Add another Choice”链接。如果你点击它，一个新增的choice就可诞生。如果你像删除新增的choice，那么你可以点击这个choice的右上角的X。注意原来的3个choice是不可删除的。<br><img src="/img/Django-1-7-3-tutorial/choice-03.png"></li>
+<li>但是有一个小问题，它占用了太多的屏幕空间。所以，Django提供了一个列表的形式显示相关的行内对象，你只需要修改<strong>ChoiceInline</strong>代码：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ChoiceInline</span>(admin.TabularInline):</span><br><span class="line">	<span class="comment">#....</span></span><br></pre></td></tr></table></figure></li>
+<li>用<strong>TabularInline</strong>而非<strong>StackedInline</strong>，相关的对象就会以表格的形式显示得更简洁。<br><img src="/img/Django-1-7-3-tutorial/choice-04.png"></li>
+<li>注意到以上还有一个删除的按钮，它可以删除新增的行。</li>
+</ul>
+<h2 id="自定义管理表格"><a href="#自定义管理表格" class="headerlink" title="自定义管理表格"></a>自定义管理表格</h2><ul>
+<li>对你还没写的代码感到惊叹吧。通过<strong>admin.site.register(Question)<strong>来注册</strong>Question</strong>模型，Django能够构建一个默认的表格表现形式。通常，你会想自定义自己的管理表单，你只要通过注册告知Django你想怎么注册这个对象就OK了。</li>
+<li>通过重新排序表格中字段，我们来看看效果。修改**admin.site.register(Question)**这一行：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QuestionAdmin</span>(admin.ModelAdmin):</span><br><span class="line">    fields = [<span class="string">&#x27;pub_date&#x27;</span>, <span class="string">&#x27;question_text&#x27;</span>]</span><br><span class="line"></span><br><span class="line">admin.site.register(Question, QuestionAdmin)</span><br></pre></td></tr></table></figure></li>
+<li>你遵循这种模式—创建一个模型管理对象，然后把它当成第二参数传给<strong>admin.site.register()</strong>—任何时候都可以修改。</li>
+<li>以上的修改是把“发布日期”(Date published)放在了“问题”(Question)这个字段的前面：<br><img src="/img/Django-1-7-3-tutorial/question-03.png"></li>
+<li>虽然两个字段看起来不够酷，但是对于数十个字段的表格来说，选择一个符合直觉的排序是一个非常重要的实用细节。</li>
+<li>说到数十个字段的表格，你可能想到把一个表格分离成多个属性(字段).</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QuestionAdmin</span>(admiin.ModelAdmin):</span><br><span class="line">	fieldsets = [</span><br><span class="line">		(Node, &#123;<span class="string">&#x27;fields&#x27;</span>:[<span class="string">&#x27;Question_text&#x27;</span>]&#125;),</span><br><span class="line">		(<span class="string">&#x27;Date information&#x27;</span>, &#123;<span class="string">&#x27;fields&#x27;</span>:[<span class="string">&#x27;pub_date&#x27;</span>]&#125;),</span><br><span class="line">	]</span><br><span class="line">admin.site.register(Question, QuestionAdmin)</span><br></pre></td></tr></table></figure></li>
+<li>在**属性(fieldsets)**中的每一个元组的第一个元素是这个属性的标题。以上的表格就是这样：<br><img src="/img/Django-1-7-3-tutorial/question-04.png"></li>
+<li>你可以为属性(fieldsets)注入任意的HTML类。Django提供了一个**折叠(collapse)**类用于展示默认是折叠的特定的属性。如果你有一个包含了许多个不常用的属性的很长的表格，那么这个类是非常有用的：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QuestionAdmin</span>(admin.ModelAdmin):</span><br><span class="line">	fieldsets = [</span><br><span class="line">		(<span class="literal">None</span>, &#123;<span class="string">&#x27;fields&#x27;</span>:[<span class="string">&#x27;question_text&#x27;</span>]&#125;),</span><br><span class="line">		(<span class="string">&#x27;Date information&#x27;</span>, &#123;<span class="string">&#x27;fields&#x27;</span>:[<span class="string">&#x27;pub_date&#x27;</span>], <span class="string">&#x27;classes&#x27;</span>:[<span class="string">&#x27;collapse&#x27;</span>]&#125;),</span><br><span class="line">	]</span><br><span class="line">admin.site.register(Question, QuestionAdmin)</span><br></pre></td></tr></table></figure>
+<br><img src="/img/Django-1-7-3-tutorial/question-05.png"></li>
+</ul>
+<h2 id="添加相关的对象-1"><a href="#添加相关的对象-1" class="headerlink" title="添加相关的对象"></a>添加相关的对象</h2><ul>
+<li>OK，我们有了<strong>Question</strong>管理页面。但是一个<strong>Question</strong>有多个<strong>Choices</strong>，而管理页面不显示choices.</li>
+<li>但是。</li>
+<li>有两种方法可以解决这个问题。第一个通过用户admin注册<strong>Choice</strong>就像我们注册<strong>Question</strong>一样。非常简单：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Choice, Question</span><br><span class="line"><span class="comment">#...</span></span><br><span class="line">admin.site.register(Choice)</span><br></pre></td></tr></table></figure></li>
+<li>现在，<strong>Choices</strong>在Django中是一个可用的选项。<strong>添加choice（Add choice）</strong>的页面应该像这样：<br><img src="/img/Django-1-7-3-tutorial/choice-01.png"></li>
+<li>在这个表格当中，<strong>Question</strong>属性是一个选择框(select box)，它包含了数据库当中的每一个问题(question)。Django知道**外键(ForeignKey)<strong>在管理页面中应该是一个</strong><select>**框。在我们的例子中，只有一个问题。</li>
+<li>注意到”Add Another”这个链接到下一个“Question”。每一个带<strong>外键</strong>的对象都会自动生成这个链接。当你点击”Add Another”这个链接时，你可以得到一个带有“Add question”表格的弹出窗口。如果你在那个窗口中添加一个问题，然后点击“保存”按钮，Django会把问题保存到数据库，并且动态把它添加为一个你所见到的在“Add choice”表格中可选的选项。</li>
+<li>但实际上，这并不是一个有效的添加<strong>Choice</strong>对象到系统的方法。如果能在创建<strong>Question</strong>的同时直接添加多个<strong>Choice</strong>，那样更好。让我们来试试吧。</li>
+<li>为<strong>Choice</strong>模型删除<strong>register()<strong>方法。然后，编辑</strong>Question</strong>注册代码如下：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># Register your models here.</span></span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question, Choice</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChoiceInline</span>(admin.StackedInline):</span><br><span class="line">	<span class="string">&quot;&quot;&quot;docstring for ChoiceInline&quot;&quot;&quot;</span></span><br><span class="line">	model = Choice</span><br><span class="line">	extra = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QuestionAdmin</span>(admin.ModelAdmin):</span><br><span class="line">	fieldsets = [</span><br><span class="line">		(<span class="literal">None</span>, &#123;<span class="string">&#x27;fields&#x27;</span>:[<span class="string">&#x27;question_text&#x27;</span>]&#125;),</span><br><span class="line">		(<span class="string">&#x27;Date information&#x27;</span>, &#123;<span class="string">&#x27;fields&#x27;</span>:[<span class="string">&#x27;pub_date&#x27;</span>], <span class="string">&#x27;classes&#x27;</span>:[<span class="string">&#x27;collapse&#x27;</span>]&#125;),</span><br><span class="line">	]</span><br><span class="line">	inlines = [ChoiceInline]</span><br><span class="line"></span><br><span class="line">admin.site.register(Question,QuestionAdmin)</span><br></pre></td></tr></table></figure></li>
+<li>它告诉Django：<strong>Choice</strong>对象在<strong>Question</strong>管理页面上边界。默认情况下，提供3个choice填写属性。</li>
+<li>加载“Add question”页面来看一下：<br><img src="/img/Django-1-7-3-tutorial/choice-02.png"></li>
+<li>它是这样子工作的：相关的Choice有三个可填—由<strong>Extra</strong>指定的，每一次你返回一个已经创建好的对象的<strong>Change</strong>页面，你又可以得到3个额外的choice可填。</li>
+<li>在3个choice的底部，你可以找到一个“Add another Choice”链接。如果你点击它，一个新增的choice就可诞生。如果你像删除新增的choice，那么你可以点击这个choice的右上角的X。注意原来的3个choice是不可删除的。<br><img src="/img/Django-1-7-3-tutorial/choice-03.png"></li>
+<li>但是有一个小问题，它占用了太多的屏幕空间。所以，Django提供了一个列表的形式显示相关的行内对象，你只需要修改<strong>ChoiceInline</strong>代码：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ChoiceInline</span>(admin.TabularInline):</span><br><span class="line">	<span class="comment">#....</span></span><br></pre></td></tr></table></figure></li>
+<li>用<strong>TabularInline</strong>而非<strong>StackedInline</strong>，相关的对象就会以表格的形式显示得更简洁。<br><img src="/img/Django-1-7-3-tutorial/choice-04.png"></li>
+<li>注意到以上还有一个删除的按钮，它可以删除新增的行。</li>
+</ul>
+<h2 id="自定义管理修改列表"><a href="#自定义管理修改列表" class="headerlink" title="自定义管理修改列表"></a>自定义管理修改列表</h2><ul>
+<li>既然Question管理页面开启来不错，让我们对“修改列表”页面做一些更改–让一页显示系统中的所有问题。</li>
+<li>现在的页面是：<br><img src="/img/Django-1-7-3-tutorial/choice-05.png"></li>
+<li>默认情况下，Django显示每个对象的<strong>str()<strong>内容。但是有时候我们想显示单独的每个属性。这样做的话，就要用到</strong>list_display</strong>管理选项，它是一个可显示为列的属性的元组：</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">QuestionAdmin</span>(admin.ModelAdmin):</span><br><span class="line">	<span class="comment">#...</span></span><br><span class="line">	list_display = (<span class="string">&#x27;question_text&#x27;</span>,<span class="string">&#x27;pub_date&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>为了更好的展示，让我们在自定义的方法表格中添加<strong>was_published_recently</strong>:</li>
+<li><font color="green"><strong>polls&#x2F;admin.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">QuestionAdmin</span>(admin.ModelAdmin):</span><br><span class="line">	<span class="comment">#...</span></span><br><span class="line">	list_display = (<span class="string">&#x27;question_text&#x27;</span>, <span class="string">&#x27;pub_date&#x27;</span>, <span class="string">&#x27;was_published_recently&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>现在问题修改页面变成这样子了：<br><img src="/img/Django-1-7-3-tutorial/choice-06.png"></li>
+<li>你可以点击列头来对这些值进行排序–出了<strong>was_published_recently</strong>列头，因为通过武断的方法输出来进行排序是不支持的。还有注意到<strong>was_published_recently</strong>列头，默认的，是方法的名字(通过空格来强调)，每一行都包含输出的字符串的表示。</li>
+<li>你可以通过给这个方法加一些属性来改善它(在<strong>polls&#x2F;models.py</strong>文件中)，如下：</li>
+<li><font color="green"><strong>polls&#x2F;models.py</strong></font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Question</span>(models.Model):</span><br><span class="line">	<span class="comment">#...</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">was_publised_recently</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="keyword">return</span> self.pub_date &gt;= timezone.now() - datetime.timedelta(days=<span class="number">1</span>)</span><br><span class="line">	was_published_recently.admin_order_field = <span class="string">&#x27;pub_date&#x27;</span></span><br><span class="line">	was_published_recently.boolean = <span class="literal">True</span></span><br><span class="line">	was_published_recently.short_description = <span class="string">&#x27;Published recently ?&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>参考更多消息，请看<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display" >list_display<i class="fas fa-external-link-alt"></i></a></li>
+<li>再次编辑你的<strong>polls&#x2F;admin.py</strong>文件，为<strong>Question</strong>修改列表页面添加一个改进：用<strong>list_filter</strong>过滤，添加以下行道<strong>QuestioAdmin</strong>文件中：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list_filter = [<span class="string">&#x27;pub_date&#x27;</span>]</span><br></pre></td></tr></table></figure></li>
+<li>过滤显示的类型取决于你在过滤的属性的类型。因为<strong>pub_date</strong>是一个<strong>DateTimeField</strong>类型，Django自动给出合适的过滤选项：“Any date”,”Today”,”Past 7 days”,”This month”,”This year”.</li>
+<li>这些看起来不错，让我们添加一些查找功能：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search_field = [<span class="string">&#x27;question_text&#x27;</span>]</span><br></pre></td></tr></table></figure></li>
+<li>这个会在修改页面的上方添加一个查询框。当输入一些关键字时，Django会查询<strong>question_text</strong>域。你还可以添加其他的任意域–因为在数据库中用到了<strong>LIKE</strong>查询，将查询的数量减少了，这样查询的速度更快。</li>
+<li>现在是时候给你的修改列表来个分页显示的功能。默认是每一页显示100条。<strong>Change list pagination, search boxes, filters, date-hierarchies</strong>和<strong>column-header-ordering</strong>都可以工作。</li>
+</ul>
+<h2 id="自定义管理look和feel"><a href="#自定义管理look和feel" class="headerlink" title="自定义管理look和feel"></a>自定义管理look和feel</h2><ul>
+<li>明显的，把“Django administration”放在每一个管理页面的头部是不合理的。它只是文本占位而已。</li>
+<li>用Django的模板核能修改，但是，Django管理只是供Django自身支持，而且它的接口也是使用Django自身你的模板系统。</li>
+</ul>
+<h3 id="自定义你的项目模板"><a href="#自定义你的项目模板" class="headerlink" title="自定义你的项目模板"></a>自定义你的项目模板</h3><ul>
+<li><p>在你的项目目录中创建一个模板(<strong>templates</strong>)目录。模板能够在Django可使用的任何的文件系统中。(你的服务器运行什么，Django就运行什么）。但是，把你的模板文件夹放在项目目录下是一个很方便的选择。</p>
+</li>
+<li><p>打开你的设置文件(<strong>mysite&#x2F;settings.py</strong>文件，记住)，然后添加一个TEMPLATE_DIRS设置。</p>
+</li>
+<li><p><font color="green"><strong>mysite&#x2F;settings.py</strong></font><br><br><img src="/img/Django-1-7-3-tutorial/1.png"></p>
+<blockquote>
+<p><strong>Django的源代码在哪？</strong><br>如果你在你的硬盘上找不到你的Django的源代码，运行一下口令：<br><img src="/img/Django-1-7-3-tutorial/django-source.png"></p>
+</blockquote>
+</li>
+<li><p>然后，编辑文件，换掉，包括花括号，换成自己应用的名字。如下：<br><br><img src="/img/Django-1-7-3-tutorial/poll-admin.png"></p>
+</li>
+<li><p>我们用这种方法向你们传授了怎么覆盖模板。在实际的项目中，你可能更喜欢用<strong>django.contrib.admin.AdminSite.site_header</strong>的属性来进行定制，因为它更容易。</p>
+</li>
+<li><p><img src="http://res.cloudinary.com/djqbxphzo/image/upload/v1445845066/django-part2_zbt9g1.png"></p>
+</li>
+</ul>
+<h3 id="自定义你的应用模板"><a href="#自定义你的应用模板" class="headerlink" title="自定义你的应用模板"></a>自定义你的应用模板</h3><ul>
+<li>聪明的读者可能会问：如果<strong>TEMPLATE_DIRS</strong>默认是空的，Django是怎么找到默认的管理模板的？答案是：默认情况下，作为后备，Django自动在每个应用程序包中查找<strong>templates&#x2F;<strong>子目录。(不要忘记</strong>django.contrib.admin</strong>也是一个应用程序)。</li>
+<li>我们的投票(poll)应用并不复杂，而且不需要自定义的管理模板。但是当它变得复杂而且需要对Django的标准管理模板做一些修改以适应新的功能时，修改应用程序模板就会比修改项目中的其他文件要更加小心了。这样，你可以把Poll应用程序添加到任何新的项目中，并且假设它会找到需要的自定义模板。</li>
+<li>关于Django怎么找到它的模板文件的更多信息，请参考<a class="link"   target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/1.7/ref/templates/api/#template-loaders" >template loader documentation<i class="fas fa-external-link-alt"></i></a>。</li>
+</ul>
+<h2 id="自定管理首页"><a href="#自定管理首页" class="headerlink" title="自定管理首页"></a>自定管理首页</h2><ul>
+<li>在一个类似的笔记中，你可能想要自定义Django首页的外观和感觉。</li>
+<li>默认情况下，它会根据<strong>INSTALLED_APPS</strong>文件中所注册的程序进行展示，以字母的排序。你可能想要对布局进行重要的修改。毕竟，首页可能是最重要的管理页面，而且它应该很容易被使用的。</li>
+<li>要修改的模板是<strong>admin&#x2F;index.html</strong>文件。(和上面对<strong>admin&#x2F;base_site.html</strong>文件做的一样—把它从默认路径复制到你所在的路径。)编辑文件，你可以看到一个额模板变量<strong>app_list</strong>。这个变量包含了所有安装在Django中的app。你可以不用它，但你可以对它进行重新编码，把链接指向你最想要的特定对象的管理页面。还有，如果你现在看不懂模板语言，不要担心，我们将在下一节中讨论模板语言。</li>
+<li>当你熟悉了管理站点，请读下一小节，在投票程序的页面设计上下功夫。</li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">Django-1-7-3-Tutorial-Part-2-管理站点</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2015-01-19 09:27:02</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2015/01/19/技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-2-管理站点/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Django-Models/">#Django-Models</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2015/01/27/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Django/Django-1-7-3-Tutorial-Part-3-%E8%A7%86%E5%9B%BE%E5%92%8C%E6%A8%A1%E6%9D%BF/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">Django-1-7-3-Tutorial-Part-3-视图和模板</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2015/01/16/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Django/Django-1-7-3-Tutorial-Part-1-%E6%A8%A1%E5%9E%8B/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Django-1.7.3-Tutorial-Part-1-模型</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7"><span class="nav-number">1.</span> <span class="nav-text">新建一个管理用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">打开开发者服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E7%AE%A1%E7%90%86%E7%AB%99%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">进入管理站点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E6%8A%95%E7%A5%A8-poll-%E5%BA%94%E7%94%A8%E5%9C%A8%E7%AE%A1%E7%90%86%E7%AB%99%E7%82%B9%E4%B8%AD%E8%A2%AB%E4%BF%AE%E6%94%B9"><span class="nav-number">4.</span> <span class="nav-text">使投票(poll)应用在管理站点中被修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E5%85%8D%E8%B4%B9%E7%9A%84%E7%AE%A1%E7%90%86%E5%8A%9F%E8%83%BD"><span class="nav-number">5.</span> <span class="nav-text">探索免费的管理功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.</span> <span class="nav-text">添加相关的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%A1%E7%90%86%E8%A1%A8%E6%A0%BC"><span class="nav-number">7.</span> <span class="nav-text">自定义管理表格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E5%AF%B9%E8%B1%A1-1"><span class="nav-number">8.</span> <span class="nav-text">添加相关的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%A1%E7%90%86%E4%BF%AE%E6%94%B9%E5%88%97%E8%A1%A8"><span class="nav-number">9.</span> <span class="nav-text">自定义管理修改列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%A1%E7%90%86look%E5%92%8Cfeel"><span class="nav-number">10.</span> <span class="nav-text">自定义管理look和feel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.1.</span> <span class="nav-text">自定义你的项目模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BD%A0%E7%9A%84%E5%BA%94%E7%94%A8%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.2.</span> <span class="nav-text">自定义你的应用模板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E7%AE%A1%E7%90%86%E9%A6%96%E9%A1%B5"><span class="nav-number">11.</span> <span class="nav-text">自定管理首页</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Doman Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
