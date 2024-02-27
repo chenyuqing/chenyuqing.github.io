@@ -240,7 +240,7 @@
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2024-02-22 17:19:48</span>
+        <span class="pc">2024-02-27 11:35:42</span>
     </span>
     
     
@@ -271,12 +271,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>759 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.1k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>3 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
         </span>
     
     
@@ -326,7 +326,16 @@
 </ul>
 <h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="类型和值"><a href="#类型和值" class="headerlink" title="类型和值"></a>类型和值</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract dataType&#123;</span><br><span class="line">    uint <span class="keyword">public</span> uint_min = <span class="built_in">type</span>(uint).min;</span><br><span class="line">    uint <span class="keyword">public</span> uint_max = <span class="built_in">type</span>(uint).max;</span><br><span class="line">    uint <span class="keyword">public</span> uint_def;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_min = <span class="built_in">type</span>(<span class="type">int</span>).min;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_max = <span class="built_in">type</span>(<span class="type">int</span>).max;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_def;</span><br><span class="line"></span><br><span class="line">    address <span class="keyword">public</span> addr;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">public</span> bol;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类型和值"><a href="#类型和值" class="headerlink" title="类型和值"></a>类型和值</h2><ul>
+<li>所有的数据类型都有默认值，如果没有赋值，就是默认值。也有一定的数值范围。</li>
+<li>它们通常还包含增、删、改、查4个操作中的其中一个或者几个。(set&#x2F;get, push&#x2F;pop, delete)</li>
+<li>数据类型也包含基础类型和复合类型两种。<ul>
+<li>基础类型：整数，浮点数，布尔值，地址，字节。</li>
+<li>复合类型：数组，枚举，结构体，映射。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract dataType&#123;</span><br><span class="line">    uint <span class="keyword">public</span> uint_min = <span class="built_in">type</span>(uint).min;</span><br><span class="line">    uint <span class="keyword">public</span> uint_max = <span class="built_in">type</span>(uint).max;</span><br><span class="line">    uint <span class="keyword">public</span> uint_def;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_min = <span class="built_in">type</span>(<span class="type">int</span>).min;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_max = <span class="built_in">type</span>(<span class="type">int</span>).max;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_def;</span><br><span class="line"></span><br><span class="line">    address <span class="keyword">public</span> addr;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">public</span> bol;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><img src="/img/wuweiwu/solidity-study/sol-datatype-1.png"></li>
 <li>有符号整数，无符号整数</li>
@@ -432,7 +441,27 @@
 <td>false</td>
 </tr>
 </tbody></table>
-<h2 id="异常报错"><a href="#异常报错" class="headerlink" title="异常报错"></a>异常报错</h2><ul>
+<h2 id="数组Array（增、删、改、查）"><a href="#数组Array（增、删、改、查）" class="headerlink" title="数组Array（增、删、改、查）"></a>数组Array（增、删、改、查）</h2><ul>
+<li>在memory中不能定义动态数组，不能使用push()和pop()方法</li>
+<li>动态数组只能存在于状态变量中,stableVariable</li>
+<li>固定数组可以存在于memory中，也可以存在于状态变量中</li>
+<li>固定数组的长度是固定的，不能改变；动态数组的长度是动态的，可以改变</li>
+<li>固定数组的长度是在编译时确定的，动态数组的长度是在运行时确定的</li>
+<li>固定数组的长度是在定义数组的时候确定的，动态数组的长度是在定义数组的时候确定的，也可以在运行时确定</li>
+</ul>
+<h2 id="enum，枚举（改、查）"><a href="#enum，枚举（改、查）" class="headerlink" title="enum，枚举（改、查）"></a>enum，枚举（改、查）</h2><ul>
+<li>枚举：是对一个对象的所有可能取到的值的集合。</li>
+<li>set的时候，传入的参数是数字0，1，2…，如果不在枚举定义的范围内，会报错。</li>
+<li>delete会重置默认值，默认值是枚举定义中的第一个值0。</li>
+</ul>
+<h2 id="struct，结构体-（增、删、改、查）"><a href="#struct，结构体-（增、删、改、查）" class="headerlink" title="struct，结构体 （增、删、改、查）"></a>struct，结构体 （增、删、改、查）</h2><ul>
+<li>结构体：是对一个对象的所有属性的集合。</li>
+<li>push()方法</li>
+</ul>
+<h2 id="mapping，映射-（增、删、改、查）"><a href="#mapping，映射-（增、删、改、查）" class="headerlink" title="mapping，映射 （增、删、改、查）"></a>mapping，映射 （增、删、改、查）</h2><ul>
+<li>delete map[key]，不会删除value，而是把value重置为默认值了</li>
+</ul>
+<h2 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h2><h2 id="异常报错"><a href="#异常报错" class="headerlink" title="异常报错"></a>异常报错</h2><ul>
 <li>gas费用：require &gt; assert &gt; error</li>
 <li>asser()：断言，不能带说明信息，如果断言失败，会消耗所有的gas，所有的状态变量都会被重置，所以不要使用断言。一般不会用，通常在调试的时候使用。</li>
 </ul>
@@ -441,17 +470,12 @@
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract PauseFuncion&#123;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">public</span> paused;</span><br><span class="line">    uint <span class="keyword">public</span> num;</span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">setPause</span><span class="params">(<span class="type">bool</span> _paused)</span> external </span>&#123;</span><br><span class="line">        paused = _paused;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">modifier <span class="title">whenNotPaused</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(!paused, <span class="string">&quot;paused&quot;</span>);</span><br><span class="line">        _; <span class="comment">// _;代表被调用的代码块如果符合条件会在这里继续运行</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">inc</span><span class="params">()</span> external whenNotPaused</span>&#123;</span><br><span class="line">        <span class="comment">// require(!paused, &quot;paused&quot;);</span></span><br><span class="line">        num += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">dec</span><span class="params">()</span> external whenNotPaused</span>&#123;</span><br><span class="line">        <span class="comment">// require(!paused, &quot;paused&quot;);</span></span><br><span class="line">        num -= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h2><h2 id="数组Array"><a href="#数组Array" class="headerlink" title="数组Array"></a>数组Array</h2><ul>
-<li>在memory中不能定义动态数组，不能使用push()和pop()方法</li>
-<li>动态数组只能存在于状态变量中,stableVariable</li>
-</ul>
-<h2 id="mapping，映射"><a href="#mapping，映射" class="headerlink" title="mapping，映射"></a>mapping，映射</h2><ul>
-<li>delete map[key]，不会删除value，而是把value重置为默认值了</li>
-</ul>
-<h2 id="enum，枚举"><a href="#enum，枚举" class="headerlink" title="enum，枚举"></a>enum，枚举</h2><ul>
-<li>枚举：是对一个对象的所有可能取到的值的集合。</li>
-<li>delete会重置默认值，默认值是枚举定义中的第一个值。</li>
-</ul>
+
+
+
+
+
+
 
             </div>
 
@@ -597,7 +621,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Remix-IDE"><span class="nav-number">1.</span> <span class="nav-text">Remix-IDE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">2.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">类型和值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%8A%A5%E9%94%99"><span class="nav-number">4.</span> <span class="nav-text">异常报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modifier%EF%BC%8C%E4%BF%AE%E9%A5%B0%E5%99%A8"><span class="nav-number">5.</span> <span class="nav-text">Modifier，修饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">6.</span> <span class="nav-text">函数返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84Array"><span class="nav-number">7.</span> <span class="nav-text">数组Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mapping%EF%BC%8C%E6%98%A0%E5%B0%84"><span class="nav-number">8.</span> <span class="nav-text">mapping，映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enum%EF%BC%8C%E6%9E%9A%E4%B8%BE"><span class="nav-number">9.</span> <span class="nav-text">enum，枚举</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Remix-IDE"><span class="nav-number">1.</span> <span class="nav-text">Remix-IDE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">2.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">类型和值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84Array%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">数组Array（增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enum%EF%BC%8C%E6%9E%9A%E4%B8%BE%EF%BC%88%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">enum，枚举（改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#struct%EF%BC%8C%E7%BB%93%E6%9E%84%E4%BD%93-%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">struct，结构体 （增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mapping%EF%BC%8C%E6%98%A0%E5%B0%84-%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">mapping，映射 （增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">8.</span> <span class="nav-text">函数返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%8A%A5%E9%94%99"><span class="nav-number">9.</span> <span class="nav-text">异常报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modifier%EF%BC%8C%E4%BF%AE%E9%A5%B0%E5%99%A8"><span class="nav-number">10.</span> <span class="nav-text">Modifier，修饰器</span></a></li></ol>
     </div>
 </div>
 
