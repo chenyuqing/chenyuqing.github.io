@@ -9,7 +9,7 @@
     
     <title>
         
-            solidity by example 笔记 |
+            solidity高级主题 |
         
         In Web3.0 We Trust
     </title>
@@ -212,7 +212,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">solidity by example 笔记</span>
+                <span class="title-hover-animation">solidity高级主题</span>
             </div>
 
             
@@ -234,13 +234,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2023-08-16 10:32:30</span>
-        <span class="mobile">2023-08-16 10:32</span>
+        <span class="pc">2024-02-28 15:01:30</span>
+        <span class="mobile">2024-02-28 15:01</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2024-02-27 11:35:42</span>
+        <span class="pc">2024-02-28 15:07:17</span>
     </span>
     
     
@@ -271,12 +271,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.1k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>65 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
         </span>
     
     
@@ -294,188 +294,18 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <ul>
-<li><p>Github库地址： <a class="link"   target="_blank" rel="noopener" href="https://github.com/chenyuqing/solidity-by-example/tree/main" >solidity-by-example<i class="fas fa-external-link-alt"></i></a></p>
-</li>
-<li><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" >以太坊白皮书<i class="fas fa-external-link-alt"></i></a></p>
-</li>
-<li><p>极力推荐入门教程，配合食用更佳！写智能合约，节省gas费用永远放在第一位。</p>
-<ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://solidity-cn.readthedocs.io/zh/develop/" >solidity中文网<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://cryptozombies.io/en/solidity" >僵尸打怪-Solidity: Beginner to Intermediate Smart Contracts<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://www.wtf.academy/solidity-start" >WTF-Solidity 101 入门<i class="fas fa-external-link-alt"></i></a></li>
-<li>Solidity8.0全面精通-B站崔棉大师<ul>
-<li><iframe src="//player.bilibili.com/player.html?aid=810148091&bvid=BV1E34y147JC&cid=562223215&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></li>
+                <h2 id="高级主题目录"><a href="#高级主题目录" class="headerlink" title="高级主题目录"></a>高级主题目录</h2><ul>
+<li>Solidity面向对象编程</li>
+<li>Solidity库</li>
+<li>Solidity接口</li>
+<li>Solidity继承</li>
+<li>Solidity多态</li>
+<li>Solidity异常处理</li>
+<li>Solidity安全性</li>
 </ul>
-</li>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ul>
+<li>合约可以继承其他合约，继承的合约称为父合约，继承的合约称为子合约。</li>
 </ul>
-</li>
-<li><p>solidity是一门编译性语言，需要经过编译器编译成字节码，然后再部署到区块链上，所以需要安装编译器，推荐使用<a class="link"   target="_blank" rel="noopener" href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a>在线编译器，也可以使用<a class="link"   target="_blank" rel="noopener" href="https://www.trufflesuite.com/" >truffle<i class="fas fa-external-link-alt"></i></a>本地编译器，但是truffle需要安装nodejs，npm，ganache等环境，比较麻烦，所以推荐使用remix。</p>
-</li>
-<li><p>solidity是一门面向合约的语言，所以需要有合约的概念，合约是一种特殊的类，合约中可以定义状态变量，函数，事件，修饰器，结构体，枚举等。</p>
-</li>
-<li><p><img src="/img/wuweiwu/solidity-study/solidity-basic.png"></p>
-</li>
-</ul>
-<h2 id="Remix-IDE"><a href="#Remix-IDE" class="headerlink" title="Remix-IDE"></a>Remix-IDE</h2><ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a></li>
-<li>面板介绍<ul>
-<li><img src="/img/wuweiwu/solidity-study/remix-ide.png"></li>
-</ul>
-</li>
-</ul>
-<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="类型和值"><a href="#类型和值" class="headerlink" title="类型和值"></a>类型和值</h2><ul>
-<li>所有的数据类型都有默认值，如果没有赋值，就是默认值。也有一定的数值范围。</li>
-<li>它们通常还包含增、删、改、查4个操作中的其中一个或者几个。(set&#x2F;get, push&#x2F;pop, delete)</li>
-<li>数据类型也包含基础类型和复合类型两种。<ul>
-<li>基础类型：整数，浮点数，布尔值，地址，字节。</li>
-<li>复合类型：数组，枚举，结构体，映射。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract dataType&#123;</span><br><span class="line">    uint <span class="keyword">public</span> uint_min = <span class="built_in">type</span>(uint).min;</span><br><span class="line">    uint <span class="keyword">public</span> uint_max = <span class="built_in">type</span>(uint).max;</span><br><span class="line">    uint <span class="keyword">public</span> uint_def;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_min = <span class="built_in">type</span>(<span class="type">int</span>).min;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_max = <span class="built_in">type</span>(<span class="type">int</span>).max;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">public</span> int_def;</span><br><span class="line"></span><br><span class="line">    address <span class="keyword">public</span> addr;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">public</span> bol;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><img src="/img/wuweiwu/solidity-study/sol-datatype-1.png"></li>
-<li>有符号整数，无符号整数</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>默认值</th>
-<th>最小值</th>
-<th>最大值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>int(默认: int256)</td>
-<td>0</td>
-<td>-2**255</td>
-<td>2**255-1</td>
-</tr>
-<tr>
-<td>int128</td>
-<td>0</td>
-<td>-2**127</td>
-<td>2**127-1</td>
-</tr>
-<tr>
-<td>int64</td>
-<td>0</td>
-<td>-2**63</td>
-<td>2**63-1</td>
-</tr>
-<tr>
-<td>int32</td>
-<td>0</td>
-<td>-2**31</td>
-<td>2**31-1</td>
-</tr>
-<tr>
-<td>int16</td>
-<td>0</td>
-<td>-2**15</td>
-<td>2**15-1</td>
-</tr>
-<tr>
-<td>int8</td>
-<td>0</td>
-<td>-2**7</td>
-<td>2**7-1</td>
-</tr>
-<tr>
-<td>uint(默认: uint256)</td>
-<td>0</td>
-<td>0</td>
-<td>2**256-1</td>
-</tr>
-<tr>
-<td>uint128</td>
-<td>0</td>
-<td>0</td>
-<td>2**128-1</td>
-</tr>
-<tr>
-<td>uint64</td>
-<td>0</td>
-<td>0</td>
-<td>2**64-1</td>
-</tr>
-<tr>
-<td>uint32</td>
-<td>0</td>
-<td>0</td>
-<td>2**32-1</td>
-</tr>
-<tr>
-<td>uint16</td>
-<td>0</td>
-<td>0</td>
-<td>2**16-1</td>
-</tr>
-<tr>
-<td>uint8</td>
-<td>0</td>
-<td>0</td>
-<td>2**8-1</td>
-</tr>
-</tbody></table>
-<ul>
-<li>字节，布尔值</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>默认值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>address</td>
-<td>0x0…(total 40 zeros)</td>
-</tr>
-<tr>
-<td>｜bool</td>
-<td>false</td>
-</tr>
-</tbody></table>
-<h2 id="数组Array（增、删、改、查）"><a href="#数组Array（增、删、改、查）" class="headerlink" title="数组Array（增、删、改、查）"></a>数组Array（增、删、改、查）</h2><ul>
-<li>在memory中不能定义动态数组，不能使用push()和pop()方法</li>
-<li>动态数组只能存在于状态变量中,stableVariable</li>
-<li>固定数组可以存在于memory中，也可以存在于状态变量中</li>
-<li>固定数组的长度是固定的，不能改变；动态数组的长度是动态的，可以改变</li>
-<li>固定数组的长度是在编译时确定的，动态数组的长度是在运行时确定的</li>
-<li>固定数组的长度是在定义数组的时候确定的，动态数组的长度是在定义数组的时候确定的，也可以在运行时确定</li>
-</ul>
-<h2 id="enum，枚举（改、查）"><a href="#enum，枚举（改、查）" class="headerlink" title="enum，枚举（改、查）"></a>enum，枚举（改、查）</h2><ul>
-<li>枚举：是对一个对象的所有可能取到的值的集合。</li>
-<li>set的时候，传入的参数是数字0，1，2…，如果不在枚举定义的范围内，会报错。</li>
-<li>delete会重置默认值，默认值是枚举定义中的第一个值0。</li>
-</ul>
-<h2 id="struct，结构体-（增、删、改、查）"><a href="#struct，结构体-（增、删、改、查）" class="headerlink" title="struct，结构体 （增、删、改、查）"></a>struct，结构体 （增、删、改、查）</h2><ul>
-<li>结构体：是对一个对象的所有属性的集合。</li>
-<li>push()方法</li>
-</ul>
-<h2 id="mapping，映射-（增、删、改、查）"><a href="#mapping，映射-（增、删、改、查）" class="headerlink" title="mapping，映射 （增、删、改、查）"></a>mapping，映射 （增、删、改、查）</h2><ul>
-<li>delete map[key]，不会删除value，而是把value重置为默认值了</li>
-</ul>
-<h2 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h2><h2 id="异常报错"><a href="#异常报错" class="headerlink" title="异常报错"></a>异常报错</h2><ul>
-<li>gas费用：require &gt; assert &gt; error</li>
-<li>asser()：断言，不能带说明信息，如果断言失败，会消耗所有的gas，所有的状态变量都会被重置，所以不要使用断言。一般不会用，通常在调试的时候使用。</li>
-</ul>
-<h2 id="Modifier，修饰器"><a href="#Modifier，修饰器" class="headerlink" title="Modifier，修饰器"></a>Modifier，修饰器</h2><ul>
-<li>类似于java中的注解，可以在函数前面加修饰器，修饰器可以用来检查函数的输入，比如检查函数的调用者是否是合约的拥有者，是否是合约的管理员，是否是合约的成员等等。</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract PauseFuncion&#123;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">public</span> paused;</span><br><span class="line">    uint <span class="keyword">public</span> num;</span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">setPause</span><span class="params">(<span class="type">bool</span> _paused)</span> external </span>&#123;</span><br><span class="line">        paused = _paused;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">modifier <span class="title">whenNotPaused</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(!paused, <span class="string">&quot;paused&quot;</span>);</span><br><span class="line">        _; <span class="comment">// _;代表被调用的代码块如果符合条件会在这里继续运行</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">inc</span><span class="params">()</span> external whenNotPaused</span>&#123;</span><br><span class="line">        <span class="comment">// require(!paused, &quot;paused&quot;);</span></span><br><span class="line">        num += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">dec</span><span class="params">()</span> external whenNotPaused</span>&#123;</span><br><span class="line">        <span class="comment">// require(!paused, &quot;paused&quot;);</span></span><br><span class="line">        num -= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
 
             </div>
 
@@ -485,16 +315,16 @@
 <div class="article-copyright-info-container">
     <ul class="copyright-info-content">
         <li class="post-title">
-            <span class="type">本文标题</span>：<span class="content">solidity by example 笔记</span>
+            <span class="type">本文标题</span>：<span class="content">solidity高级主题</span>
         </li>
         <li class="post-author">
             <span class="type">本文作者</span>：<span class="content">Doman Chen(motion$)</span>
         </li>
         <li class="post-time">
-            <span class="type">创建时间</span>：<span class="content">2023-08-16 10:32:30</span>
+            <span class="type">创建时间</span>：<span class="content">2024-02-28 15:01:30</span>
         </li>
         <li class="post-link">
-            <span class="type">本文链接</span>：<span class="content">2023/08/16/Web3/solidity/solidity-by-example/</span>
+            <span class="type">本文链接</span>：<span class="content">2024/02/28/Web3/solidity/02-高级主题-solidity/</span>
         </li>
         <li class="post-license">
             <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
@@ -521,29 +351,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                               rel="prev"
-                               href="/2023/08/16/Web3/evm-core/"
-                            >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                                <span class="title flex-center">
-                                <span class="post-nav-title-item">EVM硬核底层原理</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/08/07/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E4%B8%AD%E5%9B%BD%E8%BF%91%E4%BB%A3%E5%8F%B2%E5%A4%A7%E4%BA%8B%E4%BB%B6/"
+                               href="/2024/02/27/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-%E5%BD%B1%E8%A7%86%E5%9B%BE%E5%83%8F/%E8%A7%86%E8%A7%89%E6%A8%A1%E5%BC%8F/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">近代史大事件</span>
+                                <span class="post-nav-title-item">什么是视觉语言？</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -621,7 +436,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Remix-IDE"><span class="nav-number">1.</span> <span class="nav-text">Remix-IDE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">2.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">类型和值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84Array%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">数组Array（增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enum%EF%BC%8C%E6%9E%9A%E4%B8%BE%EF%BC%88%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">enum，枚举（改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#struct%EF%BC%8C%E7%BB%93%E6%9E%84%E4%BD%93-%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">struct，结构体 （增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mapping%EF%BC%8C%E6%98%A0%E5%B0%84-%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">mapping，映射 （增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">8.</span> <span class="nav-text">函数返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%8A%A5%E9%94%99"><span class="nav-number">9.</span> <span class="nav-text">异常报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modifier%EF%BC%8C%E4%BF%AE%E9%A5%B0%E5%99%A8"><span class="nav-number">10.</span> <span class="nav-text">Modifier，修饰器</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">高级主题目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">2.</span> <span class="nav-text">继承</span></a></li></ol>
     </div>
 </div>
 
