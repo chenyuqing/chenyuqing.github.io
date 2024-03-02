@@ -240,7 +240,7 @@
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2024-02-28 15:06:25</span>
+        <span class="pc">2024-03-01 15:24:46</span>
     </span>
     
     
@@ -271,12 +271,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.9k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>5 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>14 分钟</span>
         </span>
     
     
@@ -486,12 +486,155 @@
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract PauseFuncion&#123;</span><br><span class="line">    <span class="type">bool</span> <span class="keyword">public</span> paused;</span><br><span class="line">    uint <span class="keyword">public</span> num;</span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">setPause</span><span class="params">(<span class="type">bool</span> _paused)</span> external </span>&#123;</span><br><span class="line">        paused = _paused;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">modifier <span class="title">whenNotPaused</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(!paused, <span class="string">&quot;paused&quot;</span>);</span><br><span class="line">        _; <span class="comment">// _;代表被调用的代码块如果符合条件会在这里继续运行</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">inc</span><span class="params">()</span> external whenNotPaused</span>&#123;</span><br><span class="line">        <span class="comment">// require(!paused, &quot;paused&quot;);</span></span><br><span class="line">        num += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">function <span class="title">dec</span><span class="params">()</span> external whenNotPaused</span>&#123;</span><br><span class="line">        <span class="comment">// require(!paused, &quot;paused&quot;);</span></span><br><span class="line">        num -= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="payable关键字"><a href="#payable关键字" class="headerlink" title="payable关键字"></a>payable关键字</h2><ul>
+<li><font color="red"> ChatGPT生成： </font> 在 Solidity 中，<code>payable</code> 是一个关键字，用于标记函数或变量可以接收以太币。它通常用于两个地方：</li>
+</ul>
+<ol>
+<li><p><strong>函数修饰符：</strong> 使用 <code>payable</code> 修饰符标记的函数可以接收以太币。这些函数可以被其他账户发送以太币调用，并且可以执行向其他账户发送以太币的操作。</p>
+</li>
+<li><p><strong>合约构造函数：</strong> 在合约构造函数中，如果你想要合约在部署时接收以太币，你可以将构造函数标记为 <code>payable</code>。</p>
+</li>
+</ol>
+<ul>
+<li>以下是使用 <code>payable</code> 的两个示例：</li>
+</ul>
+<ol>
+<li><strong>函数修饰符：</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">contract MyContract &#123;</span><br><span class="line">    // 接收以太币的函数，标记为 payable</span><br><span class="line">    function receiveEther() public payable &#123;</span><br><span class="line">        // 函数逻辑</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>在这个示例中，<code>receiveEther</code> 函数被标记为 <code>payable</code>，表示它可以接收以太币。调用这个函数时，可以通过 <code>msg.value</code> 获取发送的以太币数量。</li>
+</ul>
+<ol start="2">
+<li><strong>构造函数：</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">contract MyContract &#123;</span><br><span class="line">    // 合约构造函数，标记为 payable</span><br><span class="line">    constructor() payable &#123;</span><br><span class="line">        // 构造函数逻辑</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>在这个示例中，合约的构造函数被标记为 <code>payable</code>，这意味着在部署合约时可以发送以太币。在构造函数中，可以通过 <code>msg.value</code> 获取发送的以太币数量。</li>
+</ul>
+<h2 id="payable-中transfer-send-call-的区别"><a href="#payable-中transfer-send-call-的区别" class="headerlink" title="payable 中transfer(), send(), call()的区别"></a>payable 中transfer(), send(), call()的区别</h2><ul>
+<li><font color="red"> ChatGPT生成： </font> 在 Solidity 中，<code>payable</code> 关键字用于标记合约函数，以表示该函数可以接收以太币。当一个合约需要处理以太币时，通常会使用 <code>transfer</code>、<code>send</code> 或 <code>call</code> 函数之一来执行支付操作。这些函数之间有一些区别，下面是它们的简要比较：</li>
+</ul>
+<ol>
+<li><p><strong><code>transfer</code>：</strong></p>
+<ul>
+<li><code>transfer</code> 是 Solidity 中最简单的发送以太币的方法。</li>
+<li>它是 <code>address</code> 类型的成员函数，只能发送固定的 2300 gas，并且在失败时会抛出异常（即抛出异常后所有状态改变都会被回滚）。</li>
+<li>它被认为是比较安全的发送以太币的方式，因为它不允许发生回调（也就是说，接收方不能执行代码以影响交易的结果）。</li>
+</ul>
+</li>
+<li><p><strong><code>send</code>：</strong></p>
+<ul>
+<li><code>send</code> 函数与 <code>transfer</code> 函数相似，但它返回一个布尔值来指示发送是否成功，而不是抛出异常。</li>
+<li><code>send</code> 函数会发送所有可用的 gas（最多 2300 gas），但是在发送失败时不会抛出异常，而是返回 <code>false</code>。</li>
+<li>这个函数通常用于与外部地址进行简单的支付操作，但不建议在需要确保交易原子性的情况下使用。</li>
+</ul>
+</li>
+<li><p><strong><code>call</code>：</strong></p>
+<ul>
+<li><code>call</code> 函数是最通用的发送以太币的方法，它允许发送任意数量的 gas，并且返回一个布尔值来指示调用是否成功。</li>
+<li><code>call</code> 函数可以传递额外的数据和设置 gas 限制，也可以捕获执行过程中的异常。</li>
+<li>这个函数通常用于与合约进行交互，或者需要更复杂逻辑的支付操作。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>总的来说，<code>transfer</code> 是最简单且最安全的发送以太币的方法，适用于大多数情况。<code>send</code> 函数在需要检查支付是否成功时比较有用，但在复杂场景下不够灵活。<code>call</code> 函数是最通用的方法，可以满足各种需求，但需要更小心地处理异常情况和 gas 的使用。</li>
+</ul>
+<h2 id="public-internal-external-private关键字"><a href="#public-internal-external-private关键字" class="headerlink" title="public internal external private关键字"></a>public internal external private关键字</h2><h3 id="修饰变量：internal-public-private"><a href="#修饰变量：internal-public-private" class="headerlink" title="修饰变量：internal public private"></a>修饰变量：internal public private</h3><ul>
+<li>权限开放程度：public &gt; internal &gt; private</li>
+<li>public：公开的，自动生成getter()函数，可以在合约内部外部访问。</li>
+<li>private: 私有的，只能在当前合约中访问，不会生成getter()函数，也不能被子合约继承。</li>
+<li>internal：只能在当前合约或子合约中访问<ul>
+<li><p>适用情况<font color="red"> ChatGPT生成： </font> </p>
+</li>
+<li><p><code>internal</code> 关键字通常用于需要在当前合约及其派生合约中共享和访问的状态变量。它提供了一种在合约内部实现继承和代码重用的方式，并且可以限制对变量的访问权限，以提高合约的安全性和封装性。</p>
+<ul>
+<li>以下是一些常见的情况下使用 <code>internal</code> 修饰变量的示例：</li>
+</ul>
+<ol>
+<li><p><strong>共享状态数据：</strong> 如果你希望在当前合约及其派生合约中共享和访问某个状态变量的值，但不希望它被合约外部的调用者直接访问，你可以将该状态变量声明为 <code>internal</code>。</p>
+</li>
+<li><p><strong>内部状态追踪：</strong> 在复杂的合约中，可能会有一些状态需要在多个函数之间共享和更新。使用 <code>internal</code> 修饰的状态变量可以确保这些状态只能在合约内部被访问和修改，从而降低了出错的可能性。</p>
+</li>
+<li><p><strong>继承和重用：</strong> 在使用继承的合约结构中，<code>internal</code> 修饰的状态变量可以在父合约和子合约之间共享，从而实现代码的重用和扩展。子合约可以直接访问父合约中的 <code>internal</code> 变量，而不需要重新定义相同的变量。</p>
+</li>
+</ol>
+<ul>
+<li>总的来说，使用 <code>internal</code> 修饰变量可以在合约内部提供数据共享和封装的能力，同时限制对变量的访问权限，使得合约更加安全和可靠。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="修饰函数-internal-external-public-private"><a href="#修饰函数-internal-external-public-private" class="headerlink" title="修饰函数: internal external public private"></a>修饰函数: internal external public private</h3><ul>
+<li><p>权限开放程度：public &gt; internal &gt; external &gt; private</p>
+</li>
+<li><p>public：公开的，可以在合约内部外部访问。</p>
+</li>
+<li><p>private: 私有的，只能在当前合约中访问，不能被子合约继承。</p>
+</li>
+<li><p>internal：只能在当前合约或子合约中访问.</p>
+</li>
+<li><p>external：外部函数，只能在外部调用，不能在合约内部调用。</p>
+</li>
+<li><p><font color="red"> ChatGPT生成： </font>在 Solidity 中，<code>internal</code> 和 <code>external</code> 是用于修饰函数的访问权限的关键字，它们在修饰函数时有以下区别：</p>
+<ol>
+<li><p><strong>Internal（内部）：</strong></p>
+<ul>
+<li>使用 <code>internal</code> 关键字修饰的函数只能在当前合约及其派生合约内部调用，无法被合约外部的调用者访问。这种访问权限对于实现合约内部逻辑提供了保护和封装。</li>
+<li>示例：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">contract MyContract &#123;</span><br><span class="line">    // 内部函数</span><br><span class="line">    function internalFunction() internal &#123;</span><br><span class="line">        // 函数逻辑</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>External（外部）：</strong></p>
+<ul>
+<li>使用 <code>external</code> 关键字修饰的函数只能通过外部调用方式来访问，不能在合约内部被直接调用。这种访问权限通常用于合约的接口函数，供合约外部的调用者调用。</li>
+<li>示例：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">contract MyContract &#123;</span><br><span class="line">    // 外部函数</span><br><span class="line">    function externalFunction() external &#123;</span><br><span class="line">        // 函数逻辑</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>总的来说，<code>internal</code> 修饰的函数适用于合约内部调用和继承，而 <code>external</code> 修饰的函数适用于合约外部调用。这两种修饰符的选择取决于你希望函数被调用的方式以及对函数的访问权限的要求。</li>
+</ul>
+</li>
+</ul>
+<h2 id="msg-关键字"><a href="#msg-关键字" class="headerlink" title="msg 关键字"></a>msg 关键字</h2><ul>
+<li><font color="red"> ChatGPT生成： </font>在 Solidity 中，<code>msg</code> 是一个全局预定义变量，用于提供有关当前交易或消息的信息。它是一个包含以下属性的特殊对象：</li>
+</ul>
+<ol>
+<li><code>msg.sender</code>：返回当前交易或消息的发送者（即合约调用者的地址）。</li>
+<li><code>msg.value</code>：返回当前交易发送的以太币数量（以 wei 为单位）。</li>
+<li><code>msg.data</code>：返回当前消息的数据。</li>
+<li><code>msg.gas</code>：返回当前交易还剩余的 gas 数量。</li>
+</ol>
+<ul>
+<li><p>这些属性可以在合约的函数中使用，以便根据当前交易或消息的上下文进行逻辑判断或处理。</p>
+</li>
+<li><p>以下是一个简单的示例，演示了如何在 Solidity 中使用 <code>msg</code>：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">contract MyContract &#123;</span><br><span class="line">    address public owner;</span><br><span class="line">    uint256 public valueReceived;</span><br><span class="line"></span><br><span class="line">    // 构造函数，在部署合约时设置合约的拥有者</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        owner = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 接收以太币的函数</span><br><span class="line">    receive() external payable &#123;</span><br><span class="line">        // 更新接收到的以太币数量</span><br><span class="line">        valueReceived = msg.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 提取合约中的以太币的函数</span><br><span class="line">    function withdraw() external &#123;</span><br><span class="line">        require(msg.sender == owner, &quot;Only the owner can withdraw&quot;);</span><br><span class="line">        </span><br><span class="line">        // 向合约拥有者发送合约中的所有以太币</span><br><span class="line">        payable(owner).transfer(address(this).balance);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在这个示例中，我们使用了 <code>msg.sender</code> 和 <code>msg.value</code> 属性：</li>
+<li>在构造函数中，<code>owner</code> 变量被设置为部署合约的账户地址，即 <code>msg.sender</code>。</li>
+<li>在 <code>receive</code> 函数中，接收到的以太币数量被记录在 <code>valueReceived</code> 变量中，并且该函数被标记为 <code>external</code> 和 <code>payable</code>，表示它可以接收以太币。</li>
+<li>在 <code>withdraw</code> 函数中，我们检查调用者是否是合约的拥有者（即 <code>msg.sender == owner</code>），然后将合约中的所有以太币发送给拥有者地址。</li>
+</ul>
+<h2 id="address-this"><a href="#address-this" class="headerlink" title="address(this)"></a>address(this)</h2><ul>
+<li><font color="red"> ChatGPT生成： </font>在 Solidity 中，<code>address(this)</code> 是一个特殊的表达式，用于获取当前合约的地址。它通常用于以下场景：</li>
+</ul>
+<ol>
+<li><p><strong>合约内部调用：</strong> 当合约需要获取自身的地址时，可以使用 <code>address(this)</code> 表达式来获取。例如，合约可以在部署时记录自己的地址，或者在与其他合约进行交互时将自己的地址传递给它们。</p>
+</li>
+<li><p><strong>支付操作：</strong> 当合约需要将自己的地址作为收款地址进行支付操作时，可以使用 <code>address(this)</code> 表达式来获取。例如，在向其他地址发送以太币或者接收以太币时，合约可以使用 <code>address(this)</code> 表达式作为收款地址。</p>
+</li>
+</ol>
+<ul>
+<li>以下是一些示例，演示了 <code>address(this)</code> 的用法：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">contract MyContract &#123;</span><br><span class="line">    address public contractAddress;</span><br><span class="line"></span><br><span class="line">    // 构造函数，在部署时记录合约地址</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        contractAddress = address(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 向指定地址发送以太币</span><br><span class="line">    function sendEther(address payable receiver) external payable &#123;</span><br><span class="line">        // 发送以太币给指定地址</span><br><span class="line">        receiver.transfer(msg.value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
+<ul>
+<li>在这个示例中，合约在构造函数中使用 <code>address(this)</code> 表达式来获取自身的地址，并将其记录在 <code>contractAddress</code> 变量中。在 <code>sendEther</code> 函数中，合约可以使用 <code>address(this)</code> 表达式作为收款地址来接收以太币。</li>
+</ul>
 
             </div>
 
@@ -510,7 +653,7 @@
             <span class="type">创建时间</span>：<span class="content">2023-08-16 10:32:30</span>
         </li>
         <li class="post-link">
-            <span class="type">本文链接</span>：<span class="content">2023/08/16/Web3/solidity/01-基础知识-solidity/</span>
+            <span class="type">本文链接</span>：<span class="content">2023/08/16/Web3/solidity/01-solidity基础知识/</span>
         </li>
         <li class="post-license">
             <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
@@ -637,7 +780,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">基础知识目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%80%BC"><span class="nav-number">2.</span> <span class="nav-text">类型和值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84-array%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">数组 - array（增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE-enum%EF%BC%88%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">枚举 - enum（改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93-struct-%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">结构体 - struct （增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%B0%84-mapping-%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">映射 - mapping （增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC-returns"><span class="nav-number">7.</span> <span class="nav-text">函数返回值 - returns</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pure-view-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">8.</span> <span class="nav-text">pure view 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%8A%A5%E9%94%99-error"><span class="nav-number">9.</span> <span class="nav-text">异常报错 - error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%99%A8-modifier"><span class="nav-number">10.</span> <span class="nav-text">修饰器 - modifier</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">基础知识目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%80%BC"><span class="nav-number">2.</span> <span class="nav-text">类型和值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84-array%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">数组 - array（增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE-enum%EF%BC%88%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">枚举 - enum（改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93-struct-%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">结构体 - struct （增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%B0%84-mapping-%EF%BC%88%E5%A2%9E%E3%80%81%E5%88%A0%E3%80%81%E6%94%B9%E3%80%81%E6%9F%A5%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">映射 - mapping （增、删、改、查）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC-returns"><span class="nav-number">7.</span> <span class="nav-text">函数返回值 - returns</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pure-view-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">8.</span> <span class="nav-text">pure view 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%8A%A5%E9%94%99-error"><span class="nav-number">9.</span> <span class="nav-text">异常报错 - error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%99%A8-modifier"><span class="nav-number">10.</span> <span class="nav-text">修饰器 - modifier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#payable%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">11.</span> <span class="nav-text">payable关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#payable-%E4%B8%ADtransfer-send-call-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">12.</span> <span class="nav-text">payable 中transfer(), send(), call()的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#public-internal-external-private%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">13.</span> <span class="nav-text">public internal external private关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%8F%98%E9%87%8F%EF%BC%9Ainternal-public-private"><span class="nav-number">13.1.</span> <span class="nav-text">修饰变量：internal public private</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%87%BD%E6%95%B0-internal-external-public-private"><span class="nav-number">13.2.</span> <span class="nav-text">修饰函数: internal external public private</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#msg-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">14.</span> <span class="nav-text">msg 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#address-this"><span class="nav-number">15.</span> <span class="nav-text">address(this)</span></a></li></ol>
     </div>
 </div>
 
