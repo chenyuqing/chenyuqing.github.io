@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-03-01T04:41:32.687Z</updated>
+  <updated>2024-03-01T04:41:47.297Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>chainlink学习</title>
-    <link href="http://example.com/2024/03/01/Web3/solidity/chainlink_study/"/>
-    <id>http://example.com/2024/03/01/Web3/solidity/chainlink_study/</id>
-    <published>2024-03-01T04:22:30.000Z</published>
-    <updated>2024-03-01T04:41:32.687Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://chain.link/" >chainlink official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更加智能和功能丰富。</li></ul><h3 id="主要特点和功能包括："><a href="#主要特点和功能包括：" class="headerlink" title="主要特点和功能包括："></a>主要特点和功能包括：</h3><ol><li><p><strong>外部数据接入：</strong> Chainlink 允许区块链智能合约访问外部的数据源，包括网络 API、传感器数据、天气数据、金融市场数据等。这些数据可以用于触发智能合约的执行或影响其状态。</p></li><li><p><strong>数据验证和可信性：</strong> Chainlink 提供了一套机制来验证外部数据的真实性和可信度，以确保数据的准确性和安全性。这包括使用多个数据源、数据签名、可信执行环境等技术。</p></li><li><p><strong>可编程性和灵活性：</strong> Chainlink 允许开发人员根据自己的需求定义和部署预言机网络，从而实现各种不同类型的数据访问和验证。它提供了灵活的合约编程接口和工具，使开发人员能够根据应用场景定制预言机网络。</p></li><li><p><strong>安全和去中心化：</strong> Chainlink 采用去中心化的设计和安全机制，确保数据访问和验证的安全性和可靠性。它使用区块链技术和密码学算法来保护数据的安全，并通过分散化的节点网络来提供服务。</p></li><li><p><strong>可扩展性和互操作性：</strong> Chainlink 的设计具有良好的可扩展性和互操作性，可以与各种不同的区块链平台和智能合约系统集成，实现跨链数据访问和交互。</p></li></ol><ul><li>总的来说，Chainlink 是一个重要的基础设施项目，为区块链智能合约提供了可靠的外部数据访问和验证机制，推动了区块链技术在金融、保险、供应链等领域的应用和发展。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;https://chain.link/&quot; &gt;chainlink official&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br&gt;&lt;font color=&quot;red&quot;&gt; </summary>
-      
-    
-    
-    
-    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
-    
-    
-    <category term="chainlink" scheme="http://example.com/tags/chainlink/"/>
-    
-  </entry>
   
   <entry>
     <title>openzeppelin学习</title>
@@ -67,13 +42,38 @@
   </entry>
   
   <entry>
+    <title>chainlink学习</title>
+    <link href="http://example.com/2024/03/01/Web3/solidity/chainlink_study/"/>
+    <id>http://example.com/2024/03/01/Web3/solidity/chainlink_study/</id>
+    <published>2024-03-01T04:22:30.000Z</published>
+    <updated>2024-03-01T04:41:32.687Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://chain.link/" >chainlink official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更加智能和功能丰富。</li></ul><h3 id="主要特点和功能包括："><a href="#主要特点和功能包括：" class="headerlink" title="主要特点和功能包括："></a>主要特点和功能包括：</h3><ol><li><p><strong>外部数据接入：</strong> Chainlink 允许区块链智能合约访问外部的数据源，包括网络 API、传感器数据、天气数据、金融市场数据等。这些数据可以用于触发智能合约的执行或影响其状态。</p></li><li><p><strong>数据验证和可信性：</strong> Chainlink 提供了一套机制来验证外部数据的真实性和可信度，以确保数据的准确性和安全性。这包括使用多个数据源、数据签名、可信执行环境等技术。</p></li><li><p><strong>可编程性和灵活性：</strong> Chainlink 允许开发人员根据自己的需求定义和部署预言机网络，从而实现各种不同类型的数据访问和验证。它提供了灵活的合约编程接口和工具，使开发人员能够根据应用场景定制预言机网络。</p></li><li><p><strong>安全和去中心化：</strong> Chainlink 采用去中心化的设计和安全机制，确保数据访问和验证的安全性和可靠性。它使用区块链技术和密码学算法来保护数据的安全，并通过分散化的节点网络来提供服务。</p></li><li><p><strong>可扩展性和互操作性：</strong> Chainlink 的设计具有良好的可扩展性和互操作性，可以与各种不同的区块链平台和智能合约系统集成，实现跨链数据访问和交互。</p></li></ol><ul><li>总的来说，Chainlink 是一个重要的基础设施项目，为区块链智能合约提供了可靠的外部数据访问和验证机制，推动了区块链技术在金融、保险、供应链等领域的应用和发展。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;https://chain.link/&quot; &gt;chainlink official&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br&gt;&lt;font color=&quot;red&quot;&gt; </summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="chainlink" scheme="http://example.com/tags/chainlink/"/>
+    
+  </entry>
+  
+  <entry>
     <title>停一停 心呼吸 每日銘言 202403</title>
     <link href="http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/"/>
     <id>http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/</id>
     <published>2024-03-01T01:01:33.000Z</published>
-    <updated>2024-03-03T03:03:04.551Z</updated>
+    <updated>2024-03-04T09:25:23.994Z</updated>
     
-    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月4号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/4-min.jpg"></td></tr><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
     
     
       
@@ -86,8 +86,8 @@
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;3月3号&lt;/td&gt;
-&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/3-min.j</summary>
+&lt;td&gt;3月4号&lt;/td&gt;
+&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/4-min.j</summary>
       
     
     
