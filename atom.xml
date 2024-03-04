@@ -67,13 +67,46 @@
   </entry>
   
   <entry>
+    <title>停一停 心呼吸 每日銘言 202403</title>
+    <link href="http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/"/>
+    <id>http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/</id>
+    <published>2024-03-01T01:01:33.000Z</published>
+    <updated>2024-03-03T03:03:04.551Z</updated>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;日期&lt;/th&gt;
+&lt;th&gt;銘言&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;3月3号&lt;/td&gt;
+&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/3-min.j</summary>
+      
+    
+    
+    
+    <category term="认知-修行-平衡" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/"/>
+    
+    
+    <category term="佛学" scheme="http://example.com/tags/%E4%BD%9B%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>solidity高级主题</title>
     <link href="http://example.com/2024/02/28/Web3/solidity/02-solidity%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/"/>
     <id>http://example.com/2024/02/28/Web3/solidity/02-solidity%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/</id>
     <published>2024-02-28T07:01:30.000Z</published>
-    <updated>2024-03-01T07:28:43.676Z</updated>
+    <updated>2024-03-03T03:10:01.979Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="高级主题目录"><a href="#高级主题目录" class="headerlink" title="高级主题目录"></a>高级主题目录</h2><h3 id="继承-inheritance"><a href="#继承-inheritance" class="headerlink" title="继承 inheritance"></a>继承 inheritance</h3><ul><li>Solidity继承<ul><li>关键字is，合约继承父合约</li><li>对于变量和函数，如果父合约中的权限是private则不能被子合约继承</li><li>对于变量，如果父合约中的权限是internal和public，则能被子合约继承，而如果是external时就不能继承</li><li>对于函数，如果父合约中的权限是internal和public, 则能被子合约继承，而如果是external时也能继承，但是在调用时使用的是：this.functionName()</li></ul></li><li><font color="red"> ChatGPT生成： </font> Internal Protected：<ul><li>Solidity 0.8.0 版本引入了 internal protected 关键字修饰符，用于在派生合约中继承父合约的 internal 变量。这样的变量在父合约中是 internal 访问权限，但在派生合约中则是 protected 访问权限。</li><li>示例：internal protected uint256 myVariable;</li></ul></li></ul><h3 id="接口-interface"><a href="#接口-interface" class="headerlink" title="接口 interface"></a>接口 interface</h3><ul><li>Solidity接口<ul><li>无法实现任何功能</li><li>可以继承其他接口</li><li>所有声明的函数必须是外部的</li><li>无法声明构造函数, 无法声明状态变量</li></ul></li></ul><h3 id="库函数-library"><a href="#库函数-library" class="headerlink" title="库函数 library"></a>库函数 library</h3><ul><li>Solidity库函数，一种函数集何-library<ul><li>库与合约类似，但你不能声明任何状态变量，也不能发送以太币。</li><li>库的目的是重用代码，库的函数可以被其他合约调用。</li><li>如果所有库函数都是内部的，则库将嵌入到合约中。否则，必须在部署合约之前部署并链接库。</li></ul></li></ul><h3 id="多态-polymorphism"><a href="#多态-polymorphism" class="headerlink" title="多态 polymorphism"></a>多态 polymorphism</h3><ul><li>Solidity多态</li></ul><h3 id="异常处理-exception"><a href="#异常处理-exception" class="headerlink" title="异常处理 exception"></a>异常处理 exception</h3><ul><li>Solidity异常处理</li></ul><h3 id="安全性-security"><a href="#安全性-security" class="headerlink" title="安全性 security"></a>安全性 security</h3><ul><li>Solidity安全性</li></ul><h3 id="日志-log"><a href="#日志-log" class="headerlink" title="日志 log"></a>日志 log</h3><ul><li>event(), emit()</li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="高级主题目录"><a href="#高级主题目录" class="headerlink" title="高级主题目录"></a>高级主题目录</h2><h3 id="继承-inheritance"><a href="#继承-inheritance" class="headerlink" title="继承 inheritance"></a>继承 inheritance</h3><ul><li>Solidity继承<ul><li>关键字is，合约继承父合约</li><li>对于变量和函数，如果父合约中的权限是private则不能被子合约继承</li><li>对于变量，如果父合约中的权限是internal和public，则能被子合约继承，而如果是external时就不能继承</li><li>对于函数，如果父合约中的权限是internal和public, 则能被子合约继承，而如果是external时也能继承，但是在调用时使用的是：this.functionName()</li></ul></li><li><font color="red"> ChatGPT生成： </font> Internal Protected：<ul><li>Solidity 0.8.0 版本引入了 internal protected 关键字修饰符，用于在派生合约中继承父合约的 internal 变量。这样的变量在父合约中是 internal 访问权限，但在派生合约中则是 protected 访问权限。</li><li>示例：internal protected uint256 myVariable;</li></ul></li></ul><h3 id="接口-interface"><a href="#接口-interface" class="headerlink" title="接口 interface"></a>接口 interface</h3><ul><li>Solidity接口<ul><li>无法实现任何功能</li><li>可以继承其他接口</li><li>所有声明的函数必须是外部的</li><li>无法声明构造函数, 无法声明状态变量</li></ul></li></ul><h3 id="库函数-library"><a href="#库函数-library" class="headerlink" title="库函数 library"></a>库函数 library</h3><ul><li>Solidity库函数，一种函数集合-library<ul><li>库与合约类似，但你不能声明任何状态变量，也不能发送以太币。</li><li>库的目的是重用代码，库的函数可以被其他合约调用。</li><li>如果所有库函数都是内部的，则库将嵌入到合约中。否则，必须在部署合约之前部署并链接库。</li></ul></li></ul><h3 id="多态-polymorphism"><a href="#多态-polymorphism" class="headerlink" title="多态 polymorphism"></a>多态 polymorphism</h3><ul><li>Solidity多态</li></ul><h3 id="异常处理-exception"><a href="#异常处理-exception" class="headerlink" title="异常处理 exception"></a>异常处理 exception</h3><ul><li>Solidity异常处理</li></ul><h3 id="安全性-security"><a href="#安全性-security" class="headerlink" title="安全性 security"></a>安全性 security</h3><ul><li>Solidity安全性</li></ul><h3 id="日志-log"><a href="#日志-log" class="headerlink" title="日志 log"></a>日志 log</h3><ul><li>event(), emit()</li></ul>]]></content>
     
     
       
@@ -150,7 +183,7 @@
     <link href="http://example.com/2024/02/23/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202402/"/>
     <id>http://example.com/2024/02/23/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202402/</id>
     <published>2024-02-23T01:01:33.000Z</published>
-    <updated>2024-02-29T15:07:12.986Z</updated>
+    <updated>2024-03-02T12:27:32.320Z</updated>
     
     <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>2月29号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/29-min.jpg"></td></tr><tr><td>2月28号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/28-min.jpg"></td></tr><tr><td>2月27号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/27-min.jpg"></td></tr><tr><td>2月26号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/26-min.jpg"></td></tr><tr><td>2月23号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/23-min.jpg"></td></tr><tr><td>2月22号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/22-min.jpg"></td></tr></tbody></table>]]></content>
     
@@ -516,33 +549,6 @@
     <category term="Steven Jobs" scheme="http://example.com/tags/Steven-Jobs/"/>
     
     <category term="GPT视频总结" scheme="http://example.com/tags/GPT%E8%A7%86%E9%A2%91%E6%80%BB%E7%BB%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ray Dalio： Principles, the Economic Machine, AI &amp; the Arc of Life</title>
-    <link href="http://example.com/2023/07/20/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/raydalio-interview/"/>
-    <id>http://example.com/2023/07/20/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/raydalio-interview/</id>
-    <published>2023-07-20T08:20:38.000Z</published>
-    <updated>2023-07-20T08:25:12.715Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul><li>Ray Dalio, founder of Bridgewater Associates, discusses the importance of truth, experimentation, and adaptation in achieving goals and success.</li><li>Highlights<ul><li>🚀 Truth and Experimentation: Truth is essential for success, and one must experiment to discover it, especially when pursuing new and groundbreaking ideas.</li><li>🎯 The 5-Step Process: Dalio describes a five-step process for success: setting goals, identifying problems, diagnosing root causes, designing solutions, and following through with experimentation.</li><li>🌟 Shapers: Dalio highlights individuals like Elon Musk and Marc Benioff as “shapers” who visualize unique ideas and execute them, changing the world.</li><li>💼 Balancing Vision and Detail: Shapers balance their audacious visions with a practical understanding of the details required to achieve their goals.</li><li>👥 Concern for Others: Successful leaders prioritize the mission over personal concerns and hold high standards for their team members.</li><li>🤝 Embracing Different Perspectives: Great leaders appreciate diverse perspectives and learn from others to create a successful and harmonious team.</li><li>🤔 Confidence and Open-mindedness: Successful leaders possess both supreme confidence in their vision and the openness to consider different viewpoints.(Note: The provided transcript has been edited for brevity and clarity to fit the bullet points template.)</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;Summary&quot;&gt;&lt;a href=&quot;#Summary&quot; class=&quot;headerlink&quot; title=&quot;Summary&quot;&gt;&lt;/a&gt;Summary&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Ray Dalio, founder of Bridgewater Associates</summary>
-      
-    
-    
-    
-    <category term="认知-修行-平衡" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/"/>
-    
-    
-    <category term="Ray Dalio" scheme="http://example.com/tags/Ray-Dalio/"/>
-    
-    <category term="活出真我" scheme="http://example.com/tags/%E6%B4%BB%E5%87%BA%E7%9C%9F%E6%88%91/"/>
     
   </entry>
   
