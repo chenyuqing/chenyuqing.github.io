@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-03-01T04:41:47.297Z</updated>
+  <updated>2024-03-01T04:41:32.687Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,31 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>openzeppelin学习</title>
-    <link href="http://example.com/2024/03/01/Web3/solidity/openzepplin_study/"/>
-    <id>http://example.com/2024/03/01/Web3/solidity/openzepplin_study/</id>
-    <published>2024-03-01T04:22:30.000Z</published>
-    <updated>2024-03-01T04:41:47.297Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://www.openzeppelin.com/" >openzeppelin official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> OpenZeppelin 是一个开源的智能合约库和开发框架，它提供了一系列已经经过安全审计和测试的通用智能合约，帮助开发人员构建安全、可靠的去中心化应用（DApps）和智能合约。</li></ul><h3 id="主要功能和特点包括："><a href="#主要功能和特点包括：" class="headerlink" title="主要功能和特点包括："></a>主要功能和特点包括：</h3><ol><li><p><strong>安全的智能合约：</strong> OpenZeppelin 提供了一系列经过审计和测试的智能合约，涵盖了代币标准（如 ERC-20、ERC-721）、众筹合约、权限管理、多重签名钱包等常用的智能合约模块。这些合约已经被广泛使用，并得到了社区的认可和信任。</p></li><li><p><strong>模块化设计：</strong> OpenZeppelin 的智能合约库采用了模块化的设计，使得开发人员可以根据自己的需求选择性地使用其中的部分功能。这样可以提高代码的可重用性和可维护性。</p></li><li><p><strong>安全审计：</strong> OpenZeppelin 的智能合约经过了严格的安全审计和测试，以确保合约的安全性和可靠性。它们经过了专业的安全团队的审查，并且经过了时间的验证，已被广泛应用于生产环境中。</p></li><li><p><strong>社区支持：</strong> OpenZeppelin 拥有一个庞大的开发者社区，其中包括了来自世界各地的开发者、安全专家和区块链爱好者。开发者可以在社区中分享经验、提出问题、提交问题报告和贡献代码。</p></li><li><p><strong>开发工具和文档：</strong> OpenZeppelin 提供了丰富的开发工具和文档，包括代码示例、开发指南、安全建议等，帮助开发人员快速入门和使用 OpenZeppelin 的智能合约库。</p></li></ol><ul><li>总的来说，OpenZeppelin 是一个功能丰富、安全可靠的智能合约库和开发框架，为开发人员提供了构建安全、可靠的去中心化应用的重要工具和资源。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;https://www.openzeppelin.com/&quot; &gt;openzeppelin official&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br&gt;&lt;font </summary>
-      
-    
-    
-    
-    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
-    
-    
-    <category term="openzeppelin" scheme="http://example.com/tags/openzeppelin/"/>
-    
-  </entry>
   
   <entry>
     <title>chainlink学习</title>
@@ -67,13 +42,38 @@
   </entry>
   
   <entry>
+    <title>openzeppelin学习</title>
+    <link href="http://example.com/2024/03/01/Web3/solidity/openzepplin_study/"/>
+    <id>http://example.com/2024/03/01/Web3/solidity/openzepplin_study/</id>
+    <published>2024-03-01T04:22:30.000Z</published>
+    <updated>2024-03-01T04:41:47.297Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://www.openzeppelin.com/" >openzeppelin official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> OpenZeppelin 是一个开源的智能合约库和开发框架，它提供了一系列已经经过安全审计和测试的通用智能合约，帮助开发人员构建安全、可靠的去中心化应用（DApps）和智能合约。</li></ul><h3 id="主要功能和特点包括："><a href="#主要功能和特点包括：" class="headerlink" title="主要功能和特点包括："></a>主要功能和特点包括：</h3><ol><li><p><strong>安全的智能合约：</strong> OpenZeppelin 提供了一系列经过审计和测试的智能合约，涵盖了代币标准（如 ERC-20、ERC-721）、众筹合约、权限管理、多重签名钱包等常用的智能合约模块。这些合约已经被广泛使用，并得到了社区的认可和信任。</p></li><li><p><strong>模块化设计：</strong> OpenZeppelin 的智能合约库采用了模块化的设计，使得开发人员可以根据自己的需求选择性地使用其中的部分功能。这样可以提高代码的可重用性和可维护性。</p></li><li><p><strong>安全审计：</strong> OpenZeppelin 的智能合约经过了严格的安全审计和测试，以确保合约的安全性和可靠性。它们经过了专业的安全团队的审查，并且经过了时间的验证，已被广泛应用于生产环境中。</p></li><li><p><strong>社区支持：</strong> OpenZeppelin 拥有一个庞大的开发者社区，其中包括了来自世界各地的开发者、安全专家和区块链爱好者。开发者可以在社区中分享经验、提出问题、提交问题报告和贡献代码。</p></li><li><p><strong>开发工具和文档：</strong> OpenZeppelin 提供了丰富的开发工具和文档，包括代码示例、开发指南、安全建议等，帮助开发人员快速入门和使用 OpenZeppelin 的智能合约库。</p></li></ol><ul><li>总的来说，OpenZeppelin 是一个功能丰富、安全可靠的智能合约库和开发框架，为开发人员提供了构建安全、可靠的去中心化应用的重要工具和资源。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;https://www.openzeppelin.com/&quot; &gt;openzeppelin official&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br&gt;&lt;font </summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="openzeppelin" scheme="http://example.com/tags/openzeppelin/"/>
+    
+  </entry>
+  
+  <entry>
     <title>停一停 心呼吸 每日銘言 202403</title>
     <link href="http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/"/>
     <id>http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/</id>
     <published>2024-03-01T01:01:33.000Z</published>
-    <updated>2024-03-04T09:25:23.994Z</updated>
+    <updated>2024-03-05T15:06:30.699Z</updated>
     
-    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月4号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/4-min.jpg"></td></tr><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月5号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/5-min.jpg"></td></tr><tr><td>3月4号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/4-min.jpg"></td></tr><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
     
     
       
@@ -86,8 +86,8 @@
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;3月4号&lt;/td&gt;
-&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/4-min.j</summary>
+&lt;td&gt;3月5号&lt;/td&gt;
+&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/5-min.j</summary>
       
     
     
@@ -340,31 +340,6 @@
   </entry>
   
   <entry>
-    <title>solidity导语</title>
-    <link href="http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/"/>
-    <id>http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/</id>
-    <published>2023-08-16T02:32:30.000Z</published>
-    <updated>2024-03-01T02:20:38.167Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><p>Github库地址： <a class="link"   href="https://github.com/chenyuqing/solidity-by-example/tree/main" >solidity-by-example<i class="fas fa-external-link-alt"></i></a></p></li><li><p>solidity是一门编译性语言，需要经过编译器编译成字节码，然后再部署到区块链上，所以需要安装编译器，推荐使用<a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a>在线编译器，也可以使用<a class="link"   href="https://www.trufflesuite.com/" >truffle<i class="fas fa-external-link-alt"></i></a>本地编译器，但是truffle需要安装nodejs，npm，ganache等环境，比较麻烦，所以推荐使用remix。</p></li><li><p>solidity是一门面向合约的语言，所以需要有合约的概念，合约是一种特殊的类，合约中可以定义状态变量，函数，事件，修饰器，结构体，枚举等。</p></li><li><p><img src="/img/wuweiwu/solidity-study/solidity-basic.png"></p></li></ul><h2 id="Remix-IDE"><a href="#Remix-IDE" class="headerlink" title="Remix-IDE"></a>Remix-IDE</h2><ul><li><a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a></li><li>面板介绍<ul><li><img src="/img/wuweiwu/solidity-study/remix-ide.png"></li></ul></li></ul><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><ul><li>代码解释<ul><li><code>// SPDX-License-Identifier: MIT</code>：开源协议</li><li><code>pragma solidity ^0.8.18;</code>：版本声明</li><li><code>contract helloWorld</code>：合约声明</li><li><code>string public _str = &quot;hello world&quot;;</code>：状态变量声明</li></ul></li></ul><h2 id="Solidity基础知识"><a href="#Solidity基础知识" class="headerlink" title="Solidity基础知识"></a>Solidity基础知识</h2><ul><li><a href="/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="solidity基础知识">solidity基础知识</a></li></ul><h2 id="Solidity高级主题"><a href="#Solidity高级主题" class="headerlink" title="Solidity高级主题"></a>Solidity高级主题</h2><ul><li><a href="/2024/02/28/Web3/solidity/02-solidity%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/" title="solidity高级主题">solidity高级主题</a></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a class="link"   href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" >以太坊白皮书<i class="fas fa-external-link-alt"></i></a></li><li>极力推荐入门教程，配合食用更佳！写智能合约，节省gas费用永远放在第一位。<ul><li><a class="link"   href="https://solidity-cn.readthedocs.io/zh/develop/" >solidity中文网<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://cryptozombies.io/en/solidity" >僵尸打怪-Solidity: Beginner to Intermediate Smart Contracts<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.wtf.academy/solidity-start" >WTF-Solidity 101 入门<i class="fas fa-external-link-alt"></i></a></li><li>Solidity8.0全面精通-B站崔棉大师<ul><li><iframe src="//player.bilibili.com/player.html?aid=810148091&bvid=BV1E34y147JC&cid=562223215&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></li></ul></li><li><a class="link"   href="https://www.youtube.com/@thinkingchain/playlists" >理想区块链<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.youtube.com/@fredsolidity4455/playlists" >Fred带你学solidity<i class="fas fa-external-link-alt"></i></a></li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Github库地址： &lt;a class=&quot;link&quot;   href=&quot;https://github.com/chenyuqing/solidity-by-example/tree/main&quot; &gt;solidity-by-example&lt;i class=&quot;fa</summary>
-      
-    
-    
-    
-    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
-    
-    
-    <category term="solidity" scheme="http://example.com/tags/solidity/"/>
-    
-  </entry>
-  
-  <entry>
     <title>solidity基础知识</title>
     <link href="http://example.com/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <id>http://example.com/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
@@ -380,6 +355,31 @@
 &lt;li&gt;Solidity数据类型&lt;/li&gt;
 &lt;li&gt;Solidity运算符&lt;/li&gt;
 &lt;li&gt;Solid</summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="solidity" scheme="http://example.com/tags/solidity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>solidity导语</title>
+    <link href="http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/"/>
+    <id>http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/</id>
+    <published>2023-08-16T02:32:30.000Z</published>
+    <updated>2024-03-01T02:20:38.167Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>Github库地址： <a class="link"   href="https://github.com/chenyuqing/solidity-by-example/tree/main" >solidity-by-example<i class="fas fa-external-link-alt"></i></a></p></li><li><p>solidity是一门编译性语言，需要经过编译器编译成字节码，然后再部署到区块链上，所以需要安装编译器，推荐使用<a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a>在线编译器，也可以使用<a class="link"   href="https://www.trufflesuite.com/" >truffle<i class="fas fa-external-link-alt"></i></a>本地编译器，但是truffle需要安装nodejs，npm，ganache等环境，比较麻烦，所以推荐使用remix。</p></li><li><p>solidity是一门面向合约的语言，所以需要有合约的概念，合约是一种特殊的类，合约中可以定义状态变量，函数，事件，修饰器，结构体，枚举等。</p></li><li><p><img src="/img/wuweiwu/solidity-study/solidity-basic.png"></p></li></ul><h2 id="Remix-IDE"><a href="#Remix-IDE" class="headerlink" title="Remix-IDE"></a>Remix-IDE</h2><ul><li><a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a></li><li>面板介绍<ul><li><img src="/img/wuweiwu/solidity-study/remix-ide.png"></li></ul></li></ul><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><ul><li>代码解释<ul><li><code>// SPDX-License-Identifier: MIT</code>：开源协议</li><li><code>pragma solidity ^0.8.18;</code>：版本声明</li><li><code>contract helloWorld</code>：合约声明</li><li><code>string public _str = &quot;hello world&quot;;</code>：状态变量声明</li></ul></li></ul><h2 id="Solidity基础知识"><a href="#Solidity基础知识" class="headerlink" title="Solidity基础知识"></a>Solidity基础知识</h2><ul><li><a href="/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="solidity基础知识">solidity基础知识</a></li></ul><h2 id="Solidity高级主题"><a href="#Solidity高级主题" class="headerlink" title="Solidity高级主题"></a>Solidity高级主题</h2><ul><li><a href="/2024/02/28/Web3/solidity/02-solidity%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/" title="solidity高级主题">solidity高级主题</a></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a class="link"   href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" >以太坊白皮书<i class="fas fa-external-link-alt"></i></a></li><li>极力推荐入门教程，配合食用更佳！写智能合约，节省gas费用永远放在第一位。<ul><li><a class="link"   href="https://solidity-cn.readthedocs.io/zh/develop/" >solidity中文网<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://cryptozombies.io/en/solidity" >僵尸打怪-Solidity: Beginner to Intermediate Smart Contracts<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.wtf.academy/solidity-start" >WTF-Solidity 101 入门<i class="fas fa-external-link-alt"></i></a></li><li>Solidity8.0全面精通-B站崔棉大师<ul><li><iframe src="//player.bilibili.com/player.html?aid=810148091&bvid=BV1E34y147JC&cid=562223215&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></li></ul></li><li><a class="link"   href="https://www.youtube.com/@thinkingchain/playlists" >理想区块链<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.youtube.com/@fredsolidity4455/playlists" >Fred带你学solidity<i class="fas fa-external-link-alt"></i></a></li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Github库地址： &lt;a class=&quot;link&quot;   href=&quot;https://github.com/chenyuqing/solidity-by-example/tree/main&quot; &gt;solidity-by-example&lt;i class=&quot;fa</summary>
       
     
     
