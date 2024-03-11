@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-03-01T04:41:32.687Z</updated>
+  <updated>2024-03-10T08:39:57.538Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>人生建立系统，而不是目标</title>
+    <link href="http://example.com/2024/03/10/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/build-system-not-goal/"/>
+    <id>http://example.com/2024/03/10/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/build-system-not-goal/</id>
+    <published>2024-03-10T08:32:30.000Z</published>
+    <updated>2024-03-10T08:39:57.538Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="人生建立系统，而不是目标"><a href="#人生建立系统，而不是目标" class="headerlink" title="人生建立系统，而不是目标"></a>人生建立系统，而不是目标</h2><p>| 目标有助于确定你的方向，而系统最有助于取得进展。- James Clear 《原子习惯》作者</p><ul><li><h2 id="什么是系统？"><a href="#什么是系统？" class="headerlink" title="什么是系统？"></a>什么是系统？</h2></li><li><h2 id="什么是目标？"><a href="#什么是目标？" class="headerlink" title="什么是目标？"></a>什么是目标？</h2></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a class="link"   href="https://www.youtube.com/watch?v=RppBZk7OvDM&t=224s&ab_channel=NebulaPKM" >一个将改变你生活的观点，建立系统而不是目标-Neula PKM<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;人生建立系统，而不是目标&quot;&gt;&lt;a href=&quot;#人生建立系统，而不是目标&quot; class=&quot;headerlink&quot; title=&quot;人生建立系统，而不是目标&quot;&gt;&lt;/a&gt;人生建立系统，而不是目标&lt;/h2&gt;&lt;p&gt;| 目标有助于确定你的方向，而系统最有助于取得进展。- Ja</summary>
+      
+    
+    
+    
+    <category term="技能-修行-平衡" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/"/>
+    
+    
+    <category term="建立系统" scheme="http://example.com/tags/%E5%BB%BA%E7%AB%8B%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>fundme dapp开发</title>
+    <link href="http://example.com/2024/03/06/Web3/solidity/03-fundme_dapp/"/>
+    <id>http://example.com/2024/03/06/Web3/solidity/03-fundme_dapp/</id>
+    <published>2024-03-06T02:02:30.000Z</published>
+    <updated>2024-03-06T02:16:08.546Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><ul><li>在学习完solidity的基础知识后的第一个实践项目。</li></ul><ol><li>捐款项目主要功能<ol><li>任何人可以进行捐款，捐款有最低额度限制</li><li>只有合约部署者能进行提款</li><li>使用的是ETH&#x2F;USD，需要导入chainlink预言机查找eth实时价格</li></ol></li><li>本项目中涉及的solidity知识：<ol><li>库（library）的使用</li><li>接口（interface）的使用</li><li>关键字payable的使用, transfer, send, call三种方法的区别，receive() external payable{} 和 fallback() external payable{}</li><li>关键字internal和external的用法</li><li>address(this).balance，msg.sender msg.value</li><li>如何优化gas，例如使用constant，immutable等关键字定义相关变量，custom error</li><li>emit日志使用方法</li><li>chainlink预言机的调用</li></ol></li></ol><h2 id="项目UML图"><a href="#项目UML图" class="headerlink" title="项目UML图"></a>项目UML图</h2><ul><li><img src="/img/wuweiwu/fundme_dapp/uml.png" alt="UML"></li></ul><h2 id="chainlink预言机的调用"><a href="#chainlink预言机的调用" class="headerlink" title="chainlink预言机的调用"></a>chainlink预言机的调用</h2><ul><li><a href="/2024/03/01/Web3/solidity/chainlink_study/" title="chainlink学习">chainlink学习</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;项目背景&quot;&gt;&lt;a href=&quot;#项目背景&quot; class=&quot;headerlink&quot; title=&quot;项目背景&quot;&gt;&lt;/a&gt;项目背景&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;在学习完solidity的基础知识后的第一个实践项目。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;捐款项目主要功能</summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="solidity" scheme="http://example.com/tags/solidity/"/>
+    
+  </entry>
   
   <entry>
     <title>chainlink学习</title>
@@ -71,9 +123,9 @@
     <link href="http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/"/>
     <id>http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/</id>
     <published>2024-03-01T01:01:33.000Z</published>
-    <updated>2024-03-05T15:06:30.699Z</updated>
+    <updated>2024-03-11T03:32:48.059Z</updated>
     
-    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月5号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/5-min.jpg"></td></tr><tr><td>3月4号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/4-min.jpg"></td></tr><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月11号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/11-min.jpg"></td></tr><tr><td>3月10号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/10-min.jpg"></td></tr><tr><td>3月9号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/9-min.jpg"></td></tr><tr><td>3月8号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/8-min.jpg"></td></tr><tr><td>3月6号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/6-min.jpg"></td></tr><tr><td>3月5号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/5-min.jpg"></td></tr><tr><td>3月4号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/4-min.jpg"></td></tr><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
     
     
       
@@ -86,8 +138,8 @@
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;3月5号&lt;/td&gt;
-&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/5-min.j</summary>
+&lt;td&gt;3月11号&lt;/td&gt;
+&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/11-min</summary>
       
     
     
@@ -340,6 +392,31 @@
   </entry>
   
   <entry>
+    <title>solidity导语</title>
+    <link href="http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/"/>
+    <id>http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/</id>
+    <published>2023-08-16T02:32:30.000Z</published>
+    <updated>2024-03-01T02:20:38.167Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>Github库地址： <a class="link"   href="https://github.com/chenyuqing/solidity-by-example/tree/main" >solidity-by-example<i class="fas fa-external-link-alt"></i></a></p></li><li><p>solidity是一门编译性语言，需要经过编译器编译成字节码，然后再部署到区块链上，所以需要安装编译器，推荐使用<a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a>在线编译器，也可以使用<a class="link"   href="https://www.trufflesuite.com/" >truffle<i class="fas fa-external-link-alt"></i></a>本地编译器，但是truffle需要安装nodejs，npm，ganache等环境，比较麻烦，所以推荐使用remix。</p></li><li><p>solidity是一门面向合约的语言，所以需要有合约的概念，合约是一种特殊的类，合约中可以定义状态变量，函数，事件，修饰器，结构体，枚举等。</p></li><li><p><img src="/img/wuweiwu/solidity-study/solidity-basic.png"></p></li></ul><h2 id="Remix-IDE"><a href="#Remix-IDE" class="headerlink" title="Remix-IDE"></a>Remix-IDE</h2><ul><li><a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a></li><li>面板介绍<ul><li><img src="/img/wuweiwu/solidity-study/remix-ide.png"></li></ul></li></ul><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><ul><li>代码解释<ul><li><code>// SPDX-License-Identifier: MIT</code>：开源协议</li><li><code>pragma solidity ^0.8.18;</code>：版本声明</li><li><code>contract helloWorld</code>：合约声明</li><li><code>string public _str = &quot;hello world&quot;;</code>：状态变量声明</li></ul></li></ul><h2 id="Solidity基础知识"><a href="#Solidity基础知识" class="headerlink" title="Solidity基础知识"></a>Solidity基础知识</h2><ul><li><a href="/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="solidity基础知识">solidity基础知识</a></li></ul><h2 id="Solidity高级主题"><a href="#Solidity高级主题" class="headerlink" title="Solidity高级主题"></a>Solidity高级主题</h2><ul><li><a href="/2024/02/28/Web3/solidity/02-solidity%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/" title="solidity高级主题">solidity高级主题</a></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a class="link"   href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" >以太坊白皮书<i class="fas fa-external-link-alt"></i></a></li><li>极力推荐入门教程，配合食用更佳！写智能合约，节省gas费用永远放在第一位。<ul><li><a class="link"   href="https://solidity-cn.readthedocs.io/zh/develop/" >solidity中文网<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://cryptozombies.io/en/solidity" >僵尸打怪-Solidity: Beginner to Intermediate Smart Contracts<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.wtf.academy/solidity-start" >WTF-Solidity 101 入门<i class="fas fa-external-link-alt"></i></a></li><li>Solidity8.0全面精通-B站崔棉大师<ul><li><iframe src="//player.bilibili.com/player.html?aid=810148091&bvid=BV1E34y147JC&cid=562223215&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></li></ul></li><li><a class="link"   href="https://www.youtube.com/@thinkingchain/playlists" >理想区块链<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.youtube.com/@fredsolidity4455/playlists" >Fred带你学solidity<i class="fas fa-external-link-alt"></i></a></li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Github库地址： &lt;a class=&quot;link&quot;   href=&quot;https://github.com/chenyuqing/solidity-by-example/tree/main&quot; &gt;solidity-by-example&lt;i class=&quot;fa</summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="solidity" scheme="http://example.com/tags/solidity/"/>
+    
+  </entry>
+  
+  <entry>
     <title>solidity基础知识</title>
     <link href="http://example.com/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <id>http://example.com/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
@@ -355,31 +432,6 @@
 &lt;li&gt;Solidity数据类型&lt;/li&gt;
 &lt;li&gt;Solidity运算符&lt;/li&gt;
 &lt;li&gt;Solid</summary>
-      
-    
-    
-    
-    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
-    
-    
-    <category term="solidity" scheme="http://example.com/tags/solidity/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>solidity导语</title>
-    <link href="http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/"/>
-    <id>http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/</id>
-    <published>2023-08-16T02:32:30.000Z</published>
-    <updated>2024-03-01T02:20:38.167Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><p>Github库地址： <a class="link"   href="https://github.com/chenyuqing/solidity-by-example/tree/main" >solidity-by-example<i class="fas fa-external-link-alt"></i></a></p></li><li><p>solidity是一门编译性语言，需要经过编译器编译成字节码，然后再部署到区块链上，所以需要安装编译器，推荐使用<a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a>在线编译器，也可以使用<a class="link"   href="https://www.trufflesuite.com/" >truffle<i class="fas fa-external-link-alt"></i></a>本地编译器，但是truffle需要安装nodejs，npm，ganache等环境，比较麻烦，所以推荐使用remix。</p></li><li><p>solidity是一门面向合约的语言，所以需要有合约的概念，合约是一种特殊的类，合约中可以定义状态变量，函数，事件，修饰器，结构体，枚举等。</p></li><li><p><img src="/img/wuweiwu/solidity-study/solidity-basic.png"></p></li></ul><h2 id="Remix-IDE"><a href="#Remix-IDE" class="headerlink" title="Remix-IDE"></a>Remix-IDE</h2><ul><li><a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a></li><li>面板介绍<ul><li><img src="/img/wuweiwu/solidity-study/remix-ide.png"></li></ul></li></ul><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><ul><li>代码解释<ul><li><code>// SPDX-License-Identifier: MIT</code>：开源协议</li><li><code>pragma solidity ^0.8.18;</code>：版本声明</li><li><code>contract helloWorld</code>：合约声明</li><li><code>string public _str = &quot;hello world&quot;;</code>：状态变量声明</li></ul></li></ul><h2 id="Solidity基础知识"><a href="#Solidity基础知识" class="headerlink" title="Solidity基础知识"></a>Solidity基础知识</h2><ul><li><a href="/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="solidity基础知识">solidity基础知识</a></li></ul><h2 id="Solidity高级主题"><a href="#Solidity高级主题" class="headerlink" title="Solidity高级主题"></a>Solidity高级主题</h2><ul><li><a href="/2024/02/28/Web3/solidity/02-solidity%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/" title="solidity高级主题">solidity高级主题</a></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a class="link"   href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" >以太坊白皮书<i class="fas fa-external-link-alt"></i></a></li><li>极力推荐入门教程，配合食用更佳！写智能合约，节省gas费用永远放在第一位。<ul><li><a class="link"   href="https://solidity-cn.readthedocs.io/zh/develop/" >solidity中文网<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://cryptozombies.io/en/solidity" >僵尸打怪-Solidity: Beginner to Intermediate Smart Contracts<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.wtf.academy/solidity-start" >WTF-Solidity 101 入门<i class="fas fa-external-link-alt"></i></a></li><li>Solidity8.0全面精通-B站崔棉大师<ul><li><iframe src="//player.bilibili.com/player.html?aid=810148091&bvid=BV1E34y147JC&cid=562223215&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></li></ul></li><li><a class="link"   href="https://www.youtube.com/@thinkingchain/playlists" >理想区块链<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.youtube.com/@fredsolidity4455/playlists" >Fred带你学solidity<i class="fas fa-external-link-alt"></i></a></li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Github库地址： &lt;a class=&quot;link&quot;   href=&quot;https://github.com/chenyuqing/solidity-by-example/tree/main&quot; &gt;solidity-by-example&lt;i class=&quot;fa</summary>
       
     
     
@@ -417,8 +469,8 @@
   
   <entry>
     <title>成瘾始于痛苦，戒瘾终于平衡！</title>
-    <link href="http://example.com/2023/08/07/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/addition/"/>
-    <id>http://example.com/2023/08/07/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/addition/</id>
+    <link href="http://example.com/2023/08/07/books/2024/first-half/addition/"/>
+    <id>http://example.com/2023/08/07/books/2024/first-half/addition/</id>
     <published>2023-08-07T04:39:30.000Z</published>
     <updated>2023-08-09T02:55:18.170Z</updated>
     
@@ -498,57 +550,6 @@
     
     
     <category term="佛学" scheme="http://example.com/tags/%E4%BD%9B%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>We become what we think about.</title>
-    <link href="http://example.com/2023/07/27/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/we_become_what_we_think_about/"/>
-    <id>http://example.com/2023/07/27/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/we_become_what_we_think_about/</id>
-    <published>2023-07-27T05:48:30.000Z</published>
-    <updated>2023-08-06T02:33:04.325Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="关键总结"><a href="#关键总结" class="headerlink" title="关键总结"></a>关键总结</h2><ul><li>一段对话引入：和博士医生的对话，我问：请问博士，今天的人是怎么了？博士沉默了一会儿，说道：今天的人就是不思考。</li><li>例子：100个人从25岁到65岁，100个在25岁时都相信自己会成为一个成功的人。当他们65岁时，有1个人会变成富翁，4个人在经济上独立，5个人还在工作，54个破产了。在这个100个人当中只有5个人成功了，这是为什么呢？为什么大部分人都是失败的呢？为什么人与人之间的差距会这个巨大的？</li><li>成功的定义：成功就是你清楚自己的目标并且朝着目标循序渐进的前进，直到最好。问题是大部分人都是没有目标的，他们都是从众的活着，因为别人都是早上起床上班，所以我也是早上起床上班。</li><li>有志者事竟成，we become what we think about。和佛学中所说的：信，愿，行。信就是相信自己能够成功，愿就是有一个目标，行就是朝着目标前进。</li><li>一位伟大的医生说过六个步骤助你成功：1. 给自己确定一个明确的目标；2. 对成功保持乐观；3. 别再想你为什么不能成功，而是思考你怎么才能成功；4.  回想过去你的态度，甚至是童年，寻找你当时不成功的原因；5. 改变对自己的印象，写出你想成为的那个人的印象；6. 扮演那个你想成为的人，直到你真的成为那个人。</li><li>Start today, you have nothing to loose, but you have a life to win.</li><li>想要和得到之间还有一个做到。因和果之间还有一个愿。</li><li>提升觉察能力，人生就是不断的做选择，觉察能力高的可以帮助做出更明智的选择。</li><li>对抗你的惯性。你越习惯什么，但是你又觉得你是必须去打破的，那你就学习对抗这个惯性，尽量多的去做你认为正确的事。</li><li>你的生活就是你的思想的产物。你的思想就是你的生活的产物。</li><li>要相信相信的力量。你相信什么，你就会得到什么。所以你要永远保持乐观。</li><li>经济建设决定上层建筑，经济独立很重要，很重要，若果你要实现自我，首先你必须要经济独立。</li></ul><h2 id="核心观点"><a href="#核心观点" class="headerlink" title="核心观点"></a>核心观点</h2><ul><li>做一个有目标的人，知道你需要什么很重要。</li><li>建立自己的生命之树。</li><li>功利主义讲究的是效率，以结果为导向的“法家”思想。</li><li>人控制不了自己的欲望，控制不了自己的人，有可能走向“自废”的人生。</li><li>不是所有人都拥有思想的，普通没有思想的人也可以活的的不错，但是有思想就是一条分界线。</li><li>野蛮征服文明，劣币驱逐良币，这是自然界的规律，也是人类社会的规律。</li><li>兴趣就是你会废寝忘食去做的事情。迷茫是人生的常态，你可以去选择一些你感兴趣和有挑战性的事情坚持去做，你会找到自己的答案的。</li><li>人生就是不断的做选择，觉察能力高的可以帮助做出更明智的选择。</li><li>拥有了觉察能力，你需要去学会控制自己，自律，take action。</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;关键总结&quot;&gt;&lt;a href=&quot;#关键总结&quot; class=&quot;headerlink&quot; title=&quot;关键总结&quot;&gt;&lt;/a&gt;关键总结&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;一段对话引入：和博士医生的对话，我问：请问博士，今天的人是怎么了？博士沉默了一会儿，说道：今天的人就是不思考。&lt;</summary>
-      
-    
-    
-    
-    <category term="认知-修行-平衡" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/"/>
-    
-    
-    <category term="心想事成" scheme="http://example.com/tags/%E5%BF%83%E6%83%B3%E4%BA%8B%E6%88%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Steve Jobs&#39; 2005 Stanford Commencement Address</title>
-    <link href="http://example.com/2023/07/20/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/SJobs_speech2005/"/>
-    <id>http://example.com/2023/07/20/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/SJobs_speech2005/</id>
-    <published>2023-07-20T08:28:38.000Z</published>
-    <updated>2023-07-20T08:30:49.833Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="【BibiGPT】AI-课代表一键总结：Steve-Jobs’-2005-Stanford-Commencement-Address"><a href="#【BibiGPT】AI-课代表一键总结：Steve-Jobs’-2005-Stanford-Commencement-Address" class="headerlink" title="【BibiGPT】AI 课代表一键总结：Steve Jobs’ 2005 Stanford Commencement Address"></a>【BibiGPT】AI 课代表一键总结：<a class="link"   href="https://b.jimmylv.cn/watch?v=UF8uR6Z6KLc" >Steve Jobs’ 2005 Stanford Commencement Address<i class="fas fa-external-link-alt"></i></a></h1><p><img src="//i.ytimg.com/vi/UF8uR6Z6KLc/maxresdefault.jpg" alt="Steve Jobs&#39; 2005 Stanford Commencement Address"></p><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>这篇演讲是斯蒂夫·乔布斯在2005年斯坦福大学毕业典礼上的演讲，他分享了生活中的三个故事，讲述了连接点、爱与失去以及死亡对他人生的影响。</p><h2 id="Highlights"><a href="#Highlights" class="headerlink" title="Highlights"></a>Highlights</h2><ul><li>🧩 斯蒂夫·乔布斯分享了自己在大学期间的经历，强调了在人生中寻找兴趣和跟随内心的重要性。<ul><li>放弃大学对乔布斯来说是一个重要的决定，让他有机会追随自己的兴趣并最终成功创办苹果公司。</li><li>他强调了人们要相信生活中的各个点会在未来连接起来，要相信自己的直觉和命运。</li></ul></li><li>💔 乔布斯分享了自己被苹果公司开除的经历，但这一打击成为他生命中的转折点。<ul><li>这次挫折让他重新开始，创办了NeXT和Pixar，成功走上创业之路，并找到了真正热爱的事业和妻子。</li><li>他认为被开除是最好的事情，因为它使他从成功的重压中解放出来，重新成为一个创业者，实现了人生的突破。</li></ul></li><li>⏳ 乔布斯谈到了死亡的重要性，他说面对死亡能够帮助人们做出人生中重要的选择。<ul><li>死亡是生命中不可避免的事实，但乔布斯认为它是生活中最好的发明，它清除旧有，为新事物让路。</li><li>死亡的意识能够使人们摆脱外界的影响和束缚，追随内心和直觉，去做自己热爱的事情。</li></ul></li><li>🌟 乔布斯引用了《全地球目录》的后封面，给新毕业生们留下了鼓舞的寄语。<ul><li>“Stay hungry, stay foolish”（保持渴望，保持愚蠢）成为乔布斯的人生座右铭，鼓励人们在生活中保持好奇心和冒险精神。</li><li>乔布斯希望毕业生</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;【BibiGPT】AI-课代表一键总结：Steve-Jobs’-2005-Stanford-Commencement-Address&quot;&gt;&lt;a href=&quot;#【BibiGPT】AI-课代表一键总结：Steve-Jobs’-2005-Stanford-Commence</summary>
-      
-    
-    
-    
-    <category term="认知-修行-平衡" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/"/>
-    
-    
-    <category term="Steven Jobs" scheme="http://example.com/tags/Steven-Jobs/"/>
-    
-    <category term="GPT视频总结" scheme="http://example.com/tags/GPT%E8%A7%86%E9%A2%91%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   
