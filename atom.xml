@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-03-10T08:39:57.538Z</updated>
+  <updated>2024-03-12T06:21:41.179Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Notes on Chainlink Bootcamp 2024 (10 Days)</title>
+    <link href="http://example.com/2024/03/12/Web3/chainlink_bootcamp2024/"/>
+    <id>http://example.com/2024/03/12/Web3/chainlink_bootcamp2024/</id>
+    <published>2024-03-12T05:55:30.000Z</published>
+    <updated>2024-03-12T06:21:41.179Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>| <a class="link"   href="https://lu.ma/qoqfl19p?tk=9Sn8RD" >Chainlink Bootcamp 2024<i class="fas fa-external-link-alt"></i></a></li></ul><h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><p>- </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;| &lt;a class=&quot;link&quot;   href=&quot;https://lu.ma/qoqfl19p?tk=9Sn8RD&quot; &gt;Chainlink Bootcamp 2024&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/l</summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="chainlink, solidity, web3" scheme="http://example.com/tags/chainlink-solidity-web3/"/>
+    
+  </entry>
   
   <entry>
     <title>人生建立系统，而不是目标</title>
@@ -73,9 +98,9 @@
     <link href="http://example.com/2024/03/01/Web3/solidity/chainlink_study/"/>
     <id>http://example.com/2024/03/01/Web3/solidity/chainlink_study/</id>
     <published>2024-03-01T04:22:30.000Z</published>
-    <updated>2024-03-01T04:41:32.687Z</updated>
+    <updated>2024-03-13T02:45:23.635Z</updated>
     
-    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://chain.link/" >chainlink official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更加智能和功能丰富。</li></ul><h3 id="主要特点和功能包括："><a href="#主要特点和功能包括：" class="headerlink" title="主要特点和功能包括："></a>主要特点和功能包括：</h3><ol><li><p><strong>外部数据接入：</strong> Chainlink 允许区块链智能合约访问外部的数据源，包括网络 API、传感器数据、天气数据、金融市场数据等。这些数据可以用于触发智能合约的执行或影响其状态。</p></li><li><p><strong>数据验证和可信性：</strong> Chainlink 提供了一套机制来验证外部数据的真实性和可信度，以确保数据的准确性和安全性。这包括使用多个数据源、数据签名、可信执行环境等技术。</p></li><li><p><strong>可编程性和灵活性：</strong> Chainlink 允许开发人员根据自己的需求定义和部署预言机网络，从而实现各种不同类型的数据访问和验证。它提供了灵活的合约编程接口和工具，使开发人员能够根据应用场景定制预言机网络。</p></li><li><p><strong>安全和去中心化：</strong> Chainlink 采用去中心化的设计和安全机制，确保数据访问和验证的安全性和可靠性。它使用区块链技术和密码学算法来保护数据的安全，并通过分散化的节点网络来提供服务。</p></li><li><p><strong>可扩展性和互操作性：</strong> Chainlink 的设计具有良好的可扩展性和互操作性，可以与各种不同的区块链平台和智能合约系统集成，实现跨链数据访问和交互。</p></li></ol><ul><li>总的来说，Chainlink 是一个重要的基础设施项目，为区块链智能合约提供了可靠的外部数据访问和验证机制，推动了区块链技术在金融、保险、供应链等领域的应用和发展。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2>]]></content>
+    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://chain.link/" >chainlink official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更加智能和功能丰富。</li></ul><h3 id="主要特点和功能包括："><a href="#主要特点和功能包括：" class="headerlink" title="主要特点和功能包括："></a>主要特点和功能包括：</h3><ol><li><p><strong>外部数据接入：</strong> Chainlink 允许区块链智能合约访问外部的数据源，包括网络 API、传感器数据、天气数据、金融市场数据等。这些数据可以用于触发智能合约的执行或影响其状态。</p></li><li><p><strong>数据验证和可信性：</strong> Chainlink 提供了一套机制来验证外部数据的真实性和可信度，以确保数据的准确性和安全性。这包括使用多个数据源、数据签名、可信执行环境等技术。</p></li><li><p><strong>可编程性和灵活性：</strong> Chainlink 允许开发人员根据自己的需求定义和部署预言机网络，从而实现各种不同类型的数据访问和验证。它提供了灵活的合约编程接口和工具，使开发人员能够根据应用场景定制预言机网络。</p></li><li><p><strong>安全和去中心化：</strong> Chainlink 采用去中心化的设计和安全机制，确保数据访问和验证的安全性和可靠性。它使用区块链技术和密码学算法来保护数据的安全，并通过分散化的节点网络来提供服务。</p></li><li><p><strong>可扩展性和互操作性：</strong> Chainlink 的设计具有良好的可扩展性和互操作性，可以与各种不同的区块链平台和智能合约系统集成，实现跨链数据访问和交互。</p></li></ol><ul><li>总的来说，Chainlink 是一个重要的基础设施项目，为区块链智能合约提供了可靠的外部数据访问和验证机制，推动了区块链技术在金融、保险、供应链等领域的应用和发展。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2><ul><li>官网开发者文档6大板块功能</li><li><img src="/img/wuweiwu/chainlink/what/chainlink-dev-frame.png"></li></ul><h3 id="Data-Feeds-喂价"><a href="#Data-Feeds-喂价" class="headerlink" title="Data Feeds 喂价"></a>Data Feeds 喂价</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/business_flow.png"></li><li>技术架构</li><li><img src="/img/wuweiwu/chainlink/what/technical_frame.png"></li></ul><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li><a class="link"   href="https://www.youtube.com/watch?v=NpfRX4jTA8M&ab_channel=Chainlink" >Chainlink产品讲解-Frank<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
     
     
       
@@ -123,9 +148,9 @@
     <link href="http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/"/>
     <id>http://example.com/2024/03/01/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202403/</id>
     <published>2024-03-01T01:01:33.000Z</published>
-    <updated>2024-03-11T03:32:48.059Z</updated>
+    <updated>2024-03-13T01:14:22.939Z</updated>
     
-    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月11号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/11-min.jpg"></td></tr><tr><td>3月10号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/10-min.jpg"></td></tr><tr><td>3月9号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/9-min.jpg"></td></tr><tr><td>3月8号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/8-min.jpg"></td></tr><tr><td>3月6号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/6-min.jpg"></td></tr><tr><td>3月5号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/5-min.jpg"></td></tr><tr><td>3月4号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/4-min.jpg"></td></tr><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>3月13号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/13-min.jpg"></td></tr><tr><td>3月12号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/12-min.jpg"></td></tr><tr><td>3月11号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/11-min.jpg"></td></tr><tr><td>3月10号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/10-min.jpg"></td></tr><tr><td>3月9号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/9-min.jpg"></td></tr><tr><td>3月8号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/8-min.jpg"></td></tr><tr><td>3月6号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/6-min.jpg"></td></tr><tr><td>3月5号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/5-min.jpg"></td></tr><tr><td>3月4号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/4-min.jpg"></td></tr><tr><td>3月3号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/3-min.jpg"></td></tr><tr><td>3月2号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/2-min.jpg"></td></tr><tr><td>3月1号</td><td><img src="/img/wuweiwu/zen_sayings/2024/03/1-min.jpg"></td></tr></tbody></table>]]></content>
     
     
       
@@ -138,8 +163,8 @@
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;3月11号&lt;/td&gt;
-&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/11-min</summary>
+&lt;td&gt;3月13号&lt;/td&gt;
+&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/03/13-min</summary>
       
     
     
@@ -392,31 +417,6 @@
   </entry>
   
   <entry>
-    <title>solidity导语</title>
-    <link href="http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/"/>
-    <id>http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/</id>
-    <published>2023-08-16T02:32:30.000Z</published>
-    <updated>2024-03-01T02:20:38.167Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><p>Github库地址： <a class="link"   href="https://github.com/chenyuqing/solidity-by-example/tree/main" >solidity-by-example<i class="fas fa-external-link-alt"></i></a></p></li><li><p>solidity是一门编译性语言，需要经过编译器编译成字节码，然后再部署到区块链上，所以需要安装编译器，推荐使用<a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a>在线编译器，也可以使用<a class="link"   href="https://www.trufflesuite.com/" >truffle<i class="fas fa-external-link-alt"></i></a>本地编译器，但是truffle需要安装nodejs，npm，ganache等环境，比较麻烦，所以推荐使用remix。</p></li><li><p>solidity是一门面向合约的语言，所以需要有合约的概念，合约是一种特殊的类，合约中可以定义状态变量，函数，事件，修饰器，结构体，枚举等。</p></li><li><p><img src="/img/wuweiwu/solidity-study/solidity-basic.png"></p></li></ul><h2 id="Remix-IDE"><a href="#Remix-IDE" class="headerlink" title="Remix-IDE"></a>Remix-IDE</h2><ul><li><a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a></li><li>面板介绍<ul><li><img src="/img/wuweiwu/solidity-study/remix-ide.png"></li></ul></li></ul><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><ul><li>代码解释<ul><li><code>// SPDX-License-Identifier: MIT</code>：开源协议</li><li><code>pragma solidity ^0.8.18;</code>：版本声明</li><li><code>contract helloWorld</code>：合约声明</li><li><code>string public _str = &quot;hello world&quot;;</code>：状态变量声明</li></ul></li></ul><h2 id="Solidity基础知识"><a href="#Solidity基础知识" class="headerlink" title="Solidity基础知识"></a>Solidity基础知识</h2><ul><li><a href="/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="solidity基础知识">solidity基础知识</a></li></ul><h2 id="Solidity高级主题"><a href="#Solidity高级主题" class="headerlink" title="Solidity高级主题"></a>Solidity高级主题</h2><ul><li><a href="/2024/02/28/Web3/solidity/02-solidity%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/" title="solidity高级主题">solidity高级主题</a></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a class="link"   href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" >以太坊白皮书<i class="fas fa-external-link-alt"></i></a></li><li>极力推荐入门教程，配合食用更佳！写智能合约，节省gas费用永远放在第一位。<ul><li><a class="link"   href="https://solidity-cn.readthedocs.io/zh/develop/" >solidity中文网<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://cryptozombies.io/en/solidity" >僵尸打怪-Solidity: Beginner to Intermediate Smart Contracts<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.wtf.academy/solidity-start" >WTF-Solidity 101 入门<i class="fas fa-external-link-alt"></i></a></li><li>Solidity8.0全面精通-B站崔棉大师<ul><li><iframe src="//player.bilibili.com/player.html?aid=810148091&bvid=BV1E34y147JC&cid=562223215&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></li></ul></li><li><a class="link"   href="https://www.youtube.com/@thinkingchain/playlists" >理想区块链<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.youtube.com/@fredsolidity4455/playlists" >Fred带你学solidity<i class="fas fa-external-link-alt"></i></a></li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Github库地址： &lt;a class=&quot;link&quot;   href=&quot;https://github.com/chenyuqing/solidity-by-example/tree/main&quot; &gt;solidity-by-example&lt;i class=&quot;fa</summary>
-      
-    
-    
-    
-    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
-    
-    
-    <category term="solidity" scheme="http://example.com/tags/solidity/"/>
-    
-  </entry>
-  
-  <entry>
     <title>solidity基础知识</title>
     <link href="http://example.com/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <id>http://example.com/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
@@ -432,6 +432,31 @@
 &lt;li&gt;Solidity数据类型&lt;/li&gt;
 &lt;li&gt;Solidity运算符&lt;/li&gt;
 &lt;li&gt;Solid</summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="solidity" scheme="http://example.com/tags/solidity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>solidity导语</title>
+    <link href="http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/"/>
+    <id>http://example.com/2023/08/16/Web3/solidity/00-%E5%AF%BC%E8%AF%AD-solidity/</id>
+    <published>2023-08-16T02:32:30.000Z</published>
+    <updated>2024-03-01T02:20:38.167Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>Github库地址： <a class="link"   href="https://github.com/chenyuqing/solidity-by-example/tree/main" >solidity-by-example<i class="fas fa-external-link-alt"></i></a></p></li><li><p>solidity是一门编译性语言，需要经过编译器编译成字节码，然后再部署到区块链上，所以需要安装编译器，推荐使用<a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a>在线编译器，也可以使用<a class="link"   href="https://www.trufflesuite.com/" >truffle<i class="fas fa-external-link-alt"></i></a>本地编译器，但是truffle需要安装nodejs，npm，ganache等环境，比较麻烦，所以推荐使用remix。</p></li><li><p>solidity是一门面向合约的语言，所以需要有合约的概念，合约是一种特殊的类，合约中可以定义状态变量，函数，事件，修饰器，结构体，枚举等。</p></li><li><p><img src="/img/wuweiwu/solidity-study/solidity-basic.png"></p></li></ul><h2 id="Remix-IDE"><a href="#Remix-IDE" class="headerlink" title="Remix-IDE"></a>Remix-IDE</h2><ul><li><a class="link"   href="https://remix.ethereum.org/" >remix<i class="fas fa-external-link-alt"></i></a></li><li>面板介绍<ul><li><img src="/img/wuweiwu/solidity-study/remix-ide.png"></li></ul></li></ul><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.18</span>;</span><br><span class="line">contract helloWorld&#123;</span><br><span class="line">    string <span class="keyword">public</span> _str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><ul><li>代码解释<ul><li><code>// SPDX-License-Identifier: MIT</code>：开源协议</li><li><code>pragma solidity ^0.8.18;</code>：版本声明</li><li><code>contract helloWorld</code>：合约声明</li><li><code>string public _str = &quot;hello world&quot;;</code>：状态变量声明</li></ul></li></ul><h2 id="Solidity基础知识"><a href="#Solidity基础知识" class="headerlink" title="Solidity基础知识"></a>Solidity基础知识</h2><ul><li><a href="/2023/08/16/Web3/solidity/01-solidity%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="solidity基础知识">solidity基础知识</a></li></ul><h2 id="Solidity高级主题"><a href="#Solidity高级主题" class="headerlink" title="Solidity高级主题"></a>Solidity高级主题</h2><ul><li><a href="/2024/02/28/Web3/solidity/02-solidity%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/" title="solidity高级主题">solidity高级主题</a></li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a class="link"   href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" >以太坊白皮书<i class="fas fa-external-link-alt"></i></a></li><li>极力推荐入门教程，配合食用更佳！写智能合约，节省gas费用永远放在第一位。<ul><li><a class="link"   href="https://solidity-cn.readthedocs.io/zh/develop/" >solidity中文网<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://cryptozombies.io/en/solidity" >僵尸打怪-Solidity: Beginner to Intermediate Smart Contracts<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.wtf.academy/solidity-start" >WTF-Solidity 101 入门<i class="fas fa-external-link-alt"></i></a></li><li>Solidity8.0全面精通-B站崔棉大师<ul><li><iframe src="//player.bilibili.com/player.html?aid=810148091&bvid=BV1E34y147JC&cid=562223215&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe></li></ul></li><li><a class="link"   href="https://www.youtube.com/@thinkingchain/playlists" >理想区块链<i class="fas fa-external-link-alt"></i></a></li><li><a class="link"   href="https://www.youtube.com/@fredsolidity4455/playlists" >Fred带你学solidity<i class="fas fa-external-link-alt"></i></a></li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Github库地址： &lt;a class=&quot;link&quot;   href=&quot;https://github.com/chenyuqing/solidity-by-example/tree/main&quot; &gt;solidity-by-example&lt;i class=&quot;fa</summary>
       
     
     
@@ -517,39 +542,6 @@
     
     
     <category term="web3基础设施" scheme="http://example.com/tags/web3%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>停一停 心呼吸 每日銘言 202308</title>
-    <link href="http://example.com/2023/08/03/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202308/"/>
-    <id>http://example.com/2023/08/03/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202308/</id>
-    <published>2023-08-03T03:01:33.000Z</published>
-    <updated>2024-02-23T01:01:59.710Z</updated>
-    
-    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>8月30号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/30-min.jpeg"></td></tr><tr><td>8月29号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/29-min.jpeg"></td></tr><tr><td>8月25号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/25-min.jpeg"></td></tr><tr><td>8月23号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/23-min.jpeg"></td></tr><tr><td>8月21号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/21-min.jpeg"></td></tr><tr><td>8月19号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/19-min.jpeg"></td></tr><tr><td>8月18号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/18-min.jpeg"></td></tr><tr><td>8月17号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/17-min.jpeg"></td></tr><tr><td>8月16号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/16-min.jpeg"></td></tr><tr><td>8月15号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/15-min.jpeg"></td></tr><tr><td>8月14号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/14-1-min.jpeg"></td></tr><tr><td>8月14号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/14-2-min.jpeg"></td></tr><tr><td>8月12号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/12-min.jpeg"></td></tr><tr><td>8月11号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/11-min.jpeg"></td></tr><tr><td>8月10号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/10-min.jpeg"></td></tr><tr><td>8月9号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/09-min.jpeg"></td></tr><tr><td>8月8号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/08-min.jpeg"></td></tr><tr><td>8月5号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/05-min.jpeg"></td></tr><tr><td>8月4号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/04-min.jpeg"></td></tr><tr><td>8月3号</td><td><img src="/img/wuweiwu/zen_sayings/2023/08/03-min.jpeg"></td></tr></tbody></table>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;日期&lt;/th&gt;
-&lt;th&gt;銘言&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;8月30号&lt;/td&gt;
-&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2023/08/30-min</summary>
-      
-    
-    
-    
-    <category term="认知-修行-平衡" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/"/>
-    
-    
-    <category term="佛学" scheme="http://example.com/tags/%E4%BD%9B%E5%AD%A6/"/>
     
   </entry>
   
