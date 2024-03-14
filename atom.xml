@@ -94,31 +94,6 @@
   </entry>
   
   <entry>
-    <title>chainlink学习</title>
-    <link href="http://example.com/2024/03/01/Web3/solidity/chainlink_study/"/>
-    <id>http://example.com/2024/03/01/Web3/solidity/chainlink_study/</id>
-    <published>2024-03-01T04:22:30.000Z</published>
-    <updated>2024-03-13T02:45:23.635Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://chain.link/" >chainlink official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更加智能和功能丰富。</li></ul><h3 id="主要特点和功能包括："><a href="#主要特点和功能包括：" class="headerlink" title="主要特点和功能包括："></a>主要特点和功能包括：</h3><ol><li><p><strong>外部数据接入：</strong> Chainlink 允许区块链智能合约访问外部的数据源，包括网络 API、传感器数据、天气数据、金融市场数据等。这些数据可以用于触发智能合约的执行或影响其状态。</p></li><li><p><strong>数据验证和可信性：</strong> Chainlink 提供了一套机制来验证外部数据的真实性和可信度，以确保数据的准确性和安全性。这包括使用多个数据源、数据签名、可信执行环境等技术。</p></li><li><p><strong>可编程性和灵活性：</strong> Chainlink 允许开发人员根据自己的需求定义和部署预言机网络，从而实现各种不同类型的数据访问和验证。它提供了灵活的合约编程接口和工具，使开发人员能够根据应用场景定制预言机网络。</p></li><li><p><strong>安全和去中心化：</strong> Chainlink 采用去中心化的设计和安全机制，确保数据访问和验证的安全性和可靠性。它使用区块链技术和密码学算法来保护数据的安全，并通过分散化的节点网络来提供服务。</p></li><li><p><strong>可扩展性和互操作性：</strong> Chainlink 的设计具有良好的可扩展性和互操作性，可以与各种不同的区块链平台和智能合约系统集成，实现跨链数据访问和交互。</p></li></ol><ul><li>总的来说，Chainlink 是一个重要的基础设施项目，为区块链智能合约提供了可靠的外部数据访问和验证机制，推动了区块链技术在金融、保险、供应链等领域的应用和发展。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2><ul><li>官网开发者文档6大板块功能</li><li><img src="/img/wuweiwu/chainlink/what/chainlink-dev-frame.png"></li></ul><h3 id="Data-Feeds-喂价"><a href="#Data-Feeds-喂价" class="headerlink" title="Data Feeds 喂价"></a>Data Feeds 喂价</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/business_flow.png"></li><li>技术架构</li><li><img src="/img/wuweiwu/chainlink/what/technical_frame.png"></li></ul><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li><a class="link"   href="https://www.youtube.com/watch?v=NpfRX4jTA8M&ab_channel=Chainlink" >Chainlink产品讲解-Frank<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;https://chain.link/&quot; &gt;chainlink official&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br&gt;&lt;font color=&quot;red&quot;&gt; </summary>
-      
-    
-    
-    
-    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
-    
-    
-    <category term="chainlink" scheme="http://example.com/tags/chainlink/"/>
-    
-  </entry>
-  
-  <entry>
     <title>openzeppelin学习</title>
     <link href="http://example.com/2024/03/01/Web3/solidity/openzepplin_study/"/>
     <id>http://example.com/2024/03/01/Web3/solidity/openzepplin_study/</id>
@@ -140,6 +115,31 @@
     
     
     <category term="openzeppelin" scheme="http://example.com/tags/openzeppelin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>chainlink学习</title>
+    <link href="http://example.com/2024/03/01/Web3/solidity/chainlink_study/"/>
+    <id>http://example.com/2024/03/01/Web3/solidity/chainlink_study/</id>
+    <published>2024-03-01T04:22:30.000Z</published>
+    <updated>2024-03-14T11:46:15.476Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://chain.link/" >chainlink official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更加智能和功能丰富。</li></ul><h3 id="主要特点和功能包括："><a href="#主要特点和功能包括：" class="headerlink" title="主要特点和功能包括："></a>主要特点和功能包括：</h3><ol><li><p><strong>外部数据接入：</strong> Chainlink 允许区块链智能合约访问外部的数据源，包括网络 API、传感器数据、天气数据、金融市场数据等。这些数据可以用于触发智能合约的执行或影响其状态。</p></li><li><p><strong>数据验证和可信性：</strong> Chainlink 提供了一套机制来验证外部数据的真实性和可信度，以确保数据的准确性和安全性。这包括使用多个数据源、数据签名、可信执行环境等技术。</p></li><li><p><strong>可编程性和灵活性：</strong> Chainlink 允许开发人员根据自己的需求定义和部署预言机网络，从而实现各种不同类型的数据访问和验证。它提供了灵活的合约编程接口和工具，使开发人员能够根据应用场景定制预言机网络。</p></li><li><p><strong>安全和去中心化：</strong> Chainlink 采用去中心化的设计和安全机制，确保数据访问和验证的安全性和可靠性。它使用区块链技术和密码学算法来保护数据的安全，并通过分散化的节点网络来提供服务。</p></li><li><p><strong>可扩展性和互操作性：</strong> Chainlink 的设计具有良好的可扩展性和互操作性，可以与各种不同的区块链平台和智能合约系统集成，实现跨链数据访问和交互。</p></li></ol><ul><li>总的来说，Chainlink 是一个重要的基础设施项目，为区块链智能合约提供了可靠的外部数据访问和验证机制，推动了区块链技术在金融、保险、供应链等领域的应用和发展。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2><ul><li>官网开发者文档6大板块功能</li><li><img src="/img/wuweiwu/chainlink/what/chainlink-dev-frame.png"></li><li>Chainlink Web3 服务可分为三大类<ul><li>数据 data<ul><li>data feeds</li><li>data streams</li><li>functions</li></ul></li><li>计算 compute<ul><li>VRF</li><li>Automation</li></ul></li><li>跨链 cross-chain<ul><li>CCIP</li></ul></li></ul></li></ul><h3 id="Data-Feeds-喂价"><a href="#Data-Feeds-喂价" class="headerlink" title="Data Feeds 喂价"></a>Data Feeds 喂价</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/df_workflow.png"></li><li>技术架构</li><li><img src="/img/wuweiwu/chainlink/what/df_technical_frame.png"></li><li>用户案例</li><li><img src="/img/wuweiwu/chainlink/what/df-usce.png"></li></ul><h3 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/func-workflow.png"></li><li>用户案例</li><li><img src="/img/wuweiwu/chainlink/what/func-use.png"></li><li><img src="/img/wuweiwu/chainlink/what/func-example.png"></li></ul><h3 id="CCIP"><a href="#CCIP" class="headerlink" title="CCIP"></a>CCIP</h3><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li><a class="link"   href="https://www.youtube.com/watch?v=NpfRX4jTA8M&ab_channel=Chainlink" >Chainlink产品讲解-Frank<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;https://chain.link/&quot; &gt;chainlink official&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br&gt;&lt;font color=&quot;red&quot;&gt; </summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="chainlink" scheme="http://example.com/tags/chainlink/"/>
     
   </entry>
   
