@@ -240,7 +240,7 @@
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2024-02-29 09:35:24</span>
+        <span class="pc">2024-03-16 23:19:47</span>
     </span>
     
     
@@ -272,7 +272,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>321 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>311 字</span>
         </span>
     
     
@@ -302,8 +302,8 @@
 </ul>
 <h2 id="Todos"><a href="#Todos" class="headerlink" title="Todos"></a>Todos</h2><h3 id="install-nodeks-and-npm"><a href="#install-nodeks-and-npm" class="headerlink" title="install nodeks and npm"></a>install nodeks and npm</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 更新</span><br><span class="line">sudo apt-get update</span><br><span class="line"># 安装低版本的node，然后再升级最新</span><br><span class="line">sudo apt-get install nodejs</span><br><span class="line">sudo apt install nodejs-legacy</span><br><span class="line">sudo apt install npm</span><br><span class="line">#安装更新版本的工具N，执行：</span><br><span class="line">sudo npm install n -g</span><br><span class="line">#跟新node版本，执行：</span><br><span class="line">sudo n stable</span><br><span class="line">sudo node -v</span><br><span class="line"></span><br><span class="line"># install hexo-cli</span><br><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <h3 id="install-and-config-git"><a href="#install-and-config-git" class="headerlink" title="install and config git"></a>install and config git</h3><ul>
-<li>ref1, <a class="link"   target="_blank" rel="noopener" href="https://motoleisure.com/2017/03/02/how-to-use-git-quickly-part1/" >https://motoleisure.com/2017/03/02/how-to-use-git-quickly-part1/<i class="fas fa-external-link-alt"></i></a></li>
-<li>ref2, <a class="link"   target="_blank" rel="noopener" href="https://motoleisure.com/2017/03/02/how-to-use-git-quickly-part2/" >https://motoleisure.com/2017/03/02/how-to-use-git-quickly-part2/<i class="fas fa-external-link-alt"></i></a></li>
+<li>ref1, <a href="/2017/03/02/%E5%B0%8F%E8%80%8C%E7%BE%8E-%E5%B7%A5%E5%85%B7/how-to-use-git-quickly-part1/" title="how to use git quickly Part 1">how to use git quickly Part 1</a></li>
+<li>ref2, <a href="/2017/03/02/%E5%B0%8F%E8%80%8C%E7%BE%8E-%E5%B7%A5%E5%85%B7/how-to-use-git-quickly-part2/" title="how to use git quickly part 2">how to use git quickly part 2</a></li>
 </ul>
 <h3 id="install-hexo-with-npm"><a href="#install-hexo-with-npm" class="headerlink" title="install hexo with npm"></a>install hexo with npm</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">-(1) delete origiginal your own github.io repository</span><br><span class="line">-(2) create the new one</span><br><span class="line">-(3) git clone to local</span><br><span class="line">-(4) hexo init &lt;folder&gt;, and move the contents into local github.io repository</span><br><span class="line">-(5) move your own theme files and confg.yaml file to the proper location</span><br><span class="line">-(6) install the node libs what your theme needs to satisfy</span><br><span class="line"></span><br><span class="line">- for example, I use the indigo theme, I should run below commands</span><br><span class="line">cd &lt;github.io folder&gt;</span><br><span class="line"># 主题默认使用 less 作为 css 预处理工具。</span><br><span class="line">npm install hexo-renderer-less --save</span><br><span class="line"># 用于生成 rss。</span><br><span class="line">npm install hexo-generator-feed --save</span><br><span class="line"># 用于生成静态站点数据，用作站内搜索的数据源。</span><br><span class="line">npm install hexo-generator-json-content --save</span><br><span class="line"># 用于生成微信分享二维码。</span><br><span class="line">npm install hexo-helper-qrcode --save</span><br><span class="line"># error, hexo d后 ERROR Deployer not found: git</span><br><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
 
