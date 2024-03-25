@@ -55,73 +55,81 @@
 <main class="page-container">
 
     
-        
-<div class="first-screen-container flex-center fade-in-down-animation">
-    <div class="content flex-center">
-        
-            <div class="description hitokoto">
-                
-                    <div class="desc-item"></div>
-                
-            </div>
-        
-        
-            <script async data-pjax
-                    src="https://v1.hitokoto.cn/?encode=js"
-            >
-            </script>
-        
-        
-            <div class="s-icon-list">
-                
-                    
-                        
-                        <div class="tooltip s-icon-item "
-                             data-content="GitHub"
-                             data-name="github"
-                             
-                        >
-                            
-                                
-                                    <a target="_blank" href="https://github.com/chenyuqing">
-                                        <i class="fab fa-github"></i>
-                                    </a>
-                                
-                            
-                        </div>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                        
-                        <div class="tooltip s-icon-item "
-                             data-content="Email"
-                             data-name="email"
-                             
-                        >
-                            
-                                <a href="mailto:motoleisure@163.com">
-                                    <i class="fas fa-envelope"></i>
-                                </a>
-                            
-                        </div>
-                    
-                
-            </div>
-        
-    </div>
-</div>
+        $first-screen-font-size = 2rem
+$first-screen-icon-size = 1.8rem
+
+$temp-img = hexo-config('style.first_screen.background_img')
+$first-screen-img = $temp-img ? $temp-img : '/images/bg.svg'
+
+$temp-font-color = hexo-config('style.first_screen.font_color')
+$first-screen-font-color = $temp-font-color ? convert($temp-font-color) : var(--text-color-3)
+
+.first-screen-container {
+  position relative
+  box-sizing border-box
+  width 100%
+  height 100vh
+  overflow hidden
+  background url($first-screen-img) center center / cover no-repeat
+
+  if (!(hexo-config('style.first_screen.header_transparent') == true)) {
+    background-position-y $header-height
+
+    +keep-tablet() {
+      background-position-y $header-height * 0.9
+    }
+
+    +keep-mobile() {
+      background-position-y $header-height * 0.8
+    }
+  }
+
+  .content {
+    position relative
+    box-sizing border-box
+    width 80%
+    height 90%
+    padding-top 2rem
+
+    .description {
+      color $first-screen-font-color
+      font-weight bold
+      font-size $first-screen-font-size
+      line-height 1.8
+      text-align center
+
+      .desc-item {
+        color $first-screen-font-color
+      }
+
+      +keep-tablet() {
+        font-size $first-screen-font-size * 0.9
+      }
+    }
+
+
+    .s-icon-list {
+      position absolute
+      bottom 0
+      display flex
+      box-sizing border-box
+      font-size $first-screen-icon-size
+
+      +keep-tablet() {
+        font-size $first-screen-icon-size * 0.9
+      }
+
+      .s-icon-item {
+        margin 0 1rem
+        cursor pointer
+
+        i {
+          color var(--text-color-3)
+        }
+      }
+    }
+  }
+}
 
     
 
@@ -299,6 +307,14 @@
 
 
 
+3月25号
+
+
+
+3月24号
+
+
+
 3月23号
 
 
@@ -339,15 +355,7 @@
 
 
 
-3月13号
-
-
-
-3月12号
-
-
-
-3月11号...
+3月13号...
                     
                 </div>
 
@@ -355,8 +363,8 @@
     <div class="home-article-meta-info">
         <span>
             <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Sat Mar 23 2024 23:36:33 GMT+0800">
-                2024-03-23
+            <span class="home-article-date" data-updated="Mon Mar 25 2024 12:38:06 GMT+0800">
+                2024-03-25
             </span>
         </span>
         
@@ -844,6 +852,64 @@ Day 1-
                 
 
                 <h3 class="home-article-title">
+                    <a href="/2024/03/01/Web3/solidity/chainlink_study/">
+                        chainlink学习
+                    </a>
+                </h3>
+
+                <div class="home-article-content keep-markdown-body">
+                    
+                        
+chainlink official ChatGPT生成：  Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span>
+            <i class="fas fa-history"></i>&nbsp;
+            <span class="home-article-date" data-updated="Sat Mar 16 2024 10:19:18 GMT+0800">
+                2024-03-16
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/">技能-修行-进步-Web3</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/chainlink/">chainlink</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a class="read-more" href="/2024/03/01/Web3/solidity/chainlink_study/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
                     <a href="/2024/03/01/Web3/solidity/openzepplin_study/">
                         openzeppelin学习
                     </a>
@@ -894,64 +960,6 @@ openzeppelin official ChatGPT生成：  OpenZeppelin 是一个开源的智能合
     </div>
 
     <a class="read-more" href="/2024/03/01/Web3/solidity/openzepplin_study/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2024/03/01/Web3/solidity/chainlink_study/">
-                        chainlink学习
-                    </a>
-                </h3>
-
-                <div class="home-article-content keep-markdown-body">
-                    
-                        
-chainlink official ChatGPT生成：  Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span>
-            <i class="fas fa-history"></i>&nbsp;
-            <span class="home-article-date" data-updated="Sat Mar 16 2024 10:19:18 GMT+0800">
-                2024-03-16
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/">技能-修行-进步-Web3</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fas fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/chainlink/">chainlink</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a class="read-more" href="/2024/03/01/Web3/solidity/chainlink_study/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
