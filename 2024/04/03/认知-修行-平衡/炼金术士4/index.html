@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Tim Chen(motion$)">
+    
+    <title>
+        
+            炼金术士3-第二章 |
+        
+        In Web3.0 We Trust
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#7bed9f","logo":"/img/favicon.ico","favicon":"/img/favicon.ico","avatar":"/img/favicon.ico","font_size":"16px","font_family":"STKaiti, STHeiti","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":false,"background_img":"/img/bg.svg","description":null,"font_color":"#7bed9f","hitokoto":true},"scroll":{"progress_bar":true,"percent":false}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"chenyuqing","github_admins":["chenyuqing"],"repository":"gittalk-comment","client_id":"9e91691916561f410b89","client_secret":"b1f7e5e85cbcc4197d669d0731ef300bc7630dc7","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/img/favicon.ico">
+                </a>
+            
+            <a class="logo-title" href="/">
+               In Web3.0 We Trust
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/books"
+                            >
+                                读书
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/jokes"
+                            >
+                                段子
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于我
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/books">读书</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/jokes">段子</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于我</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">炼金术士3-第二章</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/img/favicon.ico">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Tim Chen(motion$)</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2024-04-03 15:38:30</span>
+        <span class="mobile">2024-04-03 15:38</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2024-04-03 15:50:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/">认知-修行-平衡</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%82%BC%E9%87%91%E6%9C%AF%E5%A3%AB/">炼金术士</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>5.6k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>18 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ul>
+<li>Paulo Coelho 保罗·科埃略</li>
+</ul>
+<hr>
+<ul>
+<li><p>男孩在水晶商工作了快一个月了，他看得出来，这并不是一份能让他开心的工作。 商人整天在柜台后面咕哝着，告诉男孩要小心碎片，不要弄坏任何东西。</p>
+</li>
+<li><p>但他还是坚持了这份工作，因为商人虽然是个脾气暴躁的老人，但对他很公平。 男孩每卖出一件作品都会得到丰厚的佣金，并且已经可以存一些钱了。 那天早上他算了一笔账：如果继续像以前那样每天干活，他需要一整年才能买几只羊。</p>
+</li>
+<li><p>“我想为水晶做一个展示柜”，男孩对商人说。 “我们可以把它放在外面，吸引那些经过山脚的人”。</p>
+</li>
+<li><p>商人回答说：“我以前从来没有吃过。” “人走过，撞到，碎片就会碎”。</p>
+</li>
+<li><p>“好吧，当我带着我的羊穿过田野时，如果我们遇到一条蛇，其中一些可能会死。但这就是羊和牧羊人的生活”。</p>
+</li>
+<li><p>商人找到一位想要三块水晶玻璃杯的顾客。 他的销量比以往任何时候都好……仿佛时间回到了过去，当时这条街是丹吉尔的主要景点之一。</p>
+</li>
+<li><p>顾客离开后，他对男孩说：“生意确实好转了。” “我做得好多了，很快你就可以回到你的羊身边了。为什么要对生活要求更多呢？”。</p>
+</li>
+<li><p>“因为我们必须对预兆做出反应”，男孩几乎无意识地说。 然后他后悔自己说过的话，因为商人从未见过国王。</p>
+</li>
+<li><p>老国王曾说过：“这就是所谓的有利原则，初学者的运气。因为生活要你实现你的命运”。</p>
+</li>
+<li><p>但商人听懂了男孩的话。 男孩出现在店里本身就是一个预兆，随着时间的流逝，钱不断涌入钱箱，他并不后悔雇用了这个男孩。 这个男孩得到的钱比他应得的多，因为商人认为销售额不会很高，所以给了男孩很高的佣金。 他原以为自己很快就会回到羊群身边。</p>
+</li>
+<li><p>“你为什么想去金字塔？” 他要求摆脱显示器的事务。</p>
+</li>
+<li><p>“因为我一直听说过它们”，男孩回答道，没有提及他的梦想。 那件宝藏现在只是一段痛苦的回忆，他努力避免去想它。</p>
+</li>
+<li><p>“我不知道这附近有谁愿意穿越沙漠只是为了看看金字塔”，商人说。 “它们只是一堆石头。你可以在你的后院建造一个”。</p>
+</li>
+<li><p>“你从来没有梦想过旅行。”男孩说着，转身去接待一位走进商店的顾客。</p>
+</li>
+<li><p>两天后，商人与男孩谈论了这个展览。</p>
+</li>
+<li><p>“我不太喜欢改变”，他说。 “你和我不像哈桑，那个富商。如果他买错了，对他影响不大。但我们两个必须忍受我们的错误”。</p>
+</li>
+<li><p>确实如此，男孩悲伤地想。</p>
+</li>
+<li><p>“你为什么认为我们应该有这个展示？”</p>
+</li>
+<li><p>“我想更快地回到我的羊身边。当运气站在我们这边时，我们必须利用它，尽可能地帮助它，就像它帮助我们一样。这就是所谓的好感原则。或者初学者的运气”。</p>
+</li>
+<li><p>商人沉默了一会儿。 然后他说：“先知给了我们《古兰经》，并留给我们一生中要履行的五项义务。最重要的是只相信独一的真主。其他的是每天祈祷五次，在斋月期间禁食 ，并对穷人施舍”。</p>
+</li>
+<li><p>他停在那里。 当他谈到先知时，他的眼睛里充满了泪水。 他是一个虔诚的人，尽管他非常不耐烦，但他还是想按照穆斯林法律生活。</p>
+</li>
+<li><p>“第五项义务是什么？” 男孩问道。</p>
+</li>
+<li><p>“两天前，你说我从来没有梦想过旅行。”商人回答道。</p>
+</li>
+<li><p>“每个穆斯林的第五项义务是朝圣。我们一生中至少有一次必须参观圣城麦加。</p>
+</li>
+<li><p>“麦加比金字塔远很多。当我年轻的时候，我只想攒够钱开一家店。我以为有一天我会变得富有，可以去麦加。我开始 赚了一些钱，但我总是舍不得把店留给专人负责，水晶是很娇贵的东西。与此同时，人们一直路过我的店，前往麦加。其中一些是富有的朝圣者， 带着仆人和骆驼乘着商队旅行，但大多数朝圣的人都比我穷。</p>
+</li>
+<li><p>“所有去那里的人都为此感到高兴。他们把朝圣的标志贴在自家门上。其中一个以补靴子为生的鞋匠说，他已经在这片土地上旅行了将近一年。 沙漠，但当他不得不穿过丹吉尔的街道购买皮革时，他变得更加疲倦”。</p>
+</li>
+<li><p>“那么，你为什么不现在就去麦加呢？” 男孩问道。</p>
+</li>
+<li><p>“因为对麦加的思念让我活了下来。这就是帮助我面对这些千篇一律的日子的原因，架子上这些无声的水晶，以及那家可怕的咖啡馆的午餐和晚餐。我担心如果我的梦想 当我意识到这一点时，我就没有理由继续活下去了。</p>
+</li>
+<li><p>“你梦想着你的羊和金字塔，但你和我不同，因为你想要实现你的梦想。我只想梦想着麦加。我已经想象过一千次穿越沙漠，到达广场 关于圣石，我在允许自己触摸它之前绕着它走了七次。我已经想象过那些会在我身边的人，以及那些在我面前的人，以及我们将分享的对话和祈祷。但是 我担心这一切都会令人失望，所以我宁愿只做梦”。</p>
+</li>
+<li><p>那天，商人允许男孩建造这个展示架。 并不是每个人都能以同样的方式看到他的梦想成真。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>又过了两个月，货架给水晶店带来了很多顾客。</p>
+</li>
+<li><p>男孩估计，如果他再工作六个月，他就可以回到西班牙买六十只羊，然后再买六十只。 不到一年，他的羊群数量就会增加一倍，而且他将能够与阿拉伯人做生意，因为他现在能够说他们奇怪的语言。 自从那天早上在市场上，他就再也没有使用过乌陵和土明，因为埃及现在对他来说就像麦加对商人一样遥远的梦想。 不管怎样，这个男孩对他的工作感到很高兴，并且一直想着有一天他会作为胜利者在塔里法下船。</p>
+</li>
+<li><p>老国王曾说过：“你必须永远知道自己想要什么”。 男孩知道了，并且现在正在朝着这个目标努力。 也许这是他的财富，因为他来到了那片陌生的土地，遇到了一个小偷，并且不花一分钱就将他的羊群数量增加了一倍。</p>
+</li>
+<li><p>他为自己感到骄傲。 他学到了一些重要的东西，比如如何处理水晶、无言的语言……以及预兆。 一天下午，他在山顶上看到一个人，抱怨爬了这么远，找不到一个像样的地方喝点东西。 习惯于识别预兆的男孩对商人说道。</p>
+</li>
+<li><p>“我们把茶卖给爬山的人吧”。</p>
+</li>
+<li><p>“这附近有很多卖茶的地方”，商家说。</p>
+</li>
+<li><p>“但是我们可以用水晶玻璃杯出售茶。人们会喜欢茶并想购买水晶玻璃杯。有人告诉我，美丽是男人的最大诱惑者”。</p>
+</li>
+<li><p>商人没有回应，但那天下午，在祈祷并关门后，他邀请男孩和他坐在一起，分享他的水烟，这是阿拉伯人使用的一种奇怪的烟斗。</p>
+</li>
+<li><p>“你在找什么？” 老商人问道。</p>
+</li>
+<li><p>“我已经告诉过你了，我要把我的羊买回来，所以我必须赚钱”。</p>
+</li>
+<li><p>商人在水烟袋里放了一些新煤，深深地吸了一口气。</p>
+</li>
+<li><p>“我开这家店已经三十年了。我知道水晶的好坏，以及关于水晶的一切知识。我知道它的尺寸和它的性能。如果我们用水晶来泡茶，这家店就会扩大 ……然后我就必须改变我的生活方式”。</p>
+</li>
+<li><p>“嗯，这样不是很好吗？”</p>
+</li>
+<li><p>“我已经习惯了，在你来之前，我在想，我在同一个地方浪费了多少时间，而我的朋友们却纷纷离开，要么破产，要么过得比以前更好。 这让我很郁闷。现在看来，情况还不错。商店的大小正是我一直想要的。我不想改变任何东西，因为我不知道如何改变 应对变化。我已经习惯了现在的样子”。</p>
+</li>
+<li><p>男孩不知道该说什么。 老人继续说道：“你对我来说是真正的祝福。今天，我明白了一些我以前从未见过的事情：每一个被忽视的祝福都会变成诅咒。我的生活中不想要任何其他东西。但你却在强迫我 看看我从未了解过的财富和视野。现在我已经看到了它们，现在我看到了我的可能性有多么巨大，我会比你到来之前感觉更糟。</p>
+</li>
+<li><p>因为我知道我应该能够完成哪些事情，但我不想这样做”。</p>
+</li>
+<li><p>幸好我没有对塔里法的面包师说什么，男孩心里想。</p>
+</li>
+<li><p>太阳开始落山时，他们又继续抽了一会儿烟斗。 他们用阿拉伯语交谈，男孩为自己能够做到这一点感到自豪。 曾经有一段时间，他认为他的羊可以教他关于世界的一切知识。 但他们永远不可能教他阿拉伯语。</p>
+</li>
+<li><p>世界上可能还有其他事情是羊无法教给我的，男孩一边看着老商人，一边想。 实际上，它们所做的就是寻找食物和水。</p>
+</li>
+<li><p>也许并不是他们在教我，而是我在向他们学习。</p>
+</li>
+<li><p>“Maktub”，商人最后说道。</p>
+</li>
+<li><p>“这意味着什么？”</p>
+</li>
+<li><p>他回答说：“你必须生为阿拉伯人才能理解。” “但用你们的语言来说，它会像‘它是这样写的’”。</p>
+</li>
+<li><p>当他扑灭水烟袋中的煤炭时，他告诉男孩他可以开始卖水晶杯里的茶了。 有时，没有办法阻止河流。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>男人们爬上了山，到达山顶时他们已经累了。 但在那里他们看到了一家水晶店，出售清爽的薄荷茶。 他们进去喝茶，茶装在漂亮的水晶玻璃杯里。</p>
+</li>
+<li><p>“我妻子从来没有想到过这一点”，一位人士说，他买了一些水晶——那天晚上他正在招待客人，客人们一定会被玻璃器皿的美丽所折服。 另一个人说，用水晶泡茶总是更美味，因为香气得以保留。 第三个说，用水晶杯泡茶是东方的传统，因为它具有神奇的力量。</p>
+</li>
+<li><p>不久，消息传开，不少人开始爬上山去，一睹这家老字号新花样的店铺的风采。 还有一些卖水晶茶的店也开了，但不是在山顶，生意也很少。</p>
+</li>
+<li><p>最终，商家不得不再雇用两名员工。 他开始进口大量的茶叶和水晶，他的商店受到了渴望新鲜事物的男男女女的青睐。</p>
+</li>
+<li><p>就这样，几个月过去了。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>天亮前男孩就醒了。 距离他第一次踏上非洲大陆，已经过去了十一个月零九天。</p>
+</li>
+<li><p>他穿着专门为这一天买的白色亚麻阿拉伯服装。 他将头巾放在适当的位置，并用骆驼皮制成的环将其固定。 他穿着新买的凉鞋，默默走下楼梯。</p>
+</li>
+<li><p>这座城市还在沉睡中。 他给自己准备了一份三明治，喝了一杯水晶玻璃杯里的热茶。 然后他坐在阳光普照的门口，抽着水烟。</p>
+</li>
+<li><p>他默默地抽烟，什么也不想，听着风的声音带来沙漠的气味。 当他吸完烟后，他把手伸进口袋，坐了一会儿，思考着他取出的东西。</p>
+</li>
+<li><p>那是一大笔钱。 足够给自己买一百二十只羊、一张回程机票以及从非洲进口产品到自己国家的许可证。</p>
+</li>
+<li><p>他耐心地等待着商人醒来并开店。 然后两人又去喝茶了。</p>
+</li>
+<li><p>男孩说：“我今天就走。” “我有钱买羊。你也有钱去麦加”。</p>
+</li>
+<li><p>老人什么也没说。</p>
+</li>
+<li><p>“你愿意给我祝福吗？” 男孩问道。 “你帮助了我”。 男人继续泡茶，没有说话。 然后他转向男孩。</p>
+</li>
+<li><p>“我为你感到骄傲”，他说。 “你给我的水晶店带来了新的感觉。但你知道我不会去麦加。就像你知道你不会买你的羊一样”。</p>
+</li>
+<li><p>“谁告诉你的？” 男孩吃惊地问道。</p>
+</li>
+<li><p>“Maktub”老水晶商人说道。</p>
+</li>
+<li><p>他给了这个男孩祝福。</p>
+</li>
+<li><p>男孩回到自己的房间，收拾好行李。 他们装满了三个麻袋。 当他离开时，他在房间的角落里看到了他的旧牧羊人的袋子。 它被扎成一团，他已经很长一段时间几乎没有想到过它了。 当他从袋子里拿出夹克，想把它送给街上的某个人时，两块石头掉到了地板上。 乌陵和土明。</p>
+</li>
+<li><p>这让男孩想起了老国王，他惊讶地意识到自己已经有多久没有想起他了。 近一年来，他一直在不停地工作，只想着攒够钱，以便能够自豪地回到西班牙。</p>
+</li>
+<li><p>“永远不要停止梦想”，老国王说过。 “遵循预兆”。</p>
+</li>
+<li><p>男孩抱起乌陵和土明，再次有一种奇怪的感觉，老国王就在附近。 他辛苦工作了一年，预兆是该离开了。</p>
+</li>
+<li><p>我要回去做以前做过的事，男孩想。 尽管羊没有教我说阿拉伯语。</p>
+</li>
+<li><p>但羊教会了他一些更重要的东西：世界上有一种人人都能理解的语言，男孩在他试图改善商店里的东西的整个过程中一直在使用这种语言。 这是一种热情的语言，是用爱和目标完成的事情，也是对所相信和渴望的事物的探索的一部分。 丹吉尔不再是一座陌生的城市，他觉得，就像他征服了这个地方一样，他也能征服世界。</p>
+</li>
+<li><p>老国王曾说过：“当你想要某样东西时，整个宇宙都会齐心协力帮助你实现它”。</p>
+</li>
+<li><p>但老国王并没有提到任何关于被抢劫的事情，或者关于无尽的沙漠，或者关于那些知道自己的梦想是什么但不想实现它们的人的事情。 老国王没有告诉他金字塔只是一堆石头，也没有告诉他任何人都可以在他的后院建造一座。 他忘了提到，当你有足够的钱去买比你以前拥有的更大的羊群时，你就应该买它。</p>
+</li>
+<li><p>男孩拿起他的袋子，把它和其他东西放在一起。 他走下楼梯，发现店家正在接待一对外国夫妇，而另外两名顾客则在店里走来走去，用水晶玻璃杯喝着茶。 早上这个时候的活动比平时要多。 从他站的地方，他第一次看到老商人的头发和老国王的头发非常像。 他记得来到丹吉尔的第一天，当他没有东西吃，也无处可去时，糖果小贩的笑容——那笑容也像老国王的笑容。</p>
+</li>
+<li><p>他想，就好像他来过这里并留下了自己的印记一样。 然而，这些人都没有见过老国王。 另一方面，他说他总是出现来帮助那些试图实现自己命运的人。</p>
+</li>
+<li><p>他没有和水晶商人告别就离开了。 他不想和其他人一起哭。 他会想念这个地方和他学到的所有美好事物。</p>
+</li>
+<li><p>不过，他对自己更有信心，觉得自己可以征服世界。</p>
+</li>
+<li><p>“但我要回到我熟悉的田野，再次照顾我的羊群”。 他很肯定地对自己这么说，但他对自己的决定不再满意。 他为了梦想而努力了整整一年，而这个梦想却在一分钟一分钟地变得不那么重要了。 也许是因为那并不是他真正的梦想。</p>
+</li>
+<li><p>谁知道呢……也许像水晶商人那样更好：永远不要去麦加，只是一生都想去麦加，他想，再次试图说服自己。 但当他手里握着乌陵和土明时，它们就向他传递了老国王的力量和意志。 纯属巧合——或者也许这是一个预兆，男孩想——他来到了他第一天进入的酒吧。 小偷不在，店主给他端了一杯茶。</p>
+</li>
+<li><p>我总能回去当牧羊人，男孩想。 我学会了如何照顾羊，而且我没有忘记那是怎么做的。 但也许我再也没有机会去埃及金字塔了。 这位老人穿着黄金胸甲，他知道我的过去。 他确实是一个国王，一个明智的国王。</p>
+</li>
+<li><p>安达卢西亚的山丘距离酒店只有两个小时的路程，但他和金字塔之间却是一片沙漠。 然而男孩觉得可以用另一种方式来看待自己的处境：他实际上距离他的宝藏又近了两个小时……这两个小时延长到一整年并不重要。</p>
+</li>
+<li><p>我知道为什么我想回到我的羊群中，他想。 我了解羊； 他们不再是问题，而且可以成为好朋友。 另一方面，我不知道沙漠是否可以成为朋友，而我必须在沙漠中寻找我的宝藏。 如果找不到，我可以随时回家。 我终于有了足够的钱，以及我需要的所有时间。 为什么不？</p>
+</li>
+<li><p>他突然感到无比的幸福。 他总能回去当牧羊人。 他总能再次成为一名水晶推销员。 也许世界上还有其他隐藏的宝藏，但他有一个梦想，他遇到了一位国王。 这不会发生在任何人身上！</p>
+</li>
+<li><p>当他离开酒吧时，他正在计划。 他记得水晶商人的一位供应商通过穿越沙漠的商队运输他的水晶。 他手里拿着乌陵和土明； 因为这两块石头，他再次踏上了寻宝之路。</p>
+</li>
+<li><p>“当有人想要实现自己的命运时，我总是在附近”，老国王告诉他。</p>
+</li>
+<li><p>去供应商的仓库看看金字塔是否真的有那么远需要花多少钱？</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>英国人坐在一座散发着动物、汗水和灰尘气味的建筑里的长凳上。 它一半是仓库，一半是畜栏。 我从来没想过自己会落到这样的境地，他一边翻阅化学期刊，一边想。 大学十年了，而我却在一个畜栏里。</p>
+</li>
+<li><p>但他必须继续前进。 他相信预兆。 他一生和所有的研究都旨在寻找宇宙中唯一一种真正的语言。 他首先学习了世界语，然后学习了世界宗教，现在又学习了炼金术。 他知道如何说世界语，他了解所有主要宗教，但他还不是炼金术士。 他揭开了重要问题背后的真相，但他的研究已经把他带到了一个他似乎无法超越的地步。 他曾试图与炼金术士建立关系，但没有成功。 但炼金术士们都是奇怪的人，他们只考虑自己，几乎总是拒绝帮助他。 谁知道呢，也许他们没能发现大师之作——贤者之石的秘密——因此将他们的知识保密。</p>
+</li>
+<li><p>他已经花掉了父亲留给他的大部分财产，徒劳地寻找贤者之石。 他在世界各地的大型图书馆里花费了大量的时间，购买了所有最稀有和最重要的炼金术书籍。 他在一本书中读到，许多年前，一位著名的阿拉伯炼金术士访问了欧洲。 据说他已经两百多岁了，还发现了贤者之石和长生不老药。 这个故事给英国人留下了深刻的印象。 但如果不是他的一位朋友——从沙漠考古探险回来——告诉他有一个阿拉伯人拥有超凡的力量，他绝不会认为这只是一个神话。</p>
+</li>
+<li><p>“他住在法尤姆绿洲”，他的朋友说。 “人们说他已经两百岁了，能点金成金”。</p>
+</li>
+<li><p>英国人无法抑制自己的兴奋。 他取消了所有的承诺，并整理了他最重要的书，现在他坐在一个布满灰尘、散发着臭味的仓库里。 外面，一支巨大的商队正在准备穿越撒哈拉沙漠，并计划途经法尤姆。</p>
+</li>
+<li><p>我要找到那个该死的炼金术士，英国人想。 动物的气味也变得更容易忍受了。</p>
+</li>
+<li><p>一个年轻的阿拉伯人也背着行李走了进来，向英国人打招呼。</p>
+</li>
+<li><p>“你被绑在哪里？” 年轻的阿拉伯人问道。</p>
+</li>
+<li><p>“我要去沙漠”，那人回答道，然后又继续看书。 他此时不想进行任何谈话。 他要做的就是回顾一下自己这些年所学到的一切，因为炼金术士肯定会对他进行考验。</p>
+</li>
+<li><p>年轻的阿拉伯人拿出一本书开始阅读。 这本书是用西班牙语写的。</p>
+</li>
+<li><p>那很好，英国人想。 他的西班牙语比阿拉伯语说得更好，而且，如果这个男孩要去法尤姆，当没有其他重要的事情要做时，就会有人可以说话。</p>
+</li>
+</ul>
+<hr>
+<p>- </p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">炼金术士3-第二章</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">Tim Chen(motion$)</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2024-04-03 15:38:30</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2024/04/03/认知-修行-平衡/炼金术士4/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E7%82%BC%E9%87%91%E6%9C%AF%E5%A3%AB/">#炼金术士</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2024/04/03/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E7%82%BC%E9%87%91%E6%9C%AF%E5%A3%AB3/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">炼金术士3-第一章</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: '9e91691916561f410b89',
+                clientSecret: 'b1f7e5e85cbcc4197d669d0731ef300bc7630dc7',
+                repo: 'gittalk-comment',
+                owner: 'chenyuqing',
+                admin: 'chenyuqing',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh-CN'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2012</span> -
+            
+            2024
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Tim Chen(motion$)</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+            <div class="deploy-info info-item">
+                
+                    <a target="_blank" rel="nofollow" href="https://github.com/chenyuqing/chenyuqing.github.io">
+                
+                    本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                
+                    </a>
+                
+            </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-block.js"></script>
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+            
+<script src="/js/libs/anime.min.js"></script>
+
+        
+        
+            
+<script src="/js/toc.js"></script>
+
+        
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
