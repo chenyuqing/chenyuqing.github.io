@@ -9,7 +9,7 @@
     
     <title>
         
-            conda docker git vim ssr |
+            贝叶斯思维 |
         
         In Web3 | Truth &gt; Trust
     </title>
@@ -212,7 +212,7 @@
         <div class="article-content-container">
 
             <div class="article-title">
-                <span class="title-hover-animation">conda docker git vim ssr</span>
+                <span class="title-hover-animation">贝叶斯思维</span>
             </div>
 
             
@@ -234,13 +234,13 @@
         
             <i class="fa-regular fa-calendar-plus"></i>&nbsp;
         
-        <span class="pc">2023-06-12 22:46:10</span>
-        <span class="mobile">2023-06-12 22:46</span>
+        <span class="pc">2023-04-14 21:02:30</span>
+        <span class="mobile">2023-04-14 21:02</span>
     </span>
     
         <span class="article-update-date article-meta-item">
         <i class="fas fa-file-pen"></i>&nbsp;
-        <span class="pc">2024-04-15 09:59:59</span>
+        <span class="pc">2024-04-14 21:06:15</span>
     </span>
     
     
@@ -249,7 +249,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E5%B0%8F%E8%80%8C%E7%BE%8E-%E5%B7%A5%E5%85%B7/">小而美-工具</a>&nbsp;
+                        <a href="/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/">认知-修行-平衡</a>&nbsp;
                     </li>
                 
             </ul>
@@ -261,7 +261,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/conda-docker-git-vim-ssr/">conda-docker-git-vim-ssr</a>&nbsp;
+                        <a href="/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%80%9D%E7%BB%B4/">贝叶斯思维</a>&nbsp;
                     </li>
                 
             </ul>
@@ -271,12 +271,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>75 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>5 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
         </span>
     
     
@@ -294,150 +294,10 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="conda的使用笔记"><a href="#conda的使用笔记" class="headerlink" title="conda的使用笔记"></a>conda的使用笔记</h1><ol>
-<li>创建环境conda create -n name python&#x3D;3.8</li>
-<li>激活环境conda activate name</li>
-<li>关闭环境conda deactivate</li>
-<li>查看当前环境conda env –list</li>
-<li>查看前期环境中pip列表pip list</li>
-<li>查看指定pip包的安装pip list | grep packagename</li>
-<li>删除环境conda remove -n name –all</li>
-<li>克隆环境conda create -n BBB –clone AAA，B是A的克隆</li>
-<li>转移环境<ol>
-<li>conda转移：conda env export &gt; name.yaml,然后新系统下执行conda env create -f name.yaml</li>
-<li>pip转移：pip freeze &gt; requirements.txt,然后新系统下pip install -r requirements.txt</li>
-</ol>
-</li>
-</ol>
-<h1 id="docker的使用笔记，轻量化虚拟技术"><a href="#docker的使用笔记，轻量化虚拟技术" class="headerlink" title="docker的使用笔记，轻量化虚拟技术"></a>docker的使用笔记，轻量化虚拟技术</h1><ol start="0">
-<li><p>缺点：争抢资源，权限过高；优点：可移植性高，环境封闭</p>
-</li>
-<li><p>基础概念：dockfile，images，container, volume</p>
-<ol>
-<li>dockfile：docker的配置文件</li>
-<li>image：docker的镜像文件，用来创建container的母本</li>
-<li>container：俗称容器，docker最终落地的形态，是一个运行程序的隔离环境。</li>
-<li>volume：数据卷，</li>
-</ol>
-</li>
-<li><p>dockerfile常见的命令(大写形式)：</p>
-<ol>
-<li>FROM：</li>
-<li>WORKDIR：</li>
-<li>COPY</li>
-<li>RUN</li>
-<li>CMD</li>
-</ol>
-</li>
-<li><p>docker 常见命令</p>
-<ol>
-<li>docker create</li>
-<li>docker ps -aq，查看所有的容器</li>
-<li>docker images -q，查看所有的镜像</li>
-<li>docker build</li>
-<li>docker run -p -v<ol>
-<li>数据和命令，通过映射的方式在宿主和容器之间进行传递，其中-p表示port，端口，-v表示volume，卷。 -d,daemon，在后台运行。–name，表示名字<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d --name music -p 264:264 -v /opt/musciplayer:/var/www/html/cache/music-player-docker</span></span><br></pre></td></tr></table></figure></li>
-<li>例子：通过冒号作为宿主和容器之间的分隔符!<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">宿主 : 容器</span><br></pre></td></tr></table></figure></li>
-<li></li>
-</ol>
-</li>
-<li>docker stop <container id>，停止指定容器，docker stop $(docker ps -aq)，停止所有容器</li>
-<li>docker restart <container id></li>
-<li>docker rm <container id>，删除指定容器，docker rm $(docker ps -aq)，删除所有容器</li>
-<li>docker rmi <container id>，删除指定镜像，docker rmi $(docker images -q)，删除所有镜像</li>
-<li>docker exec -it <container id> &#x2F;bin&#x2F;bash</li>
-<li>docker volume create </li>
-<li>docker cp <container id>:&#x2F;opt&#x2F;file.txt &#x2F;opt&#x2F;local&#x2F;</li>
-<li>docker cp &#x2F;opt&#x2F;local&#x2F;file.txt <container id>:&#x2F;opt&#x2F;</li>
-<li>docker有了专门清理资源(container、image、网络)的命令，docker system prune</li>
-<li>docker image prune –force –all 或者docker image prune -f -a 删除所有不使用的镜像</li>
-<li>docker container prune -f 删除所有停止的容器</li>
-</ol>
-</li>
-<li><p>docker compose</p>
-<ol>
-<li>docker compose up</li>
-<li>docker compose down</li>
-</ol>
-</li>
-</ol>
-<h1 id="vim的使用笔记"><a href="#vim的使用笔记" class="headerlink" title="vim的使用笔记"></a>vim的使用笔记</h1><ul>
-<li>vim是一款文本编辑器，分为三种模式：普通模式，插入模式，底线命令模式</li>
-<li>vi filename：打开文件，进入普通模式</li>
-<li>i: 按下i键，insert mode，进入编辑模式</li>
-<li>esc：按下esc键，退出编辑模式，进入普通模式</li>
-<li>在普通模式下，按下冒号键，进入底线命令模式<ul>
-<li>:q 退出，没做任何修改</li>
-<li>:q! 强制退出，不保存修改</li>
-<li>:w 保存修改</li>
-<li>:w! 强制保存修改</li>
-<li>:wq 保存修改并退出</li>
-<li>:wq! 强制保存修改并退出</li>
-<li>:v 进入选取模式，上下左右键选择文本，d删除，y复制，p粘贴</li>
-<li>:set nu 显示行号</li>
-<li>:set nonu 不显示行号</li>
-<li>:&#x2F; + 关键字，查找关键字，n下一个，N上一个</li>
-<li>:G 跳转到文件末尾</li>
-<li>:gg 跳转到文件开头</li>
-<li>:{ 跳转到段落开头, :} 跳转到段落结尾</li>
-</ul>
-</li>
-<li>i: 在光标所在位置插入，在编辑模式下<ul>
-<li>u: undo, 撤销上一步操作</li>
-<li>clr+r: redo, 恢复上一步操作</li>
-<li>dd: cut，删除一行</li>
-<li>yy: 复制一行</li>
-<li>p: 粘贴, 小写p在光标所在行的下一行粘贴, 大写P在光标所在行的上一行粘贴</li>
-<li>x: 删除光标所在位置的字符</li>
-</ul>
-</li>
-</ul>
-<h1 id="ssh知识和问题集"><a href="#ssh知识和问题集" class="headerlink" title="ssh知识和问题集"></a>ssh知识和问题集</h1><ol>
-<li><p>ssh连接发生错误信息：kex_exchange_identification: Connection closed by remote host</p>
-<ul>
-<li>解决方法：可能是认证的key失效了，进入~&#x2F;.ssh，删除know_hosts目录，重新连接一下</li>
-</ul>
-</li>
-<li><p>基本命令<br>pwd 打印当前文件夹的路径<br>cd  改变目录, 相当于 windows 下的打开文件夹<br>ls  展示当前目录下的所有文件内容<br>mkdir 创建目录, 创建文件夹<br>rmdir 删除文件夹<br>touch 创建文件<br>rm 删除文件<br>cat 原意是指将文件与终端输出流连接, 通俗的说输出文件内容<br>less 或 more( Unix ) 命令可以分页的打开文件, 注意使用 q 退出<br>echo 命令 打印</p>
-<blockquote>
-<p>重定向, 如果文件存在, 则将文件截断, 并重新输入.</p>
-<blockquote>
-<p> 重定向. 不截断重定向<br>ipconfig&#x2F;all  查看ip信息<br>ping IP地址    查看是否连接成功<br>tips:<br>注意: 换行问题:在 linux 中使用 \n 表示换行;在 windows 中使用 \r\n 表示换行<br>注意:文件截断是指将文件的所有内容删除, 但是文件的创建时间等信息不更改</p>
-</blockquote>
-</blockquote>
-</li>
-<li><p>查看某一目录下所有文件夹的内存占用</p>
-</li>
-</ol>
-<ul>
-<li>du -sh .&#x2F;* –exclude proc</li>
-</ul>
-<ol start="4">
-<li>查看各磁盘内存情况</li>
-</ol>
-<ul>
-<li>df -h</li>
-</ul>
-<ol start="5">
-<li><p>开启ssh远程连接服务</p>
-<ol>
-<li>测试是否安装了openssh server，sudo service ssh start</li>
-<li>如果没有安装，则安装，sudo apt update &amp;&amp; sudo apt install openssh-server</li>
-<li>安装完毕则可以开始连接了</li>
-</ol>
-</li>
-<li><p>本地机器和远程服务器之间传送文件</p>
-<ol>
-<li>scp命令，scp  [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文件路径&gt;</li>
-<li>#拷贝文件夹，加-r参数</li>
-<li>例子；scp -r &#x2F;home&#x2F;tim&#x2F;workspace&#x2F;github&#x2F;style <a class="link"   href="mailto:&#x74;&#105;&#109;&#x40;&#x31;&#x39;&#x32;&#x2e;&#49;&#x36;&#56;&#x2e;&#120;&#120;&#120;&#x2e;&#x78;&#x78;" >&#x74;&#105;&#109;&#x40;&#x31;&#x39;&#x32;&#x2e;&#49;&#x36;&#56;&#x2e;&#120;&#120;&#120;&#x2e;&#x78;&#x78;<i class="fas fa-external-link-alt"></i></a>:&#x2F;home&#x2F;tim&#x2F;github&#x2F;style</li>
-</ol>
-</li>
-<li><p>自建ssr服务器</p>
-</li>
-</ol>
-<ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B" >https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B<i class="fas fa-external-link-alt"></i></a></li>
+                <ul>
+<li>贝叶斯思维是一种思维方式，它的核心是：大胆假设，小心求证，不断更新。</li>
+<li>旧假设+新证据&#x3D;新假设，这是贝叶斯思维的基本公式。</li>
+<li>例子：越来越xx规律：越富越富，越穷越穷，越好越好，越坏越坏。</li>
 </ul>
 
             </div>
@@ -448,16 +308,16 @@
 <div class="article-copyright-info-container">
     <ul class="copyright-info-content">
         <li class="post-title">
-            <span class="type">本文标题</span>：<span class="content">conda docker git vim ssr</span>
+            <span class="type">本文标题</span>：<span class="content">贝叶斯思维</span>
         </li>
         <li class="post-author">
             <span class="type">本文作者</span>：<span class="content">Tim Chen(motion$)</span>
         </li>
         <li class="post-time">
-            <span class="type">创建时间</span>：<span class="content">2023-06-12 22:46:10</span>
+            <span class="type">创建时间</span>：<span class="content">2023-04-14 21:02:30</span>
         </li>
         <li class="post-link">
-            <span class="type">本文链接</span>：<span class="content">2023/06/12/小而美-工具/conda_docker_git_vim/</span>
+            <span class="type">本文链接</span>：<span class="content">2023/04/14/认知-修行-平衡/贝叶斯思维/</span>
         </li>
         <li class="post-license">
             <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
@@ -475,7 +335,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/conda-docker-git-vim-ssr/">#conda-docker-git-vim-ssr</a>&nbsp;
+                            <a href="/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%80%9D%E7%BB%B4/">#贝叶斯思维</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -487,13 +347,13 @@
                         <div class="article-prev">
                             <a class="prev"
                                rel="prev"
-                               href="/2023/06/15/ML/monica-ai-exam1/"
+                               href="/2023/05/03/%E5%B0%8F%E8%80%8C%E7%BE%8E-%E5%B7%A5%E5%85%B7/mac-ariel/"
                             >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                                 <span class="title flex-center">
-                                <span class="post-nav-title-item">monica AI GPT 总结视频内容1</span>
+                                <span class="post-nav-title-item">Mac上通过airas2无限速下载网盘文件</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                             </a>
@@ -503,10 +363,10 @@
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/05/31/ML/FLOPs/"
+                               href="/2023/04/05/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">FLOPs</span>
+                                <span class="post-nav-title-item">什么是系统？</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -584,7 +444,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#conda%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">conda的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%EF%BC%8C%E8%BD%BB%E9%87%8F%E5%8C%96%E8%99%9A%E6%8B%9F%E6%8A%80%E6%9C%AF"><span class="nav-number">2.</span> <span class="nav-text">docker的使用笔记，轻量化虚拟技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">vim的使用笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh%E7%9F%A5%E8%AF%86%E5%92%8C%E9%97%AE%E9%A2%98%E9%9B%86"><span class="nav-number">4.</span> <span class="nav-text">ssh知识和问题集</span></a></li></ol>
+        
     </div>
 </div>
 
