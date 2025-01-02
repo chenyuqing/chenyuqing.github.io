@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-05-13T01:50:42.683Z</updated>
+  <updated>2025-01-02T07:26:16.670Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,89 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mac上安装viem并编写代码</title>
+    <link href="http://example.com/2025/01/02/openspace/mac-viem-usage/"/>
+    <id>http://example.com/2025/01/02/openspace/mac-viem-usage/</id>
+    <published>2025-01-02T07:18:30.000Z</published>
+    <updated>2025-01-02T07:26:16.670Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="mac上安装使用viem的过程"><a href="#mac上安装使用viem的过程" class="headerlink" title="mac上安装使用viem的过程"></a>mac上安装使用viem的过程</h2><ol><li><p>安装node，官网(<a class="link"   href="https://nodejs.org/en)%E4%B8%8B%E8%BD%BDstable%E7%89%88%E6%9C%AC" >https://nodejs.org/en)下载stable版本<i class="fas fa-external-link-alt"></i></a><br>安装后node的位置在：<br>①&#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules&#x2F; 是默认的全局安装目录，但需要管理员权限<br>②但我们可以设置用户定义的目录，用于不需要 sudo 的全局安装，<br>通常有以下三个目录</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/User/whoami/.npm/  </span><br><span class="line">/User/whoami/.npm-global/</span><br><span class="line">/User/whoami/.npmrc</span><br></pre></td></tr></table></figure><p>③ 我们可以通过以下命令查看当前npm安装包存放的目录位置：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm prefix -g</span><br><span class="line">npm config get prefix</span><br></pre></td></tr></table></figure></li><li><p>通常我们建议设置用户自定义的目录，流程如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/.npm-global</span><br><span class="line">npm config set prefix &#x27;~/.npm-global&#x27;</span><br></pre></td></tr></table></figure><p>将路径添加到环境变量（如 ~&#x2F;.zshrc 或 ~&#x2F;.bashrc）：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:~/.npm-global/bin</span><br></pre></td></tr></table></figure></li></ol><p>备注：echo $SHELL ，如果你的shell使用的是zsh，那么<del>&#x2F;.zshrc是你使用的环境配置文件<br>如果你的shell使用的是bash，那么</del>&#x2F;.bashrc是你使用的环境配置文件</p><ol start="3"><li><p>解决权限问题：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami) ~/.npm</span><br><span class="line">sudo chown -R $(whoami) ~/.npm-global</span><br></pre></td></tr></table></figure><p>并且确认你的npm prefix -g是你的用户自定义目录</p></li><li><p>npm安装package：两种安装方式，全局安装-g和局部安装–save-dev</p></li><li><p>viem的使用，因为viem是使用typescript，所以你需要安装typescript  ts-node</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install typescript ts-node viem @types/node --save-dev</span><br></pre></td></tr></table></figure></li></ol><h2 id="mac上编写viem例子的过程"><a href="#mac上编写viem例子的过程" class="headerlink" title="mac上编写viem例子的过程"></a>mac上编写viem例子的过程</h2><ol><li>mkdir 01_test &amp;&amp; cd 01_test</li><li>npm init -y 初始化package.json文件</li><li>npx tsc –init 初始化tsconfig.json文件</li><li>touch client.ts编写代码</li><li>npm install typescript ts-node viem dotenv types@node –save-dev</li><li>运行client.ts文件<br> ts-node client.ts</li><li>package.json和tsconfig.json两个文件有什么区别？</li></ol><h2 id="mac上node的卸载和重新安装"><a href="#mac上node的卸载和重新安装" class="headerlink" title="mac上node的卸载和重新安装"></a>mac上node的卸载和重新安装</h2><ol><li>检查node是否正常安装<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">timchen@Tims-MacBook-Air-2 ~ % node -v</span><br><span class="line">v22.12.0</span><br><span class="line">timchen@Tims-MacBook-Air-2 ~ % npm -v</span><br><span class="line">10.9.0</span><br></pre></td></tr></table></figure></li></ol><ul><li>参考链接：</li><li>mac 下如何彻底解决node权限问题   <a class="link"   href="https://kaifamiao.dev/?p=8765" >https://kaifamiao.dev/?p=8765<i class="fas fa-external-link-alt"></i></a></li><li>node官网。<a class="link"   href="https://nodejs.org/en" >https://nodejs.org/en<i class="fas fa-external-link-alt"></i></a></li><li>node卸载和重装：<a class="link"   href="https://cloud.baidu.com/article/3286031" >https://cloud.baidu.com/article/3286031<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;mac上安装使用viem的过程&quot;&gt;&lt;a href=&quot;#mac上安装使用viem的过程&quot; class=&quot;headerlink&quot; title=&quot;mac上安装使用viem的过程&quot;&gt;&lt;/a&gt;mac上安装使用viem的过程&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装node，官网</summary>
+      
+    
+    
+    
+    <category term="认知-修行-进步-WEB3" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-WEB3/"/>
+    
+    
+    <category term="viem" scheme="http://example.com/tags/viem/"/>
+    
+    <category term="mac" scheme="http://example.com/tags/mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ethereum的发展史</title>
+    <link href="http://example.com/2024/12/30/openspace/ethereum_what/"/>
+    <id>http://example.com/2024/12/30/openspace/ethereum_what/</id>
+    <published>2024-12-30T02:02:30.000Z</published>
+    <updated>2024-12-30T02:10:40.818Z</updated>
+    
+    <content type="html"><![CDATA[<p>以下是以太坊（Ethereum）的发展史的简要总结，从概念的提出到当前的技术进展和未来计划：</p><ol><li><p>起源与早期构想（2013-2015）<br> •2013 年：<br> •以太坊由 Vitalik Buterin 提出，他发布了白皮书，描述了一个能够支持智能合约和去中心化应用（DApps）的区块链平台。<br> •Vitalik 的目标是创建一个更通用的区块链，不仅仅用于比特币的支付功能，还能支持更复杂的去中心化应用程序。<br> •2014 年：<br> •以太坊项目正式启动，通过 ICO（首次代币发行）筹集了约 1800 万美元资金。<br> •ERC-20 标准在这一时期被定义，为代币开发奠定了基础。<br> •2015 年：<br> •以太坊主网 Frontier 于 7 月 30 日发布，这是以太坊网络的第一个公开可用版本。</p></li><li><p>成长期：早期挑战与功能扩展（2016-2019）<br> •2016 年：DAO 事件和以太坊分叉<br> •以太坊上的第一个大型去中心化自治组织（DAO）因智能合约漏洞被黑客利用，损失约 360 万枚 ETH。<br> •社区因是否应该追回资金而分裂，最终分叉出两条链：以太坊（ETH） 和 以太坊经典（ETC）。<br> •2017 年：ICO 热潮与以太坊扩张<br> •以太坊因支持智能合约，成为众多 ICO 项目的首选平台。<br> •这也导致网络出现拥堵，凸显了可扩展性问题。<br> •2018 年：加密市场泡沫破裂<br> •以太坊的价格随加密市场大幅波动，但开发者社区持续壮大。<br> •ERC-721 标准（用于不可替代代币，NFT）推出，开创了新的应用领域。<br> •2019 年：升级与优化<br> •网络进行了 Constantinople 和 Istanbul 等硬分叉，优化 Gas 成本并提升智能合约功能。</p></li><li><p>转型与扩展（2020-2023）<br> •2020 年：DeFi 的崛起<br> •去中心化金融（DeFi）应用蓬勃发展，带来了巨大的交易量，但也导致网络拥堵和 Gas 费用飙升。<br> •以太坊 2.0 的信标链（Beacon Chain）启动，标志着向 PoS 的过渡开始。<br> •2021 年：NFT 热潮与生态爆发<br> •NFT 市场快速增长，吸引了大量用户和项目。<br> •以太坊完成 London 硬分叉，引入 EIP-1559 改变 Gas 模型，将一部分交易费销毁以降低通胀。<br> •2022 年：The Merge（合并）<br> •以太坊成功从 PoW 转向 PoS，成为能效更高的区块链。<br> •这一转变显著降低了网络能耗，为未来扩展奠定基础。<br> •2023 年：Layer 2 扩展方案<br> •Layer 2 解决方案（如 Arbitrum、Optimism 和 zkSync）加速发展，以太坊成为 Layer 2 生态的结算层。<br> •以太坊协议优化进入 Surge 阶段，着力于扩展性和吞吐量。</p></li><li><p>未来计划</p></li></ol><p>以太坊的发展遵循 “四阶段升级计划”：<br>    1.The Merge：已完成 PoS 转型。<br>    2.The Surge：通过分片和 Rollup 提升扩展性，目标是达到 100,000 TPS。<br>    3.The Verge：引入 Verkle Trees 优化状态存储，减轻节点负担。<br>    4.The Purge 和 The Splurge：进一步优化协议复杂性，改善开发者体验。</p><p>总结</p><p>以太坊自 2015 年主网上线以来，从一个智能合约平台成长为一个支持 DeFi、NFT 和 Layer 2 生态的去中心化网络。其发展史充满了技术创新、市场热潮和去中心化治理的挑战。在未来，通过分片和 Layer 2 技术，以太坊将进一步成为全球范围内的高效区块链基础设施。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;以下是以太坊（Ethereum）的发展史的简要总结，从概念的提出到当前的技术进展和未来计划：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;起源与早期构想（2013-2015）&lt;br&gt; •	2013 年：&lt;br&gt; •	以太坊由 Vitalik Buterin 提出，他发布了白皮书，描述了</summary>
+      
+    
+    
+    
+    <category term="认知-修行-进步-WEB3" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-WEB3/"/>
+    
+    
+    <category term="ethereum" scheme="http://example.com/tags/ethereum/"/>
+    
+    <category term="web3" scheme="http://example.com/tags/web3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uniswapV2 解读</title>
+    <link href="http://example.com/2024/10/15/openspace/uniswapV2/"/>
+    <id>http://example.com/2024/10/15/openspace/uniswapV2/</id>
+    <published>2024-10-14T16:12:30.000Z</published>
+    <updated>2024-11-14T16:17:33.274Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="uniswapV2-总结"><a href="#uniswapV2-总结" class="headerlink" title="uniswapV2 总结"></a>uniswapV2 总结</h1><ul><li>一个核心：CPAMM</li><li>三个操作：swap, addLiquidity, removeLiquidity</li><li>几个概念：⼿续费&#x2F;Price Oracle&#x2F;TWAP&#x2F;Flash Swaps&#x2F;⽆常损失&#x2F;滑点等</li></ul><h2 id="1-CPAMM"><a href="#1-CPAMM" class="headerlink" title="1. CPAMM"></a>1. CPAMM</h2><ul><li>Constant Product Automated Market Maker</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;uniswapV2-总结&quot;&gt;&lt;a href=&quot;#uniswapV2-总结&quot; class=&quot;headerlink&quot; title=&quot;uniswapV2 总结&quot;&gt;&lt;/a&gt;uniswapV2 总结&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;一个核心：CPAMM&lt;/li&gt;
+&lt;li&gt;三个操作</summary>
+      
+    
+    
+    
+    <category term="认知-修行-进步-WEB3" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-WEB3/"/>
+    
+    
+    <category term="uniswap" scheme="http://example.com/tags/uniswap/"/>
+    
+    <category term="DeFi" scheme="http://example.com/tags/DeFi/"/>
+    
+  </entry>
   
   <entry>
     <title>停一停 心呼吸 每日銘言 202405</title>
@@ -336,31 +419,6 @@
   </entry>
   
   <entry>
-    <title>chainlink学习</title>
-    <link href="http://example.com/2024/03/01/Web3/solidity/chainlink_study/"/>
-    <id>http://example.com/2024/03/01/Web3/solidity/chainlink_study/</id>
-    <published>2024-03-01T04:22:30.000Z</published>
-    <updated>2024-03-16T02:19:18.521Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://chain.link/" >chainlink official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更加智能和功能丰富。</li></ul><h3 id="主要特点和功能包括："><a href="#主要特点和功能包括：" class="headerlink" title="主要特点和功能包括："></a>主要特点和功能包括：</h3><ol><li><p><strong>外部数据接入：</strong> Chainlink 允许区块链智能合约访问外部的数据源，包括网络 API、传感器数据、天气数据、金融市场数据等。这些数据可以用于触发智能合约的执行或影响其状态。</p></li><li><p><strong>数据验证和可信性：</strong> Chainlink 提供了一套机制来验证外部数据的真实性和可信度，以确保数据的准确性和安全性。这包括使用多个数据源、数据签名、可信执行环境等技术。</p></li><li><p><strong>可编程性和灵活性：</strong> Chainlink 允许开发人员根据自己的需求定义和部署预言机网络，从而实现各种不同类型的数据访问和验证。它提供了灵活的合约编程接口和工具，使开发人员能够根据应用场景定制预言机网络。</p></li><li><p><strong>安全和去中心化：</strong> Chainlink 采用去中心化的设计和安全机制，确保数据访问和验证的安全性和可靠性。它使用区块链技术和密码学算法来保护数据的安全，并通过分散化的节点网络来提供服务。</p></li><li><p><strong>可扩展性和互操作性：</strong> Chainlink 的设计具有良好的可扩展性和互操作性，可以与各种不同的区块链平台和智能合约系统集成，实现跨链数据访问和交互。</p></li></ol><ul><li>总的来说，Chainlink 是一个重要的基础设施项目，为区块链智能合约提供了可靠的外部数据访问和验证机制，推动了区块链技术在金融、保险、供应链等领域的应用和发展。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2><ul><li>官网开发者文档6大板块功能</li><li><img src="/img/wuweiwu/chainlink/what/chainlink-dev-frame.png"></li><li>Chainlink Web3 服务可分为三大类<ul><li>数据 data<ul><li>data feeds</li><li>data streams</li><li>functions</li></ul></li><li>计算 compute<ul><li>VRF</li><li>Automation</li></ul></li><li>跨链 cross-chain<ul><li>CCIP</li></ul></li></ul></li></ul><h3 id="Data-Feeds-喂价"><a href="#Data-Feeds-喂价" class="headerlink" title="Data Feeds 喂价"></a>Data Feeds 喂价</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/df_workflow.png"></li><li>技术架构</li><li><img src="/img/wuweiwu/chainlink/what/df_technical_frame.png"></li><li>用户案例</li><li><img src="/img/wuweiwu/chainlink/what/df-usce.png"></li></ul><h3 id="Functions-函数"><a href="#Functions-函数" class="headerlink" title="Functions 函数"></a>Functions 函数</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/func-workflow.png"></li><li>用户案例</li><li><img src="/img/wuweiwu/chainlink/what/func-use.png"></li><li><img src="/img/wuweiwu/chainlink/what/func-example.png"></li></ul><h3 id="VRF-随机数"><a href="#VRF-随机数" class="headerlink" title="VRF 随机数"></a>VRF 随机数</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/vrf-workflow.png"></li></ul><h3 id="CCIP-跨链"><a href="#CCIP-跨链" class="headerlink" title="CCIP 跨链"></a>CCIP 跨链</h3><ul><li>业务流程</li></ul><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li><a class="link"   href="https://www.youtube.com/watch?v=NpfRX4jTA8M&ab_channel=Chainlink" >Chainlink产品讲解-Frank<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;https://chain.link/&quot; &gt;chainlink official&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br&gt;&lt;font color=&quot;red&quot;&gt; </summary>
-      
-    
-    
-    
-    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
-    
-    
-    <category term="chainlink" scheme="http://example.com/tags/chainlink/"/>
-    
-  </entry>
-  
-  <entry>
     <title>openzeppelin学习</title>
     <link href="http://example.com/2024/03/01/Web3/solidity/openzepplin_study/"/>
     <id>http://example.com/2024/03/01/Web3/solidity/openzepplin_study/</id>
@@ -382,6 +440,31 @@
     
     
     <category term="openzeppelin" scheme="http://example.com/tags/openzeppelin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>chainlink学习</title>
+    <link href="http://example.com/2024/03/01/Web3/solidity/chainlink_study/"/>
+    <id>http://example.com/2024/03/01/Web3/solidity/chainlink_study/</id>
+    <published>2024-03-01T04:22:30.000Z</published>
+    <updated>2024-03-16T02:19:18.521Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><a class="link"   href="https://chain.link/" >chainlink official<i class="fas fa-external-link-alt"></i></a><br><font color="red"> ChatGPT生成： </font> Chainlink 是一个去中心化的预言机网络，旨在连接区块链智能合约与外部数据源、API 和传统金融市场。它的目标是解决区块链智能合约无法直接获取外部数据的问题，从而使得智能合约能够更加智能和功能丰富。</li></ul><h3 id="主要特点和功能包括："><a href="#主要特点和功能包括：" class="headerlink" title="主要特点和功能包括："></a>主要特点和功能包括：</h3><ol><li><p><strong>外部数据接入：</strong> Chainlink 允许区块链智能合约访问外部的数据源，包括网络 API、传感器数据、天气数据、金融市场数据等。这些数据可以用于触发智能合约的执行或影响其状态。</p></li><li><p><strong>数据验证和可信性：</strong> Chainlink 提供了一套机制来验证外部数据的真实性和可信度，以确保数据的准确性和安全性。这包括使用多个数据源、数据签名、可信执行环境等技术。</p></li><li><p><strong>可编程性和灵活性：</strong> Chainlink 允许开发人员根据自己的需求定义和部署预言机网络，从而实现各种不同类型的数据访问和验证。它提供了灵活的合约编程接口和工具，使开发人员能够根据应用场景定制预言机网络。</p></li><li><p><strong>安全和去中心化：</strong> Chainlink 采用去中心化的设计和安全机制，确保数据访问和验证的安全性和可靠性。它使用区块链技术和密码学算法来保护数据的安全，并通过分散化的节点网络来提供服务。</p></li><li><p><strong>可扩展性和互操作性：</strong> Chainlink 的设计具有良好的可扩展性和互操作性，可以与各种不同的区块链平台和智能合约系统集成，实现跨链数据访问和交互。</p></li></ol><ul><li>总的来说，Chainlink 是一个重要的基础设施项目，为区块链智能合约提供了可靠的外部数据访问和验证机制，推动了区块链技术在金融、保险、供应链等领域的应用和发展。</li></ul><hr><h2 id="让我们开始吧"><a href="#让我们开始吧" class="headerlink" title="让我们开始吧"></a>让我们开始吧</h2><ul><li>官网开发者文档6大板块功能</li><li><img src="/img/wuweiwu/chainlink/what/chainlink-dev-frame.png"></li><li>Chainlink Web3 服务可分为三大类<ul><li>数据 data<ul><li>data feeds</li><li>data streams</li><li>functions</li></ul></li><li>计算 compute<ul><li>VRF</li><li>Automation</li></ul></li><li>跨链 cross-chain<ul><li>CCIP</li></ul></li></ul></li></ul><h3 id="Data-Feeds-喂价"><a href="#Data-Feeds-喂价" class="headerlink" title="Data Feeds 喂价"></a>Data Feeds 喂价</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/df_workflow.png"></li><li>技术架构</li><li><img src="/img/wuweiwu/chainlink/what/df_technical_frame.png"></li><li>用户案例</li><li><img src="/img/wuweiwu/chainlink/what/df-usce.png"></li></ul><h3 id="Functions-函数"><a href="#Functions-函数" class="headerlink" title="Functions 函数"></a>Functions 函数</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/func-workflow.png"></li><li>用户案例</li><li><img src="/img/wuweiwu/chainlink/what/func-use.png"></li><li><img src="/img/wuweiwu/chainlink/what/func-example.png"></li></ul><h3 id="VRF-随机数"><a href="#VRF-随机数" class="headerlink" title="VRF 随机数"></a>VRF 随机数</h3><ul><li>业务流程</li><li><img src="/img/wuweiwu/chainlink/what/vrf-workflow.png"></li></ul><h3 id="CCIP-跨链"><a href="#CCIP-跨链" class="headerlink" title="CCIP 跨链"></a>CCIP 跨链</h3><ul><li>业务流程</li></ul><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ul><li><a class="link"   href="https://www.youtube.com/watch?v=NpfRX4jTA8M&ab_channel=Chainlink" >Chainlink产品讲解-Frank<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;link&quot;   href=&quot;https://chain.link/&quot; &gt;chainlink official&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br&gt;&lt;font color=&quot;red&quot;&gt; </summary>
+      
+    
+    
+    
+    <category term="技能-修行-进步-Web3" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-Web3/"/>
+    
+    
+    <category term="chainlink" scheme="http://example.com/tags/chainlink/"/>
     
   </entry>
   
@@ -465,97 +548,6 @@
     <category term="摄影" scheme="http://example.com/tags/%E6%91%84%E5%BD%B1/"/>
     
     <category term="视觉语言" scheme="http://example.com/tags/%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>拍照原理 Photography Theory</title>
-    <link href="http://example.com/2024/02/24/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-%E5%BD%B1%E8%A7%86%E5%9B%BE%E5%83%8F/%E6%8B%8D%E7%85%A7%E5%8E%9F%E7%90%86/"/>
-    <id>http://example.com/2024/02/24/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-%E5%BD%B1%E8%A7%86%E5%9B%BE%E5%83%8F/%E6%8B%8D%E7%85%A7%E5%8E%9F%E7%90%86/</id>
-    <published>2024-02-24T02:41:30.000Z</published>
-    <updated>2024-02-27T14:11:56.546Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><em><strong>拍照的核心：对光线的控制和管理，就是曝光的程度。</strong></em></li></ul><h2 id="曝光-Exposure"><a href="#曝光-Exposure" class="headerlink" title="曝光-Exposure"></a>曝光-Exposure</h2><ul><li>曝光越多，进光量越大，画面越亮。</li><li>曝光越少，进光量越小，画面越暗。</li><li>曝光的单位是EV，EV&#x3D;光圈值+快门值+ISO值。</li></ul><h2 id="曝光三要素-Exposure-Triangle"><a href="#曝光三要素-Exposure-Triangle" class="headerlink" title="曝光三要素-Exposure Triangle"></a>曝光三要素-Exposure Triangle</h2><h3 id="快门-Shutter-Speed"><a href="#快门-Shutter-Speed" class="headerlink" title="快门-Shutter Speed"></a>快门-Shutter Speed</h3><ul><li><img src="/img/wuweiwu/photography/three-ele/shutter-speed.jpeg"></li><li>光线通过镜头进入相机的过程中，经过3个部分：镜头-&gt;快门-&gt;感光元件，而控制快门就是控制感光元件接收光线的时间。</li><li>快门越快，进光量越小，运动越清晰。</li><li>快门越慢，进光量越大，运动越模糊。</li><li>快门速度的单位是秒，1&#x2F;1000秒是快门速度，1秒是慢门速度。</li></ul><h3 id="光圈-Aperture"><a href="#光圈-Aperture" class="headerlink" title="光圈-Aperture"></a>光圈-Aperture</h3><ul><li><img src="/img/wuweiwu/photography/three-ele/aperture.jpeg"></li><li>“景深”是指当焦距对准某一点时，其前后都仍可清晰的范围。通常肖像需要小景深，风景需要大景深。</li><li>光圈越大，进光量越大，景深越小。</li><li>光圈越小，进光量越小，景深越大。</li><li>光圈大小的单位是F，F越小，光圈越大。</li><li>光圈大小的单位是F，F越大，光圈越小。</li><li>光圈大小的单位是F，F&#x3D;焦距&#x2F;光圈直径。</li></ul><h3 id="感光度-ISO"><a href="#感光度-ISO" class="headerlink" title="感光度-ISO"></a>感光度-ISO</h3><ul><li><img src="/img/wuweiwu/photography/three-ele/ISO.jpeg"></li><li>ISO越高，进光量越大，画质越差。</li><li>ISO越低，进光量越小，画质越好。</li><li>ISO的单位是ISO，100是低感光度，1600是高感光度。</li></ul><h2 id="三要素的关系"><a href="#三要素的关系" class="headerlink" title="三要素的关系"></a>三要素的关系</h2><ul><li>在快门和光圈都调正确的情况下，ISO越低，画质越好。所以通常情况下，先调快门和光圈，再调ISO。</li><li>拍照通常考虑问题的顺序：<ul><li>首先确定拍摄画面是动态的还是静态的，调节快门。</li><li>然后考虑景深的问题，如果需要大景深，就调小光圈，如果需要小景深，就调大光圈。</li><li>最后考虑画质的问题，调节ISO。</li></ul></li></ul><h2 id="Trouble-Shooting"><a href="#Trouble-Shooting" class="headerlink" title="Trouble Shooting"></a>Trouble Shooting</h2><ul><li>如果光线太暗，可以调大光圈，调慢快门，调高ISO。</li><li>如果光线太亮，可以调小光圈，调快快门，调低ISO。</li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a class="link"   href="https://www.sony.com/zh-cn/electronics/support/articles/00081746" >镜头的基础知识系列：光圈和景深-sony China<i class="fas fa-external-link-alt"></i></a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;&lt;strong&gt;拍照的核心：对光线的控制和管理，就是曝光的程度。&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;曝光-Exposure&quot;&gt;&lt;a href=&quot;#曝光-Exposure&quot; class=&quot;headerlink&quot; title=</summary>
-      
-    
-    
-    
-    <category term="技能-修行-进步-影视图像" scheme="http://example.com/categories/%E6%8A%80%E8%83%BD-%E4%BF%AE%E8%A1%8C-%E8%BF%9B%E6%AD%A5-%E5%BD%B1%E8%A7%86%E5%9B%BE%E5%83%8F/"/>
-    
-    
-    <category term="摄影" scheme="http://example.com/tags/%E6%91%84%E5%BD%B1/"/>
-    
-    <category term="影像" scheme="http://example.com/tags/%E5%BD%B1%E5%83%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>停一停 心呼吸 每日銘言 202402</title>
-    <link href="http://example.com/2024/02/23/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202402/"/>
-    <id>http://example.com/2024/02/23/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/%E5%BF%83%E9%9D%92%E5%B9%B4-202402/</id>
-    <published>2024-02-23T01:01:33.000Z</published>
-    <updated>2024-03-02T12:27:32.320Z</updated>
-    
-    <content type="html"><![CDATA[<table><thead><tr><th>日期</th><th>銘言</th></tr></thead><tbody><tr><td>2月29号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/29-min.jpg"></td></tr><tr><td>2月28号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/28-min.jpg"></td></tr><tr><td>2月27号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/27-min.jpg"></td></tr><tr><td>2月26号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/26-min.jpg"></td></tr><tr><td>2月23号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/23-min.jpg"></td></tr><tr><td>2月22号</td><td><img src="/img/wuweiwu/zen_sayings/2024/02/22-min.jpg"></td></tr></tbody></table>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;日期&lt;/th&gt;
-&lt;th&gt;銘言&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;2月29号&lt;/td&gt;
-&lt;td&gt;&lt;img src=&quot;/img/wuweiwu/zen_sayings/2024/02/29-min</summary>
-      
-    
-    
-    
-    <category term="认知-修行-平衡" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/"/>
-    
-    
-    <category term="佛学" scheme="http://example.com/tags/%E4%BD%9B%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的情绪为何总被他人左右-读书笔记</title>
-    <link href="http://example.com/2024/02/22/books/2024/first-half/%E6%88%91%E7%9A%84%E6%83%85%E7%BB%AA%E4%B8%BA%E4%BD%95%E6%80%BB%E8%A2%AB%E4%BB%96%E4%BA%BA%E5%B7%A6%E5%8F%B3/"/>
-    <id>http://example.com/2024/02/22/books/2024/first-half/%E6%88%91%E7%9A%84%E6%83%85%E7%BB%AA%E4%B8%BA%E4%BD%95%E6%80%BB%E8%A2%AB%E4%BB%96%E4%BA%BA%E5%B7%A6%E5%8F%B3/</id>
-    <published>2024-02-22T09:37:30.000Z</published>
-    <updated>2024-02-22T10:11:29.604Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>一个人一直在重复3件事：thinking思考，feeling感受，acting行为，3者互相影响</li></ol><ul><li><img src="/img/books/2024-1-half/001-3things.png"></li><li>人的认知决定思考的高度，思考会产生情绪感受，同时影响人的行为。</li></ul><ol start="2"><li>一个被忽略的事实：人的焦虑抑郁或者不开心并不是当前发生的事情，而是发生的事情给你带来的感受feeling情绪，所以通常人是容易被自己的不好的感受和情绪勒索，困住自己的通常是自己的内心。</li><li>通常对人产生负面的feelings包含以下四种，被称为“致命四人组”：</li></ol><ul><li><img src="/img/books/2024-1-half/002-4bad-feelings.png"></li></ul><ol start="4"><li>它们有一个共同的副词：过分，过分是极端主义的代表。不理智的人儿都容易从一个极端走到另一个极端。</li><li>诱因ABC’s</li></ol><table><thead><tr><th>编号</th><th>具体</th><th>解析</th></tr></thead><tbody><tr><td>A</td><td>触发事件</td><td>诱因</td></tr><tr><td>B</td><td>3种病态思维方式（screw ball thinking）1. 第一种叫灾难性思维方式（catastrophic thinking）；2. 第二种病态思维方式被称作绝对论者思维方式（absolutist thinking）；3. 第三种类型的神经病想法恰好是另一个极端：合理化（rationalization）合理化就是弱反应。</td><td>过程</td></tr><tr><td>C</td><td>失当的感受和行为</td><td>结果</td></tr></tbody></table><ol start="6"><li>10中疯狂的非理性信条</li></ol><table><thead><tr><th>编号</th><th>非理性信条</th></tr></thead><tbody><tr><td>1</td><td>我太在乎别人怎么看待你。</td></tr><tr><td>2</td><td>我决不能在重要任务上失败（生意上，学业，体育项目，性生活，关系等），否则太可怕了，我无法忍受。</td></tr><tr><td>3</td><td>人和事都应该总是朝我要他们去的方向发展，如果不是，那就太糟糕、太可怕、太恐怖了，我无法忍受！</td></tr><tr><td>4</td><td>如果前面三种坏事中的任何一种出现了（如果我不讨喜或不被尊重，如果我失败了，或结果不像我想的那样好或至少过得去），我总要找个人骂骂才痛快！他们做错了，早就不该这么做，事情做得那么糟糕，一帮烂人！</td></tr><tr><td>5</td><td>假如我对即将发生的事或别人对我的看法抱有挥之不去的忧虑，当事情真发生时，定会比我想象的要好。</td></tr><tr><td>6</td><td>每个问题都有完美的解决方法，我必须立即找到这些方法！</td></tr><tr><td>7</td><td>逃避困境和责任比正视它们要容易得多。</td></tr><tr><td>8</td><td>如果我事事不投入，只保持若即若离的关注，我会永远开心。</td></tr><tr><td>9</td><td>我的过去、小时候、最近恋情和最近工作中发生的所有可怕的事造成了我此时的感觉和行为。</td></tr><tr><td>10</td><td>坏人坏事应该存在，当它们的确存在时，我真不知道该怎么办才好！</td></tr></tbody></table><ol start="7"><li>解决问题的框架REBT(Rational Emotive Behavior Therapy)，理性情绪行为疗法</li></ol><ul><li><img src="/img/books/2024-1-half/003-REBT.png"></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;一个人一直在重复3件事：thinking思考，feeling感受，acting行为，3者互相影响&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;img src=&quot;/img/books/2024-1-half/001-3things.png&quot;&gt;&lt;/li&gt;
-&lt;li&gt;人的</summary>
-      
-    
-    
-    
-    <category term="认知-修行-平衡" scheme="http://example.com/categories/%E8%AE%A4%E7%9F%A5-%E4%BF%AE%E8%A1%8C-%E5%B9%B3%E8%A1%A1/"/>
-    
-    
-    <category term="自愈, 情绪管理" scheme="http://example.com/tags/%E8%87%AA%E6%84%88-%E6%83%85%E7%BB%AA%E7%AE%A1%E7%90%86/"/>
     
   </entry>
   
