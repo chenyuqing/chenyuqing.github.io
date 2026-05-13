@@ -1,5 +1,6 @@
 # build output
 dist/
+.vercel/
 # generated types
 .astro/
 
@@ -11,6 +12,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.dev.log
 
 
 # environment variables
@@ -22,3 +24,18 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# legacy generated output from the old Hexo site
+/20??/
+/archives/
+/atom.xml
+/content.json
+/css/
+/favicon.ico
+/favicon.svg
+/font/
+/img/
+/index.html
+/js/
+/search.xml
+/.nojekyll

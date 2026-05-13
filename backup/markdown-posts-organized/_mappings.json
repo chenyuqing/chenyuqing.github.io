@@ -1,0 +1,821 @@
+[
+  {
+    "title": "mac上安装viem并编写代码",
+    "slug": "openspace/mac-viem-usage",
+    "originalPath": "2025/01/02/openspace/mac-viem-usage/",
+    "legacyFile": "backup/markdown-posts/2025/01/02/openspace/mac-viem-usage/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2025/认知-修行-进步-WEB3/2025-01-02__mac-viem-usage.md"
+  },
+  {
+    "title": "ethereum的发展史",
+    "slug": "openspace/ethereum_what",
+    "originalPath": "2024/12/30/openspace/ethereum_what/",
+    "legacyFile": "backup/markdown-posts/2024/12/30/openspace/ethereum_what/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-进步-WEB3/2024-12-30__ethereum_what.md"
+  },
+  {
+    "title": "uniswapV2 解读",
+    "slug": "openspace/uniswapV2",
+    "originalPath": "2024/10/15/openspace/uniswapV2/",
+    "legacyFile": "backup/markdown-posts/2024/10/15/openspace/uniswapV2/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-进步-WEB3/2024-10-15__uniswapV2.md"
+  },
+  {
+    "title": "停一停 心呼吸 每日銘言 202405",
+    "slug": "认知-修行-平衡/心青年-202405",
+    "originalPath": "2024/05/01/认知-修行-平衡/心青年-202405/",
+    "legacyFile": "backup/markdown-posts/2024/05/01/认知-修行-平衡/心青年-202405/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-05-01__心青年-202405.md"
+  },
+  {
+    "title": "炼金术士5-结语",
+    "slug": "认知-修行-平衡/炼金术士5-结语",
+    "originalPath": "2024/04/05/认知-修行-平衡/炼金术士5-结语/",
+    "legacyFile": "backup/markdown-posts/2024/04/05/认知-修行-平衡/炼金术士5-结语/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-04-05__炼金术士5-结语.md"
+  },
+  {
+    "title": "Web3概况",
+    "slug": "Web3/web3概况",
+    "originalPath": "2024/04/05/Web3/web3概况/",
+    "legacyFile": "backup/markdown-posts/2024/04/05/Web3/web3概况/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-进步-Web3/2024-04-05__web3概况.md"
+  },
+  {
+    "title": "炼金术士4-第二章",
+    "slug": "认知-修行-平衡/炼金术士4-第二章",
+    "originalPath": "2024/04/03/认知-修行-平衡/炼金术士4-第二章/",
+    "legacyFile": "backup/markdown-posts/2024/04/03/认知-修行-平衡/炼金术士4-第二章/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-04-03__炼金术士4-第二章.md"
+  },
+  {
+    "title": "炼金术士3-第一章",
+    "slug": "认知-修行-平衡/炼金术士3-第一章",
+    "originalPath": "2024/04/03/认知-修行-平衡/炼金术士3-第一章/",
+    "legacyFile": "backup/markdown-posts/2024/04/03/认知-修行-平衡/炼金术士3-第一章/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-04-03__炼金术士3-第一章.md"
+  },
+  {
+    "title": "炼金术士2-序幕",
+    "slug": "认知-修行-平衡/炼金术士2-序幕",
+    "originalPath": "2024/04/03/认知-修行-平衡/炼金术士2-序幕/",
+    "legacyFile": "backup/markdown-posts/2024/04/03/认知-修行-平衡/炼金术士2-序幕/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-04-03__炼金术士2-序幕.md"
+  },
+  {
+    "title": "炼金术士1-前言",
+    "slug": "认知-修行-平衡/炼金术士1-前言",
+    "originalPath": "2024/04/03/认知-修行-平衡/炼金术士1-前言/",
+    "legacyFile": "backup/markdown-posts/2024/04/03/认知-修行-平衡/炼金术士1-前言/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-04-03__炼金术士1-前言.md"
+  },
+  {
+    "title": "停一停 心呼吸 每日銘言 202404",
+    "slug": "认知-修行-平衡/心青年-202404",
+    "originalPath": "2024/04/01/认知-修行-平衡/心青年-202404/",
+    "legacyFile": "backup/markdown-posts/2024/04/01/认知-修行-平衡/心青年-202404/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-04-01__心青年-202404.md"
+  },
+  {
+    "title": "Notes on Chainlink Bootcamp 2024 (10 Days)",
+    "slug": "Web3/chainlink_bootcamp2024",
+    "originalPath": "2024/03/12/Web3/chainlink_bootcamp2024/",
+    "legacyFile": "backup/markdown-posts/2024/03/12/Web3/chainlink_bootcamp2024/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-进步-Web3/2024-03-12__chainlink_bootcamp2024.md"
+  },
+  {
+    "title": "人生建立系统，而不是目标",
+    "slug": "认知-修行-平衡/build-system-not-goal",
+    "originalPath": "2024/03/10/认知-修行-平衡/build-system-not-goal/",
+    "legacyFile": "backup/markdown-posts/2024/03/10/认知-修行-平衡/build-system-not-goal/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-平衡/2024-03-10__build-system-not-goal.md"
+  },
+  {
+    "title": "fundme dapp开发",
+    "slug": "Web3/solidity/03-fundme_dapp",
+    "originalPath": "2024/03/06/Web3/solidity/03-fundme_dapp/",
+    "legacyFile": "backup/markdown-posts/2024/03/06/Web3/solidity/03-fundme_dapp/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-进步-Web3/2024-03-06__03-fundme_dapp.md"
+  },
+  {
+    "title": "认识塔罗牌",
+    "slug": "taro_cards/00_认识塔罗牌",
+    "originalPath": "2024/03/01/taro_cards/00_认识塔罗牌/",
+    "legacyFile": "backup/markdown-posts/2024/03/01/taro_cards/00_认识塔罗牌/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-塔罗/2024-03-01__00_认识塔罗牌.md"
+  },
+  {
+    "title": "chainlink学习",
+    "slug": "Web3/solidity/chainlink_study",
+    "originalPath": "2024/03/01/Web3/solidity/chainlink_study/",
+    "legacyFile": "backup/markdown-posts/2024/03/01/Web3/solidity/chainlink_study/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-进步-Web3/2024-03-01__chainlink_study.md"
+  },
+  {
+    "title": "openzeppelin学习",
+    "slug": "Web3/solidity/openzepplin_study",
+    "originalPath": "2024/03/01/Web3/solidity/openzepplin_study/",
+    "legacyFile": "backup/markdown-posts/2024/03/01/Web3/solidity/openzepplin_study/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-进步-Web3/2024-03-01__openzepplin_study.md"
+  },
+  {
+    "title": "停一停 心呼吸 每日銘言 202403",
+    "slug": "认知-修行-平衡/心青年-202403",
+    "originalPath": "2024/03/01/认知-修行-平衡/心青年-202403/",
+    "legacyFile": "backup/markdown-posts/2024/03/01/认知-修行-平衡/心青年-202403/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-03-01__心青年-202403.md"
+  },
+  {
+    "title": "solidity高级主题",
+    "slug": "Web3/solidity/02-solidity高级主题",
+    "originalPath": "2024/02/28/Web3/solidity/02-solidity高级主题/",
+    "legacyFile": "backup/markdown-posts/2024/02/28/Web3/solidity/02-solidity高级主题/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-进步-Web3/2024-02-28__02-solidity高级主题.md"
+  },
+  {
+    "title": "什么是视觉语言？",
+    "slug": "技能-修行-进步-影视图像/视觉模式",
+    "originalPath": "2024/02/27/技能-修行-进步-影视图像/视觉模式/",
+    "legacyFile": "backup/markdown-posts/2024/02/27/技能-修行-进步-影视图像/视觉模式/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-进步-影视图像/2024-02-27__视觉模式.md"
+  },
+  {
+    "title": "拍照原理 Photography Theory",
+    "slug": "技能-修行-进步-影视图像/拍照原理",
+    "originalPath": "2024/02/24/技能-修行-进步-影视图像/拍照原理/",
+    "legacyFile": "backup/markdown-posts/2024/02/24/技能-修行-进步-影视图像/拍照原理/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/技能-修行-进步-影视图像/2024-02-24__拍照原理.md"
+  },
+  {
+    "title": "停一停 心呼吸 每日銘言 202402",
+    "slug": "认知-修行-平衡/心青年-202402",
+    "originalPath": "2024/02/23/认知-修行-平衡/心青年-202402/",
+    "legacyFile": "backup/markdown-posts/2024/02/23/认知-修行-平衡/心青年-202402/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-02-23__心青年-202402.md"
+  },
+  {
+    "title": "我的情绪为何总被他人左右-读书笔记",
+    "slug": "books/2024/first-half/我的情绪为何总被他人左右",
+    "originalPath": "2024/02/22/books/2024/first-half/我的情绪为何总被他人左右/",
+    "legacyFile": "backup/markdown-posts/2024/02/22/books/2024/first-half/我的情绪为何总被他人左右/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2024/认知-修行-平衡/2024-02-22__我的情绪为何总被他人左右.md"
+  },
+  {
+    "title": "区块链白皮书与轶事",
+    "slug": "Web3/区块链轶事",
+    "originalPath": "2023/09/04/Web3/区块链轶事/",
+    "legacyFile": "backup/markdown-posts/2023/09/04/Web3/区块链轶事/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-Web3/2023-09-04__区块链轶事.md"
+  },
+  {
+    "title": "3天回顾web3学习3周(8/7-8/27)",
+    "slug": "Web3/3day-renew-web3-august",
+    "originalPath": "2023/08/25/Web3/3day-renew-web3-august/",
+    "legacyFile": "backup/markdown-posts/2023/08/25/Web3/3day-renew-web3-august/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-Web3/2023-08-25__3day-renew-web3-august.md"
+  },
+  {
+    "title": "solidity study by ChatGPT",
+    "slug": "Web3/solidity/solidity101",
+    "originalPath": "2023/08/22/Web3/solidity/solidity101/",
+    "legacyFile": "backup/markdown-posts/2023/08/22/Web3/solidity/solidity101/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-Web3/2023-08-22__solidity101.md"
+  },
+  {
+    "title": "EVM硬核底层原理",
+    "slug": "Web3/evm-core",
+    "originalPath": "2023/08/16/Web3/evm-core/",
+    "legacyFile": "backup/markdown-posts/2023/08/16/Web3/evm-core/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-Web3/2023-08-16__evm-core.md"
+  },
+  {
+    "title": "solidity导语",
+    "slug": "Web3/solidity/00-导语-solidity",
+    "originalPath": "2023/08/16/Web3/solidity/00-导语-solidity/",
+    "legacyFile": "backup/markdown-posts/2023/08/16/Web3/solidity/00-导语-solidity/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-Web3/2023-08-16__00-导语-solidity.md"
+  },
+  {
+    "title": "solidity基础知识",
+    "slug": "Web3/solidity/01-solidity基础知识",
+    "originalPath": "2023/08/16/Web3/solidity/01-solidity基础知识/",
+    "legacyFile": "backup/markdown-posts/2023/08/16/Web3/solidity/01-solidity基础知识/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-Web3/2023-08-16__01-solidity基础知识.md"
+  },
+  {
+    "title": "近代史大事件",
+    "slug": "认知-修行-平衡/中国近代史大事件",
+    "originalPath": "2023/08/07/认知-修行-平衡/中国近代史大事件/",
+    "legacyFile": "backup/markdown-posts/2023/08/07/认知-修行-平衡/中国近代史大事件/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-08-07__中国近代史大事件.md"
+  },
+  {
+    "title": "成瘾始于痛苦，戒瘾终于平衡！",
+    "slug": "books/2024/first-half/addition",
+    "originalPath": "2023/08/07/books/2024/first-half/addition/",
+    "legacyFile": "backup/markdown-posts/2023/08/07/books/2024/first-half/addition/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-08-07__addition.md"
+  },
+  {
+    "title": "web3基础设施八周课程",
+    "slug": "Web3/web3基础设施八周课程",
+    "originalPath": "2023/08/04/Web3/web3基础设施八周课程/",
+    "legacyFile": "backup/markdown-posts/2023/08/04/Web3/web3基础设施八周课程/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-Web3/2023-08-04__web3基础设施八周课程.md"
+  },
+  {
+    "title": "停一停 心呼吸 每日銘言 202308",
+    "slug": "认知-修行-平衡/心青年-202308",
+    "originalPath": "2023/08/03/认知-修行-平衡/心青年-202308/",
+    "legacyFile": "backup/markdown-posts/2023/08/03/认知-修行-平衡/心青年-202308/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-08-03__心青年-202308.md"
+  },
+  {
+    "title": "We become what we think about.",
+    "slug": "认知-修行-平衡/we_become_what_we_think_about",
+    "originalPath": "2023/07/27/认知-修行-平衡/we_become_what_we_think_about/",
+    "legacyFile": "backup/markdown-posts/2023/07/27/认知-修行-平衡/we_become_what_we_think_about/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-27__we_become_what_we_think_about.md"
+  },
+  {
+    "title": "Steve Jobs' 2005 Stanford Commencement Address",
+    "slug": "认知-修行-平衡/SJobs_speech2005",
+    "originalPath": "2023/07/20/认知-修行-平衡/SJobs_speech2005/",
+    "legacyFile": "backup/markdown-posts/2023/07/20/认知-修行-平衡/SJobs_speech2005/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-20__SJobs_speech2005.md"
+  },
+  {
+    "title": "Ray Dalio： Principles, the Economic Machine, AI & the Arc of Life",
+    "slug": "认知-修行-平衡/raydalio-interview",
+    "originalPath": "2023/07/20/认知-修行-平衡/raydalio-interview/",
+    "legacyFile": "backup/markdown-posts/2023/07/20/认知-修行-平衡/raydalio-interview/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-20__raydalio-interview.md"
+  },
+  {
+    "title": "markdown书写规则",
+    "slug": "小而美-工具/markdown-usage",
+    "originalPath": "2023/07/20/小而美-工具/markdown-usage/",
+    "legacyFile": "backup/markdown-posts/2023/07/20/小而美-工具/markdown-usage/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/小而美-工具/2023-07-20__markdown-usage.md"
+  },
+  {
+    "title": "何为系统思考？",
+    "slug": "认知-修行-平衡/system_thinking",
+    "originalPath": "2023/07/20/认知-修行-平衡/system_thinking/",
+    "legacyFile": "backup/markdown-posts/2023/07/20/认知-修行-平衡/system_thinking/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-20__system_thinking.md"
+  },
+  {
+    "title": "任正非：让工程师成为技术商人",
+    "slug": "认知-修行-平衡/be-a-bussinessman",
+    "originalPath": "2023/07/20/认知-修行-平衡/be-a-bussinessman/",
+    "legacyFile": "backup/markdown-posts/2023/07/20/认知-修行-平衡/be-a-bussinessman/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-20__be-a-bussinessman.md"
+  },
+  {
+    "title": "桥水基金Ray Dalio给年轻人的建议",
+    "slug": "认知-修行-平衡/advice4young_raydalio",
+    "originalPath": "2023/07/20/认知-修行-平衡/advice4young_raydalio/",
+    "legacyFile": "backup/markdown-posts/2023/07/20/认知-修行-平衡/advice4young_raydalio/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-20__advice4young_raydalio.md"
+  },
+  {
+    "title": "问题解决框架",
+    "slug": "认知-修行-平衡/methodology",
+    "originalPath": "2023/07/20/认知-修行-平衡/methodology/",
+    "legacyFile": "backup/markdown-posts/2023/07/20/认知-修行-平衡/methodology/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-20__methodology.md"
+  },
+  {
+    "title": "人类简史/人类发展周期",
+    "slug": "认知-修行-平衡/huamn_his",
+    "originalPath": "2023/07/19/认知-修行-平衡/huamn_his/",
+    "legacyFile": "backup/markdown-posts/2023/07/19/认知-修行-平衡/huamn_his/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-19__huamn_his.md"
+  },
+  {
+    "title": "中国历史路线演进图",
+    "slug": "认知-修行-平衡/中国历史路线图",
+    "originalPath": "2023/07/13/认知-修行-平衡/中国历史路线图/",
+    "legacyFile": "backup/markdown-posts/2023/07/13/认知-修行-平衡/中国历史路线图/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-13__中国历史路线图.md"
+  },
+  {
+    "title": "什么是人性？",
+    "slug": "认知-修行-平衡/人性是什么",
+    "originalPath": "2023/07/13/认知-修行-平衡/人性是什么/",
+    "legacyFile": "backup/markdown-posts/2023/07/13/认知-修行-平衡/人性是什么/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-07-13__人性是什么.md"
+  },
+  {
+    "title": "monica AI GPT 总结视频内容2",
+    "slug": "ML/monica-ai-exam2",
+    "originalPath": "2023/06/15/ML/monica-ai-exam2/",
+    "legacyFile": "backup/markdown-posts/2023/06/15/ML/monica-ai-exam2/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-AI助手/2023-06-15__monica-ai-exam2.md"
+  },
+  {
+    "title": "monica AI GPT 总结视频内容1",
+    "slug": "ML/monica-ai-exam1",
+    "originalPath": "2023/06/15/ML/monica-ai-exam1/",
+    "legacyFile": "backup/markdown-posts/2023/06/15/ML/monica-ai-exam1/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-AI助手/2023-06-15__monica-ai-exam1.md"
+  },
+  {
+    "title": "conda docker git vim ssr",
+    "slug": "小而美-工具/conda_docker_git_vim",
+    "originalPath": "2023/06/12/小而美-工具/conda_docker_git_vim/",
+    "legacyFile": "backup/markdown-posts/2023/06/12/小而美-工具/conda_docker_git_vim/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/小而美-工具/2023-06-12__conda_docker_git_vim.md"
+  },
+  {
+    "title": "FLOPs",
+    "slug": "ML/FLOPs",
+    "originalPath": "2023/05/31/ML/FLOPs/",
+    "legacyFile": "backup/markdown-posts/2023/05/31/ML/FLOPs/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步/2023-05-31__FLOPs.md"
+  },
+  {
+    "title": "水墨先生算命",
+    "slug": "认知-修行-平衡/mozi91_luck",
+    "originalPath": "2023/05/28/认知-修行-平衡/mozi91_luck/",
+    "legacyFile": "backup/markdown-posts/2023/05/28/认知-修行-平衡/mozi91_luck/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-05-28__mozi91_luck.md"
+  },
+  {
+    "title": "现代机器学习监控的混乱局面：重新思考流媒体评估（4/4）",
+    "slug": "现代机器学习监控的混乱局面/model_monitoring_mess_part04",
+    "originalPath": "2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part04/",
+    "legacyFile": "backup/markdown-posts/2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part04/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-MLOps/2023-05-24__model_monitoring_mess_part04.md"
+  },
+  {
+    "title": "现代机器学习监控的混乱局面：重新思考流媒体评估（3/4）",
+    "slug": "现代机器学习监控的混乱局面/model_monitoring_mess_part03",
+    "originalPath": "2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part03/",
+    "legacyFile": "backup/markdown-posts/2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part03/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-MLOps/2023-05-24__model_monitoring_mess_part03.md"
+  },
+  {
+    "title": "现代机器学习监控的混乱局面：重新思考流媒体评估（2/4）",
+    "slug": "现代机器学习监控的混乱局面/model_monitoring_mess_part02",
+    "originalPath": "2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part02/",
+    "legacyFile": "backup/markdown-posts/2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part02/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-MLOps/2023-05-24__model_monitoring_mess_part02.md"
+  },
+  {
+    "title": "现代机器学习监控的混乱局面：重新思考流媒体评估（1/4）",
+    "slug": "现代机器学习监控的混乱局面/model_monitoring_mess_part01",
+    "originalPath": "2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part01/",
+    "legacyFile": "backup/markdown-posts/2023/05/24/现代机器学习监控的混乱局面/model_monitoring_mess_part01/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/技能-修行-进步-MLOps/2023-05-24__model_monitoring_mess_part01.md"
+  },
+  {
+    "title": "何仁讀通鑑 观后感",
+    "slug": "认知-修行-平衡/何仁读通鉴",
+    "originalPath": "2023/05/21/认知-修行-平衡/何仁读通鉴/",
+    "legacyFile": "backup/markdown-posts/2023/05/21/认知-修行-平衡/何仁读通鉴/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-05-21__何仁读通鉴.md"
+  },
+  {
+    "title": "Mac上通过airas2无限速下载网盘文件",
+    "slug": "小而美-工具/mac-ariel",
+    "originalPath": "2023/05/03/小而美-工具/mac-ariel/",
+    "legacyFile": "backup/markdown-posts/2023/05/03/小而美-工具/mac-ariel/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/小而美-工具/2023-05-03__mac-ariel.md"
+  },
+  {
+    "title": "贝叶斯思维",
+    "slug": "认知-修行-平衡/贝叶斯思维",
+    "originalPath": "2023/04/14/认知-修行-平衡/贝叶斯思维/",
+    "legacyFile": "backup/markdown-posts/2023/04/14/认知-修行-平衡/贝叶斯思维/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-04-14__贝叶斯思维.md"
+  },
+  {
+    "title": "什么是系统？",
+    "slug": "认知-修行-平衡/什么是系统",
+    "originalPath": "2023/04/05/认知-修行-平衡/什么是系统/",
+    "legacyFile": "backup/markdown-posts/2023/04/05/认知-修行-平衡/什么是系统/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-04-05__什么是系统.md"
+  },
+  {
+    "title": "常霖法師講-學佛修行信願行",
+    "slug": "认知-修行-平衡/buddism",
+    "originalPath": "2023/03/18/认知-修行-平衡/buddism/",
+    "legacyFile": "backup/markdown-posts/2023/03/18/认知-修行-平衡/buddism/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-03-18__buddism.md"
+  },
+  {
+    "title": "停一停 心呼吸 每日銘言 202307",
+    "slug": "认知-修行-平衡/心青年-202307",
+    "originalPath": "2023/02/03/认知-修行-平衡/心青年-202307/",
+    "legacyFile": "backup/markdown-posts/2023/02/03/认知-修行-平衡/心青年-202307/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2023/认知-修行-平衡/2023-02-03__心青年-202307.md"
+  },
+  {
+    "title": "P，R，AP, mAP, AP@0.5, mAP@0.5:0.95",
+    "slug": "ML/mAP-PR",
+    "originalPath": "2022/05/28/ML/mAP-PR/",
+    "legacyFile": "backup/markdown-posts/2022/05/28/ML/mAP-PR/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2022/技能-修行-进步-ML/2022-05-28__mAP-PR.md"
+  },
+  {
+    "title": "老石谈芯-人工智能的底层逻辑",
+    "slug": "ML/AI底层逻辑",
+    "originalPath": "2022/05/21/ML/AI底层逻辑/",
+    "legacyFile": "backup/markdown-posts/2022/05/21/ML/AI底层逻辑/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2022/技能-修行-进步-ML/2022-05-21__AI底层逻辑.md"
+  },
+  {
+    "title": "Object Detection Solution",
+    "slug": "ML/Object-Detection-Solution",
+    "originalPath": "2022/03/18/ML/Object-Detection-Solution/",
+    "legacyFile": "backup/markdown-posts/2022/03/18/ML/Object-Detection-Solution/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2022/技能-修行-进步-ML/2022-03-18__Object-Detection-Solution.md"
+  },
+  {
+    "title": "Training your own datasets with Darknet",
+    "slug": "ML/Training-your-own-datasets-with-Darknet",
+    "originalPath": "2021/11/07/ML/Training-your-own-datasets-with-Darknet/",
+    "legacyFile": "backup/markdown-posts/2021/11/07/ML/Training-your-own-datasets-with-Darknet/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2021/技能-修行-进步-ML/2021-11-07__Training-your-own-datasets-with-Darknet.md"
+  },
+  {
+    "title": "comparison of MTCNN on RK3399",
+    "slug": "ML/comparison-of-MTCNN-on-RK3399",
+    "originalPath": "2021/03/08/ML/comparison-of-MTCNN-on-RK3399/",
+    "legacyFile": "backup/markdown-posts/2021/03/08/ML/comparison-of-MTCNN-on-RK3399/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2021/uncategorized/2021-03-08__comparison-of-MTCNN-on-RK3399.md"
+  },
+  {
+    "title": "Training your own data with TF object detection API",
+    "slug": "ML/Training-your-own-data-with-TF-object-detection-API",
+    "originalPath": "2021/02/03/ML/Training-your-own-data-with-TF-object-detection-API/",
+    "legacyFile": "backup/markdown-posts/2021/02/03/ML/Training-your-own-data-with-TF-object-detection-API/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2021/技能-修行-进步-ML/2021-02-03__Training-your-own-data-with-TF-object-detection-API.md"
+  },
+  {
+    "title": "linux shell常用的指令功能",
+    "slug": "小而美-工具/linux_shell_cmd",
+    "originalPath": "2021/02/03/小而美-工具/linux_shell_cmd/",
+    "legacyFile": "backup/markdown-posts/2021/02/03/小而美-工具/linux_shell_cmd/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2021/小而美-工具/2021-02-03__linux_shell_cmd.md"
+  },
+  {
+    "title": "nms_and_iou",
+    "slug": "ML/nms-and-iou",
+    "originalPath": "2020/06/23/ML/nms-and-iou/",
+    "legacyFile": "backup/markdown-posts/2020/06/23/ML/nms-and-iou/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2020/技能-修行-进步/2020-06-23__nms-and-iou.md"
+  },
+  {
+    "title": "leetcode_binary_tree_series",
+    "slug": "alogrithms/leetcode-binary-tree-series",
+    "originalPath": "2020/03/09/alogrithms/leetcode-binary-tree-series/",
+    "legacyFile": "backup/markdown-posts/2020/03/09/alogrithms/leetcode-binary-tree-series/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2020/技能-修行-进步/2020-03-09__leetcode-binary-tree-series.md"
+  },
+  {
+    "title": "rebuild my own blog after system changed - Ubuntu",
+    "slug": "小而美-工具/rebuild-my-own-blog-after-system-changed",
+    "originalPath": "2020/02/03/小而美-工具/rebuild-my-own-blog-after-system-changed/",
+    "legacyFile": "backup/markdown-posts/2020/02/03/小而美-工具/rebuild-my-own-blog-after-system-changed/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2020/小而美-工具/2020-02-03__rebuild-my-own-blog-after-system-changed.md"
+  },
+  {
+    "title": "Review on 轻量级卷积神经网络的设计",
+    "slug": "ML/light-framework-for-CNN",
+    "originalPath": "2019/11/17/ML/light-framework-for-CNN/",
+    "legacyFile": "backup/markdown-posts/2019/11/17/ML/light-framework-for-CNN/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2019/技能-修行-进步-ML/2019-11-17__light-framework-for-CNN.md"
+  },
+  {
+    "title": "pa-prepare",
+    "slug": "alogrithms/pa-prepare",
+    "originalPath": "2019/09/12/alogrithms/pa-prepare/",
+    "legacyFile": "backup/markdown-posts/2019/09/12/alogrithms/pa-prepare/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2019/技能-修行-进步/2019-09-12__pa-prepare.md"
+  },
+  {
+    "title": "物体识别算法-RCN, Fast-RCNN, Faster-RCNN和YOLO",
+    "slug": "ML/Object-Detection-algo-RCNN-Fast-RCNN-Faster-RCNN-Yolo",
+    "originalPath": "2019/08/27/ML/Object-Detection-algo-RCNN-Fast-RCNN-Faster-RCNN-Yolo/",
+    "legacyFile": "backup/markdown-posts/2019/08/27/ML/Object-Detection-algo-RCNN-Fast-RCNN-Faster-RCNN-Yolo/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2019/技能-修行-进步-ML/2019-08-27__Object-Detection-algo-RCNN-Fast-RCNN-Faster-RCNN-Yolo.md"
+  },
+  {
+    "title": "simple pyopenpose usage",
+    "slug": "ML/simple-pyopenpose-usage",
+    "originalPath": "2019/08/01/ML/simple-pyopenpose-usage/",
+    "legacyFile": "backup/markdown-posts/2019/08/01/ML/simple-pyopenpose-usage/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2019/技能-修行-进步-ML/2019-08-01__simple-pyopenpose-usage.md"
+  },
+  {
+    "title": "how_to_install_openpose_in_ubuntu1604",
+    "slug": "ML/how-to-install-openpose-in-ubuntu1604",
+    "originalPath": "2019/07/02/ML/how-to-install-openpose-in-ubuntu1604/",
+    "legacyFile": "backup/markdown-posts/2019/07/02/ML/how-to-install-openpose-in-ubuntu1604/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2019/技能-修行-进步-ML/2019-07-02__how-to-install-openpose-in-ubuntu1604.md"
+  },
+  {
+    "title": "可视化证明：神经网络可以计算任何函数",
+    "slug": "ML/visual-proof-of-neural-networks",
+    "originalPath": "2017/06/14/ML/visual-proof-of-neural-networks/",
+    "legacyFile": "backup/markdown-posts/2017/06/14/ML/visual-proof-of-neural-networks/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2017/技能-修行-进步-ML/2017-06-14__visual-proof-of-neural-networks.md"
+  },
+  {
+    "title": "排序算法总结",
+    "slug": "alogrithms/sort-algorithms",
+    "originalPath": "2017/05/06/alogrithms/sort-algorithms/",
+    "legacyFile": "backup/markdown-posts/2017/05/06/alogrithms/sort-algorithms/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2017/技能-修行-进步/2017-05-06__sort-algorithms.md"
+  },
+  {
+    "title": "循环神经网络 Part 1-简介",
+    "slug": "ML/RNN-tutorial-Part-1-Introduction",
+    "originalPath": "2017/03/29/ML/RNN-tutorial-Part-1-Introduction/",
+    "legacyFile": "backup/markdown-posts/2017/03/29/ML/RNN-tutorial-Part-1-Introduction/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2017/技能-修行-进步/2017-03-29__RNN-tutorial-Part-1-Introduction.md"
+  },
+  {
+    "title": "how to use git quickly part 2",
+    "slug": "小而美-工具/how-to-use-git-quickly-part2",
+    "originalPath": "2017/03/02/小而美-工具/how-to-use-git-quickly-part2/",
+    "legacyFile": "backup/markdown-posts/2017/03/02/小而美-工具/how-to-use-git-quickly-part2/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2017/小而美-工具/2017-03-02__how-to-use-git-quickly-part2.md"
+  },
+  {
+    "title": "how to use git quickly Part 1",
+    "slug": "小而美-工具/how-to-use-git-quickly-part1",
+    "originalPath": "2017/03/02/小而美-工具/how-to-use-git-quickly-part1/",
+    "legacyFile": "backup/markdown-posts/2017/03/02/小而美-工具/how-to-use-git-quickly-part1/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2017/小而美-工具/2017-03-02__how-to-use-git-quickly-part1.md"
+  },
+  {
+    "title": "什么是神经网络？",
+    "slug": "ML/03-what-is-neural-network",
+    "originalPath": "2017/02/21/ML/03-what-is-neural-network/",
+    "legacyFile": "backup/markdown-posts/2017/02/21/ML/03-what-is-neural-network/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2017/技能-修行-进步-ML/2017-02-21__03-what-is-neural-network.md"
+  },
+  {
+    "title": "KNN Example 01 To predict the cancer of breast cancer",
+    "slug": "技能-修行-进步-R语言/KNN-example01-breast-cancer-predict",
+    "originalPath": "2017/02/15/技能-修行-进步-R语言/KNN-example01-breast-cancer-predict/",
+    "legacyFile": "backup/markdown-posts/2017/02/15/技能-修行-进步-R语言/KNN-example01-breast-cancer-predict/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2017/技能-修行-进步-R语言/2017-02-15__KNN-example01-breast-cancer-predict.md"
+  },
+  {
+    "title": "40 道ML/Data Science的初创公司(可能)的面试题",
+    "slug": "ML/40",
+    "originalPath": "2016/10/03/ML/40/",
+    "legacyFile": "backup/markdown-posts/2016/10/03/ML/40/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2016/技能-修行-进步/2016-10-03__40.md"
+  },
+  {
+    "title": "基于SVM技术的手写数字识别-毕业设计博客系列-连载",
+    "slug": "毕业设计系列/手写数字识别-毕业设计博客系列-连载",
+    "originalPath": "2015/12/30/毕业设计系列/手写数字识别-毕业设计博客系列-连载/",
+    "legacyFile": "backup/markdown-posts/2015/12/30/毕业设计系列/手写数字识别-毕业设计博客系列-连载/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/毕业设计系列/2015-12-30__手写数字识别-毕业设计博客系列-连载.md"
+  },
+  {
+    "title": "支持向量网络论文原文-Vapnik-论文翻译",
+    "slug": "毕业设计系列/支持向量网络论文原文-Vapnik-论文翻译",
+    "originalPath": "2015/03/13/毕业设计系列/支持向量网络论文原文-Vapnik-论文翻译/",
+    "legacyFile": "backup/markdown-posts/2015/03/13/毕业设计系列/支持向量网络论文原文-Vapnik-论文翻译/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/毕业设计系列/2015-03-13__支持向量网络论文原文-Vapnik-论文翻译.md"
+  },
+  {
+    "title": "毕设报告-2015-03-10",
+    "slug": "毕业设计系列/毕设报告-2015-03-10",
+    "originalPath": "2015/03/10/毕业设计系列/毕设报告-2015-03-10/",
+    "legacyFile": "backup/markdown-posts/2015/03/10/毕业设计系列/毕设报告-2015-03-10/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/毕业设计系列/2015-03-10__毕设报告-2015-03-10.md"
+  },
+  {
+    "title": "程序员必须知道的10大基础实用算法及其讲解-@慕可网制作",
+    "slug": "alogrithms/程序员必须知道的10大基础实用算法及其讲解-慕可网制作",
+    "originalPath": "2015/02/08/alogrithms/程序员必须知道的10大基础实用算法及其讲解-慕可网制作/",
+    "legacyFile": "backup/markdown-posts/2015/02/08/alogrithms/程序员必须知道的10大基础实用算法及其讲解-慕可网制作/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/技能-修行-进步/2015-02-08__程序员必须知道的10大基础实用算法及其讲解-慕可网制作.md"
+  },
+  {
+    "title": "Django-1-7-3-Tutorial-Part-3-视图和模板",
+    "slug": "技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-3-视图和模板",
+    "originalPath": "2015/01/27/技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-3-视图和模板/",
+    "legacyFile": "backup/markdown-posts/2015/01/27/技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-3-视图和模板/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/技能-修行-进步-Django/2015-01-27__Django-1-7-3-Tutorial-Part-3-视图和模板.md"
+  },
+  {
+    "title": "Django-1-7-3-Tutorial-Part-2-管理站点",
+    "slug": "技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-2-管理站点",
+    "originalPath": "2015/01/19/技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-2-管理站点/",
+    "legacyFile": "backup/markdown-posts/2015/01/19/技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-2-管理站点/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/技能-修行-进步-Django/2015-01-19__Django-1-7-3-Tutorial-Part-2-管理站点.md"
+  },
+  {
+    "title": "Django-1.7.3-Tutorial-Part-1-模型",
+    "slug": "技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-1-模型",
+    "originalPath": "2015/01/16/技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-1-模型/",
+    "legacyFile": "backup/markdown-posts/2015/01/16/技能-修行-进步-Django/Django-1-7-3-Tutorial-Part-1-模型/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/技能-修行-进步-Django/2015-01-16__Django-1-7-3-Tutorial-Part-1-模型.md"
+  },
+  {
+    "title": "Support Vector Machines-scikielearn-翻译-毕设系列",
+    "slug": "毕业设计系列/Support-Vector-Machines-scikielearn",
+    "originalPath": "2015/01/12/毕业设计系列/Support-Vector-Machines-scikielearn/",
+    "legacyFile": "backup/markdown-posts/2015/01/12/毕业设计系列/Support-Vector-Machines-scikielearn/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/毕业设计系列/2015-01-12__Support-Vector-Machines-scikielearn.md"
+  },
+  {
+    "title": "SVM入门系列博文-转自Jasper's Java Jacal-备份-毕设系列",
+    "slug": "毕业设计系列/SVM入门系列博文-转自Jasper-s-Java-Jacal-备份-毕设系列",
+    "originalPath": "2015/01/08/毕业设计系列/SVM入门系列博文-转自Jasper-s-Java-Jacal-备份-毕设系列/",
+    "legacyFile": "backup/markdown-posts/2015/01/08/毕业设计系列/SVM入门系列博文-转自Jasper-s-Java-Jacal-备份-毕设系列/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/毕业设计系列/2015-01-08__SVM入门系列博文-转自Jasper-s-Java-Jacal-备份-毕设系列.md"
+  },
+  {
+    "title": "字符串-编程面试10大常考算法系列(1)",
+    "slug": "alogrithms/字符串-编程面试10大常考算法系列-1",
+    "originalPath": "2015/01/05/alogrithms/字符串-编程面试10大常考算法系列-1/",
+    "legacyFile": "backup/markdown-posts/2015/01/05/alogrithms/字符串-编程面试10大常考算法系列-1/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/技能-修行-进步/2015-01-05__字符串-编程面试10大常考算法系列-1.md"
+  },
+  {
+    "title": "【基础】常用的机器学习&数据挖掘知识点",
+    "slug": "ML/【基础】常用的机器学习-数据挖掘知识点",
+    "originalPath": "2015/01/04/ML/【基础】常用的机器学习-数据挖掘知识点/",
+    "legacyFile": "backup/markdown-posts/2015/01/04/ML/【基础】常用的机器学习-数据挖掘知识点/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/技能-修行-进步/2015-01-04__【基础】常用的机器学习-数据挖掘知识点.md"
+  },
+  {
+    "title": "手写数字识别-Kernel Support Vector Machine-论文翻译-毕设系列",
+    "slug": "毕业设计系列/手写数字识别-Kernel-Support-Vector-Machine-博客翻译-毕设系列",
+    "originalPath": "2015/01/03/毕业设计系列/手写数字识别-Kernel-Support-Vector-Machine-博客翻译-毕设系列/",
+    "legacyFile": "backup/markdown-posts/2015/01/03/毕业设计系列/手写数字识别-Kernel-Support-Vector-Machine-博客翻译-毕设系列/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/毕业设计系列/2015-01-03__手写数字识别-Kernel-Support-Vector-Machine-博客翻译-毕设系列.md"
+  },
+  {
+    "title": "最小二乘法论文翻译-毕设系列",
+    "slug": "毕业设计系列/最小二乘法论文翻译-毕设系列",
+    "originalPath": "2015/01/01/毕业设计系列/最小二乘法论文翻译-毕设系列/",
+    "legacyFile": "backup/markdown-posts/2015/01/01/毕业设计系列/最小二乘法论文翻译-毕设系列/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2015/毕业设计系列/2015-01-01__最小二乘法论文翻译-毕设系列.md"
+  },
+  {
+    "title": "多线程笔记",
+    "slug": "alogrithms/Multithreading-note",
+    "originalPath": "2014/12/26/alogrithms/Multithreading-note/",
+    "legacyFile": "backup/markdown-posts/2014/12/26/alogrithms/Multithreading-note/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步/2014-12-26__Multithreading-note.md"
+  },
+  {
+    "title": "单例设计模式",
+    "slug": "alogrithms/Singleton-note",
+    "originalPath": "2014/12/25/alogrithms/Singleton-note/",
+    "legacyFile": "backup/markdown-posts/2014/12/25/alogrithms/Singleton-note/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步/2014-12-25__Singleton-note.md"
+  },
+  {
+    "title": "chap1-variable-assignment",
+    "slug": "技能-修行-进步-R语言/chap1-variable-assignment",
+    "originalPath": "2014/11/18/技能-修行-进步-R语言/chap1-variable-assignment/",
+    "legacyFile": "backup/markdown-posts/2014/11/18/技能-修行-进步-R语言/chap1-variable-assignment/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-R语言/2014-11-18__chap1-variable-assignment.md"
+  },
+  {
+    "title": "chap1-Intro to basics",
+    "slug": "技能-修行-进步-R语言/chap1-Intro-to-basics",
+    "originalPath": "2014/11/18/技能-修行-进步-R语言/chap1-Intro-to-basics/",
+    "legacyFile": "backup/markdown-posts/2014/11/18/技能-修行-进步-R语言/chap1-Intro-to-basics/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-R语言/2014-11-18__chap1-Intro-to-basics.md"
+  },
+  {
+    "title": "概率论基本概念1",
+    "slug": "alogrithms/概率论基本概念1",
+    "originalPath": "2014/11/06/alogrithms/概率论基本概念1/",
+    "legacyFile": "backup/markdown-posts/2014/11/06/alogrithms/概率论基本概念1/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步/2014-11-06__概率论基本概念1.md"
+  },
+  {
+    "title": "数据挖掘-Aprior-Algorithm",
+    "slug": "alogrithms/数据挖掘-Aprior-Algorithm",
+    "originalPath": "2014/11/04/alogrithms/数据挖掘-Aprior-Algorithm/",
+    "legacyFile": "backup/markdown-posts/2014/11/04/alogrithms/数据挖掘-Aprior-Algorithm/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步/2014-11-04__数据挖掘-Aprior-Algorithm.md"
+  },
+  {
+    "title": "DMwR-note-01-预测海藻数量(三)",
+    "slug": "技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(三)",
+    "originalPath": "2014/10/28/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(三)/",
+    "legacyFile": "backup/markdown-posts/2014/10/28/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(三)/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-R语言/2014-10-28__DMwR-note-01-预测海藻数量(三).md"
+  },
+  {
+    "title": "DMwR-note-01-预测海藻数量(四)",
+    "slug": "技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(四)",
+    "originalPath": "2014/10/28/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(四)/",
+    "legacyFile": "backup/markdown-posts/2014/10/28/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(四)/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-R语言/2014-10-28__DMwR-note-01-预测海藻数量(四).md"
+  },
+  {
+    "title": "DMwR-note-01-预测海藻数量(二)",
+    "slug": "技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(二)",
+    "originalPath": "2014/10/26/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(二)/",
+    "legacyFile": "backup/markdown-posts/2014/10/26/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(二)/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-R语言/2014-10-26__DMwR-note-01-预测海藻数量(二).md"
+  },
+  {
+    "title": "DMwR-note-01-预测海藻数量(一)",
+    "slug": "技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(一)",
+    "originalPath": "2014/10/23/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(一)/",
+    "legacyFile": "backup/markdown-posts/2014/10/23/技能-修行-进步-R语言/DMwR-note-01-预测海藻数量(一)/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-R语言/2014-10-23__DMwR-note-01-预测海藻数量(一).md"
+  },
+  {
+    "title": "正则表达式课堂笔记",
+    "slug": "ML/RegularExpression",
+    "originalPath": "2014/10/18/ML/RegularExpression/",
+    "legacyFile": "backup/markdown-posts/2014/10/18/ML/RegularExpression/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步/2014-10-18__RegularExpression.md"
+  },
+  {
+    "title": "chp0_JSP",
+    "slug": "技能-修行-进步-JSP/chp0-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp0-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp0-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp0-JSP.md"
+  },
+  {
+    "title": "chp9_JSP",
+    "slug": "技能-修行-进步-JSP/chp9-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp9-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp9-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp9-JSP.md"
+  },
+  {
+    "title": "chp8_JSP",
+    "slug": "技能-修行-进步-JSP/chp8-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp8-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp8-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp8-JSP.md"
+  },
+  {
+    "title": "chp7_JSP",
+    "slug": "技能-修行-进步-JSP/chp7-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp7-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp7-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp7-JSP.md"
+  },
+  {
+    "title": "chp6_JSP",
+    "slug": "技能-修行-进步-JSP/chp6-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp6-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp6-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp6-JSP.md"
+  },
+  {
+    "title": "chp5_JSP",
+    "slug": "技能-修行-进步-JSP/chp5-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp5-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp5-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp5-JSP.md"
+  },
+  {
+    "title": "chp4_JSP",
+    "slug": "技能-修行-进步-JSP/chp4-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp4-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp4-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp4-JSP.md"
+  },
+  {
+    "title": "chp3_JSP",
+    "slug": "技能-修行-进步-JSP/chp3-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp3-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp3-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp3-JSP.md"
+  },
+  {
+    "title": "chp2_JSP",
+    "slug": "技能-修行-进步-JSP/chp2-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp2-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp2-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp2-JSP.md"
+  },
+  {
+    "title": "chp1_JSP",
+    "slug": "技能-修行-进步-JSP/chp1-JSP",
+    "originalPath": "2014/07/06/技能-修行-进步-JSP/chp1-JSP/",
+    "legacyFile": "backup/markdown-posts/2014/07/06/技能-修行-进步-JSP/chp1-JSP/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2014/技能-修行-进步-JSP/2014-07-06__chp1-JSP.md"
+  },
+  {
+    "title": "Linux_develop_C-我的第一篇博客",
+    "slug": "小而美-工具/Linux-develop-C",
+    "originalPath": "2012/06/27/小而美-工具/Linux-develop-C/",
+    "legacyFile": "backup/markdown-posts/2012/06/27/小而美-工具/Linux-develop-C/index.md",
+    "organizedFile": "backup/markdown-posts-organized/2012/小而美-工具/2012-06-27__Linux-develop-C.md"
+  }
+]

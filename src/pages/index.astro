@@ -1,17 +1,41 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Tim Chen | New Site" description="全新开始的个人站点。" canonical="/">
+  <main id="content" class="shell">
+    <section class="hero">
+      <div class="hero-card">
+        <div>
+          <p class="eyebrow">fresh start</p>
+          <h1>Tim Chen</h1>
+          <p class="lead">
+            网站内容已清零，保留了离线 Markdown 备份。接下来从零开始设计和发布新内容。
+          </p>
+          <div class="actions">
+            <a class="pill" href="/about/">关于</a>
+            <a class="pill" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+          <p class="section-desc" style="margin-top: 1.25rem;">
+            下一步可以直接开始新栏目、新文章和新设计系统。
+          </p>
+        </div>
+        <aside class="panel-list">
+          <div class="panel">
+            <span>内容状态</span>
+            <strong>线上内容已清零</strong>
+          </div>
+          <div class="panel">
+            <span>备份状态</span>
+            <strong>117 篇旧文已导出为 Markdown</strong>
+          </div>
+          <div class="panel">
+            <span>技术栈</span>
+            <strong>Astro 静态站 + GitHub Pages</strong>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,57 @@
+---
+const {
+  title = 'Tim Chen',
+  description = 'Tim Chen 的个人站点。',
+  canonical,
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://chenyuqing.github.io').toString() : undefined;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">跳到内容</a>
+    <header class="site-header">
+      <div class="shell header-row">
+        <a class="brand" href="/" aria-label="返回首页">
+          <span class="brand-mark">TC</span>
+          <span class="brand-text">
+            <strong>Tim Chen</strong>
+            <small>new site</small>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>首页</a>
+          <a href="/about/" aria-current={pathname.startsWith('/about') ? 'page' : undefined}>关于</a>
+        </nav>
+      </div>
+    </header>
+    <div class="site-ambient" aria-hidden="true"></div>
+    <slot />
+    <footer class="site-footer">
+      <div class="shell footer-row">
+        <div>
+          <p class="eyebrow">Fresh start</p>
+          <p class="footer-copy">站点内容已清零，正在从零开始重建。</p>
+        </div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/about/">关于</a>
+          <a href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
