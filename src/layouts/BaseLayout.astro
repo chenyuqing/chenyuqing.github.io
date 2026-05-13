@@ -10,48 +10,352 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-    <link rel="icon" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const storedLang = localStorage.getItem('site-lang');
+        const storedTheme = localStorage.getItem('site-theme');
+        const lang = storedLang === 'en' ? 'en' : 'zh';
+        const theme = storedTheme === 'dark'
+          ? 'dark'
+          : storedTheme === 'light'
+            ? 'light'
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        root.setAttribute('data-lang', lang);
+        root.setAttribute('data-theme', theme);
+        root.setAttribute('lang', lang === 'en' ? 'en' : 'zh-CN');
+      })();
+    </script>
     <title>{title}</title>
   </head>
   <body>
-    <a class="skip-link" href="#content">跳到内容</a>
+    <a class="skip-link" href="#content" data-i18n="skip_to_content">跳到内容</a>
     <header class="site-header">
       <div class="shell header-row">
         <a class="brand" href="/" aria-label="返回首页">
-          <span class="brand-mark">TC</span>
+          <span class="brand-mark">
+            <img src="/favicon-64x64.png" alt="Tim Chen avatar" />
+          </span>
           <span class="brand-text">
             <strong>Tim Chen</strong>
-            <small>new site</small>
+            <small>creator lab</small>
           </span>
         </a>
-        <nav class="site-nav" aria-label="Primary">
-          <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>首页</a>
-          <a href="/about/" aria-current={pathname.startsWith('/about') ? 'page' : undefined}>关于</a>
-        </nav>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Primary">
+            <a class="nav-pill" href="/" aria-current={pathname === '/' ? 'page' : undefined} data-i18n="nav_home">首页</a>
+            <a class="nav-pill" href="/about/" aria-current={pathname.startsWith('/about') ? 'page' : undefined} data-i18n="nav_about">关于</a>
+            <a class="nav-pill" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="nav_github">GitHub</a>
+          </nav>
+          <div class="site-controls">
+            <button
+              id="lang-toggle"
+              class="nav-pill toggle-pill"
+              type="button"
+              data-i18n-aria-label="toggle_lang_aria"
+              data-i18n="toggle_lang_button"
+            >
+              中 / EN
+            </button>
+            <button
+              id="theme-toggle"
+              class="nav-pill toggle-pill"
+              type="button"
+              data-i18n-aria-label="toggle_theme_aria"
+              data-i18n="theme_light_label"
+            >
+              浅色模式
+            </button>
+          </div>
+        </div>
       </div>
     </header>
-    <div class="site-ambient" aria-hidden="true"></div>
     <slot />
     <footer class="site-footer">
       <div class="shell footer-row">
-        <div>
-          <p class="eyebrow">Fresh start</p>
-          <p class="footer-copy">站点内容已清零，正在从零开始重建。</p>
-        </div>
+        <p data-i18n="footer_copy">2026 © Tim Chen · AI Creator Playground</p>
         <div class="footer-links">
-          <a href="/">首页</a>
-          <a href="/about/">关于</a>
-          <a href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="nav-pill" href="/" data-i18n="footer_home">首页</a>
+          <a class="nav-pill" href="/about/" data-i18n="footer_about">关于</a>
         </div>
       </div>
     </footer>
+    <script is:inline>
+      (() => {
+        const I18N = {
+          zh: {
+            skip_to_content: '跳到内容',
+            nav_home: '首页',
+            nav_about: '关于',
+            nav_github: 'GitHub',
+            toggle_lang_button: '中 / EN',
+            toggle_lang_aria: '切换中英文',
+            toggle_theme_aria: '切换明暗主题',
+            footer_copy: '2026 © Tim Chen · AI Creator Playground',
+            footer_home: '首页',
+            footer_about: '关于',
+            home_eyebrow: 'Creator Playground',
+            home_title: '你好，我是 ',
+            home_title_name: 'Tim',
+            home_lead: '我在做 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。',
+            home_cta_about: '了解我',
+            home_cta_projects: '查看项目',
+            home_tag_ai: 'AI Tools',
+            home_tag_video: 'Video Workflow',
+            home_tag_design: 'Design System',
+            home_sticker_one: 'Hi, I build.',
+            home_sticker_two: 'Cute + Useful',
+            home_mascot_alt: '首页吉祥物小象',
+            home_video_eyebrow: 'Video',
+            home_video_title: '首页视频',
+            home_video_desc: '使用你指定的素材 elephant-coding.mp4。',
+            home_video_fallback: '你的浏览器不支持 video 标签。',
+            home_focus_eyebrow: 'Focus',
+            home_focus_title: '我正在做的方向',
+            home_focus_desc: '不是传统简历站，而是一个持续迭代的创作者实验室入口。',
+            home_focus_1_title: 'AI Tools',
+            home_focus_1_desc: '把复杂 AI 能力包装成可直接使用的创作工具。',
+            home_focus_2_title: 'Video Workflow',
+            home_focus_2_desc: '围绕视频、字幕、翻译和配音，搭建可复用的生产流水线。',
+            home_focus_3_title: 'Design Experiments',
+            home_focus_3_desc: '持续迭代个人视觉表达，做有识别度的创作者网站与产品。',
+            home_projects_eyebrow: 'Projects',
+            home_projects_title: '精选项目',
+            project1_badge: 'Web 应用',
+            project1_title: 'Subtitle Maker',
+            project1_desc: 'AI 字幕识别、翻译、语音克隆与配音工作流。',
+            project1_tag_1: 'AI',
+            project1_tag_2: '字幕',
+            project1_tag_3: '配音',
+            project2_badge: '创作工具',
+            project2_title: 'Voice Scene Maker',
+            project2_desc: '把脚本转换为多语言音频场景的创作工具，面向内容创作者。',
+            project2_tag_1: 'AI Agent',
+            project2_tag_2: '流程',
+            project2_tag_3: '音频',
+            project_detail: '详情',
+            home_contact_eyebrow: 'Contact',
+            home_contact_title: '想一起做点有意思的东西？',
+            home_contact_desc: '欢迎交流产品、AI、设计和创作流程，我会持续更新这个站点。',
+            home_contact_email: '发邮件',
+            home_contact_github: 'GitHub',
+            home_status_title: 'Site Status',
+            home_status_desc: '旧文章已备份为 Markdown，线上内容从零重建。',
+            home_status_stack: '技术栈：Astro + GitHub Pages',
+            about_eyebrow: 'About Me',
+            about_title: '关于我',
+            about_desc: '我是 Tim Chen，关注 AI 创作工具、视频生产流程和创作者产品体验。',
+            about_stat_2d: '可爱现代视觉体系',
+            about_stat_ai: '工具化与产品化能力',
+            about_stat_ship: '快速构建与持续发布',
+            about_now_eyebrow: 'Now',
+            about_now_title: '我现在在做什么',
+            about_now_desc: '重点是把字幕识别、翻译、配音、脚本处理等分散能力连成可复用工作流，并且保持界面友好、可维护。',
+            about_card_build_title: 'Build',
+            about_card_build_desc: '构建从输入素材到产出内容的端到端流程。',
+            about_card_polish_title: 'Polish',
+            about_card_polish_desc: '把粗糙工具打磨成稳定、清晰、可迭代的产品。',
+            about_card_share_title: 'Share',
+            about_card_share_desc: '通过站点与项目记录持续输出经验与思考。',
+            about_skills_eyebrow: 'Skills',
+            about_skills_title: '能力标签',
+            about_skill_1: 'AI Tools',
+            about_skill_2: 'Video Workflow',
+            about_skill_3: 'Subtitle System',
+            about_skill_4: 'Creator Product',
+            about_skill_5: 'Design Experiments',
+            about_skill_6: 'Automation',
+            notfound_eyebrow: '404',
+            notfound_title: '这个页面走丢了',
+            notfound_desc: '旧路径已经下线，当前站点正在按新设计持续重建中。',
+            notfound_btn_home: '回首页',
+            notfound_btn_about: '看关于',
+            notfound_hint_eyebrow: 'Hint',
+            notfound_hint_title: '从这两个入口继续',
+            notfound_hint_desc: '首页看最新模块，关于页看个人方向与能力结构。',
+            notfound_tip_title: 'Tip',
+            notfound_tip_desc: '如果你是从旧收藏夹进来的，建议更新到新链接。',
+            theme_light_label: '浅色模式',
+            theme_dark_label: '深色模式',
+          },
+          en: {
+            skip_to_content: 'Skip to content',
+            nav_home: 'Home',
+            nav_about: 'About',
+            nav_github: 'GitHub',
+            toggle_lang_button: '中 / EN',
+            toggle_lang_aria: 'Switch language',
+            toggle_theme_aria: 'Switch light or dark theme',
+            footer_copy: '2026 © Tim Chen · AI Creator Playground',
+            footer_home: 'Home',
+            footer_about: 'About',
+            home_eyebrow: 'Creator Playground',
+            home_title: "Hi, I'm ",
+            home_title_name: 'Tim',
+            home_lead: 'I build AI creator tools, video workflows, and subtitle products to turn complex capabilities into simple, usable experiences.',
+            home_cta_about: 'About Me',
+            home_cta_projects: 'View Projects',
+            home_tag_ai: 'AI Tools',
+            home_tag_video: 'Video Workflow',
+            home_tag_design: 'Design System',
+            home_sticker_one: 'Hi, I build.',
+            home_sticker_two: 'Cute + Useful',
+            home_mascot_alt: 'Elephant mascot on homepage',
+            home_video_eyebrow: 'Video',
+            home_video_title: 'Homepage Video',
+            home_video_desc: 'Using your specified asset: elephant-coding.mp4.',
+            home_video_fallback: 'Your browser does not support the video tag.',
+            home_focus_eyebrow: 'Focus',
+            home_focus_title: 'What I am building now',
+            home_focus_desc: 'Not a traditional resume site, but an evolving creator lab.',
+            home_focus_1_title: 'AI Tools',
+            home_focus_1_desc: 'Package complex AI capabilities into creator-friendly tools.',
+            home_focus_2_title: 'Video Workflow',
+            home_focus_2_desc: 'Build reusable pipelines across video, subtitles, translation, and dubbing.',
+            home_focus_3_title: 'Design Experiments',
+            home_focus_3_desc: 'Iterate visual expression and build creator sites with strong identity.',
+            home_projects_eyebrow: 'Projects',
+            home_projects_title: 'Featured Projects',
+            project1_badge: 'Web App',
+            project1_title: 'Subtitle Maker',
+            project1_desc: 'AI subtitle recognition, translation, voice cloning, and dubbing workflow.',
+            project1_tag_1: 'AI',
+            project1_tag_2: 'Subtitle',
+            project1_tag_3: 'Dubbing',
+            project2_badge: 'Creator Tool',
+            project2_title: 'Voice Scene Maker',
+            project2_desc: 'A creator tool that converts scripts into multilingual audio scenes.',
+            project2_tag_1: 'AI Agent',
+            project2_tag_2: 'Workflow',
+            project2_tag_3: 'Audio',
+            project_detail: 'Details',
+            home_contact_eyebrow: 'Contact',
+            home_contact_title: 'Want to build something interesting together?',
+            home_contact_desc: 'Open to talk about product, AI, design, and creator workflows. This site will keep evolving.',
+            home_contact_email: 'Email Me',
+            home_contact_github: 'GitHub',
+            home_status_title: 'Site Status',
+            home_status_desc: 'Legacy posts are backed up in Markdown. The live site is rebuilt from scratch.',
+            home_status_stack: 'Stack: Astro + GitHub Pages',
+            about_eyebrow: 'About Me',
+            about_title: 'About',
+            about_desc: 'I am Tim Chen, focused on AI creator tools, video production workflows, and product experience for creators.',
+            about_stat_2d: 'Cute modern visual language',
+            about_stat_ai: 'Tooling and productization capability',
+            about_stat_ship: 'Fast build and continuous shipping',
+            about_now_eyebrow: 'Now',
+            about_now_title: 'What I am working on',
+            about_now_desc: 'I connect scattered capabilities such as subtitle recognition, translation, dubbing, and script processing into reusable workflows with clean UX.',
+            about_card_build_title: 'Build',
+            about_card_build_desc: 'Build end-to-end workflows from source material to final output.',
+            about_card_polish_title: 'Polish',
+            about_card_polish_desc: 'Turn rough tools into stable, clear, and iterative products.',
+            about_card_share_title: 'Share',
+            about_card_share_desc: 'Continuously share practical learnings through this site and projects.',
+            about_skills_eyebrow: 'Skills',
+            about_skills_title: 'Skill Tags',
+            about_skill_1: 'AI Tools',
+            about_skill_2: 'Video Workflow',
+            about_skill_3: 'Subtitle System',
+            about_skill_4: 'Creator Product',
+            about_skill_5: 'Design Experiments',
+            about_skill_6: 'Automation',
+            notfound_eyebrow: '404',
+            notfound_title: 'This page is missing',
+            notfound_desc: 'Old routes are retired and this site is being rebuilt under a new design.',
+            notfound_btn_home: 'Back Home',
+            notfound_btn_about: 'About',
+            notfound_hint_eyebrow: 'Hint',
+            notfound_hint_title: 'Continue from these entries',
+            notfound_hint_desc: 'Use Home for the latest modules and About for profile and capability focus.',
+            notfound_tip_title: 'Tip',
+            notfound_tip_desc: 'If you came from an old bookmark, please update the link.',
+            theme_light_label: 'Light Mode',
+            theme_dark_label: 'Dark Mode',
+          },
+        };
+
+        const root = document.documentElement;
+        const langButton = document.getElementById('lang-toggle');
+        const themeButton = document.getElementById('theme-toggle');
+
+        const resolveLang = (value) => (value === 'en' ? 'en' : 'zh');
+        const resolveTheme = (value) => (value === 'dark' ? 'dark' : 'light');
+
+        const applyTranslations = (lang) => {
+          const dict = I18N[lang] ?? I18N.zh;
+          document.querySelectorAll('[data-i18n]').forEach((node) => {
+            const key = node.getAttribute('data-i18n');
+            if (!key) return;
+            const value = dict[key];
+            if (typeof value === 'string') node.textContent = value;
+          });
+          document.querySelectorAll('[data-i18n-alt]').forEach((node) => {
+            const key = node.getAttribute('data-i18n-alt');
+            if (!key) return;
+            const value = dict[key];
+            if (typeof value === 'string') node.setAttribute('alt', value);
+          });
+          document.querySelectorAll('[data-i18n-aria-label]').forEach((node) => {
+            const key = node.getAttribute('data-i18n-aria-label');
+            if (!key) return;
+            const value = dict[key];
+            if (typeof value === 'string') node.setAttribute('aria-label', value);
+          });
+        };
+
+        const applyThemeLabel = (lang, theme) => {
+          if (!themeButton) return;
+          const dict = I18N[lang] ?? I18N.zh;
+          const key = theme === 'dark' ? 'theme_dark_label' : 'theme_light_label';
+          const text = dict[key] ?? key;
+          themeButton.textContent = text;
+          themeButton.setAttribute('data-theme-state', theme);
+        };
+
+        const setLang = (nextLang) => {
+          const lang = resolveLang(nextLang);
+          root.setAttribute('data-lang', lang);
+          root.setAttribute('lang', lang === 'en' ? 'en' : 'zh-CN');
+          localStorage.setItem('site-lang', lang);
+          applyTranslations(lang);
+          applyThemeLabel(lang, resolveTheme(root.getAttribute('data-theme')));
+        };
+
+        const setTheme = (nextTheme) => {
+          const theme = resolveTheme(nextTheme);
+          root.setAttribute('data-theme', theme);
+          localStorage.setItem('site-theme', theme);
+          applyThemeLabel(resolveLang(root.getAttribute('data-lang')), theme);
+        };
+
+        setLang(resolveLang(root.getAttribute('data-lang')));
+        setTheme(resolveTheme(root.getAttribute('data-theme')));
+
+        langButton?.addEventListener('click', () => {
+          const current = resolveLang(root.getAttribute('data-lang'));
+          setLang(current === 'zh' ? 'en' : 'zh');
+        });
+
+        themeButton?.addEventListener('click', () => {
+          const current = resolveTheme(root.getAttribute('data-theme'));
+          setTheme(current === 'light' ? 'dark' : 'light');
+        });
+      })();
+    </script>
   </body>
 </html>

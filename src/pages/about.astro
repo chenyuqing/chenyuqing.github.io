@@ -4,12 +4,65 @@ import '../styles/global.css';
 ---
 
 <BaseLayout title="关于 | Tim Chen" description="关于 Tim Chen。" canonical="/about/">
-  <main id="content" class="shell">
+  <main id="content" class="shell page-simple">
     <section class="section">
       <div class="section-head">
-        <p class="eyebrow">About</p>
-        <h1 class="section-title">关于</h1>
-        <p class="section-desc">这是全新站点的起点页。后续可在这里放个人简介、项目索引和联系方式。</p>
+        <p class="eyebrow" data-i18n="about_eyebrow">About Me</p>
+        <h1 class="section-title" data-i18n="about_title">关于我</h1>
+        <p class="section-desc" data-i18n="about_desc">我是 Tim Chen，关注 AI 创作工具、视频生产流程和创作者产品体验。</p>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card">
+          <strong>2D</strong>
+          <p class="muted" data-i18n="about_stat_2d">可爱现代视觉体系</p>
+        </article>
+        <article class="stat-card">
+          <strong>AI</strong>
+          <p class="muted" data-i18n="about_stat_ai">工具化与产品化能力</p>
+        </article>
+        <article class="stat-card">
+          <strong>Ship</strong>
+          <p class="muted" data-i18n="about_stat_ship">快速构建与持续发布</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="about_now_eyebrow">Now</p>
+        <h2 class="section-title" data-i18n="about_now_title">我现在在做什么</h2>
+        <p class="section-desc" data-i18n="about_now_desc">
+          重点是把字幕识别、翻译、配音、脚本处理等分散能力连成可复用工作流，并且保持界面友好、可维护。
+        </p>
+      </div>
+      <div class="feature-grid">
+        <article class="card card-blue">
+          <h3 data-i18n="about_card_build_title">Build</h3>
+          <p data-i18n="about_card_build_desc">构建从输入素材到产出内容的端到端流程。</p>
+        </article>
+        <article class="card card-yellow">
+          <h3 data-i18n="about_card_polish_title">Polish</h3>
+          <p data-i18n="about_card_polish_desc">把粗糙工具打磨成稳定、清晰、可迭代的产品。</p>
+        </article>
+        <article class="card card-orange">
+          <h3 data-i18n="about_card_share_title">Share</h3>
+          <p data-i18n="about_card_share_desc">通过站点与项目记录持续输出经验与思考。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="about_skills_eyebrow">Skills</p>
+        <h2 class="section-title" data-i18n="about_skills_title">能力标签</h2>
+      </div>
+      <div class="tag-list">
+        <span class="tag tag-code" data-i18n="about_skill_1">AI Tools</span>
+        <span class="tag tag-code" data-i18n="about_skill_2">Video Workflow</span>
+        <span class="tag tag-code" data-i18n="about_skill_3">Subtitle System</span>
+        <span class="tag tag-code" data-i18n="about_skill_4">Creator Product</span>
+        <span class="tag tag-code" data-i18n="about_skill_5">Design Experiments</span>
+        <span class="tag tag-code" data-i18n="about_skill_6">Automation</span>
       </div>
     </section>
   </main>

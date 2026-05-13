@@ -3,37 +3,130 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 ---
 
-<BaseLayout title="Tim Chen | New Site" description="全新开始的个人站点。" canonical="/">
+<BaseLayout title="Tim Chen | Creator Lab" description="清爽可爱现代 2D 扁平卡通风的个人创作站。" canonical="/">
   <main id="content" class="shell">
     <section class="hero">
       <div class="hero-card">
-        <div>
-          <p class="eyebrow">fresh start</p>
-          <h1>Tim Chen</h1>
-          <p class="lead">
-            网站内容已清零，保留了离线 Markdown 备份。接下来从零开始设计和发布新内容。
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="home_eyebrow">Creator Playground</p>
+          <h1>
+            <span data-i18n="home_title">你好，我是 </span><span class="hero-name" data-i18n="home_title_name">Tim</span>
+          </h1>
+          <p class="lead" data-i18n="home_lead">
+            我在做 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。
           </p>
           <div class="actions">
-            <a class="pill" href="/about/">关于</a>
-            <a class="pill" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="button button-primary" href="/about/" data-i18n="home_cta_about">了解我</a>
+            <a class="button button-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="home_cta_projects">查看项目</a>
           </div>
-          <p class="section-desc" style="margin-top: 1.25rem;">
-            下一步可以直接开始新栏目、新文章和新设计系统。
-          </p>
+          <div class="tag-list">
+            <span class="tag tag-ai" data-i18n="home_tag_ai">AI Tools</span>
+            <span class="tag tag-video" data-i18n="home_tag_video">Video Workflow</span>
+            <span class="tag tag-design" data-i18n="home_tag_design">Design System</span>
+          </div>
         </div>
-        <aside class="panel-list">
-          <div class="panel">
-            <span>内容状态</span>
-            <strong>线上内容已清零</strong>
+        <aside class="hero-visual" aria-hidden="true">
+          <div class="hero-sticker one" data-i18n="home_sticker_one">Hi, I build.</div>
+          <div class="hero-sticker two" data-i18n="home_sticker_two">Cute + Useful</div>
+          <img class="hero-mascot-img" src="/media/mascot-elephant.png" alt="首页吉祥物小象" data-i18n-alt="home_mascot_alt" />
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="home_video_eyebrow">Video</p>
+        <h2 class="section-title" data-i18n="home_video_title">首页视频</h2>
+        <p class="section-desc" data-i18n="home_video_desc">使用你指定的素材 elephant-coding.mp4。</p>
+      </div>
+      <div class="video-card">
+        <video
+          class="home-video"
+          src="/media/elephant-coding.mp4"
+          controls
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+        >
+          <span data-i18n="home_video_fallback">你的浏览器不支持 video 标签。</span>
+        </video>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="home_focus_eyebrow">Focus</p>
+        <h2 class="section-title" data-i18n="home_focus_title">我正在做的方向</h2>
+        <p class="section-desc" data-i18n="home_focus_desc">不是传统简历站，而是一个持续迭代的创作者实验室入口。</p>
+      </div>
+      <div class="feature-grid">
+        <article class="card card-yellow">
+          <h3 data-i18n="home_focus_1_title">AI Tools</h3>
+          <p data-i18n="home_focus_1_desc">把复杂 AI 能力包装成可直接使用的创作工具。</p>
+        </article>
+        <article class="card card-blue">
+          <h3 data-i18n="home_focus_2_title">Video Workflow</h3>
+          <p data-i18n="home_focus_2_desc">围绕视频、字幕、翻译和配音，搭建可复用的生产流水线。</p>
+        </article>
+        <article class="card card-orange">
+          <h3 data-i18n="home_focus_3_title">Design Experiments</h3>
+          <p data-i18n="home_focus_3_desc">持续迭代个人视觉表达，做有识别度的创作者网站与产品。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="home_projects_eyebrow">Projects</p>
+        <h2 class="section-title" data-i18n="home_projects_title">精选项目</h2>
+      </div>
+      <div class="project-grid">
+        <article class="project-card">
+          <span class="project-badge" data-i18n="project1_badge">Web 应用</span>
+          <h3 data-i18n="project1_title">Subtitle Maker</h3>
+          <p data-i18n="project1_desc">AI 字幕识别、翻译、语音克隆与配音工作流。</p>
+          <div class="project-footer">
+            <div class="tag-list">
+              <span class="tag tag-ai" data-i18n="project1_tag_1">AI</span>
+              <span class="tag tag-video" data-i18n="project1_tag_2">字幕</span>
+              <span class="tag tag-code" data-i18n="project1_tag_3">配音</span>
+            </div>
+            <a class="button button-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="project_detail">详情</a>
           </div>
-          <div class="panel">
-            <span>备份状态</span>
-            <strong>117 篇旧文已导出为 Markdown</strong>
+        </article>
+        <article class="project-card">
+          <span class="project-badge" data-i18n="project2_badge">创作工具</span>
+          <h3 data-i18n="project2_title">Voice Scene Maker</h3>
+          <p data-i18n="project2_desc">把脚本转换为多语言音频场景的创作工具，面向内容创作者。</p>
+          <div class="project-footer">
+            <div class="tag-list">
+              <span class="tag tag-ai" data-i18n="project2_tag_1">AI Agent</span>
+              <span class="tag tag-design" data-i18n="project2_tag_2">流程</span>
+              <span class="tag tag-code" data-i18n="project2_tag_3">音频</span>
+            </div>
+            <a class="button button-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="project_detail">详情</a>
           </div>
-          <div class="panel">
-            <span>技术栈</span>
-            <strong>Astro 静态站 + GitHub Pages</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contact-card">
+        <div>
+          <p class="eyebrow" data-i18n="home_contact_eyebrow">Contact</p>
+          <h2 class="section-title" data-i18n="home_contact_title">想一起做点有意思的东西？</h2>
+          <p class="section-desc" data-i18n="home_contact_desc">欢迎交流产品、AI、设计和创作流程，我会持续更新这个站点。</p>
+          <div class="actions" style="margin-top: 1rem;">
+            <a class="button button-primary" href="mailto:tim@dwyx.xyz" data-i18n="home_contact_email">发邮件</a>
+            <a class="button button-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="home_contact_github">GitHub</a>
           </div>
+        </div>
+        <aside class="contact-note">
+          <p><strong data-i18n="home_status_title">Site Status</strong></p>
+          <p data-i18n="home_status_desc">旧文章已备份为 Markdown，线上内容从零重建。</p>
+          <p data-i18n="home_status_stack">技术栈：Astro + GitHub Pages</p>
         </aside>
       </div>
     </section>

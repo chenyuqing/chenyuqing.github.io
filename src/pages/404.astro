@@ -4,16 +4,30 @@ import '../styles/global.css';
 ---
 
 <BaseLayout title="页面未找到 | Tim Chen" description="这个页面不存在。">
-  <main id="content" class="shell">
+  <main id="content" class="shell page-simple">
     <section class="section">
       <div class="section-head">
-        <p class="eyebrow">404</p>
-        <h1 class="section-title">页面未找到</h1>
-        <p class="section-desc">旧内容路径、归档页和标签页都已下线。请从首页重新开始浏览。</p>
+        <p class="eyebrow" data-i18n="notfound_eyebrow">404</p>
+        <h1 class="section-title" data-i18n="notfound_title">这个页面走丢了</h1>
+        <p class="section-desc" data-i18n="notfound_desc">旧路径已经下线，当前站点正在按新设计持续重建中。</p>
       </div>
       <div class="actions">
-        <a class="pill" href="/">回首页</a>
-        <a class="pill" href="/about/">看关于</a>
+        <a class="button button-primary" href="/" data-i18n="notfound_btn_home">回首页</a>
+        <a class="button button-secondary" href="/about/" data-i18n="notfound_btn_about">看关于</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="contact-card">
+        <div>
+          <p class="eyebrow" data-i18n="notfound_hint_eyebrow">Hint</p>
+          <h2 class="section-title" data-i18n="notfound_hint_title">从这两个入口继续</h2>
+          <p class="section-desc" data-i18n="notfound_hint_desc">首页看最新模块，关于页看个人方向与能力结构。</p>
+        </div>
+        <aside class="contact-note">
+          <p><strong data-i18n="notfound_tip_title">Tip</strong></p>
+          <p data-i18n="notfound_tip_desc">如果你是从旧收藏夹进来的，建议更新到新链接。</p>
+        </aside>
       </div>
     </section>
   </main>
