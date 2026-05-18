@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+---
+
+<BaseLayout title="博客 | Tim Chen" description="Tim Chen 的博客文章。">
+  <main id="content" class="shell page-simple">
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Blog</p>
+        <h1 class="section-title">博客文章</h1>
+        <p class="section-desc">新文章放在 `src/content/blog/`，写完 Markdown 后重新 build 即可发布。</p>
+      </div>
+      <div class="blog-list">
+        {posts.length === 0 ? (
+          <article class="post-card">
+            <h2>暂无文章</h2>
+            <p class="muted">先创建你的第一篇 Markdown。</p>
+          </article>
+        ) : (
+          posts.map((post) => (
+            <article class="post-card">
+              <a class="post-link" href={`/blog/${post.id}/`}>
+                <h2>{post.data.title}</h2>
+              </a>
+              {post.data.description && <p>{post.data.description}</p>}
+              <div class="post-meta">
+                <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                {post.data.tags.map((tag) => (
+                  <span class="tag tag-code">{tag}</span>
+                ))}
+              </div>
+              <div class="actions">
+                <a class="button button-secondary" href={`/blog/${post.id}/`}>阅读全文</a>
+              </div>
+            </article>
+          ))
+        )}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -7,6 +7,7 @@ const {
 
 const pathname = Astro.url.pathname;
 const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://chenyuqing.github.io').toString() : undefined;
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <!doctype html>
@@ -21,6 +22,21 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    {gaMeasurementId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+        <script define:vars={{ gaMeasurementId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', gaMeasurementId, {
+            anonymize_ip: true,
+          });
+        </script>
+      </>
+    )}
     <meta name="generator" content={Astro.generator} />
     <script is:inline>
       (() => {
@@ -59,6 +75,7 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
           <nav class="site-nav" aria-label="Primary">
             <a class="nav-pill" href="/" aria-current={pathname === '/' ? 'page' : undefined} data-i18n="nav_home">首页</a>
             <a class="nav-pill" href="/about/" aria-current={pathname.startsWith('/about') ? 'page' : undefined} data-i18n="nav_about">关于</a>
+            <a class="nav-pill" href="/blog/" aria-current={pathname.startsWith('/blog') ? 'page' : undefined} data-i18n="nav_blog">博客</a>
             <a class="nav-pill" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="nav_github">GitHub</a>
           </nav>
           <div class="site-controls">
@@ -91,6 +108,7 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
         <div class="footer-links">
           <a class="nav-pill" href="/" data-i18n="footer_home">首页</a>
           <a class="nav-pill" href="/about/" data-i18n="footer_about">关于</a>
+          <a class="nav-pill" href="/blog/" data-i18n="footer_blog">博客</a>
         </div>
       </div>
     </footer>
@@ -101,6 +119,7 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
             skip_to_content: '跳到内容',
             nav_home: '首页',
             nav_about: '关于',
+            nav_blog: '博客',
             nav_github: 'GitHub',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: '切换中英文',
@@ -108,6 +127,7 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
             footer_copy: '2026 © Tim Chen · AI Creator Playground',
             footer_home: '首页',
             footer_about: '关于',
+            footer_blog: '博客',
             home_eyebrow: 'Creator Playground',
             home_title: '你好，我是 ',
             home_title_name: 'Tim',
@@ -156,6 +176,15 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
             home_status_title: 'Site Status',
             home_status_desc: '旧文章已备份为 Markdown，线上内容从零重建。',
             home_status_stack: '技术栈：Astro + GitHub Pages',
+            home_records_eyebrow: 'Records',
+            home_records_title: '访问记录与浏览记录',
+            home_records_desc: '记录当前设备在本网站的访问统计和最近浏览页面。',
+            home_record_summary_title: '访问统计',
+            home_record_total_label: '总访问次数（本设备）',
+            home_record_unique_label: '浏览过的页面数',
+            home_record_last_label: '最近访问时间',
+            home_history_title: '最近浏览记录',
+            home_history_empty: '暂无记录',
             about_eyebrow: 'About Me',
             about_title: '关于我',
             about_desc: '我是 Tim Chen，关注 AI 创作工具、视频生产流程和创作者产品体验。',
@@ -196,6 +225,7 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
             skip_to_content: 'Skip to content',
             nav_home: 'Home',
             nav_about: 'About',
+            nav_blog: 'Blog',
             nav_github: 'GitHub',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: 'Switch language',
@@ -203,6 +233,7 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
             footer_copy: '2026 © Tim Chen · AI Creator Playground',
             footer_home: 'Home',
             footer_about: 'About',
+            footer_blog: 'Blog',
             home_eyebrow: 'Creator Playground',
             home_title: "Hi, I'm ",
             home_title_name: 'Tim',
@@ -251,6 +282,15 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
             home_status_title: 'Site Status',
             home_status_desc: 'Legacy posts are backed up in Markdown. The live site is rebuilt from scratch.',
             home_status_stack: 'Stack: Astro + GitHub Pages',
+            home_records_eyebrow: 'Records',
+            home_records_title: 'Visit Stats & Browsing History',
+            home_records_desc: 'Shows visit stats and recently viewed pages on this device.',
+            home_record_summary_title: 'Visit Summary',
+            home_record_total_label: 'Total visits (this device)',
+            home_record_unique_label: 'Unique pages viewed',
+            home_record_last_label: 'Last visit time',
+            home_history_title: 'Recent Browsing',
+            home_history_empty: 'No history yet',
             about_eyebrow: 'About Me',
             about_title: 'About',
             about_desc: 'I am Tim Chen, focused on AI creator tools, video production workflows, and product experience for creators.',
@@ -295,6 +335,19 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
 
         const resolveLang = (value) => (value === 'en' ? 'en' : 'zh');
         const resolveTheme = (value) => (value === 'dark' ? 'dark' : 'light');
+        const VISIT_STATS_KEY = 'site-visit-stats-v1';
+        const BROWSE_HISTORY_KEY = 'site-browse-history-v1';
+        const HISTORY_LIMIT = 10;
+        let latestTrackingData = null;
+
+        const safeJsonParse = (raw, fallback) => {
+          if (!raw) return fallback;
+          try {
+            return JSON.parse(raw);
+          } catch {
+            return fallback;
+          }
+        };
 
         const applyTranslations = (lang) => {
           const dict = I18N[lang] ?? I18N.zh;
@@ -318,6 +371,92 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
           });
         };
 
+        const formatVisitTime = (iso, lang) => {
+          if (!iso) return '--';
+          const date = new Date(iso);
+          if (Number.isNaN(date.getTime())) return '--';
+          return date.toLocaleString(lang === 'en' ? 'en-US' : 'zh-CN', { hour12: false });
+        };
+
+        const renderTrackingPanels = () => {
+          if (!latestTrackingData) return;
+          const lang = resolveLang(root.getAttribute('data-lang'));
+          const dict = I18N[lang] ?? I18N.zh;
+          const { stats, history } = latestTrackingData;
+
+          const totalEl = document.querySelector('[data-visit-total]');
+          const uniqueEl = document.querySelector('[data-visit-unique]');
+          const lastEl = document.querySelector('[data-visit-last]');
+          if (totalEl) totalEl.textContent = String(stats.totalVisits ?? 0);
+          if (uniqueEl) uniqueEl.textContent = String(Object.keys(stats.uniquePathCount ?? {}).length);
+          if (lastEl) lastEl.textContent = formatVisitTime(stats.lastVisitAt, lang);
+
+          const listEl = document.querySelector('[data-browse-list]');
+          if (!listEl) return;
+          listEl.innerHTML = '';
+          if (!Array.isArray(history) || history.length === 0) {
+            const empty = document.createElement('li');
+            empty.className = 'history-empty';
+            empty.textContent = dict.home_history_empty ?? 'No history yet';
+            listEl.appendChild(empty);
+            return;
+          }
+          history.forEach((item) => {
+            const row = document.createElement('li');
+            row.className = 'history-item';
+
+            const link = document.createElement('a');
+            link.className = 'history-link';
+            link.href = item.path || '/';
+            link.textContent = item.title || item.path || '/';
+
+            const time = document.createElement('span');
+            time.className = 'history-time';
+            time.textContent = formatVisitTime(item.visitedAt, lang);
+
+            row.appendChild(link);
+            row.appendChild(time);
+            listEl.appendChild(row);
+          });
+        };
+
+        const trackVisit = () => {
+          const path = `${window.location.pathname}${window.location.search || ''}`;
+          const nowIso = new Date().toISOString();
+          const cleanedTitle = document.title.replace(/\s*\|\s*Tim Chen\s*$/i, '').trim();
+          const pageTitle = cleanedTitle || path;
+
+          const stats = safeJsonParse(localStorage.getItem(VISIT_STATS_KEY), {
+            totalVisits: 0,
+            lastVisitAt: '',
+            uniquePathCount: {},
+          });
+          if (typeof stats.uniquePathCount !== 'object' || !stats.uniquePathCount) {
+            stats.uniquePathCount = {};
+          }
+          stats.totalVisits = Number(stats.totalVisits || 0) + 1;
+          stats.lastVisitAt = nowIso;
+          stats.uniquePathCount[path] = Number(stats.uniquePathCount[path] || 0) + 1;
+          localStorage.setItem(VISIT_STATS_KEY, JSON.stringify(stats));
+
+          const historyRaw = safeJsonParse(localStorage.getItem(BROWSE_HISTORY_KEY), []);
+          const history = Array.isArray(historyRaw) ? historyRaw : [];
+          const nextHistory = history
+            .filter((item) => item && typeof item.path === 'string' && item.path !== path)
+            .slice(0, HISTORY_LIMIT - 1);
+          nextHistory.unshift({
+            path,
+            title: pageTitle,
+            visitedAt: nowIso,
+          });
+          localStorage.setItem(BROWSE_HISTORY_KEY, JSON.stringify(nextHistory));
+
+          latestTrackingData = {
+            stats,
+            history: nextHistory,
+          };
+        };
+
         const applyThemeLabel = (lang, theme) => {
           if (!themeButton) return;
           const dict = I18N[lang] ?? I18N.zh;
@@ -334,6 +473,7 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
           localStorage.setItem('site-lang', lang);
           applyTranslations(lang);
           applyThemeLabel(lang, resolveTheme(root.getAttribute('data-theme')));
+          renderTrackingPanels();
         };
 
         const setTheme = (nextTheme) => {
@@ -343,8 +483,10 @@ const canonicalUrl = canonical ? new URL(canonical, Astro.site ?? 'https://cheny
           applyThemeLabel(resolveLang(root.getAttribute('data-lang')), theme);
         };
 
+        trackVisit();
         setLang(resolveLang(root.getAttribute('data-lang')));
         setTheme(resolveTheme(root.getAttribute('data-theme')));
+        renderTrackingPanels();
 
         langButton?.addEventListener('click', () => {
           const current = resolveLang(root.getAttribute('data-lang'));

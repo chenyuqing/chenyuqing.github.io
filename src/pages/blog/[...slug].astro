@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+  }));
+}
+
+const { slug } = Astro.params;
+if (!slug) {
+  throw new Error('Missing blog slug');
+}
+
+const post = await getEntry('blog', slug);
+if (!post || post.data.draft) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(post);
+const iso = post.data.pubDate.toISOString().slice(0, 10);
+---
+
+<BaseLayout title={`${post.data.title} | Tim Chen`} description={post.data.description || post.data.title}>
+  <main id="content" class="shell page-simple">
+    <article class="blog-article">
+      <header>
+        <p class="eyebrow">Article</p>
+        <h1 class="section-title">{post.data.title}</h1>
+        <div class="post-meta" style="margin-top: 0.5rem;">
+          <span>{iso}</span>
+          {post.data.updatedDate && <span>updated {post.data.updatedDate.toISOString().slice(0, 10)}</span>}
+        </div>
+        {post.data.tags.length > 0 && (
+          <div class="tag-list" style="margin-top: 0.7rem;">
+            {post.data.tags.map((tag) => (
+              <span class="tag tag-code">{tag}</span>
+            ))}
+          </div>
+        )}
+      </header>
+      <div class="blog-content">
+        <Content />
+      </div>
+      <div class="actions" style="margin-top: 1.2rem;">
+        <a class="button button-secondary" href="/blog/">返回博客列表</a>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

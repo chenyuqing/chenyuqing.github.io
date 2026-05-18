@@ -113,6 +113,38 @@ import '../styles/global.css';
     </section>
 
     <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="home_records_eyebrow">Records</p>
+        <h2 class="section-title" data-i18n="home_records_title">访问记录与浏览记录</h2>
+        <p class="section-desc" data-i18n="home_records_desc">记录当前设备在本网站的访问统计和最近浏览页面。</p>
+      </div>
+      <div class="record-grid">
+        <article class="record-card">
+          <h3 data-i18n="home_record_summary_title">访问统计</h3>
+          <div class="record-row">
+            <span data-i18n="home_record_total_label">总访问次数（本设备）</span>
+            <strong data-visit-total>0</strong>
+          </div>
+          <div class="record-row">
+            <span data-i18n="home_record_unique_label">浏览过的页面数</span>
+            <strong data-visit-unique>0</strong>
+          </div>
+          <div class="record-row">
+            <span data-i18n="home_record_last_label">最近访问时间</span>
+            <strong data-visit-last>--</strong>
+          </div>
+        </article>
+
+        <article class="record-card">
+          <h3 data-i18n="home_history_title">最近浏览记录</h3>
+          <ol class="history-list" data-browse-list>
+            <li class="history-empty" data-i18n="home_history_empty">暂无记录</li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
       <div class="contact-card">
         <div>
           <p class="eyebrow" data-i18n="home_contact_eyebrow">Contact</p>
