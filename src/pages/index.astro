@@ -29,6 +29,7 @@ const newsListItems = allNewsRecent.slice(1, 5);
 
         {newsFeatured ? (
           <a class="news-featured" href={`/news/${newsFeatured.id}/`}>
+            <div class="news-featured-index">01</div>
             {newsFeatured.data.cover && (
               <img class="news-featured-img" src={newsFeatured.data.cover} alt={newsFeatured.data.title} />
             )}
@@ -78,15 +79,15 @@ const newsListItems = allNewsRecent.slice(1, 5);
           <p class="eyebrow" data-i18n="home_blog_eyebrow">Podcast</p>
           <h2 class="section-title" data-i18n="home_blog_title">播客文章</h2>
         </div>
-        <div class="magazine-list">
-          {blogPosts.length === 0 ? (
-            <article class="magazine-card">
-              <h2 data-i18n="home_blog_empty">暂无文章</h2>
-              <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
-            </article>
-          ) : (
-            blogPosts.map((post) => (
+          <div class="magazine-list">
+            {blogPosts.length === 0 ? (
               <article class="magazine-card">
+                <h2 data-i18n="home_blog_empty">暂无文章</h2>
+                <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
+              </article>
+            ) : (
+            blogPosts.map((post, index) => (
+              <article class={`magazine-card ${index === 0 ? 'magazine-card-featured' : ''}`}>
                 {post.data.cover && (
                   <a class="magazine-card-img-link" href={`/blog/${post.id}/`}>
                     <img class="magazine-card-img" src={post.data.cover} alt={post.data.title} />

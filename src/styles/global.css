@@ -1377,6 +1377,14 @@ main {
   color: inherit;
 }
 
+.news-featured-index {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  line-height: 0.88;
+  color: rgba(255, 255, 255, 0.16);
+  letter-spacing: -0.05em;
+}
+
 .news-featured-img {
   display: block;
   width: 100%;
@@ -1416,6 +1424,25 @@ main {
   align-items: start;
   padding: 0.2rem 0;
   border-bottom: 1px solid var(--color-hairline);
+}
+
+.magazine-card-featured {
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  padding-bottom: 1rem;
+}
+
+.magazine-card-featured .magazine-card-img {
+  aspect-ratio: 16 / 10;
+}
+
+.magazine-card-featured .magazine-card-title h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.1;
+}
+
+.magazine-card-featured .magazine-card-desc {
+  font-size: 0.98rem;
 }
 
 .magazine-card:last-child {
