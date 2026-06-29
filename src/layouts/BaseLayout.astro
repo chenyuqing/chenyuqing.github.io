@@ -1,7 +1,7 @@
 ---
 const {
-  title = 'Tim Chen',
-  description = 'Tim Chen 的个人站点。',
+  title = 'Tim Chen · AI 时代网志',
+  description = 'AI 时代的个人网志 — 博客、快讯与思考。',
   canonical,
 } = Astro.props;
 
@@ -76,6 +76,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             <a class="nav-pill" href="/" aria-current={pathname === '/' ? 'page' : undefined} data-i18n="nav_home">首页</a>
             <a class="nav-pill" href="/about/" aria-current={pathname.startsWith('/about') ? 'page' : undefined} data-i18n="nav_about">关于</a>
             <a class="nav-pill" href="/blog/" aria-current={pathname.startsWith('/blog') ? 'page' : undefined} data-i18n="nav_blog">博客</a>
+            <a class="nav-pill" href="/news/" aria-current={pathname.startsWith('/news') ? 'page' : undefined} data-i18n="nav_news">动态</a>
             <a class="nav-pill" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="nav_github">GitHub</a>
           </nav>
           <div class="site-controls">
@@ -109,6 +110,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           <a class="nav-pill" href="/" data-i18n="footer_home">首页</a>
           <a class="nav-pill" href="/about/" data-i18n="footer_about">关于</a>
           <a class="nav-pill" href="/blog/" data-i18n="footer_blog">博客</a>
+          <a class="nav-pill" href="/news/" data-i18n="footer_news">动态</a>
         </div>
       </div>
     </footer>
@@ -120,6 +122,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             nav_home: '首页',
             nav_about: '关于',
             nav_blog: '博客',
+            nav_news: '动态',
             nav_github: 'GitHub',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: '切换中英文',
@@ -128,6 +131,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             footer_home: '首页',
             footer_about: '关于',
             footer_blog: '博客',
+            footer_news: '动态',
             home_eyebrow: 'Creator Playground',
             home_title: '你好，我是 ',
             home_title_name: 'Tim',
@@ -220,12 +224,74 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             notfound_tip_desc: '如果你是从旧收藏夹进来的，建议更新到新链接。',
             theme_light_label: '浅色模式',
             theme_dark_label: '深色模式',
+            home_intro_name: 'Tim Chen',
+            home_intro_tagline: 'AI 时代网志',
+            home_intro_lead: '关注 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。',
+            home_intro_about: '关于',
+            home_intro_rss: 'RSS',
+            home_blog_eyebrow: 'Blog',
+            home_blog_title: '最新文章',
+            home_blog_empty: '暂无文章',
+            home_blog_empty_hint: '新文章正在路上。',
+            home_blog_read: '阅读全文',
+            home_blog_more: '更多文章',
+            home_news_eyebrow: 'News',
+            home_news_title: '最新动态',
+            home_news_empty: '最近没有新动态。',
+            home_news_link: '🔗 外部链接',
+            home_news_more: '更多动态',
+            home_contact_note_title: 'Site',
+            home_contact_note_desc: 'AI 时代网志 · Astro + GitHub Pages',
+            blog_page_eyebrow: 'Blog',
+            blog_page_title: '博客文章',
+            blog_page_desc: '深度文章、教程与思考。',
+            blog_page_empty: '暂无文章。',
+            blog_series: '系列',
+            blog_series_eyebrow: 'Series',
+            blog_series_back: '返回博客',
+            blog_read_more: '阅读全文',
+            about_name: 'Tim Chen',
+            about_tagline: 'AI 创作者 · 工具 Builder · 网志作者',
+            about_bio_desc: '我在做 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。这个站点是我的个人网志——写博客、记动态、做实验。',
+            about_email: '发邮件',
+            about_projects_eyebrow: 'Projects',
+            about_projects_title: '我在做什么',
+            about_p1_badge: 'Web 应用',
+            about_p1_title: 'Subtitle Maker',
+            about_p1_desc: 'AI 字幕识别、翻译、语音克隆与配音工作流。',
+            about_p1_tag2: '字幕',
+            about_p1_tag3: '配音',
+            about_p2_badge: '创作工具',
+            about_p2_title: 'Voice Scene Maker',
+            about_p2_desc: '把脚本转换为多语言音频场景的创作工具，面向内容创作者。',
+            about_p2_tag2: '流程',
+            about_p2_tag3: '音频',
+            about_p3_badge: '个人站点',
+            about_p3_title: 'AI 时代网志',
+            about_p3_desc: '这个站点本身也是一个持续迭代的实验——用 Astro 构建，探索 AI 时代个人网志的可能性。',
+            about_writing_eyebrow: 'Writing',
+            about_writing_title: '我写什么',
+            about_card_1_title: 'AI 工具',
+            about_card_1_desc: '拆解和使用 AI 创作工具，把复杂能力变成可上手的工作流。',
+            about_card_2_title: '产品思考',
+            about_card_2_desc: '从 builder 视角写产品设计和创作者经济，关注"好用"而非"炫技"。',
+            about_card_3_title: '工程实践',
+            about_card_3_desc: '前端、工作流自动化、部署和发布流程中踩过的坑和解法。',
+            ai_agent_aria: 'AI 问答',
+            ai_agent_title: 'AI 问答',
+            ai_provider: 'Provider',
+            ai_base_url: 'Base URL',
+            ai_model: 'Model',
+            ai_api_key: 'API Key',
+            ai_welcome: '问我关于这个站点的任何内容。',
+            ai_placeholder: '搜索文章、问问题...',
           },
           en: {
             skip_to_content: 'Skip to content',
             nav_home: 'Home',
             nav_about: 'About',
             nav_blog: 'Blog',
+            nav_news: 'News',
             nav_github: 'GitHub',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: 'Switch language',
@@ -234,6 +300,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             footer_home: 'Home',
             footer_about: 'About',
             footer_blog: 'Blog',
+            footer_news: 'News',
             home_eyebrow: 'Creator Playground',
             home_title: "Hi, I'm ",
             home_title_name: 'Tim',
@@ -326,6 +393,67 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             notfound_tip_desc: 'If you came from an old bookmark, please update the link.',
             theme_light_label: 'Light Mode',
             theme_dark_label: 'Dark Mode',
+            home_intro_name: 'Tim Chen',
+            home_intro_tagline: 'AI Age Weblog',
+            home_intro_lead: 'Focus on AI creator tools, video workflows, and subtitle products — turning complex capabilities into simple, usable experiences.',
+            home_intro_about: 'About',
+            home_intro_rss: 'RSS',
+            home_blog_eyebrow: 'Blog',
+            home_blog_title: 'Latest Posts',
+            home_blog_empty: 'No posts yet',
+            home_blog_empty_hint: 'New posts are on the way.',
+            home_blog_read: 'Read more',
+            home_blog_more: 'More posts',
+            home_news_eyebrow: 'News',
+            home_news_title: 'Latest Updates',
+            home_news_empty: 'No recent updates.',
+            home_news_link: '🔗 External link',
+            home_news_more: 'More updates',
+            home_contact_note_title: 'Site',
+            home_contact_note_desc: 'AI Age Weblog · Astro + GitHub Pages',
+            blog_page_eyebrow: 'Blog',
+            blog_page_title: 'Blog Posts',
+            blog_page_desc: 'In-depth articles, tutorials, and reflections.',
+            blog_page_empty: 'No posts yet.',
+            blog_series: 'Series',
+            blog_series_eyebrow: 'Series',
+            blog_series_back: 'Back to blog',
+            blog_read_more: 'Read more',
+            about_name: 'Tim Chen',
+            about_tagline: 'AI Creator · Tool Builder · Weblogger',
+            about_bio_desc: 'I build AI creator tools, video workflows, and subtitle products — turning complex capabilities into simple, usable experiences. This site is my personal weblog — writing blog posts, tracking news, and experimenting.',
+            about_email: 'Email Me',
+            about_projects_eyebrow: 'Projects',
+            about_projects_title: 'What I am building',
+            about_p1_badge: 'Web App',
+            about_p1_title: 'Subtitle Maker',
+            about_p1_desc: 'AI subtitle recognition, translation, voice cloning, and dubbing workflow.',
+            about_p1_tag2: 'Subtitle',
+            about_p1_tag3: 'Dubbing',
+            about_p2_badge: 'Creator Tool',
+            about_p2_title: 'Voice Scene Maker',
+            about_p2_desc: 'A creator tool that converts scripts into multilingual audio scenes.',
+            about_p2_tag2: 'Workflow',
+            about_p2_tag3: 'Audio',
+            about_p3_badge: 'Personal Site',
+            about_p3_title: 'AI Age Weblog',
+            about_p3_desc: 'This site itself is an ongoing experiment — built with Astro, exploring the possibilities of a personal weblog in the AI age.',
+            about_writing_eyebrow: 'Writing',
+            about_writing_title: 'What I write about',
+            about_card_1_title: 'AI Tools',
+            about_card_1_desc: 'Break down and use AI creator tools, turning complex capabilities into approachable workflows.',
+            about_card_2_title: 'Product Thinking',
+            about_card_2_desc: 'Write about product design and creator economy from a builder perspective — focus on "usable" not "flashy".',
+            about_card_3_title: 'Engineering Practice',
+            about_card_3_desc: 'Frontend, workflow automation, deployment, and lessons learned from shipping.',
+            ai_agent_aria: 'AI Q&A',
+            ai_agent_title: 'AI Q&A',
+            ai_provider: 'Provider',
+            ai_base_url: 'Base URL',
+            ai_model: 'Model',
+            ai_api_key: 'API Key',
+            ai_welcome: 'Ask me anything about this site.',
+            ai_placeholder: 'Search posts, ask questions...',
           },
         };
 
@@ -498,6 +626,232 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           setTheme(current === 'light' ? 'dark' : 'light');
         });
       })();
+    </script>
+    <button id="ai-agent-btn" class="ai-fab" aria-label="AI Agent" data-i18n-aria-label="ai_agent_aria">AI</button>
+
+    <aside id="ai-agent-panel" class="ai-panel" aria-hidden="true">
+      <div class="ai-panel-head">
+        <strong data-i18n="ai_agent_title">AI 问答</strong>
+        <button id="ai-panel-close" class="ai-panel-close" aria-label="关闭">×</button>
+      </div>
+      <div class="ai-panel-settings" id="ai-settings">
+        <button id="ai-settings-toggle" class="ai-settings-toggle" aria-label="设置">⚙</button>
+        <div id="ai-settings-body" class="ai-settings-body" hidden>
+          <label class="ai-setting-row">
+            <span data-i18n="ai_provider">Provider</span>
+            <select id="ai-provider" class="ai-input">
+              <option value="openai">OpenAI</option>
+              <option value="claude">Claude</option>
+              <option value="compatible">OpenAI Compatible</option>
+            </select>
+          </label>
+          <label class="ai-setting-row" id="ai-base-url-row" hidden>
+            <span data-i18n="ai_base_url">Base URL</span>
+            <input id="ai-base-url" class="ai-input" type="url" placeholder="https://api.example.com/v1" />
+          </label>
+          <label class="ai-setting-row">
+            <span data-i18n="ai_model">Model</span>
+            <input id="ai-model" class="ai-input" type="text" placeholder="gpt-4o-mini" value="gpt-4o-mini" />
+          </label>
+          <label class="ai-setting-row">
+            <span data-i18n="ai_api_key">API Key</span>
+            <input id="ai-api-key" class="ai-input" type="password" placeholder="sk-..." />
+          </label>
+        </div>
+      </div>
+      <div id="ai-messages" class="ai-messages">
+        <div class="ai-welcome" data-i18n="ai_welcome">问我关于这个站点的任何内容。</div>
+      </div>
+      <form id="ai-form" class="ai-form">
+        <input id="ai-input" class="ai-input ai-query-input" type="text" autocomplete="off" data-i18n-placeholder="ai_placeholder" placeholder="搜索文章、问问题..." />
+        <button class="ai-send-btn" type="submit" aria-label="发送">→</button>
+      </form>
+    </aside>
+
+    <script is:inline>
+    (() => {
+      const fab = document.getElementById('ai-agent-btn');
+      const panel = document.getElementById('ai-agent-panel');
+      const closeBtn = document.getElementById('ai-panel-close');
+      const settingsToggle = document.getElementById('ai-settings-toggle');
+      const settingsBody = document.getElementById('ai-settings-body');
+      const providerSelect = document.getElementById('ai-provider');
+      const baseUrlRow = document.getElementById('ai-base-url-row');
+      const baseUrlInput = document.getElementById('ai-base-url');
+      const modelInput = document.getElementById('ai-model');
+      const apiKeyInput = document.getElementById('ai-api-key');
+      const messagesEl = document.getElementById('ai-messages');
+      const form = document.getElementById('ai-form');
+      const input = document.getElementById('ai-input');
+
+      const STORAGE_KEY = 'ai-agent-config-v1';
+
+      const loadConfig = () => {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          const c = JSON.parse(raw);
+          if (c.provider) providerSelect.value = c.provider;
+          if (c.baseUrl) baseUrlInput.value = c.baseUrl;
+          if (c.model) modelInput.value = c.model;
+          if (c.apiKey) apiKeyInput.value = c.apiKey;
+        } catch {}
+        providerSelect.dispatchEvent(new Event('change'));
+      };
+
+      const saveConfig = () => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          provider: providerSelect.value,
+          baseUrl: baseUrlInput.value,
+          model: modelInput.value,
+          apiKey: apiKeyInput.value,
+        }));
+      };
+
+      fab?.addEventListener('click', () => {
+        panel.setAttribute('aria-hidden', panel.getAttribute('aria-hidden') === 'true' ? 'false' : 'true');
+      });
+
+      closeBtn?.addEventListener('click', () => {
+        panel.setAttribute('aria-hidden', 'true');
+      });
+
+      settingsToggle?.addEventListener('click', () => {
+        settingsBody.hidden = !settingsBody.hidden;
+      });
+
+      providerSelect?.addEventListener('change', () => {
+        const v = providerSelect.value;
+        baseUrlRow.hidden = v !== 'compatible';
+        if (v === 'openai') modelInput.placeholder = modelInput.value = 'gpt-4o-mini';
+        else if (v === 'claude') modelInput.placeholder = modelInput.value = 'claude-sonnet-4-20250514';
+        else modelInput.placeholder = 'deepseek-chat';
+        saveConfig();
+      });
+
+      [baseUrlInput, modelInput, apiKeyInput].forEach(el => {
+        el?.addEventListener('change', saveConfig);
+      });
+
+      loadConfig();
+
+      const getEndpoint = () => {
+        const p = providerSelect.value;
+        if (p === 'openai') return 'https://api.openai.com/v1/chat/completions';
+        if (p === 'claude') return 'https://api.anthropic.com/v1/messages';
+        const base = baseUrlInput.value.replace(/\/+$/, '');
+        return base + '/chat/completions';
+      };
+
+      const getHeaders = () => {
+        const p = providerSelect.value;
+        const key = apiKeyInput.value;
+        if (p === 'claude') return {
+          'Content-Type': 'application/json',
+          'x-api-key': key,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        };
+        return {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + key,
+        };
+      };
+
+      const buildBody = (messages) => {
+        const p = providerSelect.value;
+        const model = modelInput.value;
+        if (p === 'claude') return JSON.stringify({
+          model,
+          max_tokens: 1024,
+          messages,
+        });
+        return JSON.stringify({ model, messages, max_tokens: 1024 });
+      };
+
+      const addMsg = (role, text) => {
+        const div = document.createElement('div');
+        div.className = 'ai-msg ai-msg-' + role;
+        div.textContent = text;
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      };
+
+      let siteIndexCache = null;
+
+      const loadSiteIndex = async (question) => {
+        if (siteIndexCache) return siteIndexCache;
+        const isRecent = /最近|近期|latest|recent|这周|这月/i.test(question);
+        const indexUrl = isRecent ? '/site-index/news-30d.json' : '/site-index/news-90d.json';
+        const [blogRes, newsRes] = await Promise.all([
+          fetch('/site-index/blog-all.json'),
+          fetch(indexUrl),
+        ]);
+        const blogItems = await blogRes.json();
+        const newsItems = await newsRes.json();
+        siteIndexCache = { blog: blogItems, news: newsItems };
+        return siteIndexCache;
+      };
+
+      const searchIndex = (index, query) => {
+        const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+        const scoreItem = (item) => {
+          const text = ((item.title || '') + ' ' + (item.description || '') + ' ' + (item.tags || []).join(' ') + ' ' + (item.body || '')).toLowerCase();
+          return terms.reduce((s, t) => s + (text.includes(t) ? 1 : 0), 0);
+        };
+        const scored = [...index.blog.map(i => ({...i, _type: 'blog', _score: scoreItem(i)})), ...index.news.map(i => ({...i, _type: 'news', _score: scoreItem(i)}))];
+        return scored.filter(i => i._score > 0).sort((a, b) => b._score - a._score).slice(0, 10);
+      };
+
+      const SYSTEM_PROMPT = '你是一个 AI 助手，帮助用户了解这个个人站点的博客文章和新闻动态。请基于提供的站点内容回答问题。如果内容不足以回答，请诚实说明。回答使用中文，除非用户用英文提问。';
+
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const query = input.value.trim();
+        if (!query) return;
+        if (!apiKeyInput.value) {
+          addMsg('error', '请先在设置中填写 API Key（点击 ⚙）');
+          return;
+        }
+        addMsg('user', query);
+        input.value = '';
+
+        try {
+          const index = await loadSiteIndex(query);
+          const results = searchIndex(index, query);
+          const contextText = results.map(r => `[${r._type}] ${r.title} (${r.pubDate})\n${r.description}\n${(r.body || '').slice(0, 300)}`).join('\n\n');
+
+          const userContent = contextText
+            ? `相关站点内容：\n${contextText}\n\n用户问题：${query}`
+            : `用户问题：${query}`;
+
+          const p = providerSelect.value;
+          const messages = p === 'claude'
+            ? [{ role: 'user', content: SYSTEM_PROMPT + '\n\n' + userContent }]
+            : [{ role: 'system', content: SYSTEM_PROMPT }, { role: 'user', content: userContent }];
+
+          const res = await fetch(getEndpoint(), {
+            method: 'POST',
+            headers: getHeaders(),
+            body: buildBody(messages),
+          });
+
+          if (!res.ok) {
+            const err = await res.text();
+            addMsg('error', '请求失败：' + res.status);
+            return;
+          }
+
+          const data = await res.json();
+          const reply = p === 'claude'
+            ? (data.content?.[0]?.text || '无回复')
+            : (data.choices?.[0]?.message?.content || '无回复');
+          addMsg('assistant', reply);
+        } catch (err) {
+          addMsg('error', '出错了：' + (err.message || String(err)));
+        }
+      });
+    })();
     </script>
   </body>
 </html>

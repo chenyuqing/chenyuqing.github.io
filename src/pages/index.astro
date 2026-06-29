@@ -1,146 +1,108 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
+import { getCollection } from 'astro:content';
+
+const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+
+const fourteenDaysAgo = new Date();
+fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+
+const newsItems = (await getCollection('news', ({ data }) => !data.draft))
+  .filter(({ data }) => data.pubDate >= fourteenDaysAgo)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 5);
 ---
 
-<BaseLayout title="Tim Chen | Creator Lab" description="清爽可爱现代 2D 扁平卡通风的个人创作站。" canonical="/">
+<BaseLayout title="Tim Chen | AI 时代网志" description="AI 时代的个人网志 — 博客、快讯与思考。" canonical="/">
   <main id="content" class="shell">
-    <section class="hero">
-      <div class="hero-card">
-        <div class="hero-copy">
-          <p class="eyebrow" data-i18n="home_eyebrow">Creator Playground</p>
-          <h1>
-            <span data-i18n="home_title">你好，我是 </span><span class="hero-name" data-i18n="home_title_name">Tim</span>
-          </h1>
-          <p class="lead" data-i18n="home_lead">
-            我在做 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。
-          </p>
-          <div class="actions">
-            <a class="button button-primary" href="/about/" data-i18n="home_cta_about">了解我</a>
-            <a class="button button-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="home_cta_projects">查看项目</a>
-          </div>
-          <div class="tag-list">
-            <span class="tag tag-ai" data-i18n="home_tag_ai">AI Tools</span>
-            <span class="tag tag-video" data-i18n="home_tag_video">Video Workflow</span>
-            <span class="tag tag-design" data-i18n="home_tag_design">Design System</span>
-          </div>
+    <section class="home-intro">
+      <h1 class="intro-title">
+        <span data-i18n="home_intro_name">Tim Chen</span>
+        <span class="intro-sep">·</span>
+        <span data-i18n="home_intro_tagline">AI 时代网志</span>
+      </h1>
+      <p class="intro-lead" data-i18n="home_intro_lead">关注 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。</p>
+      <div class="intro-links">
+        <a class="intro-link" href="/about/" data-i18n="home_intro_about">关于</a>
+        <a class="intro-link" href="/blog/rss.xml" data-i18n="home_intro_rss">RSS</a>
+        <a class="intro-link" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="home_blog_eyebrow">Blog</p>
+        <h2 class="section-title" data-i18n="home_blog_title">最新文章</h2>
+      </div>
+      <div class="blog-list">
+        {blogPosts.length === 0 ? (
+          <article class="post-card">
+            <h2 data-i18n="home_blog_empty">暂无文章</h2>
+            <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
+          </article>
+        ) : (
+          blogPosts.map((post) => (
+            <article class="post-card">
+              {post.data.cover && (
+                <a class="post-cover-link" href={`/blog/${post.id}/`}>
+                  <img class="post-cover" src={post.data.cover} alt={post.data.title} />
+                </a>
+              )}
+              <a class="post-link" href={`/blog/${post.id}/`}>
+                <h2>{post.data.title}</h2>
+              </a>
+              {post.data.description && <p>{post.data.description}</p>}
+              <div class="post-meta">
+                <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                {post.data.tags.map((tag) => (
+                  <span class="tag tag-code">{tag}</span>
+                ))}
+              </div>
+              <div class="actions">
+                <a class="button button-secondary" href={`/blog/${post.id}/`} data-i18n="home_blog_read">阅读全文</a>
+              </div>
+            </article>
+          ))
+        )}
+      </div>
+      <div class="section-foot">
+        <a class="button button-secondary" href="/blog/" data-i18n="home_blog_more">更多文章</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="home_news_eyebrow">News</p>
+        <h2 class="section-title" data-i18n="home_news_title">最新动态</h2>
+      </div>
+      {newsItems.length === 0 ? (
+        <article class="news-item">
+          <p class="muted" data-i18n="home_news_empty">最近没有新动态。</p>
+        </article>
+      ) : (
+        <div class="news-list">
+          {newsItems.map((item) => (
+            <article class="news-item">
+              <a class="news-link" href={`/news/${item.id}/`}>
+                <h3>{item.data.title}</h3>
+              </a>
+              {item.data.description && <p class="news-desc">{item.data.description}</p>}
+              <div class="news-meta">
+                <span>{item.data.pubDate.toISOString().slice(0, 10)}</span>
+                {item.data.tags.slice(0, 2).map((tag) => (
+                  <span class="tag tag-ai">{tag}</span>
+                ))}
+                {item.data.link && <span class="news-external" data-i18n="home_news_link">🔗 外部链接</span>}
+              </div>
+            </article>
+          ))}
         </div>
-        <aside class="hero-visual" aria-hidden="true">
-          <div class="hero-sticker one" data-i18n="home_sticker_one">Hi, I build.</div>
-          <div class="hero-sticker two" data-i18n="home_sticker_two">Cute + Useful</div>
-          <img class="hero-mascot-img" src="/media/mascot-elephant.png" alt="首页吉祥物小象" data-i18n-alt="home_mascot_alt" />
-        </aside>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="home_video_eyebrow">Video</p>
-        <h2 class="section-title" data-i18n="home_video_title">首页视频</h2>
-        <p class="section-desc" data-i18n="home_video_desc">使用你指定的素材 elephant-coding.mp4。</p>
-      </div>
-      <div class="video-card">
-        <video
-          class="home-video"
-          src="/media/elephant-coding.mp4"
-          controls
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-        >
-          <span data-i18n="home_video_fallback">你的浏览器不支持 video 标签。</span>
-        </video>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="home_focus_eyebrow">Focus</p>
-        <h2 class="section-title" data-i18n="home_focus_title">我正在做的方向</h2>
-        <p class="section-desc" data-i18n="home_focus_desc">不是传统简历站，而是一个持续迭代的创作者实验室入口。</p>
-      </div>
-      <div class="feature-grid">
-        <article class="card card-yellow">
-          <h3 data-i18n="home_focus_1_title">AI Tools</h3>
-          <p data-i18n="home_focus_1_desc">把复杂 AI 能力包装成可直接使用的创作工具。</p>
-        </article>
-        <article class="card card-blue">
-          <h3 data-i18n="home_focus_2_title">Video Workflow</h3>
-          <p data-i18n="home_focus_2_desc">围绕视频、字幕、翻译和配音，搭建可复用的生产流水线。</p>
-        </article>
-        <article class="card card-orange">
-          <h3 data-i18n="home_focus_3_title">Design Experiments</h3>
-          <p data-i18n="home_focus_3_desc">持续迭代个人视觉表达，做有识别度的创作者网站与产品。</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="home_projects_eyebrow">Projects</p>
-        <h2 class="section-title" data-i18n="home_projects_title">精选项目</h2>
-      </div>
-      <div class="project-grid">
-        <article class="project-card">
-          <span class="project-badge" data-i18n="project1_badge">Web 应用</span>
-          <h3 data-i18n="project1_title">Subtitle Maker</h3>
-          <p data-i18n="project1_desc">AI 字幕识别、翻译、语音克隆与配音工作流。</p>
-          <div class="project-footer">
-            <div class="tag-list">
-              <span class="tag tag-ai" data-i18n="project1_tag_1">AI</span>
-              <span class="tag tag-video" data-i18n="project1_tag_2">字幕</span>
-              <span class="tag tag-code" data-i18n="project1_tag_3">配音</span>
-            </div>
-            <a class="button button-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="project_detail">详情</a>
-          </div>
-        </article>
-        <article class="project-card">
-          <span class="project-badge" data-i18n="project2_badge">创作工具</span>
-          <h3 data-i18n="project2_title">Voice Scene Maker</h3>
-          <p data-i18n="project2_desc">把脚本转换为多语言音频场景的创作工具，面向内容创作者。</p>
-          <div class="project-footer">
-            <div class="tag-list">
-              <span class="tag tag-ai" data-i18n="project2_tag_1">AI Agent</span>
-              <span class="tag tag-design" data-i18n="project2_tag_2">流程</span>
-              <span class="tag tag-code" data-i18n="project2_tag_3">音频</span>
-            </div>
-            <a class="button button-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="project_detail">详情</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="home_records_eyebrow">Records</p>
-        <h2 class="section-title" data-i18n="home_records_title">访问记录与浏览记录</h2>
-        <p class="section-desc" data-i18n="home_records_desc">记录当前设备在本网站的访问统计和最近浏览页面。</p>
-      </div>
-      <div class="record-grid">
-        <article class="record-card">
-          <h3 data-i18n="home_record_summary_title">访问统计</h3>
-          <div class="record-row">
-            <span data-i18n="home_record_total_label">总访问次数（本设备）</span>
-            <strong data-visit-total>0</strong>
-          </div>
-          <div class="record-row">
-            <span data-i18n="home_record_unique_label">浏览过的页面数</span>
-            <strong data-visit-unique>0</strong>
-          </div>
-          <div class="record-row">
-            <span data-i18n="home_record_last_label">最近访问时间</span>
-            <strong data-visit-last>--</strong>
-          </div>
-        </article>
-
-        <article class="record-card">
-          <h3 data-i18n="home_history_title">最近浏览记录</h3>
-          <ol class="history-list" data-browse-list>
-            <li class="history-empty" data-i18n="home_history_empty">暂无记录</li>
-          </ol>
-        </article>
+      )}
+      <div class="section-foot">
+        <a class="button button-secondary" href="/news/" data-i18n="home_news_more">更多动态</a>
       </div>
     </section>
 
@@ -156,9 +118,8 @@ import '../styles/global.css';
           </div>
         </div>
         <aside class="contact-note">
-          <p><strong data-i18n="home_status_title">Site Status</strong></p>
-          <p data-i18n="home_status_desc">旧文章已备份为 Markdown，线上内容从零重建。</p>
-          <p data-i18n="home_status_stack">技术栈：Astro + GitHub Pages</p>
+          <p><strong data-i18n="home_contact_note_title">Site</strong></p>
+          <p data-i18n="home_contact_note_desc">AI 时代网志 · Astro + GitHub Pages</p>
         </aside>
       </div>
     </section>

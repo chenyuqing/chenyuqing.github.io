@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getCollection } from 'astro:content';
+
+const PAGE_SIZE = 15;
+
+const allNews = (await getCollection('news', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const allTags = [...new Set(allNews.flatMap((item) => item.data.tags))].sort();
+
+const currentTag = Astro.url.searchParams.get('tag') || '';
+const filtered = currentTag
+  ? allNews.filter((item) => item.data.tags.includes(currentTag))
+  : allNews;
+
+const pageParam = Number(Astro.url.searchParams.get('page') || '1');
+const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+const page = Math.min(Math.max(pageParam, 1), totalPages);
+const paged = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+const tagSearch = (tag: string) => {
+  const url = new URL(Astro.url);
+  if (tag) { url.searchParams.set('tag', tag); url.searchParams.delete('page'); }
+  else { url.searchParams.delete('tag'); url.searchParams.delete('page'); }
+  return url.pathname + url.search;
+};
+const pageUrl = (p: number) => {
+  const url = new URL(Astro.url);
+  url.searchParams.set('page', String(p));
+  return url.pathname + url.search;
+};
+---
+
+<BaseLayout title="动态 | Tim Chen" description="AI 领域最新动态与快讯。">
+  <main id="content" class="shell page-simple">
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="news_page_eyebrow">News</p>
+        <h1 class="section-title" data-i18n="news_page_title">最新动态</h1>
+        <p class="section-desc" data-i18n="news_page_desc">AI 领域的产品发布、开源项目、论文与行业动态。</p>
+      </div>
+
+      <div class="tag-filter">
+        <a class={`tag ${!currentTag ? 'tag-active' : ''}`} href={tagSearch('')}>全部</a>
+        {allTags.map((tag) => (
+          <a class={`tag tag-ai ${currentTag === tag ? 'tag-active' : ''}`} href={tagSearch(tag)}>{tag}</a>
+        ))}
+      </div>
+
+      <div class="news-list">
+        {paged.length === 0 ? (
+          <article class="news-item">
+            <p class="muted" data-i18n="news_page_empty">暂无动态。</p>
+          </article>
+        ) : (
+          paged.map((item) => (
+            <article class="news-item">
+              {item.data.cover && (
+                <a class="news-cover-link" href={`/news/${item.id}/`}>
+                  <img class="news-cover" src={item.data.cover} alt={item.data.title} />
+                </a>
+              )}
+              <a class="news-link" href={`/news/${item.id}/`}>
+                <h3>{item.data.title}</h3>
+              </a>
+              {item.data.description && <p class="news-desc">{item.data.description}</p>}
+              <div class="news-meta">
+                <span>{item.data.pubDate.toISOString().slice(0, 10)}</span>
+                {item.data.tags.map((tag) => (
+                  <span class="tag tag-ai">{tag}</span>
+                ))}
+              </div>
+            </article>
+          ))
+        )}
+      </div>
+
+      {totalPages > 1 && (
+        <nav class="pagination" aria-label={currentTag ? `按 ${currentTag} 筛选的分页` : '分页'}>
+          {page > 1 ? (
+            <a class="button button-secondary" href={pageUrl(page - 1)} data-i18n="news_page_prev">上一页</a>
+          ) : <span />}
+          <span class="page-info">{page} / {totalPages}</span>
+          {page < totalPages ? (
+            <a class="button button-secondary" href={pageUrl(page + 1)} data-i18n="news_page_next">下一页</a>
+          ) : <span />}
+        </nav>
+      )}
+    </section>
+  </main>
+</BaseLayout>

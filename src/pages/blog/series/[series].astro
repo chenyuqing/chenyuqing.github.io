@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/global.css';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft && data.series);
+  const seriesMap = new Map<string, typeof posts>();
+  for (const post of posts) {
+    const s = post.data.series!;
+    if (!seriesMap.has(s)) seriesMap.set(s, []);
+    seriesMap.get(s)!.push(post);
+  }
+  return [...seriesMap.entries()].map(([series, posts]) => ({
+    params: { series },
+    props: { series, posts: posts.sort((a, b) => a.data.pubDate.getTime() - b.data.pubDate.getTime()) },
+  }));
+}
+
+const { series, posts } = Astro.props;
+---
+
+<BaseLayout title={`${series} · 系列 | Tim Chen`} description={`${series} 系列文章。`}>
+  <main id="content" class="shell page-simple">
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="blog_series_eyebrow">Series</p>
+        <h1 class="section-title">{series}</h1>
+        <p class="section-desc">{posts.length} 篇文章</p>
+      </div>
+      <div class="blog-list">
+        {posts.map((post, i) => (
+          <article class="post-card">
+            <span class="post-series-num">#{ i + 1 }</span>
+            <a class="post-link" href={`/blog/${post.id}/`}>
+              <h2>{post.data.title}</h2>
+            </a>
+            {post.data.description && <p>{post.data.description}</p>}
+            <div class="post-meta">
+              <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+              {post.data.tags.map((tag) => (
+                <span class="tag tag-code">{tag}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="section-foot">
+        <a class="button button-secondary" href="/blog/" data-i18n="blog_series_back">返回博客</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

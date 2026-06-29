@@ -22,6 +22,18 @@ if (!post || post.data.draft) {
 
 const { Content } = await render(post);
 const iso = post.data.pubDate.toISOString().slice(0, 10);
+
+const raw = await post.body ?? '';
+const chineseChars = (raw.match(/[\u4e00-\u9fff\u3400-\u4dbf]/g) || []).length;
+const englishWords = (raw.replace(/[\u4e00-\u9fff\u3400-\u4dbf]/g, '').match(/[a-zA-Z]+/g) || []).length;
+const readingTime = Math.max(1, Math.ceil(chineseChars / 400 + englishWords / 200));
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const seriesPosts = post.data.series
+  ? allPosts
+      .filter((p) => p.data.series === post.data.series && p.id !== post.id)
+      .sort((a, b) => a.data.pubDate.getTime() - b.data.pubDate.getTime())
+  : [];
 ---
 
 <BaseLayout title={`${post.data.title} | Tim Chen`} description={post.data.description || post.data.title}>
@@ -33,6 +45,8 @@ const iso = post.data.pubDate.toISOString().slice(0, 10);
         <div class="post-meta" style="margin-top: 0.5rem;">
           <span>{iso}</span>
           {post.data.updatedDate && <span>updated {post.data.updatedDate.toISOString().slice(0, 10)}</span>}
+          <span class="reading-time">{readingTime} min read</span>
+          {post.data.lang === 'en' && <span class="lang-badge">EN</span>}
         </div>
         {post.data.tags.length > 0 && (
           <div class="tag-list" style="margin-top: 0.7rem;">
@@ -42,12 +56,122 @@ const iso = post.data.pubDate.toISOString().slice(0, 10);
           </div>
         )}
       </header>
-      <div class="blog-content">
-        <Content />
+
+      {post.data.cover && (
+        <img class="cover-img" src={post.data.cover} alt={post.data.title} loading="lazy" />
+      )}
+
+      <div class="blog-detail">
+        <div class="blog-detail-main">
+          <div class="blog-content">
+            <Content />
+          </div>
+        </div>
+        <aside class="blog-toc" id="blog-toc" aria-label="Table of contents">
+          <div class="blog-toc-title">目录</div>
+          <ul class="blog-toc-list" id="toc-list"></ul>
+        </aside>
       </div>
+
+      {seriesPosts.length > 0 && (
+        <nav class="series-nav">
+          <div class="series-nav-title">本系列其他文章</div>
+          <ul class="series-nav-list">
+            {seriesPosts.map((sp) => (
+              <li>
+                <a href={`/blog/${sp.id}/`}>{sp.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
       <div class="actions" style="margin-top: 1.2rem;">
         <a class="button button-secondary" href="/blog/">返回博客列表</a>
       </div>
     </article>
   </main>
+
+  <script>
+    function buildToc() {
+      const content = document.querySelector('.blog-content');
+      const tocList = document.getElementById('toc-list');
+      if (!content || !tocList) return;
+      const headings = content.querySelectorAll('h2, h3');
+      if (headings.length === 0) {
+        const toc = document.getElementById('blog-toc');
+        if (toc) toc.hidden = true;
+        return;
+      }
+      const ids = new Set<string>();
+      headings.forEach((h) => {
+        let id = h.id || h.textContent?.trim().replace(/\s+/g, '-').toLowerCase() || 'heading';
+        let suffix = 0;
+        while (ids.has(id)) {
+          suffix++;
+          id = `${h.textContent?.trim().replace(/\s+/g, '-').toLowerCase() || 'heading'}-${suffix}`;
+        }
+        ids.add(id);
+        h.id = id;
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${id}`;
+        a.textContent = h.textContent;
+        if (h.tagName === 'H3') a.classList.add('toc-h3');
+        li.appendChild(a);
+        tocList.appendChild(li);
+      });
+
+      const tocLinks = tocList.querySelectorAll('a');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              tocLinks.forEach((l) => l.classList.remove('toc-active'));
+              const active = tocList.querySelector(`a[href="#${entry.target.id}"]`);
+              if (active) active.classList.add('toc-active');
+            }
+          });
+        },
+        { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
+      );
+      headings.forEach((h) => observer.observe(h));
+    }
+
+    function enhanceCodeBlocks() {
+      document.querySelectorAll('.blog-content pre').forEach((pre) => {
+        const code = pre.querySelector('code');
+        if (!code) return;
+        pre.style.position = 'relative';
+
+        const langMatch = code.className.match(/language-(\w+)/);
+        if (langMatch) {
+          const lang = document.createElement('span');
+          lang.className = 'code-block-lang';
+          lang.textContent = langMatch[1];
+          pre.appendChild(lang);
+        }
+
+        const btn = document.createElement('button');
+        btn.className = 'code-copy-btn';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent || '');
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1800);
+          } catch {
+            btn.textContent = 'Error';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1800);
+          }
+        });
+        pre.appendChild(btn);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      buildToc();
+      enhanceCodeBlocks();
+    });
+  </script>
 </BaseLayout>

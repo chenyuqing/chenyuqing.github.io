@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('news', ({ data }) => !data.draft);
+  return items.map((item) => ({
+    params: { slug: item.id },
+  }));
+}
+
+const { slug } = Astro.params;
+if (!slug) {
+  throw new Error('Missing news slug');
+}
+
+const item = await getEntry('news', slug);
+if (!item || item.data.draft) {
+  return Astro.redirect('/404');
+}
+
+const hasBody = item.body && item.body.trim().length > 0;
+const { Content } = hasBody ? await render(item) : { Content: null };
+const iso = item.data.pubDate.toISOString().slice(0, 10);
+---
+
+<BaseLayout title={`${item.data.title} | Tim Chen`} description={item.data.description || item.data.title}>
+  <main id="content" class="shell page-simple">
+    <article class="news-article">
+      <header>
+        <p class="eyebrow" data-i18n="news_detail_eyebrow">News</p>
+        <h1 class="section-title">{item.data.title}</h1>
+        <div class="post-meta" style="margin-top: 0.5rem;">
+          <span>{iso}</span>
+          {item.data.tags.length > 0 && item.data.tags.map((tag) => (
+            <span class="tag tag-ai">{tag}</span>
+          ))}
+        </div>
+      </header>
+      {item.data.description && !hasBody && (
+        <p class="news-detail-desc">{item.data.description}</p>
+      )}
+      {hasBody && Content && (
+        <div class="blog-content">
+          <Content />
+        </div>
+      )}
+      {item.data.link && (
+        <div class="actions" style="margin-top: 1.2rem;">
+          <a class="button button-primary" href={item.data.link} target="_blank" rel="noreferrer" data-i18n="news_detail_link">阅读原文 ↗</a>
+        </div>
+      )}
+      <div class="actions" style="margin-top: 0.8rem;">
+        <a class="button button-secondary" href="/news/" data-i18n="news_detail_back">返回动态列表</a>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

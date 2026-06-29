@@ -3,43 +3,76 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import '../../styles/global.css';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
-);
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
+
+const currentTag = Astro.url.searchParams.get('tag') || '';
+const posts = currentTag
+  ? allPosts.filter((post) => post.data.tags.includes(currentTag))
+  : allPosts;
+
+const tagSearch = (tag: string) => {
+  const url = new URL(Astro.url);
+  if (tag) { url.searchParams.set('tag', tag); } else { url.searchParams.delete('tag'); }
+  return url.pathname + url.search;
+};
+
+const seenSeries = new Set<string>();
 ---
 
 <BaseLayout title="博客 | Tim Chen" description="Tim Chen 的博客文章。">
   <main id="content" class="shell page-simple">
     <section class="section">
       <div class="section-head">
-        <p class="eyebrow">Blog</p>
-        <h1 class="section-title">博客文章</h1>
-        <p class="section-desc">新文章放在 `src/content/blog/`，写完 Markdown 后重新 build 即可发布。</p>
+        <p class="eyebrow" data-i18n="blog_page_eyebrow">Blog</p>
+        <h1 class="section-title" data-i18n="blog_page_title">博客文章</h1>
+        <p class="section-desc" data-i18n="blog_page_desc">深度文章、教程与思考。</p>
       </div>
+
+      <div class="tag-filter">
+        <a class={`tag ${!currentTag ? 'tag-active' : ''}`} href={tagSearch('')}>全部</a>
+        {allTags.map((tag) => (
+          <a class={`tag tag-ai ${currentTag === tag ? 'tag-active' : ''}`} href={tagSearch(tag)}>{tag}</a>
+        ))}
+      </div>
+
       <div class="blog-list">
         {posts.length === 0 ? (
           <article class="post-card">
-            <h2>暂无文章</h2>
-            <p class="muted">先创建你的第一篇 Markdown。</p>
+            <p class="muted" data-i18n="blog_page_empty">暂无文章。</p>
           </article>
         ) : (
-          posts.map((post) => (
-            <article class="post-card">
-              <a class="post-link" href={`/blog/${post.id}/`}>
-                <h2>{post.data.title}</h2>
-              </a>
-              {post.data.description && <p>{post.data.description}</p>}
-              <div class="post-meta">
-                <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
-                {post.data.tags.map((tag) => (
-                  <span class="tag tag-code">{tag}</span>
-                ))}
-              </div>
-              <div class="actions">
-                <a class="button button-secondary" href={`/blog/${post.id}/`}>阅读全文</a>
-              </div>
-            </article>
-          ))
+          posts.map((post) => {
+            const showSeriesHeader = post.data.series && !seenSeries.has(post.data.series);
+            if (post.data.series) seenSeries.add(post.data.series);
+            return (
+              <>
+                {showSeriesHeader && (
+                  <div class="series-badge">
+                    <span class="tag tag-code" data-i18n="blog_series">系列</span>
+                    <span class="series-name">{post.data.series}</span>
+                  </div>
+                )}
+                <article class="post-card">
+                  <a class="post-link" href={`/blog/${post.id}/`}>
+                    <h2>{post.data.title}</h2>
+                  </a>
+                  {post.data.description && <p>{post.data.description}</p>}
+                  <div class="post-meta">
+                    <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                    {post.data.tags.map((tag) => (
+                      <span class="tag tag-code">{tag}</span>
+                    ))}
+                  </div>
+                  <div class="actions">
+                    <a class="button button-secondary" href={`/blog/${post.id}/`} data-i18n="blog_read_more">阅读全文</a>
+                  </div>
+                </article>
+              </>
+            );
+          })
         )}
       </div>
     </section>
