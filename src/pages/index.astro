@@ -11,14 +11,14 @@ const fourteenDaysAgo = new Date();
 fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
 
 const newsItems = (await getCollection('news', ({ data }) => !data.draft))
-  .filter(({ data }) => data.pubDate >= fourteenDaysAgo)
+  .filter(({ data }) => data.pubDate > fourteenDaysAgo)
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 5);
 ---
 
-<BaseLayout title="Tim Chen | AI 时代网志" description="AI 时代的个人网志 — 博客、快讯与思考。" canonical="/">
+<BaseLayout title="Tim Chen · AI 时代网志" description="AI 时代的个人网志 — 博客、快讯与思考。" canonical="/">
   <main id="content" class="shell">
-    <section class="home-intro">
+    <section class="home-intro reveal">
       <h1 class="intro-title">
         <span data-i18n="home_intro_name">Tim Chen</span>
         <span class="intro-sep">·</span>
@@ -30,9 +30,13 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
         <a class="intro-link" href="/blog/rss.xml" data-i18n="home_intro_rss">RSS</a>
         <a class="intro-link" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
       </div>
+      <div class="intro-ai-hint">
+        <span data-i18n="home_intro_ai_hint">🤖 试试 AI 问答</span>
+        <button id="intro-ai-trigger" class="intro-ai-btn" type="button" aria-label="Open AI Agent">→</button>
+      </div>
     </section>
 
-    <section class="section">
+    <section class="section reveal">
       <div class="section-head">
         <p class="eyebrow" data-i18n="home_blog_eyebrow">Blog</p>
         <h2 class="section-title" data-i18n="home_blog_title">最新文章</h2>
@@ -73,54 +77,47 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="home_news_eyebrow">News</p>
-        <h2 class="section-title" data-i18n="home_news_title">最新动态</h2>
-      </div>
-      {newsItems.length === 0 ? (
-        <article class="news-item">
-          <p class="muted" data-i18n="home_news_empty">最近没有新动态。</p>
-        </article>
-      ) : (
-        <div class="news-list">
-          {newsItems.map((item) => (
-            <article class="news-item">
-              <a class="news-link" href={`/news/${item.id}/`}>
-                <h3>{item.data.title}</h3>
-              </a>
-              {item.data.description && <p class="news-desc">{item.data.description}</p>}
-              <div class="news-meta">
-                <span>{item.data.pubDate.toISOString().slice(0, 10)}</span>
-                {item.data.tags.slice(0, 2).map((tag) => (
-                  <span class="tag tag-ai">{tag}</span>
-                ))}
-                {item.data.link && <span class="news-external" data-i18n="home_news_link">🔗 外部链接</span>}
-              </div>
-            </article>
-          ))}
+    <div class="home-news-band reveal">
+      <section class="section section-dark">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-on-dark" data-i18n="home_news_eyebrow">News</p>
+          <h2 class="section-title section-title-on-dark" data-i18n="home_news_title">最新动态</h2>
         </div>
-      )}
-      <div class="section-foot">
-        <a class="button button-secondary" href="/news/" data-i18n="home_news_more">更多动态</a>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="contact-card">
-        <div>
-          <p class="eyebrow" data-i18n="home_contact_eyebrow">Contact</p>
-          <h2 class="section-title" data-i18n="home_contact_title">想一起做点有意思的东西？</h2>
-          <p class="section-desc" data-i18n="home_contact_desc">欢迎交流产品、AI、设计和创作流程，我会持续更新这个站点。</p>
-          <div class="actions" style="margin-top: 1rem;">
-            <a class="button button-primary" href="mailto:tim@dwyx.xyz" data-i18n="home_contact_email">发邮件</a>
-            <a class="button button-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="home_contact_github">GitHub</a>
+        {newsItems.length === 0 ? (
+          <p class="muted muted-on-dark" data-i18n="home_news_empty">最近没有新动态。</p>
+        ) : (
+          <div class="news-list">
+            {newsItems.map((item) => (
+              <article class="news-item news-item-dark">
+                <a class="news-link news-link-on-dark" href={`/news/${item.id}/`}>
+                  <h3>{item.data.title}</h3>
+                </a>
+                {item.data.description && <p class="news-desc news-desc-on-dark">{item.data.description}</p>}
+                <div class="news-meta news-meta-on-dark">
+                  <span>{item.data.pubDate.toISOString().slice(0, 10)}</span>
+                  {item.data.tags.slice(0, 2).map((tag) => (
+                    <span class="tag tag-on-dark">{tag}</span>
+                  ))}
+                  {item.data.link && <span class="news-external news-external-on-dark" data-i18n="home_news_link">🔗 外部链接</span>}
+                </div>
+              </article>
+            ))}
           </div>
+        )}
+        <div class="section-foot section-foot-on-dark">
+          <a class="button button-on-dark" href="/news/" data-i18n="home_news_more">更多动态</a>
         </div>
-        <aside class="contact-note">
-          <p><strong data-i18n="home_contact_note_title">Site</strong></p>
-          <p data-i18n="home_contact_note_desc">AI 时代网志 · Astro + GitHub Pages</p>
-        </aside>
+      </section>
+    </div>
+
+    <section class="home-contact-callout reveal">
+      <div class="contact-callout-inner">
+        <h2 class="contact-callout-title" data-i18n="home_contact_title">想一起做点有意思的东西？</h2>
+        <p class="contact-callout-desc" data-i18n="home_contact_desc">欢迎交流产品、AI、设计和创作流程，我会持续更新这个站点。</p>
+        <div class="contact-callout-actions">
+          <a class="button button-callout" href="mailto:tim@dwyx.xyz" data-i18n="home_contact_email">发邮件</a>
+          <a class="button button-callout-secondary" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="home_contact_github">GitHub</a>
+        </div>
       </div>
     </section>
   </main>

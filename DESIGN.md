@@ -1,3 +1,9 @@
+> Warning
+>
+> 这份文档的大部分内容描述的是**旧版**“清爽可爱 2D 扁平卡通风”方案。
+> 当前站点 2026-06 之后的实际实现已经切换为 **warm editorial AI brand** 方向：cream canvas、dark product surface、orange callout、衬线标题、hairline 边框。
+> 如果文档内容与 `src/styles/global.css` 或当前页面实现冲突，**以代码为准**。
+
 可以把 `design.md` 写成一份**视觉规范 + 组件规范 + 页面规范**，方便后续丢给 Codex / Cursor / 前端工程师直接实现。
 
 下面是一版适合你这种 **“清爽可爱现代 2D 扁平卡通风”个人网站** 的完整 `design.md`：

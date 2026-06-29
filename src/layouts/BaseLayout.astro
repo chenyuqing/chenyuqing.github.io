@@ -229,6 +229,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             home_intro_lead: '关注 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。',
             home_intro_about: '关于',
             home_intro_rss: 'RSS',
+            home_intro_ai_hint: '🤖 试试 AI 问答',
             home_blog_eyebrow: 'Blog',
             home_blog_title: '最新文章',
             home_blog_empty: '暂无文章',
@@ -398,6 +399,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             home_intro_lead: 'Focus on AI creator tools, video workflows, and subtitle products — turning complex capabilities into simple, usable experiences.',
             home_intro_about: 'About',
             home_intro_rss: 'RSS',
+            home_intro_ai_hint: '🤖 Try AI Q&A',
             home_blog_eyebrow: 'Blog',
             home_blog_title: 'Latest Posts',
             home_blog_empty: 'No posts yet',
@@ -683,6 +685,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const messagesEl = document.getElementById('ai-messages');
       const form = document.getElementById('ai-form');
       const input = document.getElementById('ai-input');
+      const introAiTrigger = document.getElementById('intro-ai-trigger');
 
       const STORAGE_KEY = 'ai-agent-config-v1';
 
@@ -710,6 +713,11 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       fab?.addEventListener('click', () => {
         panel.setAttribute('aria-hidden', panel.getAttribute('aria-hidden') === 'true' ? 'false' : 'true');
+      });
+
+      introAiTrigger?.addEventListener('click', () => {
+        panel.setAttribute('aria-hidden', 'false');
+        input?.focus();
       });
 
       closeBtn?.addEventListener('click', () => {
@@ -851,6 +859,18 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           addMsg('error', '出错了：' + (err.message || String(err)));
         }
       });
+
+      const revealNodes = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealNodes.forEach((node) => revealObserver.observe(node));
     })();
     </script>
   </body>
