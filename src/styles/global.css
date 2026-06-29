@@ -898,6 +898,13 @@ main {
   color: var(--color-on-dark-soft);
 }
 
+.ai-provider-note {
+  margin: 0;
+  color: var(--color-on-dark-soft);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
 .ai-input {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-sm);

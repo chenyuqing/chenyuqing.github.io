@@ -101,24 +101,31 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             </div>
           </nav>
           <div class="site-controls">
-            <button
-              id="lang-toggle"
-              class="nav-pill toggle-pill"
-              type="button"
-              data-i18n-aria-label="toggle_lang_aria"
-              data-i18n="toggle_lang_button"
-            >
-              中 / EN
-            </button>
-            <button
-              id="theme-toggle"
-              class="nav-pill toggle-pill"
-              type="button"
-              data-i18n-aria-label="toggle_theme_aria"
-              data-i18n="theme_light_label"
-            >
-              浅色模式
-            </button>
+            <div class="nav-dropdown nav-dropdown-settings" id="nav-settings-dropdown">
+              <button class="nav-pill nav-dropdown-trigger" type="button" aria-expanded="false" data-i18n="nav_settings">设置 ▾</button>
+              <div class="nav-dropdown-menu nav-dropdown-menu-settings">
+                <div class="nav-dropdown-col">
+                  <button
+                    id="lang-toggle"
+                    class="nav-dropdown-item nav-dropdown-item-button"
+                    type="button"
+                    data-i18n-aria-label="toggle_lang_aria"
+                  >
+                    <span class="nav-dropdown-kicker" data-i18n="setting_language">语言</span>
+                    <span class="nav-dropdown-desc" data-i18n="toggle_lang_button">中 / EN</span>
+                  </button>
+                  <button
+                    id="theme-toggle"
+                    class="nav-dropdown-item nav-dropdown-item-button"
+                    type="button"
+                    data-i18n-aria-label="toggle_theme_aria"
+                  >
+                    <span class="nav-dropdown-kicker" data-i18n="setting_theme">主题</span>
+                    <span class="nav-dropdown-desc" data-i18n="theme_light_label">浅色模式</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -183,6 +190,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             nav_news_desc: '看最新模型、产品发布与 AI 领域动态',
             nav_github: 'GitHub',
             nav_github_desc: '查看代码、项目与公开实验记录',
+            nav_settings: '设置 ▾',
+            setting_language: '语言',
+            setting_theme: '主题',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: '切换中英文',
             toggle_theme_aria: '切换明暗主题',
@@ -359,6 +369,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ai_base_url: 'Base URL',
             ai_model: 'Model',
             ai_api_key: 'API Key',
+            ai_provider_note_compatible: '浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。',
+            ai_provider_note_openai: 'OpenAI 官方接口不能安全地从这个静态站直连。请填写你自己的 OpenAI 代理 Base URL。',
+            ai_provider_note_claude: 'Claude 官方接口不能安全地从这个静态站直连。请填写你自己的 Claude 代理 Base URL。',
             ai_welcome: '问我关于这个站点的任何内容。',
             ai_placeholder: '搜索文章、问问题...',
           },
@@ -374,6 +387,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             nav_news_desc: 'Track new models, launches, and AI industry movement',
             nav_github: 'GitHub',
             nav_github_desc: 'Browse code, projects, and public experiment logs',
+            nav_settings: 'Settings ▾',
+            setting_language: 'Language',
+            setting_theme: 'Theme',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: 'Switch language',
             toggle_theme_aria: 'Switch light or dark theme',
@@ -550,6 +566,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ai_base_url: 'Base URL',
             ai_model: 'Model',
             ai_api_key: 'API Key',
+            ai_provider_note_compatible: 'Direct browser calls require a provider that supports CORS. Use your own proxy for official OpenAI or Claude APIs.',
+            ai_provider_note_openai: 'Official OpenAI endpoints should not be called directly from this static site. Enter your own OpenAI proxy base URL.',
+            ai_provider_note_claude: 'Official Claude endpoints should not be called directly from this static site. Enter your own Claude proxy base URL.',
             ai_welcome: 'Ask me anything about this site.',
             ai_placeholder: 'Search posts, ask questions...',
           },
@@ -738,12 +757,12 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           <label class="ai-setting-row">
             <span data-i18n="ai_provider">Provider</span>
             <select id="ai-provider" class="ai-input">
-              <option value="openai">OpenAI</option>
-              <option value="claude">Claude</option>
               <option value="compatible">OpenAI Compatible</option>
+              <option value="openai">OpenAI (Proxy)</option>
+              <option value="claude">Claude (Proxy)</option>
             </select>
           </label>
-          <label class="ai-setting-row" id="ai-base-url-row" hidden>
+          <label class="ai-setting-row" id="ai-base-url-row">
             <span data-i18n="ai_base_url">Base URL</span>
             <input id="ai-base-url" class="ai-input" type="url" placeholder="https://api.example.com/v1" />
           </label>
@@ -755,6 +774,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             <span data-i18n="ai_api_key">API Key</span>
             <input id="ai-api-key" class="ai-input" type="password" placeholder="sk-..." />
           </label>
+          <p id="ai-provider-note" class="ai-provider-note" data-i18n="ai_provider_note_compatible">浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。</p>
         </div>
       </div>
       <div id="ai-messages" class="ai-messages">
@@ -778,11 +798,25 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const baseUrlInput = document.getElementById('ai-base-url');
       const modelInput = document.getElementById('ai-model');
       const apiKeyInput = document.getElementById('ai-api-key');
+      const providerNote = document.getElementById('ai-provider-note');
       const messagesEl = document.getElementById('ai-messages');
       const form = document.getElementById('ai-form');
       const input = document.getElementById('ai-input');
       const introAiTrigger = document.getElementById('intro-ai-trigger');
       const footerAiTrigger = document.getElementById('footer-ai-trigger');
+      const aiUiLang = document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'zh';
+      const providerNotes = {
+        zh: {
+          compatible: '浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。',
+          openai: 'OpenAI 官方接口不能安全地从这个静态站直连。请填写你自己的 OpenAI 代理 Base URL。',
+          claude: 'Claude 官方接口不能安全地从这个静态站直连。请填写你自己的 Claude 代理 Base URL。',
+        },
+        en: {
+          compatible: 'Direct browser calls require a provider that supports CORS. Use your own proxy for official OpenAI or Claude APIs.',
+          openai: 'Official OpenAI endpoints should not be called directly from this static site. Enter your own OpenAI proxy base URL.',
+          claude: 'Official Claude endpoints should not be called directly from this static site. Enter your own Claude proxy base URL.',
+        },
+      };
 
       const STORAGE_KEY = 'ai-agent-config-v1';
 
@@ -832,10 +866,21 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       providerSelect?.addEventListener('change', () => {
         const v = providerSelect.value;
-        baseUrlRow.hidden = v !== 'compatible';
-        if (v === 'openai') modelInput.placeholder = modelInput.value = 'gpt-4o-mini';
-        else if (v === 'claude') modelInput.placeholder = modelInput.value = 'claude-sonnet-4-20250514';
-        else modelInput.placeholder = 'deepseek-chat';
+        baseUrlRow.hidden = false;
+        if (v === 'openai') {
+          modelInput.placeholder = modelInput.value = 'gpt-4o-mini';
+          baseUrlInput.placeholder = 'https://your-proxy.example.com/v1';
+          providerNote.textContent = providerNotes[aiUiLang].openai;
+        } else if (v === 'claude') {
+          modelInput.placeholder = modelInput.value = 'claude-sonnet-4-20250514';
+          baseUrlInput.placeholder = 'https://your-proxy.example.com/v1';
+          providerNote.textContent = providerNotes[aiUiLang].claude;
+        } else {
+          modelInput.placeholder = 'deepseek-chat';
+          if (!modelInput.value) modelInput.value = 'deepseek-chat';
+          baseUrlInput.placeholder = 'https://api.example.com/v1';
+          providerNote.textContent = providerNotes[aiUiLang].compatible;
+        }
         saveConfig();
       });
 
@@ -847,9 +892,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       const getEndpoint = () => {
         const p = providerSelect.value;
-        if (p === 'openai') return 'https://api.openai.com/v1/chat/completions';
-        if (p === 'claude') return 'https://api.anthropic.com/v1/messages';
         const base = baseUrlInput.value.replace(/\/+$/, '');
+        if (p === 'openai') return base + '/chat/completions';
+        if (p === 'claude') return base + '/messages';
         return base + '/chat/completions';
       };
 
@@ -923,6 +968,12 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           addMsg('error', '请先在设置中填写 API Key（点击 ⚙）');
           return;
         }
+        if (!baseUrlInput.value.trim()) {
+          addMsg('error', providerSelect.value === 'compatible'
+            ? '请先填写支持浏览器直连的 Base URL。'
+            : '这个静态站不能直连官方接口。请先填写你自己的代理 Base URL。');
+          return;
+        }
         addMsg('user', query);
         input.value = '';
 
@@ -948,7 +999,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
           if (!res.ok) {
             const err = await res.text();
-            addMsg('error', '请求失败：' + res.status);
+            addMsg('error', `请求失败：${res.status}\n${err.slice(0, 280)}`);
             return;
           }
 
@@ -958,7 +1009,12 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             : (data.choices?.[0]?.message?.content || '无回复');
           addMsg('assistant', reply);
         } catch (err) {
-          addMsg('error', '出错了：' + (err.message || String(err)));
+          const message = err?.message || String(err);
+          if (/Failed to fetch|NetworkError|Load failed/i.test(message)) {
+            addMsg('error', '网络请求被浏览器拦住了。通常是 CORS 或代理地址不可用。\n\n如果你选的是 OpenAI / Claude，请填写你自己的代理 Base URL。\n如果你选的是 OpenAI Compatible，请确认这个服务允许浏览器直连。');
+            return;
+          }
+          addMsg('error', '出错了：' + message);
         }
       });
 
@@ -988,6 +1044,24 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           if (!dropdown.contains(e.target)) {
             dropdown.classList.remove('dropdown-open');
             dropdownTrigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      const settingsDropdown = document.getElementById('nav-settings-dropdown');
+      const settingsTrigger = settingsDropdown?.querySelector('.nav-dropdown-trigger');
+      const settingsMenu = settingsDropdown?.querySelector('.nav-dropdown-menu');
+
+      if (settingsDropdown && settingsTrigger && settingsMenu) {
+        settingsTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = settingsDropdown.classList.toggle('dropdown-open');
+          settingsTrigger.setAttribute('aria-expanded', open);
+        });
+        document.addEventListener('click', (e) => {
+          if (!settingsDropdown.contains(e.target)) {
+            settingsDropdown.classList.remove('dropdown-open');
+            settingsTrigger.setAttribute('aria-expanded', 'false');
           }
         });
       }
