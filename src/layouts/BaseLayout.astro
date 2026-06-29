@@ -1047,7 +1047,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const loadSiteIndex = async (question) => {
         if (siteIndexCache) return siteIndexCache;
         const isRecent = /最近|近期|latest|recent|这周|这月/i.test(question);
-        const indexUrl = isRecent ? '/site-index/news-30d.json' : '/site-index/news-90d.json';
+        const indexUrl = isRecent ? '/site-index/news-30d.json' : '/site-index/news-all.json';
         const [blogRes, newsRes] = await Promise.all([
           fetch('/site-index/blog-all.json'),
           fetch(indexUrl),
@@ -1094,13 +1094,37 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       const searchIndex = (index, query) => {
         const terms = getQueryTerms(query);
+        const collectMatches = (text, term) => {
+          const matches = [];
+          let start = 0;
+          while (start < text.length) {
+            const at = text.indexOf(term, start);
+            if (at === -1) break;
+            matches.push(at);
+            start = at + term.length;
+          }
+          return matches;
+        };
+
         const scoreItem = (item) => {
-          const text = ((item.title || '') + ' ' + (item.description || '') + ' ' + (item.tags || []).join(' ') + ' ' + (item.body || '')).toLowerCase();
-          return terms.reduce((score, term) => {
-            if (!text.includes(term)) return score;
-            const weight = /[a-z0-9]/.test(term) ? 4 : term.length >= 3 ? 2 : 1;
-            return score + weight;
+          const title = (item.title || '').toLowerCase();
+          const description = (item.description || '').toLowerCase();
+          const tags = (item.tags || []).join(' ').toLowerCase();
+          const body = (item.body || '').toLowerCase();
+          const score = terms.reduce((sum, term) => {
+            const baseWeight = /[a-z0-9]/.test(term) ? 6 : term.length >= 3 ? 3 : 1;
+            const titleHits = collectMatches(title, term).length;
+            const descriptionHits = collectMatches(description, term).length;
+            const tagHits = collectMatches(tags, term).length;
+            const bodyHits = Math.min(collectMatches(body, term).length, 4);
+            return sum + titleHits * baseWeight * 8 + descriptionHits * baseWeight * 4 + tagHits * baseWeight * 5 + bodyHits * baseWeight;
           }, 0);
+
+          const freshnessBoost = item._type === 'news'
+            ? Math.max(0, 30 - Math.floor((Date.now() - new Date(item.pubDate).getTime()) / 86400000))
+            : 0;
+
+          return score + freshnessBoost;
         };
         const scored = [...index.blog.map(i => ({...i, _type: 'blog', _score: scoreItem(i)})), ...index.news.map(i => ({...i, _type: 'news', _score: scoreItem(i)}))];
         return scored.filter(i => i._score > 0).sort((a, b) => b._score - a._score).slice(0, 10);
