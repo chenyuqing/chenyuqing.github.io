@@ -783,8 +783,10 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           </label>
           <div class="ai-settings-actions">
             <button id="ai-save-settings" class="ai-test-btn" type="button" data-i18n="ai_save_settings">保存设置</button>
-            <button id="ai-reset-settings" class="ai-test-btn" type="button" data-i18n="ai_reset_settings">重置设置</button>
-            <button id="ai-test-connection" class="ai-test-btn" type="button" data-i18n="ai_test_connection">测试连接</button>
+            <div class="ai-settings-actions-row">
+              <button id="ai-test-connection" class="ai-test-btn ai-test-btn-secondary" type="button" data-i18n="ai_test_connection">测试连接</button>
+              <button id="ai-reset-settings" class="ai-test-btn ai-test-btn-secondary" type="button" data-i18n="ai_reset_settings">重置设置</button>
+            </div>
             <p id="ai-test-status" class="ai-test-status" aria-live="polite"></p>
           </div>
           <p id="ai-provider-note" class="ai-provider-note" data-i18n="ai_provider_note_compatible">浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。</p>

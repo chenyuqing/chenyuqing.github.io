@@ -983,6 +983,12 @@ main {
   gap: 0.45rem;
 }
 
+.ai-settings-actions-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
 .ai-test-btn {
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-sm);
@@ -992,6 +998,20 @@ main {
   padding: 0.5rem 0.7rem;
   cursor: pointer;
   transition: background 120ms ease, border-color 120ms ease;
+}
+
+.ai-settings-actions > .ai-test-btn {
+  background: var(--color-on-dark);
+  color: var(--color-surface-dark);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.ai-test-btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-on-dark);
+  border-color: rgba(255, 255, 255, 0.14);
+  font-weight: 500;
 }
 
 .ai-test-btn:hover:not(:disabled) {
