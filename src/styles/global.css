@@ -1824,6 +1824,15 @@ main {
 .news-link h3 {
   font-size: 1.06rem;
   line-height: 1.35;
+  margin: 0;
+  text-align: left;
+}
+
+.news-item-dark .news-link,
+.news-featured-body,
+.news-featured-title,
+.news-featured-desc {
+  text-align: left;
 }
 
 .news-desc {
