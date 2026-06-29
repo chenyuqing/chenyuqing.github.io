@@ -1418,14 +1418,17 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
   gap: 1rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .home-split-col {
   min-width: 0;
+  height: 100%;
 }
 
 .home-split-news {
+  display: flex;
+  flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
   background: var(--color-surface-dark);
@@ -1433,6 +1436,8 @@ main {
 }
 
 .home-split-blog {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--color-hairline);
   border-radius: 24px;
   background: color-mix(in srgb, var(--color-surface-soft) 68%, var(--color-canvas));
@@ -1459,6 +1464,11 @@ main {
 .blog-list-home {
   min-width: 0;
   margin-top: 1.25rem;
+}
+
+.news-list-home,
+.magazine-list {
+  flex: 1;
 }
 
 .news-featured {
