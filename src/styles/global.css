@@ -265,8 +265,11 @@ p {
 .nav-dropdown-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
-  left: 0;
-  width: min(31rem, calc(100vw - 2rem));
+  right: 0;
+  left: auto;
+  width: min(31rem, calc(100vw - 1rem));
+  max-width: calc(100vw - 1rem);
+  box-sizing: border-box;
   display: none;
   padding: 0.55rem;
   border: 1px solid var(--color-hairline);
@@ -2033,7 +2036,9 @@ main {
 
   .nav-dropdown-menu {
     left: 0;
-    min-width: 100%;
+    right: auto;
+    width: min(31rem, calc(100vw - 1rem));
+    min-width: min(16rem, calc(100vw - 1rem));
     grid-template-columns: 1fr;
   }
 
