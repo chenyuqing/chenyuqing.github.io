@@ -362,6 +362,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ai_base_url: 'Base URL',
             ai_model: 'Model',
             ai_api_key: 'API Key',
+            ai_test_connection: '测试连接',
             ai_provider_note_compatible: '浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。',
             ai_provider_note_openai: 'OpenAI 官方接口不能安全地从这个静态站直连。请填写你自己的 OpenAI 代理 Base URL。',
             ai_provider_note_claude: 'Claude 官方接口不能安全地从这个静态站直连。请填写你自己的 Claude 代理 Base URL。',
@@ -555,6 +556,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ai_base_url: 'Base URL',
             ai_model: 'Model',
             ai_api_key: 'API Key',
+            ai_test_connection: 'Test Connection',
             ai_provider_note_compatible: 'Direct browser calls require a provider that supports CORS. Use your own proxy for official OpenAI or Claude APIs.',
             ai_provider_note_openai: 'Official OpenAI endpoints should not be called directly from this static site. Enter your own OpenAI proxy base URL.',
             ai_provider_note_claude: 'Official Claude endpoints should not be called directly from this static site. Enter your own Claude proxy base URL.',
@@ -763,6 +765,10 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             <span data-i18n="ai_api_key">API Key</span>
             <input id="ai-api-key" class="ai-input" type="password" placeholder="sk-..." />
           </label>
+          <div class="ai-settings-actions">
+            <button id="ai-test-connection" class="ai-test-btn" type="button" data-i18n="ai_test_connection">测试连接</button>
+            <p id="ai-test-status" class="ai-test-status" aria-live="polite"></p>
+          </div>
           <p id="ai-provider-note" class="ai-provider-note" data-i18n="ai_provider_note_compatible">浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。</p>
         </div>
       </div>
@@ -787,6 +793,8 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const baseUrlInput = document.getElementById('ai-base-url');
       const modelInput = document.getElementById('ai-model');
       const apiKeyInput = document.getElementById('ai-api-key');
+      const testConnectionBtn = document.getElementById('ai-test-connection');
+      const testStatusEl = document.getElementById('ai-test-status');
       const providerNote = document.getElementById('ai-provider-note');
       const messagesEl = document.getElementById('ai-messages');
       const form = document.getElementById('ai-form');
@@ -808,6 +816,27 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       };
 
       const STORAGE_KEY = 'ai-agent-config-v1';
+
+      const messages = {
+        zh: {
+          testing: '正在测试连接...',
+          missingApiKey: '请先填写 API Key。',
+          missingBaseUrlCompatible: '请先填写支持浏览器直连的 Base URL。',
+          missingBaseUrlProxy: '请先填写你自己的代理 Base URL。',
+          success: '连接成功，可以开始提问了。',
+          blocked: '浏览器网络请求失败。请检查 CORS、浏览器插件或代理地址。',
+          unknownError: '连接失败：',
+        },
+        en: {
+          testing: 'Testing connection...',
+          missingApiKey: 'Please enter an API key first.',
+          missingBaseUrlCompatible: 'Please enter a browser-accessible Base URL first.',
+          missingBaseUrlProxy: 'Please enter your proxy Base URL first.',
+          success: 'Connection OK. You can start asking questions.',
+          blocked: 'Browser network request failed. Check CORS, browser extensions, or the proxy URL.',
+          unknownError: 'Connection failed: ',
+        },
+      };
 
       const loadConfig = () => {
         try {
@@ -920,6 +949,67 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
       };
+
+      const setTestStatus = (type, text) => {
+        if (!testStatusEl) return;
+        testStatusEl.className = 'ai-test-status ai-test-status-' + type;
+        testStatusEl.textContent = text;
+      };
+
+      const extractErrorMessage = async (res) => {
+        const text = await res.text();
+        try {
+          const json = JSON.parse(text);
+          return json?.error?.message || json?.error || json?.message || text;
+        } catch {
+          return text;
+        }
+      };
+
+      testConnectionBtn?.addEventListener('click', async () => {
+        const copy = messages[aiUiLang];
+        if (!apiKeyInput.value.trim()) {
+          setTestStatus('error', copy.missingApiKey);
+          return;
+        }
+        if (!baseUrlInput.value.trim()) {
+          setTestStatus('error', providerSelect.value === 'compatible' ? copy.missingBaseUrlCompatible : copy.missingBaseUrlProxy);
+          return;
+        }
+
+        testConnectionBtn.disabled = true;
+        setTestStatus('loading', copy.testing);
+
+        const p = providerSelect.value;
+        const testMessages = p === 'claude'
+          ? [{ role: 'user', content: 'Reply with OK.' }]
+          : [{ role: 'user', content: 'Reply with OK.' }];
+
+        try {
+          const res = await fetch(getEndpoint(), {
+            method: 'POST',
+            headers: getHeaders(),
+            body: buildBody(testMessages),
+          });
+
+          if (!res.ok) {
+            const message = await extractErrorMessage(res);
+            setTestStatus('error', `${res.status}: ${message.slice(0, 180)}`);
+            return;
+          }
+
+          setTestStatus('success', copy.success);
+        } catch (err) {
+          const message = err?.message || String(err);
+          if (/Failed to fetch|NetworkError|Load failed/i.test(message)) {
+            setTestStatus('error', copy.blocked);
+            return;
+          }
+          setTestStatus('error', copy.unknownError + message);
+        } finally {
+          testConnectionBtn.disabled = false;
+        }
+      });
 
       let siteIndexCache = null;
 
