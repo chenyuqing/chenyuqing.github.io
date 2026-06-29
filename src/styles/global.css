@@ -949,6 +949,10 @@ main {
   display: none !important;
 }
 
+.ai-settings-body[hidden] {
+  display: none !important;
+}
+
 .ai-panel-settings.is-open .ai-settings-toggle {
   opacity: 1;
 }

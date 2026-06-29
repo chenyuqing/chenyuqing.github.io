@@ -941,6 +941,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       settingsToggle?.addEventListener('click', () => {
         const nextOpen = settingsBody.hidden;
         settingsBody.hidden = !nextOpen;
+        settingsBody.style.display = nextOpen ? 'grid' : 'none';
         settingsPanel?.classList.toggle('is-open', nextOpen);
         settingsToggle.setAttribute('aria-expanded', String(nextOpen));
       });
@@ -975,6 +976,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       loadConfig();
       updateSettingsSummary();
+      if (settingsBody?.hidden) settingsBody.style.display = 'none';
 
       const getEndpoint = () => {
         const p = providerSelect.value;
