@@ -745,13 +745,13 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         <button id="ai-panel-close" class="ai-panel-close" aria-label="关闭">×</button>
       </div>
       <div class="ai-panel-settings" id="ai-settings">
-        <div class="ai-settings-head">
+        <button id="ai-settings-toggle" class="ai-settings-head" type="button" aria-expanded="false" aria-controls="ai-settings-body">
           <div class="ai-settings-head-copy">
             <p class="ai-settings-label" data-i18n="ai_settings_label">API 设置</p>
             <p id="ai-settings-summary" class="ai-settings-summary">OpenAI Compatible · gpt-4o-mini</p>
           </div>
-          <button id="ai-settings-toggle" class="ai-settings-toggle" type="button" aria-expanded="false" aria-label="设置">▾</button>
-        </div>
+          <span class="ai-settings-toggle" aria-hidden="true">▾</span>
+        </button>
         <div id="ai-settings-body" class="ai-settings-body" hidden>
           <label class="ai-setting-row">
             <span data-i18n="ai_provider">Provider</span>
