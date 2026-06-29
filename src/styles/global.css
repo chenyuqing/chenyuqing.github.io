@@ -1458,6 +1458,8 @@ main {
 
 .home-split-foot {
   justify-content: flex-start;
+  margin-top: auto;
+  padding-top: 1.15rem;
 }
 
 .news-list-home,
