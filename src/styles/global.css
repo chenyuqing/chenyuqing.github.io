@@ -275,7 +275,7 @@ p {
   padding: 0.55rem;
   border: 1px solid var(--color-hairline);
   border-radius: 20px;
-  background: color-mix(in srgb, var(--color-canvas) 96%, transparent);
+  background: color-mix(in srgb, var(--color-canvas) 70%, transparent);
   backdrop-filter: blur(12px);
   box-shadow: 0 8px 24px rgba(20, 20, 19, 0.08);
 }
