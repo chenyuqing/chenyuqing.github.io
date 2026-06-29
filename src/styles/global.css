@@ -945,6 +945,10 @@ main {
   padding: 0.45rem 0 0.3rem;
 }
 
+.ai-settings-body[hidden] {
+  display: none !important;
+}
+
 .ai-panel-settings.is-open .ai-settings-toggle {
   opacity: 1;
 }
