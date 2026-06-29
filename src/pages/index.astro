@@ -52,8 +52,9 @@ const newsListItems = allNewsRecent.slice(1, 5);
 
         {newsListItems.length > 0 && (
           <div class="news-list news-list-home">
-            {newsListItems.map((item) => (
+            {newsListItems.map((item, index) => (
               <article class="news-item news-item-dark">
+                <div class="news-item-index">{String(index + 2).padStart(2, '0')}</div>
                 <a class="news-link news-link-on-dark" href={`/news/${item.id}/`}>
                   <h3>{item.data.title}</h3>
                 </a>

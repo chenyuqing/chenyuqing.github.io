@@ -77,22 +77,26 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             <div class="nav-dropdown" id="nav-content-dropdown">
               <button class="nav-pill nav-dropdown-trigger" type="button" aria-expanded="false" data-i18n="nav_content">内容 ▾</button>
               <div class="nav-dropdown-menu">
-                <a class="nav-dropdown-item" href="/news/">
-                  <span class="nav-dropdown-kicker" data-i18n="nav_news">AI新闻</span>
-                  <span class="nav-dropdown-desc" data-i18n="nav_news_desc">看最新模型、产品发布与 AI 领域动态</span>
-                </a>
-                <a class="nav-dropdown-item" href="/blog/">
-                  <span class="nav-dropdown-kicker" data-i18n="nav_blog">播客</span>
-                  <span class="nav-dropdown-desc" data-i18n="nav_blog_desc">读长文内容，关注工作流、产品与实践</span>
-                </a>
-                <a class="nav-dropdown-item" href="/about/">
-                  <span class="nav-dropdown-kicker" data-i18n="nav_about">关于</span>
-                  <span class="nav-dropdown-desc" data-i18n="nav_about_desc">了解我在做什么，以及这个站点的方向</span>
-                </a>
-                <a class="nav-dropdown-item" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">
-                  <span class="nav-dropdown-kicker" data-i18n="nav_github">GitHub</span>
-                  <span class="nav-dropdown-desc" data-i18n="nav_github_desc">查看代码、项目与公开实验记录</span>
-                </a>
+                <div class="nav-dropdown-col">
+                  <a class="nav-dropdown-item" href="/news/">
+                    <span class="nav-dropdown-kicker" data-i18n="nav_news">AI新闻</span>
+                    <span class="nav-dropdown-desc" data-i18n="nav_news_desc">看最新模型、产品发布与 AI 领域动态</span>
+                  </a>
+                  <a class="nav-dropdown-item" href="/blog/">
+                    <span class="nav-dropdown-kicker" data-i18n="nav_blog">播客</span>
+                    <span class="nav-dropdown-desc" data-i18n="nav_blog_desc">读长文内容，关注工作流、产品与实践</span>
+                  </a>
+                </div>
+                <div class="nav-dropdown-col nav-dropdown-col-secondary">
+                  <a class="nav-dropdown-item" href="/about/">
+                    <span class="nav-dropdown-kicker" data-i18n="nav_about">关于</span>
+                    <span class="nav-dropdown-desc" data-i18n="nav_about_desc">了解我在做什么，以及这个站点的方向</span>
+                  </a>
+                  <a class="nav-dropdown-item" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">
+                    <span class="nav-dropdown-kicker" data-i18n="nav_github">GitHub</span>
+                    <span class="nav-dropdown-desc" data-i18n="nav_github_desc">查看代码、项目与公开实验记录</span>
+                  </a>
+                </div>
               </div>
             </div>
           </nav>
