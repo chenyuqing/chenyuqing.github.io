@@ -362,6 +362,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ai_base_url: 'Base URL',
             ai_model: 'Model',
             ai_api_key: 'API Key',
+            ai_settings_label: 'API 设置',
             ai_test_connection: '测试连接',
             ai_provider_note_compatible: '浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。',
             ai_provider_note_openai: 'OpenAI 官方接口不能安全地从这个静态站直连。请填写你自己的 OpenAI 代理 Base URL。',
@@ -556,6 +557,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ai_base_url: 'Base URL',
             ai_model: 'Model',
             ai_api_key: 'API Key',
+            ai_settings_label: 'API Settings',
             ai_test_connection: 'Test Connection',
             ai_provider_note_compatible: 'Direct browser calls require a provider that supports CORS. Use your own proxy for official OpenAI or Claude APIs.',
             ai_provider_note_openai: 'Official OpenAI endpoints should not be called directly from this static site. Enter your own OpenAI proxy base URL.',
@@ -743,7 +745,13 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         <button id="ai-panel-close" class="ai-panel-close" aria-label="关闭">×</button>
       </div>
       <div class="ai-panel-settings" id="ai-settings">
-        <button id="ai-settings-toggle" class="ai-settings-toggle" aria-label="设置">⚙</button>
+        <div class="ai-settings-head">
+          <div class="ai-settings-head-copy">
+            <p class="ai-settings-label" data-i18n="ai_settings_label">API 设置</p>
+            <p id="ai-settings-summary" class="ai-settings-summary">OpenAI Compatible · gpt-4o-mini</p>
+          </div>
+          <button id="ai-settings-toggle" class="ai-settings-toggle" type="button" aria-expanded="false" aria-label="设置">▾</button>
+        </div>
         <div id="ai-settings-body" class="ai-settings-body" hidden>
           <label class="ai-setting-row">
             <span data-i18n="ai_provider">Provider</span>
@@ -788,6 +796,8 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const closeBtn = document.getElementById('ai-panel-close');
       const settingsToggle = document.getElementById('ai-settings-toggle');
       const settingsBody = document.getElementById('ai-settings-body');
+      const settingsPanel = document.getElementById('ai-settings');
+      const settingsSummary = document.getElementById('ai-settings-summary');
       const providerSelect = document.getElementById('ai-provider');
       const baseUrlRow = document.getElementById('ai-base-url-row');
       const baseUrlInput = document.getElementById('ai-base-url');
@@ -816,6 +826,50 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       };
 
       const STORAGE_KEY = 'ai-agent-config-v1';
+
+      const navDropdowns = [
+        document.getElementById('nav-content-dropdown'),
+        document.getElementById('nav-settings-dropdown'),
+      ].filter(Boolean);
+
+      const closeNavDropdown = (dropdown) => {
+        if (!dropdown) return;
+        dropdown.classList.remove('dropdown-open');
+        dropdown.querySelector('.nav-dropdown-trigger')?.setAttribute('aria-expanded', 'false');
+      };
+
+      const openNavDropdown = (dropdown) => {
+        navDropdowns.forEach((item) => {
+          if (item !== dropdown) closeNavDropdown(item);
+        });
+        dropdown.classList.add('dropdown-open');
+        dropdown.querySelector('.nav-dropdown-trigger')?.setAttribute('aria-expanded', 'true');
+      };
+
+      const toggleNavDropdown = (dropdown) => {
+        if (!dropdown) return;
+        if (dropdown.classList.contains('dropdown-open')) {
+          closeNavDropdown(dropdown);
+        } else {
+          openNavDropdown(dropdown);
+        }
+      };
+
+      const updateSettingsSummary = () => {
+        if (!settingsSummary) return;
+        const providerLabel = providerSelect?.selectedOptions?.[0]?.textContent?.trim() || 'OpenAI Compatible';
+        const modelLabel = modelInput?.value?.trim() || 'gpt-4o-mini';
+        const baseUrl = baseUrlInput?.value?.trim();
+        let hostLabel = 'no base url';
+        if (baseUrl) {
+          try {
+            hostLabel = new URL(baseUrl).host;
+          } catch {
+            hostLabel = baseUrl.replace(/^https?:\/\//, '').split('/')[0] || baseUrl;
+          }
+        }
+        settingsSummary.textContent = `${providerLabel} · ${modelLabel} · ${hostLabel}`;
+      };
 
       const messages = {
         zh: {
@@ -885,7 +939,10 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       });
 
       settingsToggle?.addEventListener('click', () => {
-        settingsBody.hidden = !settingsBody.hidden;
+        const nextOpen = settingsBody.hidden;
+        settingsBody.hidden = !nextOpen;
+        settingsPanel?.classList.toggle('is-open', nextOpen);
+        settingsToggle.setAttribute('aria-expanded', String(nextOpen));
       });
 
       providerSelect?.addEventListener('change', () => {
@@ -905,14 +962,19 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           baseUrlInput.placeholder = 'https://api.example.com/v1';
           providerNote.textContent = providerNotes[aiUiLang].compatible;
         }
+        updateSettingsSummary();
         saveConfig();
       });
 
       [baseUrlInput, modelInput, apiKeyInput].forEach(el => {
-        el?.addEventListener('change', saveConfig);
+        el?.addEventListener('change', () => {
+          updateSettingsSummary();
+          saveConfig();
+        });
       });
 
       loadConfig();
+      updateSettingsSummary();
 
       const getEndpoint = () => {
         const p = providerSelect.value;
@@ -1245,41 +1307,21 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       revealNodes.forEach((node) => revealObserver.observe(node));
 
-      const dropdown = document.getElementById('nav-content-dropdown');
-      const dropdownTrigger = dropdown?.querySelector('.nav-dropdown-trigger');
-      const dropdownMenu = dropdown?.querySelector('.nav-dropdown-menu');
-
-      if (dropdown && dropdownTrigger && dropdownMenu) {
-        dropdownTrigger.addEventListener('click', (e) => {
+      navDropdowns.forEach((dropdown) => {
+        const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+        const menu = dropdown.querySelector('.nav-dropdown-menu');
+        if (!trigger || !menu) return;
+        trigger.addEventListener('click', (e) => {
           e.stopPropagation();
-          const open = dropdown.classList.toggle('dropdown-open');
-          dropdownTrigger.setAttribute('aria-expanded', open);
+          toggleNavDropdown(dropdown);
         });
-        document.addEventListener('click', (e) => {
-          if (!dropdown.contains(e.target)) {
-            dropdown.classList.remove('dropdown-open');
-            dropdownTrigger.setAttribute('aria-expanded', 'false');
-          }
-        });
-      }
+      });
 
-      const settingsDropdown = document.getElementById('nav-settings-dropdown');
-      const settingsTrigger = settingsDropdown?.querySelector('.nav-dropdown-trigger');
-      const settingsMenu = settingsDropdown?.querySelector('.nav-dropdown-menu');
-
-      if (settingsDropdown && settingsTrigger && settingsMenu) {
-        settingsTrigger.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const open = settingsDropdown.classList.toggle('dropdown-open');
-          settingsTrigger.setAttribute('aria-expanded', open);
+      document.addEventListener('click', (e) => {
+        navDropdowns.forEach((dropdown) => {
+          if (!dropdown.contains(e.target)) closeNavDropdown(dropdown);
         });
-        document.addEventListener('click', (e) => {
-          if (!settingsDropdown.contains(e.target)) {
-            settingsDropdown.classList.remove('dropdown-open');
-            settingsTrigger.setAttribute('aria-expanded', 'false');
-          }
-        });
-      }
+      });
 
       const header = document.getElementById('site-header');
       if (header) {
