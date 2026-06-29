@@ -18,83 +18,17 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
 
 <BaseLayout title="Tim Chen · AI 时代网志" description="AI 时代的个人网志 — 博客、快讯与思考。" canonical="/">
   <main id="content" class="shell">
-    <section class="home-hero reveal">
-      <div class="hero-copy">
-        <p class="hero-eyebrow" data-i18n="home_intro_eyebrow">AI Age Weblog</p>
-        <h1 class="hero-title">
-          <span data-i18n="home_intro_name">Tim Chen</span>
-          <span class="hero-title-sep">/</span>
-          <span class="hero-title-sub" data-i18n="home_intro_tagline">AI 时代网志</span>
-        </h1>
-        <p class="hero-lead" data-i18n="home_intro_lead">关注 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="/about/" data-i18n="home_intro_about">关于我</a>
-          <a class="button button-secondary" href="/blog/" data-i18n="home_blog_more">更多文章</a>
-          <a class="button button-ghost" href="/blog/rss.xml" data-i18n="home_intro_rss">RSS</a>
-        </div>
-      </div>
-      <div class="hero-side">
-        <div class="hero-ai-card">
-          <span class="hero-ai-label" data-i18n="home_intro_ai_hint">🤖 试试 AI 问答</span>
-          <button id="intro-ai-trigger" class="hero-ai-btn" type="button" aria-label="Open AI Agent">
-            <span class="hero-ai-btn-text">Ask AI</span>
-            <span class="hero-ai-btn-arrow">→</span>
-          </button>
-        </div>
-        <a class="hero-github-link" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub ↗</a>
-      </div>
-    </section>
-
-    <section class="section reveal">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="home_blog_eyebrow">Blog</p>
-        <h2 class="section-title" data-i18n="home_blog_title">最新文章</h2>
-      </div>
-      <div class="blog-list">
-        {blogPosts.length === 0 ? (
-          <article class="post-card post-card-empty">
-            <h2 data-i18n="home_blog_empty">暂无文章</h2>
-            <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
-          </article>
-        ) : (
-          blogPosts.map((post) => (
-            <article class="post-card">
-              {post.data.cover && (
-                <a class="post-cover-link" href={`/blog/${post.id}/`}>
-                  <img class="post-cover" src={post.data.cover} alt={post.data.title} />
-                </a>
-              )}
-              <div class="post-card-body">
-                <a class="post-link" href={`/blog/${post.id}/`}>
-                  <h2>{post.data.title}</h2>
-                </a>
-                {post.data.description && <p>{post.data.description}</p>}
-                <div class="post-meta">
-                  <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
-                  {post.data.tags.map((tag) => (
-                    <span class="tag tag-ai">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))
-        )}
-      </div>
-      <div class="section-foot">
-        <a class="button button-secondary" href="/blog/" data-i18n="home_blog_more">更多文章</a>
-      </div>
-    </section>
-
-    <div class="home-news-band reveal">
-      <section class="section section-dark">
-        <div class="section-head">
-          <p class="eyebrow eyebrow-on-dark" data-i18n="home_news_eyebrow">News</p>
-          <h2 class="section-title section-title-on-dark" data-i18n="home_news_title">最新动态</h2>
+    <section class="home-split reveal">
+      <section class="home-split-col home-split-news">
+        <div class="section-head home-split-head">
+          <p class="eyebrow eyebrow-on-dark" data-i18n="home_news_eyebrow">AI News</p>
+          <h1 class="section-title section-title-on-dark" data-i18n="home_news_title">AI新闻</h1>
+          <p class="section-desc muted-on-dark" data-i18n="home_news_desc_home">产品发布、模型更新、Agent 框架与值得追踪的 AI 动向。</p>
         </div>
         {newsItems.length === 0 ? (
           <p class="muted muted-on-dark" data-i18n="home_news_empty">最近没有新动态。</p>
         ) : (
-          <div class="news-list">
+          <div class="news-list news-list-home">
             {newsItems.map((item) => (
               <article class="news-item news-item-dark">
                 <a class="news-link news-link-on-dark" href={`/news/${item.id}/`}>
@@ -112,11 +46,52 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
             ))}
           </div>
         )}
-        <div class="section-foot section-foot-on-dark">
-          <a class="button button-on-dark" href="/news/" data-i18n="home_news_more">更多动态</a>
+        <div class="section-foot section-foot-on-dark home-split-foot">
+          <a class="button button-on-dark" href="/news/" data-i18n="home_news_more">更多AI新闻</a>
         </div>
       </section>
-    </div>
+
+      <section class="home-split-col home-split-blog">
+        <div class="section-head home-split-head">
+          <p class="eyebrow" data-i18n="home_blog_eyebrow">Podcast</p>
+          <h2 class="section-title" data-i18n="home_blog_title">播客文章</h2>
+          <p class="section-desc" data-i18n="home_blog_desc_home">关于 AI 工具、创作工作流、产品判断和实践复盘的长文内容。</p>
+        </div>
+        <div class="blog-list blog-list-home">
+          {blogPosts.length === 0 ? (
+            <article class="post-card post-card-empty">
+              <h2 data-i18n="home_blog_empty">暂无文章</h2>
+              <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
+            </article>
+          ) : (
+            blogPosts.map((post) => (
+              <article class="post-card">
+                {post.data.cover && (
+                  <a class="post-cover-link" href={`/blog/${post.id}/`}>
+                    <img class="post-cover" src={post.data.cover} alt={post.data.title} />
+                  </a>
+                )}
+                <div class="post-card-body">
+                  <a class="post-link" href={`/blog/${post.id}/`}>
+                    <h2>{post.data.title}</h2>
+                  </a>
+                  {post.data.description && <p>{post.data.description}</p>}
+                  <div class="post-meta">
+                    <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                    {post.data.tags.map((tag) => (
+                      <span class="tag tag-ai">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))
+          )}
+        </div>
+        <div class="section-foot home-split-foot">
+          <a class="button button-secondary" href="/blog/" data-i18n="home_blog_more">更多播客文章</a>
+        </div>
+      </section>
+    </section>
 
     <section class="home-contact-callout reveal">
       <div class="contact-callout-inner">

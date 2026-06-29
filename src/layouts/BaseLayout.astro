@@ -74,10 +74,15 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         <div class="header-actions">
           <nav class="site-nav" aria-label="Primary">
             <a class="nav-pill" href="/" aria-current={pathname === '/' ? 'page' : undefined} data-i18n="nav_home">首页</a>
-            <a class="nav-pill" href="/about/" aria-current={pathname.startsWith('/about') ? 'page' : undefined} data-i18n="nav_about">关于</a>
-            <a class="nav-pill" href="/blog/" aria-current={pathname.startsWith('/blog') ? 'page' : undefined} data-i18n="nav_blog">博客</a>
-            <a class="nav-pill" href="/news/" aria-current={pathname.startsWith('/news') ? 'page' : undefined} data-i18n="nav_news">动态</a>
-            <a class="nav-pill" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="nav_github">GitHub</a>
+            <div class="nav-dropdown" id="nav-content-dropdown">
+              <button class="nav-pill nav-dropdown-trigger" type="button" data-i18n="nav_content">内容 ▾</button>
+              <div class="nav-dropdown-menu">
+                <a class="nav-dropdown-item" href="/news/" data-i18n="nav_news">AI新闻</a>
+                <a class="nav-dropdown-item" href="/blog/" data-i18n="nav_blog">播客</a>
+                <a class="nav-dropdown-item" href="/about/" data-i18n="nav_about">关于</a>
+                <a class="nav-dropdown-item" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="nav_github">GitHub</a>
+              </div>
+            </div>
           </nav>
           <div class="site-controls">
             <button
@@ -108,9 +113,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         <p data-i18n="footer_copy">2026 © Tim Chen · AI Creator Playground</p>
         <div class="footer-links">
           <a class="nav-pill" href="/" data-i18n="footer_home">首页</a>
+          <a class="nav-pill" href="/news/" data-i18n="footer_news">AI新闻</a>
+          <a class="nav-pill" href="/blog/" data-i18n="footer_blog">播客</a>
           <a class="nav-pill" href="/about/" data-i18n="footer_about">关于</a>
-          <a class="nav-pill" href="/blog/" data-i18n="footer_blog">博客</a>
-          <a class="nav-pill" href="/news/" data-i18n="footer_news">动态</a>
         </div>
       </div>
     </footer>
@@ -120,9 +125,10 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           zh: {
             skip_to_content: '跳到内容',
             nav_home: '首页',
+            nav_content: '内容 ▾',
             nav_about: '关于',
-            nav_blog: '博客',
-            nav_news: '动态',
+            nav_blog: '播客',
+            nav_news: 'AI新闻',
             nav_github: 'GitHub',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: '切换中英文',
@@ -130,8 +136,8 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             footer_copy: '2026 © Tim Chen · AI Creator Playground',
             footer_home: '首页',
             footer_about: '关于',
-            footer_blog: '博客',
-            footer_news: '动态',
+            footer_blog: '播客',
+            footer_news: 'AI新闻',
             home_eyebrow: 'Creator Playground',
             home_title: '你好，我是 ',
             home_title_name: 'Tim',
@@ -231,21 +237,23 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             home_intro_about: '关于我',
             home_intro_rss: 'RSS',
             home_intro_ai_hint: '🤖 试试 AI 问答',
-            home_blog_eyebrow: 'Blog',
-            home_blog_title: '最新文章',
+            home_blog_eyebrow: 'Podcast',
+            home_blog_title: '播客文章',
+            home_blog_desc_home: '关于 AI 工具、创作工作流、产品判断和实践复盘的长文内容。',
             home_blog_empty: '暂无文章',
             home_blog_empty_hint: '新文章正在路上。',
             home_blog_read: '阅读全文',
-            home_blog_more: '更多文章',
-            home_news_eyebrow: 'News',
-            home_news_title: '最新动态',
+            home_blog_more: '更多播客文章',
+            home_news_eyebrow: 'AI News',
+            home_news_title: 'AI新闻',
+            home_news_desc_home: '产品发布、模型更新、Agent 框架与值得追踪的 AI 动向。',
             home_news_empty: '最近没有新动态。',
             home_news_link: '🔗 外部链接',
-            home_news_more: '更多动态',
+            home_news_more: '更多AI新闻',
             home_contact_note_title: 'Site',
             home_contact_note_desc: 'AI 时代网志 · Astro + GitHub Pages',
-            blog_page_eyebrow: 'Blog',
-            blog_page_title: '博客文章',
+            blog_page_eyebrow: 'Podcast',
+            blog_page_title: '播客文章',
             blog_page_desc: '深度文章、教程与思考。',
             blog_page_empty: '暂无文章。',
             blog_series: '系列',
@@ -291,9 +299,10 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           en: {
             skip_to_content: 'Skip to content',
             nav_home: 'Home',
+            nav_content: 'Content ▾',
             nav_about: 'About',
-            nav_blog: 'Blog',
-            nav_news: 'News',
+            nav_blog: 'Podcast',
+            nav_news: 'AI News',
             nav_github: 'GitHub',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: 'Switch language',
@@ -301,8 +310,8 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             footer_copy: '2026 © Tim Chen · AI Creator Playground',
             footer_home: 'Home',
             footer_about: 'About',
-            footer_blog: 'Blog',
-            footer_news: 'News',
+            footer_blog: 'Podcast',
+            footer_news: 'AI News',
             home_eyebrow: 'Creator Playground',
             home_title: "Hi, I'm ",
             home_title_name: 'Tim',
@@ -402,21 +411,23 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             home_intro_about: 'About Me',
             home_intro_rss: 'RSS',
             home_intro_ai_hint: '🤖 Try AI Q&A',
-            home_blog_eyebrow: 'Blog',
-            home_blog_title: 'Latest Posts',
+            home_blog_eyebrow: 'Podcast',
+            home_blog_title: 'Podcast Articles',
+            home_blog_desc_home: 'Long-form writing on AI tools, creator workflows, product judgment, and practical breakdowns.',
             home_blog_empty: 'No posts yet',
             home_blog_empty_hint: 'New posts are on the way.',
             home_blog_read: 'Read more',
-            home_blog_more: 'More posts',
-            home_news_eyebrow: 'News',
-            home_news_title: 'Latest Updates',
+            home_blog_more: 'More podcast articles',
+            home_news_eyebrow: 'AI News',
+            home_news_title: 'AI News',
+            home_news_desc_home: 'Product launches, model updates, agent frameworks, and AI developments worth tracking.',
             home_news_empty: 'No recent updates.',
             home_news_link: '🔗 External link',
-            home_news_more: 'More updates',
+            home_news_more: 'More AI news',
             home_contact_note_title: 'Site',
             home_contact_note_desc: 'AI Age Weblog · Astro + GitHub Pages',
-            blog_page_eyebrow: 'Blog',
-            blog_page_title: 'Blog Posts',
+            blog_page_eyebrow: 'Podcast',
+            blog_page_title: 'Podcast Articles',
             blog_page_desc: 'In-depth articles, tutorials, and reflections.',
             blog_page_empty: 'No posts yet.',
             blog_series: 'Series',
@@ -873,6 +884,24 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       }, { threshold: 0.12 });
 
       revealNodes.forEach((node) => revealObserver.observe(node));
+
+      const dropdown = document.getElementById('nav-content-dropdown');
+      const dropdownTrigger = dropdown?.querySelector('.nav-dropdown-trigger');
+      const dropdownMenu = dropdown?.querySelector('.nav-dropdown-menu');
+
+      if (dropdown && dropdownTrigger && dropdownMenu) {
+        dropdownTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = dropdown.classList.toggle('dropdown-open');
+          dropdownTrigger.setAttribute('aria-expanded', open);
+        });
+        document.addEventListener('click', (e) => {
+          if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('dropdown-open');
+            dropdownTrigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
 
       const header = document.getElementById('site-header');
       if (header) {

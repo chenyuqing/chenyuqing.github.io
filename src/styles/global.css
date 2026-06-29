@@ -254,6 +254,46 @@ p {
   gap: 0.55rem;
 }
 
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  cursor: pointer;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 10.5rem;
+  display: none;
+  padding: 0.45rem;
+  border: 1px solid var(--color-hairline);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--color-canvas) 96%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(20, 20, 19, 0.08);
+}
+
+.nav-dropdown.dropdown-open .nav-dropdown-menu {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.nav-dropdown-item {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-radius: 14px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  color: var(--color-ink);
+}
+
+.nav-dropdown-item:hover {
+  background: var(--color-surface-cream-strong);
+}
+
 .header-actions {
   display: inline-flex;
   align-items: center;
@@ -1154,6 +1194,10 @@ main {
   transition: background 180ms ease;
 }
 
+.blog-list-home .post-card + .post-card {
+  margin-top: 0.8rem;
+}
+
 .post-card:hover {
   background: var(--color-surface-cream-strong);
 }
@@ -1261,12 +1305,41 @@ main {
 }
 
 .home-hero {
+  display: none;
+}
+
+.home-split {
   margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.6fr);
-  gap: 2rem;
-  align-items: center;
-  padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.home-split-col {
+  min-width: 0;
+}
+
+.home-split-news {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: var(--color-surface-dark);
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.home-split-blog {
+  border: 1px solid var(--color-hairline);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--color-surface-soft) 68%, var(--color-canvas));
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.home-split-head {
+  margin-bottom: 1rem;
+}
+
+.home-split-foot {
+  justify-content: flex-start;
 }
 
 .hero-eyebrow {
@@ -1752,6 +1825,10 @@ main {
 }
 
 @media (max-width: 980px) {
+  .home-split {
+    grid-template-columns: 1fr;
+  }
+
   .about-person-inner {
     grid-template-columns: 1fr;
     text-align: center;
@@ -1826,6 +1903,11 @@ main {
   .header-actions {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .nav-dropdown-menu {
+    left: 0;
+    min-width: 100%;
   }
 
   .button {
