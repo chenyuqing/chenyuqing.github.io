@@ -746,20 +746,33 @@ main {
   line-height: 1.55;
 }
 
-.about-avatar {
-  display: grid;
-  place-items: center;
-  border: 2px solid var(--color-hairline);
-  border-radius: 24px;
-  background: var(--color-surface-soft);
-  aspect-ratio: 1;
-  overflow: hidden;
+.about-hero {
+  padding: clamp(2rem, 5vw, 4rem) 0 1.25rem;
+  max-width: 46rem;
 }
 
-.about-avatar img {
-  width: 78%;
-  height: 78%;
-  object-fit: contain;
+.about-hero-title {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 0.98;
+}
+
+.about-tagline {
+  margin-top: 0.5rem;
+  color: var(--color-body);
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.about-hero-desc {
+  margin-top: 0.95rem;
+  color: var(--color-body);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.about-hero-actions {
+  margin-top: 1.2rem;
 }
 
 .ai-fab {
@@ -1107,7 +1120,7 @@ main {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.5rem;
 }
 
@@ -1890,29 +1903,6 @@ main {
   background: var(--color-surface-cream-strong);
 }
 
-.about-person-inner {
-  display: grid;
-  grid-template-columns: 160px minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.about-tagline {
-  margin-top: 0.35rem;
-  color: var(--color-body);
-  font-size: 1.08rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.about-bio .section-desc {
-  margin-top: 0.5rem;
-}
-
-.about-bio .actions {
-  margin-top: 1rem;
-}
-
 @media (max-width: 980px) {
   .footer-top,
   .footer-grid {
@@ -1931,16 +1921,6 @@ main {
   .home-split-news,
   .home-split-blog {
     border-radius: 20px;
-  }
-
-  .about-person-inner {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .about-avatar {
-    width: 140px;
-    margin-inline: auto;
   }
 
   .blog-detail {

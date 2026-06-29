@@ -135,21 +135,27 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
           <div class="footer-grid">
             <div class="footer-col">
-              <p class="footer-col-title" data-i18n="footer_col_content">内容</p>
+              <p class="footer-col-title" data-i18n="footer_col_news">News</p>
               <a href="/news/" data-i18n="footer_news">AI新闻</a>
-              <a href="/blog/" data-i18n="footer_blog">播客</a>
-              <a href="/rss.xml">RSS</a>
+              <a href="/news/rss.xml" data-i18n="footer_news_rss">News RSS</a>
             </div>
 
             <div class="footer-col">
-              <p class="footer-col-title" data-i18n="footer_col_site">站点</p>
+              <p class="footer-col-title" data-i18n="footer_col_writing">Writing</p>
+              <a href="/blog/" data-i18n="footer_blog">播客</a>
+              <a href="/blog/rss.xml" data-i18n="footer_blog_rss">Podcast RSS</a>
+              <a href="/rss.xml" data-i18n="footer_all_rss">全站 RSS</a>
+            </div>
+
+            <div class="footer-col">
+              <p class="footer-col-title" data-i18n="footer_col_site">Site</p>
               <a href="/" data-i18n="footer_home">首页</a>
               <a href="/about/" data-i18n="footer_about">关于</a>
               <button class="footer-inline-btn" type="button" id="footer-ai-trigger" data-i18n="footer_ai">AI 问答</button>
             </div>
 
             <div class="footer-col">
-              <p class="footer-col-title" data-i18n="footer_col_elsewhere">其他</p>
+              <p class="footer-col-title" data-i18n="footer_col_elsewhere">Elsewhere</p>
               <a href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
               <a href="mailto:tim@dwyx.xyz" data-i18n="footer_email">邮箱</a>
             </div>
@@ -185,13 +191,17 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             footer_desc: '围绕 AI 新闻、播客文章、工具实验与创作工作流，持续更新一个更像媒体而不是旧式博客的个人站点。',
             footer_copy: '2026 © Tim Chen · AI Creator Playground',
             footer_note: 'Built with Astro. Edited for the AI era.',
-            footer_col_content: '内容',
+            footer_col_news: 'News',
+            footer_col_writing: 'Writing',
             footer_col_site: '站点',
             footer_col_elsewhere: '其他',
             footer_home: '首页',
             footer_about: '关于',
             footer_blog: '播客',
             footer_news: 'AI新闻',
+            footer_news_rss: 'News RSS',
+            footer_blog_rss: 'Podcast RSS',
+            footer_all_rss: '全站 RSS',
             footer_ai: 'AI 问答',
             footer_email: '邮箱',
             home_eyebrow: 'Creator Playground',
@@ -372,13 +382,17 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             footer_desc: 'An evolving personal site that feels more like a media surface than an old blog, covering AI news, podcast-style writing, tool experiments, and creator workflows.',
             footer_copy: '2026 © Tim Chen · AI Creator Playground',
             footer_note: 'Built with Astro. Edited for the AI era.',
-            footer_col_content: 'Content',
+            footer_col_news: 'News',
+            footer_col_writing: 'Writing',
             footer_col_site: 'Site',
             footer_col_elsewhere: 'Elsewhere',
             footer_home: 'Home',
             footer_about: 'About',
             footer_blog: 'Podcast',
             footer_news: 'AI News',
+            footer_news_rss: 'News RSS',
+            footer_blog_rss: 'Podcast RSS',
+            footer_all_rss: 'All RSS',
             footer_ai: 'AI Q&A',
             footer_email: 'Email',
             home_eyebrow: 'Creator Playground',
