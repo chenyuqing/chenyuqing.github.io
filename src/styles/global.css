@@ -1370,6 +1370,98 @@ main {
   margin-top: 1.25rem;
 }
 
+.news-featured {
+  display: grid;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-featured-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.news-featured-body {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.news-featured-title {
+  font-size: clamp(1.4rem, 3.4vw, 2.1rem);
+  line-height: 1.08;
+  color: var(--color-on-dark);
+}
+
+.news-featured-desc {
+  color: var(--color-on-dark-soft);
+  font-size: 0.96rem;
+  line-height: 1.58;
+}
+
+.magazine-list {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+}
+
+.magazine-card {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.72fr) minmax(0, 1fr);
+  gap: 0.95rem;
+  align-items: start;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.magazine-card:last-child {
+  border-bottom: none;
+}
+
+.magazine-card-img-link {
+  display: block;
+  text-decoration: none;
+}
+
+.magazine-card-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--color-hairline);
+}
+
+.magazine-card-body {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.magazine-card-title {
+  text-decoration: none;
+  color: inherit;
+}
+
+.magazine-card-title h3 {
+  font-size: clamp(1.08rem, 2.4vw, 1.45rem);
+  line-height: 1.16;
+}
+
+.magazine-card-desc {
+  color: var(--color-body);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.magazine-card-meta {
+  font-size: 0.8rem;
+}
+
 .button-ghost {
   background: transparent;
   border-color: transparent;
@@ -1767,6 +1859,10 @@ main {
     align-items: center;
     flex-direction: row;
     justify-content: center;
+  }
+
+  .magazine-card {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -10,10 +10,12 @@ const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
 const fourteenDaysAgo = new Date();
 fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
 
-const newsItems = (await getCollection('news', ({ data }) => !data.draft))
+const allNewsRecent = (await getCollection('news', ({ data }) => !data.draft))
   .filter(({ data }) => data.pubDate > fourteenDaysAgo)
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 5);
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const newsFeatured = allNewsRecent[0] || null;
+const newsListItems = allNewsRecent.slice(1, 5);
 ---
 
 <BaseLayout title="Tim Chen · AI 时代网志" description="AI 时代的个人网志 — 博客、快讯与思考。" canonical="/">
@@ -23,29 +25,49 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
         <div class="section-head home-split-head">
           <p class="eyebrow eyebrow-on-dark" data-i18n="home_news_eyebrow">AI News</p>
           <h1 class="section-title section-title-on-dark" data-i18n="home_news_title">AI新闻</h1>
-          <p class="section-desc muted-on-dark" data-i18n="home_news_desc_home">产品发布、模型更新、Agent 框架与值得追踪的 AI 动向。</p>
         </div>
-        {newsItems.length === 0 ? (
-          <p class="muted muted-on-dark" data-i18n="home_news_empty">最近没有新动态。</p>
+
+        {newsFeatured ? (
+          <a class="news-featured" href={`/news/${newsFeatured.id}/`}>
+            {newsFeatured.data.cover && (
+              <img class="news-featured-img" src={newsFeatured.data.cover} alt={newsFeatured.data.title} />
+            )}
+            <div class="news-featured-body">
+              <h2 class="news-featured-title">{newsFeatured.data.title}</h2>
+              {newsFeatured.data.description && (
+                <p class="news-featured-desc">{newsFeatured.data.description}</p>
+              )}
+              <div class="news-meta news-meta-on-dark">
+                <span>{newsFeatured.data.pubDate.toISOString().slice(0, 10)}</span>
+                {newsFeatured.data.tags.slice(0, 3).map((tag) => (
+                  <span class="tag tag-on-dark">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </a>
         ) : (
+          <p class="muted muted-on-dark" data-i18n="home_news_empty">最近没有新动态。</p>
+        )}
+
+        {newsListItems.length > 0 && (
           <div class="news-list news-list-home">
-            {newsItems.map((item) => (
+            {newsListItems.map((item) => (
               <article class="news-item news-item-dark">
                 <a class="news-link news-link-on-dark" href={`/news/${item.id}/`}>
                   <h3>{item.data.title}</h3>
                 </a>
-                {item.data.description && <p class="news-desc news-desc-on-dark">{item.data.description}</p>}
                 <div class="news-meta news-meta-on-dark">
                   <span>{item.data.pubDate.toISOString().slice(0, 10)}</span>
                   {item.data.tags.slice(0, 2).map((tag) => (
                     <span class="tag tag-on-dark">{tag}</span>
                   ))}
-                  {item.data.link && <span class="news-external news-external-on-dark" data-i18n="home_news_link">🔗 外部链接</span>}
+                  {item.data.link && <span class="news-external news-external-on-dark">↗</span>}
                 </div>
               </article>
             ))}
           </div>
         )}
+
         <div class="section-foot section-foot-on-dark home-split-foot">
           <a class="button button-on-dark" href="/news/" data-i18n="home_news_more">更多AI新闻</a>
         </div>
@@ -55,30 +77,31 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
         <div class="section-head home-split-head">
           <p class="eyebrow" data-i18n="home_blog_eyebrow">Podcast</p>
           <h2 class="section-title" data-i18n="home_blog_title">播客文章</h2>
-          <p class="section-desc" data-i18n="home_blog_desc_home">关于 AI 工具、创作工作流、产品判断和实践复盘的长文内容。</p>
         </div>
-        <div class="blog-list blog-list-home">
+        <div class="magazine-list">
           {blogPosts.length === 0 ? (
-            <article class="post-card post-card-empty">
+            <article class="magazine-card">
               <h2 data-i18n="home_blog_empty">暂无文章</h2>
               <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
             </article>
           ) : (
             blogPosts.map((post) => (
-              <article class="post-card">
+              <article class="magazine-card">
                 {post.data.cover && (
-                  <a class="post-cover-link" href={`/blog/${post.id}/`}>
-                    <img class="post-cover" src={post.data.cover} alt={post.data.title} />
+                  <a class="magazine-card-img-link" href={`/blog/${post.id}/`}>
+                    <img class="magazine-card-img" src={post.data.cover} alt={post.data.title} />
                   </a>
                 )}
-                <div class="post-card-body">
-                  <a class="post-link" href={`/blog/${post.id}/`}>
-                    <h2>{post.data.title}</h2>
+                <div class="magazine-card-body">
+                  <a class="magazine-card-title" href={`/blog/${post.id}/`}>
+                    <h3>{post.data.title}</h3>
                   </a>
-                  {post.data.description && <p>{post.data.description}</p>}
-                  <div class="post-meta">
+                  {post.data.description && (
+                    <p class="magazine-card-desc">{post.data.description}</p>
+                  )}
+                  <div class="post-meta magazine-card-meta">
                     <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
-                    {post.data.tags.map((tag) => (
+                    {post.data.tags.slice(0, 2).map((tag) => (
                       <span class="tag tag-ai">{tag}</span>
                     ))}
                   </div>
