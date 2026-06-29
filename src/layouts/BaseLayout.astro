@@ -75,12 +75,24 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           <nav class="site-nav" aria-label="Primary">
             <a class="nav-pill" href="/" aria-current={pathname === '/' ? 'page' : undefined} data-i18n="nav_home">首页</a>
             <div class="nav-dropdown" id="nav-content-dropdown">
-              <button class="nav-pill nav-dropdown-trigger" type="button" data-i18n="nav_content">内容 ▾</button>
+              <button class="nav-pill nav-dropdown-trigger" type="button" aria-expanded="false" data-i18n="nav_content">内容 ▾</button>
               <div class="nav-dropdown-menu">
-                <a class="nav-dropdown-item" href="/news/" data-i18n="nav_news">AI新闻</a>
-                <a class="nav-dropdown-item" href="/blog/" data-i18n="nav_blog">播客</a>
-                <a class="nav-dropdown-item" href="/about/" data-i18n="nav_about">关于</a>
-                <a class="nav-dropdown-item" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer" data-i18n="nav_github">GitHub</a>
+                <a class="nav-dropdown-item" href="/news/">
+                  <span class="nav-dropdown-kicker" data-i18n="nav_news">AI新闻</span>
+                  <span class="nav-dropdown-desc" data-i18n="nav_news_desc">看最新模型、产品发布与 AI 领域动态</span>
+                </a>
+                <a class="nav-dropdown-item" href="/blog/">
+                  <span class="nav-dropdown-kicker" data-i18n="nav_blog">播客</span>
+                  <span class="nav-dropdown-desc" data-i18n="nav_blog_desc">读长文内容，关注工作流、产品与实践</span>
+                </a>
+                <a class="nav-dropdown-item" href="/about/">
+                  <span class="nav-dropdown-kicker" data-i18n="nav_about">关于</span>
+                  <span class="nav-dropdown-desc" data-i18n="nav_about_desc">了解我在做什么，以及这个站点的方向</span>
+                </a>
+                <a class="nav-dropdown-item" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">
+                  <span class="nav-dropdown-kicker" data-i18n="nav_github">GitHub</span>
+                  <span class="nav-dropdown-desc" data-i18n="nav_github_desc">查看代码、项目与公开实验记录</span>
+                </a>
               </div>
             </div>
           </nav>
@@ -127,9 +139,13 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             nav_home: '首页',
             nav_content: '内容 ▾',
             nav_about: '关于',
+            nav_about_desc: '了解我在做什么，以及这个站点的方向',
             nav_blog: '播客',
+            nav_blog_desc: '读长文内容，关注工作流、产品与实践',
             nav_news: 'AI新闻',
+            nav_news_desc: '看最新模型、产品发布与 AI 领域动态',
             nav_github: 'GitHub',
+            nav_github_desc: '查看代码、项目与公开实验记录',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: '切换中英文',
             toggle_theme_aria: '切换明暗主题',
@@ -301,9 +317,13 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             nav_home: 'Home',
             nav_content: 'Content ▾',
             nav_about: 'About',
+            nav_about_desc: 'See what I am building and where this site is heading',
             nav_blog: 'Podcast',
+            nav_blog_desc: 'Read long-form writing on workflows, products, and practice',
             nav_news: 'AI News',
+            nav_news_desc: 'Track new models, launches, and AI industry movement',
             nav_github: 'GitHub',
+            nav_github_desc: 'Browse code, projects, and public experiment logs',
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: 'Switch language',
             toggle_theme_aria: 'Switch light or dark theme',

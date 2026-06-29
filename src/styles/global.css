@@ -266,11 +266,11 @@ p {
   position: absolute;
   top: calc(100% + 0.5rem);
   left: 0;
-  min-width: 10.5rem;
+  width: min(22rem, calc(100vw - 2rem));
   display: none;
-  padding: 0.45rem;
+  padding: 0.55rem;
   border: 1px solid var(--color-hairline);
-  border-radius: 18px;
+  border-radius: 20px;
   background: color-mix(in srgb, var(--color-canvas) 96%, transparent);
   backdrop-filter: blur(12px);
   box-shadow: 0 8px 24px rgba(20, 20, 19, 0.08);
@@ -282,16 +282,30 @@ p {
 }
 
 .nav-dropdown-item {
-  display: block;
-  padding: 0.6rem 0.75rem;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.7rem 0.8rem;
   border-radius: 14px;
   text-decoration: none;
-  font-size: 0.88rem;
   color: var(--color-ink);
 }
 
 .nav-dropdown-item:hover {
   background: var(--color-surface-cream-strong);
+}
+
+.nav-dropdown-kicker {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.nav-dropdown-desc {
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--color-muted);
 }
 
 .header-actions {
@@ -1334,6 +1348,14 @@ main {
   padding: clamp(1.5rem, 3vw, 2.2rem);
 }
 
+.home-split-news .section-title {
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+}
+
+.home-split-blog .section-title {
+  font-size: clamp(1.85rem, 4vw, 2.7rem);
+}
+
 .home-split-head {
   margin-bottom: 1rem;
 }
@@ -1342,51 +1364,10 @@ main {
   justify-content: flex-start;
 }
 
-.hero-eyebrow {
-  display: block;
-  margin-bottom: 0.85rem;
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-}
-
-.hero-title {
-  font-size: clamp(2.4rem, 6vw, 4.5rem);
-  font-weight: 500;
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-}
-
-.hero-title-sep {
-  color: var(--color-muted-soft);
-  margin: 0 0.15em;
-  font-weight: 400;
-}
-
-.hero-title-sub {
-  display: block;
-  font-size: 0.5em;
-  letter-spacing: -0.01em;
-  color: var(--color-body);
-  margin-top: 0.15em;
-  font-weight: 400;
-}
-
-.hero-lead {
-  margin-top: 1rem;
-  color: var(--color-body);
-  font-size: 1.08rem;
-  line-height: 1.65;
-  max-width: 52ch;
-}
-
-.hero-actions {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+.news-list-home,
+.blog-list-home {
+  min-width: 0;
+  margin-top: 1.25rem;
 }
 
 .button-ghost {
@@ -1397,102 +1378,6 @@ main {
 
 .button-ghost:hover {
   color: var(--color-ink);
-}
-
-.hero-side {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.hero-ai-card {
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface-card);
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  width: 100%;
-}
-
-.hero-ai-label {
-  font-size: 0.85rem;
-  color: var(--color-body);
-}
-
-.hero-ai-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  padding: 0.6rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: filter 180ms ease;
-  width: 100%;
-}
-
-.hero-ai-btn:hover {
-  filter: brightness(0.92);
-}
-
-.hero-ai-btn-arrow {
-  font-size: 1.1em;
-  transition: transform 180ms ease;
-}
-
-.hero-ai-btn:hover .hero-ai-btn-arrow {
-  transform: translateX(3px);
-}
-
-.hero-github-link {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--color-muted-soft);
-  text-decoration: none;
-  transition: color 180ms ease;
-}
-
-.hero-github-link:hover {
-  color: var(--color-ink);
-}
-
-@media (max-width: 980px) {
-  .home-hero {
-    grid-template-columns: 1fr;
-    padding: clamp(2rem, 5vw, 3rem) 0;
-  }
-
-  .hero-side {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  .hero-ai-card {
-    flex: 1;
-  }
-}
-
-@media (max-width: 720px) {
-  .hero-side {
-    flex-direction: column;
-  }
-
-  .hero-title {
-    font-size: clamp(1.8rem, 8vw, 2.8rem);
-  }
-
-  .hero-title-sub {
-    font-size: 0.55em;
-  }
 }
 
 .post-cover-link {
@@ -1829,6 +1714,11 @@ main {
     grid-template-columns: 1fr;
   }
 
+  .home-split-news,
+  .home-split-blog {
+    border-radius: 20px;
+  }
+
   .about-person-inner {
     grid-template-columns: 1fr;
     text-align: center;
@@ -1908,6 +1798,10 @@ main {
   .nav-dropdown-menu {
     left: 0;
     min-width: 100%;
+  }
+
+  .site-controls {
+    width: 100%;
   }
 
   .button {
