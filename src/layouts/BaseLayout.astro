@@ -981,6 +981,48 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         messagesEl.scrollTop = messagesEl.scrollHeight;
       };
 
+      const addSourcesMsg = (results) => {
+        if (!results.length) return;
+
+        const div = document.createElement('div');
+        div.className = 'ai-msg ai-msg-sources';
+
+        const title = document.createElement('div');
+        title.className = 'ai-sources-title';
+        title.textContent = aiUiLang === 'en' ? 'Matched Sources' : '命中来源';
+        div.appendChild(title);
+
+        const list = document.createElement('div');
+        list.className = 'ai-sources-list';
+
+        results.forEach((result) => {
+          const item = document.createElement('a');
+          item.className = 'ai-source-item';
+          item.href = result._type === 'news' ? `/news/${result.id}/` : `/blog/${result.id}/`;
+
+          const meta = document.createElement('div');
+          meta.className = 'ai-source-meta';
+          meta.textContent = `${result._type === 'news' ? 'News' : 'Blog'} · ${result.pubDate}`;
+
+          const heading = document.createElement('div');
+          heading.className = 'ai-source-title';
+          heading.textContent = result.title;
+
+          const desc = document.createElement('div');
+          desc.className = 'ai-source-desc';
+          desc.textContent = result.description || (result.body || '').slice(0, 90);
+
+          item.appendChild(meta);
+          item.appendChild(heading);
+          item.appendChild(desc);
+          list.appendChild(item);
+        });
+
+        div.appendChild(list);
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      };
+
       const setTestStatus = (type, text) => {
         if (!testStatusEl) return;
         testStatusEl.className = 'ai-test-status ai-test-status-' + type;
@@ -1180,6 +1222,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ? (data.content?.[0]?.text || '无回复')
             : (data.choices?.[0]?.message?.content || '无回复');
           addMsg('assistant', reply);
+          addSourcesMsg(results.slice(0, 5));
         } catch (err) {
           const message = err?.message || String(err);
           if (/Failed to fetch|NetworkError|Load failed/i.test(message)) {

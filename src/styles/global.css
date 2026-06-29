@@ -1035,6 +1035,55 @@ main {
   color: #ff9a9a;
 }
 
+.ai-msg-sources {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-on-dark-soft);
+  padding-top: 0.65rem;
+}
+
+.ai-sources-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin-bottom: 0.45rem;
+}
+
+.ai-sources-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.ai-source-item {
+  display: grid;
+  gap: 0.16rem;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.ai-source-item:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ai-source-meta {
+  font-size: 0.68rem;
+  opacity: 0.75;
+}
+
+.ai-source-title {
+  font-size: 0.84rem;
+  color: var(--color-on-dark);
+}
+
+.ai-source-desc {
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
 .ai-form {
   display: flex;
   gap: 0.5rem;
