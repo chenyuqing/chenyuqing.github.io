@@ -18,21 +18,30 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
 
 <BaseLayout title="Tim Chen · AI 时代网志" description="AI 时代的个人网志 — 博客、快讯与思考。" canonical="/">
   <main id="content" class="shell">
-    <section class="home-intro reveal">
-      <h1 class="intro-title">
-        <span data-i18n="home_intro_name">Tim Chen</span>
-        <span class="intro-sep">·</span>
-        <span data-i18n="home_intro_tagline">AI 时代网志</span>
-      </h1>
-      <p class="intro-lead" data-i18n="home_intro_lead">关注 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。</p>
-      <div class="intro-links">
-        <a class="intro-link" href="/about/" data-i18n="home_intro_about">关于</a>
-        <a class="intro-link" href="/blog/rss.xml" data-i18n="home_intro_rss">RSS</a>
-        <a class="intro-link" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
+    <section class="home-hero reveal">
+      <div class="hero-copy">
+        <p class="hero-eyebrow" data-i18n="home_intro_eyebrow">AI Age Weblog</p>
+        <h1 class="hero-title">
+          <span data-i18n="home_intro_name">Tim Chen</span>
+          <span class="hero-title-sep">/</span>
+          <span class="hero-title-sub" data-i18n="home_intro_tagline">AI 时代网志</span>
+        </h1>
+        <p class="hero-lead" data-i18n="home_intro_lead">关注 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/about/" data-i18n="home_intro_about">关于我</a>
+          <a class="button button-secondary" href="/blog/" data-i18n="home_blog_more">更多文章</a>
+          <a class="button button-ghost" href="/blog/rss.xml" data-i18n="home_intro_rss">RSS</a>
+        </div>
       </div>
-      <div class="intro-ai-hint">
-        <span data-i18n="home_intro_ai_hint">🤖 试试 AI 问答</span>
-        <button id="intro-ai-trigger" class="intro-ai-btn" type="button" aria-label="Open AI Agent">→</button>
+      <div class="hero-side">
+        <div class="hero-ai-card">
+          <span class="hero-ai-label" data-i18n="home_intro_ai_hint">🤖 试试 AI 问答</span>
+          <button id="intro-ai-trigger" class="hero-ai-btn" type="button" aria-label="Open AI Agent">
+            <span class="hero-ai-btn-text">Ask AI</span>
+            <span class="hero-ai-btn-arrow">→</span>
+          </button>
+        </div>
+        <a class="hero-github-link" href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub ↗</a>
       </div>
     </section>
 
@@ -43,7 +52,7 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
       </div>
       <div class="blog-list">
         {blogPosts.length === 0 ? (
-          <article class="post-card">
+          <article class="post-card post-card-empty">
             <h2 data-i18n="home_blog_empty">暂无文章</h2>
             <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
           </article>
@@ -55,18 +64,17 @@ const newsItems = (await getCollection('news', ({ data }) => !data.draft))
                   <img class="post-cover" src={post.data.cover} alt={post.data.title} />
                 </a>
               )}
-              <a class="post-link" href={`/blog/${post.id}/`}>
-                <h2>{post.data.title}</h2>
-              </a>
-              {post.data.description && <p>{post.data.description}</p>}
-              <div class="post-meta">
-                <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
-                {post.data.tags.map((tag) => (
-                  <span class="tag tag-code">{tag}</span>
-                ))}
-              </div>
-              <div class="actions">
-                <a class="button button-secondary" href={`/blog/${post.id}/`} data-i18n="home_blog_read">阅读全文</a>
+              <div class="post-card-body">
+                <a class="post-link" href={`/blog/${post.id}/`}>
+                  <h2>{post.data.title}</h2>
+                </a>
+                {post.data.description && <p>{post.data.description}</p>}
+                <div class="post-meta">
+                  <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                  {post.data.tags.map((tag) => (
+                    <span class="tag tag-ai">{tag}</span>
+                  ))}
+                </div>
               </div>
             </article>
           ))

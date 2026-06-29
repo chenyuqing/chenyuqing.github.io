@@ -60,7 +60,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
   </head>
   <body>
     <a class="skip-link" href="#content" data-i18n="skip_to_content">跳到内容</a>
-    <header class="site-header">
+    <header class="site-header" id="site-header">
       <div class="shell header-row">
         <a class="brand" href="/" aria-label="返回首页">
           <span class="brand-mark">
@@ -226,8 +226,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             theme_dark_label: '深色模式',
             home_intro_name: 'Tim Chen',
             home_intro_tagline: 'AI 时代网志',
+            home_intro_eyebrow: 'AI Age Weblog',
             home_intro_lead: '关注 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。',
-            home_intro_about: '关于',
+            home_intro_about: '关于我',
             home_intro_rss: 'RSS',
             home_intro_ai_hint: '🤖 试试 AI 问答',
             home_blog_eyebrow: 'Blog',
@@ -396,8 +397,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             theme_dark_label: 'Dark Mode',
             home_intro_name: 'Tim Chen',
             home_intro_tagline: 'AI Age Weblog',
+            home_intro_eyebrow: 'AI Age Weblog',
             home_intro_lead: 'Focus on AI creator tools, video workflows, and subtitle products — turning complex capabilities into simple, usable experiences.',
-            home_intro_about: 'About',
+            home_intro_about: 'About Me',
             home_intro_rss: 'RSS',
             home_intro_ai_hint: '🤖 Try AI Q&A',
             home_blog_eyebrow: 'Blog',
@@ -871,6 +873,20 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       }, { threshold: 0.12 });
 
       revealNodes.forEach((node) => revealObserver.observe(node));
+
+      const header = document.getElementById('site-header');
+      if (header) {
+        let scrolled = false;
+        const onScroll = () => {
+          const next = window.scrollY > 20;
+          if (next !== scrolled) {
+            scrolled = next;
+            header.classList.toggle('header-scrolled', next);
+          }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
     })();
     </script>
   </body>
