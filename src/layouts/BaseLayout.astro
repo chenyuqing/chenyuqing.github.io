@@ -125,13 +125,40 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     </header>
     <slot />
     <footer class="site-footer">
-      <div class="shell footer-row">
-        <p data-i18n="footer_copy">2026 © Tim Chen · AI Creator Playground</p>
-        <div class="footer-links">
-          <a class="nav-pill" href="/" data-i18n="footer_home">首页</a>
-          <a class="nav-pill" href="/news/" data-i18n="footer_news">AI新闻</a>
-          <a class="nav-pill" href="/blog/" data-i18n="footer_blog">播客</a>
-          <a class="nav-pill" href="/about/" data-i18n="footer_about">关于</a>
+      <div class="shell footer-panel">
+        <div class="footer-top">
+          <div class="footer-brand-block">
+            <p class="footer-kicker" data-i18n="footer_kicker">Tim Chen</p>
+            <h2 class="footer-title" data-i18n="footer_title">AI 时代的内容入口</h2>
+            <p class="footer-desc" data-i18n="footer_desc">围绕 AI 新闻、播客文章、工具实验与创作工作流，持续更新一个更像媒体而不是旧式博客的个人站点。</p>
+          </div>
+
+          <div class="footer-grid">
+            <div class="footer-col">
+              <p class="footer-col-title" data-i18n="footer_col_content">内容</p>
+              <a href="/news/" data-i18n="footer_news">AI新闻</a>
+              <a href="/blog/" data-i18n="footer_blog">播客</a>
+              <a href="/rss.xml">RSS</a>
+            </div>
+
+            <div class="footer-col">
+              <p class="footer-col-title" data-i18n="footer_col_site">站点</p>
+              <a href="/" data-i18n="footer_home">首页</a>
+              <a href="/about/" data-i18n="footer_about">关于</a>
+              <button class="footer-inline-btn" type="button" id="footer-ai-trigger" data-i18n="footer_ai">AI 问答</button>
+            </div>
+
+            <div class="footer-col">
+              <p class="footer-col-title" data-i18n="footer_col_elsewhere">其他</p>
+              <a href="https://github.com/chenyuqing" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="mailto:tim@dwyx.xyz" data-i18n="footer_email">邮箱</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p data-i18n="footer_copy">2026 © Tim Chen · AI Creator Playground</p>
+          <p data-i18n="footer_note">Built with Astro. Edited for the AI era.</p>
         </div>
       </div>
     </footer>
@@ -153,11 +180,20 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: '切换中英文',
             toggle_theme_aria: '切换明暗主题',
+            footer_kicker: 'Tim Chen',
+            footer_title: 'AI 时代的内容入口',
+            footer_desc: '围绕 AI 新闻、播客文章、工具实验与创作工作流，持续更新一个更像媒体而不是旧式博客的个人站点。',
             footer_copy: '2026 © Tim Chen · AI Creator Playground',
+            footer_note: 'Built with Astro. Edited for the AI era.',
+            footer_col_content: '内容',
+            footer_col_site: '站点',
+            footer_col_elsewhere: '其他',
             footer_home: '首页',
             footer_about: '关于',
             footer_blog: '播客',
             footer_news: 'AI新闻',
+            footer_ai: 'AI 问答',
+            footer_email: '邮箱',
             home_eyebrow: 'Creator Playground',
             home_title: '你好，我是 ',
             home_title_name: 'Tim',
@@ -331,11 +367,20 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             toggle_lang_button: '中 / EN',
             toggle_lang_aria: 'Switch language',
             toggle_theme_aria: 'Switch light or dark theme',
+            footer_kicker: 'Tim Chen',
+            footer_title: 'A content gateway for the AI era',
+            footer_desc: 'An evolving personal site that feels more like a media surface than an old blog, covering AI news, podcast-style writing, tool experiments, and creator workflows.',
             footer_copy: '2026 © Tim Chen · AI Creator Playground',
+            footer_note: 'Built with Astro. Edited for the AI era.',
+            footer_col_content: 'Content',
+            footer_col_site: 'Site',
+            footer_col_elsewhere: 'Elsewhere',
             footer_home: 'Home',
             footer_about: 'About',
             footer_blog: 'Podcast',
             footer_news: 'AI News',
+            footer_ai: 'AI Q&A',
+            footer_email: 'Email',
             home_eyebrow: 'Creator Playground',
             home_title: "Hi, I'm ",
             home_title_name: 'Tim',
@@ -723,6 +768,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const form = document.getElementById('ai-form');
       const input = document.getElementById('ai-input');
       const introAiTrigger = document.getElementById('intro-ai-trigger');
+      const footerAiTrigger = document.getElementById('footer-ai-trigger');
 
       const STORAGE_KEY = 'ai-agent-config-v1';
 
@@ -753,6 +799,11 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       });
 
       introAiTrigger?.addEventListener('click', () => {
+        panel.setAttribute('aria-hidden', 'false');
+        input?.focus();
+      });
+
+      footerAiTrigger?.addEventListener('click', () => {
         panel.setAttribute('aria-hidden', 'false');
         input?.focus();
       });
