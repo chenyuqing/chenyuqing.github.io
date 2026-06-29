@@ -826,6 +826,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           success: '连接成功，可以开始提问了。',
           blocked: '浏览器网络请求失败。请检查 CORS、浏览器插件或代理地址。',
           unknownError: '连接失败：',
+          copy: '复制',
+          copied: '已复制',
+          copyFailed: '复制失败',
         },
         en: {
           testing: 'Testing connection...',
@@ -835,6 +838,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           success: 'Connection OK. You can start asking questions.',
           blocked: 'Browser network request failed. Check CORS, browser extensions, or the proxy URL.',
           unknownError: 'Connection failed: ',
+          copy: 'Copy',
+          copied: 'Copied',
+          copyFailed: 'Copy failed',
         },
       };
 
@@ -945,7 +951,32 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const addMsg = (role, text) => {
         const div = document.createElement('div');
         div.className = 'ai-msg ai-msg-' + role;
-        div.textContent = text;
+
+        const body = document.createElement('div');
+        body.className = 'ai-msg-body';
+        body.textContent = text;
+        div.appendChild(body);
+
+        if (role === 'assistant' || role === 'error') {
+          const copy = messages[aiUiLang];
+          const copyBtn = document.createElement('button');
+          copyBtn.type = 'button';
+          copyBtn.className = 'ai-msg-copy';
+          copyBtn.textContent = copy.copy;
+          copyBtn.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(text);
+              copyBtn.textContent = copy.copied;
+            } catch {
+              copyBtn.textContent = copy.copyFailed;
+            }
+            window.setTimeout(() => {
+              copyBtn.textContent = copy.copy;
+            }, 1200);
+          });
+          div.appendChild(copyBtn);
+        }
+
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
       };
@@ -1027,11 +1058,49 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         return siteIndexCache;
       };
 
+      const SEARCH_STOP_WORDS = new Set([
+        '搜索', '搜一下', '搜', '本网站', '本站', '网站', '相关文章', '文章', '内容', '总结', '总结下', '总结一下', '给我', '看看', '关于',
+        'search', 'site', 'website', 'article', 'articles', 'post', 'posts', 'summary', 'summarize', 'about', 'find', 'show', 'me',
+      ]);
+
+      const normalizeToken = (token) => token
+        .toLowerCase()
+        .replace(/[，。！？；：、“”‘’（）【】《》,.!?;:()[\]{}"']/g, '')
+        .trim();
+
+      const getQueryTerms = (query) => {
+        const lowered = query.toLowerCase();
+        const asciiTerms = lowered.match(/[a-z0-9]+(?:[-_.][a-z0-9]+)*/g) || [];
+        const zhSegments = lowered
+          .replace(/[a-z0-9]+(?:[-_.][a-z0-9]+)*/g, ' ')
+          .split(/\s+/)
+          .map(normalizeToken)
+          .filter(Boolean)
+          .flatMap((segment) => {
+            if (segment.length <= 4) return [segment];
+            const grams = [];
+            for (let i = 0; i <= segment.length - 2; i += 1) grams.push(segment.slice(i, i + 2));
+            for (let i = 0; i <= segment.length - 3; i += 1) grams.push(segment.slice(i, i + 3));
+            return [segment, ...grams];
+          });
+
+        const rawTerms = [...asciiTerms, ...zhSegments]
+          .map(normalizeToken)
+          .filter(Boolean)
+          .filter((term) => !SEARCH_STOP_WORDS.has(term));
+
+        return [...new Set(rawTerms)].sort((a, b) => b.length - a.length);
+      };
+
       const searchIndex = (index, query) => {
-        const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+        const terms = getQueryTerms(query);
         const scoreItem = (item) => {
           const text = ((item.title || '') + ' ' + (item.description || '') + ' ' + (item.tags || []).join(' ') + ' ' + (item.body || '')).toLowerCase();
-          return terms.reduce((s, t) => s + (text.includes(t) ? 1 : 0), 0);
+          return terms.reduce((score, term) => {
+            if (!text.includes(term)) return score;
+            const weight = /[a-z0-9]/.test(term) ? 4 : term.length >= 3 ? 2 : 1;
+            return score + weight;
+          }, 0);
         };
         const scored = [...index.blog.map(i => ({...i, _type: 'blog', _score: scoreItem(i)})), ...index.news.map(i => ({...i, _type: 'news', _score: scoreItem(i)}))];
         return scored.filter(i => i._score > 0).sort((a, b) => b._score - a._score).slice(0, 10);

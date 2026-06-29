@@ -987,6 +987,36 @@ main {
   max-width: 92%;
   white-space: pre-wrap;
   word-break: break-word;
+  position: relative;
+}
+
+.ai-msg-body {
+  white-space: pre-wrap;
+}
+
+.ai-msg-copy {
+  position: absolute;
+  top: 0.38rem;
+  right: 0.38rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1;
+  padding: 0.28rem 0.52rem;
+  cursor: pointer;
+  opacity: 0.86;
+}
+
+.ai-msg-copy:hover {
+  opacity: 1;
+}
+
+.ai-msg-assistant,
+.ai-msg-error {
+  padding-top: 1.55rem;
 }
 
 .ai-msg-user {
