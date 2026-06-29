@@ -195,6 +195,7 @@ p {
   border: 1px solid transparent;
   border-radius: var(--radius-full);
   background: transparent;
+  position: relative;
   transition: background 250ms ease, border-color 250ms ease, backdrop-filter 250ms ease;
 }
 
@@ -255,7 +256,7 @@ p {
 }
 
 .nav-dropdown {
-  position: relative;
+  position: static;
 }
 
 .nav-dropdown-trigger {
