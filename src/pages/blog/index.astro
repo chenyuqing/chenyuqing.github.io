@@ -24,10 +24,10 @@ const seenSeries = new Set<string>();
 
 <BaseLayout title="博客 | Tim Chen" description="Tim Chen 的博客文章。">
   <main id="content" class="shell page-simple">
-    <section class="section">
+    <section class="section blog-page-shell">
       <div class="section-head">
-        <p class="eyebrow" data-i18n="blog_page_eyebrow">Blog</p>
-        <h1 class="section-title" data-i18n="blog_page_title">博客文章</h1>
+        <p class="eyebrow" data-i18n="blog_page_eyebrow">Podcast</p>
+        <h1 class="section-title" data-i18n="blog_page_title">播客文章</h1>
         <p class="section-desc" data-i18n="blog_page_desc">深度文章、教程与思考。</p>
       </div>
 
@@ -38,13 +38,13 @@ const seenSeries = new Set<string>();
         ))}
       </div>
 
-      <div class="blog-list">
+      <div class="magazine-list magazine-list-page">
         {posts.length === 0 ? (
-          <article class="post-card">
+          <article class="magazine-card magazine-card-featured">
             <p class="muted" data-i18n="blog_page_empty">暂无文章。</p>
           </article>
         ) : (
-          posts.map((post) => {
+          posts.map((post, index) => {
             const showSeriesHeader = post.data.series && !seenSeries.has(post.data.series);
             if (post.data.series) seenSeries.add(post.data.series);
             return (
@@ -55,19 +55,23 @@ const seenSeries = new Set<string>();
                     <span class="series-name">{post.data.series}</span>
                   </div>
                 )}
-                <article class="post-card">
-                  <a class="post-link" href={`/blog/${post.id}/`}>
-                    <h2>{post.data.title}</h2>
-                  </a>
-                  {post.data.description && <p>{post.data.description}</p>}
-                  <div class="post-meta">
-                    <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
-                    {post.data.tags.map((tag) => (
-                      <span class="tag tag-code">{tag}</span>
-                    ))}
-                  </div>
-                  <div class="actions">
-                    <a class="button button-secondary" href={`/blog/${post.id}/`} data-i18n="blog_read_more">阅读全文</a>
+                <article class={`magazine-card ${index === 0 ? 'magazine-card-featured' : ''}`}>
+                  {post.data.cover && (
+                    <a class="magazine-card-img-link" href={`/blog/${post.id}/`}>
+                      <img class="magazine-card-img" src={post.data.cover} alt={post.data.title} />
+                    </a>
+                  )}
+                  <div class="magazine-card-body">
+                    <a class="magazine-card-title" href={`/blog/${post.id}/`}>
+                      <h2>{post.data.title}</h2>
+                    </a>
+                    {post.data.description && <p class="magazine-card-desc">{post.data.description}</p>}
+                    <div class="post-meta magazine-card-meta">
+                      <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                      {post.data.tags.map((tag) => (
+                        <span class="tag tag-code">{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </article>
               </>

@@ -1498,6 +1498,22 @@ main {
   line-height: 1.58;
 }
 
+.news-featured-light .news-featured-index {
+  color: rgba(20, 20, 19, 0.12);
+}
+
+.news-featured-img-light {
+  border-color: var(--color-hairline);
+}
+
+.news-featured-title-light {
+  color: var(--color-ink);
+}
+
+.news-featured-desc-light {
+  color: var(--color-body);
+}
+
 .magazine-list {
   display: grid;
   gap: 0.9rem;
@@ -1574,6 +1590,28 @@ main {
 
 .magazine-card-meta {
   font-size: 0.8rem;
+}
+
+.news-page-shell,
+.blog-page-shell {
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+}
+
+.news-list-page {
+  margin-top: 1.1rem;
+}
+
+.news-item-page {
+  grid-template-columns: auto minmax(0, 1fr);
+  border-bottom-color: var(--color-hairline);
+}
+
+.news-item-index-light {
+  color: rgba(20, 20, 19, 0.18);
+}
+
+.magazine-list-page {
+  margin-top: 1.1rem;
 }
 
 .button-ghost {
