@@ -87,6 +87,12 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 6. 替换 news mock 数据为真实 AI 日报（17 条），每篇新闻分配 category 和 2-3 个 tags
 7. news 列表页和详情页增加 category 色标显示；列表页支持 category + tag 双重筛选
 8. news 列表页按日期分组展示，每天一个 section，分页按天切分
+9. 首页视觉升级（实验性）：
+   - AI 新闻区改为深黑 + 暗红渐变背景，14s 呼吸动画
+   - 右上角添加红色光晕，10s 缓慢漂移
+   - 左上角添加 35° 红色斜线光带，7s 从左下扫到右上
+   - Contact CTA 改为米白到浅灰渐变，带白色高光扫过和暗酒红按钮
+   - 整体从 warm editorial 橙向红灰科技感试探
 
 ### 最新提交
 
@@ -95,13 +101,13 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - `a30fc5d9` —— AGENTS.md 与 DEVLOG.md 交叉同步
 - `0ef038f3` —— news 5 大类分类体系 + 真实 news 替换 + category 筛选
 - `940abc31` —— news 列表页按日期分组展示，每天一个 section，分页按天切分
+- `（当前会话）` —— 首页 AI 新闻区 + Contact CTA 红灰动态渐变背景
 
 ### 当前未解决问题
 
 - 文章页若有宽表格（如 LLM 推理效率教程），在窄屏上可能溢出。已加 `overflow-x:auto` 给 pre 但未给 table。下次确认是否需要 table 响应式。
-- 文章页若有宽表格（如 LLM 推理效率教程），在窄屏上可能溢出。已加 `overflow-x:auto` 给 pre 但未给 table。下次确认是否需要 table 响应式。
 - 详情页 verdict 标签现在是可点击的 span 样式，未来可能也需要链接。
-- 站点的「AI 时代风格」主要是 warm editorial + 品牌橙色，但在某些页面（如新闻详情页）的视觉精致度仍可提升。
+- 首页视觉方向正在从 warm editorial 橙转向红灰科技感试探，后续需要整体协调（header、footer、blog 区等是否跟进）。
 
 ## 设计规范摘要
 
