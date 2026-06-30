@@ -507,6 +507,54 @@ main {
   color: var(--color-muted);
 }
 
+.tag-verdict {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  padding: 0.22rem 0.55rem;
+}
+.tag-verdict-adopt {
+  background: color-mix(in srgb, #2e8b57 14%, var(--color-canvas));
+  border-color: color-mix(in srgb, #2e8b57 28%, var(--color-hairline));
+  color: #2e8b57;
+}
+.tag-verdict-trial {
+  background: color-mix(in srgb, var(--color-accent-teal) 14%, var(--color-canvas));
+  border-color: color-mix(in srgb, var(--color-accent-teal) 28%, var(--color-hairline));
+  color: #3a8f80;
+}
+.tag-verdict-assess {
+  background: color-mix(in srgb, var(--color-accent-amber) 14%, var(--color-canvas));
+  border-color: color-mix(in srgb, var(--color-accent-amber) 28%, var(--color-hairline));
+  color: #a07020;
+}
+.tag-verdict-hold {
+  background: color-mix(in srgb, #c94040 10%, var(--color-canvas));
+  border-color: color-mix(in srgb, #c94040 22%, var(--color-hairline));
+  color: #b03030;
+}
+.tag-verdict-on-dark.tag-verdict-adopt {
+  background: color-mix(in srgb, #2e8b57 22%, var(--color-surface-dark-elevated));
+  border-color: color-mix(in srgb, #2e8b57 35%, #333);
+  color: #5ac98a;
+}
+.tag-verdict-on-dark.tag-verdict-trial {
+  background: color-mix(in srgb, var(--color-accent-teal) 22%, var(--color-surface-dark-elevated));
+  border-color: color-mix(in srgb, var(--color-accent-teal) 35%, #333);
+  color: var(--color-accent-teal);
+}
+.tag-verdict-on-dark.tag-verdict-assess {
+  background: color-mix(in srgb, var(--color-accent-amber) 22%, var(--color-surface-dark-elevated));
+  border-color: color-mix(in srgb, var(--color-accent-amber) 35%, #333);
+  color: var(--color-accent-amber);
+}
+.tag-verdict-on-dark.tag-verdict-hold {
+  background: color-mix(in srgb, #c94040 18%, var(--color-surface-dark-elevated));
+  border-color: color-mix(in srgb, #c94040 30%, #333);
+  color: #e06060;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(18px);

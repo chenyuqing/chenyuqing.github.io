@@ -11,6 +11,7 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
+    verdict: z.enum(['adopt', 'trial', 'assess', 'hold']).optional(),
     series: z.string().optional(),
     lang: z.enum(['zh', 'en']).default('zh'),
     draft: z.boolean().default(false),

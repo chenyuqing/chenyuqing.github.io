@@ -68,6 +68,9 @@ const seenSeries = new Set<string>();
                     {post.data.description && <p class="magazine-card-desc">{post.data.description}</p>}
                     <div class="post-meta magazine-card-meta">
                       <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                      {post.data.verdict && (
+                        <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
+                      )}
                       {post.data.tags.map((tag) => (
                         <span class="tag tag-code">{tag}</span>
                       ))}

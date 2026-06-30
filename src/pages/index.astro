@@ -103,6 +103,9 @@ const newsListItems = allNewsRecent.slice(1, 5);
                   )}
                   <div class="post-meta magazine-card-meta">
                     <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                    {post.data.verdict && (
+                      <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
+                    )}
                     {post.data.tags.slice(0, 2).map((tag) => (
                       <span class="tag tag-ai">{tag}</span>
                     ))}
