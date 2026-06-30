@@ -93,7 +93,8 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - `7bd6eef8` —— 修复博客文章排版、TOC 层级、可点击 tags；创建 DEVLOG.md
 - `7e05b41e` —— AGENTS.md 顶部增加指向 DEVLOG.md 的说明；同步 verdict schema 与新增博客模板
 - `a30fc5d9` —— AGENTS.md 与 DEVLOG.md 交叉同步
-- `（当前会话）` —— news 5 大类分类体系 + 真实 news 替换 + category 筛选
+- `0ef038f3` —— news 5 大类分类体系 + 真实 news 替换 + category 筛选
+- `940abc31` —— news 列表页按日期分组展示，每天一个 section，分页按天切分
 
 ### 当前未解决问题
 
