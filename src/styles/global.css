@@ -2081,13 +2081,19 @@ main {
 .news-item {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.3rem;
+  gap: 0.8rem;
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 0;
   background: transparent;
   padding: 0.8rem 0;
   transition: background 180ms ease;
+}
+
+.news-item-main {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
 }
 
 .news-item-index {
@@ -2100,10 +2106,9 @@ main {
   min-width: 1.8rem;
 }
 
-.news-item-dark .news-item-index,
-.news-item-dark .news-link,
-.news-item-dark .news-meta {
-  grid-column: 1;
+.news-item-dark .news-item-main,
+.news-item-dark .news-item-index {
+  grid-column: auto;
 }
 
 .news-item:last-child {
@@ -2153,6 +2158,133 @@ main {
   opacity: 0.7;
 }
 
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.category-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
+  background: var(--color-canvas);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-body);
+  text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.category-pill:hover,
+.category-pill-active {
+  background: var(--color-surface-dark);
+  border-color: var(--color-surface-dark);
+  color: var(--color-on-dark);
+}
+
+.category-pill-small {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.category-pill-model {
+  border-color: color-mix(in srgb, #3b82f4 35%, var(--color-hairline));
+  color: #1d4ed8;
+}
+.category-pill-model:hover,
+.category-pill-model.category-pill-active {
+  background: #3b82f4;
+  border-color: #3b82f4;
+  color: #fff;
+}
+
+.category-pill-tool {
+  border-color: color-mix(in srgb, #8b5cf6 35%, var(--color-hairline));
+  color: #6d28d9;
+}
+.category-pill-tool:hover,
+.category-pill-tool.category-pill-active {
+  background: #8b5cf6;
+  border-color: #8b5cf6;
+  color: #fff;
+}
+
+.category-pill-hardware {
+  border-color: color-mix(in srgb, #f59e0b 35%, var(--color-hairline));
+  color: #92400e;
+}
+.category-pill-hardware:hover,
+.category-pill-hardware.category-pill-active {
+  background: #f59e0b;
+  border-color: #f59e0b;
+  color: #fff;
+}
+
+.category-pill-business {
+  border-color: color-mix(in srgb, #10b981 35%, var(--color-hairline));
+  color: #065f46;
+}
+.category-pill-business:hover,
+.category-pill-business.category-pill-active {
+  background: #10b981;
+  border-color: #10b981;
+  color: #fff;
+}
+
+.category-pill-safety {
+  border-color: color-mix(in srgb, #ef4444 35%, var(--color-hairline));
+  color: #991b1b;
+}
+.category-pill-safety:hover,
+.category-pill-safety.category-pill-active {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+.category-pill-safety:hover,
+.category-pill-safety.category-pill-active {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+.category-pill-on-dark {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.category-pill-on-dark.category-pill-model {
+  border-color: rgba(59, 130, 246, 0.55);
+  color: #93c5fd;
+}
+.category-pill-on-dark.category-pill-tool {
+  border-color: rgba(139, 92, 246, 0.55);
+  color: #c4b5fd;
+}
+.category-pill-on-dark.category-pill-hardware {
+  border-color: rgba(245, 158, 11, 0.55);
+  color: #fcd34d;
+}
+.category-pill-on-dark.category-pill-business {
+  border-color: rgba(16, 185, 129, 0.55);
+  color: #6ee7b7;
+}
+.category-pill-on-dark.category-pill-safety {
+  border-color: rgba(239, 68, 68, 0.55);
+  color: #fca5a5;
+}
+
 .tag-filter {
   display: flex;
   flex-wrap: wrap;
@@ -2185,6 +2317,10 @@ main {
 
 .news-article header {
   margin-bottom: 1.5rem;
+}
+
+.news-detail-category {
+  margin: 0.5rem 0 0.6rem;
 }
 
 .news-detail-desc {

@@ -3,6 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
 
+const categoryColors: Record<string, string> = {
+  '模型与智能体': 'category-model',
+  '工具与应用': 'category-tool',
+  '机器人与硬件': 'category-hardware',
+  '商业与生态': 'category-business',
+  '安全与评测': 'category-safety',
+};
+
 const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
@@ -34,6 +42,7 @@ const newsListItems = allNewsRecent.slice(1, 5);
               <img class="news-featured-img" src={newsFeatured.data.cover} alt={newsFeatured.data.title} />
             )}
             <div class="news-featured-body">
+              <span class={`category-pill category-pill-small category-pill-on-dark category-pill-${categoryColors[newsFeatured.data.category]}`}>{newsFeatured.data.category}</span>
               <h2 class="news-featured-title">{newsFeatured.data.title}</h2>
               {newsFeatured.data.description && (
                 <p class="news-featured-desc">{newsFeatured.data.description}</p>
@@ -55,15 +64,18 @@ const newsListItems = allNewsRecent.slice(1, 5);
             {newsListItems.map((item, index) => (
               <article class="news-item news-item-dark">
                 <div class="news-item-index">{String(index + 2).padStart(2, '0')}</div>
-                <a class="news-link news-link-on-dark" href={`/news/${item.id}/`}>
-                  <h3>{item.data.title}</h3>
-                </a>
-                <div class="news-meta news-meta-on-dark">
-                  <span>{item.data.pubDate.toISOString().slice(0, 10)}</span>
-                  {item.data.tags.slice(0, 2).map((tag) => (
-                    <span class="tag tag-on-dark">{tag}</span>
-                  ))}
-                  {item.data.link && <span class="news-external news-external-on-dark">↗</span>}
+                <div class="news-item-main">
+                  <a class="news-link news-link-on-dark" href={`/news/${item.id}/`}>
+                    <h3>{item.data.title}</h3>
+                  </a>
+                  <div class="news-meta news-meta-on-dark">
+                    <span class={`category-pill category-pill-small category-pill-on-dark category-pill-${categoryColors[item.data.category]}`}>{item.data.category}</span>
+                    <span>{item.data.pubDate.toISOString().slice(0, 10)}</span>
+                    {item.data.tags.slice(0, 2).map((tag) => (
+                      <span class="tag tag-on-dark">{tag}</span>
+                    ))}
+                    {item.data.link && <span class="news-external news-external-on-dark">↗</span>}
+                  </div>
                 </div>
               </article>
             ))}

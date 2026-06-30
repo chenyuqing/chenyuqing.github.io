@@ -51,14 +51,27 @@ draft: boolean         # 默认 false
 ```yaml
 title: string          # 必填
 link: string           # 可选，外部链接
+category: string       # 必填，五大类之一：模型与智能体 / 工具与应用 / 机器人与硬件 / 商业与生态 / 安全与评测
 description: string    # 可选，无则截取正文前 N 字
 cover: string          # 可选，/media/news/xxx.png
 pubDate: date          # 必填
-tags: string[]         # news 独立 tag 体系
+tags: string[]         # news 独立 tag 体系，2-3 个
 draft: boolean         # 默认 false
 ```
 
 正文（Markdown body）可选。有正文 → 详情页展示完整内容；无正文 → 详情页展示 description + "阅读原文"链接。所有 news 条目先进站内详情页，不直接跳转外部链接。
+
+### News 分类体系
+
+| 大类 | 一级标签 | 判定规则 |
+|------|---------|---------|
+| **模型与智能体** | 大模型、多智能体 | 模型发布、Agent 框架、推理能力、上下文/定价、多 Agent 编排 |
+| **工具与应用** | AI编程、AI设计 | IDE、代码生成、设计工具、工作流、人机协作界面 |
+| **机器人与硬件** | 具身智能、人形机器人、AI芯片、AI基础设施 | 机器人、VLA/世界模型、芯片、算力平台、安全架构 |
+| **商业与生态** | 资本市场、产业落地、开源生态 | 融资、并购、上市、部署、量产、开源发布 |
+| **安全与评测** | AI安全、评测基准 | 基准测试、审计、漏洞修复、安全体系 |
+
+每篇 news 必须选 1 个大类作为主导分类，可挂 2-3 个一级标签。大类用于列表页快速筛选，一级标签用于交叉关联和 AI Agent 检索。
 
 ## 新增博客文章
 
@@ -82,11 +95,12 @@ draft: false
 
 ```yaml
 ---
-title: "OpenAI 发布 GPT-5"
+title: "OpenAI 发布 GPT-5.6"
 link: "https://openai.com"
+category: "模型与智能体"
 description: "一句话点评。"
 pubDate: 2026-06-28
-tags: ["产品发布", "大模型"]
+tags: ["大模型", "AI编程", "多智能体"]
 draft: false
 ---
 ```

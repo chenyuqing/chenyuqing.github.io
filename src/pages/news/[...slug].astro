@@ -23,6 +23,14 @@ if (!item || item.data.draft) {
 const hasBody = item.body && item.body.trim().length > 0;
 const { Content } = hasBody ? await render(item) : { Content: null };
 const iso = item.data.pubDate.toISOString().slice(0, 10);
+
+const categoryColors: Record<string, string> = {
+  '模型与智能体': 'category-model',
+  '工具与应用': 'category-tool',
+  '机器人与硬件': 'category-hardware',
+  '商业与生态': 'category-business',
+  '安全与评测': 'category-safety',
+};
 ---
 
 <BaseLayout title={`${item.data.title} | Tim Chen`} description={item.data.description || item.data.title}>
@@ -30,6 +38,9 @@ const iso = item.data.pubDate.toISOString().slice(0, 10);
     <article class="news-article">
       <header>
         <p class="eyebrow" data-i18n="news_detail_eyebrow">News</p>
+        <div class="news-detail-category">
+          <span class={`category-pill category-pill-small category-pill-${categoryColors[item.data.category]}`}>{item.data.category}</span>
+        </div>
         <h1 class="section-title">{item.data.title}</h1>
         <div class="post-meta" style="margin-top: 0.5rem;">
           <span>{iso}</span>

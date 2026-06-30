@@ -23,6 +23,7 @@ const news = defineCollection({
   schema: z.object({
     title: z.string(),
     link: z.string().optional(),
+    category: z.enum(['模型与智能体', '工具与应用', '机器人与硬件', '商业与生态', '安全与评测']),
     description: z.string().default(''),
     cover: z.string().optional(),
     pubDate: z.coerce.date(),
