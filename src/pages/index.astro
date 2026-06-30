@@ -147,4 +147,17 @@ const newsListItems = allNewsRecent.slice(1, 5);
       </div>
     </section>
   </main>
+  <script>
+    function lockSplitHeight() {
+      const split = document.querySelector('.home-split');
+      if (!split) return;
+      // Wait for reveal animation and fonts to settle, then lock the natural height
+      window.setTimeout(() => {
+        const naturalHeight = split.getBoundingClientRect().height;
+        split.style.height = `${naturalHeight}px`;
+        split.classList.add('is-locked');
+      }, 600);
+    }
+    document.addEventListener('DOMContentLoaded', lockSplitHeight);
+  </script>
 </BaseLayout>
