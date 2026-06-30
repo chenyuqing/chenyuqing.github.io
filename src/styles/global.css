@@ -1442,7 +1442,10 @@ main {
 }
 
 .footer-col-title {
-  margin: 0 0 0.15rem;
+  margin: 0 0 0.55rem;
+  min-height: 1.5rem;
+  display: flex;
+  align-items: flex-end;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.12em;
