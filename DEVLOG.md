@@ -31,6 +31,7 @@
 - [x] 播客文章详情页排版修复：表格样式、标题装饰、链接样式、列表样式、引用块、图片、hr
 - [x] TOC 层级区分：h2 加粗黑体，h3 灰色缩进
 - [x] 详情页 tags 可点击跳转筛选
+- [x] 创建 DEVLOG.md 作为开发主记录，AGENTS.md 已指向它
 - [ ] news 内容仍是 mock 数据，待替换
 - [ ] 没有按 verdict 筛选功能
 - [ ] 没有按 series 聚合入口的增强（已有系列分组，但未做系列首页）
@@ -56,8 +57,8 @@
 
 ### 最新提交
 
-- `3f86813a` —— 替换 mock blog 为真实 pi-coding-agent 系列 + verdict 体系
-- 后续样式小修未单独提交，将在本会话结束时统一提交。
+- `7bd6eef8` —— 修复博客文章排版、TOC 层级、可点击 tags；创建 DEVLOG.md
+- `7e05b41e` —— AGENTS.md 顶部增加指向 DEVLOG.md 的说明；同步 verdict schema 与新增博客模板
 
 ### 当前未解决问题
 
@@ -81,7 +82,7 @@
 - 不在代码中硬编码 API key、token、密码。AI Agent 配置全存在用户 localStorage。
 - 不要直接编辑旧 Hexo 产物（根目录 `20??`、`archives`、`atom.xml` 等）。
 - 不要更新 `README.md` 中的 Hexo 旧内容，除非用户明确要做迁移文档。
-- `DESIGN.md` 顶部已注明过时，当前以代码和 `AGENTS.md` 为准。
+- `DESIGN.md` 顶部已注明过时，当前以代码、`AGENTS.md` 和 `DEVLOG.md` 为准。遇到不确定问题或需求矛盾时优先查看 `DEVLOG.md`。
 - 所有内容变更优先改 collection 文件，构建后 push 即自动部署。
 
 ## 需求池（用户口述/待安排）
@@ -100,4 +101,4 @@
 
 ## 变更历史
 
-- 2026-06-30：创建本 DEVLOG.md，记录当前状态与当天变更。
+- 2026-06-30：创建本 DEVLOG.md，记录当前状态与当天变更；与 AGENTS.md 完成交叉同步（verdict schema、新增博客模板、DEVLOG 指向说明）。

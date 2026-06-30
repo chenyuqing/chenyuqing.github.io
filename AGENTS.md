@@ -40,6 +40,7 @@ cover: string          # 可选，/media/blog/xxx.png
 pubDate: date          # 必填
 updatedDate: date      # 可选
 tags: string[]         # blog 独立 tag 体系
+verdict: "adopt" | "trial" | "assess" | "hold"  # 可选，分类立场
 series: string         # 可选，系列名
 lang: "zh" | "en"     # 可选，默认 zh
 draft: boolean         # 默认 false
@@ -69,6 +70,8 @@ title: "文章标题"
 description: "一句摘要"
 pubDate: 2026-05-14
 tags: ["AI", "workflow"]
+verdict: "trial"  # adopt / trial / assess / hold
+series: "pi-coding-agent"
 draft: false
 ---
 ```
