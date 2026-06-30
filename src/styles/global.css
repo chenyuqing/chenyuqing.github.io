@@ -1860,14 +1860,81 @@ main {
 .home-split {
   margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1rem;
   align-items: stretch;
+  transition: grid-template-columns 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-split:has(.home-split-news:hover) {
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+}
+
+.home-split:has(.home-split-blog:hover) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.85fr);
 }
 
 .home-split-col {
   min-width: 0;
   height: 100%;
+  transition: opacity 0.5s ease;
+}
+
+.home-split:has(.home-split-news:hover) .home-split-blog,
+.home-split:has(.home-split-blog:hover) .home-split-news {
+  opacity: 0.75;
+}
+
+.home-split-blog .magazine-card-desc,
+.home-split-blog .magazine-card-img-link {
+  transition: opacity 0.4s ease, max-height 0.5s ease, margin 0.4s ease;
+}
+
+.home-split:has(.home-split-news:hover) .home-split-blog .magazine-card-desc {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.home-split:has(.home-split-news:hover) .home-split-blog .magazine-card-img-link {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.home-split-blog .magazine-card-title h3,
+.home-split-news .news-featured-desc,
+.home-split-news .news-list-home .news-desc {
+  transition: font-size 0.5s ease, line-height 0.5s ease;
+}
+
+.home-split:has(.home-split-news:hover) .home-split-blog .magazine-card-title h3 {
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+.home-split-news .news-item-main,
+.home-split-news .news-featured-body {
+  transition: opacity 0.5s ease;
+}
+
+.home-split:has(.home-split-blog:hover) .home-split-news .news-featured-desc,
+.home-split:has(.home-split-blog:hover) .home-split-news .news-list-home .news-desc {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  margin: 0;
+}
+
+.home-split:has(.home-split-blog:hover) .home-split-news .news-featured-title {
+  font-size: 1.1rem;
+}
+
+.home-split:has(.home-split-blog:hover) .home-split-news .news-link h3 {
+  font-size: 0.95rem;
+  line-height: 1.25;
 }
 
 @keyframes sweep-red {
