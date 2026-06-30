@@ -164,5 +164,16 @@ const newsListItems = allNewsRecent.slice(1, 5);
       }, 600);
     }
     document.addEventListener('DOMContentLoaded', lockSplitHeight);
+
+    // Touch-friendly expand for homepage split
+    const splitCols = document.querySelectorAll('.home-split-col');
+    splitCols.forEach((col) => {
+      col.addEventListener('click', function () {
+        if (window.innerWidth <= 980) return; // grid is 1fr, no expand needed
+        const wasExpanded = this.classList.contains('is-expanded');
+        splitCols.forEach((c) => c.classList.remove('is-expanded'));
+        if (!wasExpanded) this.classList.add('is-expanded');
+      });
+    });
   </script>
 </BaseLayout>

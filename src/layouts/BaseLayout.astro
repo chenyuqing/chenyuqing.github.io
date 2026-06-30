@@ -71,6 +71,11 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             <small>creator lab</small>
           </span>
         </a>
+        <button id="mobile-nav-toggle" class="mobile-nav-toggle" type="button" aria-expanded="false" aria-label="菜单">
+          <span class="mobile-nav-bar"></span>
+          <span class="mobile-nav-bar"></span>
+          <span class="mobile-nav-bar"></span>
+        </button>
         <div class="header-actions">
           <nav class="site-nav" aria-label="Primary">
             <a class="nav-pill" href="/" aria-current={pathname === '/' ? 'page' : undefined} data-i18n="nav_home">首页</a>
@@ -1360,6 +1365,23 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           if (!dropdown.contains(e.target)) closeNavDropdown(dropdown);
         });
       });
+
+      const mobileToggle = document.getElementById('mobile-nav-toggle');
+      const headerActions = document.querySelector('.header-actions');
+      if (mobileToggle && headerActions) {
+        mobileToggle.addEventListener('click', () => {
+          const isOpen = mobileToggle.getAttribute('aria-expanded') === 'true';
+          mobileToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+          headerActions.classList.toggle('mobile-nav-open', !isOpen);
+        });
+        document.addEventListener('click', (e) => {
+          if (mobileToggle.getAttribute('aria-expanded') === 'true' &&
+              !e.target.closest('.header-row')) {
+            mobileToggle.setAttribute('aria-expanded', 'false');
+            headerActions.classList.remove('mobile-nav-open');
+          }
+        });
+      }
 
       const header = document.getElementById('site-header');
       if (header) {
