@@ -86,6 +86,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 5. 建立 news 5 大类分类体系：模型与智能体 / 工具与应用 / 机器人与硬件 / 商业与生态 / 安全与评测
 6. 替换 news mock 数据为真实 AI 日报（17 条），每篇新闻分配 category 和 2-3 个 tags
 7. news 列表页和详情页增加 category 色标显示；列表页支持 category + tag 双重筛选
+8. news 列表页按日期分组展示，每天一个 section，分页按天切分
 
 ### 最新提交
 
