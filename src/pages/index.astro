@@ -12,7 +12,12 @@ const categoryColors: Record<string, string> = {
 };
 
 const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .sort((a, b) => {
+    const featuredSlug = 'how-to-read-this-site';
+    if (a.id === featuredSlug) return -1;
+    if (b.id === featuredSlug) return 1;
+    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+  })
   .slice(0, 3);
 
 const fourteenDaysAgo = new Date();
