@@ -352,6 +352,134 @@ p {
   flex-wrap: wrap;
 }
 
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.admin-stat-card {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-card);
+  text-align: center;
+}
+
+.admin-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+
+.admin-stat-label {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.admin-section {
+  margin-top: 2rem;
+}
+
+.admin-section-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 0.75rem;
+}
+
+.admin-heat-list {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.admin-heat-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto;
+  gap: 0.6rem;
+  align-items: center;
+  font-size: 0.86rem;
+}
+
+.admin-heat-path a {
+  color: var(--color-body);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-heat-path a:hover {
+  color: var(--color-ink);
+}
+
+.admin-heat-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-surface-cream-strong);
+  overflow: hidden;
+}
+
+.admin-heat-fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.admin-heat-count {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  min-width: 2rem;
+  text-align: right;
+}
+
+.admin-history-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.admin-history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--color-hairline-soft);
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+}
+
+.admin-history-item a {
+  color: var(--color-body);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.admin-history-item a:hover {
+  color: var(--color-ink);
+}
+
+.admin-history-item span {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
 .nav-pill {
   display: inline-flex;
   align-items: center;

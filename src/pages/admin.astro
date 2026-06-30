@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+---
+
+<BaseLayout title="Admin · Tim Chen" description="" canonical="/admin/">
+  <main id="content" class="shell page-simple">
+    <section class="section" style="max-width:48rem;">
+      <div class="section-head">
+        <p class="eyebrow">Admin</p>
+        <h1 class="section-title">站点统计</h1>
+        <p class="section-desc" style="color:var(--color-muted);">个人浏览数据（localStorage），仅本机可见。</p>
+      </div>
+
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <span class="admin-stat-value" id="stat-total">--</span>
+          <span class="admin-stat-label">总访问</span>
+        </div>
+        <div class="admin-stat-card">
+          <span class="admin-stat-value" id="stat-unique">--</span>
+          <span class="admin-stat-label">独立页面</span>
+        </div>
+        <div class="admin-stat-card">
+          <span class="admin-stat-value" id="stat-last">--</span>
+          <span class="admin-stat-label">最近访问</span>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h2 class="admin-section-title">页面热度</h2>
+        <div id="heat-list" class="admin-heat-list"></div>
+      </div>
+
+      <div class="admin-section">
+        <h2 class="admin-section-title">浏览记录</h2>
+        <ol id="history-list" class="admin-history-list"></ol>
+      </div>
+
+      <div class="admin-section">
+        <h2 class="admin-section-title">GA4 后台</h2>
+        <p style="color:var(--color-muted);font-size:0.88rem;line-height:1.6;">全站真实访问数据请在 Google Analytics 查看。</p>
+        <a class="button" href="https://analytics.google.com/" target="_blank" rel="noreferrer">打开 GA4</a>
+      </div>
+    </section>
+  </main>
+  <script is:inline>
+  (() => {
+    const STATS_KEY = 'site-visit-stats-v1';
+    const HISTORY_KEY = 'site-browse-history-v1';
+
+    const stats = JSON.parse(localStorage.getItem(STATS_KEY) || '{}');
+    const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+
+    const totalEl = document.getElementById('stat-total');
+    const uniqueEl = document.getElementById('stat-unique');
+    const lastEl = document.getElementById('stat-last');
+
+    if (totalEl) totalEl.textContent = String(stats.totalVisits ?? 0);
+    if (uniqueEl) uniqueEl.textContent = String(Object.keys(stats.uniquePathCount || {}).length);
+    if (lastEl) {
+      const d = stats.lastVisitAt ? new Date(stats.lastVisitAt) : null;
+      lastEl.textContent = d && !Number.isNaN(d.getTime()) ? d.toLocaleString('zh-CN', { hour12: false }) : '--';
+    }
+
+    // Heat list
+    const heatEl = document.getElementById('heat-list');
+    if (heatEl) {
+      const counts = stats.uniquePathCount || {};
+      const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+      const max = sorted.length ? sorted[0][1] : 1;
+      heatEl.innerHTML = sorted.map(([path, count]) => {
+        const pct = Math.round((count / max) * 100);
+        return `<div class="admin-heat-row">
+          <span class="admin-heat-path"><a href="${path}">${path}</a></span>
+          <span class="admin-heat-bar"><span class="admin-heat-fill" style="width:${pct}%"></span></span>
+          <span class="admin-heat-count">${count}</span>
+        </div>`;
+      }).join('');
+    }
+
+    // History list
+    const histEl = document.getElementById('history-list');
+    if (histEl) {
+      const arr = Array.isArray(history) ? history : [];
+      histEl.innerHTML = arr.map((item) => {
+        const d = item.visitedAt ? new Date(item.visitedAt) : null;
+        const t = d && !Number.isNaN(d.getTime()) ? d.toLocaleString('zh-CN', { hour12: false }) : '--';
+        return `<li class="admin-history-item">
+          <a href="${item.path || '/'}">${item.title || item.path || '/'}</a>
+          <span>${t}</span>
+        </li>`;
+      }).join('');
+    }
+  })();
+  </script>
+</BaseLayout>
