@@ -62,15 +62,17 @@ const seenSeries = new Set<string>();
                     </a>
                   )}
                   <div class="magazine-card-body">
+                    <div class="magazine-card-eyebrow">
+                      {post.data.verdict && (
+                        <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
+                      )}
+                    </div>
                     <a class="magazine-card-title" href={`/blog/${post.id}/`}>
                       <h2>{post.data.title}</h2>
                     </a>
                     {post.data.description && <p class="magazine-card-desc">{post.data.description}</p>}
                     <div class="post-meta magazine-card-meta">
                       <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
-                      {post.data.verdict && (
-                        <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
-                      )}
                       {post.data.tags.map((tag) => (
                         <span class="tag tag-code">{tag}</span>
                       ))}

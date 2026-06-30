@@ -42,14 +42,16 @@ const seriesPosts = post.data.series
       <header>
         <p class="eyebrow">Article</p>
         <h1 class="section-title">{post.data.title}</h1>
+        {post.data.verdict && (
+          <div class="article-verdict" style="margin-top: 0.35rem;">
+            <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
+          </div>
+        )}
         <div class="post-meta" style="margin-top: 0.5rem;">
           <span>{iso}</span>
           {post.data.updatedDate && <span>updated {post.data.updatedDate.toISOString().slice(0, 10)}</span>}
           <span class="reading-time">{readingTime} min read</span>
           {post.data.lang === 'en' && <span class="lang-badge">EN</span>}
-          {post.data.verdict && (
-            <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
-          )}
         </div>
         {post.data.tags.length > 0 && (
           <div class="tag-list" style="margin-top: 0.7rem;">

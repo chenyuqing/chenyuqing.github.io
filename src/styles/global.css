@@ -515,44 +515,51 @@ main {
   padding: 0.22rem 0.55rem;
 }
 .tag-verdict-adopt {
-  background: color-mix(in srgb, #2e8b57 14%, var(--color-canvas));
-  border-color: color-mix(in srgb, #2e8b57 28%, var(--color-hairline));
-  color: #2e8b57;
+  background: color-mix(in srgb, #2d7a4d 16%, var(--color-canvas));
+  border-color: #2d7a4d;
+  color: #1f5735;
 }
 .tag-verdict-trial {
-  background: color-mix(in srgb, var(--color-accent-teal) 14%, var(--color-canvas));
-  border-color: color-mix(in srgb, var(--color-accent-teal) 28%, var(--color-hairline));
-  color: #3a8f80;
+  background: color-mix(in srgb, #3b82f4 16%, var(--color-canvas));
+  border-color: #3b82f4;
+  color: #1d4ed8;
 }
 .tag-verdict-assess {
-  background: color-mix(in srgb, var(--color-accent-amber) 14%, var(--color-canvas));
-  border-color: color-mix(in srgb, var(--color-accent-amber) 28%, var(--color-hairline));
-  color: #a07020;
+  background: color-mix(in srgb, #f59e0b 16%, var(--color-canvas));
+  border-color: #f59e0b;
+  color: #92400e;
 }
 .tag-verdict-hold {
-  background: color-mix(in srgb, #c94040 10%, var(--color-canvas));
-  border-color: color-mix(in srgb, #c94040 22%, var(--color-hairline));
-  color: #b03030;
+  background: color-mix(in srgb, #dc2626 14%, var(--color-canvas));
+  border-color: #dc2626;
+  color: #7f1d1d;
 }
 .tag-verdict-on-dark.tag-verdict-adopt {
-  background: color-mix(in srgb, #2e8b57 22%, var(--color-surface-dark-elevated));
-  border-color: color-mix(in srgb, #2e8b57 35%, #333);
-  color: #5ac98a;
+  background: color-mix(in srgb, #4ade80 22%, var(--color-surface-dark-elevated));
+  border-color: #4ade80;
+  color: #bbf7d0;
 }
 .tag-verdict-on-dark.tag-verdict-trial {
-  background: color-mix(in srgb, var(--color-accent-teal) 22%, var(--color-surface-dark-elevated));
-  border-color: color-mix(in srgb, var(--color-accent-teal) 35%, #333);
-  color: var(--color-accent-teal);
+  background: color-mix(in srgb, #60a5fa 22%, var(--color-surface-dark-elevated));
+  border-color: #60a5fa;
+  color: #dbeafe;
 }
 .tag-verdict-on-dark.tag-verdict-assess {
-  background: color-mix(in srgb, var(--color-accent-amber) 22%, var(--color-surface-dark-elevated));
-  border-color: color-mix(in srgb, var(--color-accent-amber) 35%, #333);
-  color: var(--color-accent-amber);
+  background: color-mix(in srgb, #fbbf24 22%, var(--color-surface-dark-elevated));
+  border-color: #fbbf24;
+  color: #fde68a;
 }
 .tag-verdict-on-dark.tag-verdict-hold {
-  background: color-mix(in srgb, #c94040 18%, var(--color-surface-dark-elevated));
-  border-color: color-mix(in srgb, #c94040 30%, #333);
-  color: #e06060;
+  background: color-mix(in srgb, #f87171 20%, var(--color-surface-dark-elevated));
+  border-color: #f87171;
+  color: #fecaca;
+}
+
+.tag-verdict + .tag-code,
+.tag-code + .tag-verdict,
+.tag-verdict + .tag-ai,
+.tag-ai + .tag-verdict {
+  margin-left: 0.25rem;
 }
 
 .reveal {
@@ -1991,6 +1998,13 @@ main {
   display: grid;
   gap: 0.45rem;
   min-width: 0;
+}
+
+.magazine-card-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .magazine-card-title {

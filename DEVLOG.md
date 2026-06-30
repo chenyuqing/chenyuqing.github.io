@@ -48,17 +48,15 @@
    - trial：值得试用
    - assess：值得关注，尚需观察
    - hold：保持警惕，暂不推荐
-3. 修复播客文章详情页排版：
-   - 增加表格完整样式（hairline 边框、cream 表头、hover 高亮）
-   - h2 衬线 + 顶部分隔线；h3 衬线 + 橙色左竖线；h4 大写标签风
-   - 链接、列表、strong、图片、hr 统一优化
-   - 修复 TOC 层级：h2 加粗黑体，h3 灰色缩进
-   - 文章详情页 tags 改为可点击链接
+3. 重新设计 verdict 标签颜色与层级关系：
+   - 颜色改为更明确的绿/蓝/琥珀/红，避免 adopt 和 trial 混淆
+   - verdict 作为「立场判断」放在标题上方，普通 tags 作为「主题分类」保留在 meta 行，两者不再混排
 
 ### 最新提交
 
 - `7bd6eef8` —— 修复博客文章排版、TOC 层级、可点击 tags；创建 DEVLOG.md
 - `7e05b41e` —— AGENTS.md 顶部增加指向 DEVLOG.md 的说明；同步 verdict schema 与新增博客模板
+- （当前会话后续）重新设计 verdict 颜色与层级，把 verdict 和主题 tags 分开展示
 
 ### 当前未解决问题
 
