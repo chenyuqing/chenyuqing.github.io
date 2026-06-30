@@ -101,7 +101,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - `a30fc5d9` —— AGENTS.md 与 DEVLOG.md 交叉同步
 - `0ef038f3` —— news 5 大类分类体系 + 真实 news 替换 + category 筛选
 - `940abc31` —— news 列表页按日期分组展示，每天一个 section，分页按天切分
-- `（当前会话）` —— 首页 AI 新闻区 + Contact CTA 红灰动态渐变背景
+- `aec3347d` —— 首页 AI 新闻区 + Contact CTA 红灰动态渐变背景
 
 ### 当前未解决问题
 
