@@ -54,7 +54,7 @@ const seriesPosts = post.data.series
         {post.data.tags.length > 0 && (
           <div class="tag-list" style="margin-top: 0.7rem;">
             {post.data.tags.map((tag) => (
-              <span class="tag tag-code">{tag}</span>
+              <a class="tag tag-code" href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>
             ))}
           </div>
         )}

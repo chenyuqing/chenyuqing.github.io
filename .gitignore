@@ -39,3 +39,4 @@ pnpm-debug.log*
 /js/
 /search.xml
 /.nojekyll
+.gstack/

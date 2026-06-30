@@ -1,0 +1,103 @@
+# 开发日志 DEVLOG
+
+> 本站点的开发流水记录：需求、决策、变更、TODO、当前状态。
+> 每次会话开始时先读此文件，结束或完成阶段性任务时更新此文件。
+
+## 项目速览
+
+- 技术栈：Astro 6 静态站点生成（SSG），`output: 'static'`
+- 内容：两个 Astro content collection
+  - `blog` —— 深度文章/播客文章
+  - `news` —— 快讯/短评
+- 部署：GitHub Pages，推送 `main` 后自动部署
+- 核心文件：
+  - `src/content.config.ts` —— 内容 schema
+  - `src/layouts/BaseLayout.astro` —— 全站布局、导航、footer、AI Agent 面板
+  - `src/styles/global.css` —— 全站样式
+  - `src/pages/index.astro` —— 首页（左 AI 新闻 dark + 右 播客文章 cream）
+  - `src/pages/blog/index.astro` —— 播客文章列表页
+  - `src/pages/news/index.astro` —— AI 新闻列表页
+  - `src/pages/blog/[...slug].astro` —— 播客文章详情页
+  - `src/pages/news/[...slug].astro` —— 新闻详情页
+  - `src/pages/site-index/*.json.ts` —— AI Agent 检索索引（blog-all / news-all / news-90d / news-30d）
+
+## 当前状态
+
+- [x] 站点架构：Astro + content collection + 静态部署 完成
+- [x] 首页三段节奏：AI 新闻 dark / 播客文章 cream / Contact 橙色 callout
+- [x] AI Agent 面板：抽屉式对话、OpenAI/Claude/Compatible provider、用户自配 API key、连通性测试、设置保存/重置、消息复制、命中来源展示
+- [x] blog 内容替换：已替换 mock 数据为真实 `pi-coding-agent` 系列 11 篇文章
+- [x] `verdict` 分类体系：adopt / trial / assess / hold，已显示在首页/列表页/详情页
+- [x] 播客文章详情页排版修复：表格样式、标题装饰、链接样式、列表样式、引用块、图片、hr
+- [x] TOC 层级区分：h2 加粗黑体，h3 灰色缩进
+- [x] 详情页 tags 可点击跳转筛选
+- [ ] news 内容仍是 mock 数据，待替换
+- [ ] 没有按 verdict 筛选功能
+- [ ] 没有按 series 聚合入口的增强（已有系列分组，但未做系列首页）
+- [ ] 没有站内搜索页面（AI Agent 已有问答，但缺少传统搜索）
+- [ ] 没有内容归档/时间线页面
+
+## 2026-06-30 会话记录
+
+### 今天完成
+
+1. 用真实 `pi-coding-agent` 系列文章替换 blog mock 数据（11 篇）。
+2. 增加 blog `verdict` schema 字段与可视化标签：
+   - adopt：实战验证，推荐采用
+   - trial：值得试用
+   - assess：值得关注，尚需观察
+   - hold：保持警惕，暂不推荐
+3. 修复播客文章详情页排版：
+   - 增加表格完整样式（hairline 边框、cream 表头、hover 高亮）
+   - h2 衬线 + 顶部分隔线；h3 衬线 + 橙色左竖线；h4 大写标签风
+   - 链接、列表、strong、图片、hr 统一优化
+   - 修复 TOC 层级：h2 加粗黑体，h3 灰色缩进
+   - 文章详情页 tags 改为可点击链接
+
+### 最新提交
+
+- `3f86813a` —— 替换 mock blog 为真实 pi-coding-agent 系列 + verdict 体系
+- 后续样式小修未单独提交，将在本会话结束时统一提交。
+
+### 当前未解决问题
+
+- news 区仍是 mock 数据，需后续替换。
+- 文章页若有宽表格（如 LLM 推理效率教程），在窄屏上可能溢出。已加 `overflow-x:auto` 给 pre 但未给 table。下次确认是否需要 table 响应式。
+- 详情页 verdict 标签现在是可点击的 span 样式，未来可能也需要链接。
+- 站点的「AI 时代风格」主要是 warm editorial + 品牌橙色，但在某些页面（如新闻详情页）的视觉精致度仍可提升。
+
+## 设计规范摘要
+
+- 标题字体：衬线（`Cormorant Garamond` + `Noto Serif SC`）
+- 正文/UI 字体：`Inter`
+- 主色：品牌橙 `#FF8A00`
+- 卡片/按钮/导航：1px hairline 边框，几乎无阴影
+- 背景节奏：cream canvas → dark product surface → orange callout
+- 首页结构：左 AI 新闻（dark）+ 右 播客文章（cream）+ 底部橙色 Contact
+- 只有吉祥物/头像等品牌锚点保留较强描边
+
+## 约定
+
+- 不在代码中硬编码 API key、token、密码。AI Agent 配置全存在用户 localStorage。
+- 不要直接编辑旧 Hexo 产物（根目录 `20??`、`archives`、`atom.xml` 等）。
+- 不要更新 `README.md` 中的 Hexo 旧内容，除非用户明确要做迁移文档。
+- `DESIGN.md` 顶部已注明过时，当前以代码和 `AGENTS.md` 为准。
+- 所有内容变更优先改 collection 文件，构建后 push 即自动部署。
+
+## 需求池（用户口述/待安排）
+
+- 将 news 区 mock 数据替换为真实 AI 新闻内容。
+- 考虑增加按 verdict 筛选博客。
+- 考虑增加站内搜索页（或把 AI Agent 的检索能力暴露为搜索 UI）。
+- 考虑增强 series 页面，做成独立系列入口页。
+- 持续保持播客文章详情页的排版质量，后续每篇新文都要符合当前样式。
+
+## 下次会话 TODO
+
+1. 查看用户当前最优先需求，从需求池挑一件做。
+2. 开始前检查本文件状态；结束后更新本文件。
+3. 每次变更后运行 `npm run build` 验证，通过后再 push。
+
+## 变更历史
+
+- 2026-06-30：创建本 DEVLOG.md，记录当前状态与当天变更。
