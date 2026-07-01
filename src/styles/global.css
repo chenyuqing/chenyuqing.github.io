@@ -2860,17 +2860,15 @@ main {
 }
 
 .product-catalog-wrap[data-view="list"] .product-catalog-illo {
+  max-height: 48px;
   width: 48px;
-  height: 48px;
   flex-shrink: 0;
   border-radius: var(--radius-sm);
-  overflow: hidden;
+  margin-right: 0.1rem;
 }
 
 .product-catalog-wrap[data-view="list"] .product-catalog-illo img {
-  width: 48px;
   height: 48px;
-  object-fit: cover;
 }
 
 .product-catalog-wrap[data-view="list"] .product-catalog-body {
