@@ -1,31 +1,45 @@
 # chenyuqing.github.io
 
-Modern static site reset.
+Personal site — blog, news, and product catalog. Built with Astro 6, deployed to GitHub Pages.
 
-## What this repo does
+## Site structure
 
-- Serves a clean starter site (home/about/archives/tags placeholders).
-- Keeps legacy content offline as Markdown backups.
-- Deploys to GitHub Pages with GitHub Actions.
+- **Blog** (`/blog/`) — long-form articles on AI, coding agents, and workflow
+- **News** (`/news/`) — short-form AI industry updates, 5 categories
+- **Products** (`/products/`) — GitHub projects translated into product landing pages
+- **AI Agent** — in-page chat panel with OpenAI/Claude/Compatible providers
 
-## Backup source
+## Content collections
 
-- `backup/source-json/content.json`
-- `backup/markdown-posts`
-- `backup/markdown-posts-organized`
+| Collection | Path | Key fields |
+|------------|------|-----------|
+| `blog` | `src/content/blog/*.md` | title, tags, verdict (adopt/trial/assess/hold), series |
+| `news` | `src/content/news/*.md` | title, category (5 types), tags, link |
+| `products` | `src/content/products/*.md` | title, tagline, status, type, illo, highlights |
 
-## Design source
+## Tech stack
 
-- `DESIGN.md`
+- Astro 6 (static SSG)
+- Vanilla CSS (`src/styles/global.css`)
+- Content Collections (`src/content.config.ts`)
+- Client-side AI Agent (localStorage-stored user config)
 
 ## Development
 
 ```sh
 npm install
-npm run dev
-npm run build
+npm run dev       # dev server
+npm run build     # production build → dist/
+npm run preview   # preview build
 ```
 
 ## Deployment
 
-Pushes to `main` trigger the GitHub Actions Pages workflow.
+Push to `main` triggers GitHub Actions Pages workflow.
+
+## Key files
+
+- `AGENTS.md` — agent instructions and project conventions
+- `DEVLOG.md` — live development log (current state, decisions, TODO)
+- `proddev.md` — product page design spec
+- `DESIGN.md` — visual system definition

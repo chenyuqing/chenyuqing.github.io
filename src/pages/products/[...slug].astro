@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getCollection, getEntry, render } from 'astro:content';
+
+const statusLabels: Record<string, string> = {
+  live: 'Live',
+  beta: 'Beta',
+  experiment: 'Experiment',
+  archive: 'Archive',
+};
+
+const typeLabels: Record<string, string> = {
+  'ai-tool': 'AI Tool',
+  workflow: 'Workflow',
+  'media-tool': 'Media Tool',
+  infra: 'Infra',
+};
+
+export async function getStaticPaths() {
+  const products = await getCollection('products', ({ data }) => !data.draft);
+  return products.map((product) => ({ params: { slug: product.id } }));
+}
+
+const { slug } = Astro.params;
+if (!slug) {
+  throw new Error('Missing product slug');
+}
+
+const product = await getEntry('products', slug);
+if (!product || product.data.draft) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(product);
+const relatedPosts = await Promise.all(
+  product.data.relatedPosts.map(async (postSlug) => {
+    const post = await getEntry('blog', postSlug);
+    return post && !post.data.draft ? post : null;
+  })
+);
+const validRelatedPosts = relatedPosts.filter((post): post is NonNullable<typeof post> => post !== null);
+const hasBody = await product.body?.trim();
+---
+
+<BaseLayout title={`${product.data.title} | Tim Chen`} description={product.data.description || product.data.tagline} canonical={`/products/${product.id}/`}>
+  <main id="content" class="shell page-simple">
+    <article class="pdp">
+
+      {/* ── HERO ── */}
+      <section class="pdp-hero">
+        <div class="pdp-hero-main">
+          <div class="pdp-hero-eyebrow">
+            <span class={`tag tag-product-status tag-product-status-${product.data.status}`}>{statusLabels[product.data.status]}</span>
+            <span class="tag tag-product-type">{typeLabels[product.data.type]}</span>
+          </div>
+          <h1 class="pdp-hero-title">{product.data.title}</h1>
+          <p class="pdp-hero-tagline">{product.data.tagline}</p>
+          <div class="pdp-hero-actions">
+            {product.data.demo && <a class="button button-primary" href={product.data.demo} target="_blank" rel="noreferrer">{product.data.demoLabel || '体验产品'}</a>}
+            {product.data.repo && <a class="button button-ghost" href={product.data.repo} target="_blank" rel="noreferrer">GitHub</a>}
+          </div>
+        </div>
+        <div class="pdp-hero-illo">
+          {product.data.illo ? (
+            <img src={product.data.illo} alt={`${product.data.title} illustration`} loading="eager" />
+          ) : product.data.heroImage ? (
+            <img src={product.data.heroImage} alt={product.data.title} loading="eager" />
+          ) : null}
+        </div>
+      </section>
+
+      <hr class="pdp-divider" />
+
+      {/* ── SHOWCASE ── */}
+      {(product.data.video || (product.data.gallery?.length ?? 0) > 0) && (
+        <section class="pdp-showcase">
+          {product.data.video && (
+            <video class="pdp-showcase-video" src={product.data.video} controls playsinline preload="metadata"></video>
+          )}
+          {(product.data.gallery?.length ?? 0) > 0 && (
+            <div class="pdp-gallery">
+              {product.data.gallery.map((item) => (
+                <figure class="pdp-gallery-card">
+                  <img src={item.src} alt={item.alt} loading="lazy" />
+                  {item.caption && <figcaption>{item.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* ── WHAT IT DOES ── */}
+      <section class="pdp-about">
+        <div class="pdp-about-main">
+          <p class="eyebrow">Overview</p>
+          <h2 class="pdp-section-title">这是什么</h2>
+          <div class="pdp-about-copy">
+            <p>{product.data.description}</p>
+            {product.data.audience && <p class="muted">面向 {product.data.audience}。</p>}
+          </div>
+          {hasBody && (
+            <details class="pdp-about-details">
+              <summary>更多说明</summary>
+              <div class="blog-content pdp-about-body">
+                <Content />
+              </div>
+            </details>
+          )}
+        </div>
+        <aside class="pdp-about-side">
+          <div class="pdp-side-card">
+            <span class="product-side-label">Status</span>
+            <p>{statusLabels[product.data.status]}</p>
+          </div>
+          <div class="pdp-side-card">
+            <span class="product-side-label">Type</span>
+            <p>{typeLabels[product.data.type]}</p>
+          </div>
+          {product.data.platform && (
+            <div class="pdp-side-card">
+              <span class="product-side-label">Platform</span>
+              <p>{product.data.platform}</p>
+            </div>
+          )}
+        </aside>
+      </section>
+
+      {/* ── FEATURES GRID ── */}
+      {(product.data.highlights?.length ?? 0) > 0 && (
+        <section class="pdp-features">
+          <div class="pdp-features-head">
+            <p class="eyebrow">Features</p>
+            <h2 class="pdp-section-title">核心能力</h2>
+          </div>
+          <div class="pdp-feature-grid">
+            {product.data.highlights.map((item) => (
+              <article class="pdp-feature-card">
+                {item.illo && (
+                  <div class="pdp-feature-illo">
+                    <img src={item.illo} alt={item.title} loading="lazy" />
+                  </div>
+                )}
+                <strong>{item.title}</strong>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── STACK STRIP ── */}
+      <section class="pdp-stack-strip">
+        <div class="pdp-stack-meta">
+          <span class="product-side-label">Stack</span>
+          <div class="tag-list">
+            {product.data.stack.map((item) => (
+              <span class="tag tag-code">{item}</span>
+            ))}
+          </div>
+        </div>
+        <div class="pdp-stack-meta">
+          <span class="product-side-label">Published</span>
+          <span class="pdp-stack-date">{product.data.pubDate.toISOString().slice(0, 10)}</span>
+        </div>
+        {product.data.tags.length > 0 && (
+          <div class="pdp-stack-meta">
+            <span class="product-side-label">Tags</span>
+            <div class="tag-list">
+              {product.data.tags.map((tag) => (
+                <span class="tag tag-code">{tag}</span>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* ── RELATED POSTS ── */}
+      {validRelatedPosts.length > 0 && (
+        <section class="pdp-related">
+          <div class="pdp-related-head">
+            <p class="eyebrow">Related Writing</p>
+            <h2 class="pdp-section-title">相关文章</h2>
+          </div>
+          <div class="pdp-related-list">
+            {validRelatedPosts.map((post) => (
+              <a class="pdp-related-card" href={`/blog/${post.id}/`}>
+                <strong>{post.data.title}</strong>
+                {post.data.description && <span>{post.data.description}</span>}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── CTA BAND ── */}
+      <section class="pdp-cta-band">
+        <a class="button button-secondary" href="/products/">返回产品目录</a>
+      </section>
+
+    </article>
+  </main>
+</BaseLayout>

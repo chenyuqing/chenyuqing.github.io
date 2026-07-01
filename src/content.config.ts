@@ -32,4 +32,45 @@ const news = defineCollection({
   }),
 });
 
-export const collections = { blog, news };
+const products = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/products' }),
+  schema: z.object({
+    name: z.string().optional(),
+    title: z.string(),
+    tagline: z.string(),
+    description: z.string().default(''),
+    status: z.enum(['live', 'beta', 'experiment', 'archive']),
+    type: z.enum(['ai-tool', 'workflow', 'media-tool', 'infra']),
+    featured: z.boolean().default(false),
+    pinned: z.boolean().default(false),
+    order: z.number().optional(),
+    repo: z.string().url().optional(),
+    demo: z.string().url().optional(),
+    demoLabel: z.string().optional(),
+    docs: z.string().optional(),
+    cover: z.string().optional(),
+    illo: z.string().optional(),
+    video: z.string().optional(),
+    heroImage: z.string().optional(),
+    gallery: z.array(z.object({
+      src: z.string(),
+      alt: z.string(),
+      caption: z.string().optional(),
+    })).default([]),
+    highlights: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+      illo: z.string().optional(),
+    })).default([]),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    platform: z.string().optional(),
+    audience: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    stack: z.array(z.string()).default([]),
+    relatedPosts: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, news, products };

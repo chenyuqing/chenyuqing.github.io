@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+import { getCollection } from 'astro:content';
+
+const statusLabels: Record<string, string> = {
+  live: 'Live',
+  beta: 'Beta',
+  experiment: 'Experiment',
+  archive: 'Archive',
+};
+
+const typeLabels: Record<string, string> = {
+  'ai-tool': 'AI Tool',
+  workflow: 'Workflow',
+  'media-tool': 'Media Tool',
+  infra: 'Infra',
+};
+
+const products = (await getCollection('products', ({ data }) => !data.draft))
+  .sort((a, b) => {
+    if (a.data.pinned && !b.data.pinned) return -1;
+    if (!a.data.pinned && b.data.pinned) return 1;
+    if (typeof a.data.order === 'number' && typeof b.data.order === 'number') {
+      return a.data.order - b.data.order;
+    }
+    if (typeof a.data.order === 'number') return -1;
+    if (typeof b.data.order === 'number') return 1;
+    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+  });
+
+const featuredProducts = products.filter((p) => p.data.featured);
+const catalogProducts = products.filter((p) => !p.data.featured);
+const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
+  acc[p.data.status] = (acc[p.data.status] || 0) + 1;
+  return acc;
+}, {});
+---
+
+<BaseLayout title="Products | Tim Chen" description="把 GitHub 项目翻译成可理解的产品目录。" canonical="/products/">
+  <main id="content" class="shell page-simple">
+    <section class="section products-page-shell">
+      <div class="section-head products-hero">
+        <div>
+          <p class="eyebrow">Products</p>
+          <h1 class="section-title">产品目录</h1>
+          <p class="section-desc">把 GitHub 上的项目翻译成更可理解的产品层：它是什么，给谁用，解决什么问题，以及现在做到什么程度。</p>
+        </div>
+        <div class="products-stats" aria-label="Product status summary">
+          <div class="products-stat-card">
+            <strong>{products.length}</strong>
+            <span>Total</span>
+          </div>
+          <div class="products-stat-card">
+            <strong>{statusCounts.live || 0}</strong>
+            <span>Live</span>
+          </div>
+          <div class="products-stat-card">
+            <strong>{statusCounts.beta || 0}</strong>
+            <span>Beta</span>
+          </div>
+          <div class="products-stat-card">
+            <strong>{statusCounts.experiment || 0}</strong>
+            <span>Experiment</span>
+          </div>
+        </div>
+      </div>
+
+      {featuredProducts.length > 0 && (
+        <section class="products-featured-band reveal">
+          <div class="section-head section-head-tight products-band-head">
+            <p class="eyebrow eyebrow-on-dark">Featured</p>
+            <h2 class="section-title section-title-on-dark">重点产品</h2>
+          </div>
+          <div class="products-featured-list">
+            {featuredProducts.map((product) => (
+              <article class="product-feature-card product-feature-card-dark">
+                <div class="product-feature-main">
+                  <div class="product-card-eyebrow">
+                    <span class={`tag tag-product-status tag-product-status-${product.data.status}`}>{statusLabels[product.data.status]}</span>
+                    <span class="tag tag-product-type">{typeLabels[product.data.type]}</span>
+                  </div>
+                  <a class="product-feature-title-link" href={`/products/${product.id}/`}>
+                    <h3 class="product-feature-title">{product.data.title}</h3>
+                  </a>
+                  <p class="product-feature-tagline">{product.data.tagline}</p>
+                  <p class="product-feature-desc">{product.data.description}</p>
+                  <div class="tag-list">
+                    {product.data.stack.slice(0, 4).map((item) => (
+                      <span class="tag tag-on-dark">{item}</span>
+                    ))}
+                  </div>
+                  <div class="product-feature-actions">
+                    <a class="button button-on-dark" href={`/products/${product.id}/`}>查看产品</a>
+                    {product.data.repo && (
+                      <a class="button button-on-dark-secondary" href={product.data.repo} target="_blank" rel="noreferrer">GitHub</a>
+                    )}
+                    {product.data.demo && (
+                      <a class="button button-on-dark-secondary" href={product.data.demo} target="_blank" rel="noreferrer">{product.data.demoLabel || 'Demo'}</a>
+                    )}
+                  </div>
+                </div>
+                {product.data.illo && (
+                  <a class="product-feature-illo" href={`/products/${product.id}/`} aria-label={product.data.title}>
+                    <img src={product.data.illo} alt="" loading="lazy" />
+                  </a>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section class="section reveal">
+        <div class="catalog-head">
+          <div class="section-head section-head-tight">
+            <p class="eyebrow">Catalog</p>
+            <h2 class="section-title">产品列表</h2>
+          </div>
+          <div class="products-view-toggle" role="radiogroup" aria-label="视图切换">
+            <button class="view-btn view-btn-card view-btn-active" data-view="card" aria-pressed="true" title="卡片视图">
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="1.5" width="6" height="6" rx="1.5"/><rect x="10.5" y="1.5" width="6" height="6" rx="1.5"/><rect x="1.5" y="10.5" width="6" height="6" rx="1.5"/><rect x="10.5" y="10.5" width="6" height="6" rx="1.5"/></svg>
+            </button>
+            <button class="view-btn view-btn-list" data-view="list" aria-pressed="false" title="列表视图">
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="4" x2="15" y2="4"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="14" x2="15" y2="14"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="product-catalog-wrap" data-view="card">
+          {(catalogProducts.length > 0 ? catalogProducts : featuredProducts).map((product) => (
+            <article class="product-catalog-item">
+              {product.data.illo && (
+                <a class="product-catalog-illo" href={`/products/${product.id}/`} aria-label={product.data.title}>
+                  <img src={product.data.illo} alt="" loading="lazy" />
+                </a>
+              )}
+              <div class="product-catalog-body">
+                <div class="product-card-eyebrow">
+                  <span class={`tag tag-product-status tag-product-status-${product.data.status}`}>{statusLabels[product.data.status]}</span>
+                  <span class="tag tag-product-type">{typeLabels[product.data.type]}</span>
+                </div>
+                <a class="product-catalog-title" href={`/products/${product.id}/`}>
+                  <h3>{product.data.title}</h3>
+                </a>
+                <p class="product-catalog-tagline">{product.data.tagline}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="products-note">
+          <p class="eyebrow">Build Notes</p>
+          <p>这里展示的不是仓库总表，而是已经被翻译成"产品语言"的项目。方法论和拆解文章继续放在 <a href="/blog/">/blog/</a>，源码和开发痕迹留在 GitHub。</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script is:inline>
+    (function () {
+      var wrap = document.querySelector('.product-catalog-wrap');
+      var btns = document.querySelectorAll('.view-btn');
+      if (!wrap || !btns.length) return;
+      var saved = localStorage.getItem('products-view');
+      if (saved === 'list' || saved === 'card') {
+        wrap.setAttribute('data-view', saved);
+        btns.forEach(function (b) {
+          var active = b.getAttribute('data-view') === saved;
+          b.classList.toggle('view-btn-active', active);
+          b.setAttribute('aria-pressed', active);
+        });
+      }
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var v = btn.getAttribute('data-view');
+          wrap.setAttribute('data-view', v);
+          localStorage.setItem('products-view', v);
+          btns.forEach(function (b) {
+            var active = b.getAttribute('data-view') === v;
+            b.classList.toggle('view-btn-active', active);
+            b.setAttribute('aria-pressed', active);
+          });
+        });
+      });
+    })();
+  </script>
+</BaseLayout>

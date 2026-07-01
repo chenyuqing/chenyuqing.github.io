@@ -6,9 +6,10 @@
 ## 项目速览
 
 - 技术栈：Astro 6 静态站点生成（SSG），`output: 'static'`
-- 内容：两个 Astro content collection
+- 内容：三个 Astro content collection
   - `blog` —— 深度文章/播客文章
   - `news` —— 快讯/短评
+  - `products` —— 产品目录
 - 部署：GitHub Pages，推送 `main` 后自动部署
 - 核心文件：
   - `src/content.config.ts` —— 内容 schema
@@ -63,6 +64,9 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [ ] 没有按 series 聚合入口的增强（已有系列分组，但未做系列首页）
 - [ ] 没有站内搜索页面（AI Agent 已有问答，但缺少传统搜索）
 - [ ] 没有内容归档/时间线页面
+- [x] 新增 `products` content collection 与产品目录页
+- [x] `/products/` 列表页视觉化：Featured Band (dark) + Catalog 卡片/列表视图切换
+- [x] 4 个产品上线：Subtitle Maker / Clip Agent / ASD Pipeline / VoiceWave Profile
 
 ## 2026-06-30 会话记录
 
@@ -128,6 +132,22 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
     - 首页双栏触屏点按展开（tap-to-expand）
     - 表格窄屏横向滚动（overflow-x: auto）
     - 移动端字号/间距/卡片尺寸收紧
+19. 新增 Products 内容线：
+    - 新增 `products` collection，独立于 blog/news
+    - 新增 `/products/` 列表页与 `/products/[slug]/` 详情页
+    - 产品页采用“产品语言”而非 GitHub 仓库视角，突出定位、受众、状态、stack 与相关文章
+20. 首个产品条目 `Subtitle Maker`：
+    - 以 `beta / media-tool` 进入产品目录
+    - 提炼为“本地完成字幕、翻译、配音与成片导出的 Mac 工作台”
+    - 关联 `pi-voxcpm-dubbing`、`pi-hard-subtitle-extraction`、`pi-seed-vc-voice-cloning` 三篇 blog
+21. 导航与 About 接入 Products：
+    - Header 内容下拉新增 `Products`
+    - Footer Site 列新增 `产品`
+    - About 中 `Subtitle Maker` 卡片改为链接到真实产品页，并新增产品目录入口区块
+22. 新增第二个产品条目 `ASD Pipeline`：
+    - 定位为 `experiment / ai-tool`
+    - 提炼为“把 Active Speaker Detection 变成可恢复、可测试、可复用的本地能力入口”
+    - 关联 `pi-active-speaker-detection` 文章，作为视频理解基础能力模块进入产品目录
 
 ### 最新提交
 
@@ -144,6 +164,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - 文章页若有宽表格（如 LLM 推理效率教程），在窄屏上可能溢出。已加 `overflow-x:auto` 给 pre 但未给 table。下次确认是否需要 table 响应式。
 - 详情页 verdict 标签现在是可点击的 span 样式，未来可能也需要链接。
 - 首页视觉方向正在从 warm editorial 橙转向红灰科技感试探，后续需要整体协调（header、footer、blog 区等是否跟进）。
+- `products` 已有 `Subtitle Maker` 和 `ASD Pipeline` 两条，后续仍需继续补第三、第四个产品，形成更完整的目录层。
 
 ## 设计规范摘要
 
@@ -170,6 +191,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - 考虑增加站内搜索页（或把 AI Agent 的检索能力暴露为搜索 UI）。
 - 考虑增强 series 页面，做成独立系列入口页。
 - 持续保持播客文章详情页的排版质量，后续每篇新文都要符合当前样式。
+- 持续补充 `products` 条目，把适合展示的 GitHub 项目转成产品页。
 
 ## 下次会话 TODO
 
@@ -177,6 +199,30 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 2. 开始前检查本文件状态；结束后更新本文件。
 3. 每次变更后运行 `npm run build` 验证，通过后再 push。
 
+## 2026-07-01 会话记录
+
+### 今天完成
+
+1. `/products/` 列表页视觉化改进（多轮迭代）：
+   - **Featured Band 保留**：深色背景大卡，右侧产品 illo（`max-height: 200px`），文字含 title + tagline + description + stack + actions
+   - **Catalog 卡片视图**：上图下文，`height: 320px`，图占 3/5（`flex: 3`），文占 2/5（`flex: 2`），文字精简为 status + type + 标题 + tagline
+   - **Catalog 列表视图**：行式紧凑布局，48px 圆角缩略图 + 标题 + tagline 单行
+   - **视图切换按钮**：Catalog heading 右侧卡片/列表 toggle，选择记忆 localStorage
+   - 删除 catalog 卡片的 tags 列表、日期、详情按钮，点击整个 illo 或标题跳转详情页
+   - 移动端：Featured 卡片和 catalog wrap 单列，illo 高度缩小
+2. 产品条目增加到 4 个：
+   - Subtitle Maker (beta/featured) / Clip Agent (live/featured)
+   - ASD Pipeline (experiment) / VoiceWave Profile (experiment)
+3. 产品 illo 全套完成：4 张主题 illo + 12 张核心能力插图
+
+### 当前未解决问题
+
+- 文章页若有宽表格（如 LLM 推理效率教程），在窄屏上可能溢出。已加 `overflow-x:auto` 给 pre 但未给 table。下次确认是否需要 table 响应式。
+- 详情页 verdict 标签现在是可点击的 span 样式，未来可能也需要链接。
+- 首页视觉方向正在从 warm editorial 橙转向红灰科技感试探，后续需要整体协调。
+- products 列表页可考虑后续加入筛选（按 status/type）。
+
 ## 变更历史
 
+- 2026-07-01：`/products/` 列表页视觉化重构，Featured Band 保留 + Catalog 卡片(3:2图文比)/列表双视图 + 产品增至4个 + 响应式。
 - 2026-06-30：创建本 DEVLOG.md，记录当前状态与当天变更；与 AGENTS.md 完成交叉同步（verdict schema、新增博客模板、DEVLOG 指向说明）。
