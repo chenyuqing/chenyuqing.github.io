@@ -1134,6 +1134,12 @@ main {
   -webkit-user-select: none;
 }
 
+.side-mascot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .side-mascot-left {
   top: 0;
   left: calc((100vw - min(1200px, 100vw)) / 2 - 200px);

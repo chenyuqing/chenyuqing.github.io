@@ -764,8 +764,14 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       })();
     </script>
     <button id="ai-agent-btn" class="ai-fab" aria-label="AI Agent" data-i18n-aria-label="ai_agent_aria">AI</button>
-    <img src="/media/illo/elephant-left.png" alt="" class="side-mascot side-mascot-left" aria-hidden="true" decoding="async" loading="lazy" />
-    <img src="/media/illo/elephant-right.png" alt="" class="side-mascot side-mascot-right" aria-hidden="true" decoding="async" loading="lazy" />
+    <picture class="side-mascot side-mascot-left" aria-hidden="true">
+      <source srcset="/media/illo/elephant-left.avif" type="image/avif" />
+      <img src="/media/illo/elephant-left.png" alt="" decoding="async" loading="lazy" />
+    </picture>
+    <picture class="side-mascot side-mascot-right" aria-hidden="true">
+      <source srcset="/media/illo/elephant-right.avif" type="image/avif" />
+      <img src="/media/illo/elephant-right.png" alt="" decoding="async" loading="lazy" />
+    </picture>
 
     <aside id="ai-agent-panel" class="ai-panel" aria-hidden="true">
       <div class="ai-panel-head">
