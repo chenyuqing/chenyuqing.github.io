@@ -305,8 +305,16 @@ class 前缀统一为 `pdp-`（Product Detail Page）：
 
 ### Catalog 列表视图
 
-- 单列，无边框行式，`border-bottom` 分隔
-- 48px 圆角缩略图 + 标题 + tagline（单行截断）
+- 单列，`border-bottom` 分隔
+- 左侧不是固定方块缩略图，而是**按列表行高自适应**的产品 illo：
+  - `.product-catalog-illo { align-self: stretch; height: auto; width: auto; }`
+  - `img { height: 100%; width: auto; object-fit: contain; }`
+  - 上下加留白，避免贴住分割线
+- 右侧信息比卡片视图更丰富，但不写成长段：
+  - title
+  - tagline
+  - meta capsules：platform / stack 前 2 项 / tags 第 1 项
+- 卡片视图保持极简，列表视图承担更多“信息面”展示
 - 切换按钮：`.view-btn`，选择存 `localStorage('products-view')`
 
 ### 视图切换
@@ -329,3 +337,5 @@ class 前缀统一为 `pdp-`（Product Detail Page）：
 | 2026-07-01 | What It Does 的 markdown body 改为折叠在 `<details>` 里 |
 | 2026-07-01 | 产品列表页视觉化重构：Featured Band 保留 + Catalog 卡片(3:2 图文比)/列表双视图 + 视图切换 toggle |
 | 2026-07-01 | 新增 Clip Agent / VoiceWave Profile 产品及全套 illo |
+| 2026-07-01 | 新增 Tonghua 产品及 1 张主题 illo + 3 张核心能力插图 |
+| 2026-07-01 | Catalog 列表视图定稿：图片按行高自适应，上下留白，右侧增加 meta capsules |

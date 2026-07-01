@@ -144,6 +144,12 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
                   <h3>{product.data.title}</h3>
                 </a>
                 <p class="product-catalog-tagline">{product.data.tagline}</p>
+                <div class="product-catalog-meta">
+                  {product.data.platform && <span class="product-catalog-meta-item">{product.data.platform}</span>}
+                  {product.data.stack[0] && <span class="product-catalog-meta-item">{product.data.stack[0]}</span>}
+                  {product.data.stack[1] && <span class="product-catalog-meta-item">{product.data.stack[1]}</span>}
+                  {product.data.tags[0] && <span class="product-catalog-meta-item">{product.data.tags[0]}</span>}
+                </div>
               </div>
             </article>
           ))}

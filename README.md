@@ -6,7 +6,7 @@ Personal site — blog, news, and product catalog. Built with Astro 6, deployed 
 
 - **Blog** (`/blog/`) — long-form articles on AI, coding agents, and workflow
 - **News** (`/news/`) — short-form AI industry updates, 5 categories
-- **Products** (`/products/`) — GitHub projects translated into product landing pages
+- **Products** (`/products/`) — GitHub projects translated into product landing pages and catalog views
 - **AI Agent** — in-page chat panel with OpenAI/Claude/Compatible providers
 
 ## Content collections
@@ -15,7 +15,7 @@ Personal site — blog, news, and product catalog. Built with Astro 6, deployed 
 |------------|------|-----------|
 | `blog` | `src/content/blog/*.md` | title, tags, verdict (adopt/trial/assess/hold), series |
 | `news` | `src/content/news/*.md` | title, category (5 types), tags, link |
-| `products` | `src/content/products/*.md` | title, tagline, status, type, illo, highlights |
+| `products` | `src/content/products/*.md` | title, tagline, status, type, illo, highlights, stack |
 
 ## Tech stack
 
@@ -43,3 +43,11 @@ Push to `main` triggers GitHub Actions Pages workflow.
 - `DEVLOG.md` — live development log (current state, decisions, TODO)
 - `proddev.md` — product page design spec
 - `DESIGN.md` — visual system definition
+
+## Current products
+
+- `Subtitle Maker` — local subtitle / dubbing workbench for Apple Silicon
+- `Clip Agent` — long-video highlight clipping for short-form platforms
+- `ASD Pipeline` — structured Active Speaker Detection workflow
+- `VoiceWave Profile` — talking avatar waveform video generator
+- `Tonghua` — AI fairy-tale iOS app using parents' cloned voices

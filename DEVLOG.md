@@ -66,7 +66,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [ ] 没有内容归档/时间线页面
 - [x] 新增 `products` content collection 与产品目录页
 - [x] `/products/` 列表页视觉化：Featured Band (dark) + Catalog 卡片/列表视图切换
-- [x] 4 个产品上线：Subtitle Maker / Clip Agent / ASD Pipeline / VoiceWave Profile
+- [x] 5 个产品上线：Subtitle Maker / Clip Agent / ASD Pipeline / VoiceWave Profile / Tonghua
 
 ## 2026-06-30 会话记录
 
@@ -206,14 +206,16 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 1. `/products/` 列表页视觉化改进（多轮迭代）：
    - **Featured Band 保留**：深色背景大卡，右侧产品 illo（`max-height: 200px`），文字含 title + tagline + description + stack + actions
    - **Catalog 卡片视图**：上图下文，`height: 320px`，图占 3/5（`flex: 3`），文占 2/5（`flex: 2`），文字精简为 status + type + 标题 + tagline
-   - **Catalog 列表视图**：行式紧凑布局，48px 圆角缩略图 + 标题 + tagline 单行
+   - **Catalog 列表视图**：行式紧凑布局，图片按列表行高自适应（fit to 行高，带上下留白），右侧显示 title + tagline + meta capsules（platform / stack / tag）
    - **视图切换按钮**：Catalog heading 右侧卡片/列表 toggle，选择记忆 localStorage
    - 删除 catalog 卡片的 tags 列表、日期、详情按钮，点击整个 illo 或标题跳转详情页
    - 移动端：Featured 卡片和 catalog wrap 单列，illo 高度缩小
-2. 产品条目增加到 4 个：
+2. 产品条目增加到 5 个：
    - Subtitle Maker (beta/featured) / Clip Agent (live/featured)
    - ASD Pipeline (experiment) / VoiceWave Profile (experiment)
-3. 产品 illo 全套完成：4 张主题 illo + 12 张核心能力插图
+   - Tonghua (beta)
+3. 产品 illo 全套完成：5 张主题 illo + 15 张核心能力插图
+   - Tonghua 新增 1 张主题 illo + 3 张核心能力插图
 
 ### 当前未解决问题
 
@@ -224,5 +226,5 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 
 ## 变更历史
 
-- 2026-07-01：`/products/` 列表页视觉化重构，Featured Band 保留 + Catalog 卡片(3:2图文比)/列表双视图 + 产品增至4个 + 响应式。
+- 2026-07-01：`/products/` 列表页视觉化重构，Featured Band 保留 + Catalog 卡片(3:2图文比)/列表双视图 + 最终列表视图采用按行高自适应图片 + meta capsules + 产品增至5个。
 - 2026-06-30：创建本 DEVLOG.md，记录当前状态与当天变更；与 AGENTS.md 完成交叉同步（verdict schema、新增博客模板、DEVLOG 指向说明）。
