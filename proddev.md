@@ -165,6 +165,10 @@ NO LABELS, NO TEXT, NO TITLE.
 | `vw-feature-face.png` | VoiceWave / 智能人脸裁剪 | 小象用人脸检测框选取头像 |
 | `vw-feature-audio.png` | VoiceWave / 音频同步动画 | 小象配音波可视化振幅 |
 | `vw-feature-styles.png` | VoiceWave / 5 种视觉风格 | 小象面对 5 个风格卡片 |
+| `tonghua.png` | Tonghua hero | 小象坐在圆毯上读故事书，旁边手机显示声波 |
+| `th-feature-clone.png` | Tonghua / 15 秒声音克隆 | 小象握麦克风，口中飘出半透明声音分身 |
+| `th-feature-story.png` | Tonghua / AI 童话生成 | 小象在小木桌前用羽毛笔写卷轴，上方闪烁城堡和龙 |
+| `th-feature-ios.png` | Tonghua / 原生 iOS 体验 | 小象举起 iPhone 边框展示 App 图标 |
 
 ---
 
