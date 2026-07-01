@@ -147,6 +147,11 @@ Featured Band（深色背景大卡 + 产品 illo）+ Catalog 区（卡片/列表
 - 通用卡片、按钮、导航、footer 使用 1px hairline 边框和近乎无阴影；只有吉祥物/头像等品牌锚点保留较强描边
 - 首页节奏是刻意交替的：浅色内容区 → 深色 news 区 → 橙色 CTA，不要再改回整页同一种卡片节奏
 
+## 响应式断点
+
+- **980px（平板）**：Footer 单列、首页网格单列、blog 详情单列、product-feature-card 单列、pdp-feature-grid/related-list 2 列
+- **720px（手机）**：Shell 宽度收紧、导航折叠、products-stats 2 列、catalog 单列/列表视图垂直堆叠、pdp-* 全部单列
+
 ## 国际化 / 主题
 
 - **没有使用 i18n 框架**。翻译是硬编码在 `BaseLayout.astro` 内联 `<script>` 的 `I18N` 对象。

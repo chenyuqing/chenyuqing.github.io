@@ -224,7 +224,20 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - 首页视觉方向正在从 warm editorial 橙转向红灰科技感试探，后续需要整体协调。
 - products 列表页可考虑后续加入筛选（按 status/type）。
 
+## 2026-07-01 会话记录（续）
+
+### 今天完成（下半场）
+
+1. **产品页移动端适配修复**（`src/styles/global.css`）：
+   - **980px 平板断点**：`.product-feature-card` 单列（illo 上文字下）、`.pdp-feature-grid` 和 `.pdp-related-list` 改为 2 列
+   - **720px 手机断点**：
+     - `.products-stats`：4 列 → 2 列（修复溢出）
+     - `.product-catalog-item`：固定 320px → `height: auto`（去除多余空白）
+     - `.products-featured-band`：padding 1.2rem → 0.85rem
+     - `.product-catalog-wrap`：gap 1.2rem → 0.85rem
+     - 列表视图：`flex-direction: column`，illo 改为 `max-height: 110px; width: 100%`，body grid 回退 1 列
+2. 产品插图全部切换为 AVIF（20 张），`src/content/products/*.md` 引用同步更新，已推送。
+
 ## 变更历史
 
-- 2026-07-01：`/products/` 列表页视觉化重构，Featured Band 保留 + Catalog 卡片(3:2图文比)/列表双视图 + 最终列表视图采用按行高自适应图片 + meta capsules + 产品增至5个。
-- 2026-06-30：创建本 DEVLOG.md，记录当前状态与当天变更；与 AGENTS.md 完成交叉同步（verdict schema、新增博客模板、DEVLOG 指向说明）。
+- 2026-07-01（续）：产品列表页 & 详情页移动端适配补全（980px 平板断点 + 720px 手机断点修复），产品插图全部切换 AVIF 并推送。
