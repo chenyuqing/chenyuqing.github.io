@@ -10,7 +10,7 @@ pinned: true
 repo: "https://github.com/chenyuqing/subtitle-maker/tree/codex/omnivoice-speaker-upload-milestone-20260507"
 demo: "http://localhost:8000"
 demoLabel: "本地 Demo"
-illo: "/media/illo/products/subtitle-maker.png"
+illo: "/media/illo/products/subtitle-maker.avif"
 docs: "README"
 platform: "macOS (Apple Silicon)"
 audience: "视频创作者、播客剪辑、字幕翻译与配音工作流用户"
@@ -22,13 +22,13 @@ relatedPosts: ["pi-voxcpm-dubbing", "pi-hard-subtitle-extraction", "pi-seed-vc-v
 highlights:
   - title: "本地优先"
     description: "转写在本机完成，减少敏感音频上传，适合需要更强隐私边界的工作流。"
-    illo: "/media/illo/products/sm-feature-local.png"
+    illo: "/media/illo/products/sm-feature-local.avif"
   - title: "一条链路走完"
     description: "从视频上传、字幕识别、翻译到配音和成片导出，都在同一个工作台里完成。"
-    illo: "/media/illo/products/sm-feature-pipeline.png"
+    illo: "/media/illo/products/sm-feature-pipeline.avif"
   - title: "面向真实生产"
     description: "支持长视频、SRT 导入、时间区间处理、断点恢复和最终 MP4/ASS/SRT 输出。"
-    illo: "/media/illo/products/sm-feature-output.png"
+    illo: "/media/illo/products/sm-feature-output.avif"
 draft: false
 ---
 

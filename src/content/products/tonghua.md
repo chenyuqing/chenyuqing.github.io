@@ -9,7 +9,7 @@ featured: false
 pinned: false
 order: 5
 repo: "https://github.com/chenyuqing/Tonghua"
-illo: "/media/illo/products/tonghua.png"
+illo: "/media/illo/products/tonghua.avif"
 docs: "README"
 platform: "iOS 17+"
 audience: "年轻父母、家庭用户、想用 AI 丰富亲子互动的人"
@@ -20,13 +20,13 @@ stack: ["SwiftUI", "MVVM", "DeepSeek API", "MiniMax API", "AVFoundation"]
 highlights:
   - title: "15 秒声音克隆"
     description: "录制一段短语音，MiniMax API 在云端完成声音克隆，之后任何故事都能用父母的声音朗读。"
-    illo: "/media/illo/products/th-feature-clone.png"
+    illo: "/media/illo/products/th-feature-clone.avif"
   - title: "AI 童话生成"
     description: "DeepSeek 根据主题和角色自动编写完整童话，支持自定义故事方向，中英粤三语输出。"
-    illo: "/media/illo/products/th-feature-story.png"
+    illo: "/media/illo/products/th-feature-story.avif"
   - title: "原生 iOS 体验"
     description: "SwiftUI + @Observable + NavigationStack，iOS 17 专属特性全用上，动画流畅、无障碍完备。"
-    illo: "/media/illo/products/th-feature-ios.png"
+    illo: "/media/illo/products/th-feature-ios.avif"
 draft: false
 ---
 

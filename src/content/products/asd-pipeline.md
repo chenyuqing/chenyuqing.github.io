@@ -8,7 +8,7 @@ type: "ai-tool"
 featured: false
 pinned: false
 repo: "https://github.com/chenyuqing/asd-pipeline"
-illo: "/media/illo/products/asd-pipeline.png"
+illo: "/media/illo/products/asd-pipeline.avif"
 docs: "README"
 platform: "macOS / Apple Silicon"
 audience: "视频理解实验、说话人分析、字幕与多模态工作流开发者"
@@ -20,13 +20,13 @@ relatedPosts: ["pi-active-speaker-detection"]
 highlights:
   - title: "阶段式运行"
     description: "把 extract、detect、track、score、render 拆成显式阶段，便于局部调试和定位问题。"
-    illo: "/media/illo/products/asd-feature-staged.png"
+    illo: "/media/illo/products/asd-feature-staged.avif"
   - title: "恢复与复用"
     description: "支持从中间工件恢复、跳过已有阶段、强制重跑指定阶段，适合离线实验流程。"
-    illo: "/media/illo/products/asd-feature-resume.png"
+    illo: "/media/illo/products/asd-feature-resume.avif"
   - title: "结构化结果"
     description: "统一产出 tracks、frame scores、predictions 等 JSON 工件，便于后续分析和集成。"
-    illo: "/media/illo/products/asd-feature-structured.png"
+    illo: "/media/illo/products/asd-feature-structured.avif"
 draft: false
 ---
 

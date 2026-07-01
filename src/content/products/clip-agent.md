@@ -9,7 +9,7 @@ featured: true
 pinned: false
 order: 2
 repo: "https://github.com/chenyuqing/clip_agent_2/tree/lrasd-focus-cropping"
-illo: "/media/illo/products/clip-agent.png"
+illo: "/media/illo/products/clip-agent.avif"
 docs: "README"
 platform: "macOS / Linux / Docker"
 audience: "内容创作者、短视频运营、播客剪辑、社交媒体团队"
@@ -21,13 +21,13 @@ relatedPosts: ["pi-active-speaker-detection", "pi-voxcpm-dubbing"]
 highlights:
   - title: "AI 高光识别"
     description: "基于字幕内容做多模型 AI 分析，按平台偏好不同信号选出最具传播力的片段。YouTube 看知识密度，TikTok 看情绪爆点，小红书看实用经验。"
-    illo: "/media/illo/products/ca-feature-highlights.png"
+    illo: "/media/illo/products/ca-feature-highlights.avif"
   - title: "智能人形跟踪裁剪"
     description: "YOLOv11n + IoU 轻量跟踪算法，动态视频面积优先、静态视频位置优先。ASD 命中时直接跟说话人，短时缺失时继续视觉跟踪上一说话人。"
-    illo: "/media/illo/products/ca-feature-tracking.png"
+    illo: "/media/illo/products/ca-feature-tracking.avif"
   - title: "6 平台一键适配"
     description: "TikTok / Instagram / YouTube Shorts / Threads / 小红书 / Twitter 全覆盖，4K 智能下采样到 2K，自动适配时长、宽高比和分辨率。"
-    illo: "/media/illo/products/ca-feature-platforms.png"
+    illo: "/media/illo/products/ca-feature-platforms.avif"
 draft: false
 ---
 

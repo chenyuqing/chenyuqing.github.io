@@ -9,7 +9,7 @@ featured: false
 pinned: false
 order: 4
 repo: "https://github.com/chenyuqing/voicewave_profile/tree/feature/podcast-automation"
-illo: "/media/illo/products/voicewave-profile.png"
+illo: "/media/illo/products/voicewave-profile.avif"
 docs: "README"
 platform: "macOS / Linux"
 audience: "播客创作者、短视频博主、内容团队需要自动化头像视频的人"
@@ -21,13 +21,13 @@ relatedPosts: ["pi-voxcpm-dubbing"]
 highlights:
   - title: "智能人脸裁剪"
     description: "自动检测照片中最佳人脸区域并裁剪为头像，不需要手动调整位置和比例。"
-    illo: "/media/illo/products/vw-feature-face.png"
+    illo: "/media/illo/products/vw-feature-face.avif"
   - title: "音频同步动画"
     description: "实时分析音频特征，音波动画与语音节奏同步，让头像视频有呼吸感而不只是静态图。"
-    illo: "/media/illo/products/vw-feature-audio.png"
+    illo: "/media/illo/products/vw-feature-audio.avif"
   - title: "5 种视觉风格"
     description: "elegant 优雅绿 / dynamic 动感粉 / minimal 简约白 / cyber 赛博朋克 / ocean 海洋蓝，覆盖不同内容调性。"
-    illo: "/media/illo/products/vw-feature-styles.png"
+    illo: "/media/illo/products/vw-feature-styles.avif"
 draft: false
 ---
 
