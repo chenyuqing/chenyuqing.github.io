@@ -1719,7 +1719,12 @@ main {
 .footer-social-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-hairline);
+  transition: border-color 150ms ease, color 150ms ease;
 }
 
 .footer-social-link svg {
@@ -1727,8 +1732,19 @@ main {
   opacity: 0.7;
 }
 
+.footer-social-link:hover {
+  border-color: var(--color-muted-soft);
+  color: var(--color-ink);
+}
+
 .footer-social-link:hover svg {
   opacity: 1;
+}
+
+.footer-social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 36px);
+  gap: 0.5rem;
 }
 
 .footer-col a:last-child,
