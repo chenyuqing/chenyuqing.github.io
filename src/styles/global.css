@@ -1716,6 +1716,21 @@ main {
   color: var(--color-ink);
 }
 
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-social-link svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.footer-social-link:hover svg {
+  opacity: 1;
+}
+
 .footer-col a:last-child,
 .footer-col .footer-inline-btn:last-child {
   margin-bottom: 0;
