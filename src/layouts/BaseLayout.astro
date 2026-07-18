@@ -80,6 +80,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           <nav class="site-nav" aria-label="Primary">
             <a class="nav-pill" href="/" aria-current={pathname === '/' ? 'page' : undefined} data-i18n="nav_home">首页</a>
             <a class="nav-pill" href="/products/" aria-current={pathname.startsWith('/products') ? 'page' : undefined} data-i18n="nav_products">产品</a>
+            <a class="nav-pill" href="/games/" aria-current={pathname.startsWith('/games') ? 'page' : undefined} data-i18n="nav_games">游戏</a>
             <div class="nav-dropdown" id="nav-content-dropdown">
               <button class="nav-pill nav-dropdown-trigger" type="button" aria-expanded="false" data-i18n="nav_content">内容 ▾</button>
               <div class="nav-dropdown-menu">
@@ -163,6 +164,11 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             </div>
 
             <div class="footer-col">
+              <p class="footer-col-title" data-i18n="footer_col_games">Games</p>
+              <a href="/games/" data-i18n="footer_games">游戏专区</a>
+            </div>
+
+            <div class="footer-col">
               <p class="footer-col-title" data-i18n="footer_col_site">Site</p>
               <a href="/about/" data-i18n="footer_about">关于</a>
               <button class="footer-inline-btn" type="button" id="footer-ai-trigger" data-i18n="footer_ai">AI 问答</button>
@@ -207,6 +213,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             nav_blog_desc: '读长文内容，关注工作流、产品与实践',
             nav_products: '产品',
             nav_products_desc: '查看我把 GitHub 项目打磨成什么样的产品',
+            nav_games: '游戏',
             nav_news: 'AI新闻',
             nav_news_desc: '看最新模型、产品发布与 AI 领域动态',
             nav_github: 'GitHub',
@@ -226,8 +233,10 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             footer_col_writing: 'Writing',
             footer_col_site: '站点',
             footer_col_products: '产品',
+            footer_col_games: '游戏',
             footer_col_contact: '联系',
             footer_products: '产品',
+            footer_games: '游戏专区',
             footer_home: '首页',
             footer_about: '关于',
             footer_blog: '播客',
@@ -410,6 +419,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             nav_blog_desc: 'Read long-form writing on workflows, products, and practice',
             nav_products: 'Products',
             nav_products_desc: 'See how GitHub projects are translated into user-facing products',
+            nav_games: 'Games',
             nav_news: 'AI News',
             nav_news_desc: 'Track new models, launches, and AI industry movement',
             nav_github: 'GitHub',
@@ -429,8 +439,10 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             footer_col_writing: 'Writing',
             footer_col_site: 'Site',
             footer_col_products: 'Products',
+            footer_col_games: 'Games',
             footer_col_contact: 'Contact',
             footer_products: 'Products',
+            footer_games: 'Game Zone',
             footer_home: 'Home',
             footer_about: 'About',
             footer_blog: 'Podcast',

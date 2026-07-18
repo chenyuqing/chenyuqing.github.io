@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+
+const games = [
+  {
+    title: '楚汉争锋',
+    type: '棋类 / 本地对弈',
+    description: '3D 中国象棋。旋转棋盘，选择红黑阵营，落下每一步。',
+    cover: '/media/illo/games/chinese-chess-xiaoxiang.png',
+    href: '/games/chinese-chess/',
+  },
+];
+---
+
+<BaseLayout title="游戏 · Tim Chen" description="可直接在浏览器游玩的互动实验。">
+  <main id="content" class="games-page">
+    <section class="library shell">
+      <div class="game-grid">
+        {games.map((game, index) => (
+          <a class="game-card" href={game.href}>
+            <div class="game-card-cover">
+              <img src={game.cover} alt={`${game.title}游戏封面`} />
+              <span class="game-index">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <div class="game-card-body">
+              <p class="game-type">{game.type}</p>
+              <h2>{game.title}</h2>
+              <p class="game-description">{game.description}</p>
+              <span class="game-action">进入游戏 <b aria-hidden="true">→</b></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .games-page { min-height: 100dvh; padding: 6.5rem 0; background: #11100d; color: #eee4cc; }
+    .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1rem; }
+    .game-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid rgba(240,223,179,.24); border-radius: 6px; background: #1b1914; color: inherit; text-decoration: none; transition: border-color .2s ease, transform .2s ease; }
+    .game-card:hover { border-color: #d1a843; transform: translateY(-4px); }
+    .game-card-cover { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-bottom: 1px solid rgba(240,223,179,.24); background: #d1aa57; }
+    .game-card-cover img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+    .game-card:hover .game-card-cover img { transform: scale(1.035); }
+    .game-index { position: absolute; top: .8rem; left: .8rem; padding: .38rem .45rem; background: rgba(17,16,13,.82); color: #f0cf76; font: .72rem/1 var(--font-mono); }
+    .game-card-body { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 1.35rem; }
+    .game-type { margin: 0; color: #b69a61; font: 700 .68rem/1.3 var(--font-body); letter-spacing: .1em; }
+    .game-card h2 { margin: .55rem 0 .7rem; color: #f4e8cb; font-size: 2.15rem; letter-spacing: 0; line-height: .95; }
+    .game-description { margin: 0; color: #c9bda2; line-height: 1.7; }
+    .game-action { margin-top: auto; padding-top: 1.4rem; color: #d1a843; font: 700 .75rem/1 var(--font-body); letter-spacing: .08em; }
+    .game-action b { margin-left: .25rem; font-size: 1rem; }
+    @media (max-width: 720px) { .games-page { padding: 4.4rem 0; } .game-grid { grid-template-columns: 1fr; } }
+  </style>
+</BaseLayout>

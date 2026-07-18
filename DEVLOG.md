@@ -67,6 +67,20 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [x] 新增 `products` content collection 与产品目录页
 - [x] `/products/` 列表页视觉化：Featured Band (dark) + Catalog 卡片/列表视图切换
 - [x] 5 个产品上线：Subtitle Maker / Clip Agent / ASD Pipeline / VoiceWave Profile / Tonghua
+- [x] 新增游戏专区与 3D 中国象棋
+
+## 2026-07-18 会话记录
+
+### 今天完成
+
+1. 新增 `/games/` 游戏专区，以可扩展的游戏目录呈现当前可玩的游戏与后续位置。
+2. 新增 `/games/chinese-chess/` 二级详情页，包含玩法信息、返回专区入口、全屏控制与嵌入式对局。
+3. 用户提供的自包含中国象棋页面作为 `/games/chinese-chess-3d.html` 独立资源保留运行，并增加高可见的返回首页按钮。
+4. Header 与 Footer 均增加游戏专区入口，并补充中英文导航文本。
+5. 游戏专区首页改为深色游戏大厅：使用实际 3D 棋局作为主视觉，仅展示已上线游戏和单行游戏库索引。
+6. 中国象棋二级页直接进入原始全屏游戏，不嵌入 iframe；游戏顶部提供返回游戏专区入口。
+7. 游戏库页移除重复的“AVAILABLE GAMES / 游戏库”标题，保持深色大厅背景；象棋开场页在“开战”下方增加同样式的“退出”主按钮，返回 `/games/`。
+8. 已运行 `npm run build`，静态构建通过。
 
 ## 2026-06-30 会话记录
 
