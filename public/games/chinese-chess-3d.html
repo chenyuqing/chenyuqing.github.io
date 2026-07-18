@@ -75,7 +75,7 @@
     padding-right:calc(14px + env(safe-area-inset-right));
     padding-bottom:calc(14px + env(safe-area-inset-bottom));
   }
-  #panel.collapsed{transform:translateX(280px);}
+  #panel.collapsed{transform:translateX(calc(100% + 16px));}
   #panel::-webkit-scrollbar{width:6px;}
   #panel::-webkit-scrollbar-thumb{background:rgba(212,160,23,.4);border-radius:3px;}
   #panel-toggle{
@@ -84,7 +84,7 @@
     font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;
     transition:right .4s;box-shadow:0 4px 12px rgba(0,0,0,.5);
   }
-  #panel.collapsed~#panel-toggle,#panel-toggle.moved{right:290px;}
+  #panel:not(.collapsed)~#panel-toggle,#panel-toggle.moved{right:290px;}
   .sec-title{
     font-size:15px;color:var(--gold);letter-spacing:3px;margin:12px 0 8px;
     border-bottom:1px solid rgba(212,160,23,.35);padding-bottom:4px;
@@ -183,13 +183,14 @@
      #home-link{margin-left:8px;padding:8px 10px;font-size:13px;}
     #turn-badge{font-size:16px;padding:6px 14px;letter-spacing:2px;}
     #topbar{height:52px;padding:0 12px;}
-    #panel{width:200px;top:60px;right:8px;bottom:8px;padding:10px 10px 8px;}
+    #panel{width:min(88vw,320px);top:60px;right:8px;bottom:8px;padding:10px 10px 8px;}
     #panel-toggle{top:68px;right:8px;}
-    #panel.collapsed~#panel-toggle,#panel-toggle.moved{right:216px;}
+    #panel:not(.collapsed)~#panel-toggle,#panel-toggle.moved{right:min(calc(88vw + 16px),336px);}
     .gbtn{font-size:15px;padding:10px 6px;min-height:44px;min-width:90px;}
     .sec-title{font-size:13px;margin:10px 0 6px;}
     #captured-box{font-size:17px;}
     #status-line{font-size:13px;}
+    #toast{top:62px;font-size:22px;letter-spacing:4px;max-width:calc(100vw - 32px);text-align:center;white-space:normal;}
     #intro-title{font-size:32px;letter-spacing:6px;}
     #intro-sub{font-size:14px;letter-spacing:2px;}
     .intro-opt{font-size:16px;padding:9px 14px;}
@@ -198,7 +199,6 @@
     #win-text{font-size:48px;letter-spacing:10px;}
   }
   @media (max-width:760px) and (orientation:portrait){
-    #panel{width:min(88vw,280px);}
     .gbtn{font-size:16px;}
     #intro-card{padding:28px 22px 26px;}
   }
@@ -1722,13 +1722,18 @@ function slashArc(fromPos, toPos, colorHex) {
 }
 
 // ================= 场景初始化 =================
+function getDefaultCameraPosition() {
+  const portraitPhone = matchMedia('(max-width: 760px) and (orientation: portrait)').matches;
+  return portraitPhone ? new THREE.Vector3(0, 34, 42) : new THREE.Vector3(0, 26, 31);
+}
+
 function initScene() {
   scene = new THREE.Scene();
   scene.fog = new THREE.Fog(0x8a5a40, 55, 150);
   clock = new THREE.Clock();
 
   camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 500);
-  camera.position.set(0, 26, 31);
+  camera.position.copy(getDefaultCameraPosition());
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(innerWidth, innerHeight);
@@ -3528,7 +3533,7 @@ function bindUI() {
   });
   document.getElementById('btn-camera').addEventListener('click', () => {
     const p0 = camera.position.clone(), t0 = controls.target.clone();
-    const p1 = new THREE.Vector3(0, 26, 31), t1 = new THREE.Vector3(0, 0.5, 0);
+    const p1 = getDefaultCameraPosition(), t1 = new THREE.Vector3(0, 0.5, 0);
     tween(0.8, k => {
       camera.position.lerpVectors(p0, p1, k);
       controls.target.lerpVectors(t0, t1, k);
@@ -3557,6 +3562,10 @@ function bindUI() {
   });
   // 面板折叠
   const panel = document.getElementById('panel'), toggleBtn = document.getElementById('panel-toggle');
+  if (matchMedia('(max-width: 760px)').matches) {
+    panel.classList.add('collapsed');
+    toggleBtn.classList.remove('moved');
+  }
   toggleBtn.addEventListener('click', () => {
     panel.classList.toggle('collapsed');
     toggleBtn.classList.toggle('moved', !panel.classList.contains('collapsed'));
