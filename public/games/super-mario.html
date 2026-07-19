@@ -661,6 +661,9 @@ function loadStage(){
   const startMat = new THREE.MeshStandardMaterial({ map:makeBrickTexture('#a06528'), roughness:.9 });
   const startBlock = new THREE.Mesh(new THREE.BoxGeometry(6, 1, 6), startMat);
   startBlock.position.set(0, -0.5, 0); startBlock.receiveShadow=true; worldGroup.add(startBlock);
+  // Register the start platform as a solid ground platform for collision,
+  // so the player respawn point (x=-2) above it lands safely.
+  platforms.push({ mesh:startBlock, x:0, y:0, w:6, h:1, d:6, ground:true });
 
   s.platforms.forEach(p => addPlatform(p));
   s.coins.forEach(c => addCoin(c));
@@ -690,13 +693,13 @@ function resetPlayer(){
   const mesh = buildPlayerMesh();
   // Respawn near the last death location rather than back to stage start
   const stageData = STAGES[(stage-1) % STAGES.length];
-  let respawnX = -2;
+  let respawnX = 1;
   if(player && typeof player.x === 'number' && player.x > 4){
-    respawnX = Math.max(-2, Math.min(player.x - 6, stageData.flagX - 2));
+    respawnX = Math.max(1, Math.min(player.x - 6, stageData.flagX - 2));
   }
-  mesh.position.set(respawnX, 2.5, 0); scene.add(mesh);
+  mesh.position.set(respawnX, 2.0, 0); scene.add(mesh);
   player = {
-    mesh, x:respawnX, y:2.5, z:0,
+    mesh, x:respawnX, y:2.0, z:0,
     vx:0, vy:0, vz:0,
     onGround:false, facing:1,
     walkT:0,
@@ -784,17 +787,19 @@ function updatePlayer(dt){
   player.x += player.vx * dt;
   player.y += player.vy * dt;
   if(player.y < -8){ player.alive = false; player.vy = 6; SFX.death(); return; }
-  if(player.x < -4) player.x = -4;
+  if(player.x < 0) player.x = 0;      // off-stage left wall: never fall
   const s = STAGES[(stage-1) % STAGES.length];
   if(player.x > s.flagX + 4) player.x = s.flagX + 4;
 
   collidePlatforms();
 
   player.mesh.position.set(player.x, player.y + 0.05, 0);
-  player.mesh.rotation.y = player.facing > 0 ? -Math.PI/2 : Math.PI/2;
+  // Keep the mascot always facing the camera; signal direction via slight
+  // whole-body lean on the z-axis (looking-from-the-side into screen).
+  player.mesh.rotation.y = 0;
   if(Math.abs(player.vx) > 0.5 && player.onGround){
     player.walkT += dt * 8;
-    player.mesh.rotation.z = Math.sin(player.walkT) * 0.08;
+    player.mesh.rotation.z = Math.sin(player.walkT) * 0.08 + player.facing * 0.06;
   } else {
     player.walkT = 0;
     player.mesh.rotation.z *= 0.85;
