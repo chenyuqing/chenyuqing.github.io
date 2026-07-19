@@ -417,7 +417,7 @@ const SFX = {
 
 // ================= 工具 =================
 function gx(c){ return (c - COLS/2) * CELL + CELL/2; }
-function gz(r){ return ((ROWS-1)/2 - r) * CELL; }   // r=0 在底部
+function gz(r){ return (r - (ROWS-1)/2) * CELL; }   // r=0 在屏幕下方（y 负），r=ROWS-1 在屏幕上方（y 正）
 
 // ================= Three.js 初始化 =================
 function initThree() {
@@ -460,7 +460,14 @@ function initThree() {
 }
 
 function resetCamera() {
-  camera.position.set(0, 0.5, 6.5);
+  // 棋盘高 8.4，FOV 46° → 视野垂直 = 2*d*tan(23°)=0.85*d
+  // 要完整看到 8.4 高，d ≥ 9.9。用 11 留余白。
+  const isPortrait = typeof innerHeight !== 'undefined' && innerHeight > innerWidth;
+  if (isPortrait) {
+    camera.position.set(0, 0.3, 13.5);  // 手机竖屏：更远以容纳触控按钮区
+  } else {
+    camera.position.set(0, 0.8, 11.5);
+  }
   camera.lookAt(0, 0, 0);
 }
 
@@ -468,11 +475,8 @@ function onResize() {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
-  // 移动端竖屏时镜头远一点，容纳底部触屏按钮
-  const isPortrait = innerHeight > innerWidth;
-  if (isPortrait) camera.position.set(0, 0.5, 8.5);
-  else camera.position.set(0, 0.5, 6.5);
-  camera.lookAt(0, 0, 0);
+  // 重新选择镜头距离（横屏 vs 竖屏）
+  resetCamera();
 }
 
 // 木纹纹理
@@ -871,25 +875,27 @@ function onGameOver() {
 
 // ================= 输入 =================
 function setupKeyboard() {
-  const repeatKeys = { ArrowLeft: 'left', ArrowRight: 'right', ArrowDown: 'down' };
   const held = {};
   let repeatTimer = null;
+  let dasTimer = null;
+  const DAS = 180;   // 按下到自动重复开始的延迟（毫秒）
+  const ARR = 45;    // 自动重复间隔（毫秒）
 
   document.addEventListener('keydown', e => {
-    if (e.repeat) return;  // 我们自己控制重复
+    if (e.repeat) return;
     if (gameOver && e.key !== 'r' && e.key !== 'R') return;
     switch (e.key) {
-      case 'ArrowLeft': tryMove(-1, 0); held.left = true; startRepeat('left', -1, 0); break;
-      case 'ArrowRight': tryMove(1, 0); held.right = true; startRepeat('right', 1, 0); break;
-      case 'ArrowDown': softDrop = true; softDropStep(); held.down = true; startRepeatDown(); break;
+      case 'ArrowLeft': tryMove(-1, 0); held.left = true; startRepeat('left', -1, 0); e.preventDefault(); break;
+      case 'ArrowRight': tryMove(1, 0); held.right = true; startRepeat('right', 1, 0); e.preventDefault(); break;
+      case 'ArrowDown': softDrop = true; softDropStep(); held.down = true; startRepeatDown(); e.preventDefault(); break;
       case 'ArrowUp':
       case 'x':
-      case 'X': tryRotate(1); break;
+      case 'X': tryRotate(1); e.preventDefault(); break;
       case 'z':
-      case 'Z': tryRotate(-1); break;
+      case 'Z': tryRotate(-1); e.preventDefault(); break;
       case ' ': hardDrop(); e.preventDefault(); break;
       case 'c':
-      case 'C': holdPiece(); break;
+      case 'C': holdPiece(); e.preventDefault(); break;
       case 'p':
       case 'P': togglePause(); break;
       case 'r':
@@ -905,20 +911,26 @@ function setupKeyboard() {
 
   function startRepeat(name, dx, dy) {
     stopRepeat();
-    repeatTimer = setInterval(() => {
-      if (held[name]) tryMove(dx, dy);
-      else stopRepeat();
-    }, 90);
+    // DAS：按下后等 180ms 再开始自动重复；ARR：之后每 45ms 移动 1 格
+    dasTimer = setTimeout(() => {
+      repeatTimer = setInterval(() => {
+        if (held[name]) tryMove(dx, dy);
+        else stopRepeat();
+      }, ARR);
+    }, DAS);
   }
   function startRepeatDown() {
     stopRepeat();
-    repeatTimer = setInterval(() => {
-      if (held.down) softDropStep();
-      else stopRepeat();
-    }, 50);
+    dasTimer = setTimeout(() => {
+      repeatTimer = setInterval(() => {
+        if (held.down) softDropStep();
+        else stopRepeat();
+      }, ARR);
+    }, DAS);
   }
   function stopRepeat() {
     if (repeatTimer) { clearInterval(repeatTimer); repeatTimer = null; }
+    if (dasTimer) { clearTimeout(dasTimer); dasTimer = null; }
   }
 }
 
@@ -1158,8 +1170,7 @@ function bindUI() {
     SFX.init();
     startGame(introDiff);
     document.getElementById('intro').classList.add('hide');
-    // 移动端初始镜头
-    if (innerHeight > innerWidth) camera.position.set(0, 0.5, 8.5);
+    resetCamera();  // 开局后按当前屏幕方向选镜头距离
   };
 }
 
