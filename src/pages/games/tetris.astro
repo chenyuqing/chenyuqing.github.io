@@ -1,0 +1,16 @@
+---
+const gameUrl = '/games/tetris.html';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content={`0;url=${gameUrl}`} />
+    <title>方块坠落 · 3D 俄罗斯方块</title>
+  </head>
+  <body>
+    <script define:vars={{ gameUrl }}>window.location.replace(gameUrl);</script>
+  </body>
+</html>
