@@ -7,36 +7,43 @@ const games = [
     title: '钢铁防线',
     type: '动作 / 单人守卫',
     description: '经典坦克大战。守住基地，击退一波又一波来犯的装甲部队。',
-    cover: '/media/illo/games/tank-battle-cover.png',
+    cover: '/media/illo/games/tank-battle-cover.avif',
     href: '/games/tank-battle/',
   },
   {
     title: '蘑菇奇兵',
     type: '动作 / 平台跑酷',
     description: '3D 横版跑酷。越过沟壑、踩扁蘑菇怪、收集金币、抵达旗杆终点。',
-    cover: '/media/illo/games/super-mario-xiaoxiang.png',
+    cover: '/media/illo/games/super-mario-xiaoxiang.avif',
     href: '/games/super-mario/',
   },
   {
     title: '楚汉争锋',
     type: '棋类 / 本地对弈',
     description: '3D 中国象棋。旋转棋盘，选择红黑阵营，落下每一步。',
-    cover: '/media/illo/games/chinese-chess-xiaoxiang.png',
+    cover: '/media/illo/games/chinese-chess-xiaoxiang.avif',
     href: '/games/chinese-chess/',
   },
   {
     title: '五子连珠',
     type: '棋类 / 人机对弈',
     description: '3D 五子棋。三档 AI 难度、标准 Renju 黑方禁手、悔棋重开、木质棋盘。',
-    cover: '/media/illo/games/gomoku-xiaoxiang.png',
+    cover: '/media/illo/games/gomoku-xiaoxiang.avif',
     href: '/games/gomoku/',
   },
   {
     title: '方块坠落',
     type: '动作 / 益智下落',
     description: '3D 俄罗斯方块。七形归位、Hold 暂存、踢墙旋转、等级加速、消行特效。',
-    cover: '/media/illo/games/tetris-xiaoxiang.png',
+    cover: '/media/illo/games/tetris-xiaoxiang.avif',
     href: '/games/tetris/',
+  },
+  {
+    title: '飞鸟穿云',
+    type: '动作 / 节奏飞行',
+    description: 'Flappy Bird 经典玩法。掌握振翅节奏，穿过不断靠近的竹管。',
+    cover: '/media/illo/games/flappy-bird-xiaoxiang.avif',
+    href: '/games/flappy-bird/',
   },
 ];
 ---
@@ -48,7 +55,7 @@ const games = [
         {games.map((game, index) => (
           <a class="game-card" href={game.href}>
             <div class="game-card-cover">
-              <img src={game.cover} alt={`${game.title}游戏封面`} />
+              {game.cover ? <img src={game.cover} alt={`${game.title}游戏封面`} /> : null}
               <span class="game-index">{String(index + 1).padStart(2, '0')}</span>
             </div>
             <div class="game-card-body">
@@ -69,7 +76,7 @@ const games = [
     .game-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid rgba(240,223,179,.24); border-radius: 6px; background: #1b1914; color: inherit; text-decoration: none; transition: border-color .2s ease, transform .2s ease; }
     .game-card:hover { border-color: #d1a843; transform: translateY(-4px); }
     .game-card-cover { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-bottom: 1px solid rgba(240,223,179,.24); background: #d1aa57; }
-    .game-card-cover img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+    .game-card-cover img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
     .game-card:hover .game-card-cover img { transform: scale(1.035); }
     .game-index { position: absolute; top: .8rem; left: .8rem; padding: .38rem .45rem; background: rgba(17,16,13,.82); color: #f0cf76; font: .72rem/1 var(--font-mono); }
     .game-card-body { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 1.35rem; }
