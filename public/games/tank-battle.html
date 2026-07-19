@@ -185,7 +185,7 @@
 
 <div id="panel">
   <div class="sec-title">⚔ 战况</div>
-  <div class="row"><span>关卡 STAGE</span><span class="val" id="p-stage">1/4</span></div>
+  <div class="row"><span>关卡 STAGE</span><span class="val" id="p-stage">1/10</span></div>
   <div class="row"><span>P1 生命</span><span class="val lives" id="p-life1">♥♥♥</span></div>
   <div class="row" id="p-life2-row" style="display:none;"><span>P2 生命</span><span class="val lives" id="p-life2">♥♥♥</span></div>
   <div class="row"><span>剩余敌军</span><span class="val" id="p-left">20</span></div>
@@ -226,6 +226,12 @@
       <div class="intro-opt" data-v="2">第 2 关</div>
       <div class="intro-opt" data-v="3">第 3 关</div>
       <div class="intro-opt" data-v="4">第 4 关</div>
+      <div class="intro-opt" data-v="5">第 5 关</div>
+      <div class="intro-opt" data-v="6">第 6 关</div>
+      <div class="intro-opt" data-v="7">第 7 关</div>
+      <div class="intro-opt" data-v="8">第 8 关</div>
+      <div class="intro-opt" data-v="9">第 9 关</div>
+      <div class="intro-opt" data-v="10">第 10 关</div>
     </div>
     <button id="intro-start">开 战</button>
     <a id="intro-quit" href="/games/">退 出</a>
@@ -540,6 +546,131 @@ const STAGES = [
       [[1,7],[24,7],[1,11],[24,11],[12,4],[13,4]].forEach(([c,r])=>setTile(c,r,STEEL));
       // 中部小钢块（强化阻击）
       [[5,13],[20,13],[7,16],[18,16]].forEach(([c,r])=>setTile(c,r,STEEL));
+    },
+  },
+  { // 5 关：双塔要塞
+    totalEnemies: 40, enemyMax: 7, enemySpeed: 7.3, enemyFireRand: 0.034, enemyCool: 0.68,
+    enemyColors: [0xb0442e, 0x8a5a9a, 0x4a4a4a],
+    layout(){
+      // 左右双塔（钢外壳 + 砖芯）
+      [3,8,17,22].forEach(c=>[3,4,5,6,7,8,9,10].forEach(r=>setTile(c,r,STEEL)));
+      [4,5,6,7,18,19,20,21].forEach(c=>[3,10].forEach(r=>setTile(c,r,STEEL)));
+      [4,5,6,7,18,19,20,21].forEach(c=>[4,5,6,7,8,9].forEach(r=>setTile(c,r,BRICK)));
+      // 中央甬道砖墙
+      [11,12,13,14].forEach(c=>[3,4].forEach(r=>setTile(c,r,BRICK)));
+      [12,13].forEach(c=>[8,9,14,15].forEach(r=>setTile(c,r,BRICK)));
+      // 中段交错迷宫
+      [2,3,8,9,16,17,22,23].forEach(c=>[13,14].forEach(r=>setTile(c,r,BRICK)));
+      [5,6,10,11,14,15,19,20].forEach(c=>[16,17].forEach(r=>setTile(c,r,BRICK)));
+      [2,3,8,9,16,17,22,23].forEach(c=>[19,20].forEach(r=>setTile(c,r,BRICK)));
+      // 侧翼钢钉
+      [[1,13],[24,13],[1,18],[24,18]].forEach(([c,r])=>setTile(c,r,STEEL));
+    },
+  },
+  { // 6 关：钢铁蜂巢
+    totalEnemies: 44, enemyMax: 7, enemySpeed: 7.6, enemyFireRand: 0.036, enemyCool: 0.64,
+    enemyColors: [0xb0442e, 0x8a5a9a, 0x4a4a4a],
+    layout(){
+      // 蜂巢钢柱阵列
+      [4,9,16,21].forEach(c=>[4,5,10,11,15,16].forEach(r=>setTile(c,r,STEEL)));
+      [6,7,18,19].forEach(c=>[7,8,13,14].forEach(r=>setTile(c,r,STEEL)));
+      // 砖墙填充蜂巢间隙
+      [2,3,10,11,14,15,22,23].forEach(c=>[4,5,6].forEach(r=>setTile(c,r,BRICK)));
+      [4,5,8,9,16,17,20,21].forEach(c=>[9,10,11].forEach(r=>setTile(c,r,BRICK)));
+      [2,3,10,11,14,15,22,23].forEach(c=>[15,16,17].forEach(r=>setTile(c,r,BRICK)));
+      // 中线阻断
+      [12,13].forEach(c=>[3,7,12,17,20].forEach(r=>setTile(c,r,BRICK)));
+      // 下段交错
+      [5,6,10,11,14,15,19,20].forEach(c=>[19,20].forEach(r=>setTile(c,r,BRICK)));
+      [[1,9],[24,9],[1,16],[24,16]].forEach(([c,r])=>setTile(c,r,STEEL));
+    },
+  },
+  { // 7 关：交叉火线
+    totalEnemies: 48, enemyMax: 7, enemySpeed: 7.9, enemyFireRand: 0.038, enemyCool: 0.60,
+    enemyColors: [0xb0442e, 0x8a5a9a, 0x4a4a4a, 0x4a8a4a],
+    layout(){
+      // 对角钢墙交叉
+      [3,4,5,6,7,8].forEach((c,i)=>setTile(c,3+i,STEEL));
+      [22,21,20,19,18,17].forEach((c,i)=>setTile(c,3+i,STEEL));
+      [3,4,5,6,7,8].forEach((c,i)=>setTile(c,16-i,STEEL));
+      [22,21,20,19,18,17].forEach((c,i)=>setTile(c,16-i,STEEL));
+      // 砖墙街区
+      [2,3,10,11,14,15,22,23].forEach(c=>[10,11,12].forEach(r=>setTile(c,r,BRICK)));
+      [6,7,9,10,15,16,18,19].forEach(c=>[13,14].forEach(r=>setTile(c,r,BRICK)));
+      // 中线闸门
+      [12,13].forEach(c=>[5,10,15,19].forEach(r=>setTile(c,r,BRICK)));
+      // 下段交错迷宫
+      [2,3,8,9,16,17,22,23].forEach(c=>[18,19].forEach(r=>setTile(c,r,BRICK)));
+      [5,6,10,11,14,15,19,20].forEach(c=>[20,21].forEach(r=>setTile(c,r,BRICK)));
+      [[1,10],[24,10],[12,18],[13,18]].forEach(([c,r])=>setTile(c,r,STEEL));
+    },
+  },
+  { // 8 关：环形壁垒
+    totalEnemies: 52, enemyMax: 7, enemySpeed: 8.2, enemyFireRand: 0.040, enemyCool: 0.56,
+    enemyColors: [0xb0442e, 0x8a5a9a, 0x4a4a4a, 0x4a8a4a],
+    layout(){
+      // 外环钢墙（留缺口导流）
+      [4,5,6,19,20,21].forEach(c=>[4].forEach(r=>setTile(c,r,STEEL)));
+      [4,21].forEach(c=>[5,6,7,8,9,10,11,12,13].forEach(r=>setTile(c,r,STEEL)));
+      [4,5,6,10,11,14,15,19,20,21].forEach(c=>[14].forEach(r=>setTile(c,r,STEEL)));
+      // 内环砖墙
+      [8,9,16,17].forEach(c=>[7,8,9,10,11].forEach(r=>setTile(c,r,BRICK)));
+      [10,11,14,15].forEach(c=>[7,11].forEach(r=>setTile(c,r,BRICK)));
+      // 中央核心
+      [12,13].forEach(c=>[9,10].forEach(r=>setTile(c,r,STEEL)));
+      [11,14].forEach(c=>[9,10].forEach(r=>setTile(c,r,BRICK)));
+      // 下段迷宫
+      [2,3,8,9,16,17,22,23].forEach(c=>[17,18].forEach(r=>setTile(c,r,BRICK)));
+      [5,6,10,11,14,15,19,20].forEach(c=>[19,20].forEach(r=>setTile(c,r,BRICK)));
+      [12,13].forEach(c=>[5,17,20].forEach(r=>setTile(c,r,BRICK)));
+      [[1,8],[24,8],[1,15],[24,15]].forEach(([c,r])=>setTile(c,r,STEEL));
+    },
+  },
+  { // 9 关：钢铁风暴
+    totalEnemies: 56, enemyMax: 7, enemySpeed: 8.5, enemyFireRand: 0.044, enemyCool: 0.52,
+    enemyColors: [0xb0442e, 0x8a5a9a, 0x4a4a4a, 0x4a8a4a],
+    layout(){
+      // 密集钢柱矩阵
+      [3,7,11,14,18,22].forEach(c=>[4,5,9,10].forEach(r=>setTile(c,r,STEEL)));
+      [5,9,16,20].forEach(c=>[7,12,13].forEach(r=>setTile(c,r,STEEL)));
+      // 砖墙填充
+      [2,4,8,10,15,17,21,23].forEach(c=>[6,7,8].forEach(r=>setTile(c,r,BRICK)));
+      [3,6,9,16,19,22].forEach(c=>[11,12].forEach(r=>setTile(c,r,BRICK)));
+      // 中线多重闸门
+      [12,13].forEach(c=>[3,6,9,13,16,19].forEach(r=>setTile(c,r,BRICK)));
+      // 中段交错
+      [2,3,8,9,16,17,22,23].forEach(c=>[15,16].forEach(r=>setTile(c,r,BRICK)));
+      // 下段三道迷宫
+      [5,6,10,11,14,15,19,20].forEach(c=>[18,19].forEach(r=>setTile(c,r,BRICK)));
+      [2,3,8,9,16,17,22,23].forEach(c=>[20,21].forEach(r=>setTile(c,r,BRICK)));
+      [[1,7],[24,7],[1,13],[24,13],[1,18],[24,18]].forEach(([c,r])=>setTile(c,r,STEEL));
+    },
+  },
+  { // 10 关：终焉堡垒
+    totalEnemies: 60, enemyMax: 7, enemySpeed: 8.8, enemyFireRand: 0.048, enemyCool: 0.48,
+    enemyColors: [0xb0442e, 0x8a5a9a, 0x4a4a4a, 0xd0d0d0],
+    layout(){
+      // 顶部重钢隔断
+      [3,4,21,22].forEach(c=>[3,4,5,6,7].forEach(r=>setTile(c,r,STEEL)));
+      [8,9,16,17].forEach(c=>[4,5,6].forEach(r=>setTile(c,r,STEEL)));
+      [10,11,14,15].forEach(c=>[8,9].forEach(r=>setTile(c,r,STEEL)));
+      // 上半密集砖墙
+      [2,5,6,7,18,19,20,23].forEach(c=>[3,4,5,6].forEach(r=>setTile(c,r,BRICK)));
+      [4,5,8,9,16,17,20,21].forEach(c=>[9,10,11,12].forEach(r=>setTile(c,r,BRICK)));
+      // 中央要塞钢核
+      [11,12,13,14].forEach(c=>[11,12].forEach(r=>setTile(c,r,STEEL)));
+      [11,14].forEach(c=>[13].forEach(r=>setTile(c,r,BRICK)));
+      // 中线闸门
+      [12,13].forEach(c=>[3,6,15,18].forEach(r=>setTile(c,r,BRICK)));
+      // 中段双层交错
+      [2,3,8,9,16,17,22,23].forEach(c=>[15,16].forEach(r=>setTile(c,r,BRICK)));
+      [5,6,10,11,14,15,19,20].forEach(c=>[16,17].forEach(r=>setTile(c,r,BRICK)));
+      // 下段三道迷宫（必走 S 形）
+      [2,3,8,9,16,17,22,23].forEach(c=>[19].forEach(r=>setTile(c,r,BRICK)));
+      [5,6,10,11,14,15,19,20].forEach(c=>[20].forEach(r=>setTile(c,r,BRICK)));
+      [2,3,8,9,16,17,22,23].forEach(c=>[21].forEach(r=>setTile(c,r,BRICK)));
+      // 全域钢钉
+      [[1,7],[24,7],[1,11],[24,11],[1,16],[24,16],[7,14],[18,14]].forEach(([c,r])=>setTile(c,r,STEEL));
     },
   },
 ];
