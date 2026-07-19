@@ -396,18 +396,16 @@ function onResize() {
   renderer.setSize(innerWidth, innerHeight);
 }
 
-// 木质程序纹理
+// 木质程序纹理（侧板用，纯木纹）
 function makeWoodTexture() {
   const cv = document.createElement('canvas'); cv.width = 512; cv.height = 512;
   const ctx = cv.getContext('2d');
   ctx.fillStyle = '#b07a3e'; ctx.fillRect(0, 0, 512, 512);
-  // 木纹横纹
   for (let y = 0; y < 512; y += 2) {
     const v = 0.85 + 0.15 * Math.sin(y * 0.06) + 0.08 * Math.sin(y * 0.31 + 1.2);
     ctx.fillStyle = `rgba(${Math.floor(140*v)},${Math.floor(95*v)},${Math.floor(55*v)},0.5)`;
     ctx.fillRect(0, y, 512, 1);
   }
-  // 噪点
   for (let i = 0; i < 6000; i++) {
     const x = Math.random()*512, y = Math.random()*512;
     ctx.fillStyle = `rgba(${60+Math.random()*40|0},${35+Math.random()*25|0},${15+Math.random()*15|0},0.08)`;
@@ -415,6 +413,61 @@ function makeWoodTexture() {
   }
   const tex = new THREE.CanvasTexture(cv);
   tex.encoding = THREE.sRGBEncoding;
+  return tex;
+}
+
+// 棋盘顶面纹理：木纹底 + 深色网格 + 星位 + 边框装饰
+// 把网格刻进纹理，远近距离任意角度都清晰可见，解决 LineBasicMaterial 被距离/木纹淹没的问题
+function makeBoardTopTexture() {
+  const SIZE = 1024;
+  const cv = document.createElement('canvas'); cv.width = SIZE; cv.height = SIZE;
+  const ctx = cv.getContext('2d');
+
+  // 木纹底
+  ctx.fillStyle = '#c0854a'; ctx.fillRect(0, 0, SIZE, SIZE);
+  for (let y = 0; y < SIZE; y += 2) {
+    const v = 0.9 + 0.12 * Math.sin(y * 0.04) + 0.06 * Math.sin(y * 0.27 + 1.1);
+    ctx.fillStyle = `rgba(${Math.floor(160*v)},${Math.floor(110*v)},${Math.floor(64*v)},0.45)`;
+    ctx.fillRect(0, y, SIZE, 1);
+  }
+  for (let i = 0; i < 10000; i++) {
+    const x = Math.random()*SIZE, y = Math.random()*SIZE;
+    ctx.fillStyle = `rgba(${60+Math.random()*40|0},${35+Math.random()*25|0},${15+Math.random()*15|0},0.06)`;
+    ctx.fillRect(x, y, 1, 1);
+  }
+
+  // 内边距：交叉点 (0,0)~(14,14) 映射到纹理坐标 [PAD, SIZE-PAD]
+  const PAD = 60;
+  const span = SIZE - PAD * 2;
+  const step = span / (N - 1);
+  const grid = i => PAD + i * step;
+
+  // 网格线：深棕近黑，线宽加粗（5px）保证透视距离下仍清晰可见
+  ctx.strokeStyle = '#221406';
+  ctx.lineWidth = 5;
+  ctx.lineCap = 'square';
+  for (let i = 0; i < N; i++) {
+    const p = grid(i);
+    ctx.beginPath(); ctx.moveTo(PAD, p); ctx.lineTo(SIZE - PAD, p); ctx.stroke(); // 横线
+    ctx.beginPath(); ctx.moveTo(p, PAD); ctx.lineTo(p, SIZE - PAD); ctx.stroke();   // 竖线
+  }
+  // 边框线（外两圈加粗，更像真实棋盘）
+  ctx.lineWidth = 8;
+  ctx.strokeRect(PAD - 3, PAD - 3, span + 6, span + 6);
+
+  // 星位（5 个黑点 — 加大半径）
+  const stars = [[3,3],[3,11],[11,3],[11,11],[7,7]];
+  ctx.fillStyle = '#1a1006';
+  for (const [r,c] of stars) {
+    const x = grid(c), y = grid(r);
+    ctx.beginPath();
+    ctx.arc(x, y, Math.max(8, step * 0.16), 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  const tex = new THREE.CanvasTexture(cv);
+  tex.encoding = THREE.sRGBEncoding;
+  tex.anisotropy = 8;  // 斜视角下网格保持清晰
   return tex;
 }
 
@@ -427,7 +480,7 @@ function buildBoard() {
   table.position.y = -0.16; table.receiveShadow = true;
   scene.add(table);
 
-  // 棋盘本体
+  // 棋盘本体（侧面木纹）
   const woodTex = makeWoodTexture();
   const boardGeo = new THREE.BoxGeometry(BOARD_W, 0.32, BOARD_W);
   const boardMat = new THREE.MeshStandardMaterial({ map: woodTex, roughness:0.72 });
@@ -435,35 +488,36 @@ function buildBoard() {
   boardMesh.position.y = 0; boardMesh.castShadow = true; boardMesh.receiveShadow = true;
   scene.add(boardMesh);
 
-  // 棋盘边框（深色描边）
+  // 棋盘顶面：贴一张含网格+星位的纹理（解决细线条不可见的问题）
+  const topTex = makeBoardTopTexture();
+  const topMat = new THREE.MeshStandardMaterial({ map: topTex, roughness:0.62 });
+  const topMesh = new THREE.Mesh(new THREE.PlaneGeometry(BOARD_W, BOARD_W), topMat);
+  topMesh.rotation.x = -Math.PI / 2;
+  topMesh.position.y = 0.161;  // 略高于棋盘顶面，避免 z-fighting
+  topMesh.receiveShadow = true;
+  scene.add(topMesh);
+
+  // 棋盘边框（口字形 — 4 条边框条，不能是实心 box，否则会盖住顶面网格纹理）
   const frameMat = new THREE.MeshStandardMaterial({ color:0x4a2a14, roughness:0.85 });
-  const f = 0.08;
-  const frameTop = new THREE.Mesh(new THREE.BoxGeometry(BOARD_W + f*2, f, BOARD_W + f*2), frameMat);
-  frameTop.position.y = 0.16 + f/2; frameTop.castShadow = true; frameTop.receiveShadow = true;
-  scene.add(frameTop);
-
-  // 网格线（深色细线，BoxGeometry）
-  const lineMat = new THREE.LineBasicMaterial({ color:0x2a1a0a });
-  const linePositions = [];
-  for (let i = 0; i < N; i++) {
-    const v = (i - (N-1)/2) * S;
-    linePositions.push(-BOARD_W/2 + 0.45, 0.001 + 0.16, v, BOARD_W/2 - 0.45, 0.001 + 0.16, v);
-    linePositions.push(v, 0.001 + 0.16, -BOARD_W/2 + 0.45, v, 0.001 + 0.16, BOARD_W/2 - 0.45);
+  const f = 0.08;                       // 边框条厚度（沿平面外延）
+  const t = 0.06;                       // 边框条高度
+  const sideLen = BOARD_W + f * 2;      // 含边框的总边长
+  const yCenter = 0.16 + t/2;            // 边框条中心 y（贴在棋盘顶面上方）
+  // 前/后边（沿 X 方向）
+  const fbGeo = new THREE.BoxGeometry(sideLen, t, f);
+  const mFront = new THREE.Mesh(fbGeo, frameMat);
+  mFront.position.set(0, yCenter, -sideLen/2 + f/2);
+  const mBack = new THREE.Mesh(fbGeo, frameMat);
+  mBack.position.set(0, yCenter, sideLen/2 - f/2);
+  // 左/右边（沿 Z 方向，比前后短一点，刚好嵌进前后之间）
+  const lrGeo = new THREE.BoxGeometry(f, t, sideLen - f*2);
+  const mLeft = new THREE.Mesh(lrGeo, frameMat);
+  mLeft.position.set(-sideLen/2 + f/2, yCenter, 0);
+  const mRight = new THREE.Mesh(lrGeo, frameMat);
+  mRight.position.set(sideLen/2 - f/2, yCenter, 0);
+  for (const m of [mFront, mBack, mLeft, mRight]) {
+    m.castShadow = true; m.receiveShadow = true; scene.add(m);
   }
-  const lineGeo = new THREE.BufferGeometry();
-  lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-  const lines = new THREE.LineSegments(lineGeo, lineMat);
-  scene.add(lines);
-
-  // 星位（5 个）
-  const stars = [[3,3],[3,11],[11,3],[11,11],[7,7]];
-  const starMat = new THREE.MeshBasicMaterial({ color:0x1a1006 });
-  stars.forEach(([r,c]) => {
-    const dot = new THREE.Mesh(new THREE.CircleGeometry(0.055, 24), starMat);
-    dot.rotation.x = -Math.PI / 2;
-    dot.position.set(gx(c), 0.005 + 0.16, gz(r));
-    scene.add(dot);
-  });
 }
 
 function buildClickPlane() {
