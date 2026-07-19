@@ -17,6 +17,87 @@ const typeLabels: Record<string, string> = {
   infra: 'Infra',
 };
 
+type EnglishProduct = {
+  tagline: string;
+  description: string;
+  audience: string;
+  body: string[];
+  highlights: Array<{ title: string; description: string }>;
+};
+
+const productEnglish: Record<string, EnglishProduct> = {
+  'subtitle-maker': {
+    tagline: 'A local Mac workspace for subtitles, translation, dubbing, and final video export',
+    description: 'A local AI subtitle and dubbing tool for Apple Silicon that combines transcription, translation, voice generation, subtitle preview, and final export in one continuous workflow.',
+    audience: 'video creators, podcast editors, subtitle translators, and dubbing workflow users',
+    body: [
+      'Traditional subtitle workflows are scattered across separate tools for recognition, translation, dubbing, and final rendering. Subtitle Maker reorganizes those steps into one continuous interface so creators can focus on the result instead of switching tools.',
+      'It exports original, translated, or bilingual subtitles, styled ASS files, audio-replaced MP4 files, and final videos with burned-in subtitles.',
+    ],
+    highlights: [
+      { title: 'Local First', description: 'Transcription runs locally, reducing uploads of sensitive audio and providing a stronger privacy boundary.' },
+      { title: 'One Continuous Pipeline', description: 'Upload, transcription, translation, dubbing, and final export all happen in the same workspace.' },
+      { title: 'Built for Production', description: 'Supports long videos, SRT imports, time-range processing, resumable jobs, and MP4, ASS, or SRT output.' },
+    ],
+  },
+  'clip-agent': {
+    tagline: 'Find highlights in long videos and turn them into vertical clips for six social platforms',
+    description: 'An AI video clipping tool that analyzes transcripts, identifies strong moments, tracks people with YOLOv11n, and exports vertical videos for TikTok, Instagram, YouTube Shorts, Threads, Xiaohongshu, and Twitter.',
+    audience: 'content creators, short-video operators, podcast editors, and social media teams',
+    body: [
+      'Clip Agent solves a simple bottleneck: valuable moments are buried inside long videos, while manually turning them into short clips takes hours. It automates the path from watching and selecting highlights to reframing and platform delivery.',
+      'A separate Agent CLI lets coding agents call the pipeline directly and receive a clean summary.json result for larger automated workflows.',
+    ],
+    highlights: [
+      { title: 'AI Highlight Detection', description: 'Multiple models analyze transcripts and rank moments using platform-specific signals such as knowledge density, emotional peaks, or practical value.' },
+      { title: 'Intelligent Person Tracking', description: 'YOLOv11n and lightweight IoU tracking keep the active subject framed, with active-speaker data taking priority when available.' },
+      { title: 'Six-Platform Export', description: 'Outputs are adapted for TikTok, Instagram, YouTube Shorts, Threads, Xiaohongshu, and Twitter, including duration, aspect ratio, and resolution.' },
+    ],
+  },
+  'asd-pipeline': {
+    tagline: 'A recoverable, testable, reusable local entry point for Active Speaker Detection',
+    description: 'An Apple Silicon workspace that turns LR-ASD from a one-off CLI run into a staged, resumable pipeline with structured artifacts.',
+    audience: 'developers working on video understanding, speaker analysis, subtitles, and multimodal workflows',
+    body: [
+      'Many ASD baselines behave like one-off research scripts: complete runs are expensive, recovery is weak, and intermediate state is opaque. This project makes every stage explicit and stores results as structured JSON.',
+      'Each run produces tracks, frame scores, predictions, metrics, and a validation overlay, making the pipeline useful as a reusable downstream capability.',
+    ],
+    highlights: [
+      { title: 'Staged Execution', description: 'Extract, detect, track, score, and render are explicit stages that can be inspected and debugged independently.' },
+      { title: 'Resume and Reuse', description: 'Resume from intermediate artifacts, skip completed stages, or force selected stages to run again.' },
+      { title: 'Structured Results', description: 'Tracks, frame scores, predictions, and other JSON artifacts are ready for analysis and integration.' },
+    ],
+  },
+  'voicewave-profile': {
+    tagline: 'Turn a portrait and audio recording into an animated 9:16 voicewave profile video',
+    description: 'A podcast and short-video tool that detects faces, analyzes audio, and generates synchronized voicewave videos in five visual styles with optional transparent backgrounds.',
+    audience: 'podcasters, short-video creators, and content teams that need automated profile videos',
+    body: [
+      'A conventional podcast clip starts with a portrait and an audio recording, then requires manual animation work in an editor. VoiceWave Profile automates face detection, waveform animation, and 9:16 video composition.',
+      'Transparent-background output makes the result easy to place inside a larger editing or motion-graphics workflow.',
+    ],
+    highlights: [
+      { title: 'Smart Face Cropping', description: 'Automatically detects the strongest face region and crops a balanced portrait without manual positioning.' },
+      { title: 'Audio-Synchronized Motion', description: 'Waveform animation follows live audio features so the portrait feels responsive rather than static.' },
+      { title: 'Five Visual Styles', description: 'Elegant, dynamic, minimal, cyber, and ocean styles cover different editorial tones.' },
+    ],
+  },
+  tonghua: {
+    tagline: 'Tell AI-generated bedtime stories in a parent’s own voice',
+    description: 'A native SwiftUI app that clones a voice from 15 seconds of audio, generates personalized stories, and reads them aloud in Mandarin, English, or Cantonese.',
+    audience: 'young parents and families who want richer AI-assisted storytelling',
+    body: [
+      'Family reading is constrained by time and by the number of stories a parent has ready. Tonghua combines AI generation and voice cloning in one iOS app: record 15 seconds, generate a story, and play it in the parent’s own voice.',
+      'The result keeps the emotional familiarity of a parent’s voice while making new personalized stories available on demand.',
+    ],
+    highlights: [
+      { title: '15-Second Voice Clone', description: 'A short recording creates a reusable cloud voice through the MiniMax API.' },
+      { title: 'AI Story Generation', description: 'DeepSeek writes complete stories from themes and characters in Mandarin, English, or Cantonese.' },
+      { title: 'Native iOS Experience', description: 'SwiftUI, Observation, and NavigationStack provide a responsive and accessible iOS 17 experience.' },
+    ],
+  },
+};
+
 export async function getStaticPaths() {
   const products = await getCollection('products', ({ data }) => !data.draft);
   return products.map((product) => ({ params: { slug: product.id } }));
@@ -41,6 +122,7 @@ const relatedPosts = await Promise.all(
 );
 const validRelatedPosts = relatedPosts.filter((post): post is NonNullable<typeof post> => post !== null);
 const hasBody = await product.body?.trim();
+const english = productEnglish[product.id];
 ---
 
 <BaseLayout title={`${product.data.title} | Tim Chen`} description={product.data.description || product.data.tagline} canonical={`/products/${product.id}/`}>
@@ -55,9 +137,9 @@ const hasBody = await product.body?.trim();
             <span class="tag tag-product-type">{typeLabels[product.data.type]}</span>
           </div>
           <h1 class="pdp-hero-title">{product.data.title}</h1>
-          <p class="pdp-hero-tagline">{product.data.tagline}</p>
+          <p class="pdp-hero-tagline"><span class="lang-zh">{product.data.tagline}</span><span class="lang-en">{english?.tagline || product.data.tagline}</span></p>
           <div class="pdp-hero-actions">
-            {product.data.demo && <a class="button button-primary" href={product.data.demo} target="_blank" rel="noreferrer">{product.data.demoLabel || '体验产品'}</a>}
+            {product.data.demo && <a class="button button-primary" href={product.data.demo} target="_blank" rel="noreferrer"><span class="lang-zh">{product.data.demoLabel || '体验产品'}</span><span class="lang-en">{product.data.demoLabel === '本地 Demo' ? 'Local Demo' : 'Try Product'}</span></a>}
             {product.data.repo && <a class="button button-ghost" href={product.data.repo} target="_blank" rel="noreferrer">GitHub</a>}
           </div>
         </div>
@@ -95,16 +177,17 @@ const hasBody = await product.body?.trim();
       <section class="pdp-about">
         <div class="pdp-about-main">
           <p class="eyebrow">Overview</p>
-          <h2 class="pdp-section-title">这是什么</h2>
+          <h2 class="pdp-section-title"><span class="lang-zh">这是什么</span><span class="lang-en">What It Does</span></h2>
           <div class="pdp-about-copy">
-            <p>{product.data.description}</p>
-            {product.data.audience && <p class="muted">面向 {product.data.audience}。</p>}
+            <p><span class="lang-zh">{product.data.description}</span><span class="lang-en">{english?.description || product.data.description}</span></p>
+            {product.data.audience && <p class="muted"><span class="lang-zh">面向 {product.data.audience}。</span><span class="lang-en">Built for {english?.audience || product.data.audience}.</span></p>}
           </div>
           {hasBody && (
             <details class="pdp-about-details">
-              <summary>更多说明</summary>
+              <summary><span class="lang-zh">更多说明</span><span class="lang-en">More Details</span></summary>
               <div class="blog-content pdp-about-body">
-                <Content />
+                <div class="lang-zh lang-block"><Content /></div>
+                <div class="lang-en lang-block">{english?.body.map((paragraph) => <p>{paragraph}</p>)}</div>
               </div>
             </details>
           )}
@@ -132,18 +215,18 @@ const hasBody = await product.body?.trim();
         <section class="pdp-features">
           <div class="pdp-features-head">
             <p class="eyebrow">Features</p>
-            <h2 class="pdp-section-title">核心能力</h2>
+            <h2 class="pdp-section-title"><span class="lang-zh">核心能力</span><span class="lang-en">Core Capabilities</span></h2>
           </div>
           <div class="pdp-feature-grid">
-            {product.data.highlights.map((item) => (
+            {product.data.highlights.map((item, index) => (
               <article class="pdp-feature-card">
                 {item.illo && (
                   <div class="pdp-feature-illo">
                     <img src={item.illo} alt={item.title} loading="lazy" />
                   </div>
                 )}
-                <strong>{item.title}</strong>
-                <p>{item.description}</p>
+                <strong><span class="lang-zh">{item.title}</span><span class="lang-en">{english?.highlights[index]?.title || item.title}</span></strong>
+                <p><span class="lang-zh">{item.description}</span><span class="lang-en">{english?.highlights[index]?.description || item.description}</span></p>
               </article>
             ))}
           </div>
@@ -181,24 +264,42 @@ const hasBody = await product.body?.trim();
         <section class="pdp-related">
           <div class="pdp-related-head">
             <p class="eyebrow">Related Writing</p>
-            <h2 class="pdp-section-title">相关文章</h2>
+            <h2 class="pdp-section-title"><span class="lang-zh">相关文章</span><span class="lang-en">Related Writing</span></h2>
           </div>
           <div class="pdp-related-list">
             {validRelatedPosts.map((post) => (
-              <a class="pdp-related-card" href={`/blog/${post.id}/`}>
+              <a class="pdp-related-card lang-zh lang-block" href={`/blog/${post.id}/`}>
                 <strong>{post.data.title}</strong>
                 {post.data.description && <span>{post.data.description}</span>}
               </a>
             ))}
+            <p class="muted lang-en lang-block">Related articles are currently available in Chinese.</p>
           </div>
         </section>
       )}
 
       {/* ── CTA BAND ── */}
       <section class="pdp-cta-band">
-        <a class="button button-secondary" href="/products/">返回产品目录</a>
+        <a class="button button-secondary" href="/products/"><span class="lang-zh">返回产品目录</span><span class="lang-en">Back to Products</span></a>
       </section>
 
     </article>
   </main>
+  <style>
+    .lang-en { display: none; }
+    :global(html[data-lang='en']) .lang-zh { display: none; }
+    :global(html[data-lang='en']) .lang-en { display: inline; }
+    .lang-block { display: block; }
+    :global(html[data-lang='en']) .lang-zh.lang-block { display: none; }
+    :global(html[data-lang='en']) .lang-en.lang-block { display: block; }
+  </style>
+  <script define:vars={{ englishDescription: english?.description || product.data.description, chineseDescription: product.data.description }}>
+    const root = document.documentElement;
+    const applyProductMeta = () => {
+      const isEnglish = root.getAttribute('data-lang') === 'en';
+      document.querySelector('meta[name="description"]')?.setAttribute('content', isEnglish ? englishDescription : chineseDescription);
+    };
+    applyProductMeta();
+    new MutationObserver(applyProductMeta).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+  </script>
 </BaseLayout>

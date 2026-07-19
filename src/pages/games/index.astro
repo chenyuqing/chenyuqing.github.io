@@ -5,43 +5,61 @@ import '../../styles/global.css';
 const games = [
   {
     title: '钢铁防线',
+    titleEn: 'Iron Defense',
     type: '动作 / 单人守卫',
+    typeEn: 'Action / Solo Defense',
     description: '经典坦克大战。守住基地，击退一波又一波来犯的装甲部队。',
+    descriptionEn: 'A classic tank battle. Defend the base against relentless armored waves.',
     cover: '/media/illo/games/tank-battle-cover.avif',
     href: '/games/tank-battle/',
   },
   {
     title: '蘑菇奇兵',
+    titleEn: 'Mushroom Raiders',
     type: '动作 / 平台跑酷',
+    typeEn: 'Action / Platformer',
     description: '3D 横版跑酷。越过沟壑、踩扁蘑菇怪、收集金币、抵达旗杆终点。',
+    descriptionEn: 'A 3D side-scrolling run through gaps, mushroom guards, coins, and the finish flag.',
     cover: '/media/illo/games/super-mario-xiaoxiang.avif',
     href: '/games/super-mario/',
   },
   {
     title: '楚汉争锋',
+    titleEn: 'Chu-Han Clash',
     type: '棋类 / 本地对弈',
+    typeEn: 'Strategy / Local Match',
     description: '3D 中国象棋。旋转棋盘，选择红黑阵营，落下每一步。',
+    descriptionEn: '3D Chinese chess with a rotatable board and local Red-versus-Black play.',
     cover: '/media/illo/games/chinese-chess-xiaoxiang.avif',
     href: '/games/chinese-chess/',
   },
   {
     title: '五子连珠',
+    titleEn: 'Five in a Row',
     type: '棋类 / 人机对弈',
+    typeEn: 'Strategy / Play vs AI',
     description: '3D 五子棋。三档 AI 难度、标准 Renju 黑方禁手、悔棋重开、木质棋盘。',
+    descriptionEn: '3D Gomoku with three AI levels, Renju forbidden moves, undo, and a wooden board.',
     cover: '/media/illo/games/gomoku-xiaoxiang.avif',
     href: '/games/gomoku/',
   },
   {
     title: '方块坠落',
+    titleEn: 'Blockfall',
     type: '动作 / 益智下落',
+    typeEn: 'Action / Falling Puzzle',
     description: '3D 俄罗斯方块。七形归位、Hold 暂存、踢墙旋转、等级加速、消行特效。',
+    descriptionEn: '3D block stacking with a seven-bag, Hold, wall kicks, speed levels, and line effects.',
     cover: '/media/illo/games/tetris-xiaoxiang.avif',
     href: '/games/tetris/',
   },
   {
     title: '飞鸟穿云',
+    titleEn: 'Skybound Bird',
     type: '动作 / 节奏飞行',
+    typeEn: 'Action / Rhythm Flight',
     description: 'Flappy Bird 经典玩法。掌握振翅节奏，穿过不断靠近的竹管。',
+    descriptionEn: 'Master the rhythm of each flap and fly through an endless stream of bamboo gates.',
     cover: '/media/illo/games/flappy-bird-xiaoxiang.avif',
     href: '/games/flappy-bird/',
   },
@@ -55,14 +73,14 @@ const games = [
         {games.map((game, index) => (
           <a class="game-card" href={game.href}>
             <div class="game-card-cover">
-              {game.cover ? <img src={game.cover} alt={`${game.title}游戏封面`} /> : null}
+              {game.cover ? <img src={game.cover} alt={`${game.title} / ${game.titleEn}`} /> : null}
               <span class="game-index">{String(index + 1).padStart(2, '0')}</span>
             </div>
             <div class="game-card-body">
-              <p class="game-type">{game.type}</p>
-              <h2>{game.title}</h2>
-              <p class="game-description">{game.description}</p>
-              <span class="game-action">进入游戏 <b aria-hidden="true">→</b></span>
+              <p class="game-type"><span class="lang-zh">{game.type}</span><span class="lang-en">{game.typeEn}</span></p>
+              <h2><span class="lang-zh">{game.title}</span><span class="lang-en">{game.titleEn}</span></h2>
+              <p class="game-description"><span class="lang-zh">{game.description}</span><span class="lang-en">{game.descriptionEn}</span></p>
+              <span class="game-action"><span class="lang-zh">进入游戏</span><span class="lang-en">Play game</span> <b aria-hidden="true">→</b></span>
             </div>
           </a>
         ))}
@@ -85,6 +103,23 @@ const games = [
     .game-description { margin: 0; color: #c9bda2; line-height: 1.7; }
     .game-action { margin-top: auto; padding-top: 1.4rem; color: #d1a843; font: 700 .75rem/1 var(--font-body); letter-spacing: .08em; }
     .game-action b { margin-left: .25rem; font-size: 1rem; }
+    .lang-en { display: none; }
+    :global(html[data-lang='en']) .lang-zh { display: none; }
+    :global(html[data-lang='en']) .lang-en { display: inline; }
     @media (max-width: 720px) { .games-page { padding: 4.4rem 0; } .game-grid { grid-template-columns: 1fr; } }
   </style>
+
+  <script>
+    const root = document.documentElement;
+    const applyGamesMeta = () => {
+      const english = root.getAttribute('data-lang') === 'en';
+      document.title = english ? 'Games · Tim Chen' : '游戏 · Tim Chen';
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        english ? 'Interactive experiments you can play directly in the browser.' : '可直接在浏览器游玩的互动实验。',
+      );
+    };
+    applyGamesMeta();
+    new MutationObserver(applyGamesMeta).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+  </script>
 </BaseLayout>

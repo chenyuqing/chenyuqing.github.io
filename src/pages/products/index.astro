@@ -17,6 +17,29 @@ const typeLabels: Record<string, string> = {
   infra: 'Infra',
 };
 
+const productEnglish: Record<string, { tagline: string; description: string }> = {
+  'subtitle-maker': {
+    tagline: 'A local Mac workspace for subtitles, translation, dubbing, and final video export',
+    description: 'A local AI subtitle and dubbing tool for Apple Silicon that brings transcription, translation, voice generation, subtitle preview, and final export into one continuous workflow.',
+  },
+  'clip-agent': {
+    tagline: 'Find highlights in long videos and turn them into vertical clips for six social platforms',
+    description: 'An AI video clipping tool that analyzes transcripts, identifies strong moments, tracks people with YOLOv11n, and exports vertical videos for TikTok, Instagram, YouTube Shorts, Threads, Xiaohongshu, and Twitter.',
+  },
+  'asd-pipeline': {
+    tagline: 'A recoverable, testable, reusable local entry point for Active Speaker Detection',
+    description: 'An Apple Silicon workspace that turns LR-ASD from a one-off CLI run into a staged, resumable pipeline with structured artifacts.',
+  },
+  'voicewave-profile': {
+    tagline: 'Turn a portrait and audio recording into an animated 9:16 voicewave profile video',
+    description: 'A podcast and short-video tool that detects faces, analyzes audio, and generates synchronized voicewave videos in five visual styles with optional transparent backgrounds.',
+  },
+  tonghua: {
+    tagline: 'Tell AI-generated bedtime stories in a parent’s own voice',
+    description: 'A native SwiftUI app that clones a voice from 15 seconds of audio, generates personalized stories, and reads them aloud in Mandarin, English, or Cantonese.',
+  },
+};
+
 const products = (await getCollection('products', ({ data }) => !data.draft))
   .sort((a, b) => {
     if (a.data.pinned && !b.data.pinned) return -1;
@@ -43,8 +66,8 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
       <div class="section-head products-hero">
         <div>
           <p class="eyebrow">Products</p>
-          <h1 class="section-title">产品目录</h1>
-          <p class="section-desc">把 GitHub 上的项目翻译成更可理解的产品层：它是什么，给谁用，解决什么问题，以及现在做到什么程度。</p>
+           <h1 class="section-title"><span class="lang-zh">产品目录</span><span class="lang-en">Product Catalog</span></h1>
+           <p class="section-desc"><span class="lang-zh">把 GitHub 上的项目翻译成更可理解的产品层：它是什么，给谁用，解决什么问题，以及现在做到什么程度。</span><span class="lang-en">A product-oriented view of the projects behind the GitHub repositories: what each one is, who it serves, what problem it solves, and how far it has progressed.</span></p>
         </div>
         <div class="products-stats" aria-label="Product status summary">
           <div class="products-stat-card">
@@ -70,7 +93,7 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
         <section class="products-featured-band reveal">
           <div class="section-head section-head-tight products-band-head">
             <p class="eyebrow eyebrow-on-dark">Featured</p>
-            <h2 class="section-title section-title-on-dark">重点产品</h2>
+             <h2 class="section-title section-title-on-dark"><span class="lang-zh">重点产品</span><span class="lang-en">Featured Products</span></h2>
           </div>
           <div class="products-featured-list">
             {featuredProducts.map((product) => (
@@ -83,15 +106,15 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
                   <a class="product-feature-title-link" href={`/products/${product.id}/`}>
                     <h3 class="product-feature-title">{product.data.title}</h3>
                   </a>
-                  <p class="product-feature-tagline">{product.data.tagline}</p>
-                  <p class="product-feature-desc">{product.data.description}</p>
+                   <p class="product-feature-tagline"><span class="lang-zh">{product.data.tagline}</span><span class="lang-en">{productEnglish[product.id]?.tagline || product.data.tagline}</span></p>
+                   <p class="product-feature-desc"><span class="lang-zh">{product.data.description}</span><span class="lang-en">{productEnglish[product.id]?.description || product.data.description}</span></p>
                   <div class="tag-list">
                     {product.data.stack.slice(0, 4).map((item) => (
                       <span class="tag tag-on-dark">{item}</span>
                     ))}
                   </div>
                   <div class="product-feature-actions">
-                    <a class="button button-on-dark" href={`/products/${product.id}/`}>查看产品</a>
+                     <a class="button button-on-dark" href={`/products/${product.id}/`}><span class="lang-zh">查看产品</span><span class="lang-en">View Product</span></a>
                     {product.data.repo && (
                       <a class="button button-on-dark-secondary" href={product.data.repo} target="_blank" rel="noreferrer">GitHub</a>
                     )}
@@ -115,13 +138,13 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
         <div class="catalog-head">
           <div class="section-head section-head-tight">
             <p class="eyebrow">Catalog</p>
-            <h2 class="section-title">产品列表</h2>
+             <h2 class="section-title"><span class="lang-zh">产品列表</span><span class="lang-en">All Products</span></h2>
           </div>
-          <div class="products-view-toggle" role="radiogroup" aria-label="视图切换">
-            <button class="view-btn view-btn-card view-btn-active" data-view="card" aria-pressed="true" title="卡片视图">
+          <div class="products-view-toggle" role="radiogroup" aria-label="视图切换" data-aria-zh="视图切换" data-aria-en="View options">
+            <button class="view-btn view-btn-card view-btn-active" data-view="card" aria-pressed="true" title="卡片视图" data-title-zh="卡片视图" data-title-en="Card view">
               <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="1.5" width="6" height="6" rx="1.5"/><rect x="10.5" y="1.5" width="6" height="6" rx="1.5"/><rect x="1.5" y="10.5" width="6" height="6" rx="1.5"/><rect x="10.5" y="10.5" width="6" height="6" rx="1.5"/></svg>
             </button>
-            <button class="view-btn view-btn-list" data-view="list" aria-pressed="false" title="列表视图">
+            <button class="view-btn view-btn-list" data-view="list" aria-pressed="false" title="列表视图" data-title-zh="列表视图" data-title-en="List view">
               <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="4" x2="15" y2="4"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="14" x2="15" y2="14"/></svg>
             </button>
           </div>
@@ -143,7 +166,7 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
                 <a class="product-catalog-title" href={`/products/${product.id}/`}>
                   <h3>{product.data.title}</h3>
                 </a>
-                <p class="product-catalog-tagline">{product.data.tagline}</p>
+                <p class="product-catalog-tagline"><span class="lang-zh">{product.data.tagline}</span><span class="lang-en">{productEnglish[product.id]?.tagline || product.data.tagline}</span></p>
                 <div class="product-catalog-meta">
                   {product.data.platform && <span class="product-catalog-meta-item">{product.data.platform}</span>}
                   {product.data.stack[0] && <span class="product-catalog-meta-item">{product.data.stack[0]}</span>}
@@ -159,7 +182,7 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
       <section class="section reveal">
         <div class="products-note">
           <p class="eyebrow">Build Notes</p>
-          <p>这里展示的不是仓库总表，而是已经被翻译成"产品语言"的项目。方法论和拆解文章继续放在 <a href="/blog/">/blog/</a>，源码和开发痕迹留在 GitHub。</p>
+          <p><span class="lang-zh">这里展示的不是仓库总表，而是已经被翻译成"产品语言"的项目。方法论和拆解文章继续放在 <a href="/blog/">/blog/</a>，源码和开发痕迹留在 GitHub。</span><span class="lang-en">This is not a repository index. It is a curated catalog of projects translated into product language. Methods and technical breakdowns remain in <a href="/blog/">/blog/</a>, while source code and development history stay on GitHub.</span></p>
         </div>
       </section>
     </section>
@@ -191,6 +214,26 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
           });
         });
       });
+
+      function applyProductsLanguage() {
+        var english = document.documentElement.getAttribute('data-lang') === 'en';
+        document.title = english ? 'Products · Tim Chen' : 'Products | Tim Chen';
+        var meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute('content', english ? 'A product catalog of AI tools, media workflows, and experiments.' : '把 GitHub 项目翻译成可理解的产品目录。');
+        document.querySelectorAll('[data-title-zh]').forEach(function (node) {
+          node.setAttribute('title', node.getAttribute(english ? 'data-title-en' : 'data-title-zh'));
+        });
+        document.querySelectorAll('[data-aria-zh]').forEach(function (node) {
+          node.setAttribute('aria-label', node.getAttribute(english ? 'data-aria-en' : 'data-aria-zh'));
+        });
+      }
+      applyProductsLanguage();
+      new MutationObserver(applyProductsLanguage).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
     })();
   </script>
+  <style>
+    .lang-en { display: none; }
+    :global(html[data-lang='en']) .lang-zh { display: none; }
+    :global(html[data-lang='en']) .lang-en { display: inline; }
+  </style>
 </BaseLayout>
