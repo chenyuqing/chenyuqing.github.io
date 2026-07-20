@@ -581,6 +581,15 @@ function makeGhostMesh(colorInt) {
   return new THREE.Mesh(GHOST_GEO, mat);
 }
 
+function disposeMaterial(object){
+  object.traverse(child=>{
+    if(child.material){
+      const materials = Array.isArray(child.material) ? child.material : [child.material];
+      materials.forEach(material=>{ if(material.map) material.map.dispose(); material.dispose(); });
+    }
+  });
+}
+
 // ================= 7-bag 随机 =================
 function refillBag() {
   const arr = [...TYPES];
@@ -631,7 +640,7 @@ function collides(x, y, type, rot) {
 }
 
 function rebuildPieceMeshes() {
-  for (const m of pieceMeshes) scene.remove(m);
+  for (const m of pieceMeshes) { scene.remove(m); disposeMaterial(m); }
   pieceMeshes.length = 0;
   if (!cur) return;
   const shape = getShape(cur.type, cur.rot);
@@ -727,7 +736,7 @@ function holdPiece() {
   const prev = holdType;
   holdType = cur.type;
   // 清空当前方块的 mesh
-  for (const m of pieceMeshes) scene.remove(m);
+  for (const m of pieceMeshes) { scene.remove(m); disposeMaterial(m); }
   pieceMeshes.length = 0;
   for (const m of ghostMeshes) scene.remove(m);
   ghostMeshes.length = 0;
@@ -803,7 +812,7 @@ function triggerLineClear(rows) {
 
 function finishLineClear(rows) {
   // 移除闪烁方块 mesh
-  for (const cm of clearingMeshes) scene.remove(cm.mesh);
+  for (const cm of clearingMeshes) { scene.remove(cm.mesh); disposeMaterial(cm.mesh); }
   clearingMeshes = [];
   // 从 board 移除这些行
   rows.sort((a, b) => a - b);  // 从小到大
@@ -815,7 +824,7 @@ function finishLineClear(rows) {
   while (newBoard.length < ROWS) newBoard.push(new Array(COLS).fill(0));   // 空行补到顶部（数组末尾，因为 r=0 是底部）
   board = newBoard;
   // 重建所有 cellMeshes
-  for (const cm of cellMeshes) scene.remove(cm.mesh);
+  for (const cm of cellMeshes) { scene.remove(cm.mesh); disposeMaterial(cm.mesh); }
   cellMeshes = [];
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
@@ -997,13 +1006,13 @@ function togglePause() {
 function restart() {
   gameSeq++;
   // 清空棋盘
-  for (const cm of cellMeshes) scene.remove(cm.mesh);
+  for (const cm of cellMeshes) { scene.remove(cm.mesh); disposeMaterial(cm.mesh); }
   cellMeshes = [];
-  for (const m of pieceMeshes) scene.remove(m);
+  for (const m of pieceMeshes) { scene.remove(m); disposeMaterial(m); }
   pieceMeshes = [];
   for (const m of ghostMeshes) scene.remove(m);
   ghostMeshes = [];
-  for (const m of clearingMeshes) scene.remove(m);
+  for (const m of clearingMeshes) { scene.remove(m); disposeMaterial(m); }
   clearingMeshes = [];
   board = [];
   for (let r = 0; r < ROWS; r++) board.push(new Array(COLS).fill(0));

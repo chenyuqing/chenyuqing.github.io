@@ -2255,7 +2255,14 @@ function updateCapturedUI() {
 function restartGame() {
   gameSeq++;
   // 清空旧棋子
-  pieces.forEach(p => { if (p.mesh) piecesGroup.remove(p.mesh); });
+  pieces.forEach(p => {
+    if (!p.mesh) return;
+    piecesGroup.remove(p.mesh);
+    p.mesh.traverse(o => {
+      if (o.geometry) o.geometry.dispose();
+      if (o.material) (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => { if (m.map) m.map.dispose(); m.dispose(); });
+    });
+  });
   pieces = [];
   moveHistory = [];
   capturedByRed = []; capturedByBlack = [];

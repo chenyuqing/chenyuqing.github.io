@@ -35,6 +35,7 @@
   .score-chip{font-size:15px;letter-spacing:1px;padding:6px 14px;border-radius:24px;border:2px solid var(--gold);color:#fff;background:linear-gradient(135deg,rgba(60,44,26,.9),rgba(30,22,12,.9));box-shadow:0 0 12px rgba(0,0,0,.5);}
   .score-chip b{color:var(--gold-light);font-weight:bold;}
   .audio-chip{cursor:pointer;font-size:16px;line-height:1;padding:6px 10px;opacity:.85;transition:all .15s;}
+  .pause-chip{cursor:pointer;min-width:38px;}
   .audio-chip:hover{opacity:1;box-shadow:0 0 14px rgba(212,160,23,.55);}
   .audio-chip.off{opacity:.4;text-decoration:line-through;}
 
@@ -82,6 +83,12 @@
   #win-again{margin-top:24px;font-family:inherit;font-size:20px;letter-spacing:5px;cursor:pointer;padding:12px 40px;border-radius:40px;border:2px solid var(--gold);color:#1a1208;background:linear-gradient(180deg,var(--gold-light),var(--gold));box-shadow:0 6px 20px rgba(0,0,0,.6);}
   #win-quit{display:inline-block;margin-top:14px;font-family:inherit;font-size:14px;letter-spacing:2px;color:#e8d5ae;text-decoration:none;padding:8px 20px;border:1.5px solid rgba(212,160,23,.6);border-radius:22px;background:rgba(20,15,8,.5);transition:all .16s;}
   #win-quit:hover{color:#fff;border-color:var(--gold-light);background:rgba(60,44,26,.7);}
+  #pause-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;background:rgba(8,6,4,.62);backdrop-filter:blur(3px);}
+  #pause-overlay.hidden{display:none;}
+  #pause-card{width:min(360px,88vw);padding:28px 24px;text-align:center;border:2px solid var(--gold);border-radius:14px;background:rgba(24,20,12,.94);box-shadow:0 20px 60px #000b;}
+  #pause-card h2{margin:0;color:var(--gold-light);font-size:34px;letter-spacing:6px;}
+  #pause-card p{margin:12px 0 18px;color:#e8d5ae;font:14px/1.6 system-ui,sans-serif;}
+  #pause-resume{padding:11px 34px;border:2px solid var(--gold);border-radius:32px;background:linear-gradient(180deg,var(--gold-light),var(--gold));color:#1a1208;font:700 18px/1 inherit;cursor:pointer;}
 
   #intro{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(20,14,8,.55),rgba(8,6,4,.94));transition:opacity .6s;}
   #intro.hide{opacity:0;pointer-events:none;}
@@ -121,7 +128,7 @@
     #topbar{height:52px;padding:0 12px;}
     #scoreboard{gap:6px;}
     .score-chip{font-size:12px;padding:4px 9px;}
-    .audio-chip{font-size:14px;padding:4px 8px;}
+    .audio-chip{font-size:14px;padding:4px 8px;}.pause-chip{min-width:34px;padding:4px 8px;}
     #panel{top:58px;width:min(78vw,220px);}
     #panel-toggle{top:64px;}
     #intro-title{font-size:32px;letter-spacing:6px;}
@@ -172,6 +179,7 @@
     <div class="score-chip">金币 <b id="hud-coin">0</b></div>
     <div class="score-chip">生命 <b id="hud-life">3</b></div>
     <div class="score-chip">关卡 <b id="hud-stage">1/4</b></div>
+    <button class="score-chip pause-chip" id="quick-pause" type="button" title="暂停">Ⅱ</button>
     <div class="score-chip audio-chip" id="chip-sfx" title="音效开关">🔊</div>
     <div class="score-chip audio-chip" id="chip-bgm" title="BGM 开关">🎵</div>
   </div>
@@ -204,6 +212,10 @@
   <div id="win-sub"></div>
   <button id="win-again">再 来 一 局</button>
   <a id="win-quit" href="/games/">← 退出</a>
+</div>
+
+<div id="pause-overlay" class="hidden" aria-live="polite">
+  <div id="pause-card"><h2>暂停中</h2><p>游戏已暂停。按 P、Esc 或点击按钮继续。</p><button id="pause-resume" type="button">继续游戏</button></div>
 </div>
 
 <div id="intro">
@@ -253,7 +265,8 @@ let scene, camera, renderer, controls, clock;
 let player = null;            // 玩家 mesh + 状态
 let worldGroup = null;        // 当前关世界容器（重建关卡时移除）
 let coins = [], enemies = [], platforms = [], flags = [], pits = [];
-let stage = 1, startStage = 1, running = false, over = false, interStage = false;
+let stage = 1, startStage = 1, running = false, over = false, interStage = false, paused = false;
+let stageTransitionTimer = null;
 let coinScore = 0, lifeCount = 3, runDist = 0;
 let stageEnd = null;           // 旗杆 mesh
 const keys = new Set();
@@ -492,10 +505,20 @@ function initScene(){
 }
 
 function clearWorld(){
-  if(worldGroup){ scene.remove(worldGroup); worldGroup.traverse(o=>{ if(o.geometry)o.geometry.dispose&&o.geometry.dispose(); }); }
+  if(worldGroup){ scene.remove(worldGroup); disposeMesh(worldGroup); }
   worldGroup = new THREE.Group(); scene.add(worldGroup);
   coins = []; enemies = []; platforms = []; flags = []; pits = [];
   stageEnd = null;
+}
+
+function disposeMesh(object){
+  object.traverse((child)=>{
+    if(child.geometry) child.geometry.dispose();
+    if(child.material){
+      const materials = Array.isArray(child.material) ? child.material : [child.material];
+      materials.forEach((material)=>{ if(material.map) material.map.dispose(); material.dispose(); });
+    }
+  });
 }
 
 function makeBrickTexture(tint='#a06530'){
@@ -709,11 +732,13 @@ function loadStage(){
 }
 
 function resetPlayer(spawnX=1){
-  if(player && player.mesh){ scene.remove(player.mesh); }
+  if(player && player.mesh){ scene.remove(player.mesh); disposeMesh(player.mesh); }
+  if(player && player.shadow){ scene.remove(player.shadow); disposeMesh(player.shadow); }
   const mesh = buildPlayerMesh();
   mesh.position.set(spawnX, 2.0, 0); scene.add(mesh);
   player = {
     mesh, x:spawnX, y:2.0, z:0,
+    shadow: mesh.userData.shadow,
     vx:0, vy:0, vz:0,
     onGround:false, facing:1,
     walkT:0,
@@ -908,8 +933,10 @@ function updateFlag(dt){
   }
   if(player && player.alive && player.x > stageEnd.x - 0.6){
     stageEnd.winT = 0.01;
+    running = false;
     SFX.stageClear();
-    setTimeout(()=>{ if(stage < TOTAL_STAGES){ nextStage(); } else { finish(true); } }, 1400);
+    clearTimeout(stageTransitionTimer);
+    stageTransitionTimer = setTimeout(()=>{ if(stage < TOTAL_STAGES){ nextStage(); } else { finish(true); } }, 1400);
   }
 }
 
@@ -940,8 +967,9 @@ function startGame(){
   camera.position.set(player.x - 6, 6, 18);
   controls.target.set(player.x, 1, 0);
   document.getElementById('win-banner').classList.remove('show');
+  document.getElementById('pause-overlay').classList.add('hidden');
   document.getElementById('intro').classList.add('hide');
-  over = false; running = true; interStage = false;
+  over = false; paused = false; running = true; interStage = false;
   toast('起跑！');
   if(!bgmMuted) startBGM();
 }
@@ -968,13 +996,15 @@ function advanceToStage(){
   camera.position.set(player.x - 6, 6, 18);
   controls.target.set(player.x, 1, 0);
   document.getElementById('win-banner').classList.remove('show');
-  over = false; running = true; interStage = false;
+  over = false; paused = false; running = true; interStage = false;
   toast(`第 ${stage} 关 · 起跑`);
   if(!bgmMuted) startBGM();
 }
 
 function finish(win){
-  if(over) return; over = true; running = false; interStage = false;
+  if(over) return; over = true; paused = false; running = false; interStage = false;
+  document.getElementById('pause-overlay').classList.add('hidden');
+  clearTimeout(stageTransitionTimer);
   document.getElementById('win-text').textContent = win ? '全线通关 · 冒险结束' : 'GAME OVER';
   document.getElementById('win-text').style.color = win ? '#f0c75e' : '#ff8a75';
   document.getElementById('win-sub').textContent = `金币 ${coinScore}　·　剩余生命 ${lifeCount}`;
@@ -986,6 +1016,19 @@ function finish(win){
   if(win){ SFX.stageClear(); }
   else { SFX.gameOver(); }
 }
+
+function togglePause(force){
+  if(!player || over || document.getElementById('intro').classList.contains('hide') === false || interStage || stageEnd?.winT > 0) return;
+  paused = typeof force === 'boolean' ? force : !paused;
+  running = !paused;
+  document.getElementById('pause-overlay').classList.toggle('hidden', !paused);
+  if(paused) stopBGM(); else if(!bgmMuted) startBGM();
+  clock.getDelta();
+}
+
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden && running) togglePause(true);
+});
 
 function animate(){
   requestAnimationFrame(animate);
@@ -1002,9 +1045,9 @@ function animate(){
     updatePlayer(dt);
     updateCoins(dt);
     updateEnemies(dt);
-    updateFlag(dt);
     syncHUD();
   }
+  if(stageEnd && stageEnd.winT > 0) updateFlag(dt);
   if(SHAKE.t>0){
     SHAKE.t-=dt; const a=SHAKE.amp*(SHAKE.t/0.5);
     SHAKE.off.set((Math.random()-.5)*a,(Math.random()-.5)*a,(Math.random()-.5)*a);
@@ -1013,11 +1056,12 @@ function animate(){
   renderer.render(scene, camera);
 }
 
-const KEYMAP = ['arrowleft','arrowright','arrowup','arrowdown',' ','a','d','w','s','x','k','j'];
+const KEYMAP = ['arrowleft','arrowright','arrowup','arrowdown',' ','a','d','w','s','x','k','j','p','escape'];
 const KEY_ALIAS = { arrowleft:'left', arrowright:'right', arrowup:'up', arrowdown:'down' };
 function normKey(k){ return KEY_ALIAS[k] || k; }
 addEventListener('keydown', e=>{
   const k = normKey(e.key.toLowerCase());
+  if(k === 'p' || k === 'escape'){ e.preventDefault(); togglePause(); return; }
   if(KEYMAP.includes(k) || KEYMAP.includes(e.key.toLowerCase())){ keys.add(k); if(k===' '||k==='up'||k==='down') e.preventDefault(); }
 });
 addEventListener('keyup', e=>{ keys.delete(normKey(e.key.toLowerCase())); });
@@ -1035,6 +1079,8 @@ function bindUI(){
     opt.classList.add('active'); startStage = parseInt(opt.dataset.v, 10);
   });
   document.getElementById('intro-start').addEventListener('click', startGame);
+  document.getElementById('pause-resume').addEventListener('click', ()=>togglePause(false));
+  document.getElementById('quick-pause').addEventListener('click', ()=>togglePause());
   document.getElementById('win-again').addEventListener('click', ()=>{
     const mode = document.getElementById('win-again').dataset.mode;
     if(mode==='next') advanceToStage(); else startGame();

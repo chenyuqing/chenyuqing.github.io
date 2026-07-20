@@ -10,12 +10,13 @@
     '方块坠落 · 3D 俄罗斯方块': 'Blockfall · 3D Tetris',
     '蘑菇奇兵 · 3D 跑酷冒险': 'Mushroom Raiders · 3D Platform Adventure',
     '飞鸟穿云 · 3D Flappy Bird': 'Skybound Bird · 3D Flappy Bird',
+    '暮轨疾行 · 3D 三轨跑酷': 'Dusk Rail Rush · 3D Three-Lane Runner',
     '返回游戏专区': 'Back to Games', '返回游戏库': 'Back to Games', '← 返回游戏专区': '← Back to Games',
     '退出': 'Exit', '退 出': 'Exit', '← 退出': '← Exit', '游戏结束': 'Game Over', '再 来 一 局': 'Play Again',
     '重新开始': 'Restart', '重新开局': 'New Game', '重开': 'Restart', '视角复位': 'Reset Camera',
     '收起/展开面板': 'Toggle panel', '音效开关': 'Toggle sound', 'BGM 开关': 'Toggle music',
     '音效：开': 'Sound: On', '音效：关': 'Sound: Off', '背景音乐：开': 'Music: On', '背景音乐：关': 'Music: Off',
-    '暂停': 'Pause', '继续': 'Resume', '开 局': 'Start', '开 战': 'Start Battle', '开 始 冒 险': 'Start Adventure',
+    '暂停': 'Pause', '暂停中': 'Paused', '继续': 'Resume', '继续游戏': 'Resume Game', '游戏已暂停。按 P、Esc 或点击按钮继续。': 'Game paused. Press P, Esc, or click to continue.', '开 局': 'Start', '开 战': 'Start Battle', '开 始 冒 险': 'Start Adventure',
 
     '钢铁防线': 'Iron Defense', '3D 坦克大战': '3D TANK BATTLE', '单人': 'Solo', '双人': 'Two Players',
     '选择模式': 'Select Mode', '选择关卡': 'Select Stage', '战况': 'STATUS', '关卡 STAGE': 'STAGE',
@@ -29,7 +30,7 @@
 
     '五子连珠': 'Five in a Row', '3D 人机对弈': '3D GOMOKU', '对局控制': 'GAME CONTROL',
     '本地对弈': 'Local Match', '人机对战': 'Play vs AI', '电脑·简单': 'AI · Easy', '电脑·普通': 'AI · Normal',
-    '电脑·困难': 'AI · Hard', '简单': 'Easy', '普通': 'Normal', '困难': 'Hard', '智能提示': 'Smart Hint',
+    '电脑·困难': 'AI · Hard', '简单': 'Easy', '中等': 'Normal', '普通': 'Normal', '困难': 'Hard', '智能提示': 'Smart Hint',
     '悔棋': 'Undo', '禁手：关': 'Forbidden Moves: Off', '禁手：开': 'Forbidden Moves: On',
     '黑方落子': 'Black to Move', '白方落子': 'White to Move', '黑方先行，点击棋盘交叉点落子。五子连珠即胜。': 'Black moves first. Place stones on intersections; connect five to win.',
     '第一步：选择对手': 'Step 1: Choose Opponent', '第二步：黑方禁手规则': 'Step 2: Black Forbidden Moves',
@@ -74,6 +75,15 @@
     '点击画面或按空格键飞行': 'Click or press Space to fly', '穿过竹管，别碰到边缘。': 'Fly through the bamboo pipes without touching them.',
     '重新起飞': 'Fly Again', '飞行结束': 'Flight Over', '暂停中': 'Paused', '云层静止': 'The clouds are still',
     '准备好后继续这一次飞行。': 'Resume when you are ready.', '继续飞行': 'Resume Flight',
+
+    '暮轨疾行': 'Dusk Rail Rush', '3D 三轨跑酷': '3D THREE-LANE RUNNER', '暮色铁道 · 无尽疾行': 'DUSK RAIL YARD · ENDLESS RUN',
+    '关卡': 'Stage', '旧城站': 'Old Town Station', '高架枢纽': 'Skyline Junction', '暮光终站': 'Twilight Terminal', '闯关成功': 'Stage Clear', '全线通关': 'Campaign Clear', '第 1 关完成': 'Stage 1 Complete', '第 2 关完成': 'Stage 2 Complete', '进入下一关': 'Next Stage', '本关': 'This stage',
+    '慢速 · 宽间距': 'Slower · Wide gaps', '标准节奏': 'Standard pace', '高速 · 密集': 'Fast · Dense',
+    '米': 'm', '速度': 'Speed', '开始疾行': 'Start Run', '继续疾行': 'Resume Run', '再次出发': 'Run Again',
+    '换轨': 'Switch lanes', '跳跃': 'Jump', '滑行': 'Slide', '方向键 / WASD 控制，空格跳跃；手机在画面上滑动。': 'Use arrow keys / WASD and Space to jump. Swipe on mobile.',
+    '列车需换轨，路障要跳过，信号架要滑行穿过。': 'Change lanes for trains, jump barriers, and slide under signals.',
+    '疾行结束': 'Run Over', '本次旅程': 'This Run', '暂停中': 'Paused', '铁道暂时安静了': 'The rail yard is quiet',
+    '按 P 或 Esc 暂停': 'Press P or Esc to pause', '重新开始本局': 'Restart run', '切换音效': 'Toggle sound',
 
     '云端翔行 · 飞行棋': 'Sky Voyage · Aeroplane Chess', '云端翔行': 'Sky Voyage', '飞行棋': 'Aeroplane Chess', '3D 飞行棋': '3D AEROPLANE CHESS', '四方飞行棋': 'Four-Player Aeroplane Chess',
     '红方回合': 'Red Turn', '黄方回合': 'Yellow Turn',
@@ -146,7 +156,8 @@
     [/^金币 (\d+)　·　生命 (\d+)$/, 'Coins $1 · Lives $2'], [/^本次得分 (\d+)$/, 'Score $1'],
     [/^新局开始 · 黑方先行$/, 'New game · Black moves first'], [/^禁手：(.+)$/, 'Forbidden move: $1'],
     [/^掷出 (\d+)，选择一架飞机$/, 'Rolled $1. Choose a plane.'], [/^掷出 (\d+)，没有可动飞机$/, 'Rolled $1. No plane can move.'],
-    [/^掷出 6，无可动飞机，再掷一次$/, 'Rolled 6. No plane can move. Roll again.']
+    [/^掷出 6，无可动飞机，再掷一次$/, 'Rolled 6. No plane can move. Roll again.'],
+    [/^分数 (\d+)　·　金币 (\d+)　·　距离 (\d+) 米　·　最高 (\d+)$/, 'Score $1 · Coins $2 · Distance $3m · Best $4']
   ];
 
   const translate = value => {

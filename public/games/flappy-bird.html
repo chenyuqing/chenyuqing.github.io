@@ -125,6 +125,11 @@
     function addMesh(geometry, mat, position, group=scene) {
       const mesh = new THREE.Mesh(geometry, mat); mesh.position.set(...position); mesh.castShadow = true; mesh.receiveShadow = true; group.add(mesh); return mesh;
     }
+    function disposePipeGeometry(object) {
+      object.traverse(child => {
+        if (child.geometry) child.geometry.dispose();
+      });
+    }
 
     function makeCloud(x, y, scale) {
       const cloud = new THREE.Group();
@@ -177,7 +182,7 @@
     }
 
     function resize() { const {width,height} = mount.getBoundingClientRect(); camera.aspect = width / height; camera.updateProjectionMatrix(); renderer.setSize(width,height,false); }
-    function reset() { bird.y=.5; bird.velocity=0; bird.rotation=0; pipes.forEach(pipe=>pipeGroup.remove(pipe.group)); pipes=[]; score=0; spawnTimer=0; scoreNode.textContent=score; }
+    function reset() { bird.y=.5; bird.velocity=0; bird.rotation=0; pipes.forEach(pipe=>{pipeGroup.remove(pipe.group);disposePipeGeometry(pipe.group)}); pipes=[]; score=0; spawnTimer=0; scoreNode.textContent=score; }
     function setMessage(kicker,title,detail,action) { messageKicker.textContent=kicker; messageTitle.textContent=title; messageDetail.textContent=detail; playButton.textContent=action; message.hidden=false; }
     function start() { if(state==='gameover') reset(); state='playing'; message.hidden=true; flap(); }
     function flap() { if(state==='ready'||state==='gameover'){start();return} if(state!=='playing')return; bird.velocity=7.7; bird.rotation=.3; tone(580,.07,'triangle'); }
@@ -189,7 +194,7 @@
       spawnTimer+=dt; if(spawnTimer>=1.48){spawnTimer=0; const gap=Math.max(3.25,4.05-score*.025); pipes.push(makePipe(-.2+Math.random()*2.3,gap));}
       const speed=Math.min(7.2,5+score*.055);
       pipes.forEach(pipe=>{pipe.group.position.x-=speed*dt;if(!pipe.passed&&pipe.group.position.x+PIPE_WIDTH/2<BIRD_X){pipe.passed=true;score++;scoreNode.textContent=score;tone(780,.09)}});
-      pipes=pipes.filter(pipe=>{if(pipe.group.position.x<-11){pipeGroup.remove(pipe.group);return false}return true});
+       pipes=pipes.filter(pipe=>{if(pipe.group.position.x<-11){pipeGroup.remove(pipe.group);disposePipeGeometry(pipe.group);return false}return true});
       if(bird.y+BIRD_RADIUS>WORLD_TOP||bird.y-BIRD_RADIUS<WORLD_BOTTOM||pipes.some(pipe=>Math.abs(pipe.group.position.x-BIRD_X)<PIPE_WIDTH/2+BIRD_RADIUS&&(bird.y+BIRD_RADIUS>pipe.top+pipe.gap/2||bird.y-BIRD_RADIUS<pipe.top-pipe.gap/2)))endGame();
     }
     function render(time) { const dt=Math.min(.035,(time-lastFrame)/1000||0);lastFrame=time;update(dt);birdMesh.position.y=bird.y;birdMesh.rotation.z=bird.rotation;cloudGroup.position.x=Math.sin(time*.00012)*.26;renderer.render(scene,camera);requestAnimationFrame(render); }
