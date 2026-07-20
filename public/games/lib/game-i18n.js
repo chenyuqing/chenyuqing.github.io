@@ -73,7 +73,22 @@
     '点击画面、触碰屏幕或按空格键，让小鸟振翅。': 'Click, tap, or press Space to flap.', '开始飞行': 'Start Flying',
     '点击画面或按空格键飞行': 'Click or press Space to fly', '穿过竹管，别碰到边缘。': 'Fly through the bamboo pipes without touching them.',
     '重新起飞': 'Fly Again', '飞行结束': 'Flight Over', '暂停中': 'Paused', '云层静止': 'The clouds are still',
-    '准备好后继续这一次飞行。': 'Resume when you are ready.', '继续飞行': 'Resume Flight'
+    '准备好后继续这一次飞行。': 'Resume when you are ready.', '继续飞行': 'Resume Flight',
+
+    '云端翔行': 'Sky Voyage', '3D 飞行棋': '3D AEROPLANE CHESS', '红方回合': 'Red Turn', '黄方回合': 'Yellow Turn',
+    '蓝方回合': 'Blue Turn', '绿方回合': 'Green Turn', '红方': 'Red', '黄方': 'Yellow', '蓝方': 'Blue', '绿方': 'Green',
+    '战况': 'STATUS', '当前回合': 'Current Turn', '骰子点数': 'Dice', '红方到家': 'Red Home', '黄方到家': 'Yellow Home',
+    '蓝方到家': 'Blue Home', '绿方到家': 'Green Home', '掷骰': 'Roll', '重开': 'Restart', '音效：开': 'Sound: On',
+    '音效：关': 'Sound: Off', '视角复位': 'Reset Camera', '收起/展开面板': 'Toggle panel',
+    '胜利！': 'Victory!', '获胜': 'Wins', '四架飞机全部抵达终点': 'All four planes have reached the finish',
+    '再 来 一 局': 'Play Again', '起 飞': 'Take Off',
+    '你执 红 方，其余三方由电脑控制。': 'You play Red; the other three sides are computer-controlled.',
+    '掷出 6 才能起飞，并可再掷一次。': 'Roll a 6 to take off, then roll again.',
+    '走到对方飞机所在格，将其击落回基地。': 'Landing on an opponent sends their plane back to base.',
+    '四架飞机全部抵达中央终点者获胜。': 'Get all four planes to the center to win.',
+    '拖动旋转视角，滚轮拉近拉远。': 'Drag to rotate and scroll to zoom.',
+    '你的回合': 'Your turn', '掷出6，再掷一次！': 'Rolled a 6 — roll again!',
+    '点击高亮飞机移动': 'Tap a highlighted plane to move'
   };
 
   const PATTERNS = [
