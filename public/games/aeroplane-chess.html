@@ -1,672 +1,1039 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#14100c">
-<title>云端翔行 · 3D 飞行棋</title>
-<style>
-  :root{--gold:#D4A017;--gold-light:#F0C75E;--zhu:#C0392B;--zhu-dark:#8E2A20;--ink:#14100c;--paper:#f5e6c8;--panel-bg:rgba(24,20,12,.9)}
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation}
-  html,body{width:100%;height:100%;overflow:hidden;background:#14100c;font-family:"KaiTi","STKaiti","楷体",serif}
-  #canvas-wrap{position:fixed;inset:0;touch-action:none}
-  canvas{display:block;touch-action:none}
-  #topbar{position:fixed;top:0;left:0;right:0;height:64px;z-index:20;pointer-events:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;padding-top:env(safe-area-inset-top);background:linear-gradient(180deg,rgba(10,8,5,.85),rgba(10,8,5,0))}
-  #game-title{font-size:28px;font-weight:bold;letter-spacing:5px;color:var(--gold-light);text-shadow:0 0 18px rgba(212,160,23,.55),0 2px 4px #000;pointer-events:auto}
-  #game-title small{font-size:13px;letter-spacing:2px;color:#cbb37a;margin-left:9px}
-  #home-link{display:inline-flex;align-items:center;margin-left:16px;padding:9px 14px;border:2px solid #f5da84;border-radius:6px;background:#d4a017;color:#1a1208;font-family:system-ui,sans-serif;font-size:14px;font-weight:800;letter-spacing:1px;text-decoration:none;box-shadow:0 3px 12px rgba(0,0,0,.48);pointer-events:auto}
-  #home-link:hover{background:#f5da84}
-  #turn-badge{pointer-events:auto;font-size:18px;letter-spacing:3px;padding:7px 20px;border-radius:30px;border:2px solid var(--gold);color:#fff;background:linear-gradient(135deg,var(--zhu),var(--zhu-dark));box-shadow:0 0 16px rgba(192,57,43,.6);transition:all .4s}
-  #turn-badge.c0{background:linear-gradient(135deg,#C0392B,#8E2A20)}
-  #turn-badge.c1{background:linear-gradient(135deg,#D4A017,#9a7412)}
-  #turn-badge.c2{background:linear-gradient(135deg,#2C6FBB,#1a4a82)}
-  #turn-badge.c3{background:linear-gradient(135deg,#27A050,#178038)}
-  #toast{position:fixed;top:82px;left:50%;transform:translateX(-50%) scale(.8);z-index:30;font-size:26px;font-weight:bold;letter-spacing:4px;color:var(--gold-light);text-shadow:0 0 24px rgba(212,160,23,.8),0 3px 6px #000;opacity:0;transition:all .35s;pointer-events:none;white-space:nowrap}
-  #toast.show{opacity:1;transform:translateX(-50%) scale(1)}
-  #toast.danger{color:#ff6b5e}
-  #win-banner{position:fixed;top:38%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:40;text-align:center;transition:transform .5s cubic-bezier(.2,1.6,.4,1);pointer-events:none}
-  #win-banner.show{transform:translate(-50%,-50%) scale(1);pointer-events:auto}
-  #win-text{font-size:60px;font-weight:bold;letter-spacing:10px;color:var(--gold-light);text-shadow:0 0 40px rgba(212,160,23,.9),0 4px 8px #000}
-  #win-sub{font-size:20px;color:#e8d5ae;margin-top:12px;letter-spacing:3px}
-  #win-again{margin-top:24px;font-family:inherit;font-size:20px;letter-spacing:5px;cursor:pointer;padding:12px 42px;border-radius:40px;border:2px solid var(--gold);color:#1a1208;background:linear-gradient(180deg,var(--gold-light),var(--gold));box-shadow:0 6px 20px rgba(0,0,0,.6)}
-  #win-again:hover{filter:brightness(1.12)}
-  #panel{position:fixed;top:76px;right:14px;width:240px;z-index:25;background:var(--panel-bg);border:2px solid rgba(212,160,23,.5);border-radius:14px;backdrop-filter:blur(6px);padding:14px;transition:transform .4s;box-shadow:0 10px 30px rgba(0,0,0,.55);padding-right:calc(14px + env(safe-area-inset-right))}
-  #panel.collapsed{transform:translateX(calc(100% + 20px))}
-  .sec-title{font-size:14px;color:var(--gold);letter-spacing:3px;margin:0 0 8px;border-bottom:1px solid rgba(212,160,23,.35);padding-bottom:4px}
-  .row{display:flex;justify-content:space-between;align-items:center;margin:7px 0;font-size:14px;color:#e8d5ae}
-  .row .val{color:var(--gold-light);font-weight:bold}
-  .btn-row{display:flex;gap:8px;margin-top:12px}
-  .gbtn{flex:1;font-family:inherit;font-size:15px;letter-spacing:1px;cursor:pointer;padding:9px 6px;border-radius:9px;border:1.5px solid rgba(212,160,23,.55);background:rgba(60,44,26,.55);color:#e8d5ae;transition:all .18s;text-align:center}
-  .gbtn:hover{border-color:var(--gold-light);color:#fff;box-shadow:0 0 10px rgba(212,160,23,.4)}
-  .gbtn:disabled{opacity:.4;cursor:not-allowed}
-  #panel-toggle{position:fixed;top:84px;right:14px;z-index:26;width:40px;height:40px;border-radius:50%;border:2px solid var(--gold);background:var(--panel-bg);color:var(--gold-light);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:right .4s;box-shadow:0 4px 12px rgba(0,0,0,.5)}
-  #panel:not(.collapsed)~#panel-toggle{right:258px}
-  #intro{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(20,14,8,.55),rgba(8,6,4,.94));transition:opacity .6s}
-  #intro.hide{opacity:0;pointer-events:none}
-  #intro-card{width:min(560px,92vw);max-height:92vh;overflow-y:auto;text-align:center;padding:36px 40px 30px;background:linear-gradient(160deg,#f7ead0,#ecd9b4);border-radius:16px;border:3px solid var(--gold);box-shadow:0 0 0 6px rgba(142,42,32,.35),0 30px 80px rgba(0,0,0,.8);position:relative}
-  #intro-title{font-size:46px;letter-spacing:10px;color:var(--zhu-dark);text-shadow:0 2px 0 #fff3dd;margin:6px 0 2px}
-  #intro-sub{font-size:16px;color:#7a5c2e;letter-spacing:3px;margin-bottom:20px}
-  #intro-tip{font-size:14px;color:#5c4320;line-height:1.7;margin-bottom:18px}
-  #intro-tip b{color:var(--zhu-dark)}
-  #intro-start{margin-top:8px;font-family:inherit;font-size:26px;font-weight:bold;letter-spacing:9px;cursor:pointer;padding:14px 60px;border-radius:44px;border:none;color:#fff6df;background:linear-gradient(180deg,#d2483a,#8E2A20);box-shadow:0 8px 24px rgba(142,42,32,.55);transition:all .18s}
-  #intro-start:hover{transform:scale(1.05)}
-  #intro-exit{display:block;width:max-content;margin:14px auto 0;font-family:inherit;font-size:16px;color:#7a5c2e;text-decoration:none;letter-spacing:3px;padding:8px 24px;border:1.5px solid #b48a3e;border-radius:24px}
-  @media(max-width:820px){#game-title{font-size:18px;letter-spacing:2px}#game-title small{display:none}#home-link{margin-left:8px;padding:7px 9px;font-size:12px}#turn-badge{font-size:14px;padding:5px 12px;letter-spacing:1px}#topbar{height:52px;padding:0 12px}#panel{width:min(82vw,220px);top:58px}#panel-toggle{top:64px}#intro-title{font-size:30px;letter-spacing:6px}#intro-sub{font-size:13px}#intro-tip{font-size:12px}#intro-start{font-size:21px;padding:12px 44px;letter-spacing:6px}#win-text{font-size:40px;letter-spacing:6px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#14110d" />
+  <title>云端翔行 · 飞行棋</title>
+  <style>
+    :root {
+      --ink:#14110d; --paper:#f6e8c4; --gold:#d6a642; --gold-light:#f5d77f;
+      --red:#bd4337; --panel:rgba(20,17,13,.85); --line:#c89538;
+    }
+    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html,body { margin:0; width:100%; height:100%; overflow:hidden; background:var(--ink); color:var(--paper); font-family:"KaiTi","STKaiti","Noto Serif SC",serif; }
+    canvas { display:block; }
+    #canvas-wrap { position:fixed; inset:0; touch-action:none; }
+
+    /* ===== 顶栏 ===== */
+    #topbar { position:fixed; z-index:10; top:0; left:0; right:0; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; pointer-events:none; background:linear-gradient(#090806d9,transparent); }
+    #brand { pointer-events:auto; color:var(--gold-light); font-size:26px; font-weight:700; letter-spacing:6px; text-shadow:0 2px 2px #000,0 0 18px #bd852b80; white-space:nowrap; }
+    #brand small { margin-left:8px; color:#bca879; font-size:12px; letter-spacing:2px; }
+    #back { margin-left:14px; padding:6px 10px; border:1px solid var(--line); color:#281607; background:var(--gold); font:700 12px/1 system-ui,sans-serif; letter-spacing:.5px; text-decoration:none; vertical-align:middle; }
+    #turn { pointer-events:auto; min-width:110px; padding:7px 13px; border:1px solid var(--gold); text-align:center; color:#fff4d3; font-size:16px; letter-spacing:3px; background:#7e3029e6; box-shadow:0 4px 18px #0008; }
+    #turn[data-color="1"] { background:#9a7419e6; } #turn[data-color="2"] { background:#28588ae6; } #turn[data-color="3"] { background:#267544e6; }
+
+    /* ===== 左侧战况 ===== */
+    #status { position:fixed; z-index:10; top:78px; left:16px; width:168px; padding:11px 13px; border:1px solid #a9792b99; background:var(--panel); box-shadow:0 10px 26px #0008; }
+    #status h2 { margin:0 0 7px; color:var(--gold); border-bottom:1px solid #a9792b88; padding-bottom:4px; font-size:14px; letter-spacing:3px; }
+    .stat { display:flex; justify-content:space-between; margin:5px 0; color:#decda9; font-size:13px; }
+    .stat b { color:var(--gold-light); font-family:system-ui,sans-serif; font-size:12px; }
+    .you-tag { margin-left:5px; padding:1px 6px; border-radius:9px; background:#bd4337; color:#fff4d3; font:700 10px/1.4 system-ui,sans-serif; font-style:normal; letter-spacing:1px; }
+    .stat i { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:-1px; }
+
+    /* ===== 右上小工具 ===== */
+    #tools { position:fixed; z-index:10; top:78px; right:16px; display:flex; gap:7px; }
+    #tools button { width:42px; height:42px; padding:0; border-radius:50%; border:1.5px solid var(--line); background:var(--panel); color:var(--gold-light); font:700 16px/1 "KaiTi",serif; cursor:pointer; box-shadow:0 4px 14px #0008; }
+    #tools button:hover { background:var(--gold); color:#241607; }
+
+    /* ===== 棋盘旁的掷骰大按钮 ===== */
+    #roll {
+      position:fixed; z-index:15; left:50%; bottom:calc(26px + env(safe-area-inset-bottom)); transform:translateX(-50%);
+      font-family:inherit; font-size:26px; font-weight:900; letter-spacing:12px; text-indent:12px;
+      padding:18px 62px; border-radius:64px; border:3px solid #ffe9a8; cursor:pointer;
+      color:#2c1807; background:linear-gradient(180deg,#f9e194,#d6a642);
+      box-shadow:0 10px 32px rgba(214,166,66,.5), inset 0 2px 0 #fffb;
+      transition:filter .15s;
+    }
+    #roll:hover:not(:disabled) { filter:brightness(1.08); }
+    #roll:disabled { opacity:.32; cursor:default; }
+    #roll.ready { animation:rollPulse 1.3s ease-out infinite; }
+    @keyframes rollPulse {
+      0% { box-shadow:0 10px 32px rgba(214,166,66,.5), 0 0 0 0 rgba(245,215,127,.65), inset 0 2px 0 #fffb; }
+      70% { box-shadow:0 10px 32px rgba(214,166,66,.5), 0 0 0 22px rgba(245,215,127,0), inset 0 2px 0 #fffb; }
+      100% { box-shadow:0 10px 32px rgba(214,166,66,.5), 0 0 0 0 rgba(245,215,127,0), inset 0 2px 0 #fffb; }
+    }
+    #roll-hint { position:fixed; z-index:14; left:50%; bottom:calc(94px + env(safe-area-inset-bottom)); transform:translateX(-50%); color:#cbb37a; font-size:13px; letter-spacing:2px; opacity:0; transition:opacity .3s; pointer-events:none; }
+    #roll-hint.show { opacity:.9; }
+
+    /* ===== 提示 ===== */
+    #notice { position:fixed; z-index:20; top:82px; left:50%; transform:translateX(-50%); width:max-content; max-width:82vw; text-align:center; color:var(--gold-light); font-size:24px; font-weight:bold; letter-spacing:4px; text-shadow:0 2px 4px #000; opacity:0; transition:opacity .2s; pointer-events:none; }
+    #notice.show { opacity:1; }
+    #notice.bad { color:#ff8a75; }
+
+    /* ===== 弹层（开场 / 规则 / 结算） ===== */
+    .overlay { position:fixed; z-index:30; inset:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 50% 40%,#35251a99,#090806ed); }
+    .overlay.hidden { display:none; }
+    .scroll { width:min(500px,92vw); max-height:90vh; overflow-y:auto; text-align:center; padding:34px 40px 30px; color:#51301b; background:#f0ddb4; border:2px solid var(--gold); outline:6px solid #5b2c20; box-shadow:0 24px 80px #000b; }
+    .scroll h1 { margin:0; color:#8b3028; font-size:40px; letter-spacing:10px; }
+    .scroll h1 small { display:block; margin:9px 0 18px; color:#7c6034; font-size:14px; font-weight:normal; letter-spacing:4px; }
+    .scroll .rules-list { text-align:left; margin:0 auto 6px; max-width:400px; }
+    .scroll .rules-list li { margin:8px 0; line-height:1.6; font-size:15px; list-style:none; }
+    .scroll .rules-list li::before { content:"✦ "; color:#a43a31; }
+    .scroll button.big { margin-top:16px; padding:13px 44px; background:#a43a31; border:1px solid #70251f; color:#fff0d2; font-family:inherit; font-size:20px; letter-spacing:8px; text-indent:8px; cursor:pointer; box-shadow:0 6px 20px rgba(142,42,32,.5); }
+    .scroll button.big:hover { filter:brightness(1.1); }
+    .scroll .close-link { display:block; margin:12px auto 0; width:max-content; color:#7a5c2e; font-size:14px; letter-spacing:2px; cursor:pointer; text-decoration:underline; }
+    .you-are { margin:0 0 14px; color:#a43a31; font-size:18px; font-weight:bold; letter-spacing:2px; }
+
+    @media (max-width:720px) {
+      #topbar { height:52px; padding:0 12px; }
+      #brand { font-size:18px; letter-spacing:3px; } #brand small { display:none; }
+      #back { margin-left:7px; padding:5px 7px; font-size:11px; }
+      #turn { min-width:auto; padding:5px 8px; font-size:12px; letter-spacing:1px; }
+      #status { top:auto; bottom:112px; left:10px; width:126px; padding:8px 10px; }
+      #status h2 { font-size:12px; } .stat { font-size:11px; margin:4px 0; }
+      #tools { top:60px; right:10px; } #tools button { width:36px; height:36px; font-size:14px; }
+      #roll { font-size:19px; letter-spacing:8px; text-indent:8px; padding:14px 44px; bottom:calc(18px + env(safe-area-inset-bottom)); }
+      #roll-hint { bottom:calc(76px + env(safe-area-inset-bottom)); font-size:11px; }
+      #notice { top:60px; font-size:16px; letter-spacing:2px; }
+      .scroll { padding:26px 22px; } .scroll h1 { font-size:30px; letter-spacing:6px; }
+    }
+  </style>
 </head>
 <body>
-<div id="canvas-wrap"></div>
+  <div id="canvas-wrap"></div>
 
-<div id="topbar">
-  <div id="game-title">云端翔行<small>3D 飞行棋</small><a id="home-link" href="/games/">返回游戏专区</a></div>
-  <div id="turn-badge">红方回合</div>
-</div>
+  <header id="topbar">
+    <div id="brand">云端翔行 <small>飞行棋</small><a id="back" href="/games/">返回游戏专区</a></div>
+    <div id="turn" data-color="0">红方回合</div>
+  </header>
 
-<div id="toast"></div>
+  <aside id="status">
+    <h2>云台战况</h2>
+    <div class="stat"><span><i style="background:#bd4337"></i>红方到家<em class="you-tag">你</em></span><b id="score-0">0 / 4</b></div>
+    <div class="stat"><span><i style="background:#d4a526"></i>黄方到家</span><b id="score-1">0 / 4</b></div>
+    <div class="stat"><span><i style="background:#2d70a6"></i>蓝方到家</span><b id="score-2">0 / 4</b></div>
+    <div class="stat"><span><i style="background:#317e50"></i>绿方到家</span><b id="score-3">0 / 4</b></div>
+  </aside>
 
-<div id="win-banner">
-  <div id="win-text">胜利</div>
-  <div id="win-sub"></div>
-  <button id="win-again">再 来 一 局</button>
-</div>
-
-<div id="panel">
-  <div class="sec-title">战况</div>
-  <div class="row"><span>当前回合</span><span class="val" id="p-turn">红方</span></div>
-  <div class="row"><span>骰子点数</span><span class="val" id="p-dice">—</span></div>
-  <div class="row"><span>红方到家</span><span class="val" id="p-home-0">0/4</span></div>
-  <div class="row"><span>黄方到家</span><span class="val" id="p-home-1">0/4</span></div>
-  <div class="row"><span>蓝方到家</span><span class="val" id="p-home-2">0/4</span></div>
-  <div class="row"><span>绿方到家</span><span class="val" id="p-home-3">0/4</span></div>
-  <div class="btn-row">
-    <button class="gbtn" id="btn-roll">掷骰</button>
-    <button class="gbtn" id="btn-restart">重开</button>
+  <div id="tools">
+    <button id="btn-rules" title="规则">规</button>
+    <button id="btn-camera" title="复位视角">⟳</button>
+    <button id="btn-reset" title="重开">↺</button>
   </div>
-  <div class="btn-row" style="margin-top:6px;">
-    <button class="gbtn" id="btn-sound">音效：开</button>
-    <button class="gbtn" id="btn-camera">视角复位</button>
-  </div>
-</div>
-<button id="panel-toggle" title="收起/展开面板">☰</button>
 
-<div id="intro">
-  <div id="intro-card">
-    <div id="intro-title">云端翔行</div>
-    <div id="intro-sub">—— 3D 飞行棋 · 四方竞速 ——</div>
-    <div id="intro-tip">
-      你执 <b>红方</b>，其余三方由电脑控制。<br>
-      掷出 <b>6</b> 才能起飞，并可再掷一次。<br>
-      走到对方飞机所在格，将其击落回基地。<br>
-      四架飞机全部抵达中央终点者获胜。<br>
-      拖动旋转视角，滚轮拉近拉远。
+  <div id="notice"></div>
+  <div id="roll-hint">点击飞机选择移动 · 空格也可掷骰</div>
+  <button id="roll">掷 骰</button>
+
+  <section id="intro" class="overlay">
+    <div class="scroll">
+      <h1>云端翔行<small>四方飞行棋 · 竞速云端</small></h1>
+      <p class="you-are">你执红方 · 朱雀，从画面下方基地起飞</p>
+      <ul class="rules-list">
+        <li>掷出 5 或 6：起飞；掷出 6 可再掷一次</li>
+        <li>同色跳跃：落在己方颜色格，跳到下一个同色格</li>
+        <li>虚线飞越：落在虚线格，直飞棋盘对面</li>
+        <li>击落：落在敌机格，敌机回基地</li>
+        <li>终点：进入航道后需刚好到达，超出会反弹</li>
+        <li>惩罚：连续三次 6，本架飞机回基地</li>
+        <li>保底：全机在基地连续 3 次未起飞，强制起飞</li>
+      </ul>
+      <button class="big" id="start">起 飞</button>
     </div>
-    <button id="intro-start">起 飞</button>
-    <a id="intro-exit" href="/games/">退出</a>
-  </div>
-</div>
+  </section>
 
-<script src="/games/lib/three.r147.min.js"></script>
-<script src="/games/lib/OrbitControls.r147.js"></script>
-<script>
-"use strict";
-/* 云端翔行 · 3D 飞行棋 */
-let scene,camera,renderer,controls,clock;
-const COLORS=[
-  {hex:0xC0392B,name:'红方',mat:null},
-  {hex:0xD4A017,name:'黄方',mat:null},
-  {hex:0x2C6FBB,name:'蓝方',mat:null},
-  {hex:0x27A050,name:'绿方',mat:null}
-];
-const RING=[]; // 48 格外圈，顺时针，index 0 = 红色起点 (0,6)
-(function buildRing(){
-  for(let i=0;i<=6;i++) RING.push([i,6]);        // [0..6] 底边右半
-  for(let i=1;i<=12;i++) RING.push([6,6-i]);      // [7..18] 右边
-  for(let i=1;i<=12;i++) RING.push([6-i,-6]);     // [19..30] 顶边
-  for(let i=1;i<=12;i++) RING.push([-6,-6+i]);    // [31..42] 左边
-  for(let i=1;i<=5;i++) RING.push([-6+i,6]);       // [43..47] 底边左半
-})();
-const RING_LEN=RING.length; // 48
-const START_INDEX=[0,12,24,36]; // 红黄蓝绿起点
-const HOME_LEN=6;
-// 终点跑道：从起点前一格沿直线向中心 (0,0)
-const HOME_PATHS=[
-  [[0,5],[0,4],[0,3],[0,2],[0,1],[0,0]], // 红 从底边中部向上
-  [[5,0],[4,0],[3,0],[2,0],[1,0],[0,0]], // 黄 从右边中部向左
-  [[0,-5],[0,-4],[0,-3],[0,-2],[0,-1],[0,0]], // 蓝
-  [[-5,0],[-4,0],[-3,0],[-2,0],[-1,0],[0,0]]  // 绿
-];
-// 基地停机位
-const BASES=[
-  [[-5,5],[-3,5],[-5,3],[-3,3]],
-  [[5,5],[3,5],[5,3],[3,3]],
-  [[5,-5],[3,-5],[5,-3],[3,-3]],
-  [[-5,-5],[-3,-5],[-5,-3],[-3,-3]]
-];
-// 玩家状态
-let players=[];
-let turn=0;
-let dice=0;
-let phase='idle'; // idle | rolling | awaiting | moving | over
-let winner=-1;
-let muted=false;
-let audioCtx=null;
-let canRollAgain=false;
-let highlightMeshes=[];
+  <section id="rules-modal" class="overlay hidden">
+    <div class="scroll">
+      <h1>飞行规则<small>AEROPLANE CHESS</small></h1>
+      <ul class="rules-list">
+        <li>掷出 5 或 6：起飞；掷出 6 可再掷一次</li>
+        <li>同色跳跃：落在己方颜色格，跳到下一个同色格</li>
+        <li>虚线飞越：落在虚线格，直飞棋盘对面</li>
+        <li>击落：落在敌机格，敌机回基地</li>
+        <li>终点：进入航道后需刚好到达，超出会反弹</li>
+        <li>惩罚：连续三次 6，本架飞机回基地</li>
+        <li>保底：全机在基地连续 3 次未起飞，强制起飞</li>
+      </ul>
+      <span class="close-link" id="rules-close">关闭</span>
+    </div>
+  </section>
 
-function tone(freq,dur=.1,type='square',vol=.15,slideTo){
-  if(muted) return;
-  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  const t=audioCtx.currentTime,o=audioCtx.createOscillator(),g=audioCtx.createGain();
-  o.type=type;o.frequency.setValueAtTime(freq,t);
-  if(slideTo) o.frequency.exponentialRampToValueAtTime(Math.max(20,slideTo),t+dur);
-  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+0.005);
-  g.gain.exponentialRampToValueAtTime(0.001,t+dur);
-  o.connect(g).connect(audioCtx.destination);o.start(t);o.stop(t+dur+0.02);
-}
-const SFX={
-  roll(){tone(220,.05,'square',.12);setTimeout(()=>tone(330,.05,'square',.1),60);setTimeout(()=>tone(440,.08,'square',.1),120)},
-  dice(){tone(520,.08,'triangle',.14)},
-  takeoff(){tone(300,.15,'sawtooth',.13,700)},
-  move(){tone(440,.05,'sine',.1,560)},
-  capture(){tone(180,.2,'sawtooth',.16,90)},
-  home(){tone(660,.1,'triangle',.14);setTimeout(()=>tone(880,.12,'triangle',.14),100);setTimeout(()=>tone(1100,.18,'triangle',.16),200)},
-  win(){[523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>tone(f,.3,'triangle',.18),i*150))}
-};
+  <section id="result" class="overlay hidden">
+    <div class="scroll">
+      <h1 id="result-title">云端胜利</h1>
+      <p id="result-copy" style="font-size:17px;line-height:1.8"></p>
+      <button class="big" id="again">再来一局</button>
+    </div>
+  </section>
 
-function worldPos(c,r,y=0){return {x:c,y,z:r}}
+  <script src="/games/lib/three.r147.min.js"></script>
+  <script src="/games/lib/OrbitControls.r147.js"></script>
+  <script>
+  'use strict';
 
-function initScene(){
-  scene=new THREE.Scene();
-  scene.fog=new THREE.Fog(0x1a1410,40,90);
-  clock=new THREE.Clock();
-  camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,0.1,200);
-  camera.position.set(0,22,20);
-  renderer=new THREE.WebGLRenderer({antialias:true});
-  renderer.setSize(innerWidth,innerHeight);
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  renderer.shadowMap.enabled=true;
-  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  renderer.outputEncoding=THREE.sRGBEncoding;
-  renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  document.getElementById('canvas-wrap').appendChild(renderer.domElement);
-  controls=new THREE.OrbitControls(camera,renderer.domElement);
-  controls.target.set(0,0,0);
-  controls.enableDamping=true;controls.dampingFactor=0.08;
-  controls.minDistance=14;controls.maxDistance=50;
-  controls.maxPolarAngle=1.35;controls.minPolarAngle=0.25;
-  controls.enablePan=false;
-  scene.add(new THREE.HemisphereLight(0xfff0d0,0x44301a,0.7));
-  const sun=new THREE.DirectionalLight(0xfff3d0,1.1);
-  sun.position.set(10,30,12);sun.castShadow=true;
-  sun.shadow.mapSize.set(2048,2048);
-  sun.shadow.camera.left=-16;sun.shadow.camera.right=16;sun.shadow.camera.top=16;sun.shadow.camera.bottom=-16;
-  sun.shadow.camera.far=80;sun.shadow.bias=-0.0012;
-  scene.add(sun);
-  addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
-}
+  /* ================================================================
+     云端翔行 · 飞行棋
+     规则模型：每架飞机一个 progress
+       -1      基地
+       0-47    外圈（progress 即相对步数，绝对格 = (START[color]+progress)%48）
+       48-53   归航道（53 = 中央终点，必须刚好到达，超出反弹）
+     奖励：同色跳跃 / 虚线飞越 / 击落敌机 / 5·6 起飞 / 掷 6 再掷
+     惩罚：连续三个 6，本架飞机回基地
+     保底：全机在基地连续 3 次未起飞 → 强制 6 起飞
+  ================================================================ */
 
-function makeWoodTexture(){
-  const cv=document.createElement('canvas');cv.width=cv.height=256;
-  const g=cv.getContext('2d');
-  g.fillStyle='#6a4220';g.fillRect(0,0,256,256);
-  for(let i=0;i<40;i++){g.strokeStyle=`rgba(40,25,12,${0.15+Math.random()*0.2})`;g.lineWidth=1+Math.random()*2;g.beginPath();g.moveTo(Math.random()*256,0);g.lineTo(Math.random()*256+10,256);g.stroke()}
-  for(let i=0;i<80;i++){g.fillStyle=`rgba(${120+Math.random()*40},${70+Math.random()*30},${30+Math.random()*20},${0.1+Math.random()*0.15})`;g.fillRect(Math.random()*256,Math.random()*256,3+Math.random()*6,3+Math.random()*6)}
-  const t=new THREE.CanvasTexture(cv);t.encoding=THREE.sRGBEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;return t;
-}
+  const COLORS = [
+    { name:'红方', hex:0xbd4337, css:'#bd4337', dark:'#7f2f2a', light:'#ffd0bd', label:'朱雀' },
+    { name:'黄方', hex:0xd4a526, css:'#d4a526', dark:'#80611d', light:'#ffe19a', label:'金乌' },
+    { name:'蓝方', hex:0x2d70a6, css:'#2d70a6', dark:'#24557d', light:'#c5e6ff', label:'青龙' },
+    { name:'绿方', hex:0x317e50, css:'#317e50', dark:'#285f3d', light:'#c8f0d2', label:'玄武' },
+  ];
+  const START = [0, 12, 24, 36];
+  const FINISH = 53;
 
-function buildBoard(){
-  const board=new THREE.Group();
-  const woodTex=makeWoodTexture();
-  const boardMat=new THREE.MeshStandardMaterial({map:woodTex,roughness:.9});
-  const base=new THREE.Mesh(new THREE.BoxGeometry(16,0.5,16),boardMat);
-  base.position.y=-0.25;base.receiveShadow=true;board.add(base);
-  const cellMat=new THREE.MeshStandardMaterial({color:0x2a1d10,roughness:.8});
-  const lineMat=new THREE.MeshStandardMaterial({color:0xd4a017,roughness:.6,metalness:.2});
-  // 外圈格子
-  RING.forEach((p,i)=>{
-    const cell=new THREE.Mesh(new THREE.BoxGeometry(0.95,0.1,0.95),cellMat);
-    cell.position.set(p[0],0.05,p[1]);cell.receiveShadow=true;
-    board.add(cell);
-    // 起点格染色
-    const si=START_INDEX.indexOf(i);
-    if(si>=0){
-      const startCol=new THREE.Mesh(new THREE.BoxGeometry(0.92,0.02,0.92),new THREE.MeshStandardMaterial({color:COLORS[si].hex,roughness:.5,metalness:.3}));
-      startCol.position.set(p[0],0.11,p[1]);board.add(startCol);
+  const BASES = [
+    [[-4.8,4.8],[-3.2,4.8],[-4.8,3.2],[-3.2,3.2]],
+    [[3.2,4.8],[4.8,4.8],[3.2,3.2],[4.8,3.2]],
+    [[3.2,-3.2],[4.8,-3.2],[3.2,-4.8],[4.8,-4.8]],
+    [[-4.8,-3.2],[-3.2,-3.2],[-4.8,-4.8],[-3.2,-4.8]],
+  ];
+
+  const RING = [];
+  for (let i = 0; i <= 6; i++) RING.push([i, 6]);
+  for (let i = 1; i <= 12; i++) RING.push([6, 6 - i]);
+  for (let i = 1; i <= 12; i++) RING.push([6 - i, -6]);
+  for (let i = 1; i <= 12; i++) RING.push([-6, -6 + i]);
+  for (let i = 1; i <= 5; i++) RING.push([-6 + i, 6]);
+
+  const LANES = [
+    [[0,5],[0,4],[0,3],[0,2],[0,1],[0,0]],
+    [[5,0],[4,0],[3,0],[2,0],[1,0],[0,0]],
+    [[0,-5],[0,-4],[0,-3],[0,-2],[0,-1],[0,0]],
+    [[-5,0],[-4,0],[-3,0],[-2,0],[-1,0],[0,0]],
+  ];
+
+  // 外圈颜色：每 4 格一循环，保证各方起点都是自己的颜色
+  const cellColor = i => (i % 4 + Math.floor(i / 12)) % 4;
+
+  // 虚线飞越：落在己方虚线格 → 直飞对面己方格（靠近归航入口）
+  const FLY_FROM = [19, 31, 43, 7];   // 红黄蓝绿
+  const FLY_TO   = [45, 9, 21, 33];
+
+  let scene, camera, renderer, controls, raycaster, pointer, board, diceMesh, diceRim, clock;
+  let players = [], turn = 0, rolled = 0, phase = 'intro', winner = -1;
+  let selectable = [], selectionRings = [], pointerDown = null;
+  let sixStreak = 0, takeoffFails = [0, 0, 0, 0], gameVersion = 0, portrait = null;
+  const canTakeOff = die => die >= 5;
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+  /* ================= 棋盘贴图（明亮经典飞行棋盘） ================= */
+  function textureBoard() {
+    const size = 1400;
+    const c = document.createElement('canvas');
+    c.width = c.height = size;
+    const x = c.getContext('2d');
+    const map = ([a, b]) => [(a + 7) / 14 * size, (b + 7) / 14 * size];
+    const english = localStorage.getItem('site-lang') === 'en';
+
+    // 象牙底 + 极淡纹理
+    x.fillStyle = '#f6e8c4'; x.fillRect(0, 0, size, size);
+    for (let i = 0; i < 90; i++) {
+      x.strokeStyle = `rgba(150,110,60,${.03 + Math.random() * .04})`;
+      x.lineWidth = 1 + Math.random() * 2;
+      x.beginPath(); x.moveTo(-60, Math.random() * size);
+      x.bezierCurveTo(size * .3, Math.random() * size, size * .65, Math.random() * size, size + 60, Math.random() * size);
+      x.stroke();
     }
-  });
-  // 终点跑道
-  HOME_PATHS.forEach((path,pi)=>{
-    path.forEach((p,hi)=>{
-      if(pi>=0 && hi<HOME_LEN-1){
-        const cell=new THREE.Mesh(new THREE.BoxGeometry(0.85,0.1,0.85),new THREE.MeshStandardMaterial({color:0x1a1208,roughness:.8}));
-        cell.position.set(p[0],0.05,p[1]);cell.receiveShadow=true;board.add(cell);
-        const ring=new THREE.Mesh(new THREE.RingGeometry(0.2,0.4,16),new THREE.MeshBasicMaterial({color:COLORS[pi].hex,side:THREE.DoubleSide}));
-        ring.rotation.x=-Math.PI/2;ring.position.set(p[0],0.11,p[1]);board.add(ring);
-      }
+    // 边框
+    const rr = (l, t, w, h, r, stroke, lw) => {
+      x.beginPath(); x.roundRect(l, t, w, h, r);
+      x.strokeStyle = stroke; x.lineWidth = lw; x.stroke();
+    };
+    rr(34, 34, size - 68, size - 68, 42, '#7a4a22', 26);
+    rr(62, 62, size - 124, size - 124, 30, '#d6a642', 7);
+    rr(84, 84, size - 168, size - 168, 22, '#c8a05a', 2.5);
+
+    const disk = (px, py, r, fill, stroke, lw) => {
+      x.beginPath(); x.arc(px, py, r, 0, Math.PI * 2);
+      if (fill) { x.fillStyle = fill; x.fill(); }
+      if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw; x.stroke(); }
+    };
+
+    // 外圈轨道底色（一条完整的浅色路带）
+    x.beginPath();
+    RING.forEach((p, i) => { const [px, py] = map(p); i ? x.lineTo(px, py) : x.moveTo(px, py); });
+    x.closePath();
+    x.strokeStyle = '#e7d3a4'; x.lineWidth = 84; x.lineJoin = 'round'; x.stroke();
+    x.strokeStyle = '#b28a4a'; x.lineWidth = 86; x.globalAlpha = .18; x.stroke(); x.globalAlpha = 1;
+
+    // 虚线飞越航线（先画虚线，让格子盖在端点上）
+    COLORS.forEach((col, ci) => {
+      const [fx, fy] = map(RING[FLY_FROM[ci]]);
+      const [tx, ty] = map(RING[FLY_TO[ci]]);
+      x.save();
+      x.strokeStyle = col.css; x.lineWidth = 7; x.globalAlpha = .55;
+      x.setLineDash([20, 16]);
+      x.beginPath(); x.moveTo(fx, fy); x.lineTo(tx, ty); x.stroke();
+      x.restore();
     });
-  });
-  // 中心终点（金字塔）
-  const centerMat=new THREE.MeshStandardMaterial({color:0xd4a017,metalness:.7,roughness:.25});
-  const center=new THREE.Mesh(new THREE.ConeGeometry(1.4,1.8,4),centerMat);
-  center.position.y=0.9;center.rotation.y=Math.PI/4;center.castShadow=true;board.add(center);
-  // 基地停机坪
-  BASES.forEach((base,bi)=>{
-    const zoneMat=new THREE.MeshStandardMaterial({color:COLORS[bi].hex,transparent:true,opacity:.25,roughness:.7});
-    const zone=new THREE.Mesh(new THREE.PlaneGeometry(3.8,3.8),zoneMat);
-    zone.rotation.x=-Math.PI/2;zone.position.set(base[0][0]+1,0.02,base[0][1]+1);board.add(zone);
-    base.forEach(p=>{
-      const pad=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.4,0.08,16),new THREE.MeshStandardMaterial({color:COLORS[bi].hex,roughness:.6}));
-      pad.position.set(p[0],0.04,p[1]);pad.castShadow=true;board.add(pad);
-    });
-  });
-  scene.add(board);
-}
 
-function makePlane(colorIdx){
-  const g=new THREE.Group();
-  const mat=new THREE.MeshStandardMaterial({color:COLORS[colorIdx].hex,metalness:.2,roughness:.5});
-  const body=new THREE.Mesh(new THREE.CapsuleGeometry(0.12,0.3,4,8),mat);
-  body.rotation.z=Math.PI/2;body.castShadow=true;g.add(body);
-  const wing=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.04,0.18),mat);wing.castShadow=true;g.add(wing);
-  const tail=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.04,0.12),mat);tail.position.x=-0.22;g.add(tail);
-  const nose=new THREE.Mesh(new THREE.ConeGeometry(0.12,0.18,8),mat);
-  nose.rotation.z=-Math.PI/2;nose.position.x=0.28;g.add(nose);
-  const prop=new THREE.Mesh(new THREE.BoxGeometry(0.02,0.3,0.04),new THREE.MeshStandardMaterial({color:0x222,roughness:.8}));
-  prop.position.x=0.4;prop.name='prop';g.add(prop);
-  return g;
-}
-
-function planePosition(player,planeIdx){
-  const p=players[player].planes[planeIdx];
-  if(p.state==='base') return BASES[player][planeIdx];
-  if(p.state==='ring') return RING[p.pos];
-  if(p.state==='home') return HOME_PATHS[player][p.pos];
-  if(p.state==='done') return [0,0];
-  return [0,0];
-}
-
-function placePlane(player,planeIdx){
-  const p=players[player].planes[planeIdx];
-  const mesh=p.mesh;
-  if(!mesh) return;
-  const [c,r]=planePosition(player,planeIdx);
-  let y=0.25;
-  if(p.state==='done'){y=0.6+planeIdx*0.05;mesh.position.set(c*0.3,y,r*0.3);mesh.visible=true;return}
-  // 叠放偏移
-  let stackOffset=0;
-  players.forEach((pl,pi)=>{
-    pl.planes.forEach((pp,pj)=>{
-      if((pi===player&&pj===planeIdx))return;
-      if(pp.state===p.state){
-        if(p.state==='ring'&&pp.pos===p.pos) stackOffset+=0.12;
-        if(p.state==='home'&&pp.pos===p.pos&&pi===player) stackOffset+=0.12;
-      }
-    });
-  });
-  mesh.position.set(c,y+stackOffset,r);
-  mesh.rotation.z = Math.PI/2; // 机头朝飞行方向（简化：朝外圈顺时针）
-  mesh.visible=true;
-}
-
-function buildPlayers(){
-  players=COLORS.map((c,i)=>({
-    color:i,
-    planes:Array.from({length:4},(_,j)=>{
-      const mesh=makePlane(i);
-      scene.add(mesh);
-      return {mesh,state:'base',pos:0,planeIdx:j};
-    })
-  }));
-  for(let i=0;i<4;i++) for(let j=0;j<4;j++) placePlane(i,j);
-}
-
-function resetGame(){
-  // 清除旧棋子
-  if(players.length){
-    players.forEach(pl=>pl.planes.forEach(p=>scene.remove(p.mesh)));
-  }
-  turn=0;dice=0;phase='idle';winner=-1;canRollAgain=false;
-  clearHighlight();
-  buildPlayers();
-  document.getElementById('win-banner').classList.remove('show');
-  updateHUD();
-  updateTurnBadge();
-}
-
-function clearHighlight(){
-  highlightMeshes.forEach(m=>scene.remove(m));
-  highlightMeshes=[];
-}
-
-function showHighlight(){
-  clearHighlight();
-  if(phase!=='awaiting') return;
-  const movable=getMovablePlanes(turn,dice);
-  movable.forEach(pi=>{
-    const p=players[turn].planes[pi];
-    const [c,r]=planePosition(turn,pi);
-    const ring=new THREE.Mesh(new THREE.RingGeometry(0.3,0.5,20),new THREE.MeshBasicMaterial({color:0x7CFC00,side:THREE.DoubleSide,transparent:true,opacity:.8}));
-    ring.rotation.x=-Math.PI/2;ring.position.set(c,0.12,r);
-    ring.userData.planeIdx=pi;
-    highlightMeshes.push(ring);scene.add(ring);
-  });
-}
-
-function getMovablePlanes(player,d){
-  const res=[];
-  players[player].planes.forEach((p,i)=>{
-    if(p.state==='done') return;
-    if(p.state==='base'){ if(d===6) res.push(i); }
-    else if(p.state==='ring'){
-      const stepsToHome=ringStepsToHome(player,p.pos);
-      if(d<=stepsToHome+HOME_LEN) res.push(i);
-    }
-    else if(p.state==='home'){
-      if(p.pos+d<HOME_LEN) res.push(i); // 未到中心
-      else if(p.pos+d===HOME_LEN-1) res.push(i); // 刚好到中心
-    }
-  });
-  return res;
-}
-
-function ringStepsToHome(player,pos){
-  // 从当前 pos 走到进入终点跑道入口所需的剩余外圈步数
-  const entry=(START_INDEX[player]+RING_LEN-1)%RING_LEN; // 终点跑道入口在外圈的位置（起点前一格）
-  let steps=(entry-pos+RING_LEN)%RING_LEN;
-  return steps; // 走完 steps 步后下一格进入终点跑道
-}
-
-function pathAfter(player,planeIdx,dice){
-  // 计算移动后的状态和路径
-  const p=players[player].planes[planeIdx];
-  if(p.state==='base'){
-    if(dice!==6) return null;
-    return {newState:'ring',newPos:START_INDEX[player],path:[{state:'ring',pos:START_INDEX[player]}]};
-  }
-  if(p.state==='ring'){
-    const stepsToHome=ringStepsToHome(player,p.pos);
-    const path=[];
-    let cur=p.pos;
-    if(dice<=stepsToHome){
-      for(let s=1;s<=dice;s++){cur=(cur+1)%RING_LEN;path.push({state:'ring',pos:cur})}
-      return {newState:'ring',newPos:cur,path};
-    } else {
-      // 进入终点跑道
-      let remaining=dice-stepsToHome-1; // 走完 stepsToHome 步到入口，再+1进入跑道第0格... 
-      // 实际：走 stepsToHome 步到达入口格（外圈），下一步进入跑道
-      for(let s=1;s<=stepsToHome;s++){cur=(cur+1)%RING_LEN;path.push({state:'ring',pos:cur})}
-      // 现在在入口，继续走 remaining+1 步进入跑道
-      let hp=-1; // 跑道索引
-      let totalLeft=dice-stepsToHome;
-      for(let s=1;s<=totalLeft;s++){
-        hp++;
-        if(hp>=HOME_LEN){
-          // 超过中心，反弹
-          const over=hp-(HOME_LEN-1);
-          hp=HOME_LEN-1-over;
-          if(hp<0) return null; // 无法走
+    // 外圈格子
+    RING.forEach((p, i) => {
+      const [px, py] = map(p);
+      const col = cellColor(i);
+      const isStart = START.includes(i);
+      const isFly = FLY_FROM.includes(i);
+      if (col >= 0 && (isStart || isFly || i % 4 === 0)) {
+        // 有色格
+        disk(px, py, 40, '#fffdf4', '#8a6a34', 3);
+        disk(px, py, 33, COLORS[col].css, '#ffffff', 2.5);
+        if (isStart) {
+          // 起点：白色小飞机符号（三角形机头沿轨道方向）
+          const [nx, ny] = map(RING[(i + 1) % 48]);
+          const ang = Math.atan2(ny - py, nx - px);
+          x.save(); x.translate(px, py); x.rotate(ang);
+          x.fillStyle = '#fffdf4';
+          x.beginPath(); x.moveTo(15, 0); x.lineTo(-10, -11); x.lineTo(-4, 0); x.lineTo(-10, 11); x.closePath(); x.fill();
+          x.restore();
         }
-        path.push({state:'home',pos:hp});
-      }
-      if(path.length===0) return null;
-      const last=path[path.length-1];
-      if(last.state==='home'&&last.pos===HOME_LEN-1) return {newState:'done',newPos:0,path};
-      return {newState:last.state,newPos:last.pos,path};
-    }
-  }
-  if(p.state==='home'){
-    const np=p.pos+dice;
-    if(np===HOME_LEN-1) return {newState:'done',newPos:0,path:[{state:'home',pos:np}]};
-    if(np<HOME_LEN-1) return {newState:'home',newPos:np,path:[{state:'home',pos:np}]};
-    // 超过，反弹
-    const over=np-(HOME_LEN-1);
-    const rp=HOME_LEN-1-over;
-    if(rp<0) return null;
-    return {newState:'home',newPos:rp,path:[{state:'home',pos:rp}]};
-  }
-  return null;
-}
-
-function rollDice(){
-  if(phase!=='idle'||winner>=0) return;
-  phase='rolling';
-  SFX.roll();
-  // 骰子动画
-  let rolls=0;
-  const interval=setInterval(()=>{
-    dice=1+Math.floor(Math.random()*6);
-    document.getElementById('p-dice').textContent=dice;
-    tone(300+Math.random()*200,.03,'square',.06);
-    rolls++;
-    if(rolls>10){
-      clearInterval(interval);
-      dice=1+Math.floor(Math.random()*6);
-      document.getElementById('p-dice').textContent=dice;
-      SFX.dice();
-      onDiceRolled();
-    }
-  },50);
-}
-
-function onDiceRolled(){
-  const movable=getMovablePlanes(turn,dice);
-  if(movable.length===0){
-    toast(`${COLORS[turn].name}掷出${dice}，无可动飞机`,true);
-    setTimeout(()=>{ canRollAgain=false; nextTurn() },1200);
-    return;
-  }
-  if(turn===0){
-    phase='awaiting';
-    showHighlight();
-    toast(`掷出 ${dice}，点击高亮飞机移动`);
-  } else {
-    // AI 选择
-    const pi=aiPickPlane(turn,dice,movable);
-    setTimeout(()=>executeMove(turn,pi),600);
-  }
-}
-
-function aiPickPlane(player,d,movable){
-  // 简单策略：优先进终点 > 吃子 > 起飞 > 普通移动
-  let best=movable[0],bestScore=-1;
-  for(const pi of movable){
-    const result=pathAfter(player,pi,d);
-    if(!result) continue;
-    let score=Math.random()*0.1;
-    if(result.newState==='done') score+=100;
-    if(result.newState==='home') score+=30+result.newPos*5;
-    if(result.newState==='ring'){
-      // 检查能否吃子
-      const last=result.path[result.path.length-1];
-      if(last.state==='ring'){
-        for(let oi=0;oi<4;oi++){
-          if(oi===player) continue;
-          for(const opp of players[oi].planes){
-            if(opp.state==='ring'&&opp.pos===last.pos){score+=50;break}
+        if (isFly) {
+          // 飞越格：白色五角星
+          x.save(); x.translate(px, py); x.fillStyle = '#fffdf4';
+          x.beginPath();
+          for (let s = 0; s < 10; s++) {
+            const r = s % 2 ? 7 : 17, a = -Math.PI / 2 + s * Math.PI / 5;
+            x[s ? 'lineTo' : 'moveTo'](Math.cos(a) * r, Math.sin(a) * r);
           }
+          x.closePath(); x.fill(); x.restore();
         }
+      } else {
+        disk(px, py, 34, '#fffdf4', '#8a6a34', 3);
+        disk(px, py, 26, '#f2e3bc', null, 0);
       }
-      if(players[player].planes[pi].state==='base') score+=20; // 起飞
-    }
-    if(score>bestScore){bestScore=score;best=pi}
-  }
-  return best;
-}
+    });
 
-function executeMove(player,planeIdx){
-  if(phase==='over') return;
-  phase='moving';
-  clearHighlight();
-  const p=players[player].planes[planeIdx];
-  const result=pathAfter(player,planeIdx,dice);
-  if(!result){ phase='idle'; return }
-  const wasBase=p.state==='base';
-  // 沿 path 逐步移动
-  let step=0;
-  const animateStep=()=>{
-    if(step>=result.path.length){
-      p.state=result.newState;
-      p.pos=result.newPos;
-      placePlane(player,planeIdx);
-      onMoveDone(player,planeIdx);
+    // 归航道
+    LANES.forEach((lane, ci) => {
+      lane.slice(0, 5).forEach((p, idx) => {
+        const [px, py] = map(p);
+        disk(px, py, 36, COLORS[ci].dark, '#d6a642', 3);
+        disk(px, py, 28, COLORS[ci].css, null, 0);
+        // 白色方向箭头（指向中心）
+        const [nx, ny] = map(lane[Math.min(idx + 1, 5)]);
+        const ang = Math.atan2(ny - py, nx - px);
+        x.save(); x.translate(px, py); x.rotate(ang);
+        x.fillStyle = '#fffdf4';
+        x.beginPath(); x.moveTo(13, 0); x.lineTo(-8, -9); x.lineTo(-8, 9); x.closePath(); x.fill();
+        x.restore();
+      });
+    });
+
+    // 四角基地
+    BASES.forEach((pads, ci) => {
+      const cx = pads.reduce((s, p) => s + p[0] / 4, 0);
+      const cz = pads.reduce((s, p) => s + p[1] / 4, 0);
+      const [px, py] = map([cx, cz]);
+      x.beginPath(); x.roundRect(px - 152, py - 152, 304, 304, 40);
+      x.fillStyle = COLORS[ci].css; x.fill();
+      x.strokeStyle = '#fffdf4'; x.lineWidth = 6; x.stroke();
+      x.beginPath(); x.roundRect(px - 128, py - 128, 256, 256, 28);
+      x.strokeStyle = COLORS[ci].dark; x.lineWidth = 4; x.stroke();
+      x.font = english ? 'bold 26px Georgia, serif' : 'bold 46px KaiTi, STKaiti, serif';
+      x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.fillStyle = COLORS[ci].light;
+      x.fillText(english ? ['VERMILION','GOLDEN','AZURE','TORTOISE'][ci] : COLORS[ci].label, px, py - 88);
+      pads.forEach(p => {
+        const [padX, padY] = map(p);
+        disk(padX, padY, 40, '#fffdf4', COLORS[ci].dark, 4);
+        disk(padX, padY, 29, COLORS[ci].light, null, 0);
+      });
+    });
+
+    // 中央罗盘
+    x.save(); x.translate(size / 2, size / 2);
+    disk(0, 0, 122, '#8a5a20', '#fffdf4', 6);
+    disk(0, 0, 100, '#d6a642', '#8a5a20', 4);
+    for (let i = 0; i < 4; i++) {
+      x.save(); x.rotate(i * Math.PI / 2);
+      x.fillStyle = COLORS[i].css;
+      x.beginPath(); x.moveTo(0, -88); x.lineTo(24, -30); x.lineTo(-24, -30); x.closePath(); x.fill();
+      x.restore();
+    }
+    disk(0, 0, 30, '#fffdf4', '#8a5a20', 4);
+    disk(0, 0, 16, '#d6a642', null, 0);
+    x.restore();
+
+    const tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    return tex;
+  }
+
+  /* ================= 场景 ================= */
+  function resetCamera() {
+    portrait = innerHeight > innerWidth;
+    camera.position.set(0, portrait ? 42 : 20, portrait ? 43 : 19);
+    controls.target.set(0, 0, 0);
+    controls.minDistance = portrait ? 26 : 13;
+    controls.maxDistance = portrait ? 64 : 32;
+    controls.update();
+  }
+  function resizeScene() {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+    if ((innerHeight > innerWidth) !== portrait) resetCamera();
+  }
+
+  function init() {
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x14110d);
+    scene.fog = new THREE.Fog(0x14110d, 30, 68);
+    clock = new THREE.Clock();
+    camera = new THREE.PerspectiveCamera(43, innerWidth / innerHeight, .1, 120);
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(2, devicePixelRatio));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    document.querySelector('#canvas-wrap').appendChild(renderer.domElement);
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.enablePan = false;
+    controls.maxPolarAngle = 1.32;
+    controls.minPolarAngle = .42;
+    scene.add(new THREE.HemisphereLight(0xfff2d8, 0x27324a, 1.05));
+    const sun = new THREE.DirectionalLight(0xffedc8, 1.7);
+    sun.position.set(9, 20, 11);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048);
+    sun.shadow.camera.left = sun.shadow.camera.bottom = -16;
+    sun.shadow.camera.right = sun.shadow.camera.top = 16;
+    scene.add(sun);
+    scene.add(new THREE.AmbientLight(0x36486a, .4));
+    raycaster = new THREE.Raycaster();
+    pointer = new THREE.Vector2();
+    renderer.domElement.addEventListener('pointerdown', e => { pointerDown = { x: e.clientX, y: e.clientY }; });
+    renderer.domElement.addEventListener('pointerup', onPointerUp);
+    addEventListener('resize', resizeScene);
+    buildScene();
+    resetCamera();
+  }
+
+  function buildScene() {
+    // 云海
+    const cloudGeo = new THREE.BufferGeometry();
+    const pts = [];
+    for (let i = 0; i < 260; i++) {
+      const a = Math.random() * Math.PI * 2, r = 12 + Math.random() * 30;
+      pts.push(Math.cos(a) * r, -3.5 - Math.random() * 3, Math.sin(a) * r);
+    }
+    cloudGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    scene.add(new THREE.Points(cloudGeo, new THREE.PointsMaterial({ color: 0xe8ecf2, size: .38, transparent: true, opacity: .32, depthWrite: false })));
+    // 几朵大云团
+    const cloudMat = new THREE.MeshStandardMaterial({ color: 0xf2eee2, roughness: .95, transparent: true, opacity: .85 });
+    for (let i = 0; i < 12; i++) {
+      const a = i / 12 * Math.PI * 2 + Math.random() * .4;
+      const r = 13 + Math.random() * 9;
+      const puff = new THREE.Mesh(new THREE.SphereGeometry(1.2 + Math.random() * 1.1, 12, 10), cloudMat);
+      puff.position.set(Math.cos(a) * r, -2.6 - Math.random() * 1.5, Math.sin(a) * r);
+      puff.scale.y = .45;
+      scene.add(puff);
+    }
+
+    // 棋盘本体：木座 + 金边 + 亮面贴图
+    board = new THREE.Group();
+    const base = new THREE.Mesh(new THREE.BoxGeometry(17.4, .9, 17.4), new THREE.MeshStandardMaterial({ color: 0x4a2a16, roughness: .65 }));
+    base.position.y = -.45; base.castShadow = base.receiveShadow = true; board.add(base);
+    const trim = new THREE.Mesh(new THREE.BoxGeometry(16.9, .2, 16.9), new THREE.MeshStandardMaterial({ color: 0xc89535, metalness: .72, roughness: .24 }));
+    trim.position.y = .08; board.add(trim);
+    const top = new THREE.Mesh(new THREE.PlaneGeometry(16.5, 16.5), new THREE.MeshStandardMaterial({ map: textureBoard(), roughness: .55, metalness: .04 }));
+    top.rotation.x = -Math.PI / 2; top.position.y = .19; top.receiveShadow = true; board.add(top);
+    scene.add(board);
+
+    // 中央金色云台（终点）
+    const gold = new THREE.MeshStandardMaterial({ color: 0xe0b84f, metalness: .72, roughness: .2 });
+    const dark = new THREE.MeshStandardMaterial({ color: 0x542319, roughness: .4 });
+    const tower = new THREE.Group();
+    [[1.06, .2, .3], [.8, .24, .58], [.56, .28, .88]].forEach(([r, h, y]) => {
+      const lv = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 8), gold);
+      lv.position.y = y; lv.castShadow = true; tower.add(lv);
+    });
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(.74, .52, 8), dark);
+    roof.position.y = 1.32; roof.castShadow = true; tower.add(roof);
+    const pearl = new THREE.Mesh(new THREE.SphereGeometry(.17, 16, 12), gold);
+    pearl.position.y = 1.68; pearl.castShadow = true; tower.add(pearl);
+    board.add(tower);
+
+    // 棋盘旁的骰子台（显眼位置：棋盘右侧）
+    const podium = new THREE.Group();
+    const pod = new THREE.Mesh(new THREE.CylinderGeometry(1.55, 1.75, .5, 24), new THREE.MeshStandardMaterial({ color: 0x4a2a16, roughness: .6 }));
+    pod.position.y = .25; pod.castShadow = pod.receiveShadow = true; podium.add(pod);
+    diceRim = new THREE.Mesh(new THREE.TorusGeometry(1.38, .09, 10, 40), gold);
+    diceRim.rotation.x = Math.PI / 2; diceRim.position.y = .52; podium.add(diceRim);
+    diceMesh = makeDice();
+    diceMesh.position.y = 1.35;
+    podium.add(diceMesh);
+    podium.position.set(10.9, 0, 4.6);
+    podium.name = 'dicePodium';
+    scene.add(podium);
+    buildScene.podium = podium;
+    addPlayerMarker();
+  }
+
+  /* ================= “你”的基地标识 ================= */
+  function addPlayerMarker() {
+    const english = localStorage.getItem('site-lang') === 'en';
+    const c = document.createElement('canvas');
+    c.width = c.height = 256;
+    const x = c.getContext('2d');
+    x.beginPath(); x.arc(128, 128, 108, 0, Math.PI * 2);
+    x.fillStyle = '#f6e8c4'; x.fill();
+    x.lineWidth = 13; x.strokeStyle = '#bd4337'; x.stroke();
+    x.font = english ? 'bold 82px Georgia, serif' : 'bold 124px KaiTi, STKaiti, serif';
+    x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.fillStyle = '#bd4337';
+    x.fillText(english ? 'YOU' : '你', 128, 136);
+    const tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false }));
+    sprite.scale.set(1.5, 1.5, 1);
+    sprite.position.set(-4, 3.1, 4);
+    scene.add(sprite);
+    const beam = new THREE.Mesh(
+      new THREE.CylinderGeometry(.5, .85, 2.6, 20, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0xbd4337, transparent: true, opacity: .15, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite: false })
+    );
+    beam.position.set(-4, 1.5, 4);
+    scene.add(beam);
+    addPlayerMarker.sprite = sprite;
+    addPlayerMarker.beam = beam;
+  }
+
+  /* ================= 六面骰 ================= */
+  const DICE_DOTS = [
+    [[0, 0]],
+    [[-.24, -.24], [.24, .24]],
+    [[-.25, -.25], [0, 0], [.25, .25]],
+    [[-.24, -.24], [.24, -.24], [-.24, .24], [.24, .24]],
+    [[-.25, -.25], [.25, -.25], [0, 0], [-.25, .25], [.25, .25]],
+    [[-.24, -.28], [.24, -.28], [-.24, 0], [.24, 0], [-.24, .28], [.24, .28]],
+  ];
+  const DICE_ROTATIONS = [
+    [0, 0, 0], [0, 0, Math.PI / 2], [-Math.PI / 2, 0, 0],
+    [Math.PI / 2, 0, 0], [0, 0, -Math.PI / 2], [Math.PI, 0, 0],
+  ];
+  function addDiceFace(group, value, normal, up) {
+    const dotMat = new THREE.MeshStandardMaterial({ color: 0x8a2620, roughness: .45 });
+    const side = new THREE.Vector3().crossVectors(up, normal).normalize();
+    DICE_DOTS[value - 1].forEach(([dx, dy]) => {
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(.1, 12, 9), dotMat);
+      dot.position.copy(normal).multiplyScalar(.62).addScaledVector(side, dx).addScaledVector(up, dy);
+      group.add(dot);
+    });
+  }
+  function makeDice() {
+    const g = new THREE.Group();
+    const body = new THREE.Mesh(new THREE.BoxGeometry(1.25, 1.25, 1.25), new THREE.MeshStandardMaterial({ color: 0xf6e3b0, roughness: .28, metalness: .12 }));
+    body.castShadow = true; g.add(body);
+    g.add(new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry), new THREE.LineBasicMaterial({ color: 0x9a6828 })));
+    addDiceFace(g, 1, new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 0, -1));
+    addDiceFace(g, 6, new THREE.Vector3(0, -1, 0), new THREE.Vector3(0, 0, 1));
+    addDiceFace(g, 2, new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0));
+    addDiceFace(g, 5, new THREE.Vector3(-1, 0, 0), new THREE.Vector3(0, 1, 0));
+    addDiceFace(g, 3, new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 1, 0));
+    addDiceFace(g, 4, new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 1, 0));
+    g.scale.setScalar(1.25);
+    return g;
+  }
+  function showDice(value) {
+    const [rx, ry, rz] = DICE_ROTATIONS[value - 1];
+    diceMesh.rotation.set(rx, ry, rz);
+  }
+
+  /* ================= 飞机棋子 ================= */
+  function makePlane(color) {
+    const g = new THREE.Group();
+    const bodyMat = new THREE.MeshStandardMaterial({ color: COLORS[color].hex, roughness: .3, metalness: .22 });
+    const gold = new THREE.MeshStandardMaterial({ color: 0xf5cc63, roughness: .25, metalness: .6 });
+    const glass = new THREE.MeshStandardMaterial({ color: 0xd8ecf5, roughness: .12, metalness: .35 });
+
+    // 机下色垫（让位置一目了然）
+    const pad = new THREE.Mesh(new THREE.CylinderGeometry(.42, .42, .05, 20), new THREE.MeshStandardMaterial({ color: COLORS[color].hex, roughness: .5 }));
+    pad.position.y = -.26; pad.receiveShadow = true; g.add(pad);
+
+    const body = new THREE.Mesh(new THREE.SphereGeometry(.3, 18, 14), bodyMat);
+    body.scale.set(1.7, .85, .85); body.castShadow = true; g.add(body);
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(.26, .56, 16), gold);
+    nose.rotation.z = -Math.PI / 2; nose.position.x = .62; nose.castShadow = true; g.add(nose);
+
+    const wingShape = new THREE.Shape();
+    wingShape.moveTo(-.32, 0); wingShape.lineTo(.24, .62); wingShape.lineTo(.52, .52);
+    wingShape.lineTo(.18, 0); wingShape.lineTo(.52, -.52); wingShape.lineTo(.24, -.62);
+    wingShape.lineTo(-.32, 0);
+    const wing = new THREE.Mesh(new THREE.ExtrudeGeometry(wingShape, { depth: .07, bevelEnabled: true, bevelSize: .02, bevelThickness: .02 }), bodyMat);
+    wing.rotation.x = Math.PI / 2; wing.position.set(0, -.06, -.035); wing.castShadow = true; g.add(wing);
+
+    const canopy = new THREE.Mesh(new THREE.SphereGeometry(.19, 14, 10), glass);
+    canopy.scale.set(.9, .62, 1); canopy.position.set(-.04, .22, 0); g.add(canopy);
+    const tail = new THREE.Mesh(new THREE.BoxGeometry(.24, .05, .5), gold);
+    tail.position.set(-.56, .22, 0); tail.castShadow = true; g.add(tail);
+    const fin = new THREE.Mesh(new THREE.BoxGeometry(.22, .3, .05), bodyMat);
+    fin.position.set(-.56, .3, 0); fin.castShadow = true; g.add(fin);
+
+    // 螺旋桨：叶片 + 半透明旋转盘
+    const prop = new THREE.Group();
+    for (let i = 0; i < 2; i++) {
+      const blade = new THREE.Mesh(new THREE.BoxGeometry(.05, .56, .08), gold);
+      blade.rotation.x = i * Math.PI / 2; prop.add(blade);
+    }
+    const blur = new THREE.Mesh(new THREE.CircleGeometry(.3, 20), new THREE.MeshBasicMaterial({ color: 0xfff4d0, transparent: true, opacity: .18, side: THREE.DoubleSide }));
+    blur.rotation.y = Math.PI / 2; prop.add(blur);
+    prop.position.x = .95; prop.name = 'propeller'; g.add(prop);
+    return g;
+  }
+
+  /* ================= 状态与摆放 ================= */
+  function resetGame() {
+    gameVersion++;
+    clearSelection();
+    if (!players.length) {
+      players = COLORS.map((_, color) => ({
+        planes: Array.from({ length: 4 }, (_, id) => ({ id, color, progress: -1, mesh: makePlane(color) })),
+      }));
+      players.forEach(p => p.planes.forEach(q => scene.add(q.mesh)));
+    } else {
+      players.forEach(p => p.planes.forEach(q => { q.progress = -1; }));
+    }
+    turn = 0; rolled = 0; phase = 'idle'; winner = -1; sixStreak = 0; takeoffFails = [0, 0, 0, 0];
+    showDice(1);
+    sync();
+    notice('红方先行，掷 5 或 6 起飞');
+  }
+
+  function planeLocation(plane) {
+    if (plane.progress < 0) return BASES[plane.color][plane.id];
+    if (plane.progress < 48) return RING[(START[plane.color] + plane.progress) % 48];
+    if (plane.progress < FINISH) return LANES[plane.color][plane.progress - 48];
+    const angle = plane.color * Math.PI / 2 + (plane.id - 1.5) * .2;
+    return [Math.sin(angle) * .74, Math.cos(angle) * .74];
+  }
+  function ringAbs(plane) { return (START[plane.color] + plane.progress) % 48; }
+  function direction(plane) {
+    if (plane.progress < 0) return 0;
+    if (plane.progress >= 48) return [0, Math.PI / 2, Math.PI, Math.PI * 1.5][plane.color];
+    const a = planeLocation(plane);
+    const b = RING[(ringAbs(plane) + 1) % 48];
+    return Math.atan2(-(b[1] - a[1]), b[0] - a[0]);
+  }
+  function stackHeight(plane) {
+    if (plane.progress < 0 || plane.progress >= FINISH) return 0;
+    return players[plane.color].planes.filter(o => o.progress === plane.progress && o.id < plane.id).length;
+  }
+  function place(plane) {
+    const [px, pz] = planeLocation(plane);
+    const finished = plane.progress >= FINISH;
+    plane.mesh.position.set(px, finished ? 2.1 + plane.id * .06 : .42 + stackHeight(plane) * .16, pz);
+    plane.mesh.rotation.y = direction(plane);
+  }
+  function placePlayer(color) { players[color].planes.forEach(place); }
+
+  /* ================= 规则引擎 ================= */
+  // 落点计算（终点超出反弹）
+  function destination(plane, die) {
+    if (plane.progress >= FINISH) return null;
+    if (plane.progress < 0) return canTakeOff(die) ? { end: 0, path: [0] } : null;
+    let end = plane.progress + die;
+    if (end <= FINISH) {
+      return { end, path: Array.from({ length: die }, (_, i) => plane.progress + i + 1) };
+    }
+    // 终点反弹：先走到 53，再往回走
+    const over = end - FINISH;
+    end = FINISH - over;
+    const path = [];
+    for (let p = plane.progress + 1; p <= FINISH; p++) path.push(p);
+    for (let p = FINISH - 1; p >= end; p--) path.push(p);
+    return { end, path, bounced: true };
+  }
+  function movable(player, die) { return players[player].planes.filter(p => destination(p, die)); }
+
+  // 同色跳跃目标（不跳过归航入口）
+  function jumpTarget(plane) {
+    const abs = ringAbs(plane);
+    for (let step = 1; step <= 12; step++) {
+      const target = (abs + step) % 48;
+      if (cellColor(target) === plane.color) {
+        const targetProgress = (target - START[plane.color] + 48) % 48;
+        if (targetProgress > plane.progress && targetProgress < 48) return targetProgress;
+        return null;
+      }
+    }
+    return null;
+  }
+  function sameRingCell(a, b) {
+    return a.progress >= 0 && a.progress < 48 && b.progress >= 0 && b.progress < 48 && ringAbs(a) === ringAbs(b);
+  }
+
+  /* ================= 动画 ================= */
+  async function animateTo(plane, [tx, tz], height = .5, dur = 130) {
+    const version = gameVersion;
+    const from = plane.mesh.position.clone();
+    const to = new THREE.Vector3(tx, from.y, tz);
+    const t0 = performance.now();
+    while (gameVersion === version) {
+      const k = Math.min(1, (performance.now() - t0) / dur);
+      plane.mesh.position.lerpVectors(from, to, k);
+      plane.mesh.position.y = from.y + Math.sin(k * Math.PI) * height;
+      if (k >= 1) break;
+      await sleep(16);
+    }
+  }
+  async function flyAcross(plane, targetProgress) {
+    const version = gameVersion;
+    const from = plane.mesh.position.clone();
+    plane.progress = targetProgress;
+    const [tx, tz] = planeLocation(plane);
+    const to = new THREE.Vector3(tx, from.y, tz);
+    const t0 = performance.now();
+    while (gameVersion === version) {
+      const k = Math.min(1, (performance.now() - t0) / 900);
+      plane.mesh.position.lerpVectors(from, to, k);
+      plane.mesh.position.y = .42 + Math.sin(k * Math.PI) * 4.2;
+      plane.mesh.rotation.y = Math.atan2(-(to.z - from.z), to.x - from.x);
+      if (k >= 1) break;
+      await sleep(16);
+    }
+    placePlayer(plane.color);
+  }
+  async function sendHome(plane) {
+    const version = gameVersion;
+    const t0 = performance.now();
+    while (gameVersion === version) {
+      const k = Math.min(1, (performance.now() - t0) / 500);
+      plane.mesh.rotation.y += .35;
+      plane.mesh.scale.setScalar(1 - k * .6);
+      if (k >= 1) break;
+      await sleep(16);
+    }
+    plane.mesh.scale.setScalar(1);
+    plane.progress = -1;
+    placePlayer(plane.color);
+  }
+  async function captureAt(plane) {
+    if (plane.progress >= 48) return;
+    const victims = [];
+    players.forEach((p, color) => {
+      if (color === plane.color) return;
+      p.planes.forEach(enemy => { if (sameRingCell(plane, enemy)) victims.push(enemy); });
+    });
+    for (const enemy of victims) {
+      notice(`${COLORS[plane.color].name}击落${COLORS[enemy.color].name}！`, 'bad');
+      await sendHome(enemy);
+    }
+  }
+
+  /* ================= 回合流程 ================= */
+  function roll() {
+    if (phase !== 'idle' || turn !== 0 || winner >= 0) return;
+    phase = 'rolling';
+    sync();
+    let count = 0;
+    const version = gameVersion;
+    const timer = setInterval(() => {
+      if (version !== gameVersion) { clearInterval(timer); return; }
+      diceMesh.rotation.set(Math.random() * 6.3, Math.random() * 6.3, Math.random() * 6.3);
+      diceMesh.position.y = 1.35 + Math.random() * .3;
+      if (++count === 12) {
+        clearInterval(timer);
+        rolled = 1 + Math.floor(Math.random() * 6);
+        applyTakeoffPity();
+        showDice(rolled);
+        diceMesh.position.y = 1.35;
+        afterRoll();
+      }
+    }, 60);
+  }
+
+  function noMove() {
+    if (rolled === 6) {
+      phase = 'idle';
+      notice('掷出 6，无可动飞机，再掷一次');
+      sync();
+      if (turn !== 0) schedule(aiTurn, 550);
       return;
     }
-    const target=result.path[step];
-    p.state=target.state;
-    p.pos=target.pos;
-    placePlane(player,planeIdx);
-    SFX.move();
-    step++;
-    setTimeout(animateStep,180);
-  };
-  if(wasBase) SFX.takeoff();
-  animateStep();
-}
+    notice(`掷出 ${rolled}，没有可动飞机`);
+    schedule(nextTurn, 700);
+  }
 
-function onMoveDone(player,planeIdx){
-  const p=players[player].planes[planeIdx];
-  // 吃子检查
-  if(p.state==='ring'){
-    let captured=false;
-    for(let oi=0;oi<4;oi++){
-      if(oi===player) continue;
-      for(const opp of players[oi].planes){
-        if(opp.state==='ring'&&opp.pos===p.pos){
-          opp.state='base';opp.pos=0;
-          placePlane(oi,players[oi].planes.indexOf(opp));
-          SFX.capture();
-          toast(`${COLORS[player].name}击落${COLORS[oi].name}飞机！`,true);
-          captured=true;
+  function allInBase(player) {
+    return players[player].planes.every(p => p.progress < 0);
+  }
+
+  function applyTakeoffPity() {
+    if (!allInBase(turn)) {
+      takeoffFails[turn] = 0;
+      return false;
+    }
+    if (canTakeOff(rolled)) {
+      takeoffFails[turn] = 0;
+      return false;
+    }
+    takeoffFails[turn]++;
+    if (takeoffFails[turn] < 3) return false;
+    rolled = 6;
+    takeoffFails[turn] = 0;
+    notice('保底起飞！');
+    return true;
+  }
+
+  function afterRoll() {
+    const moves = movable(turn, rolled);
+    if (!moves.length) { noMove(); return; }
+    if (turn === 0) {
+      phase = 'select';
+      selectable = moves;
+      showSelection();
+      notice(`掷出 ${rolled}，选择一架飞机`);
+      sync();
+    } else {
+      const plane = moves.sort((a, b) => scoreMove(b) - scoreMove(a))[0];
+      notice(`${COLORS[turn].name}掷出 ${rolled}`);
+      schedule(() => move(plane), 450);
+    }
+  }
+
+  async function move(plane) {
+    const data = destination(plane, rolled);
+    if (!data) return;
+    phase = 'moving';
+    selectable = [];
+    clearSelection();
+    for (const p of data.path) {
+      plane.progress = p;
+      const [px, pz] = planeLocation(plane);
+      await animateTo(plane, [px, pz], .45, 110);
+      placePlayer(plane.color);
+    }
+    if (data.bounced) notice('终点反弹！', 'bad');
+    await resolveLanding(plane);
+  }
+
+  async function resolveLanding(plane) {
+    if (plane.progress >= FINISH) { endTurn(plane); return; }
+    if (plane.progress >= 48) { endTurn(plane); return; }
+
+    const abs = ringAbs(plane);
+    if (abs === FLY_FROM[plane.color]) {
+      notice('虚线飞越！');
+      await flyAcross(plane, (FLY_TO[plane.color] - START[plane.color] + 48) % 48);
+      await captureAt(plane);
+    } else if (cellColor(abs) === plane.color) {
+      const target = jumpTarget(plane);
+      if (target !== null) {
+        notice('同色跳跃！');
+        plane.progress = target;
+        const [px, pz] = planeLocation(plane);
+        await animateTo(plane, [px, pz], .8, 260);
+        placePlayer(plane.color);
+        if (ringAbs(plane) === FLY_FROM[plane.color]) {
+          notice('虚线飞越！');
+          await flyAcross(plane, (FLY_TO[plane.color] - START[plane.color] + 48) % 48);
         }
       }
-    }
-    if(captured){setTimeout(()=>{checkWin(player);if(winner<0) afterMove(player)},500);return}
-  }
-  if(p.state==='done') SFX.home();
-  checkWin(player);
-  if(winner<0) afterMove(player);
-}
-
-function afterMove(player){
-  // 掷6可再掷一次，否则切换回合
-  if(dice===6 && winner<0){
-    canRollAgain=true;
-    if(player===0){
-      phase='idle';
-      toast('掷出6，再掷一次！');
-      updateHUD();
+      await captureAt(plane);
     } else {
-      setTimeout(()=>{ if(phase==='idle') return; rollDice() },700);
+      await captureAt(plane);
     }
-  } else {
-    canRollAgain=false;
+    endTurn(plane);
+  }
+
+  function endTurn(plane) {
+    if (players[plane.color].planes.every(p => p.progress >= FINISH)) {
+      winner = plane.color;
+      phase = 'over';
+      sync();
+      showResult();
+      return;
+    }
+    if (rolled === 6) {
+      sixStreak++;
+      if (sixStreak >= 3) {
+        notice('连续三个 6，本架飞机回基地！', 'bad');
+        sixStreak = 0;
+        sendHome(plane).then(() => nextTurn());
+        return;
+      }
+      phase = 'idle';
+      notice(`${COLORS[plane.color].name}掷出六点，再掷一次`);
+      sync();
+      if (turn !== 0) schedule(aiTurn, 550);
+      return;
+    }
+    sixStreak = 0;
     nextTurn();
   }
-}
 
-function nextTurn(){
-  if(winner>=0) return;
-  turn=(turn+1)%4;
-  phase='idle';
-  updateTurnBadge();
-  updateHUD();
-  if(turn!==0){
-    setTimeout(()=>{
-      if(winner<0&&phase==='idle') rollDice();
-    },800);
-  } else {
-    toast('你的回合');
+  function nextTurn() {
+    if (winner >= 0) return;
+    turn = (turn + 1) % 4;
+    rolled = 0;
+    sixStreak = 0;
+    phase = 'idle';
+    sync();
+    if (turn === 0) notice('你的回合 · 5 或 6 起飞');
+    else schedule(aiTurn, 600);
   }
-}
 
-function checkWin(player){
-  const home=players[player].planes.filter(p=>p.state==='done').length;
-  document.getElementById('p-home-'+player).textContent=home+'/4';
-  if(home===4){
-    winner=player;
-    phase='over';
-    SFX.win();
-    document.getElementById('win-text').textContent=player===0?'胜利！':`${COLORS[player].name}获胜`;
-    document.getElementById('win-text').style.color=player===0?'#f0c75e':'#ff8a75';
-    document.getElementById('win-sub').textContent=`四架飞机全部抵达终点`;
-    document.getElementById('win-banner').classList.add('show');
+  function aiTurn() {
+    if (turn === 0 || phase !== 'idle' || winner >= 0) return;
+    rolled = 1 + Math.floor(Math.random() * 6);
+    applyTakeoffPity();
+    showDice(rolled);
+    afterRoll();
   }
-}
 
-function updateHUD(){
-  document.getElementById('p-turn').textContent=COLORS[turn].name;
-  document.getElementById('p-dice').textContent=dice||'—';
-  for(let i=0;i<4;i++){
-    document.getElementById('p-home-'+i).textContent=players[i].planes.filter(p=>p.state==='done').length+'/4';
+  function scoreMove(p) {
+    const d = destination(p, rolled);
+    const end = d.end;
+    let score = end + (p.progress < 0 && canTakeOff(rolled) ? 20 : 0);
+    if (end >= FINISH) score += 1000;
+    if (end < 48) {
+      const abs = (START[p.color] + end) % 48;
+      if (abs === FLY_FROM[p.color]) score += 320;
+      else if (cellColor(abs) === p.color) score += 120;
+      players.forEach((pl, i) => {
+        if (i !== turn && pl.planes.some(q => sameRingCell({ color: p.color, progress: end }, q))) score += 250;
+      });
+    }
+    return score;
   }
-  const btn=document.getElementById('btn-roll');
-  btn.disabled=(phase!=='idle'||turn!==0||winner>=0);
-}
 
-function updateTurnBadge(){
-  const b=document.getElementById('turn-badge');
-  b.textContent=COLORS[turn].name+'回合';
-  b.className='c'+turn;
-}
-
-function toast(msg,danger){
-  const el=document.getElementById('toast');el.textContent=msg;
-  el.classList.toggle('danger',!!danger);el.classList.add('show');
-  clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),1600);
-}
-
-function animate(){
-  requestAnimationFrame(animate);
-  const now=performance.now();
-  if(controls) controls.update();
-  // 螺旋桨
-  scene.traverse(o=>{ if(o.name==='prop') o.rotation.x=now*0.02 });
-  // 高亮脉动
-  highlightMeshes.forEach(m=>{ m.scale.setScalar(1+0.15*Math.sin(now*0.005)) });
-  renderer.render(scene,camera);
-}
-
-// 点击棋子
-const raycaster=new THREE.Raycaster();
-const pointer=new THREE.Vector2();
-let downXY=null;
-renderer&&renderer.domElement.addEventListener('pointerdown',e=>{downXY={x:e.clientX,y:e.clientY}});
-renderer&&renderer.domElement.addEventListener('pointerup',e=>{
-  if(!downXY) return;
-  const dist=Math.hypot(e.clientX-downXY.x,e.clientY-downXY.y);
-  downXY=null;
-  if(dist>8) return;
-  if(phase!=='awaiting'||turn!==0) return;
-  const rect=renderer.domElement.getBoundingClientRect();
-  pointer.x=((e.clientX-rect.left)/rect.width)*2-1;
-  pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;
-  raycaster.setFromCamera(pointer,camera);
-  // 检查高亮环
-  const hits=raycaster.intersectObjects(highlightMeshes,false);
-  if(hits.length){
-    const pi=hits[0].object.userData.planeIdx;
-    executeMove(0,pi);
+  function schedule(fn, ms) {
+    const version = gameVersion;
+    setTimeout(() => { if (version === gameVersion) fn(); }, ms);
   }
-});
 
-function bindUI(){
-  document.getElementById('intro-start').onclick=()=>{ if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)(); resetGame(); document.getElementById('intro').classList.add('hide') };
-  document.getElementById('win-again').onclick=()=>resetGame();
-  document.getElementById('btn-roll').onclick=rollDice;
-  document.getElementById('btn-restart').onclick=resetGame;
-  document.getElementById('btn-sound').onclick=()=>{ muted=!muted; document.getElementById('btn-sound').textContent='音效：'+(muted?'关':'开') };
-  document.getElementById('btn-camera').onclick=()=>{ camera.position.set(0,22,20);controls.target.set(0,0,0);controls.update() };
-  document.getElementById('panel-toggle').onclick=()=>{document.getElementById('panel').classList.toggle('collapsed')};
-}
+  /* ================= 选择 ================= */
+  function clearSelection() {
+    selectionRings.forEach(ring => {
+      scene.remove(ring);
+      ring.geometry.dispose();
+      ring.material.dispose();
+    });
+    selectionRings = [];
+  }
+  function showSelection() {
+    clearSelection();
+    selectable.forEach(plane => {
+      const [px, pz] = planeLocation(plane);
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(.55, .045, 8, 32),
+        new THREE.MeshBasicMaterial({ color: 0xf5d77f, transparent: true, opacity: .95 })
+      );
+      ring.rotation.x = Math.PI / 2;
+      ring.position.set(px, .24, pz);
+      ring.userData.plane = plane;
+      scene.add(ring);
+      selectionRings.push(ring);
+    });
+  }
+  function onPointerUp(event) {
+    const down = pointerDown;
+    pointerDown = null;
+    if (!down || Math.hypot(event.clientX - down.x, event.clientY - down.y) > 8) return;
+    const rect = renderer.domElement.getBoundingClientRect();
+    pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
+    raycaster.setFromCamera(pointer, camera);
 
-initScene();
-buildBoard();
-buildPlayers();
-updateHUD();
-updateTurnBadge();
-bindUI();
-animate();
-</script>
-<script src="/games/lib/game-i18n.js"></script>
+    // 点击骰子台也能掷骰
+    if (phase === 'idle' && turn === 0 && winner < 0 && buildScene.podium) {
+      const hitPodium = raycaster.intersectObject(buildScene.podium, true);
+      if (hitPodium.length) { roll(); return; }
+    }
+    if (phase !== 'select' || turn !== 0) return;
+    const ringHit = raycaster.intersectObjects(selectionRings, false)[0];
+    if (ringHit) { move(ringHit.object.userData.plane); return; }
+    const hits = raycaster.intersectObjects(selectable.map(p => p.mesh), true);
+    if (!hits.length) return;
+    let node = hits[0].object;
+    while (node.parent && !selectable.some(p => p.mesh === node)) node = node.parent;
+    const plane = selectable.find(p => p.mesh === node);
+    if (plane) move(plane);
+  }
+
+  /* ================= UI ================= */
+  function sync() {
+    document.querySelector('#turn').textContent = turn === 0 ? '你的回合' : COLORS[turn].name + '回合';
+    document.querySelector('#turn').dataset.color = turn;
+    players.forEach((p, i) => {
+      document.querySelector('#score-' + i).textContent =
+        p.planes.filter(q => q.progress >= FINISH).length + ' / 4';
+    });
+    players.forEach(p => p.planes.forEach(place));
+    const btn = document.querySelector('#roll');
+    const ready = phase === 'idle' && turn === 0 && winner < 0;
+    btn.disabled = !ready;
+    btn.classList.toggle('ready', ready);
+    document.querySelector('#roll-hint').classList.toggle('show', ready || phase === 'select');
+  }
+  function notice(text, kind) {
+    const el = document.querySelector('#notice');
+    el.textContent = text;
+    el.classList.toggle('bad', kind === 'bad');
+    el.classList.add('show');
+    clearTimeout(notice.timer);
+    notice.timer = setTimeout(() => el.classList.remove('show'), 1600);
+  }
+  function showResult() {
+    document.querySelector('#result-title').textContent = winner === 0 ? '云端胜利' : '棋局已定';
+    document.querySelector('#result-copy').textContent = winner === 0
+      ? '四架朱雀已抵达云台中央。'
+      : `${COLORS[winner].name}的四架飞机率先抵达云台中央。`;
+    document.querySelector('#result').classList.remove('hidden');
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    controls.update();
+    players.forEach(p => p.planes.forEach(q => {
+      const prop = q.mesh.getObjectByName('propeller');
+      if (prop) prop.rotation.x = t * 22;
+      if (phase === 'select' && selectable.includes(q)) {
+        q.mesh.position.y = .5 + stackHeight(q) * .16 + Math.sin(t * 7) * .1;
+      }
+    }));
+    selectionRings.forEach(ring => {
+      ring.rotation.z = t * 1.8;
+      ring.material.opacity = .62 + .3 * Math.sin(t * 6);
+    });
+    if (diceRim) diceRim.rotation.z = t * .4;
+    if (addPlayerMarker.sprite) {
+      addPlayerMarker.sprite.position.y = 3.1 + Math.sin(t * 2) * .18;
+      addPlayerMarker.beam.material.opacity = .1 + .07 * Math.sin(t * 3);
+    }
+    renderer.render(scene, camera);
+  }
+
+  document.querySelector('#start').onclick = () => {
+    document.querySelector('#intro').classList.add('hidden');
+    resetGame();
+  };
+  document.querySelector('#roll').onclick = roll;
+  document.querySelector('#btn-reset').onclick = resetGame;
+  document.querySelector('#btn-camera').onclick = resetCamera;
+  document.querySelector('#btn-rules').onclick = () => document.querySelector('#rules-modal').classList.remove('hidden');
+  document.querySelector('#rules-close').onclick = () => document.querySelector('#rules-modal').classList.add('hidden');
+  document.querySelector('#again').onclick = () => {
+    document.querySelector('#result').classList.add('hidden');
+    resetGame();
+  };
+  addEventListener('keydown', e => {
+    if (e.code === 'Space' && !e.repeat) {
+      e.preventDefault();
+      roll();
+    }
+  });
+
+  init();
+  resetGame();
+  animate();
+  </script>
+  <script src="/games/lib/game-i18n.js"></script>
 </body>
 </html>

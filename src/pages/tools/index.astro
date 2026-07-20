@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+
+const tools = [
+  {
+    title: 'Base64 编解码',
+    titleEn: 'Base64 Encode / Decode',
+    type: '文本 / 编码',
+    typeEn: 'Text / Encoding',
+    description: '本地完成 Base64 编码与解码，支持 UTF-8 文本、一键复制与双向切换。',
+    descriptionEn: 'Encode and decode Base64 locally with UTF-8 text, one-click copy, and swap.',
+    href: '/tools/base64/',
+    icon: 'B64',
+  },
+];
+---
+
+<BaseLayout title="工具 · Tim Chen" description="浏览器本地可用的常用小工具。">
+  <main id="content" class="tools-page">
+    <section class="shell tools-hero">
+      <p class="tools-eyebrow"><span class="lang-zh">工具箱</span><span class="lang-en">Toolbox</span></p>
+      <h1><span class="lang-zh">常用小工具</span><span class="lang-en">Everyday Tools</span></h1>
+      <p class="tools-lead">
+        <span class="lang-zh">纯前端、本地运行，不上传数据。先从最常用的编解码开始。</span>
+        <span class="lang-en">Client-side only. Nothing leaves your browser. Starting with everyday encode/decode utilities.</span>
+      </p>
+    </section>
+
+    <section class="shell tools-library">
+      <div class="tool-grid">
+        {tools.map((tool, index) => (
+          <a class="tool-card" href={tool.href}>
+            <div class="tool-card-cover">
+              <span class="tool-icon">{tool.icon}</span>
+              <span class="tool-index">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <div class="tool-card-body">
+              <p class="tool-type">
+                <span class="lang-zh">{tool.type}</span>
+                <span class="lang-en">{tool.typeEn}</span>
+              </p>
+              <h2>
+                <span class="lang-zh">{tool.title}</span>
+                <span class="lang-en">{tool.titleEn}</span>
+              </h2>
+              <p class="tool-description">
+                <span class="lang-zh">{tool.description}</span>
+                <span class="lang-en">{tool.descriptionEn}</span>
+              </p>
+              <span class="tool-action">
+                <span class="lang-zh">打开工具</span>
+                <span class="lang-en">Open tool</span>
+                <b aria-hidden="true">→</b>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .tools-page {
+      min-height: 100dvh;
+      padding: 6.5rem 0 5rem;
+      background: #11100d;
+      color: #eee4cc;
+    }
+    .tools-hero {
+      margin-bottom: 2rem;
+    }
+    .tools-eyebrow {
+      margin: 0 0 .55rem;
+      color: #b69a61;
+      font: 700 .72rem/1.3 var(--font-body);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .tools-hero h1 {
+      margin: 0 0 .7rem;
+      color: #f4e8cb;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: .95;
+    }
+    .tools-lead {
+      margin: 0;
+      max-width: 42rem;
+      color: #c9bda2;
+      line-height: 1.7;
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+      gap: 1rem;
+    }
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid rgba(240, 223, 179, .24);
+      border-radius: 6px;
+      background: #1b1914;
+      color: inherit;
+      text-decoration: none;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .tool-card:hover {
+      border-color: #d1a843;
+      transform: translateY(-4px);
+    }
+    .tool-card-cover {
+      position: relative;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(240, 223, 179, .24);
+      background:
+        radial-gradient(circle at 70% 30%, rgba(212, 160, 23, .28), transparent 45%),
+        linear-gradient(160deg, #2a2318, #17140f);
+      display: grid;
+      place-items: center;
+    }
+    .tool-icon {
+      color: #f0cf76;
+      font: 800 2.4rem/1 var(--font-mono);
+      letter-spacing: .04em;
+    }
+    .tool-index {
+      position: absolute;
+      top: .8rem;
+      left: .8rem;
+      padding: .38rem .45rem;
+      background: rgba(17, 16, 13, .82);
+      color: #f0cf76;
+      font: .72rem/1 var(--font-mono);
+    }
+    .tool-card-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.35rem;
+    }
+    .tool-type {
+      margin: 0;
+      color: #b69a61;
+      font: 700 .68rem/1.3 var(--font-body);
+      letter-spacing: .1em;
+    }
+    .tool-card h2 {
+      margin: .55rem 0 .7rem;
+      color: #f4e8cb;
+      font-size: 1.85rem;
+      letter-spacing: 0;
+      line-height: 1.05;
+    }
+    .tool-description {
+      margin: 0;
+      color: #c9bda2;
+      line-height: 1.7;
+    }
+    .tool-action {
+      margin-top: auto;
+      padding-top: 1.4rem;
+      color: #d1a843;
+      font: 700 .75rem/1 var(--font-body);
+      letter-spacing: .08em;
+    }
+    .tool-action b {
+      margin-left: .25rem;
+      font-size: 1rem;
+    }
+    .lang-en { display: none; }
+    :global(html[data-lang='en']) .lang-zh { display: none; }
+    :global(html[data-lang='en']) .lang-en { display: inline; }
+    @media (max-width: 720px) {
+      .tools-page { padding: 4.4rem 0 3.5rem; }
+      .tool-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <script>
+    const root = document.documentElement;
+    const applyToolsMeta = () => {
+      const english = root.getAttribute('data-lang') === 'en';
+      document.title = english ? 'Tools · Tim Chen' : '工具 · Tim Chen';
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        english
+          ? 'Local browser utilities for everyday tasks.'
+          : '浏览器本地可用的常用小工具。',
+      );
+    };
+    applyToolsMeta();
+    new MutationObserver(applyToolsMeta).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+  </script>
+</BaseLayout>

@@ -75,7 +75,8 @@
     '重新起飞': 'Fly Again', '飞行结束': 'Flight Over', '暂停中': 'Paused', '云层静止': 'The clouds are still',
     '准备好后继续这一次飞行。': 'Resume when you are ready.', '继续飞行': 'Resume Flight',
 
-    '云端翔行': 'Sky Voyage', '3D 飞行棋': '3D AEROPLANE CHESS', '红方回合': 'Red Turn', '黄方回合': 'Yellow Turn',
+    '云端翔行 · 飞行棋': 'Sky Voyage · Aeroplane Chess', '云端翔行': 'Sky Voyage', '飞行棋': 'Aeroplane Chess', '3D 飞行棋': '3D AEROPLANE CHESS', '四方飞行棋': 'Four-Player Aeroplane Chess',
+    '红方回合': 'Red Turn', '黄方回合': 'Yellow Turn',
     '蓝方回合': 'Blue Turn', '绿方回合': 'Green Turn', '红方': 'Red', '黄方': 'Yellow', '蓝方': 'Blue', '绿方': 'Green',
     '战况': 'STATUS', '当前回合': 'Current Turn', '骰子点数': 'Dice', '红方到家': 'Red Home', '黄方到家': 'Yellow Home',
     '蓝方到家': 'Blue Home', '绿方到家': 'Green Home', '掷骰': 'Roll', '重开': 'Restart', '音效：开': 'Sound: On',
@@ -88,7 +89,45 @@
     '四架飞机全部抵达中央终点者获胜。': 'Get all four planes to the center to win.',
     '拖动旋转视角，滚轮拉近拉远。': 'Drag to rotate and scroll to zoom.',
     '你的回合': 'Your turn', '掷出6，再掷一次！': 'Rolled a 6 — roll again!',
-    '点击高亮飞机移动': 'Tap a highlighted plane to move'
+    '点击高亮飞机移动': 'Tap a highlighted plane to move',
+    '云台战况': 'SKY DECK', '骰子': 'Dice', '胜利': 'Victory', '云端胜利': 'Victory in the Clouds', '棋局已定': 'Match Complete',
+    '朱雀': 'Vermilion Bird', '金乌': 'Golden Crow', '青龙': 'Azure Dragon', '玄武': 'Black Tortoise',
+    '红方先行，掷骰起飞': 'Red moves first. Roll to take off.',
+    '四架朱雀已抵达云台中央。': 'All four Vermilion Bird planes reached the Sky Deck.',
+    '你执红方，与三位棋手竞速云端。': 'You command Red in a race across the clouds.',
+    '掷出 6 可起飞并再掷一次；落在对手飞机上可将其击落。': 'Roll a 6 to launch and roll again; land on a rival to send it home.',
+    '进入己方航道后，必须刚好抵达云台中央。': 'In your home lane, you must reach the Sky Deck exactly.',
+    '起飞': 'Take Off', '再来一局': 'Play Again',
+    '掷 骰': 'ROLL', '飞行规则': 'Flight Rules', '关闭': 'Close', '规则': 'Rules',
+    '同色跳跃！': 'Color jump!', '虚线飞越！': 'Sky shortcut!', '终点反弹！': 'Bounce back!',
+    '连续三个 6，本架飞机回基地！': 'Three 6s in a row — this plane returns home!',
+    '点击飞机选择移动 · 空格也可掷骰': 'Tap a plane to move · Space to roll',
+    '四方飞行棋 · 竞速云端': 'Four-Player Aeroplane Chess',
+    '掷出 5 或 6：起飞；掷出 6 可再掷一次': 'Roll 5 or 6 to take off; roll 6 again for a bonus turn',
+    '同色跳跃：落在己方颜色格，跳到下一个同色格': 'Color jump: land on your color to leap ahead',
+    '虚线飞越：落在虚线格，直飞棋盘对面': 'Sky shortcut: land on the dashed cell to fly across',
+    '击落：落在敌机格，敌机回基地': 'Capture: land on a rival to send it home',
+    '终点：进入航道后需刚好到达，超出会反弹': 'Finish: land exactly — overshoot bounces back',
+    '惩罚：连续三次 6，本架飞机回基地': 'Penalty: three 6s in a row sends this plane home',
+    '保底：全机在基地连续 3 次未起飞，强制起飞': 'Pity: force a takeoff after 3 failed launch rolls',
+    '保底起飞！': 'Pity takeoff!',
+    '红方先行，掷 5 或 6 起飞': 'Red first — roll 5 or 6 to take off',
+    '你的回合 · 5 或 6 起飞': 'Your turn · 5 or 6 to take off',
+    '你': 'YOU', '你执红方 · 朱雀，从画面下方基地起飞': 'You fly Red · Vermilion Bird — your base is at the bottom'
+  };
+
+  const SIDE_NAMES = { '红方':'Red', '黄方':'Yellow', '蓝方':'Blue', '绿方':'Green' };
+
+  const translateDynamic = text => {
+    let match = text.match(/^(红方|黄方|蓝方|绿方)掷出 (\d+)$/);
+    if (match) return `${SIDE_NAMES[match[1]]} rolled ${match[2]}`;
+    match = text.match(/^(红方|黄方|蓝方|绿方)掷出六点，再掷一次$/);
+    if (match) return `${SIDE_NAMES[match[1]]} rolled 6. Roll again.`;
+    match = text.match(/^(红方|黄方|蓝方|绿方)击落(红方|黄方|蓝方|绿方)！$/);
+    if (match) return `${SIDE_NAMES[match[1]]} shot down ${SIDE_NAMES[match[2]]}!`;
+    match = text.match(/^(红方|黄方|蓝方|绿方)的四架飞机率先抵达云台中央。$/);
+    if (match) return `${SIDE_NAMES[match[1]]} reached the Sky Deck with all four planes.`;
+    return '';
   };
 
   const PATTERNS = [
@@ -100,7 +139,9 @@
     [/^智能提示：(.+) · (.+)$/, 'Smart Hint: $1 · $2'], [/^已悔 (\d+) 手 · 轮到黑方$/, 'Undid $1 move(s) · Black to move'],
     [/^已悔 (\d+) 手 · 轮到白方$/, 'Undid $1 move(s) · White to move'], [/^总得分 (\d+)$/, 'Total Score $1'],
     [/^金币 (\d+)　·　生命 (\d+)$/, 'Coins $1 · Lives $2'], [/^本次得分 (\d+)$/, 'Score $1'],
-    [/^新局开始 · 黑方先行$/, 'New game · Black moves first'], [/^禁手：(.+)$/, 'Forbidden move: $1']
+    [/^新局开始 · 黑方先行$/, 'New game · Black moves first'], [/^禁手：(.+)$/, 'Forbidden move: $1'],
+    [/^掷出 (\d+)，选择一架飞机$/, 'Rolled $1. Choose a plane.'], [/^掷出 (\d+)，没有可动飞机$/, 'Rolled $1. No plane can move.'],
+    [/^掷出 6，无可动飞机，再掷一次$/, 'Rolled 6. No plane can move. Roll again.']
   ];
 
   const translate = value => {
@@ -111,6 +152,7 @@
       const prefixed = text.match(/^([^\p{L}\p{N}]+)\s*(.+)$/u);
       if (prefixed && EN[prefixed[2]]) result = prefixed[1] + ' ' + EN[prefixed[2]];
     }
+    if (!result) result = translateDynamic(text);
     if (!result) {
       for (const [pattern, replacement] of PATTERNS) {
         if (pattern.test(text)) { result = text.replace(pattern, replacement); break; }

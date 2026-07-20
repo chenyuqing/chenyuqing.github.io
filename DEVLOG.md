@@ -68,6 +68,18 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [x] `/products/` 列表页视觉化：Featured Band (dark) + Catalog 卡片/列表视图切换
 - [x] 5 个产品上线：Subtitle Maker / Clip Agent / ASD Pipeline / VoiceWave Profile / Tonghua
 - [x] 新增游戏专区与 3D 中国象棋
+- [x] 新增工具专区 `/tools/`，首个工具：Base64 编解码
+
+## 2026-07-20 会话记录（工具专区）
+
+### 今天完成
+
+1. 新增 `/tools/` 工具箱入口页（深色卡片风格，与游戏大厅一致）。
+2. 新增首个工具 `/tools/base64/`：
+   - 本地 UTF-8 Base64 编码 / 解码
+   - 上下互换、复制结果、清空
+   - 编码/解码模式切换，⌘/Ctrl + Enter 执行
+3. Header 导航与 Footer 增加「工具 / Tools」入口与中英文字段。
 
 ## 2026-07-19 会话记录（坦克大战多关升级）
 
@@ -275,6 +287,35 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
      - `.product-catalog-wrap`：gap 1.2rem → 0.85rem
      - 列表视图：`flex-direction: column`，illo 改为 `max-height: 110px; width: 100%`，body grid 回退 1 列
 2. 产品插图全部切换为 AVIF（20 张），`src/content/products/*.md` 引用同步更新，已推送。
+
+## 2026-07-20 会话记录（飞行棋重构）
+
+### 当前完成，待提交
+
+1. 重写 `public/games/aeroplane-chess.html` 的渲染层与状态模型：
+   - 棋子进度统一为基地 `-1`、外圈 `0-47`、归航 `48-53`，避免旧版本外圈/归航状态和反弹规则混用。
+   - 固化规则为：`6` 起飞与再掷、同格击落、同色叠放、必须刚好抵达中央终点、四架飞机先到者胜。
+   - 修复旧版点击监听注册过早、AI 掷出 `6` 后卡回合、实际棋盘格误判为同格、终点多走一格等问题。
+2. 视觉重做：程序绘制完整漆木飞行棋盘，加入连续外圈航路、四角机场、四色归航道、中央云台、云海和独立骰子台座；棋子升级为带机翼、座舱、描金机头与旋转螺旋桨的 3D 飞机。
+3. 骰子改为可读的实体六面骰：六面完整点阵、实体边缘、掷骰停止后实际点数朝上；浏览器逐面验证 `1-6` 点数正确。
+4. 交互与适配：可移动飞机使用金色航标环选取；拖动镜头不会误触走棋；竖屏自动拉远相机，实测棋盘四角和骰子台均在视区内；重开复用棋子资源，不再反复创建 WebGL 几何体。
+5. 游戏大厅新增 `aeroplane-chess-xiaoxiang.avif`，用 illo 技能生成的小象主题封面并接入卡片。
+6. 已运行 `npm run build`；浏览器已验证起飞、击落、终点临界、超点禁走、骰子六面点阵和移动端视口，无新的运行时错误。
+7. 第二次重写（经典规则 + 视觉）：
+   - 明亮象牙棋盘、有色格/起点/虚线飞越、四角基地、中央云台、云海、棋盘旁骰子台。
+   - 完整经典规则：同色跳跃、虚线飞越、击落、终点反弹、连续三个 6 回基地、掷 6 再掷。
+   - 掷骰大按钮固定底部中央，可空格/点击 3D 骰子台掷骰；规则面板可查看。
+   - 玩家阵营标识：开场「你执红方」、战况「你」标签、回合「你的回合」、红方基地上方「你」徽章+光柱。
+8. 规则路径浏览器实测通过：起飞/跳跃/飞越/反弹/击落/三个 6 惩罚，无运行时错误。
+
+### 待提交
+
+- `public/games/aeroplane-chess.html`
+- `public/games/lib/game-i18n.js`
+- `public/media/illo/games/aeroplane-chess-xiaoxiang.png`
+- `public/media/illo/games/aeroplane-chess-xiaoxiang.avif`
+- `src/pages/games/index.astro`
+- `DEVLOG.md`
 
 ## 变更历史
 

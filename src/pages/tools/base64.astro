@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+---
+
+<BaseLayout title="Base64 编解码 · 工具" description="本地 Base64 编码与解码，支持 UTF-8 文本。">
+  <main id="content" class="tool-page">
+    <section class="shell tool-top">
+      <a class="tool-back" href="/tools/">
+        <span class="lang-zh">← 返回工具箱</span>
+        <span class="lang-en">← Back to Tools</span>
+      </a>
+      <p class="tool-eyebrow"><span class="lang-zh">文本工具</span><span class="lang-en">Text Utility</span></p>
+      <h1><span class="lang-zh">Base64 编解码</span><span class="lang-en">Base64 Encode / Decode</span></h1>
+      <p class="tool-lead">
+        <span class="lang-zh">全部在浏览器本地完成，不会上传任何内容。</span>
+        <span class="lang-en">Everything runs locally in your browser. Nothing is uploaded.</span>
+      </p>
+    </section>
+
+    <section class="shell tool-panel">
+      <div class="field-block">
+        <div class="field-head">
+          <label for="input-text" id="input-label">
+            <span class="lang-zh">输入文本</span><span class="lang-en">Input text</span>
+          </label>
+          <span class="field-meta" id="input-count">0</span>
+        </div>
+        <textarea id="input-text" rows="9" spellcheck="false" placeholder="在这里粘贴要编码或解码的内容…"></textarea>
+      </div>
+
+      <div class="action-row">
+        <button class="tool-btn tool-btn-primary" type="button" id="btn-encode">
+          <span class="lang-zh">编码</span><span class="lang-en">Encode</span>
+        </button>
+        <button class="tool-btn tool-btn-primary" type="button" id="btn-decode">
+          <span class="lang-zh">解码</span><span class="lang-en">Decode</span>
+        </button>
+        <button class="tool-btn" type="button" id="btn-swap">
+          <span class="lang-zh">上下互换</span><span class="lang-en">Swap</span>
+        </button>
+        <button class="tool-btn" type="button" id="btn-copy">
+          <span class="lang-zh">复制结果</span><span class="lang-en">Copy result</span>
+        </button>
+        <button class="tool-btn" type="button" id="btn-clear">
+          <span class="lang-zh">清空</span><span class="lang-en">Clear</span>
+        </button>
+      </div>
+
+      <div class="field-block">
+        <div class="field-head">
+          <label for="output-text" id="output-label">
+            <span class="lang-zh">输出结果</span><span class="lang-en">Output</span>
+          </label>
+          <span class="field-meta" id="output-count">0</span>
+        </div>
+        <textarea id="output-text" rows="9" spellcheck="false" readonly placeholder="结果会出现在这里…"></textarea>
+      </div>
+
+      <p class="status-line" id="status-line" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <style>
+    .tool-page {
+      min-height: 100dvh;
+      padding: 6.2rem 0 4.5rem;
+      background: #11100d;
+      color: #eee4cc;
+    }
+    .tool-top { margin-bottom: 1.2rem; }
+    .tool-back {
+      display: inline-flex;
+      margin-bottom: 1.1rem;
+      color: #d1a843;
+      text-decoration: none;
+      font: 700 .78rem/1 var(--font-body);
+      letter-spacing: .06em;
+    }
+    .tool-back:hover { color: #f0cf76; }
+    .tool-eyebrow {
+      margin: 0 0 .5rem;
+      color: #b69a61;
+      font: 700 .72rem/1.3 var(--font-body);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .tool-top h1 {
+      margin: 0 0 .65rem;
+      color: #f4e8cb;
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      line-height: 1;
+    }
+    .tool-lead {
+      margin: 0;
+      color: #c9bda2;
+      line-height: 1.65;
+    }
+    .tool-panel {
+      border: 1px solid rgba(240, 223, 179, .22);
+      border-radius: 10px;
+      background: #1b1914;
+      padding: 1.25rem;
+    }
+    .field-block { margin-bottom: 1rem; }
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .45rem;
+    }
+    .field-head label {
+      color: #f0e2c0;
+      font: 700 .82rem/1 var(--font-body);
+      letter-spacing: .04em;
+    }
+    .field-meta {
+      color: #9d8f72;
+      font: .75rem/1 var(--font-mono);
+    }
+    textarea {
+      width: 100%;
+      resize: vertical;
+      min-height: 10rem;
+      border: 1px solid rgba(240, 223, 179, .2);
+      border-radius: 8px;
+      background: #12100c;
+      color: #f4e8cb;
+      padding: .95rem 1rem;
+      font: .95rem/1.55 var(--font-mono);
+      outline: none;
+    }
+    textarea:focus {
+      border-color: #d1a843;
+      box-shadow: 0 0 0 2px rgba(209, 168, 67, .18);
+    }
+    textarea[readonly] {
+      background: #16130f;
+      color: #e6d9b8;
+    }
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin: .2rem 0 1rem;
+    }
+    .tool-btn {
+      border: 1px solid rgba(240, 223, 179, .24);
+      background: transparent;
+      color: #e8dcc0;
+      border-radius: 8px;
+      padding: .7rem 1rem;
+      font: 700 .8rem/1 var(--font-body);
+      letter-spacing: .04em;
+      cursor: pointer;
+    }
+    .tool-btn:hover { border-color: #d1a843; color: #f0cf76; }
+    .tool-btn-primary {
+      background: #d1a843;
+      border-color: #d1a843;
+      color: #1a1408;
+    }
+    .tool-btn-primary:hover { filter: brightness(1.06); color: #1a1408; }
+    .status-line {
+      min-height: 1.2rem;
+      margin: .2rem 0 0;
+      color: #b69a61;
+      font-size: .85rem;
+    }
+    .status-line.is-error { color: #e18a7a; }
+    .status-line.is-ok { color: #8fbf8a; }
+    .lang-en { display: none; }
+    :global(html[data-lang='en']) .lang-zh { display: none; }
+    :global(html[data-lang='en']) .lang-en { display: inline; }
+    @media (max-width: 720px) {
+      .tool-page { padding: 4.4rem 0 3rem; }
+      .tool-panel { padding: 1rem; }
+      .tool-btn { flex: 1 1 calc(50% - .3rem); }
+    }
+  </style>
+
+  <script>
+    const root = document.documentElement;
+    const input = document.getElementById('input-text');
+    const output = document.getElementById('output-text');
+    const statusLine = document.getElementById('status-line');
+    const inputCount = document.getElementById('input-count');
+    const outputCount = document.getElementById('output-count');
+    const encodeBtn = document.getElementById('btn-encode');
+    const decodeBtn = document.getElementById('btn-decode');
+
+    const isEn = () => root.getAttribute('data-lang') === 'en';
+    const t = (zh, en) => (isEn() ? en : zh);
+
+    const setStatus = (message, kind = '') => {
+      statusLine.textContent = message;
+      statusLine.classList.toggle('is-ok', kind === 'ok');
+      statusLine.classList.toggle('is-error', kind === 'error');
+    };
+
+    const updateCounts = () => {
+      inputCount.textContent = String(input.value.length);
+      outputCount.textContent = String(output.value.length);
+    };
+
+    const applyMeta = () => {
+      document.title = t('Base64 编解码 · 工具', 'Base64 Encode / Decode · Tools');
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        t('本地 Base64 编码与解码，支持 UTF-8 文本。', 'Local Base64 encode/decode with UTF-8 text support.'),
+      );
+      input.placeholder = t('在这里粘贴要编码或解码的内容…', 'Paste text to encode or decode…');
+    };
+
+    const utf8ToBase64 = (text) => {
+      const bytes = new TextEncoder().encode(text);
+      let binary = '';
+      bytes.forEach((b) => { binary += String.fromCharCode(b); });
+      return btoa(binary);
+    };
+
+    const base64ToUtf8 = (text) => {
+      const cleaned = text.replace(/\s+/g, '');
+      const binary = atob(cleaned);
+      const bytes = Uint8Array.from(binary, (ch) => ch.charCodeAt(0));
+      return new TextDecoder().decode(bytes);
+    };
+
+    const run = (mode) => {
+      const value = input.value.trim();
+      if (!value) {
+        output.value = '';
+        updateCounts();
+        setStatus(t('请先输入内容。', 'Please enter some text first.'), 'error');
+        return;
+      }
+      try {
+        output.value = mode === 'encode' ? utf8ToBase64(value) : base64ToUtf8(value);
+        updateCounts();
+        setStatus(
+          mode === 'encode'
+            ? t('编码完成。', 'Encoded successfully.')
+            : t('解码完成。', 'Decoded successfully.'),
+          'ok',
+        );
+      } catch {
+        output.value = '';
+        updateCounts();
+        setStatus(
+          mode === 'encode'
+            ? t('编码失败，请检查输入。', 'Encode failed. Please check the input.')
+            : t('解码失败：不是合法的 Base64。', 'Decode failed: invalid Base64.'),
+          'error',
+        );
+      }
+    };
+
+    encodeBtn.addEventListener('click', () => run('encode'));
+    decodeBtn.addEventListener('click', () => run('decode'));
+    input.addEventListener('input', updateCounts);
+
+    document.getElementById('btn-swap')?.addEventListener('click', () => {
+      const a = input.value;
+      input.value = output.value;
+      output.value = a;
+      updateCounts();
+      setStatus(t('已上下互换。', 'Swapped input and output.'), 'ok');
+    });
+
+    document.getElementById('btn-copy')?.addEventListener('click', async () => {
+      if (!output.value) {
+        setStatus(t('没有可复制的结果。', 'Nothing to copy yet.'), 'error');
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(output.value);
+        setStatus(t('已复制到剪贴板。', 'Copied to clipboard.'), 'ok');
+      } catch {
+        output.select();
+        document.execCommand('copy');
+        setStatus(t('已复制到剪贴板。', 'Copied to clipboard.'), 'ok');
+      }
+    });
+
+    document.getElementById('btn-clear')?.addEventListener('click', () => {
+      input.value = '';
+      output.value = '';
+      updateCounts();
+      setStatus(t('已清空。', 'Cleared.'), 'ok');
+    });
+
+    input.addEventListener('keydown', (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+        event.preventDefault();
+        run('encode');
+      }
+    });
+
+    applyMeta();
+    updateCounts();
+    new MutationObserver(applyMeta).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+  </script>
+</BaseLayout>
