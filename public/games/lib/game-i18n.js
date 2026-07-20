@@ -113,7 +113,12 @@
     '保底起飞！': 'Pity takeoff!',
     '红方先行，掷 5 或 6 起飞': 'Red first — roll 5 or 6 to take off',
     '你的回合 · 5 或 6 起飞': 'Your turn · 5 or 6 to take off',
-    '你': 'YOU', '你执红方 · 朱雀，从画面下方基地起飞': 'You fly Red · Vermilion Bird — your base is at the bottom'
+    '你': 'YOU', '你执红方 · 朱雀，从画面下方基地起飞': 'You fly Red · Vermilion Bird — your base is at the bottom',
+    '用时': 'Time',
+    '选择玩家数量（含你）': 'Choose player count (including you)',
+    '2 人': '2P', '3 人': '3P', '4 人': '4P',
+    '你 + 1 AI': 'You + 1 AI', '你 + 2 AI': 'You + 2 AI', '你 + 3 AI': 'You + 3 AI',
+    '退出': 'Exit', '退 出': 'EXIT', '返回游戏库': 'Back to Games', '返回游戏专区': 'Back to Games'
   };
 
   const SIDE_NAMES = { '红方':'Red', '黄方':'Yellow', '蓝方':'Blue', '绿方':'Green' };

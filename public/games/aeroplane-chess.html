@@ -17,9 +17,24 @@
 
     /* ===== 顶栏 ===== */
     #topbar { position:fixed; z-index:10; top:0; left:0; right:0; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 22px; pointer-events:none; background:linear-gradient(#090806d9,transparent); }
-    #brand { pointer-events:auto; color:var(--gold-light); font-size:26px; font-weight:700; letter-spacing:6px; text-shadow:0 2px 2px #000,0 0 18px #bd852b80; white-space:nowrap; }
+    #brand { pointer-events:auto; color:var(--gold-light); font-size:26px; font-weight:700; letter-spacing:6px; text-shadow:0 2px 2px #000,0 0 18px #bd852b80; white-space:nowrap; display:flex; align-items:center; gap:12px; }
     #brand small { margin-left:8px; color:#bca879; font-size:12px; letter-spacing:2px; }
-    #back { margin-left:14px; padding:6px 10px; border:1px solid var(--line); color:#281607; background:var(--gold); font:700 12px/1 system-ui,sans-serif; letter-spacing:.5px; text-decoration:none; vertical-align:middle; }
+    #back {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border:2px solid #f5da84; border-radius:6px;
+      color:#1a1208; background:#d4a017; font:800 15px/1 system-ui,sans-serif;
+      letter-spacing:1px; text-decoration:none; box-shadow:0 3px 12px rgba(0,0,0,.48);
+      transition:background .15s ease, transform .15s ease;
+    }
+    #back:hover { background:#f5da84; transform:translateY(-1px); }
+    .exit-link {
+      display:block; width:max-content; margin:14px auto 0; padding:14px 60px; border:none; border-radius:44px;
+      background:linear-gradient(180deg,#d2483a,#8E2A20); color:#fff6df;
+      font:700 26px/1 "KaiTi","STKaiti",serif; letter-spacing:10px; text-indent:10px; text-decoration:none;
+      box-shadow:0 8px 24px rgba(142,42,32,.55), inset 0 2px 0 rgba(255,255,255,.25);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .exit-link:hover { transform:scale(1.05); box-shadow:0 12px 32px rgba(142,42,32,.7), inset 0 2px 0 rgba(255,255,255,.3); color:#fff6df; }
     #turn { pointer-events:auto; min-width:110px; padding:7px 13px; border:1px solid var(--gold); text-align:center; color:#fff4d3; font-size:16px; letter-spacing:3px; background:#7e3029e6; box-shadow:0 4px 18px #0008; }
     #turn[data-color="1"] { background:#9a7419e6; } #turn[data-color="2"] { background:#28588ae6; } #turn[data-color="3"] { background:#267544e6; }
 
@@ -56,8 +71,27 @@
     #roll-hint { position:fixed; z-index:14; left:50%; bottom:calc(94px + env(safe-area-inset-bottom)); transform:translateX(-50%); color:#cbb37a; font-size:13px; letter-spacing:2px; opacity:0; transition:opacity .3s; pointer-events:none; }
     #roll-hint.show { opacity:.9; }
 
+    /* ===== 正上方大计时器 ===== */
+    #timer {
+      position:fixed; z-index:18; top:max(10px, env(safe-area-inset-top)); left:50%; transform:translateX(-50%);
+      min-width:220px; padding:10px 28px 8px; text-align:center; pointer-events:none;
+      border:2px solid rgba(245,215,127,.75); border-radius:18px;
+      background:linear-gradient(180deg,rgba(28,22,14,.92),rgba(16,12,8,.88));
+      box-shadow:0 10px 28px rgba(0,0,0,.55), 0 0 24px rgba(214,166,66,.2), inset 0 1px 0 rgba(255,240,180,.18);
+    }
+    #timer-label {
+      display:block; margin-bottom:2px; color:#cbb37a; font-size:12px; letter-spacing:6px; text-indent:6px;
+    }
+    #timer-value {
+      display:block; color:var(--gold-light); font:800 42px/1.05 "DIN Alternate","SF Mono",ui-monospace,monospace;
+      letter-spacing:4px; text-shadow:0 0 18px rgba(245,215,127,.45), 0 2px 4px #000;
+      font-variant-numeric:tabular-nums;
+    }
+    #timer.running #timer-value { color:#ffe7a0; }
+    #timer.stopped #timer-value { color:#ffd08a; }
+
     /* ===== 提示 ===== */
-    #notice { position:fixed; z-index:20; top:82px; left:50%; transform:translateX(-50%); width:max-content; max-width:82vw; text-align:center; color:var(--gold-light); font-size:24px; font-weight:bold; letter-spacing:4px; text-shadow:0 2px 4px #000; opacity:0; transition:opacity .2s; pointer-events:none; }
+    #notice { position:fixed; z-index:20; top:100px; left:50%; transform:translateX(-50%); width:max-content; max-width:82vw; text-align:center; color:var(--gold-light); font-size:24px; font-weight:bold; letter-spacing:4px; text-shadow:0 2px 4px #000; opacity:0; transition:opacity .2s; pointer-events:none; }
     #notice.show { opacity:1; }
     #notice.bad { color:#ff8a75; }
 
@@ -70,22 +104,48 @@
     .scroll .rules-list { text-align:left; margin:0 auto 6px; max-width:400px; }
     .scroll .rules-list li { margin:8px 0; line-height:1.6; font-size:15px; list-style:none; }
     .scroll .rules-list li::before { content:"✦ "; color:#a43a31; }
-    .scroll button.big { margin-top:16px; padding:13px 44px; background:#a43a31; border:1px solid #70251f; color:#fff0d2; font-family:inherit; font-size:20px; letter-spacing:8px; text-indent:8px; cursor:pointer; box-shadow:0 6px 20px rgba(142,42,32,.5); }
-    .scroll button.big:hover { filter:brightness(1.1); }
+    .scroll button.big {
+      margin-top:20px; padding:14px 60px; border:none; border-radius:44px;
+      background:linear-gradient(180deg,#d2483a,#8E2A20); color:#fff6df;
+      font:700 26px/1 "KaiTi","STKaiti",serif; letter-spacing:10px; text-indent:10px;
+      cursor:pointer; box-shadow:0 8px 24px rgba(142,42,32,.55), inset 0 2px 0 rgba(255,255,255,.25);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .scroll button.big:hover {
+      transform:scale(1.05);
+      box-shadow:0 12px 32px rgba(142,42,32,.7), inset 0 2px 0 rgba(255,255,255,.3);
+    }
     .scroll .close-link { display:block; margin:12px auto 0; width:max-content; color:#7a5c2e; font-size:14px; letter-spacing:2px; cursor:pointer; text-decoration:underline; }
+    .result-actions { display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:8px; }
     .you-are { margin:0 0 14px; color:#a43a31; font-size:18px; font-weight:bold; letter-spacing:2px; }
+    .player-pick { margin:0 0 16px; }
+    .player-pick-label { margin:0 0 8px; color:#7a5c2e; font-size:14px; letter-spacing:2px; }
+    .player-pick-row { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; }
+    .player-pick-btn {
+      min-width:72px; padding:10px 12px; border:1.5px solid #b48a3e; border-radius:10px;
+      background:#fff8e8; color:#5c4320; font:700 15px/1.2 "KaiTi","STKaiti",serif; letter-spacing:1px; cursor:pointer;
+    }
+    .player-pick-btn small { display:block; margin-top:4px; font-size:11px; font-weight:normal; letter-spacing:0; color:#8a6a34; }
+    .player-pick-btn.active { background:#a43a31; border-color:#70251f; color:#fff0d2; }
+    .player-pick-btn.active small { color:#ffd8c8; }
+    .stat.hidden { display:none; }
 
     @media (max-width:720px) {
       #topbar { height:52px; padding:0 12px; }
       #brand { font-size:18px; letter-spacing:3px; } #brand small { display:none; }
-      #back { margin-left:7px; padding:5px 7px; font-size:11px; }
+      #brand { font-size:16px; letter-spacing:2px; gap:8px; }
+      #back { padding:8px 12px; font-size:13px; white-space:nowrap; }
+      .scroll button.big, .exit-link { font-size:20px; padding:12px 44px; letter-spacing:8px; text-indent:8px; }
       #turn { min-width:auto; padding:5px 8px; font-size:12px; letter-spacing:1px; }
       #status { top:auto; bottom:112px; left:10px; width:126px; padding:8px 10px; }
       #status h2 { font-size:12px; } .stat { font-size:11px; margin:4px 0; }
       #tools { top:60px; right:10px; } #tools button { width:36px; height:36px; font-size:14px; }
       #roll { font-size:19px; letter-spacing:8px; text-indent:8px; padding:14px 44px; bottom:calc(18px + env(safe-area-inset-bottom)); }
       #roll-hint { bottom:calc(76px + env(safe-area-inset-bottom)); font-size:11px; }
-      #notice { top:60px; font-size:16px; letter-spacing:2px; }
+      #timer { min-width:170px; padding:7px 16px 6px; border-radius:14px; }
+      #timer-label { font-size:10px; letter-spacing:4px; text-indent:4px; }
+      #timer-value { font-size:30px; letter-spacing:2px; }
+      #notice { top:78px; font-size:16px; letter-spacing:2px; }
       .scroll { padding:26px 22px; } .scroll h1 { font-size:30px; letter-spacing:6px; }
     }
   </style>
@@ -94,9 +154,16 @@
   <div id="canvas-wrap"></div>
 
   <header id="topbar">
-    <div id="brand">云端翔行 <small>飞行棋</small><a id="back" href="/games/">返回游戏专区</a></div>
+    <div id="brand">
+      <span>云端翔行 <small>飞行棋</small></span>
+      <a id="back" href="/games/">退出</a>
+    </div>
     <div id="turn" data-color="0">红方回合</div>
   </header>
+  <div id="timer" aria-live="polite">
+    <span id="timer-label">用时</span>
+    <span id="timer-value">00:00</span>
+  </div>
 
   <aside id="status">
     <h2>云台战况</h2>
@@ -120,6 +187,14 @@
     <div class="scroll">
       <h1>云端翔行<small>四方飞行棋 · 竞速云端</small></h1>
       <p class="you-are">你执红方 · 朱雀，从画面下方基地起飞</p>
+      <div class="player-pick">
+        <p class="player-pick-label">选择玩家数量（含你）</p>
+        <div class="player-pick-row" id="player-count-row">
+          <button type="button" class="player-pick-btn" data-count="2">2 人<small>你 + 1 AI</small></button>
+          <button type="button" class="player-pick-btn" data-count="3">3 人<small>你 + 2 AI</small></button>
+          <button type="button" class="player-pick-btn active" data-count="4">4 人<small>你 + 3 AI</small></button>
+        </div>
+      </div>
       <ul class="rules-list">
         <li>掷出 5 或 6：起飞；掷出 6 可再掷一次</li>
         <li>同色跳跃：落在己方颜色格，跳到下一个同色格</li>
@@ -130,6 +205,7 @@
         <li>保底：全机在基地连续 3 次未起飞，强制起飞</li>
       </ul>
       <button class="big" id="start">起 飞</button>
+        <a class="exit-link" href="/games/">退 出</a>
     </div>
   </section>
 
@@ -153,7 +229,10 @@
     <div class="scroll">
       <h1 id="result-title">云端胜利</h1>
       <p id="result-copy" style="font-size:17px;line-height:1.8"></p>
-      <button class="big" id="again">再来一局</button>
+      <div class="result-actions">
+        <button class="big" id="again">再来一局</button>
+      <a class="exit-link" href="/games/">退 出</a>
+      </div>
     </div>
   </section>
 
@@ -211,10 +290,55 @@
   const FLY_TO   = [45, 9, 21, 33];
 
   let scene, camera, renderer, controls, raycaster, pointer, board, diceMesh, diceRim, clock;
-  let players = [], turn = 0, rolled = 0, phase = 'intro', winner = -1;
+  let players = [], turn = 0, rolled = 0, phase = 'intro', winner = -1, playerCount = 4;
   let selectable = [], selectionRings = [], pointerDown = null;
   let sixStreak = 0, takeoffFails = [0, 0, 0, 0], gameVersion = 0, portrait = null;
+  let timerStartedAt = 0, timerElapsedMs = 0, timerRunning = false, timerRaf = 0;
   const canTakeOff = die => die >= 5;
+
+  function formatTimer(ms) {
+    const total = Math.max(0, Math.floor(ms / 1000));
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    const mm = String(m).padStart(2, '0');
+    const ss = String(s).padStart(2, '0');
+    return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
+  }
+  function renderTimer() {
+    const el = document.querySelector('#timer-value');
+    const box = document.querySelector('#timer');
+    if (!el || !box) return;
+    const now = timerRunning ? (Date.now() - timerStartedAt + timerElapsedMs) : timerElapsedMs;
+    el.textContent = formatTimer(now);
+    box.classList.toggle('running', timerRunning);
+    box.classList.toggle('stopped', !timerRunning && timerElapsedMs > 0);
+  }
+  function tickTimer() {
+    renderTimer();
+    if (timerRunning) timerRaf = requestAnimationFrame(tickTimer);
+  }
+  function startTimer() {
+    if (timerRunning) return;
+    timerStartedAt = Date.now();
+    timerRunning = true;
+    cancelAnimationFrame(timerRaf);
+    timerRaf = requestAnimationFrame(tickTimer);
+  }
+  function stopTimer() {
+    if (!timerRunning) return;
+    timerElapsedMs += Date.now() - timerStartedAt;
+    timerRunning = false;
+    cancelAnimationFrame(timerRaf);
+    renderTimer();
+  }
+  function resetTimer() {
+    timerRunning = false;
+    timerStartedAt = 0;
+    timerElapsedMs = 0;
+    cancelAnimationFrame(timerRaf);
+    renderTimer();
+  }
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -588,21 +712,52 @@
   }
 
   /* ================= 状态与摆放 ================= */
+  function disposePlayers() {
+    players.forEach(p => p.planes.forEach(q => {
+      scene.remove(q.mesh);
+      q.mesh.traverse(obj => {
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) {
+          if (Array.isArray(obj.material)) obj.material.forEach(m => m.dispose());
+          else obj.material.dispose();
+        }
+      });
+    }));
+    players = [];
+  }
+
+  function buildPlayers(count) {
+    disposePlayers();
+    players = Array.from({ length: count }, (_, color) => ({
+      planes: Array.from({ length: 4 }, (_, id) => ({ id, color, progress: -1, mesh: makePlane(color) })),
+    }));
+    players.forEach(p => p.planes.forEach(q => scene.add(q.mesh)));
+  }
+
+  function setPlayerCount(count) {
+    playerCount = Math.max(2, Math.min(4, count | 0));
+    document.querySelectorAll('.player-pick-btn').forEach(btn => {
+      btn.classList.toggle('active', Number(btn.dataset.count) === playerCount);
+    });
+    for (let i = 0; i < 4; i++) {
+      const row = document.querySelector('#score-' + i)?.closest('.stat');
+      if (row) row.classList.toggle('hidden', i >= playerCount);
+    }
+  }
+
   function resetGame() {
     gameVersion++;
     clearSelection();
-    if (!players.length) {
-      players = COLORS.map((_, color) => ({
-        planes: Array.from({ length: 4 }, (_, id) => ({ id, color, progress: -1, mesh: makePlane(color) })),
-      }));
-      players.forEach(p => p.planes.forEach(q => scene.add(q.mesh)));
-    } else {
-      players.forEach(p => p.planes.forEach(q => { q.progress = -1; }));
-    }
-    turn = 0; rolled = 0; phase = 'idle'; winner = -1; sixStreak = 0; takeoffFails = [0, 0, 0, 0];
+    if (players.length !== playerCount) buildPlayers(playerCount);
+    else players.forEach(p => p.planes.forEach(q => { q.progress = -1; }));
+    turn = 0; rolled = 0; phase = 'idle'; winner = -1; sixStreak = 0;
+    takeoffFails = Array.from({ length: playerCount }, () => 0);
     showDice(1);
+    resetTimer();
+    startTimer();
     sync();
-    notice('红方先行，掷 5 或 6 起飞');
+    const aiN = playerCount - 1;
+    notice(aiN === 1 ? '2 人局：你对战 1 名 AI' : `${playerCount} 人局：你对战 ${aiN} 名 AI`);
   }
 
   function planeLocation(plane) {
@@ -846,6 +1001,7 @@
     if (players[plane.color].planes.every(p => p.progress >= FINISH)) {
       winner = plane.color;
       phase = 'over';
+      stopTimer();
       sync();
       showResult();
       return;
@@ -870,7 +1026,7 @@
 
   function nextTurn() {
     if (winner >= 0) return;
-    turn = (turn + 1) % 4;
+    turn = (turn + 1) % playerCount;
     rolled = 0;
     sixStreak = 0;
     phase = 'idle';
@@ -960,10 +1116,14 @@
   function sync() {
     document.querySelector('#turn').textContent = turn === 0 ? '你的回合' : COLORS[turn].name + '回合';
     document.querySelector('#turn').dataset.color = turn;
-    players.forEach((p, i) => {
-      document.querySelector('#score-' + i).textContent =
-        p.planes.filter(q => q.progress >= FINISH).length + ' / 4';
-    });
+    for (let i = 0; i < 4; i++) {
+      const row = document.querySelector('#score-' + i)?.closest('.stat');
+      if (row) row.classList.toggle('hidden', i >= playerCount);
+      if (i < playerCount && players[i]) {
+        document.querySelector('#score-' + i).textContent =
+          players[i].planes.filter(q => q.progress >= FINISH).length + ' / 4';
+      }
+    }
     players.forEach(p => p.planes.forEach(place));
     const btn = document.querySelector('#roll');
     const ready = phase === 'idle' && turn === 0 && winner < 0;
@@ -980,10 +1140,11 @@
     notice.timer = setTimeout(() => el.classList.remove('show'), 1600);
   }
   function showResult() {
+    const elapsed = formatTimer(timerElapsedMs);
     document.querySelector('#result-title').textContent = winner === 0 ? '云端胜利' : '棋局已定';
     document.querySelector('#result-copy').textContent = winner === 0
-      ? '四架朱雀已抵达云台中央。'
-      : `${COLORS[winner].name}的四架飞机率先抵达云台中央。`;
+      ? `四架朱雀已抵达云台中央。用时 ${elapsed}`
+      : `${COLORS[winner].name}的四架飞机率先抵达云台中央。用时 ${elapsed}`;
     document.querySelector('#result').classList.remove('hidden');
   }
 
@@ -1010,6 +1171,9 @@
     renderer.render(scene, camera);
   }
 
+  document.querySelectorAll('.player-pick-btn').forEach(btn => {
+    btn.onclick = () => setPlayerCount(Number(btn.dataset.count));
+  });
   document.querySelector('#start').onclick = () => {
     document.querySelector('#intro').classList.add('hidden');
     resetGame();
@@ -1031,7 +1195,13 @@
   });
 
   init();
-  resetGame();
+  // 开场页先摆好棋盘，但不启动计时；点「起飞」后再计时
+  setPlayerCount(4);
+  resetTimer();
+  buildPlayers(playerCount);
+  players.forEach(p => p.planes.forEach(place));
+  phase = 'intro';
+  sync();
   animate();
   </script>
   <script src="/games/lib/game-i18n.js"></script>
