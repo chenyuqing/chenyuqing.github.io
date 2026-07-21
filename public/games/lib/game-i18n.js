@@ -77,7 +77,7 @@
     '准备好后继续这一次飞行。': 'Resume when you are ready.', '继续飞行': 'Resume Flight',
 
     '暮轨疾行': 'Dusk Rail Rush', '3D 三轨跑酷': '3D THREE-LANE RUNNER', '暮色铁道 · 无尽疾行': 'DUSK RAIL YARD · ENDLESS RUN',
-    '关卡': 'Stage', '旧城站': 'Old Town Station', '高架枢纽': 'Skyline Junction', '暮光终站': 'Twilight Terminal', '闯关成功': 'Stage Clear', '全线通关': 'Campaign Clear', '第 1 关完成': 'Stage 1 Complete', '第 2 关完成': 'Stage 2 Complete', '进入下一关': 'Next Stage', '本关': 'This stage',
+    '关卡': 'Stage', '生命': 'Lives', '旧城站': 'Old Town Station', '高架枢纽': 'Skyline Junction', '暮光终站': 'Twilight Terminal', '雨巷支线': 'Rain Alley Spur', '河湾大桥': 'Riverbend Bridge', '港口货场': 'Harbor Yard', '霓虹换乘': 'Neon Interchange', '山城环线': 'Mountain Loop', '云台终点': 'Sky Deck Terminus', '星火终站': 'Ember Terminal', '闯关成功': 'Stage Clear', '全线通关': 'Campaign Clear', '第 1 关完成': 'Stage 1 Complete', '第 2 关完成': 'Stage 2 Complete', '进入下一关': 'Next Stage', '本关': 'This stage', '没命了，从头开始': 'Out of lives. Start over',
     '慢速 · 宽间距': 'Slower · Wide gaps', '标准节奏': 'Standard pace', '高速 · 密集': 'Fast · Dense',
     '米': 'm', '速度': 'Speed', '开始疾行': 'Start Run', '继续疾行': 'Resume Run', '再次出发': 'Run Again',
     '换轨': 'Switch lanes', '跳跃': 'Jump', '滑行': 'Slide', '方向键 / WASD 控制，空格跳跃；手机在画面上滑动。': 'Use arrow keys / WASD and Space to jump. Swipe on mobile.',
@@ -157,6 +157,7 @@
     [/^新局开始 · 黑方先行$/, 'New game · Black moves first'], [/^禁手：(.+)$/, 'Forbidden move: $1'],
     [/^掷出 (\d+)，选择一架飞机$/, 'Rolled $1. Choose a plane.'], [/^掷出 (\d+)，没有可动飞机$/, 'Rolled $1. No plane can move.'],
     [/^掷出 6，无可动飞机，再掷一次$/, 'Rolled 6. No plane can move. Roll again.'],
+    [/^第 (\d+) 关完成$/, 'Stage $1 Complete'],
     [/^分数 (\d+)　·　金币 (\d+)　·　距离 (\d+) 米　·　最高 (\d+)$/, 'Score $1 · Coins $2 · Distance $3m · Best $4']
   ];
 
