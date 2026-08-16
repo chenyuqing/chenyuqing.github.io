@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#17100f">
+<title>猜数字 · 1-100</title>
+<style>
+:root{--ink:#17100f;--paper:#f7e7c4;--gold:#e4b34d;--red:#b83b2f;--panel:rgba(21,14,13,.6)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}[hidden]{display:none!important}html{zoom:.85}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--ink);color:var(--paper);font-family:"KaiTi","STKaiti","Noto Serif SC",serif}button,input,a{font:inherit;cursor:pointer;outline:none}
+#topbar{position:fixed;z-index:12;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:max(10px,env(safe-area-inset-top)) 20px;padding-bottom:12px;background:linear-gradient(#0d0807a6,transparent);pointer-events:none}.brand{font-size:clamp(20px,3vw,30px);font-weight:800;letter-spacing:5px;color:#f3ca70;text-shadow:0 3px 16px #000}.brand small{display:block;margin-top:4px;color:#c08e55;font:700 10px/1 system-ui,sans-serif;letter-spacing:3px}.hud{display:flex;gap:8px;pointer-events:auto}.chip{min-width:64px;padding:7px 11px;border:1px solid #e4b34d88;border-radius:4px;background:var(--panel);text-align:center;box-shadow:0 8px 24px #0006}.chip span{display:block;color:#ba9362;font:700 9px/1 system-ui,sans-serif;letter-spacing:1.5px}.chip b{display:block;margin-top:4px;color:#ffe09a;font:800 18px/1 ui-monospace,monospace}.exit-game{display:flex;align-items:center;justify-content:center;min-width:52px;border-color:#d67b60;color:#ffd3bd;font:800 11px/1 system-ui,sans-serif;letter-spacing:1px;text-decoration:none}.exit-game:hover{border-color:#f0a080;background:#47231f;color:#fff0e5}
+.chip.icon{min-width:44px;padding:8px 10px;border-color:#e4b34d88;background:var(--panel);color:#ffe09a;font:800 15px/1.2 system-ui,sans-serif;letter-spacing:1px;cursor:pointer}.chip.icon:hover{background:#47231f;color:#ffd98a}.chip.icon.muted{color:#8a7a5e}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:calc(78px + env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));background:radial-gradient(85% 75% at 50% 50%,rgba(18,11,8,.95) 0%,rgba(27,17,11,.68) 40%,rgba(58,36,22,.22) 68%,rgba(58,36,22,0) 100%),url('/media/illo/games/guess-number-xiaoxiang.avif') center/cover no-repeat,#120b08}
+.arena{width:min(940px,96vw);text-align:center;display:flex;flex-direction:column;align-items:center}
+.eyebrow{margin:0 0 6px;color:#d8a954;font:800 clamp(11px,1.6vw,15px)/1 system-ui,sans-serif;letter-spacing:6px}
+h1{margin:0 0 14px;color:#fff1cf;font-size:clamp(26px,5vw,46px);line-height:1;letter-spacing:8px;text-shadow:0 3px 30px #0008}
+.range-main{display:grid;grid-template-columns:1fr minmax(140px,240px) 1fr;align-items:center;gap:clamp(8px,2vw,24px);width:100%;margin:0 0 6px}
+.range-main.win{grid-template-columns:1fr}
+.range-main.win .big-hi,.range-main.win .range-mid{display:none}
+.range-main.win .big-num{color:#fff7e8;text-shadow:0 0 46px #ffd98a55,0 6px 0 #241409}
+.big-num{font:900 clamp(96px,24vw,270px)/0.88 ui-monospace,"SF Mono","Cascadia Mono",monospace;letter-spacing:-4px;text-align:center;font-variant-numeric:tabular-nums}
+.big-lo{color:#f6cf72;text-shadow:0 0 46px #f6cf7252,0 6px 0 #241409}
+.big-hi{color:#f08a74;text-shadow:0 0 46px #f08a7452,0 6px 0 #241409}
+.range-mid{display:flex;flex-direction:column;gap:10px}
+.range-mid-label{color:#caa06a;font:800 13px/1 system-ui,sans-serif;letter-spacing:4px}
+.range-track{height:clamp(8px,1.6vw,14px);border-radius:14px;background:rgba(0,0,0,.45);border:1px solid #e4b34d55;overflow:hidden}
+.range-fill{width:100%;height:100%;background:linear-gradient(90deg,#b83b2f,#f2c65f);transition:width .35s cubic-bezier(.2,.8,.2,1)}
+.range-hint{margin:12px 0 0;color:#e6cba0;font:700 clamp(14px,2vw,19px)/1.5 system-ui,sans-serif}
+#guess-row{position:relative;width:min(640px,100%);margin:clamp(16px,3.2vh,30px) auto 0;margin-bottom:clamp(76px,12vh,108px);min-height:clamp(78px,13vh,112px)}
+#input-group{display:flex;align-items:stretch;gap:clamp(8px,1.6vw,16px);width:100%}
+.feedback{position:absolute;top:50%;right:calc(100% + clamp(8px,1.5vw,16px));transform:translateY(-50%);width:max-content;max-width:min(24vw,190px);margin:0;color:#e4b34d;font:900 clamp(24px,2.7vw,33px)/1.3 system-ui,sans-serif;letter-spacing:1px;text-shadow:0 3px 20px #000;text-align:right}
+.feedback.low{color:#7fd6a0}
+.feedback.high{left:calc(100% + clamp(8px,1.5vw,16px));right:auto;text-align:left;color:#ff8b72}
+.feedback.win{left:50%;right:auto;transform:translateX(-50%);top:auto;bottom:calc(-1*clamp(34px,5vh,44px));text-align:center;color:#ffd76a;font-size:clamp(20px,3.4vw,32px);white-space:nowrap;max-width:none}
+#pick-group{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:clamp(8px,1.6vw,16px);width:100%}
+.pick-num{min-width:92px;padding:clamp(13px,2vw,20px) 10px;border:3px solid #c48f45;border-radius:16px;background:#fff5df;color:#6b4420;font-size:clamp(32px,5.6vw,54px);font-weight:900;line-height:1;font-family:ui-monospace,"SF Mono",monospace;font-variant-numeric:tabular-nums;box-shadow:0 12px 30px #000a;transition:transform .12s,border-color .12s}
+.pick-num:hover{transform:scale(1.08);border-color:#f0a542}
+.pick-num:active{transform:scale(.96)}
+#guess-input{flex:1;min-width:0;padding:clamp(13px,2vw,20px) 16px;border:3px solid #c48f45;border-radius:16px;background:#fff5df;color:#6b4420;font-weight:900;font-size:clamp(38px,7.4vw,80px);line-height:1;text-align:center;font-family:ui-monospace,"SF Mono",monospace;font-variant-numeric:tabular-nums;-webkit-appearance:none;caret-color:#b83b2f}
+#guess-input:focus{border-color:#f0a542;box-shadow:0 0 0 6px #f0cf7f33}
+#submit-guess{width:clamp(92px,17vw,160px);border:0;border-radius:16px;background:linear-gradient(#e0503e,#9a2c1e);color:#fff7df;font:900 clamp(22px,4.2vw,38px)/1 system-ui,sans-serif;letter-spacing:4px;box-shadow:0 12px 30px #000a}
+#submit-guess:active{transform:scale(.97)}
+#submit-guess:disabled{opacity:.4;transform:none}
+#new-game{display:inline-flex;align-items:center;justify-content:center;min-width:min(300px,80vw);padding:clamp(11px,1.7vh,16px) 38px;border:2px solid #f6b64a;border-radius:999px;background:linear-gradient(#3c2413,#241307);color:#ffd98a;font:900 clamp(17px,2.8vw,24px)/1 system-ui,sans-serif;letter-spacing:6px;box-shadow:0 10px 34px #000c;transition:.15s}
+#new-game:hover{border-color:#ffd98a;transform:scale(1.04)}
+.exit{display:inline-flex;align-items:center;justify-content:center;min-width:min(300px,80vw);padding:clamp(11px,1.7vh,16px) 38px;border:2px solid #f6b64a;border-radius:999px;background:linear-gradient(#3c2413,#241307);color:#ffd98a;font:900 clamp(17px,2.8vw,24px)/1 system-ui,sans-serif;letter-spacing:6px;text-decoration:none;box-shadow:0 10px 34px #000c;transition:.15s;margin-top:clamp(11px,1.9vh,18px)}
+.exit:hover{border-color:#ffd98a;transform:scale(1.04)}
+@media(max-width:720px){#stage{padding-top:calc(62px + env(safe-area-inset-top));padding-right:max(12px,env(safe-area-inset-right));padding-bottom:max(14px,env(safe-area-inset-bottom));padding-left:max(12px,env(safe-area-inset-left));overflow-y:auto;-webkit-overflow-scrolling:touch}.arena{margin:auto}.brand{font-size:16px;letter-spacing:2px}.brand small{display:none}.hud{gap:5px}.chip{min-width:46px;padding:6px 8px}.chip span{font-size:8px}.chip b{font-size:14px}.chip.icon{min-width:38px;padding:7px 8px}.range-main{grid-template-columns:1fr minmax(40px,1fr) 1fr;gap:8px}.big-num{font-size:clamp(64px,24vw,120px);letter-spacing:-2px}.range-mid{gap:6px}.range-mid-label{font-size:11px}.range-hint{margin-top:10px;font-size:14px;line-height:1.5}#input-group{gap:8px}#guess-input{font-size:clamp(38px,9vw,60px);padding:12px 10px}#submit-guess{width:clamp(84px,20vw,120px);font-size:clamp(22px,7vw,30px)}.pick-num{min-width:72px;font-size:clamp(30px,8vw,44px);padding:12px 8px}#new-game,.exit{min-width:min(288px,88vw);padding:12px 24px;font-size:clamp(17px,4.5vw,22px);letter-spacing:4px}#guess-row{margin-bottom:clamp(58px,10vh,72px)}.feedback{top:auto;bottom:calc(-1*clamp(26px,5.5vh,34px));right:auto;left:0;transform:none;font-size:clamp(24px,7.5vw,33px);max-width:96vw;text-align:left}.feedback.high{left:auto;right:0;text-align:right}.feedback.win{left:50%;right:auto;transform:translateX(-50%);font-size:clamp(15px,4.4vw,20px);text-align:center}}
+@media(max-width:380px){.range-main{grid-template-columns:1fr minmax(30px,1fr) 1fr}.big-num{font-size:clamp(54px,22vw,88px)}#guess-input{font-size:clamp(34px,10vw,48px)}.hud{gap:4px}.chip{min-width:40px;padding:5px}.brand{font-size:14px}}
+@media(max-height:600px){h1{margin:0 0 10px}.range-hint{margin-top:8px}#guess-row{margin-top:10px;margin-bottom:clamp(52px,8vh,64px)}.feedback.win{bottom:calc(-1*clamp(22px,4vh,28px))}#new-game,.exit{margin-top:10px}}
+</style>
+</head>
+<body>
+<header id="topbar"><div class="brand">猜数字<small>1-100</small></div><div class="hud"><div class="chip"><span>次数</span><b id="attempts">0</b></div><div class="chip"><span>最佳</span><b id="best">—</b></div><button class="chip icon" id="music" title="BGM 开关">♫</button><a class="chip exit-game" href="/games/">退出</a></div></header>
+<main id="stage">
+  <div class="arena">
+    <p class="eyebrow">经典猜数字游戏</p>
+    <h1>猜数字</h1>
+    <div class="range-main">
+      <div class="big-num big-lo" id="range-lo">1</div>
+      <div class="range-mid">
+        <div class="range-mid-label">范围</div>
+        <div class="range-track"><div class="range-fill" id="range-fill" style="width:100%"></div></div>
+      </div>
+      <div class="big-num big-hi" id="range-hi">100</div>
+    </div>
+    <p class="range-hint" id="range-hint">我想了一个 1 到 100 之间的整数，试试看要猜几次？</p>
+    <div id="guess-row">
+      <div id="input-group">
+        <input type="number" id="guess-input" min="1" max="100" placeholder="?" inputmode="numeric" autocomplete="off" autofocus>
+        <button id="submit-guess" type="button">猜</button>
+      </div>
+      <div id="pick-group" hidden></div>
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+    </div>
+    <button id="new-game" type="button">新 一 局</button>
+    <a class="exit" href="/games/">返回游戏专区</a>
+  </div>
+</main>
+<script>
+(()=>{'use strict';
+let target=0,lo=1,hi=100,attempts=0,best=Number(localStorage.getItem('guess-best')||0);
+const input=document.getElementById('guess-input'),submit=document.getElementById('submit-guess'),feedback=document.getElementById('feedback'),rangeLo=document.getElementById('range-lo'),rangeHi=document.getElementById('range-hi'),rangeFill=document.getElementById('range-fill'),rangeHint=document.getElementById('range-hint'),attemptsEl=document.getElementById('attempts'),bestEl=document.getElementById('best'),inputGroup=document.getElementById('input-group'),pickGroup=document.getElementById('pick-group'),guessRow=document.getElementById('guess-row'),rangeMain=document.querySelector('.range-main');
+let audioCtx=null,muted=false,musicOn=localStorage.getItem('guess-music')!=='off',musicTimer=null,musicStep=0;
+const musicBtn=document.getElementById('music');
+function ensureAudio(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioCtx=new AC()}audioCtx?.resume()}
+function tone(freq,dur=.18,gain=.07,to=null,type='triangle',delay=0){if(muted||!audioCtx)return;const t0=audioCtx.currentTime+delay;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,t0);if(to)o.frequency.exponentialRampToValueAtTime(to,t0+dur);g.gain.setValueAtTime(gain,t0);g.gain.exponentialRampToValueAtTime(.001,t0+dur);o.connect(g);g.connect(audioCtx.destination);o.start(t0);o.stop(t0+dur)}
+function setMusicUI(){musicBtn.textContent=musicOn&&!muted?'♫':'♫̸';musicBtn.classList.toggle('muted',!musicOn);musicBtn.title=localStorage.getItem('site-lang')==='en'?'Toggle music':'BGM 开关'}
+function startMusic(){if(musicTimer||!musicOn||muted)return;ensureAudio();musicStep=0;musicTimer=setInterval(()=>{playStep(musicStep);musicStep++},280)}
+function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
+const PENT=[261.63,293.66,329.63,392.00,440.00,523.25,587.33,659.25,783.99];
+const MELODY=[5,0,6,0,7,0,5,0, 8,0,7,0,6,0,4,0, 5,0,6,0,7,0,8,0, 9,0,8,0,7,0,5,0];
+const BASS=[130.81,98.00];
+function playStep(step){if(!audioCtx||muted)return;if(step%4===0)tone(BASS[Math.floor(step/8)%2],.9,.16,null,'sine',0);const idx=MELODY[step%MELODY.length]-1;if(idx>=0)tone(PENT[idx],.3,.16,null,'triangle',Math.min(step,8)*.004)}
+function playHint(high){if(muted)return;ensureAudio();tone(high?392:262,.12,.06,null,'square')}
+function playError(){if(muted)return;ensureAudio();const t=audioCtx.currentTime;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sawtooth';o.frequency.setValueAtTime(160,t);o.frequency.exponentialRampToValueAtTime(70,t+.25);g.gain.setValueAtTime(.32,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+.32)}
+function playWin(){if(muted)return;ensureAudio();const seq=[523.25,659.25,783.99,1046.5,1318.5];seq.forEach((f,i)=>tone(f,.34,.09,null,'triangle',i*.12));seq.forEach((f,i)=>tone(f*2,.34,.035,null,'sine',i*.12+.3));tone(261.63,.8,.05,null,'sine',.5)}
+function unlockAudio(){ensureAudio();if(musicOn&&!muted)startMusic()}
+const unlockOnce=()=>{unlockAudio();window.removeEventListener('pointerdown',unlockOnce);window.removeEventListener('keydown',unlockOnce)};
+window.addEventListener('pointerdown',unlockOnce);window.addEventListener('keydown',unlockOnce);
+function newGame(){target=1+Math.floor(Math.random()*100);lo=1;hi=100;attempts=0;rangeMain.classList.remove('win');updateUI();feedback.textContent='';feedback.className='feedback';rangeHint.textContent='我想了一个 1 到 100 之间的整数，试试看要猜几次？';input.value='';input.disabled=false;submit.disabled=false;inputGroup.hidden=false;pickGroup.hidden=true;input.focus()}
+function updateUI(){attemptsEl.textContent=attempts;bestEl.textContent=best?best:'—';rangeLo.textContent=lo;rangeHi.textContent=hi;rangeFill.style.width=((hi-lo)/(99))*100+'%'}
+function refreshPicks(){if(hi-lo<=4&&!input.disabled){pickGroup.innerHTML='';for(let n=lo;n<=hi;n++){const b=document.createElement('button');b.type='button';b.className='pick-num';b.dataset.value=n;b.textContent=n;b.setAttribute('aria-label',n);b.addEventListener('click',ev=>{ev.preventDefault();guessValue(parseInt(ev.currentTarget.dataset.value,10))});pickGroup.appendChild(b)}inputGroup.hidden=true;pickGroup.hidden=false;rangeHint.textContent='只剩这几个可能，直接点击选择！';input.blur()}else{inputGroup.hidden=false;pickGroup.hidden=true}}
+function guessValue(value){if(isNaN(value)||value<lo||value>hi){feedback.textContent=`请输入 ${lo} 到 ${hi} 之间的整数`;feedback.className='feedback';input.value='';input.focus();playError();return}attempts++;updateUI();if(value===target){rangeMain.classList.add('win');updateUI();feedback.textContent=`🎉恭喜你！猜中了，用了「${attempts}」次！！`;feedback.className='feedback win';rangeHint.textContent='';if(!best||attempts<best){best=attempts;localStorage.setItem('guess-best',best);bestEl.textContent=best}input.disabled=true;submit.disabled=true;inputGroup.hidden=true;pickGroup.hidden=true;playWin();return}if(value<target){lo=value+1;feedback.textContent=`↗ ${value} 太小了，再大一点`;feedback.className='feedback low';rangeHint.textContent=`范围缩小到 ${lo}–${hi}，继续加油！`;playHint(false)}else{hi=value-1;feedback.textContent=`↘ ${value} 太大了，再小一点`;feedback.className='feedback high';rangeHint.textContent=`范围缩小到 ${lo}–${hi}，继续加油！`;playHint(true)}updateUI();input.value='';refreshPicks();input.focus()}
+function guessNumber(){guessValue(parseInt(input.value,10))}
+submit.addEventListener('click',guessNumber);input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();guessNumber()}});document.getElementById('new-game').addEventListener('click',newGame);
+musicBtn.addEventListener('click',()=>{musicOn=!musicOn;localStorage.setItem('guess-music',musicOn?'on':'off');if(!musicOn)stopMusic();else unlockAudio();setMusicUI()});
+if(!best)bestEl.textContent='—';setMusicUI();newGame();
+})();
+</script>
+<script src="/games/lib/game-i18n.js"></script>
+</body>
+</html>

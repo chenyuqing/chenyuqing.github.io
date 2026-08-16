@@ -11,6 +11,7 @@
     '蘑菇奇兵 · 3D 跑酷冒险': 'Mushroom Raiders · 3D Platform Adventure',
     '飞鸟穿云 · 3D Flappy Bird': 'Skybound Bird · 3D Flappy Bird',
     '暮轨疾行 · 3D 三轨跑酷': 'Dusk Rail Rush · 3D Three-Lane Runner',
+    '猜数字 · 1-100': 'Guess the Number · 1-100',
     '返回游戏专区': 'Back to Games', '返回游戏库': 'Back to Games', '← 返回游戏专区': '← Back to Games',
     '退出': 'Exit', '退 出': 'Exit', '← 退出': '← Exit', '游戏结束': 'Game Over', '再 来 一 局': 'Play Again',
     '重新开始': 'Restart', '重新开局': 'New Game', '重开': 'Restart', '视角复位': 'Reset Camera',
@@ -79,6 +80,14 @@
     '暮轨疾行': 'Dusk Rail Rush', '3D 三轨跑酷': '3D THREE-LANE RUNNER', '暮色铁道 · 无尽疾行': 'DUSK RAIL YARD · ENDLESS RUN',
     '关卡': 'Stage', '生命': 'Lives', '旧城站': 'Old Town Station', '高架枢纽': 'Skyline Junction', '暮光终站': 'Twilight Terminal', '雨巷支线': 'Rain Alley Spur', '河湾大桥': 'Riverbend Bridge', '港口货场': 'Harbor Yard', '霓虹换乘': 'Neon Interchange', '山城环线': 'Mountain Loop', '云台终点': 'Sky Deck Terminus', '星火终站': 'Ember Terminal', '闯关成功': 'Stage Clear', '全线通关': 'Campaign Clear', '第 1 关完成': 'Stage 1 Complete', '第 2 关完成': 'Stage 2 Complete', '进入下一关': 'Next Stage', '本关': 'This stage', '没命了，从头开始': 'Out of lives. Start over',
     '慢速 · 宽间距': 'Slower · Wide gaps', '标准节奏': 'Standard pace', '高速 · 密集': 'Fast · Dense',
+
+    '经典猜数字游戏': 'Classic Number Guessing', '范围': 'Range', '次数': 'Tries', '猜': 'Guess', '新 一 局': 'New Round',
+    '我想了一个 1 到 100 之间的整数，试试看要猜几次？': 'I\'m thinking of a number between 1 and 100. How many guesses?',
+    '范围缩小到': 'Range narrowed to', '继续加油！': 'Keep going!',
+    '只剩这几个可能，直接点击选择！': 'Only these few left — just tap one!',
+    '太厉害了！你的推理能力一流。': 'Amazing! Your deduction skills are top-notch.',
+    '请输入': 'Please enter', '到': 'to', '之间的整数': '',
+    '↗': '↗', '↘': '↘', '太小了，再大一点': 'Too low, go higher', '太大了，再小一点': 'Too high, go lower',
     '米': 'm', '速度': 'Speed', '开始疾行': 'Start Run', '继续疾行': 'Resume Run', '再次出发': 'Run Again',
     '换轨': 'Switch lanes', '跳跃': 'Jump', '滑行': 'Slide', '方向键 / WASD 控制，空格跳跃；手机在画面上滑动。': 'Use arrow keys / WASD and Space to jump. Swipe on mobile.',
     '列车需换轨，路障要跳过，信号架要滑行穿过。': 'Change lanes for trains, jump barriers, and slide under signals.',
@@ -158,7 +167,12 @@
     [/^掷出 (\d+)，选择一架飞机$/, 'Rolled $1. Choose a plane.'], [/^掷出 (\d+)，没有可动飞机$/, 'Rolled $1. No plane can move.'],
     [/^掷出 6，无可动飞机，再掷一次$/, 'Rolled 6. No plane can move. Roll again.'],
     [/^第 (\d+) 关完成$/, 'Stage $1 Complete'],
-    [/^分数 (\d+)　·　金币 (\d+)　·　距离 (\d+) 米　·　最高 (\d+)$/, 'Score $1 · Coins $2 · Distance $3m · Best $4']
+    [/^分数 (\d+)　·　金币 (\d+)　·　距离 (\d+) 米　·　最高 (\d+)$/, 'Score $1 · Coins $2 · Distance $3m · Best $4'],
+    [/^↗ (\d+) 太小了，再大一点$/, '↗ $1 Too low, go higher'],
+    [/^↘ (\d+) 太大了，再小一点$/, '↘ $1 Too high, go lower'],
+    [/^🎉恭喜你！猜中了，用了「(\d+)」次！！$/, '🎉 Congrats! You guessed it in $1 tries!!'],
+    [/^范围缩小到 (\d+)–(\d+)，继续加油！$/, 'Range narrowed to $1–$2, keep going!'],
+    [/^请输入 (\d+) 到 (\d+) 之间的整数$/, 'Please enter a number between $1 and $2']
   ];
 
   const translate = value => {
