@@ -965,12 +965,13 @@ function setupTouch() {
         pressInterval = setInterval(trigger, 100);
       }
     });
-    btn.addEventListener('pointerup', () => {
+    const stopTouchRepeat = () => {
       if (pressInterval) { clearInterval(pressInterval); pressInterval = null; }
-    });
-    btn.addEventListener('pointerleave', () => {
-      if (pressInterval) { clearInterval(pressInterval); pressInterval = null; }
-    });
+    };
+    btn.addEventListener('pointerup', stopTouchRepeat);
+    btn.addEventListener('pointerleave', stopTouchRepeat);
+    btn.addEventListener('pointercancel', stopTouchRepeat);
+    btn.addEventListener('lostpointercapture', stopTouchRepeat);
   });
 }
 

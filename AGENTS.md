@@ -2,6 +2,8 @@
 
 > 如遇不确定问题或需求矛盾，先查看 `DEVLOG.md` 中的当前状态、需求池与变更历史，再做判断。`DEVLOG.md` 是开发主线的活记录，优先于本文件中过时的项目描述。
 
+> AI Agent 通过本地 Bridge 生成、审核和发布新闻时，必须先阅读 `docs/agent-news-bridge-runbook.md`；该文档包含凭据隔离、日期硬门、人工审批、单文件发布与清理流程。
+
 ## 技术栈
 
 - Astro 6，`output: 'static'`（纯 SSG，无 SSR / 服务端路由）

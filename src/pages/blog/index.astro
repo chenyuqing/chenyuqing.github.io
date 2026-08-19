@@ -12,18 +12,6 @@ const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   });
 
 const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
-
-const currentTag = Astro.url.searchParams.get('tag') || '';
-const posts = currentTag
-  ? allPosts.filter((post) => post.data.tags.includes(currentTag))
-  : allPosts;
-
-const tagSearch = (tag: string) => {
-  const url = new URL(Astro.url);
-  if (tag) { url.searchParams.set('tag', tag); } else { url.searchParams.delete('tag'); }
-  return url.pathname + url.search;
-};
-
 const seenSeries = new Set<string>();
 ---
 
@@ -36,59 +24,120 @@ const seenSeries = new Set<string>();
         <p class="section-desc" data-i18n="blog_page_desc">深度文章、教程与思考。</p>
       </div>
 
-      <div class="tag-filter">
-        <a class={`tag ${!currentTag ? 'tag-active' : ''}`} href={tagSearch('')}>全部</a>
+      <div class="tag-filter" aria-label="文章标签筛选">
+        <a class="tag tag-active" href="/blog/" data-blog-tag-filter="">全部</a>
         {allTags.map((tag) => (
-          <a class={`tag tag-ai ${currentTag === tag ? 'tag-active' : ''}`} href={tagSearch(tag)}>{tag}</a>
+          <a class="tag tag-ai" href={`/blog/?tag=${encodeURIComponent(tag)}`} data-blog-tag-filter={tag}>{tag}</a>
         ))}
       </div>
 
-      <div class="magazine-list magazine-list-page">
-        {posts.length === 0 ? (
-          <article class="magazine-card magazine-card-featured">
-            <p class="muted" data-i18n="blog_page_empty">暂无文章。</p>
-          </article>
-        ) : (
-          posts.map((post, index) => {
-            const showSeriesHeader = post.data.series && !seenSeries.has(post.data.series);
-            if (post.data.series) seenSeries.add(post.data.series);
-            return (
-              <>
-                {showSeriesHeader && (
-                  <div class="series-badge">
-                    <span class="tag tag-code" data-i18n="blog_series">系列</span>
-                    <span class="series-name">{post.data.series}</span>
-                  </div>
+      <div class="magazine-list magazine-list-page" id="blog-post-list">
+        {allPosts.map((post, index) => {
+          const showSeriesHeader = post.data.series && !seenSeries.has(post.data.series);
+          if (post.data.series) seenSeries.add(post.data.series);
+          return (
+            <>
+              {showSeriesHeader && (
+                <div class="series-badge" data-blog-series-header={post.data.series}>
+                  <span class="tag tag-code" data-i18n="blog_series">系列</span>
+                  <span class="series-name">{post.data.series}</span>
+                </div>
+              )}
+              <article
+                class={`magazine-card ${index === 0 ? 'magazine-card-featured' : ''}`}
+                data-blog-card
+                data-blog-tags={JSON.stringify(post.data.tags)}
+                data-blog-series={post.data.series || ''}
+              >
+                {post.data.cover && (
+                  <a class="magazine-card-img-link" href={`/blog/${post.id}/`}>
+                    <img class="magazine-card-img" src={post.data.cover} alt={post.data.title} />
+                  </a>
                 )}
-                <article class={`magazine-card ${index === 0 ? 'magazine-card-featured' : ''}`}>
-                  {post.data.cover && (
-                    <a class="magazine-card-img-link" href={`/blog/${post.id}/`}>
-                      <img class="magazine-card-img" src={post.data.cover} alt={post.data.title} />
-                    </a>
-                  )}
-                  <div class="magazine-card-body">
-                    <div class="magazine-card-eyebrow">
-                      {post.data.verdict && (
-                        <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
-                      )}
-                    </div>
-                    <a class="magazine-card-title" href={`/blog/${post.id}/`}>
-                      <h2>{post.data.title}</h2>
-                    </a>
-                    {post.data.description && <p class="magazine-card-desc">{post.data.description}</p>}
-                    <div class="post-meta magazine-card-meta">
-                      <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
-                      {post.data.tags.map((tag) => (
-                        <span class="tag tag-code">{tag}</span>
-                      ))}
-                    </div>
+                <div class="magazine-card-body">
+                  <div class="magazine-card-eyebrow">
+                    {post.data.verdict && (
+                      <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
+                    )}
                   </div>
-                </article>
-              </>
-            );
-          })
-        )}
+                  <a class="magazine-card-title" href={`/blog/${post.id}/`}>
+                    <h2>{post.data.title}</h2>
+                  </a>
+                  {post.data.description && <p class="magazine-card-desc">{post.data.description}</p>}
+                  <div class="post-meta magazine-card-meta">
+                    <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                    {post.data.tags.map((tag) => (
+                      <span class="tag tag-code">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </>
+          );
+        })}
+        <article class="magazine-card magazine-card-featured" id="blog-filter-empty" hidden>
+          <p class="muted" data-i18n="blog_page_empty">暂无文章。</p>
+        </article>
       </div>
     </section>
   </main>
+
+  <script>
+    const blogCards = Array.from(document.querySelectorAll<HTMLElement>('[data-blog-card]'));
+    const blogFilterLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-blog-tag-filter]'));
+    const blogSeriesHeaders = Array.from(document.querySelectorAll<HTMLElement>('[data-blog-series-header]'));
+    const blogEmptyState = document.getElementById('blog-filter-empty');
+
+    const readCardTags = (card: HTMLElement) => {
+      try {
+        return JSON.parse(card.dataset.blogTags || '[]') as string[];
+      } catch {
+        return [];
+      }
+    };
+
+    const applyBlogFilter = () => {
+      const params = new URLSearchParams(window.location.search);
+      const activeTag = params.get('tag') || '';
+      const visibleCards: HTMLElement[] = [];
+
+      blogCards.forEach((card) => {
+        const visible = !activeTag || readCardTags(card).includes(activeTag);
+        card.hidden = !visible;
+        card.classList.remove('magazine-card-featured');
+        if (visible) visibleCards.push(card);
+      });
+
+      visibleCards[0]?.classList.add('magazine-card-featured');
+
+      blogSeriesHeaders.forEach((header) => {
+        const series = header.dataset.blogSeriesHeader || '';
+        header.hidden = !visibleCards.some((card) => card.dataset.blogSeries === series);
+      });
+
+      blogFilterLinks.forEach((link) => {
+        const active = (link.dataset.blogTagFilter || '') === activeTag;
+        link.classList.toggle('tag-active', active);
+        if (active) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+
+      if (blogEmptyState) blogEmptyState.hidden = visibleCards.length > 0;
+    };
+
+    blogFilterLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const tag = link.dataset.blogTagFilter || '';
+        const url = new URL(window.location.href);
+        if (tag) url.searchParams.set('tag', tag);
+        else url.searchParams.delete('tag');
+        window.history.pushState({}, '', url.pathname + url.search);
+        applyBlogFilter();
+      });
+    });
+
+    window.addEventListener('popstate', applyBlogFilter);
+    applyBlogFilter();
+  </script>
 </BaseLayout>

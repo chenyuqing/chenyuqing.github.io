@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "backup:markdown": "node scripts/export-posts-to-markdown.mjs"
+    "backup:markdown": "node scripts/export-posts-to-markdown.mjs",
+    "agent:bridge": "node scripts/ai-agent-bridge.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",

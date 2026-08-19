@@ -808,7 +808,11 @@ function flashForbidden(r, c) {
   setTimeout(hideForbidden, 1100);
 }
 function hideForbidden() {
-  if (forbiddenHint) { scene.remove(forbiddenHint); forbiddenHint = null; }
+  if (forbiddenHint) {
+    scene.remove(forbiddenHint);
+    disposeTransientObject(forbiddenHint);
+    forbiddenHint = null;
+  }
 }
 
 // ================= AI =================
@@ -1079,7 +1083,10 @@ function showSmartHint() {
 }
 
 function hideSmartHint() {
-  if (smartHint) scene.remove(smartHint);
+  if (smartHint) {
+    scene.remove(smartHint);
+    disposeTransientObject(smartHint);
+  }
   smartHint = null;
   smartHintPoint = null;
 }
@@ -1133,8 +1140,26 @@ function undoMove() {
   updateStatus(`已悔 ${n} 手 · 轮到${turn === BLACK ? '黑方' : '白方'}`);
 }
 
+function disposeTransientObject(root) {
+  if (!root) return;
+  const geometries = new Set();
+  const materials = new Set();
+  root.traverse(node => {
+    if (node.geometry) geometries.add(node.geometry);
+    if (node.material) {
+      if (Array.isArray(node.material)) node.material.forEach(material => materials.add(material));
+      else materials.add(node.material);
+    }
+  });
+  geometries.forEach(geometry => geometry.dispose?.());
+  materials.forEach(material => material.dispose?.());
+}
+
 function clearWinLines() {
-  for (const m of winLineMeshes) scene.remove(m);
+  for (const m of winLineMeshes) {
+    scene.remove(m);
+    disposeTransientObject(m);
+  }
   winLineMeshes.length = 0;
 }
 

@@ -20,19 +20,7 @@ const allNews = (await getCollection('news', ({ data }) => !data.draft))
 
 const allTags = [...new Set(allNews.flatMap((item) => item.data.tags))].sort();
 
-const currentCategory = Astro.url.searchParams.get('category') || '';
-const currentTag = Astro.url.searchParams.get('tag') || '';
-
-let filtered = allNews;
-if (currentCategory) {
-  filtered = filtered.filter((item) => item.data.category === currentCategory);
-}
-if (currentTag) {
-  filtered = filtered.filter((item) => item.data.tags.includes(currentTag));
-}
-
-// Group by date string YYYY-MM-DD
-const dateGroups = filtered.reduce<Record<string, typeof filtered>>((acc, item) => {
+const dateGroups = allNews.reduce<Record<string, typeof allNews>>((acc, item) => {
   const key = item.data.pubDate.toISOString().slice(0, 10);
   if (!acc[key]) acc[key] = [];
   acc[key].push(item);
@@ -41,33 +29,12 @@ const dateGroups = filtered.reduce<Record<string, typeof filtered>>((acc, item) 
 
 const sortedDates = Object.keys(dateGroups).sort((a, b) => b.localeCompare(a));
 
-const pageParam = Number(Astro.url.searchParams.get('page') || '1');
-const totalPages = Math.max(1, Math.ceil(sortedDates.length / DAYS_PER_PAGE));
-const page = Math.min(Math.max(pageParam, 1), totalPages);
-const pagedDates = sortedDates.slice((page - 1) * DAYS_PER_PAGE, page * DAYS_PER_PAGE);
-
 const formatDate = (iso: string) => {
   const d = new Date(iso);
   const month = d.getMonth() + 1;
   const day = d.getDate();
   const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
   return `${month}月${day}日 · ${weekdays[d.getDay()]}`;
-};
-
-const searchUrl = (updates: Record<string, string>) => {
-  const url = new URL(Astro.url);
-  Object.entries(updates).forEach(([key, value]) => {
-    if (value) url.searchParams.set(key, value);
-    else url.searchParams.delete(key);
-  });
-  url.searchParams.delete('page');
-  return url.pathname + url.search;
-};
-
-const pageUrl = (p: number) => {
-  const url = new URL(Astro.url);
-  url.searchParams.set('page', String(p));
-  return url.pathname + url.search;
 };
 ---
 
@@ -80,62 +47,188 @@ const pageUrl = (p: number) => {
         <p class="section-desc" data-i18n="news_page_desc">AI 领域的产品发布、开源项目、论文与行业动态。</p>
       </div>
 
-      <div class="category-filter">
-        <a class={`category-pill ${!currentCategory ? 'category-pill-active' : ''}`} href={searchUrl({ category: '' })}>全部</a>
+      <div class="category-filter" aria-label="新闻分类筛选">
+        <a class="category-pill category-pill-active" href="/news/" data-news-category-filter="">全部</a>
         {CATEGORIES.map((category) => (
-          <a class={`category-pill category-pill-${categoryColors[category]} ${currentCategory === category ? 'category-pill-active' : ''}`} href={searchUrl({ category })}>{category}</a>
+          <a
+            class={`category-pill category-pill-${categoryColors[category]}`}
+            href={`/news/?category=${encodeURIComponent(category)}`}
+            data-news-category-filter={category}
+          >{category}</a>
         ))}
       </div>
 
-      <div class="tag-filter">
-        <a class={`tag ${!currentTag ? 'tag-active' : ''}`} href={searchUrl({ tag: '' })}>全部</a>
+      <div class="tag-filter" aria-label="新闻标签筛选">
+        <a class="tag tag-active" href="/news/" data-news-tag-filter="">全部</a>
         {allTags.map((tag) => (
-          <a class={`tag tag-ai ${currentTag === tag ? 'tag-active' : ''}`} href={searchUrl({ tag })}>{tag}</a>
+          <a class="tag tag-ai" href={`/news/?tag=${encodeURIComponent(tag)}`} data-news-tag-filter={tag}>{tag}</a>
         ))}
       </div>
 
-      <div class="news-date-groups">
-        {pagedDates.length === 0 ? (
-          <p class="muted" data-i18n="news_page_empty">暂无动态。</p>
-        ) : (
-          pagedDates.map((date) => (
-            <section class="news-date-group">
-              <h2 class="news-date-title">{formatDate(date)}</h2>
-              <div class="news-list news-list-page">
-                {dateGroups[date].map((item) => (
-                  <article class="news-item news-item-page">
-                    <div class="news-item-main">
-                      <a class="news-link" href={`/news/${item.id}/`}>
-                        <h3>{item.data.title}</h3>
-                      </a>
-                      {item.data.description && <p class="news-desc">{item.data.description}</p>}
-                      <div class="news-meta">
-                        <span class={`category-pill category-pill-small category-pill-${categoryColors[item.data.category]}`}>{item.data.category}</span>
-                        {item.data.tags.map((tag) => (
-                          <span class="tag tag-ai">{tag}</span>
-                        ))}
-                        {item.data.link && <span class="news-external">↗</span>}
-                      </div>
+      <div class="news-date-groups" id="news-date-groups">
+        {sortedDates.map((date) => (
+          <section class="news-date-group" data-news-date-group={date}>
+            <h2 class="news-date-title">{formatDate(date)}</h2>
+            <div class="news-list news-list-page">
+              {dateGroups[date].map((item) => (
+                <article
+                  class="news-item news-item-page"
+                  data-news-item
+                  data-news-category={item.data.category}
+                  data-news-tags={JSON.stringify(item.data.tags)}
+                >
+                  <div class="news-item-main">
+                    <a class="news-link" href={`/news/${item.id}/`}>
+                      <h3>{item.data.title}</h3>
+                    </a>
+                    {item.data.description && <p class="news-desc">{item.data.description}</p>}
+                    <div class="news-meta">
+                      <span class={`category-pill category-pill-small category-pill-${categoryColors[item.data.category]}`}>{item.data.category}</span>
+                      {item.data.tags.map((tag) => (
+                        <span class="tag tag-ai">{tag}</span>
+                      ))}
+                      {item.data.link && <span class="news-external">↗</span>}
                     </div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          ))
-        )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+        <p class="muted" id="news-filter-empty" data-i18n="news_page_empty" hidden>暂无动态。</p>
       </div>
 
-      {totalPages > 1 && (
-        <nav class="pagination" aria-label={currentTag || currentCategory ? '按筛选条件的分页' : '分页'}>
-          {page > 1 ? (
-            <a class="button button-secondary" href={pageUrl(page - 1)} data-i18n="news_page_prev">上一页</a>
-          ) : <span />}
-          <span class="page-info">{page} / {totalPages}</span>
-          {page < totalPages ? (
-            <a class="button button-secondary" href={pageUrl(page + 1)} data-i18n="news_page_next">下一页</a>
-          ) : <span />}
-        </nav>
-      )}
+      <nav class="pagination" id="news-pagination" aria-label="按筛选条件的分页" hidden>
+        <a class="button button-secondary" id="news-page-prev" href="/news/" data-i18n="news_page_prev">上一页</a>
+        <span class="page-info" id="news-page-info">1 / 1</span>
+        <a class="button button-secondary" id="news-page-next" href="/news/" data-i18n="news_page_next">下一页</a>
+      </nav>
     </section>
   </main>
+
+  <script define:vars={{ daysPerPage: DAYS_PER_PAGE }}>
+    const newsGroups = Array.from(document.querySelectorAll('[data-news-date-group]'));
+    const categoryLinks = Array.from(document.querySelectorAll('[data-news-category-filter]'));
+    const tagLinks = Array.from(document.querySelectorAll('[data-news-tag-filter]'));
+    const emptyState = document.getElementById('news-filter-empty');
+    const pagination = document.getElementById('news-pagination');
+    const pageInfo = document.getElementById('news-page-info');
+    const prevLink = document.getElementById('news-page-prev');
+    const nextLink = document.getElementById('news-page-next');
+
+    const readNewsTags = (item) => {
+      try {
+        return JSON.parse(item.dataset.newsTags || '[]');
+      } catch {
+        return [];
+      }
+    };
+
+    const pageUrl = (page) => {
+      const url = new URL(window.location.href);
+      if (page > 1) url.searchParams.set('page', String(page));
+      else url.searchParams.delete('page');
+      return url.pathname + url.search;
+    };
+
+    const setFilter = (key, value) => {
+      const url = new URL(window.location.href);
+      if (value) url.searchParams.set(key, value);
+      else url.searchParams.delete(key);
+      url.searchParams.delete('page');
+      window.history.pushState({}, '', url.pathname + url.search);
+      applyNewsState();
+    };
+
+    const updateFilterLinks = (links, activeValue, datasetKey, activeClass) => {
+      links.forEach((link) => {
+        const active = (link.dataset[datasetKey] || '') === activeValue;
+        link.classList.toggle(activeClass, active);
+        if (active) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+    };
+
+    const applyNewsState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const activeCategory = params.get('category') || '';
+      const activeTag = params.get('tag') || '';
+      const requestedPage = Number.parseInt(params.get('page') || '1', 10);
+      const matchingGroups = [];
+
+      newsGroups.forEach((group) => {
+        const items = Array.from(group.querySelectorAll('[data-news-item]'));
+        let matchingItems = 0;
+
+        items.forEach((item) => {
+          const categoryMatch = !activeCategory || item.dataset.newsCategory === activeCategory;
+          const tagMatch = !activeTag || readNewsTags(item).includes(activeTag);
+          const visible = categoryMatch && tagMatch;
+          item.hidden = !visible;
+          if (visible) matchingItems += 1;
+        });
+
+        if (matchingItems > 0) matchingGroups.push(group);
+        group.hidden = true;
+      });
+
+      const totalPages = Math.max(1, Math.ceil(matchingGroups.length / daysPerPage));
+      const page = Number.isFinite(requestedPage)
+        ? Math.min(Math.max(requestedPage, 1), totalPages)
+        : 1;
+      const start = (page - 1) * daysPerPage;
+      matchingGroups.slice(start, start + daysPerPage).forEach((group) => {
+        group.hidden = false;
+      });
+
+      updateFilterLinks(categoryLinks, activeCategory, 'newsCategoryFilter', 'category-pill-active');
+      updateFilterLinks(tagLinks, activeTag, 'newsTagFilter', 'tag-active');
+
+      if (emptyState) emptyState.hidden = matchingGroups.length > 0;
+      if (pagination) pagination.hidden = matchingGroups.length === 0 || totalPages <= 1;
+      if (pageInfo) pageInfo.textContent = `${page} / ${totalPages}`;
+
+      if (prevLink) {
+        prevLink.hidden = page <= 1;
+        prevLink.href = pageUrl(page - 1);
+        prevLink.dataset.newsPage = String(page - 1);
+      }
+      if (nextLink) {
+        nextLink.hidden = page >= totalPages;
+        nextLink.href = pageUrl(page + 1);
+        nextLink.dataset.newsPage = String(page + 1);
+      }
+
+      if (requestedPage !== page) {
+        window.history.replaceState({}, '', pageUrl(page));
+      }
+    };
+
+    categoryLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        setFilter('category', link.dataset.newsCategoryFilter || '');
+      });
+    });
+
+    tagLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        setFilter('tag', link.dataset.newsTagFilter || '');
+      });
+    });
+
+    [prevLink, nextLink].forEach((link) => {
+      link?.addEventListener('click', (event) => {
+        event.preventDefault();
+        const targetPage = Number.parseInt(link.dataset.newsPage || '1', 10);
+        window.history.pushState({}, '', pageUrl(targetPage));
+        applyNewsState();
+        document.getElementById('news-date-groups')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    window.addEventListener('popstate', applyNewsState);
+    applyNewsState();
+  </script>
 </BaseLayout>

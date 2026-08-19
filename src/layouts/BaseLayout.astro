@@ -415,7 +415,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ai_provider_note_compatible: '浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。',
             ai_provider_note_openai: 'OpenAI 官方接口不能安全地从这个静态站直连。请填写你自己的 OpenAI 代理 Base URL。',
             ai_provider_note_claude: 'Claude 官方接口不能安全地从这个静态站直连。请填写你自己的 Claude 代理 Base URL。',
-            ai_welcome: '问我关于这个站点的任何内容。',
+            ai_welcome: '问我关于这个站点的任何内容。使用 /news 主题或来源 URL 生成待审核新闻草稿。',
+            ai_preset_latest_news: '写最新新闻',
+            ai_preset_latest_news_note: '从官方源选择最新未收录动态并生成草稿',
             ai_placeholder: '搜索文章、问问题...',
           },
           en: {
@@ -624,7 +626,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             ai_provider_note_compatible: 'Direct browser calls require a provider that supports CORS. Use your own proxy for official OpenAI or Claude APIs.',
             ai_provider_note_openai: 'Official OpenAI endpoints should not be called directly from this static site. Enter your own OpenAI proxy base URL.',
             ai_provider_note_claude: 'Official Claude endpoints should not be called directly from this static site. Enter your own Claude proxy base URL.',
-            ai_welcome: 'Ask me anything about this site.',
+            ai_welcome: 'Ask about this site. Use /news followed by a topic or source URL to create a reviewable news draft.',
+            ai_preset_latest_news: 'Write latest news',
+            ai_preset_latest_news_note: 'Pick the newest unlisted item from official feeds and create a draft',
             ai_placeholder: 'Search posts, ask questions...',
           },
         };
@@ -827,6 +831,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             <span data-i18n="ai_provider">Provider</span>
             <select id="ai-provider" class="ai-input">
               <option value="compatible">OpenAI Compatible</option>
+              <option value="codex_bridge">Codex CLI Bridge</option>
               <option value="openai">OpenAI (Proxy)</option>
               <option value="claude">Claude (Proxy)</option>
             </select>
@@ -839,7 +844,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
             <span data-i18n="ai_model">Model</span>
             <input id="ai-model" class="ai-input" type="text" placeholder="gpt-4o-mini" value="gpt-4o-mini" />
           </label>
-          <label class="ai-setting-row">
+          <label class="ai-setting-row" id="ai-api-key-row">
             <span data-i18n="ai_api_key">API Key</span>
             <input id="ai-api-key" class="ai-input" type="password" placeholder="sk-..." />
           </label>
@@ -856,6 +861,12 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       </div>
       <div id="ai-messages" class="ai-messages">
         <div class="ai-welcome" data-i18n="ai_welcome">问我关于这个站点的任何内容。</div>
+      </div>
+      <div class="ai-presets" aria-label="Agent presets">
+        <button id="ai-preset-latest-news" class="ai-preset-btn" type="button">
+          <span class="ai-preset-title" data-i18n="ai_preset_latest_news">写最新新闻</span>
+          <span class="ai-preset-note" data-i18n="ai_preset_latest_news_note">从官方源选择最新未收录动态并生成草稿</span>
+        </button>
       </div>
       <form id="ai-form" class="ai-form">
         <input id="ai-input" class="ai-input ai-query-input" type="text" autocomplete="off" data-i18n-placeholder="ai_placeholder" placeholder="搜索文章、问问题..." />
@@ -877,12 +888,14 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const baseUrlInput = document.getElementById('ai-base-url');
       const modelInput = document.getElementById('ai-model');
       const apiKeyInput = document.getElementById('ai-api-key');
+      const apiKeyRow = document.getElementById('ai-api-key-row');
       const saveSettingsBtn = document.getElementById('ai-save-settings');
       const resetSettingsBtn = document.getElementById('ai-reset-settings');
       const testConnectionBtn = document.getElementById('ai-test-connection');
       const testStatusEl = document.getElementById('ai-test-status');
       const providerNote = document.getElementById('ai-provider-note');
       const messagesEl = document.getElementById('ai-messages');
+      const latestNewsPresetBtn = document.getElementById('ai-preset-latest-news');
       const form = document.getElementById('ai-form');
       const input = document.getElementById('ai-input');
       const introAiTrigger = document.getElementById('intro-ai-trigger');
@@ -891,17 +904,58 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const providerNotes = {
         zh: {
           compatible: '浏览器直连需要目标服务支持 CORS。OpenAI / Claude 官方接口请通过你自己的代理转发。',
+          codex_bridge: '通过本机 Codex CLI Bridge 调用只允许官方 Codex 客户端的 Provider。先在终端运行 npm run agent:bridge。',
           openai: 'OpenAI 官方接口不能安全地从这个静态站直连。请填写你自己的 OpenAI 代理 Base URL。',
           claude: 'Claude 官方接口不能安全地从这个静态站直连。请填写你自己的 Claude 代理 Base URL。',
         },
         en: {
           compatible: 'Direct browser calls require a provider that supports CORS. Use your own proxy for official OpenAI or Claude APIs.',
+          codex_bridge: 'Use the local Codex CLI Bridge for providers restricted to official Codex clients. Start it with npm run agent:bridge.',
           openai: 'Official OpenAI endpoints should not be called directly from this static site. Enter your own OpenAI proxy base URL.',
           claude: 'Official Claude endpoints should not be called directly from this static site. Enter your own Claude proxy base URL.',
         },
       };
 
       const STORAGE_KEY = 'ai-agent-config-v1';
+      const PROVIDER_CONFIG = {
+        compatible: {
+          defaultModel: 'gpt-4o-mini',
+          defaultBaseUrl: '',
+          modelPlaceholder: 'deepseek-chat',
+          baseUrlPlaceholder: 'https://api.example.com/v1',
+          noteKey: 'compatible',
+        },
+        codex_bridge: {
+          defaultModel: 'gpt-5.6-sol',
+          defaultBaseUrl: 'http://127.0.0.1:8787/v1',
+          modelPlaceholder: 'gpt-5.6-sol',
+          baseUrlPlaceholder: 'http://127.0.0.1:8787/v1',
+          noteKey: 'codex_bridge',
+        },
+        openai: {
+          defaultModel: 'gpt-4o-mini',
+          defaultBaseUrl: '',
+          modelPlaceholder: 'gpt-4o-mini',
+          baseUrlPlaceholder: 'https://your-proxy.example.com/v1',
+          noteKey: 'openai',
+        },
+        claude: {
+          defaultModel: 'claude-sonnet-4-20250514',
+          defaultBaseUrl: '',
+          modelPlaceholder: 'claude-sonnet-4-20250514',
+          baseUrlPlaceholder: 'https://your-proxy.example.com/v1',
+          noteKey: 'claude',
+        },
+      };
+      const providerModelMemory = Object.fromEntries(
+        Object.entries(PROVIDER_CONFIG).map(([provider, config]) => [provider, config.defaultModel]),
+      );
+      const providerBaseUrlMemory = Object.fromEntries(
+        Object.entries(PROVIDER_CONFIG).map(([provider, config]) => [provider, config.defaultBaseUrl]),
+      );
+      let activeProvider = providerSelect?.value || 'compatible';
+      providerModelMemory[activeProvider] = modelInput?.value?.trim() || PROVIDER_CONFIG[activeProvider].defaultModel;
+      providerBaseUrlMemory[activeProvider] = baseUrlInput?.value?.trim() || PROVIDER_CONFIG[activeProvider].defaultBaseUrl;
 
       const navDropdowns = [
         document.getElementById('nav-content-dropdown'),
@@ -953,6 +1007,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           missingApiKey: '请先填写 API Key。',
           missingBaseUrlCompatible: '请先填写支持浏览器直连的 Base URL。',
           missingBaseUrlProxy: '请先填写你自己的代理 Base URL。',
+          missingBaseUrlBridge: '请先启动本地 Codex CLI Bridge，并确认 Base URL。',
           success: '连接成功，可以开始提问了。',
           blocked: '浏览器网络请求失败。请检查 CORS、浏览器插件或代理地址。',
           unknownError: '连接失败：',
@@ -967,6 +1022,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           missingApiKey: 'Please enter an API key first.',
           missingBaseUrlCompatible: 'Please enter a browser-accessible Base URL first.',
           missingBaseUrlProxy: 'Please enter your proxy Base URL first.',
+          missingBaseUrlBridge: 'Start the local Codex CLI Bridge and verify its Base URL first.',
           success: 'Connection OK. You can start asking questions.',
           blocked: 'Browser network request failed. Check CORS, browser extensions, or the proxy URL.',
           unknownError: 'Connection failed: ',
@@ -978,20 +1034,37 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         },
       };
 
+      const applyProviderUi = () => {
+        const provider = providerSelect.value;
+        const config = PROVIDER_CONFIG[provider] || PROVIDER_CONFIG.compatible;
+        baseUrlRow.hidden = false;
+        apiKeyRow.hidden = provider === 'codex_bridge';
+        modelInput.placeholder = config.modelPlaceholder;
+        baseUrlInput.placeholder = config.baseUrlPlaceholder;
+        providerNote.textContent = providerNotes[aiUiLang][config.noteKey];
+      };
+
       const loadConfig = () => {
         try {
           const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return;
-          const c = JSON.parse(raw);
-          if (c.provider) providerSelect.value = c.provider;
-          if (c.baseUrl) baseUrlInput.value = c.baseUrl;
-          if (c.model) modelInput.value = c.model;
-          if (c.apiKey) apiKeyInput.value = c.apiKey;
+          if (raw) {
+            const c = JSON.parse(raw);
+            if (c.provider && PROVIDER_CONFIG[c.provider]) providerSelect.value = c.provider;
+            activeProvider = providerSelect.value;
+            if (c.baseUrl) providerBaseUrlMemory[activeProvider] = c.baseUrl;
+            baseUrlInput.value = providerBaseUrlMemory[activeProvider] || PROVIDER_CONFIG[activeProvider].defaultBaseUrl;
+            if (c.model) providerModelMemory[activeProvider] = c.model;
+            modelInput.value = providerModelMemory[activeProvider] || PROVIDER_CONFIG[activeProvider].defaultModel;
+            if (c.apiKey) apiKeyInput.value = c.apiKey;
+          }
         } catch {}
-        providerSelect.dispatchEvent(new Event('change'));
+        activeProvider = providerSelect.value;
+        applyProviderUi();
       };
 
       const saveConfig = () => {
+        providerModelMemory[providerSelect.value] = modelInput.value.trim() || PROVIDER_CONFIG[providerSelect.value].defaultModel;
+        providerBaseUrlMemory[providerSelect.value] = baseUrlInput.value.trim() || PROVIDER_CONFIG[providerSelect.value].defaultBaseUrl;
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
           provider: providerSelect.value,
           baseUrl: baseUrlInput.value,
@@ -1027,22 +1100,12 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       });
 
       providerSelect?.addEventListener('change', () => {
-        const v = providerSelect.value;
-        baseUrlRow.hidden = false;
-        if (v === 'openai') {
-          modelInput.placeholder = modelInput.value = 'gpt-4o-mini';
-          baseUrlInput.placeholder = 'https://your-proxy.example.com/v1';
-          providerNote.textContent = providerNotes[aiUiLang].openai;
-        } else if (v === 'claude') {
-          modelInput.placeholder = modelInput.value = 'claude-sonnet-4-20250514';
-          baseUrlInput.placeholder = 'https://your-proxy.example.com/v1';
-          providerNote.textContent = providerNotes[aiUiLang].claude;
-        } else {
-          modelInput.placeholder = 'deepseek-chat';
-          if (!modelInput.value) modelInput.value = 'deepseek-chat';
-          baseUrlInput.placeholder = 'https://api.example.com/v1';
-          providerNote.textContent = providerNotes[aiUiLang].compatible;
-        }
+        providerModelMemory[activeProvider] = modelInput.value.trim() || PROVIDER_CONFIG[activeProvider].defaultModel;
+        providerBaseUrlMemory[activeProvider] = baseUrlInput.value.trim() || PROVIDER_CONFIG[activeProvider].defaultBaseUrl;
+        activeProvider = providerSelect.value;
+        modelInput.value = providerModelMemory[activeProvider] || PROVIDER_CONFIG[activeProvider].defaultModel;
+        baseUrlInput.value = providerBaseUrlMemory[activeProvider] || PROVIDER_CONFIG[activeProvider].defaultBaseUrl;
+        applyProviderUi();
         updateSettingsSummary();
         saveConfig();
       });
@@ -1069,6 +1132,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       const getHeaders = () => {
         const p = providerSelect.value;
         const key = apiKeyInput.value;
+        if (p === 'codex_bridge') return {
+          'Content-Type': 'application/json',
+        };
         if (p === 'claude') return {
           'Content-Type': 'application/json',
           'x-api-key': key,
@@ -1123,6 +1189,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
         messagesEl.appendChild(div);
         messagesEl.scrollTop = messagesEl.scrollHeight;
+        return div;
       };
 
       const addSourcesMsg = (results) => {
@@ -1167,6 +1234,85 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         messagesEl.scrollTop = messagesEl.scrollHeight;
       };
 
+      const addNewsDraftMsg = (draft, gitPublishEnabled) => {
+        const summary = [
+          '新闻草稿已生成，并通过 Astro 生产构建。',
+          '',
+          `标题：${draft.title}`,
+          `分类：${draft.category}`,
+          `标签：${(draft.tags || []).join(' / ')}`,
+          `日期：${draft.pubDate}`,
+          `来源：${draft.link}`,
+          `文件：${draft.filePath}`,
+          '',
+          draft.description,
+          '',
+          draft.body,
+          '',
+          '当前状态：draft: true，尚未提交或发布。',
+        ].join('\n');
+        const div = addMsg('assistant', summary);
+
+        const actions = document.createElement('div');
+        actions.className = 'ai-settings-actions-row';
+        actions.style.marginTop = '0.75rem';
+
+        if (gitPublishEnabled) {
+          const publishBtn = document.createElement('button');
+          publishBtn.type = 'button';
+          publishBtn.className = 'ai-test-btn ai-test-btn-secondary';
+          publishBtn.textContent = aiUiLang === 'en' ? 'Approve & Publish' : '批准并发布';
+          publishBtn.addEventListener('click', async () => {
+            const expected = draft.publishConfirmation;
+            const confirmation = window.prompt(`请输入精确确认语句：${expected}`);
+            if (confirmation !== expected) {
+              addMsg('error', `发布已取消：确认语句必须完全等于 ${expected}`);
+              return;
+            }
+            const publishToken = window.prompt('请输入本次 Bridge 启动时设置的发布口令。');
+            if (!publishToken) {
+              addMsg('error', '发布已取消：缺少发布口令。');
+              return;
+            }
+
+            publishBtn.disabled = true;
+            publishBtn.textContent = aiUiLang === 'en' ? 'Publishing...' : '正在发布...';
+            try {
+              const bridgeBase = baseUrlInput.value.replace(/\/+$/, '');
+              const res = await fetch(`${bridgeBase}/news/drafts/${encodeURIComponent(draft.slug)}/publish`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ confirmation, publishToken }),
+              });
+              if (!res.ok) {
+                const message = await extractErrorMessage(res);
+                addMsg('error', `发布失败：${res.status} ${message}`);
+                return;
+              }
+              const data = await res.json();
+              addMsg('assistant', `新闻已提交并推送到 main。\nSlug：${data.published.slug}\n文件：${data.published.filePath}`);
+              publishBtn.remove();
+            } catch (error) {
+              addMsg('error', `发布失败：${error?.message || String(error)}`);
+            } finally {
+              publishBtn.disabled = false;
+              publishBtn.textContent = aiUiLang === 'en' ? 'Approve & Publish' : '批准并发布';
+            }
+          });
+          actions.appendChild(publishBtn);
+        } else {
+          const note = document.createElement('span');
+          note.className = 'ai-provider-note';
+          note.textContent = aiUiLang === 'en'
+            ? 'Git publishing is disabled. Restart Bridge with the explicit publish flags after reviewing the draft.'
+            : 'Git 发布默认关闭。审核草稿后，需使用明确的发布开关和口令重新启动 Bridge。';
+          actions.appendChild(note);
+        }
+
+        div.appendChild(actions);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      };
+
       const setTestStatus = (type, text) => {
         if (!testStatusEl) return;
         testStatusEl.className = 'ai-test-status ai-test-status-' + type;
@@ -1181,11 +1327,16 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       resetSettingsBtn?.addEventListener('click', () => {
         localStorage.removeItem(STORAGE_KEY);
+        Object.entries(PROVIDER_CONFIG).forEach(([provider, config]) => {
+          providerModelMemory[provider] = config.defaultModel;
+          providerBaseUrlMemory[provider] = config.defaultBaseUrl;
+        });
         providerSelect.value = 'compatible';
+        activeProvider = 'compatible';
         baseUrlInput.value = '';
-        modelInput.value = 'gpt-4o-mini';
+        modelInput.value = PROVIDER_CONFIG.compatible.defaultModel;
         apiKeyInput.value = '';
-        providerSelect.dispatchEvent(new Event('change'));
+        applyProviderUi();
         updateSettingsSummary();
         setTestStatus('success', messages[aiUiLang].reset);
       });
@@ -1202,12 +1353,16 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
       testConnectionBtn?.addEventListener('click', async () => {
         const copy = messages[aiUiLang];
-        if (!apiKeyInput.value.trim()) {
+        if (providerSelect.value !== 'codex_bridge' && !apiKeyInput.value.trim()) {
           setTestStatus('error', copy.missingApiKey);
           return;
         }
         if (!baseUrlInput.value.trim()) {
-          setTestStatus('error', providerSelect.value === 'compatible' ? copy.missingBaseUrlCompatible : copy.missingBaseUrlProxy);
+          setTestStatus('error', providerSelect.value === 'compatible'
+            ? copy.missingBaseUrlCompatible
+            : providerSelect.value === 'codex_bridge'
+              ? copy.missingBaseUrlBridge
+              : copy.missingBaseUrlProxy);
           return;
         }
 
@@ -1245,20 +1400,32 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         }
       });
 
-      let siteIndexCache = null;
+      const siteIndexCache = new Map();
 
       const loadSiteIndex = async (question) => {
-        if (siteIndexCache) return siteIndexCache;
         const isRecent = /最近|近期|latest|recent|这周|这月/i.test(question);
         const indexUrl = isRecent ? '/site-index/news-30d.json' : '/site-index/news-all.json';
-        const [blogRes, newsRes] = await Promise.all([
-          fetch('/site-index/blog-all.json'),
-          fetch(indexUrl),
-        ]);
-        const blogItems = await blogRes.json();
-        const newsItems = await newsRes.json();
-        siteIndexCache = { blog: blogItems, news: newsItems };
-        return siteIndexCache;
+
+        if (!siteIndexCache.has(indexUrl)) {
+          const request = Promise.all([
+            fetch('/site-index/blog-all.json'),
+            fetch(indexUrl),
+          ]).then(async ([blogRes, newsRes]) => {
+            if (!blogRes.ok || !newsRes.ok) {
+              throw new Error(`站点索引加载失败：blog ${blogRes.status}, news ${newsRes.status}`);
+            }
+            const [blogItems, newsItems] = await Promise.all([blogRes.json(), newsRes.json()]);
+            return { blog: blogItems, news: newsItems };
+          });
+          siteIndexCache.set(indexUrl, request);
+        }
+
+        try {
+          return await siteIndexCache.get(indexUrl);
+        } catch (error) {
+          siteIndexCache.delete(indexUrl);
+          throw error;
+        }
       };
 
       const SEARCH_STOP_WORDS = new Set([
@@ -1333,20 +1500,90 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         return scored.filter(i => i._score > 0).sort((a, b) => b._score - a._score).slice(0, 10);
       };
 
-      const SYSTEM_PROMPT = '你是一个 AI 助手，帮助用户了解这个个人站点的博客文章和新闻动态。请基于提供的站点内容回答问题。如果内容不足以回答，请诚实说明。回答使用中文，除非用户用英文提问。';
+      const SYSTEM_PROMPT = '你是一个 AI 助手，帮助用户了解这个个人站点的博客文章和新闻动态。请基于提供的站点内容回答问题。如果内容不足以回答，请诚实说明。回答使用中文，除非用户用英文提问。使用清晰的纯文本，不要输出 Markdown 标记。';
+
+      const activateBridgeProvider = () => {
+        if (providerSelect.value === 'codex_bridge') return;
+        providerSelect.value = 'codex_bridge';
+        providerSelect.dispatchEvent(new Event('change'));
+      };
+
+      const requestNewsDraft = async ({ path, body, userLabel, pendingLabel }) => {
+        activateBridgeProvider();
+        if (!baseUrlInput.value.trim()) {
+          addMsg('error', '请先启动本地 Codex CLI Bridge，并确认 Base URL。');
+          return false;
+        }
+
+        addMsg('user', userLabel);
+        const pending = addMsg('assistant', pendingLabel);
+        try {
+          const bridgeBase = baseUrlInput.value.replace(/\/+$/, '');
+          const res = await fetch(`${bridgeBase}${path}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...body, model: modelInput.value.trim() }),
+          });
+          if (!res.ok) {
+            const message = await extractErrorMessage(res);
+            pending.remove();
+            addMsg('error', `新闻草稿生成失败：${res.status} ${message}`);
+            return false;
+          }
+          const data = await res.json();
+          pending.remove();
+          addNewsDraftMsg(data.draft, data.gitPublishEnabled === true);
+          return true;
+        } catch (error) {
+          pending.remove();
+          addMsg('error', `新闻草稿生成失败：${error?.message || String(error)}`);
+          return false;
+        }
+      };
+
+      latestNewsPresetBtn?.addEventListener('click', async () => {
+        latestNewsPresetBtn.disabled = true;
+        try {
+          await requestNewsDraft({
+            path: '/news/latest',
+            body: {},
+            userLabel: aiUiLang === 'en' ? 'Preset: Write latest news' : '预设：写最新新闻',
+            pendingLabel: aiUiLang === 'en'
+              ? 'Checking official feeds and creating a draft from the newest unlisted item...'
+              : '正在检查官方源，选择最新未收录动态并生成 draft: true 草稿...',
+          });
+        } finally {
+          latestNewsPresetBtn.disabled = false;
+        }
+      });
 
       form?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const query = input.value.trim();
         if (!query) return;
-        if (!apiKeyInput.value) {
+
+        const newsCommand = query.match(/^\/news\s+(.+)$/is);
+        if (newsCommand) {
+          input.value = '';
+          await requestNewsDraft({
+            path: '/news/drafts',
+            body: { brief: newsCommand[1].trim() },
+            userLabel: query,
+            pendingLabel: '正在检索和交叉核验来源，生成 draft: true 的新闻草稿...',
+          });
+          return;
+        }
+
+        if (providerSelect.value !== 'codex_bridge' && !apiKeyInput.value) {
           addMsg('error', '请先在设置中填写 API Key（点击 ⚙）');
           return;
         }
         if (!baseUrlInput.value.trim()) {
           addMsg('error', providerSelect.value === 'compatible'
             ? '请先填写支持浏览器直连的 Base URL。'
-            : '这个静态站不能直连官方接口。请先填写你自己的代理 Base URL。');
+            : providerSelect.value === 'codex_bridge'
+              ? '请先启动本地 Codex CLI Bridge，并确认 Base URL。'
+              : '这个静态站不能直连官方接口。请先填写你自己的代理 Base URL。');
           return;
         }
         addMsg('user', query);
@@ -1387,7 +1624,9 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
         } catch (err) {
           const message = err?.message || String(err);
           if (/Failed to fetch|NetworkError|Load failed/i.test(message)) {
-            addMsg('error', '网络请求被浏览器拦住了。通常是 CORS 或代理地址不可用。\n\n如果你选的是 OpenAI / Claude，请填写你自己的代理 Base URL。\n如果你选的是 OpenAI Compatible，请确认这个服务允许浏览器直连。');
+            addMsg('error', providerSelect.value === 'codex_bridge'
+              ? '无法连接本地 Codex CLI Bridge。请确认 npm run agent:bridge 正在运行，并检查 Base URL。'
+              : '网络请求被浏览器拦住了。通常是 CORS 或代理地址不可用。\n\n如果你选的是 OpenAI / Claude，请填写你自己的代理 Base URL。\n如果你选的是 OpenAI Compatible，请确认这个服务允许浏览器直连。');
             return;
           }
           addMsg('error', '出错了：' + message);
