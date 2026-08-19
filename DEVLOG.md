@@ -60,6 +60,8 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [x] 创建 DEVLOG.md 作为开发主记录，AGENTS.md 已指向它
 - [x] 建立 news 5 大类分类体系并完成真实新闻替换
 - [x] news 列表页支持按 category 和 tag 双重筛选
+- [x] Blog/News 筛选与 News 分页已改为客户端 URL 状态驱动，兼容 GitHub Pages 纯 SSG
+- [x] AI Agent recent/all 索引缓存已隔离，Provider 自定义模型支持刷新持久化与切换恢复
 - [ ] 没有按 verdict 筛选功能
 - [ ] 没有按 series 聚合入口的增强（已有系列分组，但未做系列首页）
 - [ ] 没有站内搜索页面（AI Agent 已有问答，但缺少传统搜索）
@@ -69,6 +71,74 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [x] 5 个产品上线：Subtitle Maker / Clip Agent / ASD Pipeline / VoiceWave Profile / Tonghua
 - [x] 新增游戏专区与 3D 中国象棋
 - [x] 新增工具专区 `/tools/`，首个工具：Base64 编解码
+
+## 2026-08-19 会话记录（修复纯 SSG 筛选、分页与 AI Agent 状态）
+
+### 今天完成
+
+1. 修复 `/blog/` 标签筛选在 GitHub Pages 纯 SSG 下不生效的问题：
+   - 构建时输出全部文章，浏览器根据 `?tag=` 过滤卡片。
+   - 筛选链接使用 `history.pushState` 更新 URL，支持浏览器前进/后退恢复状态。
+   - 动态维护 active tag、首张 featured 卡、系列标题和无结果状态。
+2. 修复 `/news/` 分类、标签和分页在纯 SSG 下不生效的问题：
+   - 构建时输出全部日期分组和新闻条目。
+   - 浏览器端支持 `category + tag` 组合筛选，并保持 URL 可复制、可直接访问。
+   - 分页继续按日期组计算，每页 3 天；筛选改变时自动回到第 1 页。
+   - 支持上一页/下一页、浏览器前进/后退、越界页码归一化和无结果状态。
+3. 验证结果：
+   - `npm run build` 通过，仍生成 54 个 Astro 页面/端点。
+   - Blog：`AI Agent` 显示 11 篇，`LLM推理` 显示 1 篇，URL 与 active 状态同步。
+   - News：默认第 1 页显示 3 个日期组/13 条，第 2 页显示 1 个日期组/4 条。
+   - `工具与应用` 分类显示 3 条；叠加 `AI设计` 后显示 1 条；不兼容组合显示空状态。
+4. 修复 AI Agent recent/all 索引缓存串用：
+   - 缓存键改为实际 news 索引 URL，`news-30d` 与 `news-all` 分开保存。
+   - 缓存 Promise 避免并发重复请求；请求失败时删除对应缓存，允许后续重试。
+   - 增加索引 HTTP 状态检查，失败时提供明确错误。
+5. 修复 Provider 自定义模型被默认值覆盖：
+   - 加载 localStorage 配置时不再触发会重写 model 的 change 事件。
+   - 每个 Provider 在当前页面会话内独立记忆 model，切换回来时恢复原值。
+   - 重置设置时同步恢复各 Provider 默认模型和输入提示。
+6. AI Agent 验证结果：
+   - 保存虚拟 OpenAI 自定义模型后刷新页面，provider、model、Base URL 摘要均正确恢复。
+   - 切换 Claude 时显示 Claude 默认模型，再切回 OpenAI 后恢复自定义模型。
+   - 模拟 recent → all → recent 查询，分别命中 `news-30d`、`news-all`、缓存的 `news-30d`，缓存键数量为 2。
+7. 调通仅允许 Codex 官方客户端的第三方 Provider：
+   - `/v1/models` 可读取 7 个模型，但浏览器直接调用 Chat Completions 和 Responses 均返回 `This account only allows Codex official clients`，且无 CORS。
+   - 使用临时 `CODEX_HOME` 和真实 Codex CLI，通过 `wire_api = "responses"` 成功调用 `gpt-5.6-sol`。
+   - 新增 `scripts/ai-agent-bridge.mjs`：仅监听 `127.0.0.1`，从环境变量读取 Key，临时写入权限为 `0600` 的 Codex auth 文件，退出时删除运行目录。
+   - Bridge 提供 `/health`、`/v1/models`、`/v1/chat/completions`，包含 Origin 白名单、CORS、Private Network 预检、请求大小限制和超时。
+   - AI Agent Provider 新增 `Codex CLI Bridge`，默认连接 `http://127.0.0.1:8787/v1`，不要求浏览器保存 API Key。
+   - 真实端到端验证通过：网站测试连接成功；提问声音克隆文章后，`gpt-5.6-sol` 返回三篇总结，并展示 5 个站内来源，无运行时错误。
+   - 临时 Key 未写入源码、DEVLOG、构建产物或 Git diff。
+
+8. 增加新闻草稿工作流 `/news`：
+   - Agent 面板识别 `/news 主题、事实或来源 URL`，只路由到本地 Codex CLI Bridge 的新闻端点。
+   - 来源 URL 由 Bridge 抓取；直抓失败时回退到 `r.jina.ai`，并阻止 localhost、私网地址和 `.local` 地址。
+   - topic-only 搜索依赖的 Codex 外网搜索在当前环境 DNS 不可用时返回 `verificationStatus: blocked`，不写入未经核验的草稿。
+   - 模型只能根据抓取到的来源生成结构化 JSON；`verificationStatus`、News schema、分类、标签、来源和重复检查均通过后，才写入 `draft: true`。
+   - 草稿写入后自动运行 `npm run build`；构建失败会删除本次新建文件。
+9. 加固新闻日期核验：
+   - 从来源正文提取 `Published Time` / `Date`，并将英文月份按日历文本解析，避免时区转换造成日期前移。
+   - 草稿 `pubDate` 必须与第一来源的主发布日期一致；来源更新日期不得替代主发布日期。
+   - 已覆盖 `Oct 20, 2025`、`October 20, 2025` 与 ISO 日期解析回归检查。
+10. 新闻草稿验证结果：
+   - 曾生成 `src/content/news/claude-code-on-the-web-research-preview.md`，来源为 Anthropic 官方发布页和官方文档。
+   - 草稿保持 `draft: true` 时通过了 News schema 和 `npm run build`，且未进入公开构建输出。
+   - 人工审核发现其主发布日期为 2025-10-20，不符合当前新闻时效要求，已在发布前删除；未执行 `draft: false`、commit 或 push。
+   - 发布默认关闭；未开启发布模式时发布接口返回 HTTP 403。
+11. 临时 Provider 认证轮换后的最终连通性：
+   - 使用新临时凭据重启本地 Bridge，`/health`、`/v1/models` 和真实 `gpt-5.6-sol` Chat Completions 均成功。
+   - Bridge 仍只监听 `127.0.0.1`，认证只存在进程环境与临时 Codex 运行目录，不进入项目文件。
+12. 生成并发布近期新闻：
+   - 从 Anthropic 2026-08-13 官方产品公告生成 `src/content/news/claude-tag-slack-context-update.md`。
+   - 主题为 Claude Tag 扩大 Slack 频道上下文读取范围，官方称主动响应判断提升约 30%。
+   - 已人工对照官方原文核验频道上下文、四种响应动作、自然语言控制、`Respond automatically` 开关、费用边界和 Teams / Enterprise 可用范围。
+   - 经明确批准后，通过 Bridge 发布流程将 `draft: true` 改为 `draft: false`，执行构建、单文件 commit 和 push；发布 commit 为 `69a1121c`。
+
+### 后续优先项
+
+- 首页最近 14 天 news 当前为空，需要决定保留严格时效空状态，还是回退展示最近若干条历史动态。
+- `DEVLOG.md` 仍需继续补齐 2026-07-20 至 2026-08-16 期间的游戏提交历史。
 
 ## 2026-07-20 会话记录（工具专区）
 
