@@ -524,8 +524,8 @@ function buildGround(){
 function blankGrid(){ grid = Array.from({length:N}, () => Array(N).fill(EMPTY)); }
 function setTile(c, r, t){ if(c>=0&&c<N&&r>=0&&r<N) grid[r][c] = t; }
 
-// 四关递进：地图不同，难度逐关上升
-// layout(n) 返回每关的格子布局函数；难度参数随关卡递增
+// 十关递进：地图、敌军强度和基地装甲随关卡升级
+// layout() 返回每关的战场布局；基地护墙由 applyBaseDefense() 统一生成
 const STAGES = [
   { // 1 关：经典对称砖墙
     totalEnemies: 20, enemyMax: 4, enemySpeed: 5.2, enemyFireRand: 0.018, enemyCool: 1.05,
@@ -732,6 +732,38 @@ const STAGES = [
 ];
 const TOTAL_STAGES = STAGES.length;
 
+
+function applyBaseDefense(stageNumber){
+  // 横贯缓冲带保留两条玩家通道；越到后期，堡垒两翼的钢板阵地越完整。
+  for(let c=4;c<=21;c++) if(c!==8 && c!==17) setTile(c,22,BRICK);
+  setTile(8,22,EMPTY); setTile(17,22,EMPTY);
+
+  // 正面中央始终保留两块可破坏砖门，避免钢板把堡垒永久封死。
+  const brickGate=[[12,23],[13,23]];
+  const brickShell=[[11,23],[14,23],[11,24],[14,24]];
+  [...brickGate,...brickShell].forEach(([c,r])=>setTile(c,r,BRICK));
+
+  if(stageNumber>=2){
+    // 第二关开始先加固侧墙，敌军不能从斜侧一炮直取指挥核心。
+    [[11,24],[14,24]].forEach(([c,r])=>setTile(c,r,STEEL));
+  }
+  if(stageNumber>=3){
+    // 中期形成红砖闸门 + 钢制角堡：看得出升级，但正面仍能被逐步攻破。
+    [[11,23],[14,23]].forEach(([c,r])=>setTile(c,r,STEEL));
+  }
+  if(stageNumber>=6){
+    // 后期在缓冲带增加两座钢制肩堡，保护 U 形护墙的转角。
+    [[10,22],[11,22],[14,22],[15,22]].forEach(([c,r])=>setTile(c,r,STEEL));
+  }
+  if(stageNumber>=9){
+    // 最终两关扩展为双层钢翼；中央两格仍是唯一可破坏进攻通道。
+    [[10,23],[15,23],[9,22],[16,22]].forEach(([c,r])=>setTile(c,r,STEEL));
+  }
+
+  // row 25 属于地图外墙，必须保持钢板；旧逻辑曾在这里覆盖成红砖。
+  [[11,25],[12,25],[13,25],[14,25]].forEach(([c,r])=>setTile(c,r,STEEL));
+}
+
 function loadStage(){
   blankGrid();
   // 外墙钢
@@ -739,13 +771,7 @@ function loadStage(){
   // 当前关卡布局
   const s = STAGES[(stage-1) % STAGES.length];
   s.layout();
-  // 通用基地护墙加固：row 22 横贯缓冲砖带 + U 形护墙
-  // row 22 缓冲层：col 4-21 整排砖墙（col 12-13 与护墙留空让玩家可射击下行敌军）
-  for(let c=4;c<=21;c++) if(c!==8 && c!==17) setTile(c,22,BRICK);
-  // 玩家通道 col 8/17 在 row 22 必须空
-  setTile(8,22,EMPTY); setTile(17,22,EMPTY);
-  // U 形护墙 row 23-25
-  [[11,23],[12,23],[13,23],[14,23],[11,24],[14,24],[11,25],[14,25]].forEach(([c,r])=>setTile(c,r,BRICK));
+  applyBaseDefense(stage);
   // 保证出生点空
   SPAWN_COLS.forEach(c=>setTile(c,1,EMPTY));
   [8,17].forEach(c=>{ setTile(c,24,EMPTY); setTile(c,25,EMPTY); });
