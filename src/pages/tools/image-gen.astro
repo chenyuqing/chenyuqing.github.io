@@ -1,0 +1,801 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+
+// 尺寸预设：比例 + 用途场景，像素值与噜皮生图对齐（4:5 / 21:9 按同风格补齐）。
+const sizePresets = [
+  { value: 'auto', zh: '自动', en: 'Auto' },
+  { value: '1024x1024', zh: '1:1 头像/商品', en: '1:1 Avatar/Product' },
+  { value: '1024x1280', zh: '4:5 小红书/海报', en: '4:5 Social poster' },
+  { value: '1024x1365', zh: '3:4 竖版作品', en: '3:4 Portrait art' },
+  { value: '1024x1536', zh: '2:3 人物海报', en: '2:3 Character poster' },
+  { value: '1536x1024', zh: '3:2 横版摄影', en: '3:2 Landscape photo' },
+  { value: '1365x1024', zh: '4:3 配图/插画', en: '4:3 Illustration' },
+  { value: '1920x1088', zh: '16:9 封面/视频', en: '16:9 Cover video' },
+  { value: '1088x1920', zh: '9:16 手机/短视频', en: '9:16 Short video' },
+  { value: '2688x1152', zh: '21:9 横幅/宽屏', en: '21:9 Ultrawide banner' },
+];
+
+// 内置提示词模板（【】内为主题占位，点击后替换成自己的主体）。
+const presets = [
+  {
+    name: '毛绒玩偶',
+    nameEn: 'Plush toy',
+    prompt: '一只【主体】毛绒玩偶，柔软短绒材质，圆润可爱造型，坐在纯色背景前，柔和影棚灯光，轻微投影，3D 渲染，细节丰富',
+  },
+  {
+    name: '微缩场景',
+    nameEn: 'Diorama',
+    prompt: '一个关于【主题】的等距微缩场景，精致小模型风格，柔和布光，浅景深，干净浅色背景，3D 渲染，超高细节',
+  },
+  {
+    name: '绘本插画',
+    nameEn: 'Storybook',
+    prompt: '【主题】手绘儿童绘本插画，温暖柔和色调，蜡笔纹理，笔触松散可爱，米白纸张背景',
+  },
+  {
+    name: '赛博朋克',
+    nameEn: 'Cyberpunk',
+    prompt: '夜晚的【城市】街道，赛博朋克风格，霓虹灯牌在雨后地面反光，行人与飞行器穿梭，电影感构图，高对比冷暖光',
+  },
+  {
+    name: '产品图',
+    nameEn: 'Product shot',
+    prompt: '【产品】商业静物摄影，纯色背景，居中构图，柔和顶光，轻微投影，高级质感，广告级细节',
+  },
+  {
+    name: '水彩画',
+    nameEn: 'Watercolor',
+    prompt: '【主题】水彩画，通透留白，晕染边缘，淡雅色调，纸纹肌理，横幅构图',
+  },
+  {
+    name: '像素艺术',
+    nameEn: 'Pixel art',
+    prompt: '【主题】16-bit 像素艺术游戏画面，复古配色，精细像素排布，横版视角',
+  },
+  {
+    name: '小红书封面',
+    nameEn: 'RedNote cover',
+    prompt: '小红书封面图，大号标题文字「【标题】」，【主题】背景，清新排版，留白呼吸感，暖色系配色',
+  },
+];
+---
+
+<BaseLayout title="AI 生图 · 工具" description="用自配 API 在线生成图片，默认模型 gpt-image-2，全部在浏览器完成。">
+  <main id="content" class="tool-page">
+    <section class="shell tool-top">
+      <a class="tool-back" href="/tools/">
+        <span class="lang-zh">← 返回工具箱</span>
+        <span class="lang-en">← Back to Tools</span>
+      </a>
+      <p class="tool-eyebrow"><span class="lang-zh">图像工具</span><span class="lang-en">Image Utility</span></p>
+      <h1><span class="lang-zh">AI 生图</span><span class="lang-en">AI Image Studio</span></h1>
+      <p class="tool-lead">
+        <span class="lang-zh">浏览器直连你自己的 OpenAI 兼容图片接口，默认模型 gpt-image-2。API 配置只保存在本机浏览器。</span>
+        <span class="lang-en">Calls your own OpenAI-compatible image API straight from the browser, model gpt-image-2 by default. Credentials stay in this browser.</span>
+      </p>
+    </section>
+
+    <section class="shell tool-panel">
+      <div class="result-area" id="result-area">
+        <div class="result-head">
+          <span class="result-title"><span class="lang-zh">生成结果</span><span class="lang-en">Result</span></span>
+          <span class="field-meta" id="result-meta"></span>
+        </div>
+        <div class="result-empty" id="result-empty">
+          <p class="result-empty-icon" aria-hidden="true">▦</p>
+          <p class="result-empty-hint">
+            <span class="lang-zh">生成的图片会固定显示在这里：先在下方填写画面描述，再点「生成图片」。</span>
+            <span class="lang-en">Your image will appear here. Write a prompt below and hit Generate.</span>
+          </p>
+        </div>
+        <div class="result-frame" id="result-frame" hidden>
+          <img id="result-img" alt="" />
+        </div>
+        <div class="action-row" id="result-actions" hidden>
+          <button class="tool-btn" type="button" id="btn-download">
+            <span class="lang-zh">下载图片</span><span class="lang-en">Download</span>
+          </button>
+          <a class="tool-btn tool-link" id="btn-open" href="#" target="_blank" rel="noreferrer" hidden>
+            <span class="lang-zh">新标签打开原图</span><span class="lang-en">Open original</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="settings-block">
+      <div class="settings-block">
+        <button type="button" id="settings-toggle" class="settings-head" aria-expanded="false" aria-controls="settings-body">
+          <span class="settings-title">
+            <span class="lang-zh">接口设置</span><span class="lang-en">API settings</span>
+          </span>
+          <span class="settings-summary" id="settings-summary"></span>
+          <b class="settings-caret" aria-hidden="true">▾</b>
+        </button>
+        <div id="settings-body" class="settings-body" hidden>
+          <label class="field-row">
+            <span class="field-label"><span class="lang-zh">Base URL</span><span class="lang-en">Base URL</span></span>
+            <input id="cfg-base-url" type="url" placeholder="https://api.example.com/v1" autocomplete="off" spellcheck="false" />
+          </label>
+          <label class="field-row">
+            <span class="field-label"><span class="lang-zh">API Key</span><span class="lang-en">API key</span></span>
+            <input id="cfg-api-key" type="password" placeholder="sk-..." autocomplete="off" />
+          </label>
+          <label class="field-row">
+            <span class="field-label"><span class="lang-zh">模型</span><span class="lang-en">Model</span></span>
+            <input id="cfg-model" type="text" placeholder="gpt-image-2" value="gpt-image-2" autocomplete="off" spellcheck="false" />
+          </label>
+          <label class="field-row">
+            <span class="field-label"><span class="lang-zh">CORS 代理（可选）</span><span class="lang-en">CORS proxy (optional)</span></span>
+            <input id="cfg-cors-proxy" type="url" placeholder="http://127.0.0.1:8789/proxy/{url}" autocomplete="off" spellcheck="false" />
+          </label>
+          <p class="settings-note">
+            <span class="lang-zh">接口不支持浏览器直连（CORS）时填代理地址，&#123;url&#125; 会替换为编码后的接口地址。本地中转：先运行 npm run image:relay，再填 http://127.0.0.1:8789/proxy/&#123;url&#125;。留空则直连。密钥仅存于 localStorage，不会上传到站点。</span>
+            <span class="lang-en">If the endpoint blocks browser calls (CORS), enter a proxy prefix; &#123;url&#125; is replaced with the encoded target URL. For a local relay: run npm run image:relay first, then use http://127.0.0.1:8789/proxy/&#123;url&#125;. Leave empty to connect directly. The key is stored only in localStorage.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-head">
+          <label for="prompt-text" id="prompt-label">
+            <span class="lang-zh">画面描述</span><span class="lang-en">Prompt</span>
+          </label>
+          <span class="field-meta" id="prompt-count">0</span>
+        </div>
+        <textarea id="prompt-text" rows="5" spellcheck="false" placeholder="描述想生成的画面，越具体越好…"></textarea>
+        <div class="preset-row" aria-label="预设提示词">
+          <span class="preset-label"><span class="lang-zh">预设</span><span class="lang-en">Presets</span></span>
+          {presets.map((preset) => (
+            <button type="button" class="preset-chip" data-prompt={preset.prompt}>
+              <span class="lang-zh">{preset.name}</span>
+              <span class="lang-en">{preset.nameEn}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <label class="control">
+          <span class="control-label"><span class="lang-zh">尺寸</span><span class="lang-en">Size</span></span>
+          <select id="cfg-size">
+            {sizePresets.map((preset) => (
+              <option value={preset.value} data-zh={preset.zh} data-en={preset.en}>{preset.zh}</option>
+            ))}
+          </select>
+        </label>
+        <label class="control">
+          <span class="control-label"><span class="lang-zh">质量</span><span class="lang-en">Quality</span></span>
+          <select id="cfg-quality">
+            <option value="auto">auto</option>
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="action-row">
+        <button class="tool-btn tool-btn-primary" type="button" id="btn-generate">
+          <span class="lang-zh">生成图片</span><span class="lang-en">Generate</span>
+        </button>
+        <button class="tool-btn" type="button" id="btn-clear-prompt">
+          <span class="lang-zh">清空描述</span><span class="lang-en">Clear prompt</span>
+        </button>
+      </div>
+
+      <p class="status-line" id="status-line" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <style>
+    [hidden] { display: none !important; }
+    .tool-page {
+      min-height: 100dvh;
+      padding: 6.2rem 0 4.5rem;
+      background: #11100d;
+      color: #eee4cc;
+    }
+    .tool-top { margin-bottom: 1.2rem; }
+    .tool-back {
+      display: inline-flex;
+      margin-bottom: 1.1rem;
+      color: #d1a843;
+      text-decoration: none;
+      font: 700 .78rem/1 var(--font-body);
+      letter-spacing: .06em;
+    }
+    .tool-back:hover { color: #f0cf76; }
+    .tool-eyebrow {
+      margin: 0 0 .5rem;
+      color: #b69a61;
+      font: 700 .72rem/1.3 var(--font-body);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .tool-top h1 {
+      margin: 0 0 .65rem;
+      color: #f4e8cb;
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      line-height: 1;
+    }
+    .tool-lead {
+      margin: 0;
+      max-width: 42rem;
+      color: #c9bda2;
+      line-height: 1.65;
+    }
+    .tool-panel {
+      border: 1px solid rgba(240, 223, 179, .22);
+      border-radius: 10px;
+      background: #1b1914;
+      padding: 1.25rem;
+    }
+
+    /* settings */
+    .settings-block {
+      margin-bottom: 1.15rem;
+      border: 1px solid rgba(240, 223, 179, .16);
+      border-radius: 8px;
+      background: #16130f;
+    }
+    .settings-head {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: .7rem;
+      padding: .8rem .95rem;
+      border: 0;
+      background: transparent;
+      color: #e8dcc0;
+      cursor: pointer;
+      text-align: left;
+    }
+    .settings-head:hover .settings-title { color: #f0cf76; }
+    .settings-title {
+      font: 700 .8rem/1 var(--font-body);
+      letter-spacing: .04em;
+    }
+    .settings-summary {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      color: #9d8f72;
+      font: .75rem/1.3 var(--font-mono);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .settings-caret { transition: transform .18s ease; }
+    .settings-head[aria-expanded='true'] .settings-caret { transform: rotate(180deg); }
+    .settings-body {
+      display: grid;
+      gap: .75rem;
+      padding: .35rem .95rem .95rem;
+    }
+    .field-row {
+      display: grid;
+      gap: .35rem;
+    }
+    .field-label {
+      color: #f0e2c0;
+      font: 700 .78rem/1 var(--font-body);
+      letter-spacing: .04em;
+    }
+    .settings-note {
+      margin: 0;
+      color: #9d8f72;
+      font-size: .78rem;
+      line-height: 1.55;
+    }
+    input, select {
+      width: 100%;
+      border: 1px solid rgba(240, 223, 179, .2);
+      border-radius: 8px;
+      background: #12100c;
+      color: #f4e8cb;
+      padding: .65rem .8rem;
+      font: .9rem/1.4 var(--font-mono);
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: #d1a843;
+      box-shadow: 0 0 0 2px rgba(209, 168, 67, .18);
+    }
+    select { cursor: pointer; }
+
+    /* prompt */
+    .field-block { margin-bottom: 1rem; }
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .45rem;
+    }
+    .field-head label {
+      color: #f0e2c0;
+      font: 700 .82rem/1 var(--font-body);
+      letter-spacing: .04em;
+    }
+    .field-meta {
+      color: #9d8f72;
+      font: .75rem/1 var(--font-mono);
+    }
+    textarea {
+      width: 100%;
+      resize: vertical;
+      min-height: 7.5rem;
+      border: 1px solid rgba(240, 223, 179, .2);
+      border-radius: 8px;
+      background: #12100c;
+      color: #f4e8cb;
+      padding: .95rem 1rem;
+      font: .95rem/1.55 var(--font-body);
+      outline: none;
+    }
+    textarea:focus {
+      border-color: #d1a843;
+      box-shadow: 0 0 0 2px rgba(209, 168, 67, .18);
+    }
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .45rem;
+      margin-top: .65rem;
+    }
+    .preset-label {
+      color: #9d8f72;
+      font: 700 .74rem/1 var(--font-body);
+      letter-spacing: .06em;
+    }
+    .preset-chip {
+      border: 1px solid rgba(240, 223, 179, .24);
+      background: transparent;
+      color: #e8dcc0;
+      border-radius: 9999px;
+      padding: .38rem .75rem;
+      font: .76rem/1.2 var(--font-body);
+      cursor: pointer;
+    }
+    .preset-chip:hover {
+      border-color: #d1a843;
+      color: #f0cf76;
+    }
+    .preset-chip.is-active {
+      background: rgba(209, 168, 67, .16);
+      border-color: #d1a843;
+      color: #f0cf76;
+    }
+
+    /* controls & actions */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+      margin-bottom: 1rem;
+    }
+    .control {
+      display: grid;
+      flex: 1 1 12rem;
+      min-width: 0;
+      gap: .35rem;
+    }
+    .control-label {
+      color: #f0e2c0;
+      font: 700 .78rem/1 var(--font-body);
+      letter-spacing: .04em;
+    }
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin: .2rem 0 1rem;
+    }
+    .result-panel .action-row { margin-bottom: 0; }
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(240, 223, 179, .24);
+      background: transparent;
+      color: #e8dcc0;
+      border-radius: 8px;
+      padding: .7rem 1rem;
+      font: 700 .8rem/1 var(--font-body);
+      letter-spacing: .04em;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .tool-btn:hover { border-color: #d1a843; color: #f0cf76; }
+    .tool-btn-primary {
+      background: #d1a843;
+      border-color: #d1a843;
+      color: #1a1408;
+    }
+    .tool-btn-primary:hover { filter: brightness(1.06); color: #1a1408; }
+    .tool-btn:disabled {
+      opacity: .55;
+      cursor: progress;
+      filter: none;
+    }
+    .status-line {
+      min-height: 1.2rem;
+      margin: .2rem 0 0;
+      color: #b69a61;
+      font-size: .85rem;
+    }
+    .status-line.is-error { color: #e18a7a; }
+    .status-line.is-ok { color: #8fbf8a; }
+
+    /* result */
+    .result-area {
+      margin-bottom: 1.15rem;
+      padding-bottom: 1.1rem;
+      border-bottom: 1px solid rgba(240, 223, 179, .16);
+    }
+    .result-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .6rem;
+    }
+    .result-title {
+      color: #f0e2c0;
+      font: 700 .82rem/1 var(--font-body);
+      letter-spacing: .04em;
+    }
+    #result-meta {
+      color: #9d8f72;
+      font: .75rem/1 var(--font-mono);
+    }
+    .result-empty {
+      display: grid;
+      justify-items: center;
+      gap: .55rem;
+      border: 1px dashed rgba(240, 223, 179, .28);
+      border-radius: 8px;
+      background: #12100c;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .result-empty-icon {
+      margin: 0;
+      color: rgba(209, 168, 67, .45);
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .result-empty-hint {
+      max-width: 30rem;
+      margin: 0;
+      color: #9d8f72;
+      font-size: .85rem;
+      line-height: 1.65;
+    }
+    .result-frame {
+      border: 1px solid rgba(240, 223, 179, .16);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(212, 160, 23, .1), transparent 45%),
+        #12100c;
+      padding: .8rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .result-frame img {
+      display: inline-block;
+      max-width: 100%;
+      max-height: 70vh;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    .lang-en { display: none; }
+    :global(html[data-lang='en']) .lang-zh { display: none; }
+    :global(html[data-lang='en']) .lang-en { display: inline; }
+    @media (max-width: 720px) {
+      .tool-page { padding: 4.4rem 0 3rem; }
+      .tool-panel { padding: 1rem; }
+      .action-row .tool-btn { flex: 1 1 calc(50% - .3rem); }
+      .controls-row { flex-direction: column; }
+      .control { flex-basis: auto; }
+    }
+  </style>
+
+  <script>
+    const root = document.documentElement;
+    const STORAGE_KEY = 'image-gen-config-v1';
+
+    const settingsToggle = document.getElementById('settings-toggle');
+    const settingsBody = document.getElementById('settings-body');
+    const settingsSummary = document.getElementById('settings-summary');
+    const baseUrlInput = document.getElementById('cfg-base-url');
+    const apiKeyInput = document.getElementById('cfg-api-key');
+    const modelInput = document.getElementById('cfg-model');
+    const corsProxyInput = document.getElementById('cfg-cors-proxy');
+    const promptInput = document.getElementById('prompt-text');
+    const promptCount = document.getElementById('prompt-count');
+    const sizeSelect = document.getElementById('cfg-size');
+    const qualitySelect = document.getElementById('cfg-quality');
+    const generateBtn = document.getElementById('btn-generate');
+    const clearPromptBtn = document.getElementById('btn-clear-prompt');
+    const statusLine = document.getElementById('status-line');
+    const resultArea = document.getElementById('result-area');
+    const resultEmpty = document.getElementById('result-empty');
+    const resultFrame = document.getElementById('result-frame');
+    const resultActions = document.getElementById('result-actions');
+    const resultMeta = document.getElementById('result-meta');
+    const resultImg = document.getElementById('result-img');
+    const downloadBtn = document.getElementById('btn-download');
+    const openLink = document.getElementById('btn-open');
+
+    const isEn = () => root.getAttribute('data-lang') === 'en';
+    const t = (zh, en) => (isEn() ? en : zh);
+
+    let lastResult = null; // { kind: 'b64' | 'url', data }
+    let timerId = null;
+
+    const setStatus = (message, kind = '') => {
+      statusLine.textContent = message;
+      statusLine.classList.toggle('is-ok', kind === 'ok');
+      statusLine.classList.toggle('is-error', kind === 'error');
+    };
+
+    /* ---- config persistence ---- */
+    const loadConfig = () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const c = JSON.parse(raw);
+        if (typeof c.baseUrl === 'string') baseUrlInput.value = c.baseUrl;
+        if (typeof c.apiKey === 'string') apiKeyInput.value = c.apiKey;
+        if (typeof c.model === 'string' && c.model.trim()) modelInput.value = c.model.trim();
+        if (typeof c.corsProxy === 'string') corsProxyInput.value = c.corsProxy;
+      } catch {}
+    };
+
+    const saveConfig = () => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          baseUrl: baseUrlInput.value.trim(),
+          apiKey: apiKeyInput.value,
+          model: modelInput.value.trim(),
+          corsProxy: corsProxyInput.value.trim(),
+        }));
+      } catch {}
+    };
+
+    const updateSummary = () => {
+      const base = baseUrlInput.value.trim();
+      let host = t('未配置 Base URL', 'no base URL');
+      if (base) {
+        try {
+          host = new URL(base).host;
+        } catch {
+          host = base.replace(/^https?:\/\//, '').split('/')[0] || base;
+        }
+      }
+      const masked = apiKeyInput.value ? '••••' : t('无密钥', 'no key');
+      const via = corsProxyInput.value.trim()
+        ? t('代理', 'proxy')
+        : t('直连', 'direct');
+      settingsSummary.textContent = `${host} · ${modelInput.value.trim() || 'gpt-image-2'} · ${masked} · ${via}`;
+    };
+
+    [baseUrlInput, apiKeyInput, modelInput, corsProxyInput].forEach((el) => {
+      el.addEventListener('change', () => {
+        saveConfig();
+        updateSummary();
+        setStatus(t('设置已保存到本机。', 'Settings saved locally.'), 'ok');
+      });
+    });
+
+    settingsToggle.addEventListener('click', () => {
+      const nextOpen = settingsBody.hidden;
+      settingsBody.hidden = !nextOpen;
+      settingsToggle.setAttribute('aria-expanded', String(nextOpen));
+    });
+
+    /* ---- generation ---- */
+    const targetEndpoint = () => baseUrlInput.value.trim().replace(/\/+$/, '') + '/images/generations';
+
+    const requestUrl = () => {
+      const target = targetEndpoint();
+      const tpl = corsProxyInput.value.trim();
+      if (!tpl) return target;
+      return tpl.includes('{url}')
+        ? tpl.replace('{url}', encodeURIComponent(target))
+        : tpl + encodeURIComponent(target);
+    };
+
+    const extractErrorMessage = async (res) => {
+      const text = await res.text();
+      try {
+        const json = JSON.parse(text);
+        return json?.error?.message || json?.error || json?.message || text;
+      } catch {
+        return text;
+      }
+    };
+
+    const startTimer = () => {
+      const startedAt = Date.now();
+      timerId = window.setInterval(() => {
+        const seconds = Math.floor((Date.now() - startedAt) / 1000);
+        setStatus(t(`正在生成图片… ${seconds}s`, `Generating image… ${seconds}s`));
+      }, 1000);
+    };
+
+    const stopTimer = () => {
+      if (timerId) {
+        window.clearInterval(timerId);
+        timerId = null;
+      }
+    };
+
+    const showResult = (result) => {
+      lastResult = result;
+      resultImg.src = result.kind === 'b64' ? `data:image/png;base64,${result.data}` : result.data;
+      openLink.hidden = result.kind !== 'url';
+      if (result.kind === 'url') openLink.href = result.data;
+      const sizeText = sizeSelect.value === 'auto' ? t('自动尺寸', 'auto size') : sizeSelect.value;
+      const qualityText = qualitySelect.selectedOptions[0]?.textContent?.trim() || qualitySelect.value;
+      resultMeta.textContent = `${modelInput.value.trim() || 'gpt-image-2'} · ${sizeText} · ${qualityText}`;
+      resultEmpty.hidden = true;
+      resultFrame.hidden = false;
+      resultActions.hidden = false;
+      resultArea?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+
+    const generate = async () => {
+      if (!baseUrlInput.value.trim()) {
+        setStatus(t('请先展开「接口设置」填写 Base URL 和 API Key。', 'Open “API settings” and fill in the Base URL and API key first.'), 'error');
+        settingsBody.hidden = false;
+        settingsToggle.setAttribute('aria-expanded', 'true');
+        return;
+      }
+      const prompt = promptInput.value.trim();
+      if (!prompt) {
+        setStatus(t('请先输入画面描述。', 'Please describe the image first.'), 'error');
+        return;
+      }
+
+      saveConfig();
+      generateBtn.disabled = true;
+      startTimer();
+      setStatus(t('正在生成图片…', 'Generating image…'));
+
+      try {
+        const res = await fetch(requestUrl(), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${apiKeyInput.value}`,
+          },
+          body: JSON.stringify({
+            model: modelInput.value.trim() || 'gpt-image-2',
+            prompt,
+            size: sizeSelect.value,
+            quality: qualitySelect.value,
+            n: 1,
+          }),
+        });
+
+        if (!res.ok) {
+          const message = await extractErrorMessage(res);
+          setStatus(`${res.status}: ${String(message).slice(0, 240)}`, 'error');
+          return;
+        }
+
+        const json = await res.json();
+        const item = Array.isArray(json?.data) ? json.data[0] : null;
+        if (item?.b64_json) {
+          showResult({ kind: 'b64', data: item.b64_json });
+          setStatus(t('生成完成。', 'Image generated.'), 'ok');
+        } else if (item?.url) {
+          showResult({ kind: 'url', data: item.url });
+          setStatus(t('生成完成。', 'Image generated.'), 'ok');
+        } else {
+          setStatus(t('接口返回中没有图片数据。', 'The response contains no image data.'), 'error');
+        }
+      } catch (err) {
+        const message = err?.message || String(err);
+        if (/Failed to fetch|NetworkError|Load failed/i.test(message)) {
+          setStatus(t('请求被浏览器拦截或网络失败：通常是 CORS 未开放、Base URL 不对或密钥无效。', 'Request blocked or network failed: usually CORS, a wrong Base URL, or an invalid key.'), 'error');
+        } else {
+          setStatus(t('出错了：', 'Error: ') + message);
+        }
+      } finally {
+        stopTimer();
+        generateBtn.disabled = false;
+      }
+    };
+
+    /* ---- helpers ---- */
+    const download = async () => {
+      if (!lastResult) return;
+      const filename = `image-gen-${Date.now()}.png`;
+      if (lastResult.kind === 'b64') {
+        const bin = atob(lastResult.data);
+        const bytes = Uint8Array.from(bin, (ch) => ch.charCodeAt(0));
+        const blob = new Blob([bytes], { type: 'image/png' });
+        const href = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = href;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(href);
+        return;
+      }
+      try {
+        const res = await fetch(lastResult.data);
+        const blob = await res.blob();
+        const href = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = href;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(href);
+      } catch {
+        window.open(lastResult.data, '_blank', 'noreferrer');
+      }
+    };
+
+    generateBtn.addEventListener('click', generate);
+    clearPromptBtn.addEventListener('click', () => {
+      promptInput.value = '';
+      promptCount.textContent = '0';
+      clearActivePreset();
+      setStatus(t('已清空描述。', 'Prompt cleared.'), 'ok');
+    });
+    downloadBtn.addEventListener('click', download);
+    promptInput.addEventListener('input', () => {
+      promptCount.textContent = String(promptInput.value.length);
+    });
+    promptInput.addEventListener('keydown', (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+        event.preventDefault();
+        generate();
+      }
+    });
+
+    /* ---- preset prompts ---- */
+    const presetChips = Array.from(document.querySelectorAll('.preset-chip'));
+    const clearActivePreset = () => {
+      presetChips.forEach((chip) => chip.classList.remove('is-active'));
+    };
+    presetChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const template = chip.dataset.prompt || '';
+        promptInput.value = template;
+        promptCount.textContent = String(template.length);
+        clearActivePreset();
+        chip.classList.add('is-active');
+        setStatus(t('已填入预设模板，把【】里的内容替换成你的主体。', 'Preset filled. Replace the 【】 placeholders with your subject.'), 'ok');
+        promptInput.focus();
+      });
+    });
+
+    const applyMeta = () => {
+      document.title = t('AI 生图 · 工具', 'AI Image Studio · Tools');
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        t('用自配 API 在线生成图片，默认模型 gpt-image-2。', 'Generate images online via your own API, model gpt-image-2 by default.'),
+      );
+      promptInput.placeholder = t('描述想生成的画面，越具体越好…', 'Describe the image you want, the more specific the better…');
+      // 原生 <option> 不受 CSS 显隐控制，选项文案随语言切换
+      const qualityLabels = isEn()
+        ? ['Auto', 'Low', 'Medium', 'High']
+        : ['自动', '低', '中', '高'];
+      Array.from(qualitySelect.options).forEach((opt, index) => {
+        opt.textContent = qualityLabels[index] || opt.value;
+      });
+      Array.from(sizeSelect.options).forEach((opt) => {
+        opt.textContent = isEn() ? (opt.dataset.en || opt.value) : (opt.dataset.zh || opt.value);
+      });
+    };
+
+    loadConfig();
+    updateSummary();
+    applyMeta();
+    new MutationObserver(applyMeta).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+  </script>
+</BaseLayout>

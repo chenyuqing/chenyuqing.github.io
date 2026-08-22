@@ -71,6 +71,31 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [x] 5 个产品上线：Subtitle Maker / Clip Agent / ASD Pipeline / VoiceWave Profile / Tonghua
 - [x] 新增游戏专区与 3D 中国象棋
 - [x] 新增工具专区 `/tools/`，首个工具：Base64 编解码
+- [x] 新增 AI 生图工具 `/tools/image-gen/`（gpt-image-2）
+
+## 2026-08-22 会话记录（AI 生图工具）
+
+### 今天完成
+
+1. 新增 `/tools/image-gen/` 在线生图工具，参考 test.mlgb7.com/#/studio 的极简交互：
+   - 浏览器直连用户自配的 OpenAI 兼容图片接口 `POST {base}/images/generations`，默认模型 `gpt-image-2`。
+   - 配置（Base URL / API Key / 模型 / CORS 代理）存 localStorage `image-gen-config-v1`，change 时自动保存，设置头显示 host·model·密钥掩码·直连/代理摘要。
+   - 尺寸预设 10 档（对齐噜皮生图表）：auto / 1:1 / 4:5 / 3:4 / 2:3 / 3:2 / 4:3 / 16:9 / 9:16 / 21:9，标签双语随语言切换（原生 option 用 data-zh/data-en + JS 换文案）。
+   - 质量（自动/低/中/高）、n 固定 1；结果兼容 `b64_json` 与 `url` 两种返回；下载 b64 转 Blob，url 走 fetch→Blob、失败降级新标签打开。
+   - 固定「生成结果」预览区：位于面板顶部始终可见，空态为虚线占位提示；出图后替换为图片 + 模型/尺寸/质量 meta + 下载/打开原图操作，并平滑滚动定位。
+   - 预设提示词 8 组（毛绒玩偶/微缩场景/绘本插画/赛博朋克/产品图/水彩/像素/小红书封面），点击填入模板、【】占位替换主体。噜皮的提示词库接口 `/api/prompts` 需登录（401），无法爬取，改为内置等价模板。
+   - 生成中按钮禁用 + 秒数计时；错误区分 HTTP 状态、CORS/网络拦截、无图片数据；⌘/Ctrl+Enter 触发生成。
+2. `/tools/` 入口页新增「AI 生图」卡片（icon GEN），排在 Base64 之前。
+3. 新增 CORS 中转 `scripts/image-cors-relay.mjs`（`npm run image:relay`）：
+   - 仅监听 127.0.0.1:8789，路径 `/proxy/{encoded-url}`，转发方法/Content-Type/Authorization/body 并补 CORS 头。
+   - Origin 白名单（localhost:4321 / chenyuqing.github.io 等，env 可覆盖）、禁 file://、20MB body 上限、5 分钟超时；已用本地 echo 服务验证 POST + Authorization 透传。
+   - 页面设置里填 `http://127.0.0.1:8789/proxy/{url}` 即可调用不支持 CORS 的接口。
+4. 排版修复与验证：
+   - 修复页面漏引 `global.css` 导致整页裸样式（header 裸奔、内容撑出屏幕）。
+   - 修复 `[hidden]` 被 scoped display 覆盖：加 `[hidden]{display:none!important}`，设置面板初始折叠、打开原图按钮初始隐藏。
+   - 修复 Astro 模板里未转义的 `{url}` 被当表达式求值导致 ReferenceError（改用 HTML 实体）。
+   - 移动端 390px 用 CDP 设备仿真验证无横向溢出（此前截图"裁切"是无头 Chrome 最小窗口宽造成的假象）；设置摘要 min-width:0 截断、尺寸/质量窄屏纵向堆叠。
+   - `npm run build` 通过（56 页），中转脚本 `node --check` 通过。真实生图端到端需用户提供接口与 Key。
 
 ## 2026-08-19 会话记录（修复纯 SSG 筛选、分页与 AI Agent 状态）
 

@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "backup:markdown": "node scripts/export-posts-to-markdown.mjs",
-    "agent:bridge": "node scripts/ai-agent-bridge.mjs"
+    "agent:bridge": "node scripts/ai-agent-bridge.mjs",
+    "image:relay": "node scripts/image-cors-relay.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
