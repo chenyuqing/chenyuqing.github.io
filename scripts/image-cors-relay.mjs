@@ -4,6 +4,7 @@
 // 仅监听 127.0.0.1，不落盘任何数据；Authorization 等头由浏览器原样带来、原样转发。
 
 import { createServer } from 'node:http';
+import { execFile } from 'node:child_process';
 
 const HOST = process.env.IMAGE_RELAY_HOST || '127.0.0.1';
 const PORT = Number(process.env.IMAGE_RELAY_PORT || 8789);
@@ -66,6 +67,43 @@ const extractTarget = (url) => {
   return '';
 };
 
+// curl 转发通道：部分网络环境下 Node fetch 的长请求（~60s 同步生图）会被中间设备
+// 按 TLS 指纹/空闲连接重置，而 curl --http1.1 实测稳定完成。响应整包缓冲后回写。
+const viaCurl = (targetUrl, method, headers, body) =>
+  new Promise((resolve, reject) => {
+    const args = [
+      '--http1.1', '-sS', '-i',
+      '--max-time', String(Math.ceil(TIMEOUT_MS / 1000)),
+      '-X', method, targetUrl.toString(),
+    ];
+    for (const [name, value] of Object.entries(headers)) {
+      if (name !== 'host' && name !== 'content-length') args.push('-H', `${name}: ${value}`);
+    }
+    let stdinBody = null;
+    if (body !== undefined && body.length > 0) {
+      args.push('--data-binary', '@-');
+      stdinBody = body;
+    }
+    const child = execFile('curl', args, { maxBuffer: 96 * 1024 * 1024, encoding: 'buffer' }, (err, stdout) => {
+      const sep = stdout ? stdout.indexOf('\r\n\r\n') : -1;
+      if (!stdout || sep === -1) {
+        reject(err || new Error('curl produced no response.'));
+        return;
+      }
+      const headRaw = stdout.slice(0, sep).toString('utf8');
+      const buffer = stdout.slice(sep + 4);
+      const statusMatch = headRaw.split('\r\n')[0].match(/ (\d{3}) /);
+      const contentTypeLine = headRaw.split('\r\n').find((line) => /^content-type:/i.test(line));
+      resolve({
+        status: statusMatch ? Number(statusMatch[1]) : 502,
+        contentType: contentTypeLine ? contentTypeLine.split(':').slice(1).join(':').trim() : 'application/octet-stream',
+        buffer,
+      });
+    });
+    if (stdinBody) child.stdin.write(stdinBody);
+    child.stdin.end();
+  });
+
 const server = createServer(async (req, res) => {
   const origin = req.headers.origin || '';
 
@@ -105,20 +143,14 @@ const server = createServer(async (req, res) => {
       if (value) headers[name] = value;
     }
 
-    const upstream = await fetch(targetUrl, {
-      method: req.method,
-      headers,
-      body,
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-    });
-
-    const buffer = Buffer.from(await upstream.arrayBuffer());
-    res.writeHead(upstream.status, {
-      'Content-Type': upstream.headers.get('content-type') || 'application/octet-stream',
+    // 统一 curl --http1.1 转发
+    const r = await viaCurl(targetUrl, req.method, headers, body);
+    res.writeHead(r.status, {
+      'Content-Type': r.contentType,
       'Cache-Control': 'no-store',
       ...corsHeaders(origin),
     });
-    res.end(buffer);
+    res.end(r.buffer);
   } catch (error) {
     const status = Number(error?.statusCode) || (error?.name === 'TimeoutError' ? 504 : 502);
     sendJson(res, status, { error: { message: error?.message || 'Relay request failed.' } }, origin);

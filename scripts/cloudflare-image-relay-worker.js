@@ -4,7 +4,7 @@
  * 部署步骤（Dashboard 方式）：
  *   1. dash.cloudflare.com → Workers & Pages → image-relay → Edit code
  *   2. 用本文件全部内容替换编辑器里的代码，再 Deploy
- *   3. 工具「CORS 代理」填：https://image-relay.motoleisure7983.workers.dev/?url={url}
+ *   3. 工具「CORS 代理」填：https://imgen.wldss.shop/?url={url}
  *   4. （可选）Settings → Variables → ALLOWED_ORIGINS 追加额外站点（逗号分隔）
  *
  * 说明：
