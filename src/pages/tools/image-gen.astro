@@ -127,6 +127,17 @@ const presets = [
             </button>
           ))}
         </div>
+        <div class="ref-row">
+          <label class="ref-btn" for="ref-input">
+            <span class="lang-zh">📎 上传参考图</span><span class="lang-en">📎 Add reference</span>
+          </label>
+          <input id="ref-input" type="file" accept=".jpg,.jpeg,.png,.webp,.gif,image/jpeg,image/png,image/webp,image/gif" multiple hidden />
+          <span class="field-meta" id="ref-meta">
+            <span class="lang-zh">选图后走「编辑图片」接口（最多 16 张）</span>
+            <span class="lang-en">Images switch to the edits endpoint (up to 16)</span>
+          </span>
+        </div>
+        <div class="ref-list" id="ref-list" hidden></div>
       </div>
 
       <div class="controls-row">
@@ -342,6 +353,56 @@ const presets = [
       gap: .45rem;
       margin-top: .65rem;
     }
+    /* reference images */
+    .ref-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .7rem;
+      margin-top: .8rem;
+    }
+    .ref-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: .42rem .85rem;
+      border: 1px dashed rgba(240, 223, 179, .4);
+      border-radius: 999px;
+      font-size: .82rem;
+      color: #e9d9a8;
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .ref-btn:hover { border-color: #d1a843; background: rgba(209, 168, 67, .12); }
+    .ref-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+      gap: .55rem;
+      margin-top: .75rem;
+    }
+    .ref-thumb {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(240, 223, 179, .25);
+      background: #0d0b09;
+    }
+    .ref-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ref-thumb-remove {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(17, 16, 13, .82);
+      color: #f0cf76;
+      font-size: .78rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .ref-thumb-remove:hover { background: #d1a843; color: #11100d; }
     .preset-label {
       color: #9d8f72;
       font: 700 .74rem/1 var(--font-body);
@@ -517,6 +578,9 @@ const presets = [
     const qualitySelect = document.getElementById('cfg-quality');
     const generateBtn = document.getElementById('btn-generate');
     const clearPromptBtn = document.getElementById('btn-clear-prompt');
+    const refInput = document.getElementById('ref-input');
+    const refList = document.getElementById('ref-list');
+    const refMeta = document.getElementById('ref-meta');
     const statusLine = document.getElementById('status-line');
     const resultArea = document.getElementById('result-area');
     const resultEmpty = document.getElementById('result-empty');
@@ -540,15 +604,30 @@ const presets = [
     };
 
     /* ---- config persistence ---- */
+    const DEFAULT_CORS_PROXY = 'https://image-relay.motoleisure7983.workers.dev/?url={url}';
+    const CONFIG_VERSION = 2; // v2: 引入 CORS 代理默认值
+
     const loadConfig = () => {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
+        if (!raw) {
+          corsProxyInput.value = DEFAULT_CORS_PROXY;
+          return;
+        }
         const c = JSON.parse(raw);
         if (typeof c.baseUrl === 'string') baseUrlInput.value = c.baseUrl;
         if (typeof c.apiKey === 'string') apiKeyInput.value = c.apiKey;
         if (typeof c.model === 'string' && c.model.trim()) modelInput.value = c.model.trim();
-        if (typeof c.corsProxy === 'string') corsProxyInput.value = c.corsProxy;
+        if (c.configVersion === CONFIG_VERSION) {
+          // 新版配置：用户改过代理就尊重（含故意清空）
+          if (typeof c.corsProxy === 'string') corsProxyInput.value = c.corsProxy;
+          else corsProxyInput.value = DEFAULT_CORS_PROXY;
+        } else {
+          // 旧版配置迁移：补默认代理并升级版本号
+          corsProxyInput.value =
+            typeof c.corsProxy === 'string' && c.corsProxy.trim() ? c.corsProxy : DEFAULT_CORS_PROXY;
+          saveConfig();
+        }
       } catch {}
     };
 
@@ -595,16 +674,59 @@ const presets = [
     });
 
     /* ---- generation ---- */
-    const targetEndpoint = () => baseUrlInput.value.trim().replace(/\/+$/, '') + '/images/generations';
+    const targetEndpoint = (path) => baseUrlInput.value.trim().replace(/\/+$/, '') + '/' + path;
 
-    const requestUrl = () => {
-      const target = targetEndpoint();
+    const requestUrl = (path) => {
+      const target = targetEndpoint(path);
       const tpl = corsProxyInput.value.trim();
       if (!tpl) return target;
       return tpl.includes('{url}')
         ? tpl.replace('{url}', encodeURIComponent(target))
         : tpl + encodeURIComponent(target);
     };
+
+    /* ---- reference images ---- */
+    const MAX_REFS = 16;
+    let referenceFiles = [];
+
+    const renderRefs = () => {
+      refList.innerHTML = '';
+      refList.hidden = referenceFiles.length === 0;
+      refMeta.style.display = referenceFiles.length ? 'none' : '';
+      referenceFiles.forEach((file, idx) => {
+        const cell = document.createElement('div');
+        cell.className = 'ref-thumb';
+        const img = document.createElement('img');
+        img.src = file._previewUrl;
+        img.alt = file.name;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'ref-thumb-remove';
+        btn.textContent = '×';
+        btn.setAttribute('aria-label', t('移除参考图', 'Remove reference'));
+        btn.addEventListener('click', () => {
+          URL.revokeObjectURL(file._previewUrl);
+          referenceFiles.splice(idx, 1);
+          renderRefs();
+        });
+        cell.append(img, btn);
+        refList.append(cell);
+      });
+    };
+
+    refInput.addEventListener('change', () => {
+      for (const file of Array.from(refInput.files || [])) {
+        if (referenceFiles.length >= MAX_REFS) {
+          setStatus(t(`参考图最多 ${MAX_REFS} 张，多余的已忽略。`, `Up to ${MAX_REFS} reference images; extra files ignored.`), 'error');
+          break;
+        }
+        if (!/^image\/(jpeg|png|webp|gif)$/.test(file.type)) continue;
+        file._previewUrl = URL.createObjectURL(file);
+        referenceFiles.push(file);
+      }
+      refInput.value = '';
+      renderRefs();
+    });
 
     const extractErrorMessage = async (res) => {
       const text = await res.text();
@@ -638,7 +760,8 @@ const presets = [
       if (result.kind === 'url') openLink.href = result.data;
       const sizeText = sizeSelect.value === 'auto' ? t('自动尺寸', 'auto size') : sizeSelect.value;
       const qualityText = qualitySelect.selectedOptions[0]?.textContent?.trim() || qualitySelect.value;
-      resultMeta.textContent = `${modelInput.value.trim() || 'gpt-image-2'} · ${sizeText} · ${qualityText}`;
+      const modeText = referenceFiles.length ? t('参考图编辑', 'reference edit') : t('文生图', 'text-to-image');
+      resultMeta.textContent = `${modelInput.value.trim() || 'gpt-image-2'} · ${sizeText} · ${qualityText} · ${modeText}`;
       resultEmpty.hidden = true;
       resultFrame.hidden = false;
       resultActions.hidden = false;
@@ -661,23 +784,45 @@ const presets = [
       saveConfig();
       generateBtn.disabled = true;
       startTimer();
-      setStatus(t('正在生成图片…', 'Generating image…'));
+      setStatus(
+        referenceFiles.length
+          ? t(`正在基于 ${referenceFiles.length} 张参考图生成…`, `Generating from ${referenceFiles.length} reference image(s)…`)
+          : t('正在生成图片…', 'Generating image…'),
+      );
 
       try {
-        const res = await fetch(requestUrl(), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKeyInput.value}`,
-          },
-          body: JSON.stringify({
-            model: modelInput.value.trim() || 'gpt-image-2',
-            prompt,
-            size: sizeSelect.value,
-            quality: qualitySelect.value,
-            n: 1,
-          }),
-        });
+        let res;
+        if (referenceFiles.length) {
+          // 编辑模式：multipart/form-data 上传参考图（兼容 OpenAI Images edits）
+          const fd = new FormData();
+          fd.append('model', modelInput.value.trim() || 'gpt-image-2');
+          fd.append('prompt', prompt);
+          if (sizeSelect.value !== 'auto') fd.append('size', sizeSelect.value);
+          fd.append('n', '1');
+          fd.append('response_format', 'b64_json');
+          referenceFiles.forEach((file) => fd.append('image', file, file.name));
+          res = await fetch(requestUrl('images/edits'), {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${apiKeyInput.value}` },
+            body: fd,
+          });
+        } else {
+          // 生成模式：JSON（OpenAI Images generations）
+          res = await fetch(requestUrl('images/generations'), {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${apiKeyInput.value}`,
+            },
+            body: JSON.stringify({
+              model: modelInput.value.trim() || 'gpt-image-2',
+              prompt,
+              size: sizeSelect.value,
+              quality: qualitySelect.value,
+              n: 1,
+            }),
+          });
+        }
 
         if (!res.ok) {
           const message = await extractErrorMessage(res);

@@ -90,7 +90,17 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 仅监听 127.0.0.1:8789，路径 `/proxy/{encoded-url}`，转发方法/Content-Type/Authorization/body 并补 CORS 头。
    - Origin 白名单（localhost:4321 / chenyuqing.github.io 等，env 可覆盖）、禁 file://、20MB body 上限、5 分钟超时；已用本地 echo 服务验证 POST + Authorization 透传。
    - 页面设置里填 `http://127.0.0.1:8789/proxy/{url}` 即可调用不支持 CORS 的接口。
-   - 另附 `scripts/cloudflare-image-relay-worker.js`：Cloudflare Workers 版中转（`?url=` 传目标、Origin 白名单、密钥仅透传），供站点访客使用；部署后把 `https://<name>.workers.dev/?url={url}` 填进工具的 CORS 代理设置。
+   - 另附 `scripts/cloudflare-image-relay-worker.js`：Cloudflare Workers 版中转（`?url=` 传目标、Origin 白名单含任意端口本机来源、密钥仅透传），供站点访客使用；部署后把 `https://<name>.workers.dev/?url={url}` 填进工具的 CORS 代理设置。
+   - Worker v3：请求体改为流式直传（支持 multipart 参考图上传，不再破坏二进制）。
+5. 参考图上传（编辑模式）：
+   - 描述框下新增「上传参考图」，jpg/png/webp/gif 最多 16 张，缩略图可单张移除。
+   - 有参考图时自动切换 `POST /images/edits` multipart（image 可重复字段 + prompt/model/size/n/response_format），无参考图走原 `POST /images/generations` JSON；结果 meta 标注「参考图编辑/文生图」。
+6. 端到端实测（wisart.kuaileshifu.com，OpenAI 兼容）：
+   - `GET /v1/models`：返回 gpt-image-2、nano-banana-2(-pro/-lite)、grok-imagine-image。
+   - `POST /v1/images/generations`（b64_json）：200 / 58.7s / 1.5MB，橘猫夕阳图符合提示词。
+   - `POST /v1/images/edits`（multipart 参考图）：200 / 58.6s / 2.2MB，同一构图成功转赛博朋克雨夜风。
+   - 配置版本迁移：localStorage `image-gen-config-v1` 加 configVersion=2，旧配置自动补默认代理，用户清空代理的选择此后被尊重。
+   - 注意：workers.dev 在部分网络会被 SNI 干扰间歇阻断（SSL_ERROR_SYSCALL），本地调试可改用 `npm run image:relay` 的 127.0.0.1 中转绕开。
 4. 排版修复与验证：
    - 修复页面漏引 `global.css` 导致整页裸样式（header 裸奔、内容撑出屏幕）。
    - 修复 `[hidden]` 被 scoped display 覆盖：加 `[hidden]{display:none!important}`，设置面板初始折叠、打开原图按钮初始隐藏。
