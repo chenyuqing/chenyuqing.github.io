@@ -101,6 +101,15 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - `POST /v1/images/edits`（multipart 参考图）：200 / 58.6s / 2.2MB，同一构图成功转赛博朋克雨夜风。
    - 配置版本迁移：localStorage `image-gen-config-v1` 加 configVersion=2，旧配置自动补默认代理，用户清空代理的选择此后被尊重。
    - 注意：workers.dev 在部分网络会被 SNI 干扰间歇阻断（SSL_ERROR_SYSCALL），本地调试可改用 `npm run image:relay` 的 127.0.0.1 中转绕开。
+7. 自定义域中转与网络排查（最终方案）：
+   - Worker 绑定自定义域 imgen.wldss.shop，绕开 workers.dev 的 SNI 阻断；工具默认代理已切换，配置版本升至 v3 自动迁移旧默认值（用户自定义过的保留）。
+   - 排查结论：系统代理（Shadowrocket→机场节点）会掐 ~60s 静默长连接；代理工具加 DOMAIN-SUFFIX kuaileshifu.com DIRECT 与 DOMAIN imgen.wldss.shop DIRECT 后彻底解决。
+   - 本地中转改用 curl --http1.1 主通道（Node fetch 长请求易被中间设备重置，curl 实测稳定）。
+   - 浏览器端到端（无头 Chrome 模拟真实用户：注入配置→获取模型→生成→出图→截图）全流程通过。
+8. 双 provider 实测：
+   - wisart.kuaileshifu.com：models/生图(b64)/参考图编辑(multipart) 全通；「没有可用 token」为其上游池问题，非账户余额。
+   - test.mlgb7.com（噜皮）：模型列表含 gpt-image-2 等 12 个；生图 ✅ ~62-108s 固定返回签名 URL；参考图 edits 服务端 502（文档有但后端未实现好）。
+
 4. 排版修复与验证：
    - 修复页面漏引 `global.css` 导致整页裸样式（header 裸奔、内容撑出屏幕）。
    - 修复 `[hidden]` 被 scoped display 覆盖：加 `[hidden]{display:none!important}`，设置面板初始折叠、打开原图按钮初始隐藏。
