@@ -90,6 +90,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 仅监听 127.0.0.1:8789，路径 `/proxy/{encoded-url}`，转发方法/Content-Type/Authorization/body 并补 CORS 头。
    - Origin 白名单（localhost:4321 / chenyuqing.github.io 等，env 可覆盖）、禁 file://、20MB body 上限、5 分钟超时；已用本地 echo 服务验证 POST + Authorization 透传。
    - 页面设置里填 `http://127.0.0.1:8789/proxy/{url}` 即可调用不支持 CORS 的接口。
+   - 另附 `scripts/cloudflare-image-relay-worker.js`：Cloudflare Workers 版中转（`?url=` 传目标、Origin 白名单、密钥仅透传），供站点访客使用；部署后把 `https://<name>.workers.dev/?url={url}` 填进工具的 CORS 代理设置。
 4. 排版修复与验证：
    - 修复页面漏引 `global.css` 导致整页裸样式（header 裸奔、内容撑出屏幕）。
    - 修复 `[hidden]` 被 scoped display 覆盖：加 `[hidden]{display:none!important}`，设置面板初始折叠、打开原图按钮初始隐藏。

@@ -77,31 +77,6 @@ const presets = [
     </section>
 
     <section class="shell tool-panel">
-      <div class="result-area" id="result-area">
-        <div class="result-head">
-          <span class="result-title"><span class="lang-zh">生成结果</span><span class="lang-en">Result</span></span>
-          <span class="field-meta" id="result-meta"></span>
-        </div>
-        <div class="result-empty" id="result-empty">
-          <p class="result-empty-icon" aria-hidden="true">▦</p>
-          <p class="result-empty-hint">
-            <span class="lang-zh">生成的图片会固定显示在这里：先在下方填写画面描述，再点「生成图片」。</span>
-            <span class="lang-en">Your image will appear here. Write a prompt below and hit Generate.</span>
-          </p>
-        </div>
-        <div class="result-frame" id="result-frame" hidden>
-          <img id="result-img" alt="" />
-        </div>
-        <div class="action-row" id="result-actions" hidden>
-          <button class="tool-btn" type="button" id="btn-download">
-            <span class="lang-zh">下载图片</span><span class="lang-en">Download</span>
-          </button>
-          <a class="tool-btn tool-link" id="btn-open" href="#" target="_blank" rel="noreferrer" hidden>
-            <span class="lang-zh">新标签打开原图</span><span class="lang-en">Open original</span>
-          </a>
-        </div>
-      </div>
-
       <div class="settings-block">
       <div class="settings-block">
         <button type="button" id="settings-toggle" class="settings-head" aria-expanded="false" aria-controls="settings-body">
@@ -125,12 +100,12 @@ const presets = [
             <input id="cfg-model" type="text" placeholder="gpt-image-2" value="gpt-image-2" autocomplete="off" spellcheck="false" />
           </label>
           <label class="field-row">
-            <span class="field-label"><span class="lang-zh">CORS 代理（可选）</span><span class="lang-en">CORS proxy (optional)</span></span>
-            <input id="cfg-cors-proxy" type="url" placeholder="http://127.0.0.1:8789/proxy/{url}" autocomplete="off" spellcheck="false" />
+            <span class="field-label"><span class="lang-zh">CORS 代理</span><span class="lang-en">CORS proxy</span></span>
+            <input id="cfg-cors-proxy" type="url" value="https://image-relay.motoleisure7983.workers.dev/?url={url}" autocomplete="off" spellcheck="false" />
           </label>
           <p class="settings-note">
-            <span class="lang-zh">接口不支持浏览器直连（CORS）时填代理地址，&#123;url&#125; 会替换为编码后的接口地址。本地中转：先运行 npm run image:relay，再填 http://127.0.0.1:8789/proxy/&#123;url&#125;。留空则直连。密钥仅存于 localStorage，不会上传到站点。</span>
-            <span class="lang-en">If the endpoint blocks browser calls (CORS), enter a proxy prefix; &#123;url&#125; is replaced with the encoded target URL. For a local relay: run npm run image:relay first, then use http://127.0.0.1:8789/proxy/&#123;url&#125;. Leave empty to connect directly. The key is stored only in localStorage.</span>
+            <span class="lang-zh">已默认填写 Cloudflare 中转，&#123;url&#125; 会替换为编码后的接口地址；接口支持浏览器直连时可清空此项。本地调试也可先运行 npm run image:relay，改填 http://127.0.0.1:8789/proxy/&#123;url&#125;。密钥仅存于 localStorage，经代理时只作透传。</span>
+            <span class="lang-en">A Cloudflare relay is prefilled; &#123;url&#125; is replaced with the encoded target URL. Clear it if your endpoint allows direct browser calls (CORS). For local debugging run npm run image:relay and use http://127.0.0.1:8789/proxy/&#123;url&#125;. The key is stored only in localStorage and merely passed through.</span>
           </p>
         </div>
       </div>
@@ -184,6 +159,31 @@ const presets = [
       </div>
 
       <p class="status-line" id="status-line" aria-live="polite"></p>
+
+      <div class="result-area" id="result-area">
+        <div class="result-head">
+          <span class="result-title"><span class="lang-zh">生成结果</span><span class="lang-en">Result</span></span>
+          <span class="field-meta" id="result-meta"></span>
+        </div>
+        <div class="result-empty" id="result-empty">
+          <p class="result-empty-icon" aria-hidden="true">▦</p>
+          <p class="result-empty-hint">
+            <span class="lang-zh">生成的图片会显示在这里。</span>
+            <span class="lang-en">Your generated image will appear here.</span>
+          </p>
+        </div>
+        <div class="result-frame" id="result-frame" hidden>
+          <img id="result-img" alt="" />
+        </div>
+        <div class="action-row" id="result-actions" hidden>
+          <button class="tool-btn" type="button" id="btn-download">
+            <span class="lang-zh">下载图片</span><span class="lang-en">Download</span>
+          </button>
+          <a class="tool-btn tool-link" id="btn-open" href="#" target="_blank" rel="noreferrer" hidden>
+            <span class="lang-zh">新标签打开原图</span><span class="lang-en">Open original</span>
+          </a>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -428,9 +428,9 @@ const presets = [
 
     /* result */
     .result-area {
-      margin-bottom: 1.15rem;
-      padding-bottom: 1.1rem;
-      border-bottom: 1px solid rgba(240, 223, 179, .16);
+      margin-top: 1.1rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid rgba(240, 223, 179, .16);
     }
     .result-head {
       display: flex;
