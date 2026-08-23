@@ -117,6 +117,18 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 移动端 390px 用 CDP 设备仿真验证无横向溢出（此前截图"裁切"是无头 Chrome 最小窗口宽造成的假象）；设置摘要 min-width:0 截断、尺寸/质量窄屏纵向堆叠。
    - `npm run build` 通过（56 页），中转脚本 `node --check` 通过。真实生图端到端需用户提供接口与 Key。
 
+## 2026-08-23 会话记录（生图工具上线与失败诊断增强）
+
+### 今天完成
+
+1. 推送本地 5 个提交至 `origin/main`，GitHub Pages 部署成功（deploy workflow completed/success）；线上 `https://chenyuqing.github.io/tools/image-gen/` 已含新版（默认中转 `imgen.wldss.shop`）。
+2. 生图页新增浏览器端精确失败诊断（`src/pages/tools/image-gen.astro`）：
+   - 网络层失败时状态行显示「实际请求 URL + 浏览器原始错误 + 常见原因清单」（代理/直连、Base URL、密钥、插件/系统代理四类排查方向）。
+   - HTTP 错误分支同样附带实际请求地址，便于确认代理是否生效。
+   - 新增 `describeNetworkError(path, err, prefixZh, prefixEn)` 辅助函数，获取模型与生成两个分支共用；`.status-line` 加 `white-space: pre-wrap; word-break: break-all` 支持多行。
+3. 无头 Chrome CDP 冒烟测试通过：不可达 Base URL + 直连时页面正确显示诊断文本，截图确认多行渲染正常。
+   - 环境注意：本环境无头 Chrome 需 `--no-sandbox --disable-crashpad` 才能启动（沙箱初始化被环境拦截，报 Trace/BPT trap）。
+
 ## 2026-08-19 会话记录（修复纯 SSG 筛选、分页与 AI Agent 状态）
 
 ### 今天完成

@@ -545,6 +545,8 @@ const presets = [
       margin: .2rem 0 0;
       color: #b69a61;
       font-size: .85rem;
+      white-space: pre-wrap;
+      word-break: break-all;
     }
     .status-line.is-error { color: #e18a7a; }
     .status-line.is-ok { color: #8fbf8a; }
@@ -776,7 +778,7 @@ const presets = [
         const res = await fetch(requestUrl('models'), { headers });
         if (!res.ok) {
           const message = await extractErrorMessage(res);
-          setStatus(`${res.status}: ${String(message).slice(0, 240)}`, 'error');
+          setStatus(`${res.status}: ${String(message).slice(0, 240)}\n实际请求：${requestUrl('models')}`, 'error');
           return;
         }
         const json = await res.json();
@@ -792,7 +794,7 @@ const presets = [
           'ok',
         );
       } catch (err) {
-        setStatus(t('获取模型失败：请求被拦截或网络异常（可检查代理设置）。', 'Failed to fetch models: request blocked or network error.'), 'error');
+        setStatus(describeNetworkError('models', err, '获取模型失败。', 'Failed to fetch models.'), 'error');
       } finally {
         modelFetchBtn.disabled = false;
       }
@@ -809,6 +811,28 @@ const presets = [
       return tpl.includes('{url}')
         ? tpl.replace('{url}', encodeURIComponent(target))
         : tpl + encodeURIComponent(target);
+    };
+
+    /* ---- failure diagnostics: surface the exact request URL and raw browser error ---- */
+    const describeNetworkError = (path, err, prefixZh, prefixEn) => {
+      let actual;
+      try {
+        actual = decodeURIComponent(requestUrl(path));
+      } catch {
+        actual = requestUrl(path);
+      }
+      const raw = err?.message || String(err);
+      const opaque = /Failed to fetch|NetworkError|Load failed/i.test(raw);
+      const hint = opaque
+        ? t(
+            '\n常见原因：① 代理不可用或被网络拦截；② Base URL 不对；③ 密钥无效被拒后的 CORS 挡板；④ 浏览器插件/系统代理干扰。',
+            '\nCommon causes: (1) relay unreachable or blocked; (2) wrong Base URL; (3) CORS veil over an auth rejection; (4) browser extension or system proxy interference.',
+          )
+        : '';
+      return t(prefixZh, prefixEn)
+        + '\n实际请求：' + actual
+        + '\n浏览器错误：' + raw
+        + hint;
     };
 
     /* ---- reference images ---- */
@@ -952,7 +976,13 @@ const presets = [
 
         if (!res.ok) {
           const message = await extractErrorMessage(res);
-          setStatus(`${res.status}: ${String(message).slice(0, 240)}`, 'error');
+          let actual;
+          try {
+            actual = decodeURIComponent(requestUrl(referenceFiles.length ? 'images/edits' : 'images/generations'));
+          } catch {
+            actual = requestUrl(referenceFiles.length ? 'images/edits' : 'images/generations');
+          }
+          setStatus(`${res.status}: ${String(message).slice(0, 240)}\n实际请求：${actual}`, 'error');
           return;
         }
 
@@ -968,12 +998,15 @@ const presets = [
           setStatus(t('接口返回中没有图片数据。', 'The response contains no image data.'), 'error');
         }
       } catch (err) {
-        const message = err?.message || String(err);
-        if (/Failed to fetch|NetworkError|Load failed/i.test(message)) {
-          setStatus(t('请求被浏览器拦截或网络失败：通常是 CORS 未开放、Base URL 不对或密钥无效。', 'Request blocked or network failed: usually CORS, a wrong Base URL, or an invalid key.'), 'error');
-        } else {
-          setStatus(t('出错了：', 'Error: ') + message);
-        }
+        setStatus(
+          describeNetworkError(
+            referenceFiles.length ? 'images/edits' : 'images/generations',
+            err,
+            '生成请求失败。',
+            'Generation request failed.',
+          ),
+          'error',
+        );
       } finally {
         stopTimer();
         generateBtn.disabled = false;
