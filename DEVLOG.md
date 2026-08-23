@@ -94,7 +94,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - Worker v3：请求体改为流式直传（支持 multipart 参考图上传，不再破坏二进制）。
 5. 参考图上传（编辑模式）：
    - 描述框下新增「上传参考图」，jpg/png/webp/gif 最多 16 张，缩略图可单张移除。
-   - 有参考图时自动切换 `POST /images/edits` multipart（image 可重复字段 + prompt/model/size/n/response_format），无参考图走原 `POST /images/generations` JSON；结果 meta 标注「参考图编辑/文生图」。
+   - 有参考图时自动切换 `POST /images/edits` multipart（image 可重复字段 + prompt/model/size/n），无参考图走原 `POST /images/generations` JSON；**不强制 `response_format`**（各站点默认不同，有的仅支持 url、有的仅 b64_json），两种返回都兼容；结果 meta 标注「参考图编辑/文生图」。
 6. 端到端实测（wisart.kuaileshifu.com，OpenAI 兼容）：
    - `GET /v1/models`：返回 gpt-image-2、nano-banana-2(-pro/-lite)、grok-imagine-image。
    - `POST /v1/images/generations`（b64_json）：200 / 58.7s / 1.5MB，橘猫夕阳图符合提示词。
@@ -501,6 +501,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 2. **模型列表改为自定义下拉**：原生 `<datalist>` 在多数浏览器点击不弹、不可滚动筛选，替换为自定义 combobox——获取后自动展开全部模型、点击即选并写回配置；输入时实时过滤；输入框内箭头按钮展开/收起；键盘 ↑↓/Enter/Esc；外部点击收起；当前模型带 ✓。
 3. **左右两栏布局**：`≥980px` 左栏参数（接口设置/描述/预设/参考图/尺寸质量/操作/状态栏），右栏结果卡片（sticky 常驻可见）；`<980px` 回落单列堆叠。
 4. **结果底部参数胶囊**（按参考图实现）：`查看原图 | 下载图片 | 图片尺寸 W×H | 图片大小 X MB`。尺寸取图片 load 事件的 naturalWidth/Height；大小取 b64 解码字节数或下载时的 blob.size。
+5. **修复参考图生图在部分站点 400**：去掉 `images/edits` 硬编码的 `response_format=b64_json`（test.mlgb7.com 等站点仅支持 `response_format=url`），交给服务端默认返回格式，两种返回均已兼容。
 
 ### 验证
 
@@ -508,6 +509,6 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 
 ## 变更历史
 
-- 2026-08-23：生图工具二轮——生成后自动下载、自定义模型下拉（替换 datalist）、左右两栏布局、结果底部参数胶囊（尺寸/大小）。
+- 2026-08-23：生图工具二轮——生成后自动下载、自定义模型下拉（替换 datalist）、左右两栏布局、结果底部参数胶囊（尺寸/大小）；修复 edits 接口硬编码 response_format 导致部分站点 400。
 
 - 2026-07-01（续）：产品列表页 & 详情页移动端适配补全（980px 平板断点 + 720px 手机断点修复），产品插图全部切换 AVIF 并推送。

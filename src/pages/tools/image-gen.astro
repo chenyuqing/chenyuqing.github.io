@@ -1214,7 +1214,8 @@ const presets = [
           fd.append('prompt', prompt);
           if (sizeSelect.value !== 'auto') fd.append('size', sizeSelect.value);
           fd.append('n', '1');
-          fd.append('response_format', 'b64_json');
+          // 不强制 response_format：各站点默认值不同（有的仅支持 url，有的仅 b64_json），
+          // 交给服务端默认，两种返回我们都兼容
           referenceFiles.forEach((file) => fd.append('image', file, file.name));
           res = await fetch(requestUrl('images/edits'), {
             method: 'POST',
