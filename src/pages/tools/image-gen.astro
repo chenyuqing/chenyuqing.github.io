@@ -77,6 +77,8 @@ const presets = [
     </section>
 
     <section class="shell tool-panel">
+      <div class="ig-grid">
+      <div class="ig-left">
       <div class="settings-block">
         <button type="button" id="settings-toggle" class="settings-head" aria-expanded="false" aria-controls="settings-body">
           <span class="settings-title">
@@ -100,12 +102,15 @@ const presets = [
           <div class="field-row">
             <span class="field-label"><span class="lang-zh">模型</span><span class="lang-en">Model</span></span>
             <div class="model-row">
-              <input id="cfg-model" type="text" placeholder="gpt-image-2" value="gpt-image-2" autocomplete="off" spellcheck="false" list="model-list" />
+              <div class="model-field">
+                <input id="cfg-model" type="text" placeholder="gpt-image-2" value="gpt-image-2" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="model-menu" />
+                <button type="button" id="model-menu-btn" class="model-menu-btn" tabindex="-1">▾</button>
+                <div id="model-menu" class="model-menu" role="listbox" aria-label="Models" hidden></div>
+              </div>
               <button type="button" id="model-fetch-btn" class="model-fetch">
                 <span class="lang-zh">获取模型</span><span class="lang-en">Fetch</span>
               </button>
             </div>
-            <datalist id="model-list"></datalist>
           </div>
           <button type="button" id="proxy-toggle" class="proxy-toggle" aria-expanded="false" aria-controls="proxy-advanced">
             <span class="lang-zh">▸ 高级：CORS 代理</span><span class="lang-en">▸ Advanced: CORS proxy</span>
@@ -183,7 +188,9 @@ const presets = [
       </div>
 
       <p class="status-line" id="status-line" aria-live="polite"></p>
+      </div>
 
+      <div class="ig-right">
       <div class="result-area" id="result-area">
         <div class="result-head">
           <span class="result-title"><span class="lang-zh">生成结果</span><span class="lang-en">Result</span></span>
@@ -199,14 +206,24 @@ const presets = [
         <div class="result-frame" id="result-frame" hidden>
           <img id="result-img" alt="" />
         </div>
-        <div class="action-row" id="result-actions" hidden>
+        <div class="action-row result-actions" id="result-actions" hidden>
+          <a class="tool-btn tool-link" id="btn-open" href="#" target="_blank" rel="noreferrer" hidden>
+            <span class="lang-zh">查看原图</span><span class="lang-en">View original</span>
+          </a>
           <button class="tool-btn" type="button" id="btn-download">
             <span class="lang-zh">下载图片</span><span class="lang-en">Download</span>
           </button>
-          <a class="tool-btn tool-link" id="btn-open" href="#" target="_blank" rel="noreferrer" hidden>
-            <span class="lang-zh">新标签打开原图</span><span class="lang-en">Open original</span>
-          </a>
+          <span class="result-stat">
+            <span class="result-stat-label"><span class="lang-zh">图片尺寸</span><span class="lang-en">Dimensions</span></span>
+            <b id="result-dims">—</b>
+          </span>
+          <span class="result-stat">
+            <span class="result-stat-label"><span class="lang-zh">图片大小</span><span class="lang-en">File size</span></span>
+            <b id="result-size">—</b>
+          </span>
         </div>
+      </div>
+      </div>
       </div>
     </section>
   </main>
@@ -253,6 +270,26 @@ const presets = [
       border-radius: 10px;
       background: #1b1914;
       padding: 1.25rem;
+    }
+
+    /* two-column layout: params left, result right */
+    .ig-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.15rem;
+      align-items: start;
+    }
+    .ig-left, .ig-right { min-width: 0; }
+    .ig-right {
+      border: 1px solid rgba(240, 223, 179, .16);
+      border-radius: 10px;
+      background: #16130f;
+      padding: 1rem;
+    }
+    @media (min-width: 980px) {
+      .ig-grid { grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); }
+      .ig-right { position: sticky; top: 4.8rem; }
+      .result-empty { min-height: 18rem; align-content: center; }
     }
 
     /* settings */
@@ -336,6 +373,64 @@ const presets = [
     /* model fetch */
     .model-row { display: flex; gap: .5rem; }
     .model-row input { flex: 1; min-width: 0; }
+    .model-field { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; }
+    .model-field input { padding-right: 2.4rem; }
+    .model-menu-btn {
+      position: absolute;
+      right: .45rem;
+      width: 1.7rem;
+      height: 1.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: #9d8f72;
+      font-size: .8rem;
+      cursor: pointer;
+      transition: transform .18s ease, color .18s ease, background .18s ease;
+    }
+    .model-menu-btn:hover { color: #f0cf76; background: rgba(209, 168, 67, .14); }
+    .model-menu-btn[aria-expanded='true'] { transform: rotate(180deg); color: #f0cf76; }
+    .model-menu {
+      position: absolute;
+      top: calc(100% + .3rem);
+      left: 0;
+      right: 0;
+      z-index: 40;
+      max-height: 15rem;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      border: 1px solid rgba(240, 223, 179, .3);
+      border-radius: 10px;
+      background: #171410;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .45);
+      padding: .3rem;
+    }
+    .model-menu[hidden] { display: none; }
+    .model-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: #e9d9a8;
+      font: .82rem/1.35 var(--font-mono);
+      padding: .5rem .6rem;
+      cursor: pointer;
+      word-break: break-all;
+    }
+    .model-option:hover, .model-option.is-active { background: rgba(209, 168, 67, .16); color: #f7ecc9; }
+    .model-option.is-current { color: #f0cf76; }
+    .model-option.is-current::after { content: ' ✓'; }
+    .model-menu-empty {
+      margin: 0;
+      padding: .55rem .6rem;
+      color: #9d8f72;
+      font: .78rem/1.4 var(--font-mono);
+    }
     .model-fetch {
       white-space: nowrap;
       border: 1px solid rgba(240, 223, 179, .3);
@@ -514,6 +609,29 @@ const presets = [
       margin: .2rem 0 1rem;
     }
     .result-panel .action-row { margin-bottom: 0; }
+    .ig-right .action-row { margin: 0; }
+    .result-stat {
+      flex: 1 1 6.5rem;
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: .28rem;
+      border: 1px solid rgba(240, 223, 179, .24);
+      border-radius: 8px;
+      background: transparent;
+      padding: .45rem .6rem;
+      text-align: center;
+    }
+    .result-stat-label {
+      color: #9d8f72;
+      font: 700 .68rem/1 var(--font-body);
+      letter-spacing: .05em;
+    }
+    .result-stat b {
+      color: #f4e8cb;
+      font: 700 .82rem/1.2 var(--font-mono);
+      word-break: break-all;
+    }
     .tool-btn {
       display: inline-flex;
       align-items: center;
@@ -552,11 +670,7 @@ const presets = [
     .status-line.is-ok { color: #8fbf8a; }
 
     /* result */
-    .result-area {
-      margin-top: 1.1rem;
-      padding-top: 1.1rem;
-      border-top: 1px solid rgba(240, 223, 179, .16);
-    }
+    .result-area { min-width: 0; }
     .result-head {
       display: flex;
       justify-content: space-between;
@@ -652,6 +766,8 @@ const presets = [
     const resultActions = document.getElementById('result-actions');
     const resultMeta = document.getElementById('result-meta');
     const resultImg = document.getElementById('result-img');
+    const resultDims = document.getElementById('result-dims');
+    const resultSize = document.getElementById('result-size');
     const downloadBtn = document.getElementById('btn-download');
     const openLink = document.getElementById('btn-open');
 
@@ -761,9 +877,125 @@ const presets = [
       proxyToggle.querySelector('.lang-en').textContent = (open ? '▾ ' : '▸ ') + 'Advanced: CORS proxy';
     });
 
-    /* ---- model list fetching ---- */
+    /* ---- model list fetching & custom dropdown ---- */
     const modelFetchBtn = document.getElementById('model-fetch-btn');
-    const modelListDatalist = document.getElementById('model-list');
+    const modelMenuBtn = document.getElementById('model-menu-btn');
+    const modelMenu = document.getElementById('model-menu');
+    const modelField = modelInput.closest('.model-field');
+
+    let fetchedModels = [];
+    let activeIndex = -1;
+
+    const closeModelMenu = () => {
+      modelMenu.hidden = true;
+      modelInput.setAttribute('aria-expanded', 'false');
+      modelMenuBtn.setAttribute('aria-expanded', 'false');
+      activeIndex = -1;
+    };
+
+    const applyActiveOption = () => {
+      const options = modelMenu.querySelectorAll('.model-option');
+      options.forEach((el, i) => {
+        el.classList.toggle('is-active', i === activeIndex);
+        if (i === activeIndex) el.scrollIntoView({ block: 'nearest' });
+      });
+    };
+
+    const selectModel = (value) => {
+      modelInput.value = value;
+      saveConfig();
+      updateSummary();
+      closeModelMenu();
+      setStatus(t(`已选择模型 ${value}。`, `Model set to ${value}.`), 'ok');
+    };
+
+    /* useFilter 仅在用户主动输入时为 true；打开/拉取列表时展示全部模型 */
+    const renderModelMenu = (useFilter) => {
+      const filter = useFilter ? modelInput.value.trim().toLowerCase() : '';
+      const items = filter
+        ? fetchedModels.filter((m) => m.toLowerCase().includes(filter))
+        : fetchedModels;
+      modelMenu.innerHTML = '';
+      if (!items.length) {
+        const p = document.createElement('p');
+        p.className = 'model-menu-empty';
+        p.textContent = t('没有匹配的模型，可直接输入任意模型名。', 'No matching models; type any name directly.');
+        modelMenu.append(p);
+        return;
+      }
+      const current = modelInput.value.trim().toLowerCase();
+      items.forEach((mid) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'model-option' + (mid.toLowerCase() === current ? ' is-current' : '');
+        btn.setAttribute('role', 'option');
+        btn.textContent = mid;
+        // mousedown 先于 input 的失焦，preventDefault 避免选项在 click 生效前被收起
+        btn.addEventListener('mousedown', (e) => e.preventDefault());
+        btn.addEventListener('click', () => selectModel(mid));
+        modelMenu.append(btn);
+      });
+    };
+
+    const syncMenuOpenState = (open) => {
+      modelMenu.hidden = !open;
+      modelInput.setAttribute('aria-expanded', String(open));
+      modelMenuBtn.setAttribute('aria-expanded', String(open));
+      if (!open) activeIndex = -1;
+    };
+
+    const openModelMenu = () => {
+      if (!fetchedModels.length) return;
+      renderModelMenu();
+      syncMenuOpenState(true);
+    };
+
+    const toggleModelMenu = () => {
+      if (!fetchedModels.length) {
+        setStatus(t('先点「获取模型」拉取列表，再从这里下拉选择。', 'Fetch the model list first, then pick one from this dropdown.'), '');
+        return;
+      }
+      renderModelMenu();
+      syncMenuOpenState(modelMenu.hidden);
+    };
+
+    modelMenuBtn.addEventListener('click', toggleModelMenu);
+    modelInput.addEventListener('focus', openModelMenu);
+    modelInput.addEventListener('click', () => {
+      // focus 已负责展开；这里只在意外收起时重新展开，避免「点一下就关」
+      if (modelMenu.hidden) openModelMenu();
+    });
+    modelInput.addEventListener('input', () => {
+      if (!fetchedModels.length) return;
+      renderModelMenu(true);
+      syncMenuOpenState(true);
+    });
+    modelInput.addEventListener('keydown', (event) => {
+      if (modelMenu.hidden) return;
+      const options = modelMenu.querySelectorAll('.model-option');
+      if (!options.length) return;
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        activeIndex = Math.min(activeIndex + 1, options.length - 1);
+        applyActiveOption();
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        activeIndex = Math.max(activeIndex - 1, 0);
+        applyActiveOption();
+      } else if (event.key === 'Enter') {
+        event.preventDefault();
+        const picked = activeIndex >= 0 && options[activeIndex] ? options[activeIndex].textContent : null;
+        if (picked) selectModel(picked);
+        else closeModelMenu();
+      } else if (event.key === 'Escape') {
+        closeModelMenu();
+      }
+    });
+    document.addEventListener('pointerdown', (event) => {
+      if (modelMenu.hidden) return;
+      if (event.target instanceof Node && (modelMenu.contains(event.target) || modelField.contains(event.target))) return;
+      closeModelMenu();
+    });
 
     const fetchModels = async () => {
       if (!baseUrlInput.value.trim()) {
@@ -783,14 +1015,18 @@ const presets = [
         }
         const json = await res.json();
         const ids = Array.isArray(json?.data) ? json.data.map((m) => m?.id).filter(Boolean) : [];
-        modelListDatalist.innerHTML = '';
-        ids.forEach((mid) => {
-          const opt = document.createElement('option');
-          opt.value = mid;
-          modelListDatalist.append(opt);
-        });
+        fetchedModels = [...new Set(ids.map((id) => String(id)))];
+        if (!fetchedModels.length) {
+          setStatus(t('接口返回了空模型列表。', 'The endpoint returned an empty model list.'), 'error');
+          return;
+        }
+        renderModelMenu();
+        openModelMenu();
         setStatus(
-          t(`已获取 ${ids.length} 个模型：${ids.join('、')}。点击模型输入框即可选择。`, `${ids.length} models fetched. Click the model field to pick one.`),
+          t(
+            `已获取 ${fetchedModels.length} 个模型，下拉列表已展开，点击即可选择。`,
+            `${fetchedModels.length} models fetched — the dropdown is open; click one to choose.`,
+          ),
           'ok',
         );
       } catch (err) {
@@ -903,11 +1139,40 @@ const presets = [
       }
     };
 
+    /* ---- result bottom bar: dimensions & file size ---- */
+    const fmtBytes = (n) => {
+      if (!Number.isFinite(n) || n <= 0) return '—';
+      if (n >= 1024 * 1024) return `${(n / 1024 / 1024).toFixed(2)} MB`;
+      if (n >= 1024) return `${(n / 1024).toFixed(1)} KB`;
+      return `${n} B`;
+    };
+
+    const renderResultStats = () => {
+      resultSize.textContent = fmtBytes(lastResult ? lastResult.byteSize : undefined);
+    };
+
+    resultImg.addEventListener('load', () => {
+      resultDims.textContent = resultImg.naturalWidth
+        ? `${resultImg.naturalWidth} × ${resultImg.naturalHeight}`
+        : '—';
+    });
+
     const showResult = (result) => {
       lastResult = result;
       resultImg.src = result.kind === 'b64' ? `data:image/png;base64,${result.data}` : result.data;
       openLink.hidden = result.kind !== 'url';
       if (result.kind === 'url') openLink.href = result.data;
+      resultDims.textContent = '—';
+      if (result.kind === 'b64') {
+        try {
+          result.byteSize = atob(result.data).length;
+        } catch {
+          result.byteSize = undefined;
+        }
+      } else {
+        result.byteSize = undefined;
+      }
+      renderResultStats();
       const sizeText = sizeSelect.value === 'auto' ? t('自动尺寸', 'auto size') : sizeSelect.value;
       const qualityText = qualitySelect.selectedOptions[0]?.textContent?.trim() || qualitySelect.value;
       const modeText = referenceFiles.length ? t('参考图编辑', 'reference edit') : t('文生图', 'text-to-image');
@@ -989,11 +1254,9 @@ const presets = [
         const json = await res.json();
         const item = Array.isArray(json?.data) ? json.data[0] : null;
         if (item?.b64_json) {
-          showResult({ kind: 'b64', data: item.b64_json });
-          setStatus(t('生成完成。', 'Image generated.'), 'ok');
+          await finishGeneration({ kind: 'b64', data: item.b64_json });
         } else if (item?.url) {
-          showResult({ kind: 'url', data: item.url });
-          setStatus(t('生成完成。', 'Image generated.'), 'ok');
+          await finishGeneration({ kind: 'url', data: item.url });
         } else {
           setStatus(t('接口返回中没有图片数据。', 'The response contains no image data.'), 'error');
         }
@@ -1014,33 +1277,66 @@ const presets = [
     };
 
     /* ---- helpers ---- */
-    const download = async () => {
-      if (!lastResult) return;
-      const filename = `image-gen-${Date.now()}.png`;
+    const saveBlobDownload = (blob) => {
+      const href = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = href;
+      a.download = `image-gen-${Date.now()}.png`;
+      document.body.append(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(href);
+    };
+
+    /* 返回 true 表示已触发下载；silent（自动下载）失败时不弹新标签，把控制权交还用户 */
+    const download = async ({ silent } = {}) => {
+      if (!lastResult) return false;
       if (lastResult.kind === 'b64') {
         const bin = atob(lastResult.data);
-        const bytes = Uint8Array.from(bin, (ch) => ch.charCodeAt(0));
-        const blob = new Blob([bytes], { type: 'image/png' });
-        const href = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = href;
-        a.download = filename;
-        a.click();
-        URL.revokeObjectURL(href);
-        return;
+        saveBlobDownload(new Blob([Uint8Array.from(bin, (ch) => ch.charCodeAt(0))], { type: 'image/png' }));
+        return true;
       }
-      try {
-        const res = await fetch(lastResult.data);
-        const blob = await res.blob();
-        const href = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = href;
-        a.download = filename;
-        a.click();
-        URL.revokeObjectURL(href);
-      } catch {
-        window.open(lastResult.data, '_blank', 'noreferrer');
+      // 图片 URL 可能不带 CORS 头，先直连、失败后走用户配置的中转再试
+      const attempts = [lastResult.data];
+      const tpl = corsProxyInput.value.trim();
+      if (tpl) {
+        attempts.push(
+          tpl.includes('{url}')
+            ? tpl.replace('{url}', encodeURIComponent(lastResult.data))
+            : tpl + encodeURIComponent(lastResult.data),
+        );
       }
+      for (const url of attempts) {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) continue;
+          const blob = await res.blob();
+          if (lastResult) {
+            lastResult.byteSize = blob.size;
+            renderResultStats();
+          }
+          saveBlobDownload(blob);
+          return true;
+        } catch {}
+      }
+      if (silent) return false;
+      window.open(lastResult.data, '_blank', 'noreferrer');
+      return true;
+    };
+
+    const finishGeneration = async (result) => {
+      showResult(result);
+      setStatus(t('生成完成，正在自动下载…', 'Generated — starting download…'), 'ok');
+      const ok = await download({ silent: true });
+      setStatus(
+        ok
+          ? t('生成完成，已自动开始下载；也可用下方按钮重新保存或打开原图。', 'Image generated and download started. Use the buttons below to save again or open the original.')
+          : t(
+              '生成完成。图片数据无法自动落盘（跨域或浏览器限制），请点「下载图片」或「新标签打开原图」。',
+              'Image generated, but the automatic download was blocked (CORS or browser policy). Press “Download” or “Open original”.',
+            ),
+        ok ? 'ok' : '',
+      );
     };
 
     generateBtn.addEventListener('click', generate);
@@ -1050,7 +1346,7 @@ const presets = [
       clearActivePreset();
       setStatus(t('已清空描述。', 'Prompt cleared.'), 'ok');
     });
-    downloadBtn.addEventListener('click', download);
+    downloadBtn.addEventListener('click', () => download());
     promptInput.addEventListener('input', () => {
       promptCount.textContent = String(promptInput.value.length);
     });
@@ -1080,6 +1376,7 @@ const presets = [
 
     const applyMeta = () => {
       document.title = t('AI 生图 · 工具', 'AI Image Studio · Tools');
+      modelMenuBtn.setAttribute('aria-label', t('展开或收起模型列表', 'Toggle the model list'));
       document.querySelector('meta[name="description"]')?.setAttribute(
         'content',
         t('用自配 API 在线生成图片，默认模型 gpt-image-2。', 'Generate images online via your own API, model gpt-image-2 by default.'),
