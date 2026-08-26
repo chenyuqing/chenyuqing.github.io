@@ -1233,6 +1233,13 @@ import '../../styles/global.css';
       const fmt = fmtByKey(state.fmtKey);
       const total = fmt.sign + fmt.exp + fmt.man;
 
+      // keep format chips' active highlight in sync with state
+      [...els.chips.children].forEach((b) => {
+        const active = b.dataset.key === state.fmtKey;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+
       els.fmtMeta.textContent = total + ' bits · ' +
         (fmt.kind === 'int'
           ? '1 ' + t('符号 + ', 'sign + ') + fmt.man + t(' 数值（补码）', ' value bits (two\u2019s complement)')
