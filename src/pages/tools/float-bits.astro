@@ -1,0 +1,1352 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+---
+
+<BaseLayout title="浮点数位拆解 · 工具" description="把任意数字拆成符号位、指数位、尾数位，直观比较 INT2、INT4、INT8、FP8、FP16、BF16、FP32、FP64 的精度与范围权衡。">
+  <main id="content" class="tool-page">
+    <section class="shell tool-top reveal">
+      <a class="tool-back" href="/tools/">
+        <span class="lang-zh">← 返回工具箱</span>
+        <span class="lang-en">← Back to Tools</span>
+      </a>
+      <p class="tool-eyebrow"><span class="lang-zh">数值 / 格式</span><span class="lang-en">Numbers / Formats</span></p>
+      <h1><span class="lang-zh">浮点数位拆解</span><span class="lang-en">Float Bit Inspector</span></h1>
+      <p class="tool-lead">
+        <span class="lang-zh">输入任意数字，看它如何被塞进 8 / 16 / 32 / 64 个格子：符号、指数、尾数各占几位，存进去的到底是谁，误差有多大。</span>
+        <span class="lang-en">Type any number and see how it lands in 8 / 16 / 32 / 64 cells: how many bits go to sign, exponent, and mantissa — and what actually gets stored.</span>
+      </p>
+    </section>
+
+    <section class="shell tool-panel reveal">
+      <div class="field-block">
+        <div class="field-head">
+          <label id="fmt-label">
+            <span class="lang-zh">选择格式</span><span class="lang-en">Format</span>
+          </label>
+          <span class="field-meta" id="fmt-meta"></span>
+        </div>
+        <div class="chip-row" id="fmt-chips" role="group" aria-labelledby="fmt-label"></div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-head">
+          <label for="num-input" id="input-label">
+            <span class="lang-zh">十进制数值</span><span class="lang-en">Decimal value</span>
+          </label>
+          <span class="field-meta"><span class="lang-zh">支持 0.1 / -3.14 / 1e8 / π / inf</span><span class="lang-en">supports 0.1 / -3.14 / 1e8 / π / inf</span></span>
+        </div>
+        <input id="num-input" type="text" spellcheck="false" autocomplete="off" placeholder="0.1" />
+      </div>
+
+      <div class="field-block">
+        <div class="field-head">
+          <label id="preset-label">
+            <span class="lang-zh">快速填入</span><span class="lang-en">Presets</span>
+          </label>
+        </div>
+        <div class="chip-row preset-row" id="preset-row"></div>
+      </div>
+
+      <p class="status-line" id="status-line" aria-live="polite"></p>
+    </section>
+
+    <section class="shell tool-panel viz-panel reveal">
+      <div class="field-head viz-head">
+        <label id="grid-label">
+          <span class="lang-zh">位分布（点击格子可手动翻转每一位）</span>
+          <span class="lang-en">Bit layout (click any cell to flip that bit)</span>
+        </label>
+        <span class="field-meta" id="hex-meta"></span>
+      </div>
+      <div class="bit-scroll">
+        <div id="bitgrid" aria-labelledby="grid-label"></div>
+      </div>
+      <div class="legend-row" id="legend-row"></div>
+      <p class="formula" id="formula"></p>
+      <p class="explain" id="explain"></p>
+      <ul class="notes" id="notes"></ul>
+    </section>
+
+    <section class="shell results-grid reveal">
+      <div class="stat-capsule">
+        <span class="stat-label"><span class="lang-zh">输入的数</span><span class="lang-en">Input</span></span>
+        <span class="stat-value" id="stat-input">—</span>
+      </div>
+      <div class="stat-capsule">
+        <span class="stat-label"><span class="lang-zh">实际存储的数（精确）</span><span class="lang-en">Actually stored (exact)</span></span>
+        <span class="stat-value" id="stat-stored">—</span>
+      </div>
+      <div class="stat-capsule">
+        <span class="stat-label"><span class="lang-zh">绝对误差</span><span class="lang-en">Absolute error</span></span>
+        <span class="stat-value" id="stat-abs">—</span>
+      </div>
+      <div class="stat-capsule">
+        <span class="stat-label"><span class="lang-zh">相对误差</span><span class="lang-en">Relative error</span></span>
+        <span class="stat-value" id="stat-rel">—</span>
+      </div>
+      <div class="stat-capsule">
+        <span class="stat-label"><span class="lang-zh">状态</span><span class="lang-en">Class</span></span>
+        <span class="stat-value"><span class="status-badge" id="stat-status">—</span></span>
+      </div>
+    </section>
+
+    <section class="shell tool-panel compare-panel reveal">
+      <div class="field-head">
+        <label id="compare-label">
+          <span class="lang-zh">同一个数，在不同格式下</span>
+          <span class="lang-en">The same number, in every format</span>
+        </label>
+        <span class="field-meta"><span class="lang-zh">点击行可切换主格式</span><span class="lang-en">click a row to switch format</span></span>
+      </div>
+      <div class="table-scroll">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th><span class="lang-zh">格式</span><span class="lang-en">Format</span></th>
+              <th><span class="lang-zh">位分布</span><span class="lang-en">Bits</span></th>
+              <th><span class="lang-zh">存储值（精确）</span><span class="lang-en">Stored (exact)</span></th>
+              <th><span class="lang-zh">绝对误差</span><span class="lang-en">Abs error</span></th>
+            </tr>
+          </thead>
+          <tbody id="compare-body"></tbody>
+        </table>
+      </div>
+      <p class="footnote">
+        <span class="lang-zh">* 整数格式（INT2 / INT4 / INT8）：小数会截断取整，超出表示范围会饱和。E4M3 没有无穷大，溢出时饱和到 ±448。</span>
+        <span class="lang-en">* Integer formats (INT2 / INT4 / INT8): fractions truncate, values beyond range saturate. E4M3 has no infinity — overflow saturates to ±448.</span>
+      </p>
+    </section>
+
+    <details class="shell primer reveal">
+      <summary>
+        <span class="lang-zh">原理速览：定点数 → 浮点数 → FP8 家族</span>
+        <span class="lang-en">Primer: fixed-point → floating-point → the FP8 family</span>
+      </summary>
+      <div class="primer-grid">
+        <article class="primer-card">
+          <h3><span class="lang-zh">定点数：小数点不动</span><span class="lang-en">Fixed-point: the point never moves</span></h3>
+          <p>
+            <span class="lang-zh">8 个格子直接存二进制、约定小数点位置，就是定点数。前 4 位整数、后 4 位小数——范围和精度在编码前就锁死了，二者不可兼得。</span>
+            <span class="lang-en">Store raw binary and fix the radix point somewhere — that's fixed-point. Four integer bits, four fraction bits: range and precision are frozen at design time, and you can't have both.</span>
+          </p>
+        </article>
+        <article class="primer-card">
+          <h3><span class="lang-zh">浮点数：让小数点浮动</span><span class="lang-en">Floating-point: let the point float</span></h3>
+          <p>
+            <span class="lang-zh">(−1)<sup>s</sup> × 1.m × 2<sup>e</sup> —— 用指数控制小数点位置。调小指数可以逼近 0.000000001，调大指数可以够到十亿。代价是：大数的绝对精度被牺牲了，保住的是相对精度。</span>
+            <span class="lang-en">(−1)<sup>s</sup> × 1.m × 2<sup>e</sup> — the exponent moves the radix point. Small exponents reach 0.000000001; large ones reach billions. The price: absolute precision of huge numbers is traded away, while relative precision survives.</span>
+          </p>
+        </article>
+        <article class="primer-card">
+          <h3><span class="lang-zh">FP8 家族：同一套格子，不同分法</span><span class="lang-en">The FP8 family: same cells, different splits</span></h3>
+          <p>
+            <span class="lang-zh">E4M3（±448，精度优先）、E5M2（±57344，范围优先）是英伟达 GPU 硬件支持的两种 FP8。UE8M0 干脆砍掉尾数和符号，只留 8 位指数——每个值都是 2 的幂，乘法退化成位移，硬件最好优化，DeepSeek 用它存缩放因子。</span>
+            <span class="lang-en">E4M3 (±448, precision-first) and E5M2 (±57344, range-first) are the two FP8 formats NVIDIA GPUs implement. UE8M0 drops sign and mantissa entirely — every value is a power of two, multiplication becomes a bit shift, which is why DeepSeek uses it for scaling factors.</span>
+          </p>
+        </article>
+        <article class="primer-card">
+          <h3><span class="lang-zh">为什么一亿不需要绝对精度</span><span class="lang-en">Why 100 million doesn't need absolute precision</span></h3>
+          <p>
+            <span class="lang-zh">对一亿来说，「一亿」和「一亿点零零零零一」的差别完全可以忽略。两个相邻浮点数的间隔随大小增长，所以既装得下极大的范围，又没损失相对精度——这就是浮点数的既要又要。</span>
+            <span class="lang-en">At 100 million scale, the difference between 100000000 and 100000000.00001 is negligible. The gap between adjacent floats grows with magnitude, so you get enormous range without losing relative precision — the best of both worlds, at a price you don't feel.</span>
+          </p>
+        </article>
+      </div>
+    </details>
+  </main>
+
+  <style>
+    .tool-page {
+      min-height: 100dvh;
+      padding: 6.2rem 0 4.5rem;
+      background: #11100d;
+      color: #eee4cc;
+    }
+    .tool-top { margin-bottom: 1.2rem; }
+    .tool-back {
+      display: inline-flex;
+      margin-bottom: 1.1rem;
+      color: #d1a843;
+      text-decoration: none;
+      font: 700 .78rem/1 var(--font-body);
+      letter-spacing: .06em;
+    }
+    .tool-back:hover { color: #f0cf76; }
+    .tool-eyebrow {
+      margin: 0 0 .5rem;
+      color: #b69a61;
+      font: 700 .72rem/1.3 var(--font-body);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .tool-top h1 {
+      margin: 0 0 .65rem;
+      color: #f4e8cb;
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      line-height: 1;
+    }
+    .tool-lead {
+      margin: 0;
+      max-width: 46rem;
+      color: #c9bda2;
+      line-height: 1.65;
+    }
+
+    .tool-panel {
+      border: 1px solid rgba(240, 223, 179, .22);
+      border-radius: 10px;
+      background: #1b1914;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .viz-panel { padding-bottom: 1.05rem; }
+
+    .field-block { margin-bottom: 1.05rem; }
+    .field-block:last-child { margin-bottom: 0; }
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: .8rem;
+      margin-bottom: .5rem;
+    }
+    .field-head label {
+      color: #f0e2c0;
+      font: 700 .82rem/1 var(--font-body);
+      letter-spacing: .04em;
+    }
+    .field-meta {
+      color: #9d8f72;
+      font: .72rem/1.4 var(--font-mono);
+      text-align: right;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+    }
+    /* runtime-created chips: anchor to static ancestors */
+    .tool-panel :global(.chip) {
+      border: 1px solid rgba(240, 223, 179, .24);
+      background: transparent;
+      color: #d8cbae;
+      border-radius: 999px;
+      padding: .5rem .85rem;
+      font: 700 .76rem/1 var(--font-mono);
+      letter-spacing: .03em;
+      cursor: pointer;
+      transition: border-color .15s ease, color .15s ease, background .15s ease;
+    }
+    .tool-panel :global(.chip:hover) { border-color: #d1a843; color: #f0cf76; }
+    .tool-panel :global(.chip.is-active) {
+      background: #d1a843;
+      border-color: #d1a843;
+      color: #1a1408;
+    }
+    .tool-panel :global(.preset-row .chip) { font-family: var(--font-body); font-weight: 700; }
+
+    #num-input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid rgba(240, 223, 179, .2);
+      border-radius: 8px;
+      background: #12100c;
+      color: #f4e8cb;
+      padding: .85rem 1rem;
+      font: 700 1.25rem/1.3 var(--font-mono);
+      outline: none;
+    }
+    #num-input:focus {
+      border-color: #d1a843;
+      box-shadow: 0 0 0 2px rgba(209, 168, 67, .18);
+    }
+
+    .status-line {
+      min-height: 1.2rem;
+      margin: .9rem 0 0;
+      color: #b69a61;
+      font-size: .85rem;
+    }
+    .status-line.is-error { color: #e18a7a; }
+    .status-line.is-ok { color: #8fbf8a; }
+
+    /* ---- bit grid (runtime-created cells) ---- */
+    .bit-scroll {
+      overflow-x: auto;
+      padding-bottom: .35rem;
+    }
+    #bitgrid {
+      display: grid;
+      gap: 4px;
+      width: max-content;
+    }
+    #bitgrid :global(.bcell) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 0 0;
+    }
+    #bitgrid :global(.bcell.gstart) { border-left: 2px solid rgba(240, 223, 179, .28); padding-left: 6px; }
+    #bitgrid :global(.bitbtn) {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      width: 100%;
+      min-width: 30px;
+      aspect-ratio: 1 / 1.15;
+      display: grid;
+      place-items: center;
+      background: #12100c;
+      color: #7d715a;
+      font: 800 1rem/1 var(--font-mono);
+      cursor: pointer;
+      transition: transform .12s ease, background .15s ease, color .15s ease;
+    }
+    #bitgrid :global(.bitbtn:hover) { transform: translateY(-2px); }
+    #bitgrid :global(.bitbtn[data-v='1']) { color: #f7efd9; }
+    #bitgrid :global(.bcell.g-sign .bitbtn) { border-bottom: 3px solid #d96c5f; }
+    #bitgrid :global(.bcell.g-sign .bitbtn[data-v='1']) { background: rgba(217, 108, 95, .32); }
+    #bitgrid :global(.bcell.g-exp .bitbtn) { border-bottom: 3px solid #8fbf8a; }
+    #bitgrid :global(.bcell.g-exp .bitbtn[data-v='1']) { background: rgba(143, 191, 138, .26); }
+    #bitgrid :global(.bcell.g-man .bitbtn) { border-bottom: 3px solid #64a8dd; }
+    #bitgrid :global(.bcell.g-man .bitbtn[data-v='1']) { background: rgba(100, 168, 221, .28); }
+    /* INT8 value cells share the mantissa blue */
+    #bitgrid :global(.bcell.g-val .bitbtn) { border-bottom: 3px solid #64a8dd; }
+    #bitgrid :global(.bcell.g-val .bitbtn[data-v='1']) { background: rgba(100, 168, 221, .28); }
+    #bitgrid :global(.bidx) {
+      color: #6d6250;
+      font: .58rem/1 var(--font-mono);
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem 1.4rem;
+      margin-top: .8rem;
+    }
+    .legend-row :global(.legend-item) {
+      display: inline-flex;
+      align-items: baseline;
+      gap: .45rem;
+      color: #c9bda2;
+      font: .78rem/1.5 var(--font-body);
+    }
+    .legend-row :global(.legend-dot) {
+      align-self: center;
+      width: .62rem;
+      height: .62rem;
+      border-radius: 2px;
+      flex: none;
+    }
+    .legend-row :global(.legend-item.g-sign .legend-dot) { background: #d96c5f; }
+    .legend-row :global(.legend-item.g-exp .legend-dot) { background: #8fbf8a; }
+    .legend-row :global(.legend-item.g-man .legend-dot) { background: #64a8dd; }
+    .legend-row :global(.legend-val) {
+      color: #f0cf76;
+      font: .74rem/1.5 var(--font-mono);
+      word-break: break-all;
+    }
+
+    .formula {
+      margin: .95rem 0 0;
+      color: #f4e8cb;
+      font: 700 1.02rem/1.6 var(--font-mono);
+      word-break: break-all;
+    }
+    .formula sup, .formula sub { font-size: .68em; }
+    .explain {
+      margin: .5rem 0 0;
+      min-height: 1.35em;
+      color: #b6a98b;
+      font-size: .84rem;
+      line-height: 1.6;
+    }
+    .notes {
+      margin: .6rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .notes :global(li) {
+      position: relative;
+      padding-left: 1rem;
+      color: #d8b46a;
+      font-size: .8rem;
+      line-height: 1.65;
+    }
+    .notes :global(li::before) {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .52em;
+      width: .38rem;
+      height: .38rem;
+      border-radius: 50%;
+      background: #d1a843;
+    }
+
+    /* ---- result capsules ---- */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(11.5rem, 1fr));
+      gap: .7rem;
+      margin-bottom: 1rem;
+    }
+    .stat-capsule {
+      border: 1px solid rgba(240, 223, 179, .22);
+      border-radius: 10px;
+      background: #1b1914;
+      padding: .85rem .95rem;
+      min-width: 0;
+    }
+    .stat-label {
+      display: block;
+      margin-bottom: .4rem;
+      color: #9d8f72;
+      font: 700 .68rem/1.3 var(--font-body);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .stat-value {
+      display: block;
+      color: #f4e8cb;
+      font: 700 .88rem/1.5 var(--font-mono);
+      word-break: break-all;
+    }
+    .status-badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: .18rem .6rem;
+      font: 700 .72rem/1.4 var(--font-body);
+      background: rgba(127, 174, 121, .18);
+      color: #8fbf8a;
+    }
+    .status-badge.st-sub { background: rgba(209, 168, 67, .16); color: #e5c069; }
+    .status-badge.st-zero { background: rgba(157, 143, 114, .16); color: #b3a687; }
+    .status-badge.st-inf,
+    .status-badge.st-nan { background: rgba(177, 96, 85, .2); color: #e18a7a; }
+
+    /* ---- compare table (tbody rows are runtime-created) ---- */
+    .table-scroll { overflow-x: auto; }
+    .compare-table {
+      width: 100%;
+      min-width: 34rem;
+      border-collapse: collapse;
+    }
+    .compare-table th {
+      padding: .45rem .6rem;
+      border-bottom: 1px solid rgba(240, 223, 179, .24);
+      color: #9d8f72;
+      font: 700 .66rem/1 var(--font-body);
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .table-scroll :global(.compare-table td) {
+      padding: .55rem .6rem;
+      border-bottom: 1px solid rgba(240, 223, 179, .1);
+      font: .78rem/1.5 var(--font-mono);
+      color: #d8cbae;
+      vertical-align: middle;
+    }
+    .table-scroll :global(.compare-table tbody tr) {
+      cursor: pointer;
+      transition: background .12s ease;
+    }
+    .table-scroll :global(.compare-table tbody tr:hover) { background: rgba(209, 168, 67, .06); }
+    .table-scroll :global(.compare-table tbody tr.is-active) { background: rgba(209, 168, 67, .1); }
+    .table-scroll :global(.compare-table tbody tr.is-active td:first-child) { box-shadow: inset 3px 0 0 #d1a843; }
+    .table-scroll :global(.cmp-name) { white-space: nowrap; font-weight: 700; color: #f0e2c0; }
+    .table-scroll :global(.cmp-bar) {
+      display: flex;
+      width: 8.5rem;
+      max-width: 100%;
+      height: .65rem;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(240, 223, 179, .2);
+    }
+    .table-scroll :global(.cmp-bar i) { display: block; height: 100%; }
+    .table-scroll :global(.cmp-bar .seg-sign) { background: #d96c5f; }
+    .table-scroll :global(.cmp-bar .seg-exp) { background: #8fbf8a; }
+    .table-scroll :global(.cmp-bar .seg-man) { background: #64a8dd; }
+    .table-scroll :global(.cmp-stored) { word-break: break-all; min-width: 13rem; }
+    .table-scroll :global(.cmp-err) { white-space: nowrap; }
+    .table-scroll :global(.cmp-err.is-exact) { color: #8fbf8a; }
+    .footnote {
+      margin: .75rem 0 0;
+      color: #877b63;
+      font-size: .74rem;
+      line-height: 1.6;
+    }
+
+    /* ---- primer ---- */
+    .primer {
+      display: block;
+      border: 1px solid rgba(240, 223, 179, .22);
+      border-radius: 10px;
+      background: #171511;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+    .primer summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1.05rem 1.25rem;
+      color: #d1a843;
+      font: 700 .86rem/1.4 var(--font-body);
+      letter-spacing: .04em;
+    }
+    .primer summary::-webkit-details-marker { display: none; }
+    .primer summary::after { content: ' +'; }
+    .primer[open] summary::after { content: ' –'; }
+    .primer[open] summary { border-bottom: 1px solid rgba(240, 223, 179, .14); }
+    .primer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: .9rem;
+      padding: 1.1rem 1.25rem 1.3rem;
+    }
+    .primer-card h3 {
+      margin: 0 0 .45rem;
+      color: #f0e2c0;
+      font-size: .95rem;
+      line-height: 1.4;
+    }
+    .primer-card p {
+      margin: 0;
+      color: #b6a98b;
+      font-size: .82rem;
+      line-height: 1.75;
+    }
+    .primer-card sup { font-size: .68em; }
+
+    .lang-en { display: none; }
+    :global(html[data-lang='en']) .lang-zh { display: none; }
+    :global(html[data-lang='en']) .lang-en { display: inline; }
+
+    @media (max-width: 720px) {
+      .tool-page { padding: 4.4rem 0 3rem; }
+      .tool-panel { padding: 1rem; }
+      .tool-panel :global(.chip) { flex: 1 1 auto; text-align: center; }
+      #num-input { font-size: 1.05rem; }
+      #bitgrid :global(.bidx) { display: none; }
+      .results-grid { grid-template-columns: repeat(2, 1fr); }
+      .primer-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tool-panel :global(.chip),
+      #bitgrid :global(.bitbtn),
+      .table-scroll :global(.compare-table tbody tr) { transition: none; }
+    }
+  </style>
+
+  <script>
+    /* ================= format definitions ================= */
+    const FORMATS = [
+      { key: 'int2',  zh: 'INT2',       en: 'INT2',       sign: 1, exp: 0,  man: 1,  kind: 'int' },
+      { key: 'int4',  zh: 'INT4',       en: 'INT4',       sign: 1, exp: 0,  man: 3,  kind: 'int' },
+      { key: 'int8',  zh: 'INT8',       en: 'INT8',       sign: 1, exp: 0,  man: 7,  kind: 'int' },
+      { key: 'e4m3',  zh: 'FP8·E4M3',   en: 'FP8·E4M3',   sign: 1, exp: 4,  man: 3,  kind: 'float', bias: 7 },
+      { key: 'e5m2',  zh: 'FP8·E5M2',   en: 'FP8·E5M2',   sign: 1, exp: 5,  man: 2,  kind: 'float', bias: 15 },
+      { key: 'ue8m0', zh: 'UE8M0',      en: 'UE8M0',      sign: 0, exp: 8,  man: 0,  kind: 'float', bias: 127, unsigned: true },
+      { key: 'fp16',  zh: 'FP16',       en: 'FP16',       sign: 1, exp: 5,  man: 10, kind: 'float', bias: 15 },
+      { key: 'bf16',  zh: 'BF16',       en: 'BF16',       sign: 1, exp: 8,  man: 7,  kind: 'float', bias: 127 },
+      { key: 'fp32',  zh: 'FP32',       en: 'FP32',       sign: 1, exp: 8,  man: 23, kind: 'float', bias: 127 },
+      { key: 'fp64',  zh: 'FP64',       en: 'FP64',       sign: 1, exp: 11, man: 52, kind: 'float', bias: 1023 },
+    ];
+    const NO_INF = new Set(['e4m3']);
+
+    const $ = (id) => document.getElementById(id);
+    const root = document.documentElement;
+    const isEn = () => root.getAttribute('data-lang') === 'en';
+    const t = (zh, en) => (isEn() ? en : zh);
+
+    const els = {
+      input: $('num-input'),
+      status: $('status-line'),
+      chips: $('fmt-chips'),
+      fmtMeta: $('fmt-meta'),
+      presetRow: $('preset-row'),
+      grid: $('bitgrid'),
+      hexMeta: $('hex-meta'),
+      legendRow: $('legend-row'),
+      formula: $('formula'),
+      explain: $('explain'),
+      notes: $('notes'),
+      statInput: $('stat-input'),
+      statStored: $('stat-stored'),
+      statAbs: $('stat-abs'),
+      statRel: $('stat-rel'),
+      statStatus: $('stat-status'),
+      compareBody: $('compare-body'),
+    };
+
+    /* ================= number helpers ================= */
+
+    function decomposeDouble(x) {
+      const dv = new DataView(new ArrayBuffer(8));
+      dv.setFloat64(0, x);
+      const hi = dv.getUint32(0);
+      const lo = dv.getUint32(4);
+      const s = (hi >>> 31) & 1;
+      const biased = (hi >>> 20) & 0x7ff;
+      const frac = (hi & 0xfffff) * 0x100000000 + lo;
+      if (biased === 0x7ff) return { cls: Number.isNaN(x) ? 'nan' : 'inf', s };
+      if (x === 0) return { cls: 'zero', s };
+      if (biased === 0) return { cls: 'sub', s, E: -1022, frac };
+      return { cls: 'norm', s, E: biased - 1023, frac };
+    }
+
+    // Round BigInt fraction right-shifted by `shift` bits, ties to even.
+    function rtne(frac, shift) {
+      if (shift <= 0) return frac << BigInt(-shift); // target precision >= source precision: exact
+      const q = frac >> BigInt(shift);
+      const rem = frac & ((1n << BigInt(shift)) - 1n);
+      const half = 1n << BigInt(shift - 1);
+      if (rem > half || (rem === half && (q & 1n) === 1n)) return q + 1n;
+      return q;
+    }
+
+    function parseNum(text) {
+      let s = text.trim();
+      if (!s) return { err: 'empty' };
+      if (/^[+-]?∞$/.test(s)) s = s.replace('∞', 'inf');
+      const low = s.toLowerCase();
+      if (low === 'nan') return { v: NaN };
+      if (/^[+-]?(inf|infinity)$/.test(low)) return { v: low.startsWith('-') ? -Infinity : Infinity };
+      if (low === 'pi' || low === 'π') return { v: Math.PI };
+      if (low === 'e') return { v: Math.E };
+      let cleaned = s;
+      if (/^[+-]?\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) cleaned = s.replace(/,/g, '');
+      const n = Number(cleaned);
+      if (Number.isNaN(n)) return { err: 'invalid' };
+      return { v: n };
+    }
+
+    /* ---- bounds per format, for presets & compare ---- */
+    function boundsOf(fmt) {
+      if (fmt.kind === 'int') {
+        const maxV = 2 ** (fmt.sign + fmt.man - 1) - 1;
+        return { max: String(maxV), minPos: '1' };
+      }
+      if (fmt.unsigned) return { max: String(2 ** 128), minPos: String(2 ** (-127)) };
+      const allExp = (1 << fmt.exp) - 1;
+      const maxExpField = NO_INF.has(fmt.key) ? allExp : allExp - 1;
+      const manMax = NO_INF.has(fmt.key) ? (1 << fmt.man) - 2 : (1 << fmt.man) - 1;
+      const maxFinite = (1 + manMax / 2 ** fmt.man) * 2 ** (maxExpField - fmt.bias);
+      const minSub = 2 ** (1 - fmt.bias - fmt.man);
+      return { max: String(maxFinite), minPos: String(minSub) };
+    }
+
+    /* ================= encode: decimal -> bits ================= */
+
+    function encodeValue(fmt, x) {
+      const total = fmt.sign + fmt.exp + fmt.man;
+      const bits = new Array(total).fill(0);
+      const notes = [];
+      const put = (start, len, val) => {
+        const v = BigInt(val);
+        for (let i = 0; i < len; i++) bits[start + i] = Number((v >> BigInt(len - 1 - i)) & 1n);
+      };
+
+      if (fmt.kind === 'int') {
+        const w = fmt.sign + fmt.man;
+        const maxV = 2 ** (w - 1) - 1;
+        const minV = -(2 ** (w - 1));
+        let v = x;
+        if (!Number.isInteger(v)) {
+          v = Math.trunc(v);
+          notes.push({
+            zh: `${w} 位整数只能存整数：小数部分已被截断。`,
+            en: `${w}-bit integers store whole numbers only: the fractional part was truncated.`,
+          });
+        }
+        if (v > maxV || v < minV) {
+          v = v > 0 ? maxV : minV;
+          notes.push({
+            zh: `超出 ${w} 位整数范围 [${minV}, ${maxV}]，已饱和到边界。`,
+            en: `Out of ${w}-bit integer range [${minV}, ${maxV}]: saturated to the boundary.`,
+          });
+        }
+        put(0, w, v < 0 ? v + 2 ** w : v);
+        return { bits, notes };
+      }
+
+      const si = fmt.sign;
+      const d = decomposeDouble(x);
+
+      if (fmt.unsigned) {
+        // UE8M0: pure exponent, value = 2^(field - bias)
+        if (!(x > 0) || !isFinite(x)) {
+          notes.push({
+            zh: 'UE8M0 无符号且只表示 2 的幂：无法表示这个数，暂以字段 0（2 的 −127 次方）展示。',
+            en: 'UE8M0 is unsigned and holds powers of two only: this value is not representable; showing field 0 (2^-127).',
+          });
+          return { bits, notes };
+        }
+        const L = Math.log2(x);
+        let ef = Math.round(L) + fmt.bias;
+        if (L !== Math.round(L)) {
+          notes.push({
+            zh: 'UE8M0 只能存 2 的幂：已就近取到最接近的那个。',
+            en: 'UE8M0 holds powers of two only: snapped to the nearest one.',
+          });
+        }
+        if (ef < 0) { ef = 0; notes.push({ zh: '指数字段下溢，已钳制到 0。', en: 'Exponent field underflow: clamped to 0.' }); }
+        if (ef > 255) { ef = 255; notes.push({ zh: '指数字段溢出，已钳制到 255。', en: 'Exponent field overflow: clamped to 255.' }); }
+        put(si, 8, ef);
+        return { bits, notes };
+      }
+
+      if (si) bits[0] = d.s;
+
+      if (d.cls === 'nan' || d.cls === 'inf') {
+        if (d.cls === 'inf' && NO_INF.has(fmt.key)) {
+          put(si, fmt.exp, (1 << fmt.exp) - 1);
+          put(si + fmt.exp, fmt.man, (1 << fmt.man) - 1);
+          notes.push({
+            zh: 'E4M3 没有无穷大编码：无穷在这里只能表示为 NaN。',
+            en: 'E4M3 has no infinity encoding: infinity degrades to NaN here.',
+          });
+          return { bits, notes };
+        }
+        put(si, fmt.exp, (1 << fmt.exp) - 1);
+        if (d.cls === 'nan') put(si + fmt.exp, fmt.man, fmt.man ? (1 << fmt.man) - 1 : 0);
+        return { bits, notes };
+      }
+
+      if (d.cls === 'zero') return { bits, notes };
+
+      // Build exact 53-bit significand F with exponent E so that |x| = F * 2^(E-52).
+      let E, F;
+      if (d.cls === 'norm') { E = d.E; F = (1n << 52n) | BigInt(d.frac); }
+      else {
+        // double-subnormal input: renormalize to 53-bit form
+        const f = BigInt(d.frac);
+        const msbPos = f.toString(2).length - 1;
+        const lift = 52 - msbPos;
+        F = f << BigInt(lift);
+        E = -1022 - lift;
+      }
+
+      const p = fmt.man + 1;
+      const allExp = (1 << fmt.exp) - 1;
+
+      if (E >= 1 - fmt.bias) {
+        let q = rtne(F, 53 - p);
+        if (q >= (1n << BigInt(p))) { q >>= 1n; E += 1; }
+        const maxExpField = NO_INF.has(fmt.key) ? allExp : allExp - 1;
+        const EmaxNum = maxExpField - fmt.bias;
+        const manCap = NO_INF.has(fmt.key) ? BigInt((1 << fmt.man) - 2) : BigInt((1 << fmt.man) - 1);
+        let manField = q - (1n << BigInt(p - 1));
+        if (E > EmaxNum || (NO_INF.has(fmt.key) && E === EmaxNum && manField > manCap)) {
+          if (NO_INF.has(fmt.key)) {
+            notes.push({
+              zh: '溢出：E4M3 最大只能到 ±' + boundsOf(fmt).max + '，已饱和。',
+              en: 'Overflow: E4M3 tops out at ±' + boundsOf(fmt).max + '; saturated.',
+            });
+            E = EmaxNum;
+            q = (1n << BigInt(p - 1)) | manCap;
+          } else {
+            notes.push({
+              zh: '溢出：超出该格式的范围，只能存成无穷大。',
+              en: 'Overflow: beyond this format\u2019s range, stored as infinity.',
+            });
+            put(si, fmt.exp, allExp);
+            return { bits, notes };
+          }
+        }
+        put(si, fmt.exp, E + fmt.bias);
+        put(si + fmt.exp, fmt.man, Number(q - (1n << BigInt(p - 1))));
+        return { bits, notes };
+      }
+
+      // subnormal territory
+      const shift = (1 - fmt.bias - fmt.man) - (E - 52);
+      const q = rtne(F, shift);
+      if (q >= (1n << BigInt(fmt.man))) {
+        put(si, fmt.exp, 1); // rounds up to smallest normal
+      } else {
+        if (q === 0n) {
+          notes.push({
+            zh: '太小了：向下溢出直接变成 0（子正常区也装不下）。',
+            en: 'Too small: flushed to zero even the subnormal range cannot hold it.',
+          });
+        }
+        put(si + fmt.exp, fmt.man, Number(q));
+      }
+      return { bits, notes };
+    }
+
+    /* ================= decode: bits -> value ================= */
+
+    function decodeBits(fmt, bits) {
+      const get = (start, len) => {
+        let v = 0;
+        for (let i = 0; i < len; i++) v = v * 2 + bits[start + i];
+        return v;
+      };
+      const s = fmt.sign ? bits[0] : 0;
+      const ef = get(fmt.sign, fmt.exp);
+      const mf = get(fmt.sign + fmt.exp, fmt.man);
+
+      if (fmt.kind === 'int') {
+        const w = fmt.sign + fmt.man;
+        const u = get(0, w);
+        const half = 2 ** (w - 1);
+        const v = u >= half ? u - 2 ** w : u;
+        return { cls: 'norm', value: v, s, ef, mf, mk: { M: BigInt(Math.abs(v)), k: 0, neg: v < 0 }, int: true };
+      }
+
+      if (fmt.unsigned) {
+        const v = 2 ** (ef - fmt.bias);
+        return { cls: 'norm', value: v, s: 0, ef, mf: 0, mk: { M: 1n, k: ef - fmt.bias, neg: false } };
+      }
+
+      const allExp = (1 << fmt.exp) - 1;
+      const emin = 1 - fmt.bias;
+
+      if (ef === allExp) {
+        if (NO_INF.has(fmt.key) && mf !== (1 << fmt.man) - 1) {
+          const v = (1 + mf / 2 ** fmt.man) * 2 ** (allExp - fmt.bias);
+          const M = (BigInt(1) << BigInt(fmt.man)) + BigInt(mf);
+          return { cls: 'norm', value: v, s, ef, mf, mk: { M, k: allExp - fmt.bias - fmt.man, neg: !!s } };
+        }
+        if (!NO_INF.has(fmt.key) && mf === 0) {
+          return { cls: 'inf', value: null, s, ef, mf, mk: null };
+        }
+        return { cls: 'nan', value: null, s, ef, mf, mk: null };
+      }
+
+      if (ef === 0) {
+        if (mf === 0) return { cls: 'zero', value: s ? -0 : 0, s, ef, mf, mk: { M: 0n, k: 0, neg: !!s } };
+        const v = (mf / 2 ** fmt.man) * 2 ** emin;
+        return { cls: 'sub', value: v, s, ef, mf, mk: { M: BigInt(mf), k: emin - fmt.man, neg: !!s } };
+      }
+
+      const v = (1 + mf / 2 ** fmt.man) * 2 ** (ef - fmt.bias);
+      const M = (BigInt(1) << BigInt(fmt.man)) + BigInt(mf);
+      return { cls: 'norm', value: v, s, ef, mf, mk: { M, k: ef - fmt.bias - fmt.man, neg: !!s } };
+    }
+
+    // Exact decimal expansion of M * 2^k, sign applied. Falls back to shortest double repr when too long.
+    function exactStr(mk, cap = 42) {
+      if (!mk) return '';
+      if (mk.M === 0n) return mk.neg ? '-0' : '0';
+      let num, scale = 0;
+      if (mk.k >= 0) num = mk.M << BigInt(mk.k);
+      else { num = mk.M * 5n ** BigInt(-mk.k); scale = -mk.k; }
+      while (scale > 0 && num % 10n === 0n) { num /= 10n; scale--; }
+      let str;
+      if (scale === 0) str = num.toString();
+      else {
+        let digits = num.toString();
+        if (digits.length <= scale) digits = '0'.repeat(scale - digits.length + 1) + digits;
+        str = digits.slice(0, digits.length - scale) + '.' + digits.slice(digits.length - scale);
+      }
+      const signed = (mk.neg ? '-' : '') + str;
+      if (signed.length > cap) {
+        const approx = Number(signed);
+        return '≈ ' + String(approx);
+      }
+      return signed;
+    }
+
+    function fmtErr(v) {
+      if (!isFinite(v)) return '—';
+      if (v === 0) return '0';
+      const a = Math.abs(v);
+      if (a >= 1e-4 && a < 1e7) {
+        const s = v.toPrecision(4);
+        return s.includes('.') ? s.replace(/\.?0+($|e)/, '$1') : s;
+      }
+      return v.toExponential(3);
+    }
+
+    /* ================= i18n strings ================= */
+
+    const STR = {
+      groupNames: {
+        sign: { zh: '符号位', en: 'SIGN' },
+        exp: { zh: '指数位', en: 'EXPONENT' },
+        man: { zh: '尾数位', en: 'MANTISSA' },
+        val: { zh: '数值位（补码）', en: 'VALUE BITS (two\u2019s complement)' },
+      },
+      clsName: {
+        norm: { zh: '正常值', en: 'Normal' },
+        sub: { zh: '子正常', en: 'Subnormal' },
+        zero: { zh: '零', en: 'Zero' },
+        inf: { zh: '无穷大', en: 'Infinity' },
+        nan: { zh: '非数 NaN', en: 'NaN' },
+      },
+      errEmpty: { zh: '请先输入一个数字。', en: 'Enter a number first.' },
+      errInvalid: { zh: '看不懂这个输入：试试 0.1 / -3.14 / 1e8 / π / inf。', en: 'Cannot parse this: try 0.1 / -3.14 / 1e8 / \u03c0 / inf.' },
+      explainDefault: { zh: '把鼠标悬停在任意一段上，看看它在干什么。', en: 'Hover any group of cells to see what it does.' },
+      legendNone: { zh: '该格式没有这一段', en: 'not present in this format' },
+      supScriptNote: { zh: '₂ 表示二进制', en: '\u2082 marks binary' },
+    };
+
+    /* ================= state ================= */
+
+    const STORE_KEY = 'float-bits-state-v1';
+    let state = {
+      fmtKey: 'e4m3',
+      inputText: '0.1',
+      bits: null,
+      lastParsed: null,
+    };
+
+    const fmtByKey = (key) => FORMATS.find((f) => f.key === key);
+
+    /* ================= UI: format chips & presets ================= */
+
+    function buildChips() {
+      els.chips.innerHTML = '';
+      FORMATS.forEach((f) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip';
+        b.textContent = isEn() ? f.en : f.zh;
+        b.dataset.key = f.key;
+        b.setAttribute('aria-pressed', String(f.key === state.fmtKey));
+        if (f.key === state.fmtKey) b.classList.add('is-active');
+        b.addEventListener('click', () => {
+          state.fmtKey = f.key;
+          saveState();
+          encodeFromInput(true);
+          render();
+        });
+        els.chips.appendChild(b);
+      });
+    }
+
+    function buildPresets() {
+      const items = [
+        { zh: '0.1', en: '0.1', val: '0.1' },
+        { zh: '1', en: '1', val: '1' },
+        { zh: '−1', en: '−1', val: '-1' },
+        { zh: '0.5', en: '0.5', val: '0.5' },
+        { zh: 'π', en: '\u03c0', val: 'pi' },
+        { zh: '一亿 1e8', en: '100M', val: '1e8' },
+        { zh: '一亿+0.00001', en: '100M+0.00001', val: '100000000.00001' },
+        { zh: '极小 1e-9', en: 'tiny 1e-9', val: '1e-9' },
+        { zh: '最大值', en: 'MAX', val: '@max' },
+        { zh: '最小正数', en: 'MIN+', val: '@minpos' },
+        { zh: '∞', en: '∞', val: 'inf' },
+      ];
+      els.presetRow.innerHTML = '';
+      items.forEach((it) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip';
+        b.textContent = isEn() ? it.en : it.zh;
+        b.addEventListener('click', () => {
+          let v = it.val;
+          if (v === '@max') v = boundsOf(fmtByKey(state.fmtKey)).max;
+          if (v === '@minpos') v = boundsOf(fmtByKey(state.fmtKey)).minPos;
+          state.inputText = v;
+          els.input.value = v;
+          saveState();
+          encodeFromInput(false);
+          setStatus('', '');
+          render();
+        });
+        els.presetRow.appendChild(b);
+      });
+    }
+
+    function refreshChipLabels() {
+      [...els.chips.children].forEach((b) => {
+        const f = fmtByKey(b.dataset.key);
+        b.textContent = isEn() ? f.en : f.zh;
+        b.setAttribute('aria-pressed', String(f.key === state.fmtKey));
+        b.classList.toggle('is-active', f.key === state.fmtKey);
+      });
+    }
+
+    /* ================= UI: bit grid ================= */
+
+    function buildGrid(fmt) {
+      const total = fmt.sign + fmt.exp + fmt.man;
+      els.grid.innerHTML = '';
+      els.grid.style.gridTemplateColumns = 'repeat(' + total + ', minmax(30px, 1fr))';
+      els.grid.style.minWidth = total * 34 + 'px';
+
+      const expStart = fmt.sign;
+      const manStart = fmt.sign + fmt.exp;
+
+      for (let i = 0; i < total; i++) {
+        const cell = document.createElement('div');
+        let group;
+        if (fmt.kind === 'int') group = 'val';
+        else if (i < expStart) group = 'sign';
+        else if (i < manStart) group = 'exp';
+        else group = 'man';
+        cell.className = 'bcell g-' + group;
+        if (i === 0 || i === expStart || i === manStart) cell.classList.add('gstart');
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'bitbtn';
+        btn.dataset.v = '0';
+        btn.dataset.idx = String(i);
+        btn.dataset.group = group;
+        const bitNo = total - 1 - i;
+        btn.setAttribute('aria-label', t('第 ', 'bit ') + bitNo + t(' 位 · ', ' \u00b7 ') + STR.groupNames[group][isEn() ? 'en' : 'zh']);
+        btn.addEventListener('click', () => {
+          state.bits[i] = state.bits[i] ^ 1;
+          const dec = decodeBits(fmt, state.bits);
+          state.notes = [];
+          state.inputText = decodedToInput(dec);
+          els.input.value = state.inputText;
+          setStatus(
+            t('已手动翻转第 ', 'Flipped bit ') + bitNo + t(' 位，当前显示的就是这些格子解码出的值。', ' manually \u2014 the readout below is exactly what these cells decode to.'),
+            'ok',
+          );
+          saveState();
+          render();
+          focusExplain(group, fmt, decodeBits(fmt, state.bits));
+        });
+        btn.addEventListener('mouseenter', () => focusExplain(group, fmt, decodeBits(fmt, state.bits)));
+        btn.addEventListener('focus', () => focusExplain(group, fmt, decodeBits(fmt, state.bits)));
+
+        const idx = document.createElement('span');
+        idx.className = 'bidx';
+        idx.textContent = String(bitNo);
+
+        cell.appendChild(btn);
+        cell.appendChild(idx);
+        els.grid.appendChild(cell);
+      }
+    }
+
+    function syncGridBits() {
+      [...els.grid.querySelectorAll('.bitbtn')].forEach((btn) => {
+        const i = Number(btn.dataset.idx);
+        const v = state.bits[i];
+        btn.dataset.v = String(v);
+        btn.textContent = String(v);
+      });
+    }
+
+    /* ================= explain / legend / formula ================= */
+
+    function bitsToStr(arr, start, len) {
+      let s = '';
+      for (let i = 0; i < len; i++) s += arr[start + i];
+      return s;
+    }
+
+    function focusExplain(group, fmt, dec) {
+      const lang = isEn() ? 'en' : 'zh';
+      if (group === 'val') {
+        els.explain.innerHTML = t(
+          '补码：最高位仍是符号，其余 ' + fmt.man + ' 位按「取反加一」得到负数。',
+          'Two\u2019s complement: the top bit is still the sign; the other ' + fmt.man + ' bits negate via invert-and-add-one.',
+        );
+        return;
+      }
+      if (group === 'sign') {
+        els.explain.innerHTML = t(
+          '符号位 1 格：0 表示正数，1 表示负数。当前 ' + dec.s + ' → ' + (dec.s ? '负' : '正') + '。',
+          'One sign cell: 0 positive, 1 negative. Currently ' + dec.s + ' \u2192 ' + (dec.s ? 'negative' : 'positive') + '.',
+        );
+        return;
+      }
+      if (group === 'exp') {
+        const biasTxt = fmt.kind === 'float'
+          ? t('；实际指数 = 字段值 − 偏置 ' + fmt.bias + ' = ' + (dec.ef - fmt.bias) + '。', '; actual exponent = field \u2212 bias ' + fmt.bias + ' = ' + (dec.ef - fmt.bias) + '.')
+          : '';
+        const special = dec.ef === (1 << fmt.exp) - 1
+          ? t(' 全 1 是特殊区（无穷 / NaN）。', ' All-ones is the special zone (infinity / NaN).')
+          : (dec.ef === 0 ? t(' 全 0 是子正常 / 零区。', ' All-zeros is the subnormal / zero zone.') : '');
+        els.explain.innerHTML =
+          STR.groupNames.exp[lang] + ' ' + fmt.exp + t(' 格，字段 0b', ' cells, field 0b') +
+          bitsToStr(state.bits, fmt.sign, fmt.exp) + ' = ' + dec.ef + biasTxt + special;
+        return;
+      }
+      // mantissa
+      const lead = fmt.kind === 'float' && !fmt.unsigned
+        ? (dec.cls === 'sub'
+          ? t('子正常的隐含首位是 0：有效数 0.', 'Subnormals drop the implied leading 1: significand 0.')
+          : t('隐含首位 1：有效数 1.', 'Implied leading 1: significand 1.'))
+        : '';
+      els.explain.innerHTML =
+        STR.groupNames.man[lang] + ' ' + fmt.man + t(' 格，分数 = ', ' cells, fraction = ') + dec.mf + '/' + (2 ** fmt.man) + '。 ' + lead + bitsToStr(state.bits, fmt.sign + fmt.exp, fmt.man) + '\u2082';
+    }
+
+    function buildLegend(fmt, dec) {
+      const lang = isEn() ? 'en' : 'zh';
+      const items = [];
+      if (fmt.kind === 'int') {
+        items.push({ g: 'man', name: STR.groupNames.val[lang], val: (fmt.sign + fmt.man) + t(' 位补码整数', '-bit two\u2019s-complement integer') });
+      } else if (fmt.unsigned) {
+        items.push({ g: 'exp', name: STR.groupNames.exp[lang], val: '0b' + bitsToStr(state.bits, 0, fmt.exp) + ' = ' + dec.ef + t('，即 2^', ', i.e. 2^') + (dec.ef - fmt.bias) });
+      } else {
+        items.push({ g: 'sign', name: STR.groupNames.sign[lang], val: dec.s + (dec.s ? t('（负）', ' (neg)') : t('（正）', ' (pos)')) });
+        items.push({ g: 'exp', name: STR.groupNames.exp[lang], val: '0b' + bitsToStr(state.bits, fmt.sign, fmt.exp) + ' = ' + dec.ef + t('，偏置后 ', ', biased \u2192 ') + (dec.ef - fmt.bias) });
+        items.push({ g: 'man', name: STR.groupNames.man[lang], val: '0b' + bitsToStr(state.bits, fmt.sign + fmt.exp, fmt.man) + ' = ' + dec.mf + '/' + (2 ** fmt.man) });
+      }
+      els.legendRow.innerHTML = '';
+      items.forEach((it) => {
+        const span = document.createElement('span');
+        span.className = 'legend-item g-' + it.g;
+        const dot = document.createElement('i');
+        dot.className = 'legend-dot';
+        const nm = document.createElement('b');
+        nm.textContent = it.name;
+        const val = document.createElement('span');
+        val.className = 'legend-val';
+        val.textContent = it.val;
+        span.appendChild(dot);
+        span.appendChild(nm);
+        span.appendChild(val);
+        span.addEventListener('mouseenter', () => focusExplain(it.g === 'val' ? 'val' : it.g, fmt, dec));
+        els.legendRow.appendChild(span);
+      });
+    }
+
+    function buildFormula(fmt, dec) {
+      if (dec.cls === 'nan') { els.formula.textContent = 'NaN'; return; }
+      if (dec.cls === 'inf') { els.formula.textContent = dec.s ? '\u2212\u221e' : '+\u221e'; return; }
+      if (fmt.kind === 'int') {
+        els.formula.innerHTML =
+          t('补码 ', 'Two\u2019s complement ') + bitsToStr(state.bits, 0, fmt.sign + fmt.man) + ' = ' + dec.value;
+        return;
+      }
+      if (fmt.unsigned) {
+        els.formula.innerHTML = '2<sup>' + (dec.ef - fmt.bias) + '</sup> = ' + exactStr(dec.mk, 60);
+        return;
+      }
+      if (dec.cls === 'zero') { els.formula.textContent = dec.value === 0 && Object.is(dec.value, -0) ? '\u22120' : '0'; return; }
+      const signPart = '(−1)<sup>' + dec.s + '</sup>';
+      const manBitsStr = bitsToStr(state.bits, fmt.sign + fmt.exp, fmt.man);
+      if (dec.cls === 'sub') {
+        els.formula.innerHTML = signPart + ' × 0.' + manBitsStr + '<sub>2</sub> × 2<sup>' + (1 - fmt.bias) + '</sup> = ' + exactStr(dec.mk, 60);
+      } else {
+        els.formula.innerHTML = signPart + ' × 1.' + manBitsStr + '<sub>2</sub> × 2<sup>' + (dec.ef - fmt.bias) + '</sup> = ' + exactStr(dec.mk, 60);
+      }
+    }
+
+    /* ================= compare table ================= */
+
+    function renderCompare(parsed) {
+      els.compareBody.innerHTML = '';
+      const hasValid = parsed != null && !Number.isNaN(parsed);
+      FORMATS.forEach((f) => {
+        const tr = document.createElement('tr');
+        if (f.key === state.fmtKey) tr.classList.add('is-active');
+        const nameTd = document.createElement('td');
+        nameTd.className = 'cmp-name';
+        nameTd.textContent = isEn() ? f.en : f.zh;
+
+        const barTd = document.createElement('td');
+        const bar = document.createElement('span');
+        bar.className = 'cmp-bar';
+        const total = f.sign + f.exp + f.man;
+        const segs = [
+          ['seg-sign', f.sign],
+          ['seg-exp', f.exp],
+          ['seg-man', f.man],
+        ].filter(([, w]) => w > 0);
+        segs.forEach(([cls, w]) => {
+          const i = document.createElement('i');
+          i.className = cls;
+          i.style.width = (w / total * 100) + '%';
+          bar.appendChild(i);
+        });
+        barTd.appendChild(bar);
+
+        const storedTd = document.createElement('td');
+        storedTd.className = 'cmp-stored';
+        const errTd = document.createElement('td');
+        errTd.className = 'cmp-err';
+
+        if (!hasValid) {
+          storedTd.textContent = '—';
+          errTd.textContent = '—';
+        } else {
+          const enc = encodeValue(f, parsed);
+          const dec = decodeBits(f, enc.bits);
+          if (dec.cls === 'nan') storedTd.textContent = 'NaN';
+          else if (dec.cls === 'inf') storedTd.textContent = dec.s ? '−∞' : '+∞';
+          else storedTd.textContent = exactStr(dec.mk, 30);
+          if (parsed === Infinity || parsed === -Infinity || Number.isNaN(parsed)) errTd.textContent = '—';
+          else if (dec.cls === 'inf') { errTd.textContent = '∞'; }
+          else {
+            const abs = Math.abs(dec.value - parsed);
+            if (abs === 0) { errTd.textContent = t('精确', 'exact'); errTd.classList.add('is-exact'); }
+            else errTd.textContent = fmtErr(abs);
+          }
+        }
+
+        tr.appendChild(nameTd);
+        tr.appendChild(barTd);
+        tr.appendChild(storedTd);
+        tr.appendChild(errTd);
+        tr.addEventListener('click', () => {
+          state.fmtKey = f.key;
+          saveState();
+          encodeFromInput(true);
+          render();
+        });
+        els.compareBody.appendChild(tr);
+      });
+    }
+
+    /* ================= main render ================= */
+
+    function decodedToInput(dec) {
+      if (dec.cls === 'nan') return 'NaN';
+      if (dec.cls === 'inf') return dec.s ? '-Infinity' : 'Infinity';
+      if (Object.is(dec.value, -0)) return '-0';
+      return String(dec.value);
+    }
+
+    function setStatus(msg, kind) {
+      els.status.textContent = msg;
+      els.status.classList.toggle('is-error', kind === 'error');
+      els.status.classList.toggle('is-ok', kind === 'ok');
+    }
+
+    function encodeFromInput(quiet) {
+      const res = parseNum(state.inputText);
+      if (res.err) {
+        setStatus(res.err === 'empty' ? t(STR.errEmpty.zh, STR.errEmpty.en) : t(STR.errInvalid.zh, STR.errInvalid.en), 'error');
+        return false;
+      }
+      state.lastParsed = res.v;
+      const fmt = fmtByKey(state.fmtKey);
+      const enc = encodeValue(fmt, res.v);
+      state.bits = enc.bits;
+      state.notes = enc.notes;
+      if (!quiet && enc.notes.length) setStatus(enc.notes.map((n) => (isEn() ? n.en : n.zh))[0], '');
+      else if (!quiet) setStatus(t('已按当前格式编码。', 'Encoded with the current format.'), 'ok');
+      return true;
+    }
+
+    function render() {
+      const fmt = fmtByKey(state.fmtKey);
+      const total = fmt.sign + fmt.exp + fmt.man;
+
+      els.fmtMeta.textContent = total + ' bits · ' +
+        (fmt.kind === 'int'
+          ? '1 ' + t('符号 + ', 'sign + ') + fmt.man + t(' 数值（补码）', ' value bits (two\u2019s complement)')
+          : fmt.unsigned
+            ? '8 ' + t('指数，无符号无尾数', 'exponent, no sign, no mantissa')
+            : fmt.sign + ' ' + t('符号', 'sign') + ' + ' + fmt.exp + ' ' + t('指数', 'exp') + ' + ' + fmt.man + ' ' + t('尾数', 'mantissa'));
+
+      buildGrid(fmt);
+      const dec = decodeBits(fmt, state.bits);
+      syncGridBits();
+      buildLegend(fmt, dec);
+      buildFormula(fmt, dec);
+      els.explain.textContent = t(STR.explainDefault.zh, STR.explainDefault.en);
+
+      // hex meta
+      let bin = state.bits.join('');
+      const pad = (8 - (bin.length % 8)) % 8;
+      bin = '0'.repeat(pad) + bin;
+      const bytes = bin.match(/.{8}/g) || [];
+      els.hexMeta.textContent = '0x ' + bytes.map((b) => parseInt(b, 2).toString(16).padStart(2, '0').toUpperCase()).join(' ');
+
+      // stats
+      const parsed = state.lastParsed;
+      els.statInput.textContent = state.inputText.trim() || '—';
+      if (dec.cls === 'nan') els.statStored.textContent = 'NaN';
+      else if (dec.cls === 'inf') els.statStored.textContent = dec.s ? '−∞' : '+∞';
+      else els.statStored.textContent = exactStr(dec.mk, 46);
+
+      const badge = els.statStatus;
+      badge.className = 'status-badge st-' + dec.cls;
+      badge.textContent = STR.clsName[dec.cls][isEn() ? 'en' : 'zh'];
+
+      if (parsed != null && !Number.isNaN(parsed) && dec.value != null && isFinite(parsed)) {
+        const abs = Math.abs(Object.is(dec.value, -0) ? 0 : dec.value - parsed);
+        const rel = abs / Math.abs(parsed);
+        els.statAbs.textContent = fmtErr(abs);
+        els.statRel.textContent = rel === 0 ? t('精确', 'exact') : fmtErr(rel);
+      } else {
+        els.statAbs.textContent = '—';
+        els.statRel.textContent = '—';
+      }
+
+      // notes
+      els.notes.innerHTML = '';
+      (state.notes || []).forEach((n) => {
+        const li = document.createElement('li');
+        li.textContent = isEn() ? n.en : n.zh;
+        els.notes.appendChild(li);
+      });
+
+      renderCompare(parsed);
+    }
+
+    function applyMeta() {
+      document.title = t('浮点数位拆解 · 工具', 'Float Bit Inspector · Tools');
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        t(
+          '把任意数字拆成符号位、指数位、尾数位，直观比较 INT2、INT4、INT8、FP8、FP16、BF16、FP32、FP64 的精度与范围权衡。',
+          'Split any number into sign, exponent, and mantissa bits; compare INT2, INT4, INT8, FP8, FP16, BF16, FP32, FP64 trade-offs.',
+        ),
+      );
+      els.input.placeholder = t('例如 0.1、-3.14、1e8、π', 'e.g. 0.1, -3.14, 1e8, \u03c0');
+    }
+
+    /* ================= persistence ================= */
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify({ fmtKey: state.fmtKey, inputText: state.inputText }));
+      } catch {}
+    }
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORE_KEY);
+        if (!raw) return;
+        const obj = JSON.parse(raw);
+        if (obj && fmtByKey(obj.fmtKey)) state.fmtKey = obj.fmtKey;
+        if (obj && typeof obj.inputText === 'string' && obj.inputText) state.inputText = obj.inputText;
+      } catch {}
+    }
+
+    /* ================= wire up ================= */
+
+    els.input.value = state.inputText;
+    els.input.addEventListener('input', () => {
+      state.inputText = els.input.value;
+      saveState();
+      if (encodeFromInput(false)) render();
+    });
+    els.input.addEventListener('keydown', (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+        event.preventDefault();
+        if (encodeFromInput(false)) render();
+      }
+    });
+
+    loadState();
+    els.input.value = state.inputText;
+    buildChips();
+    buildPresets();
+    applyMeta();
+    if (!encodeFromInput(true)) {
+      state.inputText = '0.1';
+      els.input.value = '0.1';
+      encodeFromInput(true);
+    }
+    render();
+
+    new MutationObserver(() => {
+      applyMeta();
+      refreshChipLabels();
+      buildPresets();
+      render();
+    }).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+  </script>
+</BaseLayout>
