@@ -599,3 +599,60 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - 2026-08-23：生图工具二轮——生成后自动下载、自定义模型下拉（替换 datalist）、左右两栏布局、结果底部参数胶囊（尺寸/大小）；修复 edits 接口硬编码 response_format 导致部分站点 400。
 
 - 2026-07-01（续）：产品列表页 & 详情页移动端适配补全（980px 平板断点 + 720px 手机断点修复），产品插图全部切换 AVIF 并推送。
+
+## 2026-08-27 回滚记录（/viz/llm）
+
+- 用户否决了将 Qwen config 平面图和后续未完成的 Qwen WebGL 拓扑直接替换默认入口的方向；这些页面不再是默认入口。
+- 已将 `/viz/llm/index.html` 恢复为已验证可运行的原版 bbycroft 风格 nano-GPT 3D Walkthrough（目录、Continue/Skip、可漫游张量网络）。
+- 保留的非默认实验文件：`qwen-config-panel.html`、`legacy-qwen-inspector.html`；没有删除用户可回查的资源。
+- 恢复后浏览器检查通过：页面渲染、目录和 3D 网络均可见，控制台无 error/warn。
+
+## 2026-08-27 新增记录（Qwen3.8-27B 独立双栏可视化）
+
+- 保持 `/viz/llm/index.html` 的原版 nano-GPT Walkthrough 不变；用户要求的 Qwen 可视化作为独立入口新增，避免再次覆盖已验收的页面。
+- 新入口：`/viz/qwen3.8-27b/index.html`。左栏是 Qwen3.8-27B 官方 config 对应的模型结构图：27 层视觉编码器、多模态 merge、64 层文本主干、每 4 层的 3×线性注意力 + 1×全注意力、GQA 24Q/4KV、SwiGLU 5120→17408、mRoPE、RMSNorm/LM Head/MTP。
+- 右栏是独立的 bbycroft 风格可漫游 3D 张量拓扑：`scene.html`，保留拖拽平移、Shift/右键拖拽旋转、滚轮缩放。3D 网格用紧凑显示轴表达 64 层真实拓扑；官方真实 config/参数信息固定在卡片和左侧结构图中，未加载权重、不伪造 activation。
+- 上游 MIT LICENSE 随独立可视化一起保留；官方 config 副本位于 `public/viz/qwen3.8-27b/qwen3.8-27b-config.json`。
+- 验证：Qwen 3D 场景独立加载无 error/warn；双栏页左结构图、右 iframe 3D 场景均可见；`npm run build` 通过，产物包含 index、scene、config 与 LICENSE。
+
+## 2026-08-27 Qwen3.8-27B 双栏联动补充
+
+- 用户明确要求保持「左侧模型结构图 / 右侧模型架构可视化」的左右结构，未改动默认 `/viz/llm/index.html`。
+- `public/viz/qwen3.8-27b/index.html` 的左侧 SVG 结构图现在可点击并支持键盘 Enter/Space：多模态输入、视觉投影入口、融合嵌入、64 层主干、线性注意力、全注意力、SwiGLU 与输出头。
+- 左侧点击通过同源 `postMessage` 驱动右侧 `scene.html` 的 bbycroft 3D 相机，立即聚焦对应的三维拓扑部分；右上与画布内标签同步显示当前部件。
+- 视觉编码器在 config-only 3D 场景中诚实定位到「视觉 → 文本残差投影入口」；未声称加载视觉权重或真实 activation。
+- 验证：实际浏览器点击全注意力、SwiGLU、RMSNorm/LM Head/输出均能使右侧镜头切换；上游 Qwen scene 的 TypeScript production build 通过。
+
+## 2026-08-27 工具入口（Qwen3.8-27B）
+
+- Qwen3.8-27B 双栏可视化已作为工具页加入工具箱，正式路由为 `/tools/viz-q38-27b/`（用户指定命名，不使用 `.html`）。
+- 工具箱首卡已接入该入口；工具页保留站点导航和说明，嵌入原有左右联动可视化，仍可单独打开 `/viz/qwen3.8-27b/index.html`。
+- 浏览器验证：工具页加载正常，iframe 内左侧结构节点仍可触发右侧 3D 部件聚焦。
+
+## 2026-08-27 Qwen3.8-27B 简洁结构视图
+
+- 保留默认「完整层结构」图，新增可切换的「简洁模型结构」图：仅显示多模态输入、27 层视觉编码器/投影、文本嵌入、64 层 Qwen 解码器、RMSNorm/LM Head/MTP 五级路径。
+- 两张图均保持左侧可点击、右侧 3D 即时定位的联动；简洁图的 decoder 节点聚焦到代表性 4 层 3D 主干。
+- 浏览器检查通过：完整/简洁视图切换、简洁图 decoder 点击及右侧焦点提示均正常。
+
+## 2026-08-27 Qwen3.8-27B 单层简洁图修正
+
+- 用户澄清「简洁模型结构」的 decoder 不应以 `×64`/`×48`/`×16` 汇总展示，而应只画一个可重复的代表性 Transformer Layer。
+- 简洁图现显示单层的 `RMSNorm → Attention → Residual → RMSNorm → SwiGLU → Residual` 流程，以轻量 loop 标识表达解码器内重复，不展示层数汇总。
+- 该单层节点新增独立 `layer` 联动目标；右侧 3D 相机现在仅聚焦一层代表性 Transformer block，而非原先的四层主干组。
+- 浏览器实际验证：单层图显示正常，点击后右侧标签为「单个 Transformer Layer」且镜头切换成功。
+
+## 2026-08-27 Qwen3.8-27B 简洁图右侧 3D 修正
+
+- 用户指出简洁左图切换后，右侧仍显示长轴的完整 3D 网络；此前只改变了左图和相机焦点，未满足简洁视图语义。
+- 简洁模式现在将右侧 iframe 切换到 `scene.html?view=layer`：使用单个紧凑 Transformer Layer 的独立 3D 布局，不渲染 64 层轴、输入链、远处模型卡或完整箭头网络。
+- 紧凑 3D 仅保留本层的 RMSNorm、Q/attention、attention residual、FFN/RMSNorm、MLP residual 等 6 个语义张量块，按短路径重新排布；完整层结构切回原始 64 层可漫游拓扑。
+- 修复上游 `drawAllArrows` 对单层布局仍假设至少 3 层导致的 `attnResidual` undefined；现在循环受实际 block 数限制。
+- 浏览器验证：简洁图右侧为短小单层 3D 张量构造，切回完整层结构后恢复 64 层拓扑和标签。
+
+## 2026-08-27 Qwen3.8-27B 简洁层 3D 连线补充
+
+- 用户指出紧凑单层 3D 只有张量块、缺少计算路径连线。
+- 简洁 3D 现增加可见的短路径连线：RMSNorm → Q/attention → attention residual，以及 attention residual → RMSNorm → SwiGLU → MLP residual；两段残差 bypass 以较深的中性色回路连接。
+- 连线复用上游 WebGL line renderer，置于张量块前方，完整模式仍保持原 bbycroft 连线逻辑不变。
+- 浏览器验证：简洁模式的蓝色计算连线、绿色数据流连线及灰色残差回路均可见；无新的应用运行时错误。

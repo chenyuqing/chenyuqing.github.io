@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qwen3.8-27B · 3D Architecture</title>
+<meta name="description" content="Qwen3.8-27B 的 config-only 双栏架构图：左侧结构图，右侧可漫游 3D 张量拓扑。">
+<style>
+:root{--ink:#111318;--paper:#f5f5f3;--line:#c9cbd0;--purple:#575486;--green:#5b765f;--lime:#91c996;--orange:#d7843c;--muted:#6e7179;--mono:"SFMono-Regular",Consolas,monospace}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}.app{display:grid;grid-template-columns:minmax(330px,34vw) 1fr;height:100dvh}.left{position:relative;z-index:2;overflow:auto;padding:24px 22px 28px;background:#fafaf9;border-right:1px solid var(--line);box-shadow:6px 0 16px rgba(0,0,0,.06)}.back{display:inline-block;margin-bottom:18px;color:#343a4b;font-size:12px;text-decoration:none}.back:hover{text-decoration:underline}.eyebrow{font:700 10px/1 var(--mono);letter-spacing:.1em;color:#6c7190}.left h1{margin:8px 0 7px;font-size:31px;line-height:1;letter-spacing:-.045em}.sub{margin:0 0 15px;color:var(--muted);font:12px/1.55 var(--mono)}.badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:17px}.badge{padding:4px 6px;border:1px solid var(--line);background:#fff;font:700 9px/1 var(--mono);color:#4f5566}.badge.live{border-color:#e6b98e;background:#fff7ee;color:#a75922}.diagram{width:100%;height:auto;display:block;margin:3px 0 16px}.diagram text{font-family:var(--mono)}.diagram .group{fill:#fcfcfb;stroke:#252a34;stroke-width:1}.diagram .hit{cursor:pointer;outline:none}.diagram .hit>rect{transition:fill .14s ease,stroke-width .14s ease,filter .14s ease}.diagram .hit:hover>rect,.diagram .hit:focus>rect,.diagram .hit.is-active>rect{stroke:var(--orange);stroke-width:2;filter:drop-shadow(0 2px 2px rgba(215,132,60,.18))}.diagram .hit:hover text,.diagram .hit:focus text,.diagram .hit.is-active text{fill:#9b4d18}.diagram .hit.is-active .linear{fill:#cae7d1}.diagram .hit.is-active .full{fill:#d1cef3}.diagram .hit.is-active .vision{fill:#f6ceaa}.diagram .thin{fill:none;stroke:#252a34;stroke-width:1}.diagram .dash{fill:none;stroke:#858b97;stroke-width:1;stroke-dasharray:3 3}.diagram .tok{fill:#f4f4f2;stroke:#313640;stroke-width:.8}.diagram .linear{fill:#dbece0;stroke:#466951;stroke-width:.9}.diagram .full{fill:#dddaf3;stroke:#575486;stroke-width:.9}.diagram .vision{fill:#f6dfc9;stroke:#bd7540;stroke-width:.9}.diagram .res{fill:none;stroke:var(--lime);stroke-width:5;stroke-opacity:.55}.diagram .arrow{fill:none;stroke:#6a707d;stroke-width:1;marker-end:url(#a)}.legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;border-top:1px solid var(--line);padding-top:14px}.leg{display:flex;align-items:center;gap:6px;color:#4b5360;font:10px/1.25 var(--mono)}.dot{width:9px;height:9px;border-radius:1px}.note{margin:16px 0 0;padding:10px;border-left:3px solid var(--orange);background:#fff8f1;color:#695d53;font:10px/1.5 var(--mono)}.source{display:block;margin-top:12px;color:#3d527d;font:10px/1.4 var(--mono)}
+.right{position:relative;min-width:0;background:#eee}.right-top{position:absolute;z-index:3;left:16px;top:14px;display:flex;gap:8px;align-items:center}.label{padding:7px 9px;border:1px solid #bfc2c8;background:rgba(255,255,255,.92);box-shadow:0 1px 4px rgba(0,0,0,.08);font:700 10px/1 var(--mono);color:#434957}.tip{padding:7px 9px;border:1px solid #ced0d3;background:rgba(250,250,249,.92);font:10px/1 var(--mono);color:#656b76}.diagram-tip{margin:0 0 10px;color:#7d5b3e;font:700 10px/1.45 var(--mono)}.structure-switch{display:flex;gap:5px;margin:2px 0 10px}.structure-switch button{appearance:none;border:1px solid var(--line);background:#fff;color:#666c77;padding:6px 7px;font:700 9px/1 var(--mono);cursor:pointer}.structure-switch button:hover{border-color:#bb7842;color:#97531e}.structure-switch button.is-active{border-color:#bc6c30;background:#fff5e9;color:#8c491a}.structure-view[hidden]{display:none}.structure-view .diagram{margin-bottom:12px}.simple-caption{margin:-2px 0 14px;color:#6e7179;font:10px/1.45 var(--mono)}iframe{display:block;width:100%;height:100%;border:0;background:#f3f3f3}@media(max-width:850px){html,body{overflow:auto}.app{height:auto;min-height:100dvh;grid-template-columns:1fr;grid-template-rows:auto 72dvh}.left{border-right:0;border-bottom:1px solid var(--line)}.right{min-height:72dvh}}
+</style>
+</head>
+<body>
+<main class="app">
+  <aside class="left">
+    <a class="back" href="/viz/llm/index.html">← 原版 nano-GPT walkthrough</a>
+    <div class="eyebrow">QWEN / QWEN3_5 · CONFIG-ONLY</div>
+    <h1>Qwen3.8-27B</h1>
+    <p class="sub">左侧：官方 config 的模型结构图<br>右侧：bbycroft 风格、可拖拽/滚轮缩放的 3D 张量拓扑</p>
+    <p class="diagram-tip">点击左侧任一结构块，右侧立即定位到对应的 3D 部分。</p>
+    <div class="badges"><span class="badge live">NO WEIGHTS LOADED</span><span class="badge">27B PARAMS</span><span class="badge">64 TEXT LAYERS</span></div>
+    <div class="structure-switch" role="tablist" aria-label="模型结构图层级">
+      <button class="is-active" type="button" role="tab" aria-selected="true" aria-controls="structure-full" data-structure-view="full">完整层结构</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="structure-simple" data-structure-view="simple">简洁模型结构</button>
+    </div>
+    <div class="structure-view" id="structure-full">
+    <svg class="diagram" viewBox="0 0 330 610" role="img" aria-label="Qwen3.8-27B model structure diagram">
+      <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6a707d"/></marker></defs>
+      <text x="14" y="17" font-size="10" fill="#6b7180">MULTIMODAL INPUT</text>
+      <g class="hit" data-focus="input" role="button" tabindex="0" aria-label="查看多模态输入的三维拓扑" transform="translate(17 28)"><rect class="group" x="0" y="0" width="296" height="76"/><text x="12" y="18" font-size="10">image / video patches</text><g transform="translate(12 29)"><rect class="tok" x="0" y="0" width="22" height="18"/><rect class="tok" x="25" y="0" width="22" height="18"/><rect class="tok" x="50" y="0" width="22" height="18"/><rect class="tok" x="75" y="0" width="22" height="18"/><rect class="tok" x="100" y="0" width="22" height="18"/><text x="135" y="13" font-size="9">… vision tokens</text></g><text x="12" y="63" font-size="9" fill="#6b7180">text tokens → embedding (vocab 248,320 × hidden 5,120)</text></g>
+      <path class="arrow" d="M165 105V126"/>
+      <g class="hit" data-focus="vision" role="button" tabindex="0" aria-label="查看视觉输入投影位置" transform="translate(17 128)"><rect class="vision" x="0" y="0" width="296" height="54"/><text x="13" y="21" font-size="11">VISION ENCODER</text><text x="13" y="39" font-size="9">27 layers · hidden 1,152 · 16 heads · patch 16</text></g>
+      <path class="arrow" d="M165 183V204"/>
+      <g class="hit" data-focus="merge" role="button" tabindex="0" aria-label="查看多模态融合和文本嵌入" transform="translate(17 206)"><rect class="group" x="0" y="0" width="296" height="42"/><text x="13" y="18" font-size="11">MULTIMODAL MERGE + TEXT EMBED</text><text x="13" y="33" font-size="9">project → 5,120-dimensional residual stream</text></g>
+      <path class="res" d="M165 250V558"/><path class="arrow" d="M165 249V268"/>
+      <g class="hit" data-focus="backbone" role="button" tabindex="0" aria-label="查看文本主干的代表性四层组" transform="translate(17 270)"><rect class="group" x="0" y="0" width="296" height="205"/><text x="13" y="20" font-size="11">TEXT BACKBONE × 64</text><text x="13" y="37" font-size="9" fill="#6b7180">repeat 16 groups: Linear × 3 → Full × 1</text>
+        <g transform="translate(15 53)"><g class="hit" data-focus="linear" role="button" tabindex="0" aria-label="查看线性注意力层"><rect class="linear" x="0" y="0" width="126" height="70"/><text x="8" y="18" font-size="9">linear attention × 3</text></g><g class="hit" data-focus="full" role="button" tabindex="0" aria-label="查看全注意力层"><rect class="full" x="0" y="75" width="126" height="20"/><text x="8" y="89" font-size="9">full attention</text></g><path class="dash" d="M63 96V123"/><text x="0" y="141" font-size="9">× 16 groups</text></g>
+        <g transform="translate(164 53)"><g class="hit" data-focus="linear" role="button" tabindex="0" aria-label="查看分组查询注意力"><rect x="-5" y="-2" width="122" height="37" fill="transparent"/><text x="0" y="12" font-size="9">GQA: 24 Q / 4 KV</text><text x="0" y="32" font-size="9">head dim 256</text></g><g class="hit" data-focus="ffn" role="button" tabindex="0" aria-label="查看SwiGLU前馈网络"><rect x="-5" y="38" width="132" height="20" fill="transparent"/><text x="0" y="52" font-size="9">SwiGLU 5,120 → 17,408</text></g><g class="hit" data-focus="linear" role="button" tabindex="0" aria-label="查看mRoPE注意力位置编码"><rect x="-5" y="58" width="132" height="38" fill="transparent"/><text x="0" y="72" font-size="9">mRoPE [11,11,10]</text><text x="0" y="92" font-size="9">partial rotary 25%</text></g><g class="hit" data-focus="full" role="button" tabindex="0" aria-label="查看全注意力间隔"><rect x="-5" y="98" width="132" height="20" fill="transparent"/><text x="0" y="112" font-size="9">full interval 4</text></g></g>
+      </g>
+      <path class="arrow" d="M165 477V498"/>
+      <g class="hit" data-focus="output" role="button" tabindex="0" aria-label="查看RMSNorm、LM Head与输出" transform="translate(17 500)"><rect class="group" x="0" y="0" width="296" height="55"/><text x="13" y="20" font-size="11">RMSNORM → LM HEAD → MTP × 1</text><text x="13" y="40" font-size="9">logits over 248,320 vocabulary · context 262,144</text></g>
+      <text x="17" y="582" font-size="9" fill="#6b7180">drag: pan · shift/right drag: rotate · wheel: zoom</text>
+    </svg>
+    <div class="legend"><div class="leg"><i class="dot" style="background:#dbece0"></i>48 linear-attention layers</div><div class="leg"><i class="dot" style="background:#dddaf3"></i>16 full-attention layers</div><div class="leg"><i class="dot" style="background:#f6dfc9"></i>27-layer vision encoder</div><div class="leg"><i class="dot" style="background:#91c996"></i>residual pathway</div></div>
+    </div>
+    <div class="structure-view" id="structure-simple" hidden>
+      <svg class="diagram" viewBox="0 0 330 470" role="img" aria-label="Qwen3.8-27B concise model structure diagram">
+        <defs><marker id="sarr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6a707d"/></marker></defs>
+        <text x="17" y="18" font-size="10" fill="#6b7180">QWEN3.8-27B / CONCISE OVERVIEW</text>
+        <g class="hit" data-focus="input" role="button" tabindex="0" aria-label="查看多模态输入" transform="translate(17 32)"><rect class="group" width="296" height="50"/><text x="14" y="20" font-size="11">MULTIMODAL INPUT</text><text x="14" y="37" font-size="9">image / video patches + text tokens</text></g>
+        <path d="M165 83V101" fill="none" stroke="#6a707d" marker-end="url(#sarr)"/>
+        <g class="hit" data-focus="vision" role="button" tabindex="0" aria-label="查看视觉编码器" transform="translate(17 103)"><rect class="vision" width="296" height="50"/><text x="14" y="20" font-size="11">VISION ENCODER + PROJECTOR</text><text x="14" y="37" font-size="9">27 layers → multimodal text residual stream</text></g>
+        <path d="M165 154V172" fill="none" stroke="#6a707d" marker-end="url(#sarr)"/>
+        <g class="hit" data-focus="merge" role="button" tabindex="0" aria-label="查看文本嵌入" transform="translate(17 174)"><rect class="group" width="296" height="44"/><text x="14" y="19" font-size="11">TEXT EMBEDDING</text><text x="14" y="35" font-size="9">vocab 248,320 → hidden size 5,120</text></g>
+        <path class="res" d="M165 219V367"/><path d="M165 219V237" fill="none" stroke="#6a707d" marker-end="url(#sarr)"/>
+        <g class="hit" data-focus="layer" role="button" tabindex="0" aria-label="查看一层代表性Qwen Transformer结构" transform="translate(17 239)"><rect class="group" width="296" height="128"/><text x="14" y="21" font-size="12">ONE QWEN TRANSFORMER LAYER</text><text x="14" y="40" font-size="9" fill="#6b7180">one representative block · loop through decoder</text><g transform="translate(14 54)"><rect class="group" width="44" height="22"/><text x="7" y="15" font-size="8">RMS</text><path d="M59 11H68" fill="none" stroke="#6a707d" marker-end="url(#sarr)"/><rect class="linear" x="70" width="78" height="22"/><text x="79" y="15" font-size="8">attention</text><path d="M149 11H158" fill="none" stroke="#6a707d" marker-end="url(#sarr)"/><rect class="group" x="160" width="58" height="22"/><text x="168" y="15" font-size="8">residual</text><path d="M189 23V36H12" fill="none" stroke="#91c996" stroke-width="3" stroke-opacity=".55"/><rect class="group" y="42" width="44" height="22"/><text x="7" y="57" font-size="8">RMS</text><path d="M45 53H54" fill="none" stroke="#6a707d" marker-end="url(#sarr)"/><rect class="group" x="56" y="42" width="78" height="22"/><text x="66" y="57" font-size="8">SwiGLU</text><path d="M135 53H144" fill="none" stroke="#6a707d" marker-end="url(#sarr)"/><rect class="group" x="146" y="42" width="72" height="22"/><text x="154" y="57" font-size="8">residual</text><path d="M12 65V78H218" fill="none" stroke="#91c996" stroke-width="3" stroke-opacity=".55"/></g><text x="238" y="68" font-size="8">GQA</text><text x="238" y="85" font-size="8">mRoPE</text><text x="238" y="102" font-size="8">loop ↺</text></g>
+        <path d="M165 368V386" fill="none" stroke="#6a707d" marker-end="url(#sarr)"/>
+        <g class="hit" data-focus="output" role="button" tabindex="0" aria-label="查看输出头" transform="translate(17 388)"><rect class="group" width="296" height="51"/><text x="14" y="20" font-size="11">RMSNORM → LM HEAD → MTP × 1</text><text x="14" y="38" font-size="9">logits over 248,320 vocabulary</text></g>
+      </svg>
+      <p class="simple-caption">只展示一层代表性 Transformer Block，不展开 64 层；点击模块同样联动右侧 3D 图。</p>
+    </div>
+    <p class="note">3D 图用紧凑网格表达真实的 64 层拓扑；未加载 27B 权重，因此不会把颜色伪称为真实 activation。</p>
+    <a class="source" href="https://huggingface.co/Qwen/Qwen3.8-27B" target="_blank" rel="noopener noreferrer">Source: Qwen/Qwen3.8-27B config.json ↗</a>
+  </aside>
+  <section class="right"><div class="right-top"><span class="label">3D TENSOR TOPOLOGY</span><span class="tip" id="focus-tip">点击左侧结构以定位</span></div><iframe id="qwen-scene" title="Qwen3.8-27B 3D tensor topology" src="scene.html"></iframe></section>
+<script>
+(() => {
+  const frame = document.querySelector("#qwen-scene");
+  const hits = [...document.querySelectorAll(".diagram .hit[data-focus]")];
+  const tip = document.querySelector("#focus-tip");
+  const structureSwitches = [...document.querySelectorAll("[data-structure-view]")];
+  const structureViews = [...document.querySelectorAll(".structure-view")];
+  const labels = { input: "多模态输入", vision: "视觉输入 → 文本投影", merge: "多模态融合 + 文本嵌入", backbone: "64 层主干（代表性 4 层）", layer: "单个 Transformer Layer", linear: "线性注意力层", full: "全注意力层", ffn: "SwiGLU 前馈网络", output: "RMSNorm → LM Head → MTP" };
+  let active = "backbone";
+  function markActive(target) {
+    active = target;
+    hits.forEach((node) => node.classList.toggle("is-active", node.dataset.focus === target));
+    if (tip) tip.textContent = labels[target] || "3D TENSOR TOPOLOGY";
+  }
+  function focus(target) {
+    markActive(target);
+    frame?.contentWindow?.postMessage({ type: "qwen-focus", target }, window.location.origin);
+  }
+  function setStructureView(viewName) {
+    structureViews.forEach((view) => { view.hidden = view.id !== `structure-${viewName}`; });
+    structureSwitches.forEach((button) => {
+      const selected = button.dataset.structureView === viewName;
+      button.classList.toggle("is-active", selected);
+      button.setAttribute("aria-selected", String(selected));
+    });
+    const target = viewName === "simple" ? "layer" : "backbone";
+    markActive(target);
+    const nextScene = viewName === "simple" ? "scene.html?view=layer" : "scene.html";
+    if (frame && !frame.src.endsWith(nextScene)) {
+      frame.src = nextScene;
+    } else {
+      focus(target);
+    }
+  }
+  structureSwitches.forEach((button) => {
+    button.addEventListener("click", () => setStructureView(button.dataset.structureView));
+  });
+  hits.forEach((node) => {
+    node.addEventListener("click", (event) => { event.stopPropagation(); focus(node.dataset.focus); });
+    node.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); focus(node.dataset.focus); } });
+  });
+  frame?.addEventListener("load", () => focus(active));
+})();
+</script>
+</main>
+</body>
+</html>

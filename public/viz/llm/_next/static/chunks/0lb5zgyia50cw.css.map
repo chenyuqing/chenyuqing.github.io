@@ -1,0 +1,1 @@
+{"version":3,"sources":["turbopack:///[project]/src/cpu/guide/guideStyle.css"],"sourcesContent":["\n.guide-style code {\n    padding: 2px 4px;\n    margin: 0 1px;\n    background-color: #f0f0f0;\n    border-radius: 4px;\n}\n"],"names":[],"mappings":"AACA"}

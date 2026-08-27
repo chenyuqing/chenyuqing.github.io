@@ -4,6 +4,17 @@ import '../../styles/global.css';
 
 const tools = [
   {
+    title: 'Qwen3.8-27B 架构可视化',
+    titleEn: 'Qwen3.8-27B Architecture Explorer',
+    type: '模型 / 可视化',
+    typeEn: 'Models / Visualization',
+    description: '在左侧点击 Qwen3.8-27B 的结构模块，右侧立即定位到对应的可漫游 3D 张量拓扑。',
+    descriptionEn: 'Click Qwen3.8-27B structure modules and jump directly to the matching navigable 3D tensor topology.',
+    href: '/tools/viz-q38-27b/',
+    icon: '27B',
+    architecture: true,
+  },
+  {
     title: '浮点数位拆解',
     titleEn: 'Float Bit Inspector',
     type: '数值 / 格式',
@@ -42,17 +53,21 @@ const tools = [
       <p class="tools-eyebrow"><span class="lang-zh">工具箱</span><span class="lang-en">Toolbox</span></p>
       <h1><span class="lang-zh">常用小工具</span><span class="lang-en">Everyday Tools</span></h1>
       <p class="tools-lead">
-        <span class="lang-zh">纯前端、本地运行，不上传数据。先从最常用的编解码开始。</span>
-        <span class="lang-en">Client-side only. Nothing leaves your browser. Starting with everyday encode/decode utilities.</span>
+        <span class="lang-zh">收录编解码、数值拆解、图像生成与模型架构探索；敏感配置仍只保存在本机。</span>
+        <span class="lang-en">Encoding, number inspection, image generation, and model-architecture exploration; sensitive settings stay on your device.</span>
       </p>
     </section>
 
     <section class="shell tools-library">
       <div class="tool-grid">
         {tools.map((tool, index) => (
-          <a class="tool-card" href={tool.href}>
+          <a class:list={['tool-card', tool.architecture && 'tool-card-architecture']} href={tool.href}>
             <div class="tool-card-cover">
-              <span class="tool-icon">{tool.icon}</span>
+              {tool.architecture ? (
+                <span class="architecture-glyph" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i>
+                </span>
+              ) : <span class="tool-icon">{tool.icon}</span>}
               <span class="tool-index">{String(index + 1).padStart(2, '0')}</span>
             </div>
             <div class="tool-card-body">
@@ -146,6 +161,38 @@ const tools = [
       font: 800 2.4rem/1 var(--font-mono);
       letter-spacing: .04em;
     }
+    .tool-card-architecture .tool-card-cover {
+      background:
+        radial-gradient(circle at 68% 28%, rgba(134, 133, 221, .3), transparent 42%),
+        linear-gradient(160deg, #1d2030, #12130f);
+    }
+    .architecture-glyph {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 2.4rem);
+      grid-template-rows: repeat(2, 1.3rem);
+      gap: .45rem;
+      transform: perspective(16rem) rotateX(54deg) rotateZ(-27deg);
+    }
+    .architecture-glyph::before,
+    .architecture-glyph::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      height: 1px;
+      background: rgba(231, 220, 163, .48);
+      transform-origin: left center;
+    }
+    .architecture-glyph::before { width: 7.8rem; top: 1.05rem; left: .9rem; transform: rotate(9deg); }
+    .architecture-glyph::after { width: 5.4rem; top: 1.45rem; left: 2.1rem; transform: rotate(-17deg); }
+    .architecture-glyph i {
+      display: block;
+      border: 1px solid rgba(236, 225, 174, .76);
+      background: rgba(90, 93, 180, .83);
+      box-shadow: 2px 3px 0 rgba(31, 34, 81, .8);
+    }
+    .architecture-glyph i:nth-child(2), .architecture-glyph i:nth-child(5) { background: rgba(91, 142, 107, .9); }
+    .architecture-glyph i:nth-child(3) { background: rgba(214, 169, 89, .86); }
     .tool-index {
       position: absolute;
       top: .8rem;

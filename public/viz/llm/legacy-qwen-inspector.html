@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qwen3.8-27B 架构可视化 · Tim Chen</title>
+<meta name="description" content="基于官方 config.json 的 Qwen3.8-27B（qwen3_5）交互式架构浏览器：64 层混合注意力、GQA、SwiGLU、部分 RoPE、视觉塔与 MTP 头。">
+<style>
+  :root {
+    --bg: #11100d;
+    --panel: #1b1914;
+    --panel-deep: #12100c;
+    --line: rgba(240, 223, 179, .22);
+    --line-dim: rgba(240, 223, 179, .1);
+    --cream: #f4e8cb;
+    --body-c: #eee4cc;
+    --muted: #c9bda2;
+    --dim: #9d8f72;
+    --faint: #6d6250;
+    --gold: #d1a843;
+    --gold-hi: #f0cf76;
+    --red: #e18a7a;
+    --green: #8fbf8a;
+    --teal: #5fb8a8;
+    --violet: #b39ddb;
+    --sky: #64a8dd;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "JetBrains Mono", SFMono-Regular, Consolas, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    padding: 0 0 4rem;
+    background: var(--bg);
+    color: var(--body-c);
+    font: 400 .92rem/1.65 var(--font-body);
+  }
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { color: var(--gold-hi); }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }
+  .viz-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 1rem;
+    align-items: start;
+    margin-top: 1rem;
+  }
+  .col-left { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+  @media (max-width: 1080px) {
+    .viz-cols { grid-template-columns: 1fr; }
+    .col-right { order: -1; }
+  }
+
+  /* ---------- header ---------- */
+  header.top {
+    padding: 5.6rem 0 1rem;
+  }
+  .back {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    color: var(--gold);
+    font: 700 .78rem/1 var(--font-body);
+    letter-spacing: .06em;
+  }
+  .eyebrow {
+    margin: 0 0 .5rem;
+    color: var(--dim);
+    font: 700 .72rem/1.3 var(--font-body);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 0 0 .35rem;
+    color: var(--cream);
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: -.01em;
+  }
+  h1 .mono { font-family: var(--font-mono); }
+  .lead { margin: 0 0 1rem; max-width: 52rem; color: var(--muted); }
+  .spec-row { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; }
+  .spec {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: .32rem .72rem;
+    color: var(--muted);
+    font: 700 .74rem/1.4 var(--font-mono);
+  }
+  .spec b { color: var(--gold-hi); font-weight: 800; }
+  .lang-btn {
+    margin-left: auto;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--gold);
+    border-radius: 999px;
+    padding: .45rem .9rem;
+    font: 700 .76rem/1 var(--font-body);
+    cursor: pointer;
+  }
+  .lang-btn:hover { border-color: var(--gold); color: var(--gold-hi); }
+
+  /* ---------- panels ---------- */
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--panel);
+    padding: 1.15rem 1.2rem;
+    margin-top: 1rem;
+  }
+  .panel-title {
+    display: flex;
+    align-items: baseline;
+    gap: .7rem;
+    margin: 0 0 .85rem;
+  }
+  .panel-title h2 {
+    margin: 0;
+    color: var(--cream);
+    font-size: 1.02rem;
+    line-height: 1.3;
+  }
+  .panel-title .sub { color: var(--faint); font: .72rem/1.4 var(--font-mono); }
+
+  /* ---------- pipeline flow ---------- */
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .55rem;
+    align-items: stretch;
+  }
+  .stage {
+    flex: 1 1 150px;
+    min-width: 140px;
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel-deep);
+    padding: .7rem .8rem .65rem;
+    cursor: pointer;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .stage:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .stage.is-sel { border-color: var(--gold); box-shadow: inset 0 0 0 1px rgba(209,168,67,.45); }
+  .stage .k {
+    color: var(--faint);
+    font: 700 .62rem/1 var(--font-mono);
+    letter-spacing: .08em;
+  }
+  .stage h3 {
+    margin: .28rem 0 .18rem;
+    color: var(--cream);
+    font-size: .86rem;
+    line-height: 1.3;
+  }
+  .stage .shape {
+    color: var(--dim);
+    font: .68rem/1.5 var(--font-mono);
+    word-break: break-all;
+  }
+  .stage .dot {
+    position: absolute;
+    top: .6rem;
+    right: .65rem;
+    width: .55rem; height: .55rem;
+    border-radius: 50%;
+  }
+  .arrow {
+    align-self: center;
+    color: var(--faint);
+    font: 700 .95rem/1 var(--font-mono);
+    padding: 0 .1rem;
+    user-select: none;
+  }
+
+  /* ---------- dna strip ---------- */
+  .dna {
+    display: flex;
+    gap: 2px;
+    margin: .2rem 0 .9rem;
+    height: 30px;
+  }
+  .dna b {
+    flex: 1;
+    border-radius: 3px;
+    background: var(--teal);
+    opacity: .82;
+    cursor: pointer;
+    transition: transform .12s ease, opacity .12s ease;
+  }
+  .dna b.full { background: var(--gold); }
+  .dna b:hover { transform: scaleY(1.25); opacity: 1; }
+  .dna b.is-sel { outline: 2px solid var(--cream); opacity: 1; }
+  .dna-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--dim);
+    font: .74rem/1.5 var(--font-body);
+  }
+  .dna-legend i {
+    display: inline-block;
+    width: .6rem; height: .6rem;
+    border-radius: 2px;
+    margin-right: .38rem;
+    vertical-align: baseline;
+  }
+
+  /* ---------- main grid ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 21rem;
+    gap: 1rem;
+    align-items: start;
+  }
+  @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+
+  /* layer blocks */
+  .blocks { display: flex; flex-direction: column; gap: .45rem; }
+  .block {
+    border: 1px solid var(--line-dim);
+    border-radius: 8px;
+    background: var(--panel-deep);
+    overflow: hidden;
+  }
+  .block-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .42rem .7rem;
+    color: var(--faint);
+    font: 700 .66rem/1 var(--font-mono);
+    letter-spacing: .06em;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+  }
+  .block-head:hover { color: var(--gold-hi); }
+  .block-head .rng { color: var(--dim); }
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    padding: 0 .5rem .5rem;
+  }
+  .lyr {
+    position: relative;
+    border: 1px solid var(--line-dim);
+    border-radius: 6px;
+    background: rgba(95, 184, 168, .07);
+    padding: .42rem .5rem .38rem;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .lyr.full { background: rgba(209, 168, 67, .09); }
+  .lyr:hover { border-color: var(--gold); }
+  .lyr.is-sel { border-color: var(--cream); background: rgba(244, 232, 203, .08); }
+  .lyr .no { color: var(--faint); font: .6rem/1 var(--font-mono); }
+  .lyr .tp { display: block; margin-top: .14rem; color: var(--muted); font: 700 .68rem/1.2 var(--font-body); white-space: nowrap; }
+  .lyr.full .tp { color: var(--gold-hi); }
+  .lyr:not(.full) .tp { color: #8fd0c4; }
+
+  /* detail panel */
+  .detail { position: sticky; top: 1rem; }
+  .detail .big {
+    margin: 0 0 .15rem;
+    color: var(--cream);
+    font: 800 1.15rem/1.3 var(--font-mono);
+  }
+  .detail .tagline { margin: 0 0 .8rem; color: var(--dim); font-size: .78rem; }
+  table.specs {
+    width: 100%;
+    border-collapse: collapse;
+    margin: .4rem 0 .8rem;
+  }
+  table.specs td {
+    padding: .34rem .1rem;
+    border-bottom: 1px solid var(--line-dim);
+    font: .76rem/1.5 var(--font-mono);
+    vertical-align: top;
+  }
+  table.specs td:first-child { color: var(--dim); white-space: nowrap; padding-right: .8rem; }
+  table.specs td:last-child { color: var(--cream); word-break: break-all; }
+  .desc { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.7; }
+  .desc code {
+    font: .74rem/1 var(--font-mono);
+    color: var(--gold-hi);
+    background: rgba(209,168,67,.1);
+    padding: .1rem .3rem;
+    border-radius: 4px;
+  }
+
+  /* head split viz */
+  .headsplit { display: flex; gap: 3px; margin: .7rem 0 .2rem; flex-wrap: wrap; }
+  .headsplit b {
+    height: 1.35rem;
+    border-radius: 3px;
+    background: rgba(100,168,221,.3);
+    border: 1px solid rgba(100,168,221,.45);
+  }
+  .headsplit b.kv { background: rgba(149,117,205,.32); border-color: rgba(149,117,205,.5); }
+  .hs-cap { color: var(--faint); font: .68rem/1.5 var(--font-mono); }
+
+  /* play controls */
+  .ctrl-row { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-top: .9rem; }
+  .btn {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--body-c);
+    border-radius: 8px;
+    padding: .55rem .9rem;
+    font: 700 .76rem/1 var(--font-body);
+    cursor: pointer;
+  }
+  .btn:hover { border-color: var(--gold); color: var(--gold-hi); }
+  .btn.primary { background: var(--gold); border-color: var(--gold); color: #1a1408; }
+  .btn.primary:hover { color: #1a1408; filter: brightness(1.06); }
+  .btn.on { background: rgba(209,168,67,.16); border-color: var(--gold); color: var(--gold-hi); }
+  .pulse-note { color: var(--faint); font: .72rem/1.5 var(--font-mono); }
+
+  /* ---------- 3d tower ---------- */
+  #tower {
+    display: block;
+    width: 100%;
+    height: min(66vh, 600px);
+    border-radius: 8px;
+    border: 1px solid var(--line-dim);
+    background: linear-gradient(180deg, #f2f3f5 0%, #e9ecef 100%);
+    touch-action: none;
+    cursor: grab;
+  }
+  #tower.dragging { cursor: grabbing; }
+  .tower-wrap { position: relative; }
+  .tower-labels {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: 8px;
+  }
+  .tower-labels .tlabel {
+    position: absolute;
+    transform: translate(-50%, -130%);
+    font: 700 10px/1.3 var(--font-mono);
+    color: #1d2b45;
+    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 2px #fff;
+    white-space: nowrap;
+    letter-spacing: .02em;
+  }
+  .tower-labels .tlabel.small { font-size: 9px; color: #4a5872; }
+  .tower-fallback {
+    display: none;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: var(--faint);
+    font: .78rem/1.6 var(--font-mono);
+  }
+  .tower-caption {
+    margin: .6rem 0 0;
+    min-height: 1.7em;
+    color: var(--gold-hi);
+    font: 700 .78rem/1.7 var(--font-mono);
+    letter-spacing: .01em;
+  }
+  .story-controls { display: flex; gap: .45rem; align-items: center; margin-top: .55rem; }
+  .step-progress { font: 700 .72rem var(--font-mono); color: var(--dim); margin-left: .3rem; white-space: nowrap; }
+  .tokrow {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    gap: 7px;
+    pointer-events: none;
+  }
+  .tokrow .tok {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font: 800 .95rem var(--font-mono);
+    line-height: 1;
+    box-shadow: 0 1px 4px rgba(20, 28, 48, .25);
+  }
+  .tokrow .tok i {
+    font: 600 .52rem var(--font-mono);
+    opacity: .85;
+    font-style: normal;
+    margin-top: 1px;
+  }
+  .tower-hint {
+    margin: .55rem 0 0;
+    color: var(--faint);
+    font: .7rem/1.6 var(--font-mono);
+  }
+
+  /* flowing pulse */
+  .lyr.pulse { border-color: var(--gold-hi); box-shadow: 0 0 0 1px rgba(240,207,118,.6), 0 0 14px rgba(209,168,67,.35); }
+  .stage.pulse { border-color: var(--gold-hi); box-shadow: 0 0 14px rgba(209,168,67,.3); }
+
+  .footnote {
+    margin: 1rem 0 0;
+    color: var(--faint);
+    font-size: .74rem;
+    line-height: 1.7;
+  }
+  .footnote code { font: .7rem/1 var(--font-mono); color: var(--dim); }
+
+  .lang-en { display: none; }
+  html[data-lang='en'] .lang-zh { display: none; }
+  html[data-lang='en'] .lang-en { display: inline; }
+
+  @media (max-width: 720px) {
+    header.top { padding-top: 4.2rem; }
+    .panel { padding: .95rem; }
+    .layers { grid-template-columns: repeat(2, 1fr); }
+    .detail { position: static; }
+  }
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <a class="back" href="/">← <span class="lang-zh">返回站点</span><span class="lang-en">Back to site</span></a>
+  <div style="display:flex; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
+    <div>
+      <p class="eyebrow"><span class="lang-zh">可视化实验场</span><span class="lang-en">Visualization Lab</span></p>
+      <h1><span class="mono">Qwen3.8-27B</span><br><span class="lang-zh" style="font-size:.55em;">架构浏览器</span><span class="lang-en" style="font-size:.55em;">Architecture Explorer</span></h1>
+      <p class="lead">
+        <span class="lang-zh">基于 HuggingFace 官方 config.json 构建：64 层「线性注意力 ×3 + 全注意力 ×1」混合栈、GQA、SwiGLU、部分 RoPE、视觉塔入口与 MTP 头。点击任意部件查看真实规格。</span>
+        <span class="lang-en">Built from the official HuggingFace config.json: a 64-layer hybrid stack (3 linear-attention : 1 full-attention), GQA, SwiGLU, partial RoPE, a vision tower entrance, and an MTP head. Click any part to inspect real specs.</span>
+      </p>
+    </div>
+    <button class="lang-btn" id="lang-btn" type="button"><span class="lang-zh">EN</span><span class="lang-en">中文</span></button>
+  </div>
+  <div class="spec-row" id="spec-row"></div>
+</header>
+
+<main class="wrap">
+
+<div class="viz-cols">
+
+  <div class="col-left">
+
+  <aside class="panel detail" style="margin-top:0;" aria-live="polite">
+      <div class="panel-title">
+        <h2><span class="lang-zh">部件详情</span><span class="lang-en">Inspector</span></h2>
+        <span class="sub">config.json</span>
+      </div>
+      <div id="detail"></div>
+    </aside>
+
+  <section class="panel" style="margin-top:0;">
+      <div class="panel-title">
+        <h2><span class="lang-zh">64 层混合注意力栈</span><span class="lang-en">The 64-Layer Hybrid Stack</span></h2>
+        <span class="sub">3×LinearAttn + 1×FullAttn ×16</span>
+      </div>
+
+      <p style="margin:0 0 .4rem;color:var(--dim);font:700 .7rem/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;">
+        <span class="lang-zh">注意力 DNA</span><span class="lang-en">Attention DNA</span>
+      </p>
+      <div class="dna" id="dna"></div>
+      <div class="dna-legend">
+        <span><i style="background:var(--teal)"></i><span class="lang-zh">线性注意力（Gated DeltaNet，常数级状态）×48</span><span class="lang-en">Linear attention (Gated DeltaNet, constant state) ×48</span></span>
+        <span><i style="background:var(--gold)"></i><span class="lang-zh">全注意力（GQA 24Q/4KV）×16</span><span class="lang-en">Full attention (GQA 24Q/4KV) ×16</span></span>
+      </div>
+
+      <div class="ctrl-row" style="margin:0 0 .8rem;">
+        <button class="btn primary" id="play-btn" type="button">
+          <span class="lang-zh">▶ 播放本层前向传播</span><span class="lang-en">▶ Play this layer's forward pass</span>
+        </button>
+        <button class="btn" id="filter-all" type="button"><span class="lang-zh">全部</span><span class="lang-en">All</span></button>
+        <button class="btn" id="filter-full" type="button"><span class="lang-zh">仅全注意力</span><span class="lang-en">Full only</span></button>
+        <button class="btn" id="filter-lin" type="button"><span class="lang-zh">仅线性注意力</span><span class="lang-en">Linear only</span></button>
+        <span class="pulse-note" id="pulse-note"></span>
+      </div>
+
+      <div class="blocks" id="blocks"></div>
+    </section>
+
+  <section class="panel">
+    <div class="panel-title">
+      <h2><span class="lang-zh">数据流水线</span><span class="lang-en">Data Pipeline</span></h2>
+      <span class="sub">end-to-end</span>
+    </div>
+    <div class="flow" id="flow"></div>
+  </section>
+
+  </div>
+
+  <section class="panel col-right" style="margin-top:0;">
+    <div class="panel-title">
+      <h2><span class="lang-zh">3D 神经网络</span><span class="lang-en">3D Neural Network</span></h2>
+      <span class="sub">webgl2 · qwen3_5</span>
+      <span style="margin-left:auto;display:flex;gap:.4rem;">
+        <button class="btn on" id="mode-explode" type="button"><span class="lang-zh">第 7 层 · 展开</span><span class="lang-en">Layer 7 · Exploded</span></button>
+        <button class="btn" id="mode-overview" type="button"><span class="lang-zh">全塔总览 ×64</span><span class="lang-en">Overview ×64</span></button>
+      </span>
+    </div>
+    <div class="tower-wrap">
+      <canvas id="tower"></canvas>
+      <div class="tower-labels" id="tower-labels"></div>
+      <div class="tokrow" id="tokrow"></div>
+    </div>
+    <div class="tower-fallback" id="tower-fallback">
+      <span class="lang-zh">当前浏览器不支持 WebGL2，无法显示 3D 层塔。</span>
+      <span class="lang-en">WebGL2 is unavailable in this browser — the 3D tower can't be shown.</span>
+    </div>
+    <p class="tower-caption" id="tower-caption"><span class="lang-zh">点「继续」开始逐步讲解：输入 C·B·A·B·B·C，让模型学会排序。</span><span class="lang-en">Press Continue to walk through: input C·B·A·B·B·C, teach the model to sort.</span></p>
+    <div class="story-controls">
+      <button class="btn" id="step-prev" type="button" aria-label="prev">⏮</button>
+      <button class="btn primary" id="step-next" type="button">▶ <span class="lang-zh">继续</span><span class="lang-en">Continue</span></button>
+      <button class="btn" id="step-skip" type="button">⏭ <span class="lang-zh">自动</span><span class="lang-en">Auto</span></button>
+      <span class="step-progress" id="step-progress">步 – / 13</span>
+    </div>
+    <p class="tower-hint">
+      <span class="lang-zh">默认显示第 7 层（全注意力层）的展开视图 —— 拖拽旋转 · 滚轮缩放 · 点击任意算子块查看真实规格。点「全塔总览」切回 64 层全景。</span>
+      <span class="lang-en">Default view: layer 7 (a full-attention layer) exploded — drag to rotate · scroll to zoom · click any op block for real specs. Use “Overview” to see all 64 layers.</span>
+    </p>
+  </section>
+</div>
+
+  <p class="footnote">
+    <span class="lang-zh">数据来源：<code>huggingface.co/Qwen/Qwen3.8-27B raw/config.json</code>（qwen3_5 架构）。本页展示的是<b>真实架构规格</b>；「播放」动画为示意性的数据流脉冲，并非真实推理激活值。参数量为按配置的粗略估算。</span>
+    <span class="lang-en">Source: <code>huggingface.co/Qwen/Qwen3.8-27B raw/config.json</code> (qwen3_5 architecture). This page shows <b>real architecture specs</b>; the “play” animation is an illustrative data-flow pulse, not real inference activations. Parameter counts are rough estimates derived from the config.</span>
+  </p>
+</main>
+
+<script>
+/* ================= real config (from HuggingFace config.json) ================= */
+const CFG = {
+  arch: 'Qwen3_5ForConditionalGeneration',
+  modelType: 'qwen3_5',
+  totalParamsApprox: '27B',
+  vocab: 248320,
+  maxPos: 262144,
+  hidden: 5120,
+  ffnHidden: 17408,
+  rmsEps: 1e-6,
+  hiddenAct: 'silu',
+  layers: 64,
+  layerTypes: [],          // filled below: 'lin' | 'full'
+  fullInterval: 4,
+  // full attention (GQA)
+  qHeads: 24, kvHeads: 4, headDim: 256,
+  partialRotary: 0.25, mropeSection: [11, 11, 10], ropeTheta: 1e7,
+  attnOutputGate: true, outputGateType: 'swish',
+  // linear attention (gated delta net)
+  linKeyHeads: 16, linValHeads: 48, linKeyDim: 128, linValDim: 128, convKernel: 4,
+  // mtp
+  mtpLayers: 1,
+  // vision tower
+  vision: { depth: 27, hidden: 1152, heads: 16, patch: 16, merge: 2, act: 'gelu_pytorch_tanh', out: 5120 },
+};
+for (let i = 0; i < CFG.layers; i++) {
+  CFG.layerTypes.push((i % CFG.fullInterval === CFG.fullInterval - 1) ? 'full' : 'lin');
+}
+
+const $ = (id) => document.getElementById(id);
+const root = document.documentElement;
+
+/* ================= i18n ================= */
+let LANG = localStorage.getItem('viz-llm-lang') || 'zh';
+const setLang = (l) => {
+  LANG = l;
+  root.setAttribute('data-lang', l);
+  document.documentElement.lang = l === 'en' ? 'en' : 'zh';
+  localStorage.setItem('viz-llm-lang', l);
+};
+
+/* ================= helpers ================= */
+const fmtInt = (n) => n.toLocaleString('en-US');
+function estLayerParams(type) {
+  const h = CFG.hidden, f = CFG.ffnHidden;
+  const ffn = 3 * h * f; // swiglu gate/up/down
+  let attn;
+  if (type === 'full') {
+    const qo = CFG.qHeads * CFG.headDim;
+    const kv = CFG.kvHeads * CFG.headDim;
+    attn = h * qo * 2 + h * kv * 2 + qo * h; // q,k,v,o  (gate folds into v-proj width, approx)
+  } else {
+    const dk = CFG.linKeyHeads * CFG.linKeyDim;
+    const dv = CFG.linValHeads * CFG.linValDim;
+    attn = h * (dk + dv * 2) + dk * dv + dv * h + CFG.convKernel * h; // in-proj, delta, out-proj, short-conv (approx)
+  }
+  return attn + ffn;
+}
+const LIN_P = estLayerParams('lin'), FULL_P = estLayerParams('full');
+const STACK_P = 48 * LIN_P + 16 * FULL_P;
+const EMB_P = CFG.vocab * CFG.hidden;
+const HEAD_P = EMB_P; // untied lm_head
+
+/* ================= header specs ================= */
+const SPECS = [
+  { zh: ['参数量', CFG.totalParamsApprox], en: ['params', CFG.totalParamsApprox] },
+  { zh: ['层数', '64'], en: ['layers', '64'] },
+  { zh: ['上下文', '256K'], en: ['context', '256K'] },
+  { zh: ['词表', fmtInt(CFG.vocab)], en: ['vocab', fmtInt(CFG.vocab)] },
+  { zh: ['隐藏维', String(CFG.hidden)], en: ['hidden', String(CFG.hidden)] },
+  { zh: ['模态', '文本 + 图像 + 视频'], en: ['modalities', 'text + image + video'] },
+  { zh: ['精度', 'bf16'], en: ['dtype', 'bf16'] },
+];
+function renderSpecs() {
+  $('spec-row').innerHTML = SPECS.map((s) => {
+    const [k, v] = s[LANG === 'en' ? 'en' : 'zh'];
+    return `<span class="spec">${k} <b>${v}</b></span>`;
+  }).join('');
+}
+
+/* ================= pipeline ================= */
+const STAGES = [
+  { key: 'in-text', dot: 'var(--green)',
+    zh: ['① 输入 · 文本', 'Tokenizer 分词 → token id 序列，最长 262,144'],
+    en: ['① Input · text', 'Tokenizer → token ids, up to 262,144'],
+    shape: '[B, S]' },
+  { key: 'vision', dot: 'var(--violet)',
+    zh: ['② 输入 · 图像/视频', `ViT 视觉塔 ${CFG.vision.depth} 层，patch ${CFG.vision.patch}²，2×2 合并后投影到 5120 维`],
+    en: ['② Input · image/video', `ViT tower, ${CFG.vision.depth} layers, patch ${CFG.vision.patch}², 2×2 merge → 5120-d`],
+    shape: `[B, N, ${CFG.vision.out}]` },
+  { key: 'embed', dot: 'var(--gold)',
+    zh: ['③ Embedding', `词嵌入矩阵 ${fmtInt(CFG.vocab)} × ${CFG.hidden}（与 LM Head 不共享权重）`],
+    en: ['③ Embedding', `${fmtInt(CFG.vocab)} × ${CFG.hidden} table (untied from LM head)`],
+    shape: `[B, S, ${CFG.hidden}]` },
+  { key: 'stack', dot: 'var(--teal)',
+    zh: ['④ 混合注意力栈 ×64', '48 层线性注意力 + 16 层全注意力交替堆叠，每层带 SwiGLU FFN'],
+    en: ['④ Hybrid stack ×64', '48 linear-attention + 16 full-attention layers, each with a SwiGLU FFN'],
+    shape: `[B, S, ${CFG.hidden}] ×64` },
+  { key: 'norm', dot: 'var(--sky)',
+    zh: ['⑤ Final RMSNorm', `均方根归一化，eps = ${CFG.rmsEps}`],
+    en: ['⑤ Final RMSNorm', `root-mean-square norm, eps = ${CFG.rmsEps}`],
+    shape: `[B, S, ${CFG.hidden}]` },
+  { key: 'lmhead', dot: 'var(--red)',
+    zh: ['⑥ LM Head', `${fmtInt(CFG.vocab)} 路输出 logits（独立投影矩阵）`],
+    en: ['⑥ LM Head', `${fmtInt(CFG.vocab)}-way output logits (separate projection)`],
+    shape: `[B, S, ${fmtInt(CFG.vocab)}]` },
+  { key: 'mtp', dot: 'var(--violet)',
+    zh: ['⑦ MTP 头', `多 token 预测：${CFG.mtpLayers} 个专用隐藏层，一次预测后续多个 token`],
+    en: ['⑦ MTP head', `multi-token prediction: ${CFG.mtpLayers} dedicated hidden layer(s)`],
+    shape: '[B, S+k, V]' },
+];
+function renderFlow() {
+  $('flow').innerHTML = STAGES.map((s, i) => {
+    const [t, d] = s[LANG === 'en' ? 'en' : 'zh'];
+    return (i > 0 ? '<span class="arrow">→</span>' : '') +
+      `<div class="stage" tabindex="0" role="button" data-stage="${s.key}">
+        <span class="dot" style="background:${s.dot}"></span>
+        <span class="k">${String(i + 1).padStart(2, '0')}</span>
+        <h3>${t}</h3>
+        <span class="shape">${d}<br>${s.shape}</span>
+      </div>`;
+  }).join('');
+}
+
+/* ================= DNA + blocks ================= */
+const TYPE_NAME = {
+  full: { zh: '全注意力 GQA', en: 'Full attn · GQA' },
+  lin: { zh: '线性注意力', en: 'Linear attn' },
+};
+function renderDna() {
+  $('dna').innerHTML = CFG.layerTypes.map((t, i) =>
+    `<b class="${t}${state.sel === i ? ' is-sel' : ''}" data-i="${i}" title="#${i} ${TYPE_NAME[t][LANG === 'en' ? 'en' : 'zh']}"></b>`
+  ).join('');
+}
+function renderBlocks(filter) {
+  const groups = [];
+  for (let i = 0; i < CFG.layers; i += CFG.fullInterval) groups.push([i, Math.min(i + CFG.fullInterval, CFG.layers)]);
+  let html = '';
+  groups.forEach(([a, b], gi) => {
+    const cells = [];
+    for (let i = a; i < b; i++) {
+      const t = CFG.layerTypes[i];
+      if (filter && ((filter === 'full') !== (t === 'full'))) { cells.push('<span></span>'); continue; }
+      const [tn] = [TYPE_NAME[t][LANG === 'en' ? 'en' : 'zh']];
+      cells.push(`<button class="lyr ${t}${state.sel === i ? ' is-sel' : ''}" data-i="${i}" type="button">
+        <span class="no">#${String(i).padStart(2, '0')}</span><span class="tp">${tn}</span>
+      </button>`);
+    }
+    const kinds = CFG.layerTypes.slice(a, b);
+    const tag = kinds.includes('full') ? 'L·L·L·<b style="color:var(--gold)">F</b>' : 'L·L·L·F';
+    html += `<div class="block">
+      <button class="block-head" type="button" data-jump="${gi * CFG.fullInterval}">
+        <span>BLOCK ${String(gi + 1).padStart(2, '0')} · ${tag}</span>
+        <span class="rng">layers ${a}–${b - 1}</span>
+      </button>
+      <div class="layers">${cells.join('')}</div>
+    </div>`;
+  });
+  $('blocks').innerHTML = html;
+}
+
+/* ================= detail inspector ================= */
+const D = {
+  intro: {
+    zh: ['选一个部件', '左侧点击任意层或上方流水线卡片，这里显示它的真实规格。'],
+    en: ['Pick a component', 'Click any layer on the left or a pipeline card above — its real specs appear here.'],
+  },
+};
+function specRows(rows) {
+  return `<table class="specs">${rows.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`;
+}
+function headSplitViz() {
+  let boxes = '';
+  for (let i = 0; i < CFG.qHeads; i++) {
+    const isKv = i % (CFG.qHeads / CFG.kvHeads) === 0;
+    boxes += `<b class="${isKv ? 'kv' : ''}" style="flex:${isKv ? 1.6 : 1}" title="head ${i}${isKv ? ' (has KV)' : ''}"></b>`;
+  }
+  return `<div class="headsplit">${boxes}</div>
+    <p class="hs-cap"><span class="lang-zh">24 个 Q 头共享 4 组 KV（蓝紫 = 有独立 KV 的头组）· head_dim ${CFG.headDim}</span><span class="lang-en">24 query heads share 4 KV groups (violet = group with its own KV) · head_dim ${CFG.headDim}</span></p>`;
+}
+function renderBlockDetail(key, T) {
+  const el = $('detail');
+  const B = {
+    q:     { zh: ['Q 投影', '查询向量：24 个头 × 256 维 = 6144 维'], en: ['Q projection', 'Queries: 24 heads × 256 = 6144-d'],
+             rows: [['out', `24 × ${CFG.headDim} = ${CFG.qHeads * CFG.headDim}`], ['GQA', `${CFG.qHeads}Q : ${CFG.kvHeads}KV = 6:1`]] },
+    k:     { zh: ['K 投影', '键向量：仅 4 个 KV 头 —— 每组被 6 个 Q 头共享，这就是 GQA 的省存关键'], en: ['K projection', 'Keys: only 4 KV heads — each shared by 6 query heads; that is GQA'],
+             rows: [['out', `${CFG.kvHeads} × ${CFG.headDim}`], ['shared by', '6 Q heads / group']] },
+    v:     { zh: ['V 投影', '值向量：与 K 同样只有 4 头 —— KV 缓存缩小到 MHA 的 1/6'], en: ['V projection', 'Values: 4 heads like K — KV cache shrinks to 1/6 of MHA'],
+             rows: [['out', `${CFG.kvHeads} × ${CFG.headDim}`], ['cache', T({ zh: '完整缓存仅在这类层', en: 'full cache only in these layers' })[0]]] },
+    attn:  { zh: ['Softmax 注意力', '每个头内部做 Q·Kᵀ/√256 → softmax → ×V；面板上的对角亮带即注意力热图'], en: ['Softmax attention', 'Per head: Q·Kᵀ/√256 → softmax → ×V; the diagonal band is the attention heatmap'],
+             rows: [['heads', CFG.qHeads], ['RoPE', `${Math.round(CFG.partialRotary * 100)}% dims, mRoPE [${CFG.mropeSection}]`], ['gate', `${CFG.attnOutputGate ? 'on' : 'off'} (${CFG.outputGateType})`]] },
+    oproj: { zh: ['输出投影', '24 头拼接后投影回 5120 维，加回残差流'], en: ['Output projection', 'Concat heads → project back to 5120, add to residual'],
+             rows: [['in → out', `${CFG.qHeads * CFG.headDim} → ${CFG.hidden}`]] },
+    gate:  { zh: ['Gate（SwiGLU）', '门控分支：与 Up 输出逐元素相乘，决定信息通过多少'], en: ['Gate (SwiGLU)', 'Gating branch: elementwise-multiplies Up output'],
+             rows: [['dims', `${CFG.hidden} → ${CFG.ffnHidden}`]] },
+    up:    { zh: ['Up 投影', '前馈扩张：5120 → 17408（约 3.4 倍），宽度在图中可见'], en: ['Up projection', 'FFN expansion: 5120 → 17408 (~3.4×), visible as width'],
+             rows: [['dims', `${CFG.hidden} → ${CFG.ffnHidden}`], ['act', CFG.hiddenAct]] },
+    down:  { zh: ['Down 投影', '压缩回 5120，加回残差流 —— 扩张-收缩的完整 FFN'], en: ['Down projection', 'Compress back to 5120, add to residual'],
+             rows: [['dims', `${CFG.ffnHidden} → ${CFG.hidden}`]] },
+    norm2: { zh: ['RMSNorm', '进入 FFN 前的归一化'], en: ['RMSNorm', 'Normalization before the FFN'], rows: [['eps', CFG.rmsEps]] },
+    norm:  { zh: ['RMSNorm', '进入注意力前的归一化'], en: ['RMSNorm', 'Normalization before attention'], rows: [['eps', CFG.rmsEps]] },
+  };
+  const b = B[key];
+  if (!b) return;
+  el.innerHTML = `
+    <p class="big">${T(b)[0]}</p>
+    <p class="tagline">${T(b)[1]}</p>
+    ${specRows(b.rows)}`;
+}
+function renderDetail(sel) {
+  const el = $('detail');
+  const T = (o) => o[LANG === 'en' ? 'en' : 'zh'];
+  if (sel == null) {
+    el.innerHTML = `<p class="big">${T(D.intro)[0]}</p><p class="desc">${T(D.intro)[1]}</p>` +
+      specRows([
+        [LANG === 'en' ? 'architecture' : '架构', CFG.arch],
+        ['model_type', CFG.modelType],
+        ['dtype', 'bfloat16'],
+        [LANG === 'en' ? 'est. stack params' : '主干参数估算', '~' + (STACK_P / 1e9).toFixed(1) + 'B'],
+        [LANG === 'en' ? 'embedding' : '词嵌入', '~' + (EMB_P / 1e9).toFixed(2) + 'B ×2 (untied)'],
+      ]);
+    return;
+  }
+  if (typeof sel === 'number') {
+    const t = CFG.layerTypes[sel];
+    if (t === 'full') {
+      const p = FULL_P;
+      el.innerHTML = `
+        <p class="big">Layer #${sel} <span style="color:var(--gold-hi)">FullAttention</span></p>
+        <p class="tagline">${T({ zh: '每 4 层出现一次的「精确检索」层：完整 KV 缓存 + softmax 注意力', en: 'The every-4th “precise retrieval” layer: full KV cache + softmax attention' })[0]}</p>
+        ${headSplitViz()}
+        ${specRows([
+          [LANG === 'en' ? 'attention' : '注意力', `GQA ${CFG.qHeads}Q / ${CFG.kvHeads}KV × ${CFG.headDim}`],
+          ['output gate', `${CFG.attnOutputGate ? 'on' : 'off'} (${CFG.outputGateType})`],
+          ['RoPE', `${Math.round(CFG.partialRotary * 100)}% dims · θ=${CFG.rope_theta_label || '1e7'} · mRoPE [${CFG.mropeSection.join(', ')}]`],
+          ['FFN (SwiGLU)', `${CFG.hidden} → ${CFG.ffnHidden} → ${CFG.hidden}`],
+          [LANG === 'en' ? 'est. params' : '参数估算', '~' + (p / 1e9).toFixed(2) + 'B'],
+        ])}
+        <p class="desc">${T({
+          zh: '只有 1/4 的层维护完整 KV 缓存——长上下文的记忆负担被压到最低，同时保留精确回看的能力。',
+          en: 'Only 1 of every 4 layers keeps a full KV cache — long-context memory cost stays low while precise recall survives.',
+        })[0]}</p>`;
+    } else {
+      el.innerHTML = `
+        <p class="big">Layer #${sel} <span style="color:#8fd0c4">LinearAttention</span></p>
+        <p class="tagline">${T({ zh: '主力层（占 3/4）：Gated DeltaNet 风格，状态恒定不随长度增长', en: 'The workhorse (3 of 4 layers): Gated DeltaNet style, constant state regardless of length' })[0]}</p>
+        ${specRows([
+          ['heads', `${CFG.linKeyHeads} key / ${CFG.linValHeads} value`],
+          ['head dims', `${CFG.linKeyDim} k / ${CFG.linValDim} v`],
+          ['short conv', `kernel ${CFG.convKernel}`],
+          ['KV cache', T({ zh: '无（常数大小状态）', en: 'none (constant-size state)' })[0]],
+          ['FFN (SwiGLU)', `${CFG.hidden} → ${CFG.ffnHidden} → ${CFG.hidden}`],
+          [LANG === 'en' ? 'est. params' : '参数估算', '~' + (LIN_P / 1e9).toFixed(2) + 'B'],
+        ])}
+        <p class="desc">${T({
+          zh: '这类层把“历史”压缩进一个固定大小的循环状态里，像 RNN 一样步进——处理长文档时几乎不增加显存。',
+          en: 'These layers compress history into a fixed-size recurrent state, stepping like an RNN — nearly free memory-wise on long documents.',
+        })[0]}</p>`;
+    }
+    return;
+  }
+  const st = STAGES.find((s) => s.key === sel);
+  if (!st) { renderBlockDetail(sel, T); return; }
+  const EXTRA = {
+    'vision': () => specRows([
+      ['depth', CFG.vision.depth], ['hidden', CFG.vision.hidden], ['heads', CFG.vision.heads],
+      ['patch', `${CFG.vision.patch}² → merge ${CFG.vision.merge}²`],
+      ['act', CFG.vision.act], ['out proj', `${CFG.vision.hidden} → ${CFG.vision.out}`],
+    ]),
+    'embed': () => specRows([
+      ['vocab', fmtInt(CFG.vocab)], ['dim', CFG.hidden],
+      ['tied', 'false (' + (LANG === 'en' ? 'separate LM head' : '独立 LM Head') + ')'],
+      ['est.', '~' + (EMB_P / 1e9).toFixed(2) + 'B'],
+    ]),
+    'norm': () => specRows([['type', 'RMSNorm'], ['eps', CFG.rmsEps]]),
+    'lmhead': () => specRows([
+      ['vocab', fmtInt(CFG.vocab)], ['tied', 'false'], ['est.', '~' + (HEAD_P / 1e9).toFixed(2) + 'B'],
+    ]),
+    'mtp': () => specRows([
+      ['mtp hidden layers', CFG.mtpLayers], [LANG === 'en' ? 'purpose' : '用途', T({ zh: '推测解码 / 一次出多 token', en: 'speculative decoding / emit several tokens per step' })[0]],
+    ]),
+    'stack': () => specRows([
+      ['layers', `64 = 48 ${T({ zh: '线性', en: 'linear' })[0]} + 16 ${T({ zh: '全注意力', en: 'full' })[0]}`],
+      ['interval', CFG.fullInterval], ['est. stack', '~' + (STACK_P / 1e9).toFixed(1) + 'B'],
+    ]),
+    'in-text': () => specRows([
+      ['max context', fmtInt(CFG.maxPos)], ['tokenizer', 'BPE family (Qwen)'],
+    ]),
+  };
+  el.innerHTML = `
+    <p class="big">${st[LANG === 'en' ? 'en' : 'zh'][0].replace(/^[①-⑦] /, '')}</p>
+    <p class="tagline">${st[LANG === 'en' ? 'en' : 'zh'][1]}</p>
+    ${(EXTRA[st.key] ? EXTRA[st.key]() : '')}
+    <p class="desc">${st.shape}</p>`;
+}
+
+/* ================= 3d tower v4 — exploded layer view (bbycroft grammar) ================= */
+const tower = (() => {
+  const canvas = $('tower');
+  const gl = canvas.getContext('webgl2', { antialias: true, preserveDrawingBuffer: true });
+  if (!gl) {
+    canvas.style.display = 'none';
+    $('tower-fallback').style.display = 'block';
+    return null;
+  }
+
+  const VS = `#version 300 es
+  in vec3 aPos; in vec3 aNormal;
+  in vec3 iOffset; in vec3 iScale; in vec3 iColor; in float iLayer;
+  uniform mat4 uVp;
+  uniform float uFocusX; uniform float uFocusAmt;
+  out vec3 vN; out vec3 vW; out vec3 vBase; out float vLayer; out float vK;
+  void main(){
+    float dx = iOffset.x - uFocusX;
+    float k = uFocusAmt * exp(-dx * dx * 0.02);
+    vec3 w = aPos * iScale * (1.0 + 0.9 * k);
+    w += iOffset;
+    w.z += k * 1.6;
+    vW = w; vN = aNormal; vBase = iColor; vLayer = iLayer; vK = k;
+    gl_Position = uVp * vec4(w, 1.0);
+  }`;
+  const FS = `#version 300 es
+  precision mediump float;
+  in vec3 vN; in vec3 vW; in vec3 vBase; in float vLayer; in float vK;
+  uniform vec3 uEye; uniform float uSel; uniform float uPulse; uniform float uHeadX;
+  out vec4 outColor;
+  void main(){
+    vec3 N = normalize(vN);
+    vec3 L = normalize(vec3(0.40, 0.88, 0.55));
+    float diff = max(dot(N, L), 0.0);
+    vec3 V = normalize(uEye - vW);
+    float rim = pow(1.0 - max(dot(N, V), 0.0), 2.0);
+    vec3 c = vBase * (0.62 + 0.44 * diff);
+    c += vec3(1.0) * rim * 0.10;
+    // story fill-wave: values get written left→right; ahead of the head stays paper
+    float playing = step(-999.0, uHeadX);
+    float fill = mix(1.0, clamp((uHeadX - vW.x) / 1.4 + 0.15, 0.0, 1.0), playing);
+    c = mix(vec3(0.92, 0.93, 0.945), c, 0.12 + 0.88 * fill);
+    c += vec3(1.0, 0.55, 0.18) * playing * exp(-pow((vW.x - uHeadX) / 0.35, 2.0)) * 0.55;
+    float selOn = step(0.0, uSel) * (1.0 - step(0.5, abs(vLayer - uSel)));
+    if (uPulse >= 0.0 && abs(vLayer - floor(uPulse + 0.5)) < 0.5)
+      c = mix(c, vec3(0.98, 0.44, 0.12), 0.82);
+    else if (uPulse >= 0.0) {
+      float dt = floor(uPulse + 0.5) - vLayer;
+      if (dt > 0.5 && dt < 1.5) c = mix(c, vec3(0.98, 0.58, 0.24), 0.4);
+      else if (dt > 1.5 && dt < 3.5) c = mix(c, vec3(0.98, 0.72, 0.40), 0.18);
+    }
+    if (selOn > 0.5) c = mix(c, vec3(0.04, 0.11, 0.34), 0.55);
+    c = mix(c, c * vec3(1.05, 1.0, 0.88) + vec3(0.07), clamp(vK, 0.0, 1.0) * 0.6);
+    float fogf = smoothstep(60.0, 320.0, length(uEye - vW));
+    c = mix(c, vec3(0.93, 0.94, 0.955), fogf);
+    outColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+  }`;
+
+  const compile = (type, sc) => {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, sc); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+
+  const cube = (() => {
+    const P = [], N = [];
+    const f = (a, b, c, d, n) => { P.push(...a, ...b, ...c, ...a, ...c, ...d); for (let i = 0; i < 6; i++) N.push(...n); };
+    const q = [[-.5,-.5,.5],[.5,-.5,.5],[.5,.5,.5],[-.5,.5,.5],[-.5,-.5,-.5],[.5,-.5,-.5],[.5,.5,-.5],[-.5,.5,-.5]];
+    f(q[0],q[1],q[2],q[3],[0,0,1]); f(q[5],q[4],q[7],q[6],[0,0,-1]);
+    f(q[1],q[5],q[6],q[2],[1,0,0]); f(q[4],q[0],q[3],q[7],[-1,0,0]);
+    f(q[3],q[2],q[6],q[7],[0,1,0]); f(q[4],q[5],q[1],q[0],[0,-1,0]);
+    return { P: new Float32Array(P), N: new Float32Array(N), n: P.length / 3 };
+  })();
+
+  const M = {
+    persp(fov, asp, n, fr) {
+      const t = 1 / Math.tan(fov / 2), nf = 1 / (n - fr);
+      return [t/asp,0,0,0, 0,t,0,0, 0,0,(fr+n)*nf,-1, 0,0,2*fr*n*nf,0];
+    },
+    mul(a, b) {
+      const o = new Array(16).fill(0);
+      for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++)
+        o[c*4+r] = a[r]*b[c*4] + a[4+r]*b[c*4+1] + a[8+r]*b[c*4+2] + a[12+r]*b[c*4+3];
+      return o;
+    },
+    trans(x, y, z) { return [1,0,0,0, 0,1,0,0, 0,0,1,0, x,y,z,1]; },
+    rotY(a) { const c = Math.cos(a), s = Math.sin(a); return [c,0,-s,0, 0,1,0,0, s,0,c,0, 0,0,0,1]; },
+    rotX(a) { const c = Math.cos(a), s = Math.sin(a); return [1,0,0,0, 0,c,s,0, 0,-s,c,0, 0,0,0,1]; },
+  };
+
+  const hash = (a, b, c) => {
+    const s = Math.sin(a * 12.9898 + b * 78.233 + c * 37.719) * 43758.5453;
+    return s - Math.floor(s);
+  };
+  const actVal = (pat, li, ix, iz, nx, nz) => {
+    const r = hash(ix, iz, li);
+    if (pat === 'qkv') return Math.min(1, 0.15 + 0.55 * Math.abs(Math.sin(ix * 1.4 + li * 0.5)) + 0.4 * r);
+    if (pat === 'attn') {
+      const t = ix / Math.max(1, nx - 1), u = iz / Math.max(1, nz - 1);
+      return Math.min(1, 0.18 + 0.72 * Math.exp(-Math.pow((t - u) * 3.0, 2)) + 0.25 * r);
+    }
+    if (pat === 'ffn') return Math.min(1, 0.15 + 0.5 * Math.abs(Math.sin(iz * 1.8 + li * 0.6)) + 0.4 * r);
+    if (pat === 'tok') {
+      // rows = tokens of the toy task; the same letter activates similarly everywhere
+      const t = iz % TOKENS.length;
+      const l = TOKEN_ID[TOKENS[t]] ?? 0;
+      return Math.min(1, 0.22 + 0.52 * Math.abs(Math.sin(l * 2.13 + ix * 0.37)) + 0.38 * r);
+    }
+    if (pat === 'weight') return Math.min(1, 0.18 + 0.42 * Math.abs(Math.sin(ix * 0.71 + iz * 1.93)) + 0.45 * r);
+    if (pat === 'causal') {
+      // 6x6 attention: query = column ix, key = row iz; future is masked out
+      const q = ix % 6, kk = iz % 6;
+      if (kk > q) return 0.02 + 0.04 * r;
+      const d = q - kk;
+      return Math.min(1, 0.72 * Math.exp(-d * d * 0.5) + 0.20 * r + 0.06);
+    }
+    if (pat === 'vit') return Math.min(1, 0.2 + 0.5 * Math.abs(Math.sin(ix * 0.9 + li * 1.3) * Math.cos(iz * 1.1)) + 0.3 * r);
+    return Math.min(1, 0.12 + 0.55 * r + 0.18 * Math.sin(li * 0.35));
+  };
+
+  // sparse activation look: most cells near paper-white, few hot & tall
+  const shape = (v) => v < 0.34 ? v * 0.20 : 0.07 + Math.pow((v - 0.34) / 0.66, 0.78) * 0.93;
+
+  const BASE = {
+    emb:[0.86,0.90,0.97], ln:[0.90,0.91,0.93], q:[0.85,0.89,0.98], k:[0.84,0.94,0.92],
+    v:[0.97,0.89,0.85], att:[0.97,0.86,0.90], op:[0.89,0.90,0.95], ffn:[0.97,0.93,0.81],
+    ffn2:[0.97,0.92,0.80], ffn3:[0.96,0.91,0.82], lm:[0.96,0.93,0.85], mtp:[0.97,0.91,0.72],
+    lin:[0.72,0.85,0.89], full:[0.94,0.77,0.82], vit:[0.81,0.77,0.94], edge:[0.66,0.72,0.82],
+  };
+  const BRIGHT = {
+    emb:[0.24,0.48,0.90], ln:[0.52,0.58,0.72], q:[0.14,0.40,0.92], k:[0.05,0.60,0.52],
+    v:[0.88,0.38,0.22], att:[0.86,0.22,0.40], op:[0.38,0.44,0.76], ffn:[0.92,0.64,0.12],
+    ffn2:[0.84,0.50,0.08], ffn3:[0.72,0.44,0.10], lm:[0.74,0.56,0.14], mtp:[0.88,0.62,0.16],
+    lin:[0.24,0.58,0.72], full:[0.85,0.30,0.44], vit:[0.50,0.42,0.84], edge:[0.28,0.36,0.54],
+  };
+
+  const PITCH = 0.30, CSZ = 0.215;
+  const inst = [];
+  const pushCube = (x, y, z, sx, sy, sz, kind, v, lid) => {
+    const b = BASE[kind], br = BRIGHT[kind];
+    const sp = v > 0.94 ? 1.35 : 1.0;
+    inst.push(x, y, z, sx, sy, sz,
+      b[0] + (br[0] - b[0]) * v * sp, b[1] + (br[1] - b[1]) * v * sp, b[2] + (br[2] - b[2]) * v * sp, lid);
+  };
+  const beam = (x, y, z, sx, sy, sz, lid) => pushCube(x, y, z, sx, sy, sz, 'edge', 0.7, lid);
+
+  /* ================= SCENE A: exploded layer 7 (full attention) ================= */
+  // toy task copied from bbycroft walkthrough: sort "C B A B B C" -> "A B B B C C"
+  const TOKENS = ['C', 'B', 'A', 'B', 'B', 'C'];
+  const TOKEN_ID = { A: 0, B: 1, C: 2 };
+  const TOKEN_HUE = { A: [0.88, 0.38, 0.22], B: [0.90, 0.62, 0.12], C: [0.10, 0.58, 0.54] };
+  const BLOCKS = [
+    { key:'embed', kind:'emb', pat:'tok',    nx:12, ny:6, zh:'输入嵌入', en:'Input Embed',  sub:'6 tokens × 5120' },
+    { key:'norm',  kind:'ln',  pat:'tok',    nx:2,  ny:6, zh:'RMSNorm',  en:'RMSNorm',      sub:'每 token 归一化' },
+    { key:'q',     kind:'q',   pat:'weight', nx:12, ny:8, zh:'Q 权重',    en:'Q weights',    sub:'通道 × 头 (24×256)' },
+    { key:'k',     kind:'k',   pat:'weight', nx:12, ny:3, zh:'K 权重',    en:'K weights',    sub:'仅 4 KV 头 · 6:1 共享' },
+    { key:'v',     kind:'v',   pat:'weight', nx:12, ny:3, zh:'V 权重',    en:'V weights',    sub:'与 K 同宽 —— 缓存省 6×' },
+    { key:'attn',  kind:'att', pat:'causal', nx:7,  ny:7, zh:'注意力矩阵', en:'Attention matrix', sub:'6×6 · 因果遮罩 · B 只能看过去' },
+    { key:'oproj', kind:'op',  pat:'tok',    nx:12, ny:6, zh:'输出投影',  en:'Out proj',     sub:'拼头 → 5120 + 残差' },
+    { key:'norm2', kind:'ln',  pat:'tok',    nx:2,  ny:6, zh:'RMSNorm',  en:'RMSNorm',      sub:'进入 FFN 前' },
+    { key:'gate',  kind:'ffn', pat:'tok',    nx:16, ny:6, zh:'Gate',     en:'Gate',         sub:'SwiGLU 门控 · 17408' },
+    { key:'up',    kind:'ffn2',pat:'tok',    nx:16, ny:6, zh:'Up',       en:'Up',           sub:'5120 → 17408' },
+    { key:'down',  kind:'ffn3',pat:'tok',    nx:12, ny:6, zh:'Down',     en:'Down',         sub:'压回 5120 + 残差' },
+    { key:'lmhead',kind:'lm',  pat:'tok',    nx:12, ny:6, zh:'LM Head',  en:'LM Head',      sub:'248320 词表打分' },
+    { key:'mtp',   kind:'mtp', pat:'tok',    nx:6,  ny:4, zh:'MTP 头',   en:'MTP head',     sub:'预测下一批 token', high:true },
+  ];
+  const blockIdx = {};
+  const labels = [];
+  const sceneA = (() => {
+    const start = inst.length;
+    const spans = [];
+    let x = 0;
+    BLOCKS.forEach((b, bi) => {
+      blockIdx[b.key] = bi;
+      const w = b.nx * PITCH, h = b.ny * PITCH;
+      const cx = x + w / 2;
+      const cy = b.high ? 4.4 : 1.15 + h / 2;
+      for (let ix = 0; ix < b.nx; ix++) for (let iy = 0; iy < b.ny; iy++) {
+        const v0 = shape(actVal(b.pat, 7, ix, iy, b.nx, b.ny));
+        const cz = CSZ * (0.42 + v0 * 1.85);
+        pushCube(x + (ix + 0.5) * PITCH, cy - h / 2 + (iy + 0.5) * PITCH, cz / 2, CSZ, CSZ, cz, b.kind, v0, bi);
+      }
+      beam(cx, b.high ? 2.15 : 0.55, 0, 0.07, (b.high ? 2.15 : 0.55) * 2, 0.07, bi);  // branch stub from rail
+      labels.push({ x: cx, y: cy + h / 2 + 0.35, z: 0, bi });
+      spans.push([x, x + w]);
+      x += w + 1.15;
+    });
+    beam(x / 2 - 0.55, 0, 0, x + 1.1, 0.09, 0.09, 12);  // residual rail
+    return { vbo: null, count: (inst.length - start) / 10, width: x, spans };
+  })();
+
+  /* ================= SCENE B: 64-layer overview pipeline ================= */
+  const LAYER_PITCH = 7.2, HALF_W = 3.1, RAIL_Y = 0;
+  const layerX = (i) => i * LAYER_PITCH;
+  const LP = 0.21, LCS = 0.155;
+  const SPEC_FULL = [
+    ['ln','soft',4,4,-2.45,0.85], ['q','qkv',5,7,-1.45,1.30], ['k','qkv',4,7,-0.65,1.30],
+    ['v','qkv',4,7,0.10,1.30], ['att','attn',6,6,1.05,1.25], ['op','soft',4,4,2.00,0.80], ['ffn','ffn',12,8,0.55,2.85],
+  ];
+  const SPEC_LIN = [
+    ['ln','soft',4,4,-2.45,0.85], ['k','soft',4,4,-1.45,1.05], ['emb','qkv',10,7,-0.10,1.30],
+    ['op','soft',4,4,1.55,0.80], ['ffn','ffn',12,8,0.55,2.85],
+  ];
+  const sceneB = (() => {
+    const start = inst.length;
+    CFG.layerTypes.forEach((t, li) => {
+      const bx = layerX(li);
+      for (const [kind, pat, nx, ny, cx, cy] of (t === 'full' ? SPEC_FULL : SPEC_LIN)) {
+        for (let ix = 0; ix < nx; ix++) for (let iy = 0; iy < ny; iy++) {
+          const v0 = shape(actVal(pat, li, ix, iy, nx, ny));
+          const cz = LCS * (0.5 + v0 * 1.25);
+          pushCube(bx + cx - (nx * LP) / 2 + (ix + 0.5) * LP, cy - (ny * LP) / 2 + (iy + 0.5) * LP, cz / 2,
+            LCS, LCS, cz, kind, v0, li);
+        }
+      }
+      beam(bx - HALF_W + 0.2, RAIL_Y, 0, (HALF_W - 0.2) * 2, 0.07, 0.07, li);
+      beam(bx - HALF_W + 0.55, RAIL_Y + 0.45, 0, 0.06, 0.9, 0.06, li);
+      beam(bx + 0.55, RAIL_Y + 1.05, 0, 0.06, 2.2, 0.06, li);
+      if (li < CFG.layers - 1) beam(bx + HALF_W + 0.5, RAIL_Y, 0, LAYER_PITCH - (HALF_W - 0.35) * 2, 0.07, 0.07, li);
+    });
+    for (let k = 0; k < CFG.vision.depth; k++)
+      for (let ix = 0; ix < 4; ix++) for (let iy = 0; iy < 5; iy++)
+        pushCube(-13.5 + k * (4 * LP + 0.12) + (ix + 0.5) * LP, 0.9 + (iy + 0.5) * LP, 0, LCS, LCS, LCS * 0.8, 'vit', actVal('vit', k, ix, iy, 4, 5), 150);
+    beam(-6.2, RAIL_Y + 0.02, 0, 3.1, 0.08, 0.08, 0);
+    for (let ix = 0; ix < 8; ix++) for (let iy = 0; iy < 6; iy++)
+      pushCube(layerX(63) + HALF_W + 1.2 + (ix + 0.5) * LP, 0.9 + (iy + 0.5) * LP, 0, LCS, LCS, LCS * 0.8, 'mtp', actVal('soft', 9, ix, iy, 8, 6), 151);
+    beam(layerX(63) + HALF_W - 0.35, RAIL_Y, 0, 1.9, 0.08, 0.08, 63);
+    return { vbo: null, count: (inst.length - start) / 10, width: layerX(63) + HALF_W };
+  })();
+
+  const instArr = new Float32Array(inst);
+  const mkVao = (offset, count) => {
+    const vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    const mkAttr = (data, loc) => {
+      const b = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, b);
+      gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, 3, gl.FLOAT, false, 0, 0);
+    };
+    mkAttr(cube.P, gl.getAttribLocation(prog, 'aPos'));
+    mkAttr(cube.N, gl.getAttribLocation(prog, 'aNormal'));
+    const ib = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, ib);
+    gl.bufferData(gl.ARRAY_BUFFER, instArr.subarray(offset * 10, (offset + count) * 10), gl.STATIC_DRAW);
+    const stride = 40;
+    [['iOffset', 0], ['iScale', 12], ['iColor', 24]].forEach(([name, off]) => {
+      const loc = gl.getAttribLocation(prog, name);
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, 3, gl.FLOAT, false, stride, off);
+      gl.vertexAttribDivisor(loc, 1);
+    });
+    const ll = gl.getAttribLocation(prog, 'iLayer');
+    gl.enableVertexAttribArray(ll);
+    gl.vertexAttribPointer(ll, 1, gl.FLOAT, false, stride, 36);
+    gl.vertexAttribDivisor(ll, 1);
+    return vao;
+  };
+  sceneA.vao = mkVao(0, sceneA.count);
+  sceneB.vao = mkVao(sceneA.count, sceneB.count);
+
+  const U = {};
+  ['uVp', 'uEye', 'uSel', 'uPulse', 'uFocusX', 'uFocusAmt', 'uHeadX'].forEach((n) => U[n] = gl.getUniformLocation(prog, n));
+
+  /* ---- camera + state ---- */
+  const LEN = sceneB.width;
+  const cam = { yaw: -0.14, pitch: 0.14, dist: 42 };
+  let mode = 'explode';
+  let dragging = false, moved = 0, lx = 0, ly = 0;
+  let selRef = -1, pulseIdx = -1, headX = -1000;
+  let faCur = 0, faTgt = 0, txCur = sceneA.width / 2, txTgt = sceneA.width / 2, distTgt = 42;
+  let vpNow = null;
+
+  const SEL_ID = (r) => typeof r === 'number' ? r
+    : r === 'vision' ? 150 : r === 'mtp' ? 151
+    : (blockIdx[r] != null && mode === 'explode' ? blockIdx[r] : -1);
+
+  const resize = () => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = Math.max(1, canvas.clientWidth * dpr | 0), h = Math.max(1, canvas.clientHeight * dpr | 0);
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+  };
+  const eyeOf = () => [
+    cam.dist * Math.cos(cam.pitch) * Math.sin(cam.yaw),
+    cam.dist * Math.sin(cam.pitch),
+    cam.dist * Math.cos(cam.pitch) * Math.cos(cam.yaw),
+  ];
+
+  const mkVp = () => {
+    const proj = M.persp(0.9, canvas.width / canvas.height, 0.5, 900);
+    const view = M.mul(M.trans(0, 2.0, -cam.dist), M.mul(M.rotX(cam.pitch), M.rotY(cam.yaw)));
+    return M.mul(proj, M.mul(view, M.trans(-txCur, -1.5, 0)));
+  };
+
+  /* ---- DOM labels (explode mode) ---- */
+  const labelBox = $('tower-labels');
+  const labelEls = labels.map((lb) => {
+    const d = document.createElement('div');
+    d.className = 'tlabel';
+    labelBox.appendChild(d);
+    return d;
+  });
+  const labelLang = () => {
+    labels.forEach((lb, i) => {
+      const b = BLOCKS[lb.bi];
+      labelEls[i].innerHTML = `<div>${LANG === 'en' ? b.en : b.zh}</div><div class="small" style="font-size:9px;color:#4a5872;">${b.sub}</div>`;
+    });
+  };
+  const updateLabels = () => {
+    if (mode !== 'explode' || !vpNow) { labelBox.style.display = 'none'; return; }
+    labelBox.style.display = '';
+    const r = canvas.getBoundingClientRect();
+    labels.forEach((lb, i) => {
+      const wx = lb.x - txCur, wy = lb.y - 1.5, wz = lb.z;
+      const cx = vpNow[0]*wx + vpNow[4]*wy + vpNow[8]*wz + vpNow[12];
+      const cy = vpNow[1]*wx + vpNow[5]*wy + vpNow[9]*wz + vpNow[13];
+      const cw = vpNow[3]*wx + vpNow[7]*wy + vpNow[11]*wz + vpNow[15];
+      const el = labelEls[i];
+      if (cw < 0.05) { el.style.display = 'none'; return; }
+      el.style.display = '';
+      el.style.left = ((cx / cw * 0.5 + 0.5) * r.width) + 'px';
+      el.style.top = ((0.5 - cy / cw * 0.5) * r.height) + 'px';
+    });
+  };
+
+  const frame = () => {
+    resize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0.945, 0.95, 0.96, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.enable(gl.DEPTH_TEST);
+
+    cam.dist += (distTgt - cam.dist) * 0.07;
+    faCur += (faTgt - faCur) * 0.07;
+    txCur += (txTgt - txCur) * 0.09;
+
+    vpNow = mkVp();
+    const e = eyeOf();
+    gl.uniformMatrix4fv(U.uVp, false, new Float32Array(vpNow));
+    gl.uniform3f(U.uEye, e[0] + txCur, e[1] + 2.0, e[2]);
+    gl.uniform1f(U.uSel, SEL_ID(selRef));
+    gl.uniform1f(U.uPulse, mode === 'explode' ? (pulseIdx >= 0 ? pulseIdx / 63 * 12.99 : -1) : pulseIdx);
+    gl.uniform1f(U.uFocusX, txCur);
+    gl.uniform1f(U.uHeadX, headX);
+    gl.uniform1f(U.uFocusAmt, faCur);
+    const sc = mode === 'explode' ? sceneA : sceneB;
+    gl.bindVertexArray(sc.vao);
+    gl.drawArraysInstanced(gl.TRIANGLES, 0, cube.n, sc.count);
+    updateLabels();
+    requestAnimationFrame(frame);
+  };
+
+  /* ---- picking ---- */
+  const anchorsB = [];
+  for (let i = 0; i < CFG.layers; i++) anchorsB.push({ ref: i, x: layerX(i), y: 1.4, z: 0 });
+  anchorsB.push({ ref: 'vision', x: -9.5, y: 1.6, z: 0 });
+  anchorsB.push({ ref: 'mtp', x: layerX(63) + HALF_W + 2.0, y: 1.6, z: 0 });
+
+  const pickAt = (px, py) => {
+    if (!vpNow) return null;
+    const r = canvas.getBoundingClientRect();
+    const anchors = mode === 'explode'
+      ? labels.map((lb) => ({ ref: BLOCKS[lb.bi].key, x: lb.x, y: 1.2, z: 0 }))
+      : anchorsB;
+    let best = null, bestD = 55;
+    for (const a of anchors) {
+      const wx = a.x - txCur, wy = a.y - 1.5, wz = a.z;
+      const cx = vpNow[0]*wx + vpNow[4]*wy + vpNow[8]*wz + vpNow[12];
+      const cy = vpNow[1]*wx + vpNow[5]*wy + vpNow[9]*wz + vpNow[13];
+      const cw = vpNow[3]*wx + vpNow[7]*wy + vpNow[11]*wz + vpNow[15];
+      const sx = (cx / cw * 0.5 + 0.5) * r.width;
+      const sy = (0.5 - cy / cw * 0.5) * r.height;
+      const dd = Math.hypot(sx - px, sy - py);
+      if (dd < bestD) { bestD = dd; best = a.ref; }
+    }
+    return best;
+  };
+
+  const pos = (ev) => {
+    const rr = canvas.getBoundingClientRect();
+    const p = ev.touches ? ev.touches[0] : ev;
+    return [p.clientX - rr.left, p.clientY - rr.top];
+  };
+  canvas.addEventListener('pointerdown', (ev) => { dragging = true; moved = 0; [lx, ly] = pos(ev); canvas.classList.add('dragging'); });
+  window.addEventListener('pointermove', (ev) => {
+    if (!dragging) return;
+    const [x, y] = pos(ev);
+    cam.yaw = Math.max(-0.9, Math.min(0.9, cam.yaw + (x - lx) * 0.006));
+    cam.pitch = Math.max(-0.1, Math.min(1.2, cam.pitch + (y - ly) * 0.005));
+    moved += Math.abs(x - lx) + Math.abs(y - ly);
+    lx = x; ly = y;
+    ev.preventDefault?.();
+  });
+  window.addEventListener('pointerup', () => { dragging = false; canvas.classList.remove('dragging'); });
+  canvas.addEventListener('click', (ev) => {
+    if (moved > 6) return;
+    const [x, y] = pos(ev);
+    const hit = pickAt(x, y);
+    if (hit !== null) select(hit);
+    else if (selRef !== -1) select(null);
+  });
+  canvas.addEventListener('wheel', (ev) => {
+    ev.preventDefault();
+    distTgt = Math.min(260, Math.max(4, distTgt + ev.deltaY * 0.05 * (distTgt * 0.01 + 0.4)));
+  }, { passive: false });
+
+  /* ---- mode switching ---- */
+  const setMode = (m, keepSel) => {
+    mode = m;
+    $('mode-explode').classList.toggle('on', m === 'explode');
+    $('mode-overview').classList.toggle('on', m === 'overview');
+    if (!keepSel) { selRef = -1; faTgt = 0; }
+    if (m === 'explode') { txTgt = sceneA.width / 2; distTgt = 42; cam.pitch = Math.min(cam.pitch, 0.3); }
+    else { txTgt = LEN / 2; distTgt = 135; }
+  };
+  $('mode-explode').addEventListener('click', () => setMode('explode'));
+  $('mode-overview').addEventListener('click', () => setMode('overview'));
+
+  // token strip from the toy task
+  const tokrow = $('tokrow');
+  TOKENS.forEach((t, i) => {
+    const d = document.createElement('div');
+    d.className = 'tok';
+    const hue = TOKEN_HUE[t];
+    d.style.background = `rgb(${hue.map(x => Math.round(x * 255)).join(',')})`;
+    d.innerHTML = `${t}<i>#${i}</i>`;
+    tokrow.appendChild(d);
+  });
+  labelLang();
+  requestAnimationFrame(frame);
+  return {
+    setSelected(r) {
+      selRef = r;
+      if (r === -1 || r == null) { faTgt = 0; if (mode === 'explode') { txTgt = sceneA.width / 2; distTgt = 42; } else { txTgt = LEN / 2; distTgt = 135; } return; }
+      faTgt = 1;
+      if (typeof r === 'number') {
+        if (mode !== 'overview') setMode('overview', true);
+        txTgt = layerX(r); distTgt = 6.5;
+      } else if (mode === 'explode' && blockIdx[r] != null) {
+        const lb = labels[blockIdx[r]];
+        txTgt = lb.x; distTgt = 16;
+      } else if (r === 'vision') { setMode('overview', true); txTgt = -9.5; distTgt = 9; }
+      else if (r === 'mtp') { setMode('overview', true); txTgt = layerX(63) + HALF_W + 2; distTgt = 9; }
+    },
+    get selected() { return selRef; },
+    get mode() { return mode; },
+    get focusAmt() { return faCur; },
+    setPulse(i) { pulseIdx = i; },
+    setHeadX(x) { headX = x; },
+    get headX() { return headX; },
+    blockSpans() { return sceneA.spans; },
+    blockLabelX(bi) { return labels[bi] ? labels[bi].x : 0; },
+    get pulseIdx() { return pulseIdx; },
+    relabel() { labelLang(); },
+    debugSelect(ref) { this.setSelected(ref); select(ref); },
+    counts: { layers: 64, vit: CFG.vision.depth, mtp: 1, cubes: inst.length / 10, blocks: BLOCKS.length },
+    canvas,
+  };
+})();
+window.__vizTower = tower;
+
+/* ================= state & events ================= */
+const state = { sel: null, filter: null, playing: false };
+
+function select(iOrKey) {
+  state.sel = iOrKey;
+  if (window.__vizTower) __vizTower.setSelected(iOrKey == null ? -1 : iOrKey);
+  renderDna();
+  renderBlocks(state.filter);
+  renderDetail(iOrKey);
+  document.querySelectorAll('.stage').forEach((el) =>
+    el.classList.toggle('is-sel', typeof iOrKey === 'string' && el.dataset.stage === iOrKey));
+  if (typeof iOrKey === 'number') {
+    const target = document.querySelector(`.lyr[data-i="${iOrKey}"]`);
+    target?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+}
+
+document.addEventListener('click', (e) => {
+  const lyr = e.target.closest('.lyr, .dna b');
+  if (lyr && lyr.dataset.i !== undefined) { select(Number(lyr.dataset.i)); return; }
+  const st = e.target.closest('.stage');
+  if (st) { select(st.dataset.stage); return; }
+  const jump = e.target.closest('[data-jump]');
+  if (jump) {
+    const base = Number(jump.dataset.jump);
+    for (let k = 0; k < CFG.fullInterval; k++) {
+      const i = base + k;
+      if (CFG.layerTypes[i] === 'full') { select(i); return; }
+    }
+    select(base);
+  }
+});
+
+function setFilter(f) {
+  state.filter = f;
+  [['filter-all', null], ['filter-full', 'full'], ['filter-lin', 'lin']].forEach(([id, val]) =>
+    $(id).classList.toggle('on', val === f));
+  renderBlocks(f);
+}
+$('filter-all').addEventListener('click', () => setFilter(null));
+$('filter-full').addEventListener('click', () => setFilter('full'));
+$('filter-lin').addEventListener('click', () => setFilter('lin'));
+
+/* bbycroft-style guided walkthrough: discrete steps, fill boundaries, Continue/Skip */
+const WSTEPS = [
+  { blks:[],           key:null,
+    zh:'任务：把字母序列 C · B · A · B · B · C 输入模型，让它学会排序输出 A B B B C C。下面每一格都是这 6 个 token 的真实维度切片。',
+    en:'Task: feed C·B·A·B·B·C and learn to sort into A B B B C C. Every grid below is a real dimension slice of these 6 tokens.' },
+  { blks:[0],          key:'embed',
+    zh:'① 词嵌入：每个字母查表得到 5120 维向量 —— 相同字母（两个 B）的向量彼此相似。',
+    en:'① Token embed: each letter looks up a 5120-d vector — identical letters get similar vectors.' },
+  { blks:[1],          key:'norm',
+    zh:'② RMSNorm：把每个 token 的向量归一化（ε=1e-6），稳定后续计算。',
+    en:'② RMSNorm normalizes each token vector (ε=1e-6).' },
+  { blks:[2],          key:'q',
+    zh:'③ Q 权重：24 个查询头 × 256 维。面板是权重矩阵本身，行是头、列是通道。',
+    en:'③ Q weights: 24 query heads × 256. Rows are heads, columns are channels.' },
+  { blks:[3,4],        key:'k',
+    zh:'④⑤ K/V 权重：只有 4 个 KV 头 —— 宽度明显更窄。每 1 组 KV 被 6 个 Q 头共享，KV 缓存省 6 倍。',
+    en:'④⑤ K/V weights: only 4 KV heads — visibly narrower. Each KV group is shared by 6 Q heads: 6× smaller cache.' },
+  { blks:[5],          key:'attn',
+    zh:'⑥ 注意力矩阵：这是核心。列=query，行=key。左下三角亮 = 每个 token 只能看自己和过去（因果遮罩）；对角亮带 = 最近邻最重要。',
+    en:'⑥ Attention matrix: columns=queries, rows=keys. Bright lower triangle = causal mask (only look back); diagonal band = nearest neighbors matter most.' },
+  { blks:[6],          key:'oproj',
+    zh:'⑦ 输出投影：把注意力结果拼回 5120 维并加回残差流 —— 网络的“主干公路”始终保留原始信息。',
+    en:'⑦ Out projection: merge heads back to 5120 and ADD to the residual stream — the highway always keeps the original signal.' },
+  { blks:[7],          key:'norm2',
+    zh:'⑧ RMSNorm：进入前馈网络前的第二次归一化。',
+    en:'⑧ RMSNorm before entering the FFN.' },
+  { blks:[8,9],        key:'gate',
+    zh:'⑨⑩ Gate + Up（SwiGLU）：通道先扩张到 17408 维（约 3.4×），门控决定哪些特征通过。',
+    en:'⑨⑩ Gate + Up (SwiGLU): expand to 17408 channels (~3.4×); the gate decides which features pass.' },
+  { blks:[10],         key:'down',
+    zh:'⑪ Down：压缩回 5120 并再次加回残差流 —— 这一层就处理完了。',
+    en:'⑪ Down: compress back to 5120, add to residual again — layer complete.' },
+  { blks:[11],         key:'lmhead',
+    zh:'⑫ LM Head：对 248,320 个词表项打分，得到下一个 token 的概率分布。',
+    en:'⑫ LM Head: score all 248,320 vocab entries into a probability distribution for the next token.' },
+  { blks:[12],         key:'mtp',
+    zh:'⑬ MTP 头：额外预测再下一个 token（推测解码用，一次多吐几个）。',
+    en:'⑬ MTP head: predicts further tokens ahead (speculative decoding).' },
+];
+let pulseTimer = null, storyRaf = null;
+let wStep = -1, stepAnimating = false, skipMode = false;
+const STEP_HOME = () => { if (window.__vizTower && __vizTower.mode !== 'overview') return; };
+function stepBounds(si) {
+  const spans = window.__vizTower.blockSpans();
+  let start = -0.6;
+  for (let j = 0; j < si; j++) {
+    const last = Math.max(...WSTEPS[j].blks);
+    if (last >= 0) start = Math.max(start, spans[last][1] + 0.4);
+  }
+  const st = WSTEPS[si];
+  if (!st.blks.length) return [start, start];
+  const last = Math.max(...st.blks);
+  return [start, spans[last][1] + 0.4];
+}
+function stopAnim() { if (storyRaf) { cancelAnimationFrame(storyRaf); storyRaf = null; } stepAnimating = false; }
+function updateProgress() {
+  $('step-progress').textContent = LANG === 'en'
+    ? (wStep < 0 ? `step – / ${WSTEPS.length}` : `step ${wStep + 1} / ${WSTEPS.length}`)
+    : (wStep < 0 ? `步 – / ${WSTEPS.length}` : `第 ${wStep + 1} / ${WSTEPS.length} 步`);
+}
+function gotoStep(k, animate = true) {
+  const T = window.__vizTower; if (!T) return;
+  if (T.mode !== 'explode') document.getElementById('mode-explode').click();
+  stopAnim();
+  wStep = k;
+  updateProgress();
+  if (k < 0 || k >= WSTEPS.length) {
+    T.setHeadX(-1000);
+    T.setSelected(null);
+    $('tower-caption').textContent = '';
+    return;
+  }
+  const st = WSTEPS[k];
+  const [x0, x1] = stepBounds(k);
+  T.setHeadX(animate ? x0 : x1);
+  T.setSelected(null);
+  if (st.key) T.setSelected(st.key);
+  $('tower-caption').textContent = LANG === 'en' ? (st.en || '') : (st.zh || '');
+  if (animate && x1 > x0) {
+    stepAnimating = true;
+    const t0 = performance.now(), dur = skipMode ? 450 : Math.max(650, (x1 - x0) * 320);
+    const tick = () => {
+      const t = Math.min(1, (performance.now() - t0) / dur);
+      T.setHeadX(x0 + (x1 - x0) * (0.5 - 0.5 * Math.cos(Math.PI * t)));
+      if (t < 1 && (stepAnimating || skipMode)) storyRaf = requestAnimationFrame(tick);
+      else { stepAnimating = false; if (skipMode) setTimeout(() => { if (skipMode) gotoStep(wStep + 1); }, 420); }
+    };
+    storyRaf = requestAnimationFrame(tick);
+  } else if (skipMode) setTimeout(() => { if (skipMode) gotoStep(wStep + 1); }, 420);
+}
+function stopPulse(silent) {
+  clearInterval(pulseTimer); pulseTimer = null;
+  stopAnim(); skipMode = false;
+  state.playing = false;
+  window.__vizTower && __vizTower.setPulse(-1);
+  $('play-btn').classList.remove('on');
+  document.querySelectorAll('.pulse').forEach((el) => el.classList.remove('pulse'));
+  if (!silent) $('tower-caption').textContent = '';
+}
+function pulseStage(key) {
+  document.querySelectorAll('#flow .stage').forEach((el) =>
+    el.classList.toggle('pulse', el.dataset.stage === key));
+}
+function playSweepOverview() {
+  state.playing = true;
+  $('play-btn').classList.add('on');
+  const steps = [];
+  document.querySelectorAll('#flow .stage').forEach((el) => steps.push({ el }));
+  for (let i = 0; i < CFG.layers; i++) {
+    steps.push({ el: document.querySelector(`.lyr[data-i="${i}"]`), li: i });
+  }
+  let idx = 0;
+  pulseTimer = setInterval(() => {
+    if (idx > 0) steps[idx - 1].el?.classList.remove('pulse');
+    if (idx >= steps.length) {
+      stopPulse(true);
+      $('pulse-note').textContent = LANG === 'en' ? 'forward pass complete ✓' : '前向流动完成 ✓';
+      setTimeout(() => { $('pulse-note').textContent = ''; }, 3000);
+      return;
+    }
+    steps[idx].el?.classList.add('pulse');
+    if (typeof steps[idx].li === 'number' && window.__vizTower) __vizTower.setPulse(steps[idx].li);
+    idx++;
+  }, 110);
+}
+$('play-btn').addEventListener('click', () => {
+  if (window.__vizTower && __vizTower.mode === 'explode') gotoStep(0);
+  else { state.playing ? stopPulse() : playSweepOverview(); }
+});
+$('step-prev')?.addEventListener('click', () => { skipMode = false; gotoStep(wStep - 1, false); });
+$('step-next')?.addEventListener('click', () => {
+  skipMode = false;
+  const nx = wStep < 0 ? 1 : Math.min(wStep + 1, WSTEPS.length - 1);
+  gotoStep(nx);
+});
+$('step-skip')?.addEventListener('click', () => {
+  skipMode = !skipMode;
+  if (!skipMode) { stopAnim(); return; }
+  if (wStep < 0) gotoStep(1, false);
+  else if (!stepAnimating) gotoStep(Math.min(wStep + 1, WSTEPS.length - 1), false);
+});
+window.__vizStory = { refresh() { if (wStep >= 0) gotoStep(wStep, false); } };
+
+/* language */
+function applyLang() {
+  root.setAttribute('data-lang', LANG);
+  renderSpecs();
+  if (window.__vizTower) __vizTower.relabel();
+  renderFlow();
+  renderDna();
+  renderBlocks(state.filter);
+  renderDetail(state.sel);
+  const selStage = typeof state.sel === 'string' ? state.sel : null;
+  document.querySelectorAll('.stage').forEach((el) =>
+    el.classList.toggle('is-sel', selStage !== null && el.dataset.stage === selStage));
+  document.title = LANG === 'en' ? 'Qwen3.8-27B Architecture Explorer · Tim Chen' : 'Qwen3.8-27B 架构可视化 · Tim Chen';
+}
+$('lang-btn').addEventListener('click', () => { setLang(LANG === 'zh' ? 'en' : 'zh'); applyLang(); });
+
+/* init */
+setLang(LANG);
+applyLang();
+select(null);
+</script>
+</body>
+</html>

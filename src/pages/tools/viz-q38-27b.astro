@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/global.css';
+---
+
+<BaseLayout title="Qwen3.8-27B 架构可视化 · 工具" description="交互式浏览 Qwen3.8-27B 的结构图与 3D 张量架构拓扑。">
+  <main id="content" class="qwen-tool-page">
+    <section class="shell qwen-tool-top">
+      <a class="qwen-tool-back" href="/tools/">
+        <span class="lang-zh">← 返回工具箱</span>
+        <span class="lang-en">← Back to Tools</span>
+      </a>
+      <div class="qwen-tool-heading">
+        <div>
+          <p class="qwen-tool-eyebrow"><span class="lang-zh">模型 / 可视化</span><span class="lang-en">Models / Visualization</span></p>
+          <h1><span class="lang-zh">Qwen3.8-27B 架构可视化</span><span class="lang-en">Qwen3.8-27B Architecture Explorer</span></h1>
+          <p class="qwen-tool-lead">
+            <span class="lang-zh">点击左侧结构图中的模块，右侧会立即聚焦到对应的 3D 张量拓扑。基于公开 config 展示架构关系，不加载模型权重。</span>
+            <span class="lang-en">Click a module in the structure diagram to focus its matching 3D tensor topology. It maps the published config only; no model weights are loaded.</span>
+          </p>
+        </div>
+        <div class="qwen-tool-facts" aria-label="Model facts">
+          <span>27B</span><span>64 TEXT LAYERS</span><span>CONFIG-ONLY</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell qwen-tool-workspace" aria-label="Qwen3.8-27B interactive architecture visualization">
+      <iframe
+        title="Qwen3.8-27B interactive architecture visualization"
+        src="/viz/qwen3.8-27b/index.html"
+        loading="eager"
+      ></iframe>
+    </section>
+
+    <section class="shell qwen-tool-note">
+      <p><span class="lang-zh">操作：点击左侧节点定位；右侧拖动平移，Shift/右键拖动旋转，滚轮缩放。</span><span class="lang-en">Controls: click a left-hand node to focus; pan by drag, rotate with Shift/right drag, and zoom with the mouse wheel.</span></p>
+      <a href="/viz/qwen3.8-27b/index.html"><span class="lang-zh">单独打开沉浸式可视化 ↗</span><span class="lang-en">Open immersive visualization ↗</span></a>
+    </section>
+  </main>
+
+  <style>
+    .qwen-tool-page {
+      min-height: 100dvh;
+      padding: 6.15rem 0 4.5rem;
+      background: #11100d;
+      color: #eee4cc;
+    }
+    .qwen-tool-top { margin-bottom: 1.15rem; }
+    .qwen-tool-back {
+      display: inline-flex;
+      margin-bottom: 1.05rem;
+      color: #d1a843;
+      text-decoration: none;
+      font: 700 .78rem/1 var(--font-body);
+      letter-spacing: .06em;
+    }
+    .qwen-tool-back:hover { color: #f0cf76; }
+    .qwen-tool-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .qwen-tool-eyebrow {
+      margin: 0 0 .5rem;
+      color: #b69a61;
+      font: 700 .72rem/1.3 var(--font-body);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .qwen-tool-heading h1 {
+      margin: 0 0 .65rem;
+      color: #f4e8cb;
+      font-size: clamp(2rem, 3.6vw, 2.85rem);
+      line-height: 1;
+    }
+    .qwen-tool-lead {
+      max-width: 49rem;
+      margin: 0;
+      color: #c9bda2;
+      line-height: 1.65;
+    }
+    .qwen-tool-facts {
+      display: flex;
+      flex: 0 0 auto;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: .4rem;
+      max-width: 20rem;
+    }
+    .qwen-tool-facts span {
+      border: 1px solid rgba(240, 223, 179, .27);
+      padding: .46rem .54rem;
+      color: #e8d7a4;
+      font: 700 .65rem/1 var(--font-mono);
+      letter-spacing: .06em;
+    }
+    .qwen-tool-workspace {
+      overflow: hidden;
+      border: 1px solid rgba(240, 223, 179, .25);
+      border-radius: 8px;
+      background: #f5f5f3;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, .26);
+    }
+    .qwen-tool-workspace iframe {
+      display: block;
+      width: 100%;
+      height: min(78dvh, 58rem);
+      min-height: 43rem;
+      border: 0;
+      background: #f5f5f3;
+    }
+    .qwen-tool-note {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: .85rem;
+      color: #ab9f85;
+      font: .78rem/1.6 var(--font-body);
+    }
+    .qwen-tool-note p { margin: 0; }
+    .qwen-tool-note a { color: #d1a843; text-decoration: none; white-space: nowrap; }
+    .qwen-tool-note a:hover { color: #f0cf76; }
+    .lang-en { display: none; }
+    :global(html[data-lang='en']) .lang-zh { display: none; }
+    :global(html[data-lang='en']) .lang-en { display: inline; }
+    @media (max-width: 900px) {
+      .qwen-tool-heading { align-items: start; flex-direction: column; }
+      .qwen-tool-facts { justify-content: flex-start; max-width: none; }
+      .qwen-tool-workspace iframe { height: min(92dvh, 62rem); min-height: 48rem; }
+    }
+    @media (max-width: 720px) {
+      .qwen-tool-page { padding: 4.4rem 0 3rem; }
+      .qwen-tool-workspace { margin-inline: 0; border-radius: 0; border-inline: 0; }
+      .qwen-tool-workspace iframe { height: 92dvh; min-height: 48rem; }
+      .qwen-tool-note { align-items: start; flex-direction: column; padding-inline: 1.1rem; }
+      .qwen-tool-note a { white-space: normal; }
+    }
+  </style>
+
+  <script>
+    const root = document.documentElement;
+    const applyQwenToolMeta = () => {
+      const english = root.getAttribute('data-lang') === 'en';
+      document.title = english ? 'Qwen3.8-27B Architecture Explorer · Tools' : 'Qwen3.8-27B 架构可视化 · 工具';
+      document.querySelector('meta[name="description"]')?.setAttribute(
+        'content',
+        english
+          ? 'Interactively explore Qwen3.8-27B structure and 3D tensor topology.'
+          : '交互式浏览 Qwen3.8-27B 的结构图与 3D 张量架构拓扑。',
+      );
+    };
+    applyQwenToolMeta();
+    new MutationObserver(applyQwenToolMeta).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+  </script>
+</BaseLayout>
