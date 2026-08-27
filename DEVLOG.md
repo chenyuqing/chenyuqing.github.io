@@ -104,7 +104,59 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 单测扩到 69 项全绿（新增：奇数尾数 FP64 恒等往返、57344 精确串、π/0.1 完整展开前缀）；CDP 取色验证三组颜色在位格/图例/对比条一致命中。
 6. 新增 INT4 格式（4 位补码，范围 [-8, 7]），排在 INT8 之前；借此把整数分支按位宽泛化——范围饱和提示、截断提示、图例「N 位补码整数」、公式位串、悬停解释、MAX/MIN 预设边界全部改为动态位宽，不再硬编码 8 位。工具箱卡片与页面 meta 描述同步加入 INT4。单测扩到 **79 项全绿**（新增 INT4 编解码/截断/饱和用例 + INT8 回归）。
 7. 新增 INT2 格式（2 位补码，范围 [-2, 1]），泛化路径直接复用零改动；脚注、meta、工具箱卡片同步更新。单测扩到 **88 项全绿**（新增 INT2 编解码/截断/饱和用例）。
+8. 开启 `/viz/llm/` 可视化专区（目标：Qwen3.8-27B 架构可视化，最终演进为 bbycroft 风格 WebGL 3D）。本期交付竖切：`public/viz/llm/index.html` 自包含静态页——数据全部取自 HuggingFace 官方 `config.json`（qwen3_5 架构）：64 层 = 48 线性注意力 + 16 全注意力（每 4 层 1 层全注意力）、GQA 24Q/4KV × head_dim 256、SwiGLU 5120→17408、部分 RoPE 25% + mRoPE [11,11,10]、视觉塔 27 层 ViT、MTP 头、词表 248320 / 256K 上下文。功能：端到端流水线图、「注意力 DNA」条、16 个 Block×4 层网格（点击看真实规格）、GQA 头共享示意、前向流动脉冲动画、zh/en 切换。按配置估算主干 ~24.4B + 嵌入 ~2.54B ≈ 官方 27B ✓。后续阶段：WebGL 3D 化、迷你模型真推理回放、站点导航入口。
+   - CDP 无头浏览器 13/13 断言全过：DNA/层数/block/流水线数量、初始详情面板、点击层出 FullAttention 详情 + GQA 头示意、语言切换重渲染、过滤器 48↔64；过程中抓修一个真 bug——`renderDetail(null)` 误写 `D.intro[0]`（对象下标取值抛错）导致初始面板空白，应为 `T(D.intro)[0]`。
+10. 3D 数据流动画：「播放一次前向流动」现在同时驱动 3D 塔——当前层板高亮发光（glow 2.4），身后拖 2~3 层渐弱尾迹，扫完全塔后自动复位；流水线卡片与 DOM 网格的原有脉冲同步不变。CDP 断言 5/5：脉冲爬升（pulseIdx≥20）、完成提示、复位 -1、帧缓冲仍非空、扫描后选择联动正常。
+11. 3D 场景补全至与流水线一致：主塔旁新增 **27 层紫色 ViT 视觉小塔**、主塔顶新增 **金色 MTP 端帽**，均参与屏幕空间拾取——点击打开对应详情面板（复用流水线卡片的规格数据）；选中态整组发光。渲染/拾取统一重构为 ITEMS 结构。抓修一个真 bug：`select()` 向塔同步时把字符串引用（'vision'/'mtp'）错误折叠为 -1，导致点流水线卡片塔不高亮；改为原样透传。CDP 断言 9/9 全过（counts {64,27,1}、vision/MTP 详情、stage→tower 同步、层选择回归、脉冲爬升、像素非空）。至此目标各条款（竖切 + bbycroft 式 WebGL 3D 数据流）均已落地；待用户确认后推送上线。
+12. **v4 重写（用户反馈"积木/不是神经网络"后的根因修复）**。取证过程：① 对 bbycroft.net/llm 场景区截图做像素统计 → 初始画面 91% 灰（#e0e0e0）、3% 深蓝，彩色立方体几乎为零——"神经网络"是按下播放后才涌现的动画，不是静态全景；② 页面 body 高仅 857px——单屏应用，叙事在画布内；③ 结合其源码 `GptModelLayout.ts` 的块级依赖图语法。诊断：此前四版错在「64 层同屏→必成噪点」「零文字标签」「静态彩纹代替数据流动」。v4 实现：默认视图 = **第 7 层（全注意力）展开图**——13 个命名算子块（输入嵌入→RMSNorm→Q/K/V 投影→Softmax 注意力→输出投影→RMSNorm→Gate/Up/Down→LM Head→MTP）横向流水线排布、纸面白底高对比值着色、**DOM 投影标签**（随相机逐帧跟随，中英双语）、残差轨 + 分支梁、点击算子块出真实规格详情（新增 q/k/v/attn/gate/up/down 等 10 组文案）；64 层总览降为可切换的次要模式（双场景双 VAO，总览里点层自动聚焦）。CDP 12/12 全过（标签数 13/定位/中英重渲染、展开态聚焦绽放、Q 块详情、总览切换 + 标签隐藏、层聚焦、脉冲映射爬升）。教训：可视化先做"一块大结构 + 标注 + 动画"，别做"全部小结构同屏"。
+13. **P1 故事播放**（用户认可方向后"继续"）：FS 加 `uHeadX` 写入头——播放时数值从左到右"写进"立方体（头部之前是纸白空块，扫过处值着色 + 橙色扫描辉光 `exp(-((x-head)/0.35)²)`），不播放时 headX=-1000 全量显示。页面侧 STORY 表 13 步（每步中英字幕 + 对应流水线卡片 `.pulse` 同步 + 第 7 层 DNA 格常亮），`animateHead` 用余弦缓动按块宽自适应时长（620ms 起，~300ms/单位），步间 140ms 驻留；总览模式保留旧扫描分支。塔 API 新增 `setHeadX/headX/blockSpans/blockLabelX`。CDP 7/7：字幕①出现、写入头激活并越过 Q 块、阶段卡脉冲、中途停止复位（headX<-900 + 字幕清空）、总览扫描回归。用户浏览器已刷新。
+ 14. **左右分栏 + 值挤出**（反馈“还是积木 + 要左 1/3 参数配置、右 2/3 网络”）：① 布局重构为 `.viz-cols` 双栏 grid（1fr:2fr，≤1080px 折叠单栏且画布置顶）——左栏 = Inspector 详情 + 64 层栈/DNA/过滤器/层网格 + 数据流水线；右栏 = 3D 展示（画布加高至 min(66vh,600px)）。② 几何去积木化：立方体按激活值做 **Z 向挤出**（cz=CSZ*(0.42+v*1.85)，从基面向观察者生长——注意力对角热图立成“脊”、热点柱显著高于冷块）；着色改**稀疏高对比曲线** shape(v)=v<0.34?v*0.2:0.07+((v-0.34)/0.66)^0.78*0.93（大多数格子近纸白、少数炽亮）；PITCH 加大至 0.30 / CSZ 0.215。③ 坑：astro dev 对 `/viz/llm/` 返回 404（public 下 html 不映射路由），须用 `/viz/llm/index.html`；dev 仅绑 IPv6(::1)，headless Chrome 测试须用 localhost。CDP 7/7 全过（双轨比例 / 左栏归属 / 标签13 / 稀疏对比 / 故事写入头）。
+ 15. **抄对 bbycroft 的核心机制**（用户指“抄都没抄对”后精读其开源仓库 src/llm/*）。源码揭示三大错过的灵魂：① 一切围绕一个具体玩具任务——输入 `C B A B B C`，学会排序成 `ABBBCC`；② 每个网格都有语义轴（GptModelLayout: dimX/dimY ∈ {T,C,A,C4,n_vocab}），注意力面板是 **T×T 因果矩阵**（列=query 行=key）；③ Walkthrough 分步系统（Continue/Skip 按钮 + 相机调度 + 解说，数值来自 WASM 真前向）。本次落地 ①②③ 的本地版：画布左上角 token 条（6 个彩色字母块带 #index）；BLOCKS 改语义轴网格（行=token 列=通道切片：tok 模式同一字母激活相似；attention 改 7×7 causal——右上三角遮罩为暗、下三角亮带=近邻重要；q/k/v 权重面板 行=头 列=通道）；WSTEPS 14 步中文解说（含“因果遮罩”“残差公路”“KV 省 6×”等叙事点）+ 左上「⏮ / ▶ 继续 / ⏭ 自动」三键 + 步进度（自动模式可再按暂停；gotoStep 用填充边界链 stepBounds 记忆每步起点，prev 可回退已填状态；每步联动 setSelected→详情面板）；应用层 story-controls/tokrow CSS。CDP 7/7 全过（token 序列 CBABBC、首击进嵌入步、注意力步含“因果”解说且填充越过该块、回退重绕、自动推进并可停）。仍差：格子值是确定性模拟而非 WASM 真激活（P2）；Walkthrough.tsx 的相机编排比我的单键版丰富。
+9. `/viz/llm/` 迈向 bbycroft 式 3D：新增**手写 WebGL2 3D 层塔**（零依赖，与 bbycroft 同路线）——64 块层板沿轻微螺旋堆叠，金色=全注意力（略宽）、青色=线性注意力，简单 Lambert+rim 光照；拖拽旋转 / 滚轮缩放 / 静置 1.5s 后缓慢自转；点击层板用屏幕空间最近中心拾取，与右侧详情面板和 DOM 层网格**双向联动选中**；无 WebGL2 时优雅降级为提示文案。CDP + SwiftShader 软件渲染 10/10 断言全过（含 readPixels 确认帧缓冲非空、debugSelect(7)→DOM 高亮 #7、DOM 点 #20→tower.selected===20）。注意：无头 Chrome 默认禁软件 WebGL，测试需加 `--enable-unsafe-swiftshader --use-angle=swiftshader`。
 
+
+
+## 2026-08-27 会话记录（/viz/llm 原版移植）
+
+### 今天完成
+
+1. 在用户明确授权后，克隆并审计 Brendan Bycroft 的 `bbycroft/llm-viz`：commit `9da93742382f1bf36c020c38a1ace454e82c4490`（2026-08-11），MIT。原实现不是“积木塔”原型，而是完整 React/WebGL2/wasm 应用：语义张量块、3D 数据依赖、相机控制、章节目录/时间轴、Continue/Skip walkthrough，以及浏览器内运行的 nano-GPT 前向。
+2. 直接采用原版静态导出链路（Next `output: export`），并以 `/viz/llm` 为 base path 重新构建；成品部署在 `public/viz/llm/`：入口 `index.html`、`_next/` 运行时与渲染 bundle、真实玩具模型权重 `gpt-nano-sort-model.json`、中间值 `gpt-nano-sort-t0-partials.json`、`native.wasm`、字体图集。当前 `/viz/llm/` 默认就是原版交互体验，而不再是先前手写的模拟 WebGL 页面。
+3. 将页标题改为 `Qwen3.8-27B · LLM Walkthrough`，保留本站 Qwen 架构专区语境；但**画面中的真实可运行前向仍是原版 nano-GPT（85,584 参数，`C B A B B C → A B B B C C`）**，并不是未加载权重的 Qwen3.8-27B。不要把该真实玩具推理误报为 Qwen 推理。
+4. 为遵守上游 MIT 条款，附带 `public/viz/llm/LICENSE-bbycroft-llm-viz.txt`。旧的自写 Qwen 检视器未删除，保存为 `public/viz/llm/legacy-qwen-inspector.html`，但不再是默认入口。
+
+### 验证
+
+- 上游构建：`node .yarn/releases/yarn-4.1.0.cjs build` 通过（Next 静态导出）。
+- 本站构建：`npm run build` 通过，Astro 生成 57 个路由/端点，`dist/viz/llm/` 含入口、所有 19 个页面引用资源和 MIT 许可证。
+- 静态服务：`/viz/llm/index.html`、WASM、模型权重、中间值、字体与 Next chunk 均返回 HTTP 200。
+- 浏览器实测（2026-08-27 13:18 CST）：原版入口成功渲染；初态显示完整目录、3D 网络与 `C B A B B C`；点击 `Continue` 后镜头进入 token/embed 过程、页面出现真实张量数据和“Press Space to continue”，控制台 error/warn 均为空。
+
+### 仍需人工验收
+
+- 这是技术与可见画面验证通过，尚未得到用户对“与 bbycroft 足够像”的人工视觉验收。
+- 若继续 Qwen 专项，下一步是把原版的真实前向/Walkthrough 外壳保留，同时单独接入 Qwen3.8-27B 的 config-only 总览；不能把没有权重的 Qwen 标成真实激活值。
+
+
+## 2026-08-27 会话记录（Qwen3.8-27B config-only 架构图）
+
+### 今天完成
+
+1. 根据 Hugging Face `Qwen/Qwen3.8-27B` 发布的 `config.json` 重做 `/viz/llm/` 默认入口：`public/viz/llm/index.html` 现为 Qwen3.8-27B 的可交互 config-only 架构图，不再把原版 nano-GPT walkthrough 冒充成 Qwen 推理。
+2. 真实读取并冻结配置到 `public/viz/llm/qwen3.8-27b-config.json`。图中的数据直接来自该文件：`Qwen3_5ForConditionalGeneration`、文本主干 64 层、48 层线性注意力 + 16 层全注意力（每 4 层 3×LA + 1×FA）、hidden 5,120、SwiGLU 17,408、24 Q / 4 KV（GQA）、head_dim 256、262,144 context、27 层 1,152 维视觉塔、MTP ×1、词表 248,320。
+3. 右侧画布按 bbycroft 的结构语法画出输入 token、视觉 ViT、文本嵌入、多模态 merge、64 个可辨识的 LA/FA 层格、残差主干、RMSNorm、LM head 和 MTP；点击左侧 64 层序列或右图结构，会同步高亮并展示对应全/线性注意力或视觉层的真实 config 字段。画面明确写明「config-only / no weights loaded」，不显示或伪造 activation。
+4. 对比 `Qwen/Qwen3.6-27B` 与 Qwen3.8-27B 的完整发布 config（排除纯元数据）结果为 0 项差异；对比引用页也标注为 0 个 graph-visible architecture changes。因此页面将它作为“结构相同”的对比注记，而不捏造版本差异。
+5. 原先移植的真实 nano-GPT 演示仍保留在 `public/viz/llm/bbycroft-nanogpt-walkthrough.html`，并改名为 `nano-GPT · Original Live Walkthrough`，以避免与 Qwen 图混淆；`legacy-qwen-inspector.html` 也继续保留。
+
+### 验证
+
+- 提取后的原生 JS 已通过 `node --check`；`npm run build` 通过，Astro 生成 57 个路由/端点。
+- 浏览器访问 `http://localhost:4321/viz/llm/index.html`：标题、官方本地 config 加载状态、64 层序列和画布均可见，控制台无 error/warn。
+- 浏览器点击第 4 层 FA 后：左侧第 4 层、全注意力图例和右侧对应结构同时橙色高亮，详情切换为「第 4 层 · 全注意力」。
+
+### 仍需人工验收
+
+- 用户需确认：当前 Qwen 结构图是否符合“参考 bbycroft，但画出真实 Qwen3.8-27B 架构”的视觉方向；它是 config-only，不是 Qwen 权重推理回放。
 
 ## 2026-08-22 会话记录（AI 生图工具）
 
