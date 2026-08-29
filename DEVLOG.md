@@ -133,6 +133,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 产品页：icon（electron.icns 内的自定义 C+播放图标 → 512px AVIF 16KB）、download/downloadVersion/downloadSize、标题改为 Clip Agent Studio、platform 改 macOS 13+ · Apple Silicon，tagline/description/highlights 按 CHANGELOG 真实能力重写（AI 高光识别 LLM 需自配 DeepSeek/Gemini、YOLOv11n 本地跟踪、6 平台 + 4K 下采样）；英文文案同步。
    - 有 icon 无截图 → Hero 走单列紧凑排版，右侧留空待截图（同 ASD 流程：用户补图后 gallery 首图自动进 Hero 右栏）。
 2. 验证：release 资产 HTTP 206（496,031,189 字节）；build 59 页；Featured Band 与 PDP 截图确认（下载主按钮、GitHub 按钮消失、统计卡 Live 1 / Beta 3 / Experiment 1 符合 asd→beta 后的现状）。
+3. 真实 UI 截图接入（用户提供 `~/Desktop/clip-ksa.png`，2570×1784 PNG 545KB → 1440w AVIF **44KB**）：五步工作流主界面（导入素材/分析高光/选择片段/生成竖屏/结果预览 + 「视频留在本机」隐私徽标 + OpenAI 兼容 provider 配置），gallery 首图自动进 Hero 右栏，布局与 ASD Pipeline 完全一致。截图含用户自配 API 端点（api.fengwind.com）与模型名，API Key 已打码，无敏感信息。
 
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
