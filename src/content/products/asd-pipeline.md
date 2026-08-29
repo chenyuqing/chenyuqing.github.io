@@ -31,6 +31,10 @@ highlights:
   - title: "竖屏裁剪与结构化输出"
     description: "按焦点轨迹导出以说话人为中心的 9:16 竖屏视频并回灌原音轨；中间结果落成结构化 JSON，可复核、可接下游。"
     illo: "/media/illo/products/asd-feature-structured.avif"
+gallery:
+  - src: "/media/products/asd-pipeline/ui-main.avif"
+    alt: "ASD Pipeline 主界面：时间区间输入、S3FD 检测后端设置，左侧检测预览标出说话人，右侧同步预览竖屏成片"
+    caption: "单视频模式：设定起止时间一键处理。左侧检测预览实时标出说话人（绿框为当前说话人），右侧同步预览 9:16 竖屏成片（含原声）。"
 draft: false
 ---
 

@@ -3224,6 +3224,10 @@ main {
   gap: 0.85rem;
 }
 
+.pdp-gallery-one {
+  grid-template-columns: 1fr;
+}
+
 .pdp-gallery-card {
   display: grid;
   gap: 0.5rem;
@@ -3233,8 +3237,7 @@ main {
 .pdp-gallery-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
+  height: auto;
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-hairline);
 }

@@ -212,7 +212,7 @@ const english = productEnglish[product.id];
             <video class="pdp-showcase-video" src={product.data.video} controls playsinline preload="metadata"></video>
           )}
           {(product.data.gallery?.length ?? 0) > 0 && (
-            <div class="pdp-gallery">
+            <div class={`pdp-gallery${product.data.gallery.length === 1 ? ' pdp-gallery-one' : ''}`}>
               {product.data.gallery.map((item) => (
                 <figure class="pdp-gallery-card">
                   <img src={item.src} alt={item.alt} loading="lazy" />

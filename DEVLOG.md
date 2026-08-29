@@ -112,13 +112,15 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 
 ### 今天完成
 
-1. 应用户「要专业、带真实产品截图」要求改版详情页（真实 UI 截图待用户补充，页面已留好 gallery 位置）：
+1. 应用户「要专业、带真实产品截图」要求改版详情页：
    - 从 app bundle 提取真实 `AppIcon.icns`（iconutil）→ 512px AVIF（12.7KB，含透明通道），放 `/media/products/asd-pipeline/app-icon.avif`；products schema 新增 `icon` 字段。
    - Hero 右侧：有 `icon` 时显示真实 app 图标（drop-shadow）+ 规格芯片（版本 / macOS 13+ · Apple Silicon / DMG 约 326 MB），替代卡通 illo；无 icon 的产品回退原 illo 逻辑。
    - 新增「获取与安装」三步区（`pdp-install`，720px 以下单列）：下载 DMG → 拖入 Applications → 首次打开（右键打开 / xattr -cr 命令）；hero 提示行收敛为仅签名提示，版本/体积移到规格芯片，避免信息重复。
    - `proddev.md` 变更记录同步。
-2. 截图通道受限记录：`screencapture`（shell 无屏幕录制权限）、CUA screenshot（ZCode Computer Use 屏幕录制未授予）均不可用；app 为原生 UI 无 webview 可用无头 Chrome 渲染；机器上无现成 ASD UI 截图。结论：UI 截图需用户自行提供（Cmd+Shift+4+空格 抓窗口）或授予屏幕录制权限。
-3. 验证：build 59 页通过；预览截图确认 icon hero、规格芯片、安装三步、features/stack 区渲染正常。
+2. 首张真实 UI 截图接入（用户提供 `~/Desktop/asd-ksa.png`，2202×1572 PNG 1.28MB → 1440w AVIF **55KB**）：单视频模式主界面（时间区间、S3FD 后端、左检测预览绿框说话人 / 右 9:16 竖屏成片同步预览），写入 `gallery` 字段带图注。连带两处模板调整：gallery 图片从 16:10 cover 裁切改为**自然比例不裁切**（UI 截图不能切窗口边），单张时全宽展示（`pdp-gallery-one`），两张起自动回到 2 列。
+   - 隐私提示：截图输入框含本机路径（用户名 tim 与来源视频文件名，视频为公开 YouTube 内容），已向用户说明，由用户决定是否换图。
+3. 截图通道受限记录：`screencapture`（shell 无屏幕录制权限）、CUA screenshot（ZCode Computer Use 屏幕录制未授予）均不可用；app 为原生 UI 无 webview 可用无头 Chrome 渲染。结论：UI 截图需用户自行提供（Cmd+Shift+4+空格 抓窗口）或授予屏幕录制权限。
+4. 验证：build 59 页通过；预览截图确认 icon hero、规格芯片、安装三步、全宽 UI 截图画廊渲染正常。
 
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
@@ -640,7 +642,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 
 ## 变更历史
 
-- 2026-08-29：ASD Pipeline 发布页专业改版——真实 app 图标 Hero + 规格芯片、获取与安装三步区；UI 截图 gallery 位置预留待补。
+- 2026-08-29：ASD Pipeline 发布页专业改版——真实 app 图标 Hero + 规格芯片、获取与安装三步区、首张真实 UI 截图接入画廊（1440w AVIF 55KB，单图全宽不裁切）。
 
 - 2026-08-29：ASD Pipeline 成为第一个可下载产品——v0.2.5 (build 16) DMG（326MB）上 GitHub Releases，产品页新增下载 CTA 与真实 app 文案；引擎仓库同步推送（9f7a42b）。
 

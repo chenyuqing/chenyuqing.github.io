@@ -77,7 +77,7 @@
 
 - 视频或图片画廊（按需出现）
 - 视频：16:9，`border-radius-xl` + hairline 边框
-- 画廊：2 列网格，每张 16:10
+- 画廊：2 列网格；图片**自然比例、不裁切**（真实 UI 截图不能被 16:10 cover 裁掉窗口边缘）
 
 ### 3.4 What It Does
 
@@ -330,6 +330,7 @@ class 前缀统一为 `pdp-`（Product Detail Page）：
 
 | 日期 | 变更 |
 |------|------|
+| 2026-08-29 | Showcase 画廊改为自然比例不裁切（首张真实 UI 截图接入：ASD Pipeline 主界面，1440w AVIF 55KB） |
 | 2026-08-29 | 可下载产品支持：schema 新增 `download/downloadVersion/downloadSize/icon`；详情页 hero 下载主 CTA + 签名提示，`icon` 存在时 hero 右侧显示真实 app 图标 + 规格芯片（版本/平台/DMG 体积）；新增「获取与安装」三步区（`pdp-install`）；CTA band 二次下载入口；列表页 featured 下载按钮与 catalog「可下载」徽标 |
 | 2026-07-01 | 初始版本：Hero → Highlights → Showcase → Features → Stack → CTA |
 | 2026-07-01 | Highlights 的 `illo` 字段支持，Features 卡片可配插图 |
