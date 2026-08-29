@@ -235,6 +235,14 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 无障碍与中英：view-btn 沿用 aria-pressed + data-title/aria 双语（随 data-lang 切换）。
 3. 验证：build 62 页；列表视图与网格视图截图分别确认（网格验证时发现 sed 只替换每行首处导致按钮属性被改而 div 未动，改用 `id="home-blog-list" data-view=...` 精确匹配后通过）。
 
+## 2026-08-29 会话记录（导航移除 AI新闻）
+
+### 今天完成
+
+1. **删除右上角「内容」下拉菜单中的 AI新闻 条目**（用户指定范围仅此一处）：
+   - `BaseLayout.astro`：移除下拉首项（/news/ 链接 + 双语文案），中英 I18N 对象的 `nav_news` / `nav_news_desc` 四条一并清理；`/news/` 页面本体、页脚「AI新闻」链接、移动端菜单均未动（页脚保留是用户只指明右上角，移动端与桌面共用同一 header 数据源）。
+2. 验证：build 62 页；dist 中 nav-content-dropdown 区块 news 引用为 0；头部截图正常。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成
