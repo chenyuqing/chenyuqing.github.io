@@ -27,8 +27,8 @@ const productEnglish: Record<string, { tagline: string; description: string }> =
     description: 'An AI video clipping tool that analyzes transcripts, identifies strong moments, tracks people with YOLOv11n, and exports vertical videos for TikTok, Instagram, YouTube Shorts, Threads, Xiaohongshu, and Twitter.',
   },
   'asd-pipeline': {
-    tagline: 'A recoverable, testable, reusable local entry point for Active Speaker Detection',
-    description: 'An Apple Silicon workspace that turns LR-ASD from a one-off CLI run into a staged, resumable pipeline with structured artifacts.',
+    tagline: 'An offline speaker-detection app for Apple Silicon: focus tracking and 9:16 crops, ready to download',
+    description: 'A packaged macOS app around the LR-ASD engine with a bundled offline runtime — PyTorch, OpenCV, and ffmpeg included. Detect who is speaking, follow the active speaker through pauses, and export speaker-centered vertical crops without installing Python.',
   },
   'voicewave-profile': {
     tagline: 'Turn a portrait and audio recording into an animated 9:16 voicewave profile video',
@@ -114,7 +114,10 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
                     ))}
                   </div>
                   <div class="product-feature-actions">
-                     <a class="button button-on-dark" href={`/products/${product.id}/`}><span class="lang-zh">查看产品</span><span class="lang-en">View Product</span></a>
+                    {product.data.download && (
+                      <a class="button button-on-dark" href={product.data.download} rel="noreferrer"><span class="lang-zh">下载 macOS 版</span><span class="lang-en">Download for macOS</span></a>
+                    )}
+                     <a class={`button ${product.data.download ? 'button-on-dark-secondary' : 'button-on-dark'}`} href={`/products/${product.id}/`}><span class="lang-zh">查看产品</span><span class="lang-en">View Product</span></a>
                     {product.data.repo && (
                       <a class="button button-on-dark-secondary" href={product.data.repo} target="_blank" rel="noreferrer">GitHub</a>
                     )}
@@ -162,6 +165,7 @@ const statusCounts = products.reduce<Record<string, number>>((acc, p) => {
                 <div class="product-card-eyebrow">
                   <span class={`tag tag-product-status tag-product-status-${product.data.status}`}>{statusLabels[product.data.status]}</span>
                   <span class="tag tag-product-type">{typeLabels[product.data.type]}</span>
+                  {product.data.download && <span class="tag tag-product-type"><span class="lang-zh">可下载</span><span class="lang-en">Download</span></span>}
                 </div>
                 <a class="product-catalog-title" href={`/products/${product.id}/`}>
                   <h3>{product.data.title}</h3>

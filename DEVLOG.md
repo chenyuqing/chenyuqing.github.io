@@ -74,6 +74,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [x] 新增 AI 生图工具 `/tools/image-gen/`（gpt-image-2）
 - [x] 新增浮点数位拆解工具 `/tools/float-bits/`（INT8 / FP8 E4M3·E5M2 / UE8M0 / FP16 / BF16 / FP32 / FP64）
 - [x] 发布博客《给个人网站加一个 AI 生图工具，我把浏览器能踩的坑都踩了一遍》——首篇带插画的 blog（6 张小象插画 AVIF + hero 兼作 cover）
+- [x] 产品可下载化启动：ASD Pipeline v0.2.5 (build 16) 经 GitHub Releases 分发（DMG 326MB），products schema 新增 download/downloadVersion/downloadSize，列表与详情页加下载 CTA
 
 ## 2026-08-29 会话记录（发布 AI 生图踩坑复盘）
 
@@ -90,6 +91,22 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 ### 约定备忘
 
 - `articles/`、`.tmp-illo/` 是用户私有工作目录，禁止提交；发布文章 = 拷贝整理进 `src/content/blog/`，原图留在原处。
+
+## 2026-08-29 会话记录（产品可下载化：ASD Pipeline）
+
+### 今天完成
+
+1. 把 `/Applications/ASD Pipeline.app`（v0.2.5 / build 16，用户确认是最新版）作为**可下载产品**上线：
+   - 打包：`hdiutil` UDZO 压缩成 `ASD-Pipeline-v0.2.5-arm64.dmg`（681MB app → 326MB DMG，含 /Applications 拖装链接）。
+   - 托管：GitHub Releases（chenyuqing/asd-pipeline，tag `app-v0.2.5`）。app 681MB 远超 git/Pages 限制，Releases 是唯一可行通道；release notes 含安装步骤、系统要求、未公证签名的 Gatekeeper 说明。
+   - 同步引擎仓库：用户要求把本地未提交改动推上 GitHub，commit `9f7a42b`（Web API、focus 停顿保持、speaker-crop CLI、pyproject extras、uv.lock、todo/lessons 009–013）。
+   - 站点改造：products schema 新增 `download/downloadVersion/downloadSize`；详情页 hero 下载为橙色主 CTA（有 download 时 demo 自动降为次级）+ 版本/体积/签名提示行 + CTA band 二次下载入口；列表页 featured 区加下载按钮（有 download 时「查看产品」降为次级）、catalog 卡加「可下载」徽标；`asd-pipeline.md` 重写为 app 定位（status experiment→beta，离线引擎/焦点跟随/竖屏裁剪文案，全部基于仓库 todo 与实际 bundle 取证）。
+   - 教训：发布前用户问「这份是不是最新」——app 文件 birth time 8-11 只是拷贝进本机的时间，另一台电脑可能有更新版；**版本确认必须问用户，不能拿文件时间当发布依据**。首次上传因确认暂停，已删掉半成品 release 重传。
+2. 验证：release 资产 HTTP 206 可下载（342,261,264 字节）；`npm run build` 59 页通过；预览截图确认详情页下载 CTA/版本行/Platform 卡渲染正常。
+
+### 后续（其余 4 个套壳 app）
+
+- GLM Subtitle OCR / Remote Index-TTS Dub / Clip Agent Studio（featured，会把「查看产品」降为次级按钮）/ Codex Server Console，逐个确认最新版本号后走同一流程：打包 DMG → Releases（各自仓库或本仓库）→ 产品页文案 + download 字段。
 
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
@@ -610,6 +627,8 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - 无头浏览器 CDP 冒烟 12 项全绿：下拉展开/选择/过滤/键盘、自动下载触发、胶囊数值（1 × 1 / 70 B）、桌面两栏、移动单列。
 
 ## 变更历史
+
+- 2026-08-29：ASD Pipeline 成为第一个可下载产品——v0.2.5 (build 16) DMG（326MB）上 GitHub Releases，产品页新增下载 CTA 与真实 app 文案；引擎仓库同步推送（9f7a42b）。
 
 - 2026-08-29：发布《给个人网站加一个 AI 生图工具，我把浏览器能踩的坑都踩了一遍》——首篇带插画的博客（6 张小象插画转 AVIF 共约 300KB，hero 兼作 cover）。
 

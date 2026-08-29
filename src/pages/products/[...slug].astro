@@ -139,9 +139,22 @@ const english = productEnglish[product.id];
           <h1 class="pdp-hero-title">{product.data.title}</h1>
           <p class="pdp-hero-tagline"><span class="lang-zh">{product.data.tagline}</span><span class="lang-en">{english?.tagline || product.data.tagline}</span></p>
           <div class="pdp-hero-actions">
-            {product.data.demo && <a class="button button-primary" href={product.data.demo} target="_blank" rel="noreferrer"><span class="lang-zh">{product.data.demoLabel || '体验产品'}</span><span class="lang-en">{product.data.demoLabel === '本地 Demo' ? 'Local Demo' : 'Try Product'}</span></a>}
+            {product.data.download && (
+              <a class="button button-primary" href={product.data.download} rel="noreferrer">
+                <span class="lang-zh">下载 macOS 版</span><span class="lang-en">Download for macOS</span>
+              </a>
+            )}
+            {product.data.demo && <a class={`button ${product.data.download ? 'button-secondary' : 'button-primary'}`} href={product.data.demo} target="_blank" rel="noreferrer"><span class="lang-zh">{product.data.demoLabel || '体验产品'}</span><span class="lang-en">{product.data.demoLabel === '本地 Demo' ? 'Local Demo' : 'Try Product'}</span></a>}
             {product.data.repo && <a class="button button-ghost" href={product.data.repo} target="_blank" rel="noreferrer">GitHub</a>}
           </div>
+          {product.data.download && (
+            <p class="pdp-download-meta">
+              {product.data.downloadVersion && <span class="pdp-download-version">v{product.data.downloadVersion}</span>}
+              {product.data.downloadSize && <span>{product.data.downloadSize}</span>}
+              <span class="lang-zh">DMG 镜像 · 未公证签名，首次打开请右键 app → 「打开」</span>
+              <span class="lang-en">DMG image · unsigned build — right-click the app and choose Open on first launch</span>
+            </p>
+          )}
         </div>
         <div class="pdp-hero-illo">
           {product.data.illo ? (
@@ -280,6 +293,11 @@ const english = productEnglish[product.id];
 
       {/* ── CTA BAND ── */}
       <section class="pdp-cta-band">
+        {product.data.download && (
+          <a class="button button-primary" href={product.data.download} rel="noreferrer">
+            <span class="lang-zh">下载 macOS 版</span><span class="lang-en">Download for macOS</span>
+          </a>
+        )}
         <a class="button button-secondary" href="/products/"><span class="lang-zh">返回产品目录</span><span class="lang-en">Back to Products</span></a>
       </section>
 

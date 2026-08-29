@@ -3067,6 +3067,21 @@ main {
   margin-top: 0.5rem;
 }
 
+.pdp-download-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.9rem;
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+.pdp-download-version {
+  font-weight: 600;
+  color: var(--color-body);
+}
+
 .pdp-hero-illo {
   display: flex;
   justify-content: center;
