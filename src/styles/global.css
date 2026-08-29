@@ -3082,25 +3082,19 @@ main {
   color: var(--color-body);
 }
 
-.pdp-app-identity {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.1rem;
-  padding: 1rem 0;
+.pdp-hero-compact {
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.pdp-app-icon {
-  width: clamp(150px, 13vw, 190px);
-  height: auto;
-  filter: drop-shadow(0 14px 28px rgb(26 24 22 / 0.18));
-}
-
-.pdp-app-specs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.45rem;
+.pdp-title-icon {
+  display: inline-block;
+  width: 54px;
+  height: 54px;
+  margin-right: 0.7rem;
+  vertical-align: middle;
+  transform: translateY(-3px);
+  border-radius: 13px;
+  box-shadow: 0 5px 14px rgb(26 24 22 / 0.18);
 }
 
 .pdp-install {

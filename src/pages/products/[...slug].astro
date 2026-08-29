@@ -130,13 +130,16 @@ const english = productEnglish[product.id];
     <article class="pdp">
 
       {/* ── HERO ── */}
-      <section class="pdp-hero">
+      <section class={`pdp-hero${product.data.icon ? ' pdp-hero-compact' : ''}`}>
         <div class="pdp-hero-main">
           <div class="pdp-hero-eyebrow">
             <span class={`tag tag-product-status tag-product-status-${product.data.status}`}>{statusLabels[product.data.status]}</span>
             <span class="tag tag-product-type">{typeLabels[product.data.type]}</span>
           </div>
-          <h1 class="pdp-hero-title">{product.data.title}</h1>
+          <h1 class="pdp-hero-title">
+            {product.data.icon && <img class="pdp-title-icon" src={product.data.icon} alt="" loading="eager" />}
+            {product.data.title}
+          </h1>
           <p class="pdp-hero-tagline"><span class="lang-zh">{product.data.tagline}</span><span class="lang-en">{english?.tagline || product.data.tagline}</span></p>
           <div class="pdp-hero-actions">
             {product.data.download && (
@@ -149,30 +152,45 @@ const english = productEnglish[product.id];
           </div>
           {product.data.download && (
             <p class="pdp-download-meta">
+              {product.data.downloadVersion && <span class="pdp-download-version">v{product.data.downloadVersion}</span>}
+              {product.data.platform && <span>{product.data.platform}</span>}
+              {product.data.downloadSize && <span>DMG {product.data.downloadSize}</span>}
               <span class="lang-zh">未公证签名构建，首次打开请右键 app → 「打开」</span>
               <span class="lang-en">Unsigned build — right-click the app and choose Open on first launch</span>
             </p>
           )}
         </div>
-        <div class="pdp-hero-illo">
-          {product.data.icon ? (
-            <div class="pdp-app-identity">
-              <img class="pdp-app-icon" src={product.data.icon} alt={`${product.data.title} app icon`} loading="eager" />
-              <div class="pdp-app-specs">
-                {product.data.downloadVersion && <span class="tag tag-code">v{product.data.downloadVersion}</span>}
-                {product.data.platform && <span class="tag tag-code">{product.data.platform}</span>}
-                {product.data.downloadSize && <span class="tag tag-code">DMG {product.data.downloadSize}</span>}
-              </div>
-            </div>
-          ) : product.data.illo ? (
-            <img src={product.data.illo} alt={`${product.data.title} illustration`} loading="eager" />
-          ) : product.data.heroImage ? (
-            <img src={product.data.heroImage} alt={product.data.title} loading="eager" />
-          ) : null}
-        </div>
+        {!product.data.icon && (
+          <div class="pdp-hero-illo">
+            {product.data.illo ? (
+              <img src={product.data.illo} alt={`${product.data.title} illustration`} loading="eager" />
+            ) : product.data.heroImage ? (
+              <img src={product.data.heroImage} alt={product.data.title} loading="eager" />
+            ) : null}
+          </div>
+        )}
       </section>
 
       <hr class="pdp-divider" />
+
+      {/* ── SHOWCASE ── */}
+      {(product.data.video || (product.data.gallery?.length ?? 0) > 0) && (
+        <section class="pdp-showcase">
+          {product.data.video && (
+            <video class="pdp-showcase-video" src={product.data.video} controls playsinline preload="metadata"></video>
+          )}
+          {(product.data.gallery?.length ?? 0) > 0 && (
+            <div class={`pdp-gallery${product.data.gallery.length === 1 ? ' pdp-gallery-one' : ''}`}>
+              {product.data.gallery.map((item) => (
+                <figure class="pdp-gallery-card">
+                  <img src={item.src} alt={item.alt} loading="lazy" />
+                  {item.caption && <figcaption>{item.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
 
       {/* ── GET & INSTALL ── */}
       {product.data.download && (
@@ -202,25 +220,6 @@ const english = productEnglish[product.id];
               </div>
             </li>
           </ol>
-        </section>
-      )}
-
-      {/* ── SHOWCASE ── */}
-      {(product.data.video || (product.data.gallery?.length ?? 0) > 0) && (
-        <section class="pdp-showcase">
-          {product.data.video && (
-            <video class="pdp-showcase-video" src={product.data.video} controls playsinline preload="metadata"></video>
-          )}
-          {(product.data.gallery?.length ?? 0) > 0 && (
-            <div class={`pdp-gallery${product.data.gallery.length === 1 ? ' pdp-gallery-one' : ''}`}>
-              {product.data.gallery.map((item) => (
-                <figure class="pdp-gallery-card">
-                  <img src={item.src} alt={item.alt} loading="lazy" />
-                  {item.caption && <figcaption>{item.caption}</figcaption>}
-                </figure>
-              ))}
-            </div>
-          )}
         </section>
       )}
 

@@ -64,8 +64,9 @@
 - Tagline：1.1rem，`color-body`，max-width 30rem
 - CTA：橙色主按钮 (`button-primary`) + ghost 次按钮 (`button-ghost`)
 - 右侧：产品主题 illo（小象做对应主题的事），max-width 420px
+- **软件产品变体（有 `icon` 字段）**：hero 单列紧凑排版（`pdp-hero-compact`），小图标 54px 内联在标题左侧，版本/平台/体积/签名提示合并为一行 meta；真实 UI 截图由 Showcase 区承担，hero 不再放任何大图
 - 高度：自适应，不固定 min-height
-- 布局：`grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr)`
+- 布局：`grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr)`（compact 变体为单列）
 
 ### 3.2 Divider
 
@@ -330,6 +331,7 @@ class 前缀统一为 `pdp-`（Product Detail Page）：
 
 | 日期 | 变更 |
 |------|------|
+| 2026-08-29 | Hero 二轮收敛：icon 产品改单列紧凑排版（54px 小图标内联标题，规格并入 meta 行），废弃 hero 大图标块（`.pdp-hero-illo img` 的 `width:100%;max-width:420px` 特异性曾压过图标尺寸导致 logo 巨大）；Showcase 提到安装引导之前（Hero → 截图 → 安装） |
 | 2026-08-29 | Showcase 画廊改为自然比例不裁切（首张真实 UI 截图接入：ASD Pipeline 主界面，1440w AVIF 55KB） |
 | 2026-08-29 | 可下载产品支持：schema 新增 `download/downloadVersion/downloadSize/icon`；详情页 hero 下载主 CTA + 签名提示，`icon` 存在时 hero 右侧显示真实 app 图标 + 规格芯片（版本/平台/DMG 体积）；新增「获取与安装」三步区（`pdp-install`）；CTA band 二次下载入口；列表页 featured 下载按钮与 catalog「可下载」徽标 |
 | 2026-07-01 | 初始版本：Hero → Highlights → Showcase → Features → Stack → CTA |
