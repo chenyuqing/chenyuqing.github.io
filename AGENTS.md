@@ -111,7 +111,7 @@ draft: false
 
 ## 首页结构
 
-最新文章（blog 3 篇大卡片，2026-08-29 起 AI 新闻区已移除，news 仅保留独立 /news/ 页面）→ Contact（橙色 callout）
+最新文章（blog 3 篇，支持列表/网格视图切换存 localStorage；无区块标题；2026-08-29 起 AI 新闻区已移除，news 仅保留独立 /news/ 页面）→ Contact（橙色 callout）
 
 ## /blog/ 列表页
 

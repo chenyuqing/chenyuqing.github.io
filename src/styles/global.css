@@ -2192,6 +2192,45 @@ main {
   margin-top: 1.5rem;
 }
 
+.home-list-topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+}
+
+/* 列表视图：带封面图的卡片缩到固定 200px 图列，纯文字卡片保持通栏 */
+.magazine-list[data-view='list'] .magazine-card:has(.magazine-card-img-link) {
+  grid-template-columns: 200px minmax(0, 1fr);
+}
+
+/* 网格视图：三列竖排卡片 */
+.magazine-list[data-view='grid'] {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.1rem;
+}
+
+.magazine-list[data-view='grid'] .magazine-card,
+.magazine-list[data-view='grid'] .magazine-card-featured {
+  grid-template-columns: 1fr;
+  gap: 0.55rem;
+  padding-bottom: 0.9rem;
+}
+
+.magazine-list[data-view='grid'] .magazine-card-img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+}
+
+.magazine-list[data-view='grid'] .magazine-card-featured .magazine-card-title h3 {
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.3;
+}
+
+.magazine-list[data-view='grid'] .magazine-card-featured .magazine-card-desc {
+  font-size: 0.92rem;
+}
+
+
 .home-split {
   margin-top: 1.5rem;
   display: grid;

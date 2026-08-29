@@ -222,6 +222,19 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - AGENTS.md 首页结构与视觉节奏两行同步更新。
 2. 验证：build 62 页；首页截图确认（播客文章整栏 3 篇 → Contact），左侧小象装饰与新布局无遮挡冲突。
 
+## 2026-08-29 会话记录（导读文章更新 + 首页双视图）
+
+### 今天完成
+
+1. **《如何阅读这个网站》内容大版本更新并保持置顶**（置顶逻辑首页与 /blog/ 列表页原本就有 featuredSlug 排序，未改动；pubDate 保留 2026-06-30，updatedDate 2026-08-29）：
+   - 站点结构从「两个 collection」更新为「三个 collection + 工具/游戏/可视化三块静态专区」；新增 **Products 数据格式**一节（download/downloadVersion/status/type 字段、5 个可下载 macOS 应用表、Apple Silicon + 未公证签名提示、repo 缺失=源码未公开）。
+   - 索引策略新增「产品问题看详情页（无索引）」；回答策略第 7 条：产品功能/版本/下载以详情页 frontmatter 为准，不臆造仓库地址。
+2. **首页博客区改造**：删除「Podcast/播客文章」区块标题；新增**列表/网格视图切换**（沿用 products 的 view-btn 样式，localStorage `home-blog-view` 持久化，默认列表）：
+   - 列表视图：带封面卡片图片列缩为固定 **200px**（原约 40% 宽），纯文字卡片用 `:has(.magazine-card-img-link)` 保持通栏（首版漏了 has 导致文字卡被挤进 200px 窄列，已修）。
+   - 网格视图：`auto-fill minmax(250px,1fr)` 三列竖排卡片，图 3:2 顶置，featured 特殊排版中和为统一卡片。
+   - 无障碍与中英：view-btn 沿用 aria-pressed + data-title/aria 双语（随 data-lang 切换）。
+3. 验证：build 62 页；列表视图与网格视图截图分别确认（网格验证时发现 sed 只替换每行首处导致按钮属性被改而 div 未动，改用 `id="home-blog-list" data-view=...` 精确匹配后通过）。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成

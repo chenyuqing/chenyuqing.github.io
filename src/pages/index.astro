@@ -16,11 +16,17 @@ const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
 <BaseLayout title="Tim Chen · AI 时代网志" description="AI 时代的个人网志 — 博客与思考。" canonical="/">
   <main id="content" class="shell">
     <section class="home-blog-section reveal">
-      <div class="section-head home-split-head">
-        <p class="eyebrow" data-i18n="home_blog_eyebrow">Podcast</p>
-        <h1 class="section-title" data-i18n="home_blog_title">播客文章</h1>
+      <div class="home-list-topbar">
+        <div class="products-view-toggle home-view-toggle" role="radiogroup" aria-label="视图切换" data-aria-zh="视图切换" data-aria-en="View options">
+          <button class="view-btn view-btn-active" data-view="list" aria-pressed="true" title="列表视图" data-title-zh="列表视图" data-title-en="List view">
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="4" x2="15" y2="4"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="14" x2="15" y2="14"/></svg>
+          </button>
+          <button class="view-btn" data-view="grid" aria-pressed="false" title="网格视图" data-title-zh="网格视图" data-title-en="Grid view">
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="1.5" width="6" height="6" rx="1.5"/><rect x="10.5" y="1.5" width="6" height="6" rx="1.5"/><rect x="1.5" y="10.5" width="6" height="6" rx="1.5"/><rect x="10.5" y="10.5" width="6" height="6" rx="1.5"/></svg>
+          </button>
+        </div>
       </div>
-        <div class="magazine-list">
+      <div class="magazine-list" id="home-blog-list" data-view="list">
           {blogPosts.length === 0 ? (
             <article class="magazine-card">
               <h2 data-i18n="home_blog_empty">暂无文章</h2>
@@ -73,4 +79,39 @@ const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
       </div>
     </section>
   </main>
+  <script is:inline>
+    (function () {
+      var list = document.getElementById('home-blog-list');
+      var btns = document.querySelectorAll('.home-view-toggle .view-btn');
+      if (!list || !btns.length) return;
+      var apply = function (v) {
+        list.setAttribute('data-view', v);
+        btns.forEach(function (b) {
+          var active = b.getAttribute('data-view') === v;
+          b.classList.toggle('view-btn-active', active);
+          b.setAttribute('aria-pressed', active);
+        });
+      };
+      var saved = localStorage.getItem('home-blog-view');
+      if (saved === 'grid' || saved === 'list') apply(saved);
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var v = btn.getAttribute('data-view');
+          apply(v);
+          localStorage.setItem('home-blog-view', v);
+        });
+      });
+      var applyLang = function () {
+        var en = document.documentElement.getAttribute('data-lang') === 'en';
+        document.querySelectorAll('[data-title-zh]').forEach(function (node) {
+          node.setAttribute('title', node.getAttribute(en ? 'data-title-en' : 'data-title-zh'));
+        });
+        document.querySelectorAll('[data-aria-zh]').forEach(function (node) {
+          node.setAttribute('aria-label', node.getAttribute(en ? 'data-aria-en' : 'data-aria-zh'));
+        });
+      };
+      applyLang();
+      new MutationObserver(applyLang).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
+    })();
+  </script>
 </BaseLayout>
