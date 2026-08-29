@@ -114,7 +114,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 
 1. 应用户「要专业、带真实产品截图」要求改版详情页：
    - 从 app bundle 提取真实 `AppIcon.icns`（iconutil）→ 512px AVIF（12.7KB，含透明通道），放 `/media/products/asd-pipeline/app-icon.avif`；products schema 新增 `icon` 字段。
-   - Hero 右侧：有 `icon` 时显示真实 app 图标（drop-shadow）+ 规格芯片（版本 / macOS 13+ · Apple Silicon / DMG 约 326 MB），替代卡通 illo；无 icon 的产品回退原 illo 逻辑。**二轮收敛（用户反馈 logo 占地太大）**：改为单列紧凑 hero（`pdp-hero-compact`），54px 小图标内联标题左侧，版本/平台/体积/签名合并为一行 meta；根因是 `.pdp-hero-illo img { width:100%; max-width:420px }` 特异性压过图标尺寸类，把 logo 放大到 420px。区块顺序调整为 Hero → 真实截图 Showcase → 安装引导 → Overview。
+   - Hero 右侧：有 `icon` 时显示真实 app 图标（drop-shadow）+ 规格芯片（版本 / macOS 13+ · Apple Silicon / DMG 约 326 MB），替代卡通 illo；无 icon 的产品回退原 illo 逻辑。**二轮收敛（用户反馈 logo 占地太大）**：改为单列紧凑 hero（`pdp-hero-compact`），54px 小图标内联标题左侧，版本/平台/体积/签名合并为一行 meta；根因是 `.pdp-hero-illo img { width:100%; max-width:420px }` 特异性压过图标尺寸类，把 logo 放大到 420px。**三轮调序（用户要求）**：FEATURES（核心能力）移到 SHOWCASE 截图之前，最终顺序 Hero → 核心能力 → 截图 → 安装 → 说明 → Stack。
    - 新增「获取与安装」三步区（`pdp-install`，720px 以下单列）：下载 DMG → 拖入 Applications → 首次打开（右键打开 / xattr -cr 命令）；hero 提示行收敛为仅签名提示，版本/体积移到规格芯片，避免信息重复。
    - `proddev.md` 变更记录同步。
 2. 首张真实 UI 截图接入（用户提供 `~/Desktop/asd-ksa.png`，2202×1572 PNG 1.28MB → 1440w AVIF **55KB**）：单视频模式主界面（时间区间、S3FD 后端、左检测预览绿框说话人 / 右 9:16 竖屏成片同步预览），写入 `gallery` 字段带图注。连带两处模板调整：gallery 图片从 16:10 cover 裁切改为**自然比例不裁切**（UI 截图不能切窗口边），单张时全宽展示（`pdp-gallery-one`），两张起自动回到 2 列。

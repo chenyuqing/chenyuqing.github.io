@@ -173,6 +173,29 @@ const english = productEnglish[product.id];
 
       <hr class="pdp-divider" />
 
+      {/* ── FEATURES GRID ── */}
+      {(product.data.highlights?.length ?? 0) > 0 && (
+        <section class="pdp-features">
+          <div class="pdp-features-head">
+            <p class="eyebrow">Features</p>
+            <h2 class="pdp-section-title"><span class="lang-zh">核心能力</span><span class="lang-en">Core Capabilities</span></h2>
+          </div>
+          <div class="pdp-feature-grid">
+            {product.data.highlights.map((item, index) => (
+              <article class="pdp-feature-card">
+                {item.illo && (
+                  <div class="pdp-feature-illo">
+                    <img src={item.illo} alt={item.title} loading="lazy" />
+                  </div>
+                )}
+                <strong><span class="lang-zh">{item.title}</span><span class="lang-en">{english?.highlights[index]?.title || item.title}</span></strong>
+                <p><span class="lang-zh">{item.description}</span><span class="lang-en">{english?.highlights[index]?.description || item.description}</span></p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ── SHOWCASE ── */}
       {(product.data.video || (product.data.gallery?.length ?? 0) > 0) && (
         <section class="pdp-showcase">
@@ -259,29 +282,6 @@ const english = productEnglish[product.id];
           )}
         </aside>
       </section>
-
-      {/* ── FEATURES GRID ── */}
-      {(product.data.highlights?.length ?? 0) > 0 && (
-        <section class="pdp-features">
-          <div class="pdp-features-head">
-            <p class="eyebrow">Features</p>
-            <h2 class="pdp-section-title"><span class="lang-zh">核心能力</span><span class="lang-en">Core Capabilities</span></h2>
-          </div>
-          <div class="pdp-feature-grid">
-            {product.data.highlights.map((item, index) => (
-              <article class="pdp-feature-card">
-                {item.illo && (
-                  <div class="pdp-feature-illo">
-                    <img src={item.illo} alt={item.title} loading="lazy" />
-                  </div>
-                )}
-                <strong><span class="lang-zh">{item.title}</span><span class="lang-en">{english?.highlights[index]?.title || item.title}</span></strong>
-                <p><span class="lang-zh">{item.description}</span><span class="lang-en">{english?.highlights[index]?.description || item.description}</span></p>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* ── STACK STRIP ── */}
       <section class="pdp-stack-strip">

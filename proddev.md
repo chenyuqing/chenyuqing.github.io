@@ -25,29 +25,31 @@
 ┌─────────────────────────────────────────────────┐
 │  HERO                                           │
 │  ┌───────────────────────┬────────────────────┐ │
-│  │ Eyebrow · Status      │                    │ │
-│  │ Product Title (大)     │   Product Illo     │ │
-│  │ Tagline               │   (themed elephant)│ │
+│  │ Eyebrow · Status      │   Product Illo     │ │
+│  │ Product Title (大)     │  (icon 产品为单列  │ │
+│  │ Tagline               │   紧凑排版)        │ │
 │  │ [Demo] [GitHub]       │                    │ │
 │  └───────────────────────┴────────────────────┘ │
 ├────────────────── hairline ─────────────────────┤
+│  FEATURES (3-col grid)                          │
+│  每个 feature = illo + title + desc，卡片式      │
+├─────────────────────────────────────────────────┤
 │  SHOWCASE (video / screenshot gallery)          │
 │  ┌─────────────────────────────────┐            │
 │  │         media content           │            │
 │  └─────────────────────────────────┘            │
 ├─────────────────────────────────────────────────┤
+│  GET & INSTALL（可下载产品专属，3 步）           │
+├─────────────────────────────────────────────────┤
 │  WHAT IT DOES (简洁说明，2-3 段)                 │
 │  左：文字  右：metrics sidebar                   │
-├─────────────────────────────────────────────────┤
-│  FEATURES (3-col grid)                          │
-│  每个 feature = illo + title + desc，卡片式      │
 ├─────────────────────────────────────────────────┤
 │  STACK & META (horizontal strip)                │
 │  Stack tags · Published · Tags                  │
 ├─────────────────────────────────────────────────┤
 │  RELATED POSTS                                  │
 ├─────────────────────────────────────────────────┤
-│  CTA BAND (返回产品目录)                         │
+│  CTA BAND (返回产品目录 + 下载)                  │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -331,6 +333,7 @@ class 前缀统一为 `pdp-`（Product Detail Page）：
 
 | 日期 | 变更 |
 |------|------|
+| 2026-08-29 | 区块顺序调整：FEATURES 提到 SHOWCASE 之前（Hero → 核心能力 → 截图 → 安装 → 说明），产品页节奏定稿 |
 | 2026-08-29 | Hero 二轮收敛：icon 产品改单列紧凑排版（54px 小图标内联标题，规格并入 meta 行），废弃 hero 大图标块（`.pdp-hero-illo img` 的 `width:100%;max-width:420px` 特异性曾压过图标尺寸导致 logo 巨大）；Showcase 提到安装引导之前（Hero → 截图 → 安装） |
 | 2026-08-29 | Showcase 画廊改为自然比例不裁切（首张真实 UI 截图接入：ASD Pipeline 主界面，1440w AVIF 55KB） |
 | 2026-08-29 | 可下载产品支持：schema 新增 `download/downloadVersion/downloadSize/icon`；详情页 hero 下载主 CTA + 签名提示，`icon` 存在时 hero 右侧显示真实 app 图标 + 规格芯片（版本/平台/DMG 体积）；新增「获取与安装」三步区（`pdp-install`）；CTA band 二次下载入口；列表页 featured 下载按钮与 catalog「可下载」徽标 |
