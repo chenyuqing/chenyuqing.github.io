@@ -26,10 +26,13 @@ relatedPosts: ["pi-hard-subtitle-extraction"]
 highlights:
   - title: "硬字幕 → 帧级 SRT"
     description: "拖入视频、画出字幕区域，时间来自视频帧、文字来自本地 OCR；一条字幕只识别必要的帧，导出可编辑 SRT，附诊断 JSONL。"
+    illo: "/media/illo/products/glm-feature-srt.avif"
   - title: "Apple Silicon 本地推理"
     description: "内置 GLM-OCR（0.9B 多模态 OCR 模型）MLX Metal 推理服务，一键启动、全程离线；识别质量三档可调：快速 4fps / 平衡 6fps / 精细 8fps。"
+    illo: "/media/illo/products/glm-feature-mlx.avif"
   - title: "原生 macOS，隐私优先"
     description: "SwiftUI 原生壳 + 内置 Python 后端，下载拖入即用、不依赖 Python 环境；视频与推理全程留在本机。"
+    illo: "/media/illo/products/glm-feature-private.avif"
 draft: false
 ---
 

@@ -158,9 +158,12 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 产品条目 `remote-index-tts-dub.md`：status beta / order 7 / platform macOS 14+ · Apple Silicon、真实图标（13KB AVIF）+ 真实截图（35KB AVIF）进 Hero 右栏、三张纯文字 highlights（本地优先 / 双路径合成 / 逐句 Review 与交付校验）、relatedPosts 关联 voxcpm-dubbing 与 seed-vc 两篇；英文文案同步。
 2. 验证：build 61 页；PDP 截图确认（Hero 双栏、规格行、安装三步）。
 
-### 生图挂起备忘
+### 生图挂起备忘 → 已解决
 
-- GLM Subtitle OCR 的 3 张核心能力小象插画：test.mlgb7.com（mlge 后端）整站 502，prompt 已备好在 `/tmp/illo/glm-prompts/`（01-srt / 02-mlx / 03-private，xiaoxiang 角色包 + storybook-plush），run 目录 `/tmp/illo/20260829-145813-40a7`。服务恢复后直接 `illo.py generate --prompt-file ... --ref ~/.config/illo/characters/xiaoxiang/reference.png --aspect 16:9` 重试；第一张过质量关后作为风格锚传第二 `--ref`。
+- ~~GLM Subtitle OCR 的 3 张核心能力小象插画~~ **已完成（2026-08-29 晚）**：用户把 mlge 生图地址切到 `https://image.mlgb7.com`（旧 test.mlgb7.com 整站 502），改 `~/.config/illo/config.yaml` 的 `mlgeBaseUrl` 后三张一次通过：
+  - `glm-feature-srt`（小象从画架胶片帧上揭下字幕条放进卡片堆）、`glm-feature-mlx`（拨杆启动芯片引擎，胶片进/卡片出）、`glm-feature-private`（小象在剖面小屋里抱紧上锁的胶片盒，长翅膀的信封进不了门）。
+  - 全部 16:9（1672×941），xiaoxiang 角色包 + 第一张作风格锚传第二 `--ref`；PNG + 1400w AVIF（40-47KB）双格式入 `public/media/illo/products/`；highlights 已接线。
+  - 经验：`illo.py` 的 `mlgeBaseUrl` 不含 `/v1`（引擎自动拼接）。
 
 ## 2026-08-29 会话记录（Codex Server Console 可下载化）
 
