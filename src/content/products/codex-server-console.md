@@ -7,10 +7,11 @@ status: "beta"
 type: "infra"
 featured: false
 pinned: false
-order: 8
+order: 4
 download: "https://github.com/chenyuqing/chenyuqing.github.io/releases/download/codex-server-console-v0.9.0/Codex-Server-Console-v0.9.0-arm64.dmg"
 downloadVersion: "0.9.0"
 downloadSize: "约 2 MB"
+illo: "/media/illo/products/codex-server-console.avif"
 icon: "/media/products/codex-server-console/app-icon.avif"
 platform: "macOS 14+ · Apple Silicon"
 audience: "维护远程生产服务器、想让 Codex CLI 在受控权限下代执行运维的开发者"

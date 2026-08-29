@@ -180,6 +180,18 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - ASD Pipeline 0.2.5 / Clip Agent Studio 0.5.1 / GLM Subtitle OCR 0.1.17 / Remote Index-TTS Dub 0.18.5 / Codex Server Console 0.9.0，全部：DMG 挂站点仓库 Release + 产品页（图标+截图+校准文案）+ 线上验证。
 - 待办残留：① GLM 三张小象插画（mlge API 恢复后跑 /tmp/illo/glm-prompts/）；② 各产品截图若用户后补，gallery 首图自动进 Hero；③ Clip Agent Studio featured 卡的下载按钮已生效，其私有仓库 GitHub 链接已移除。
 
+## 2026-08-29 会话记录（产品目录：排序 + 三张封面）
+
+### 今天完成
+
+1. **用户指出产品页与「做了 5 个」对不上**：页面实际有 8 个条目（5 个套壳 app + 3 个更早的旧产品线 Subtitle Maker / VoiceWave / Tonghua）。用户拍板**全保留、套壳 app 置顶**：catalog 排序改为 asd(1) / glm(2) / rtts(3) / codex(4) / voicewave(5) / tonghua(6)，featured 位不变（subtitle-maker + clip-agent）；统计卡 Total 8 / Live 1 / Beta 6 / Experiment 1。
+2. **补齐三张产品 hero 封面**（illo 技能，xiaoxiang + glm-feature-srt 做风格锚，3:2 与既有封面规格一致，1536×1024）：
+   - `glm-subtitle-ocr`：小象用捞网从电视机浪花里捞起跃出的字幕条，脚边 SRT 纸卷。
+   - `remote-index-tts-dub`：小象在混音台推推子，屏幕放视频、音箱涌出声波绸带。
+   - `codex-server-console`：小象在扶手椅对终端说话（空对话气泡），电缆连到亮灯机架、日志纸带吐出。
+   - PNG + AVIF（53-70KB）双格式入 `public/media/illo/products/`，三个产品 frontmatter 补 `illo` 字段；proddev illo 清单与变更记录同步。
+3. 验证：build 62 页；列表页截图确认 catalog 六卡全带封面、新排序生效。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成

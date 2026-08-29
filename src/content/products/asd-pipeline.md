@@ -7,6 +7,7 @@ status: "beta"
 type: "ai-tool"
 featured: false
 pinned: false
+order: 1
 repo: "https://github.com/chenyuqing/asd-pipeline"
 download: "https://github.com/chenyuqing/asd-pipeline/releases/download/app-v0.2.5/ASD-Pipeline-v0.2.5-arm64.dmg"
 downloadVersion: "0.2.5 (build 16)"

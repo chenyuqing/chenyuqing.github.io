@@ -172,6 +172,12 @@ NO LABELS, NO TEXT, NO TITLE.
 | `th-feature-clone.png` | Tonghua / 15 秒声音克隆 | 小象握麦克风，口中飘出半透明声音分身 |
 | `th-feature-story.png` | Tonghua / AI 童话生成 | 小象在小木桌前用羽毛笔写卷轴，上方闪烁城堡和龙 |
 | `th-feature-ios.png` | Tonghua / 原生 iOS 体验 | 小象举起 iPhone 边框展示 App 图标 |
+| `glm-feature-srt.png` | GLM Subtitle OCR / 硬字幕→帧级SRT | 小象从画架胶片帧上揭下字幕条放进卡片堆 |
+| `glm-feature-mlx.png` | GLM Subtitle OCR / 本地推理 | 小象扳杆启动芯片引擎，胶片进、打勾卡片出 |
+| `glm-feature-private.png` | GLM Subtitle OCR / 隐私优先 | 小象在剖面小屋里抱紧上锁的胶片盒，信使进不了门 |
+| `glm-subtitle-ocr.png` | GLM Subtitle OCR hero | 小象用捞网从电视机浪花里捞起跃出的字幕条 |
+| `remote-index-tts-dub.png` | Remote Index-TTS Dub hero | 小象在混音台推推子，屏幕视频 + 音箱声波绸带 |
+| `codex-server-console.png` | Codex Server Console hero | 小象在扶手椅对终端说话，电缆连到亮灯的服务器机架 |
 
 ---
 
@@ -333,6 +339,7 @@ class 前缀统一为 `pdp-`（Product Detail Page）：
 
 | 日期 | 变更 |
 |------|------|
+| 2026-08-29 | catalog 排序定稿：套壳 5 app 置顶（asd 1 / clip 2 featured / glm 2 / rtts 3 / codex 4，旧产品 voicewave 5 / tonghua 6 顺延）；为 glm / rtts / csc 生成产品 hero 封面（3:2，与既有 illo 同风格） |
 | 2026-08-29 | Hero 定稿：icon 产品左 logo+文案、右首张截图（420px 缩小版，柔投影），替代「单列 + 下方全宽截图」的大图方案；Showcase 只承载剩余截图 |
 | 2026-08-29 | 区块顺序调整：FEATURES 提到 SHOWCASE 之前（Hero → 核心能力 → 截图 → 安装 → 说明），产品页节奏定稿 |
 | 2026-08-29 | Hero 二轮收敛：icon 产品改单列紧凑排版（54px 小图标内联标题，规格并入 meta 行），废弃 hero 大图标块（`.pdp-hero-illo img` 的 `width:100%;max-width:420px` 特异性曾压过图标尺寸导致 logo 巨大）；Showcase 提到安装引导之前（Hero → 截图 → 安装） |

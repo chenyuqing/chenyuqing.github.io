@@ -7,10 +7,11 @@ status: "beta"
 type: "media-tool"
 featured: false
 pinned: false
-order: 6
+order: 2
 download: "https://github.com/chenyuqing/chenyuqing.github.io/releases/download/glm-subtitle-ocr-v0.1.17/GLM-Subtitle-OCR-v0.1.17-arm64.dmg"
 downloadVersion: "0.1.17"
 downloadSize: "约 60 MB"
+illo: "/media/illo/products/glm-subtitle-ocr.avif"
 icon: "/media/products/glm-subtitle-ocr/app-icon.avif"
 gallery:
   - src: "/media/products/glm-subtitle-ocr/ui-main.avif"

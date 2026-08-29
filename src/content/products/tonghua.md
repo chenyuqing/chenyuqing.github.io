@@ -7,7 +7,7 @@ status: "beta"
 type: "ai-tool"
 featured: false
 pinned: false
-order: 5
+order: 6
 repo: "https://github.com/chenyuqing/Tonghua"
 illo: "/media/illo/products/tonghua.avif"
 docs: "README"

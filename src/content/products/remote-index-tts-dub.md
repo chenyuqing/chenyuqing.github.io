@@ -7,10 +7,11 @@ status: "beta"
 type: "media-tool"
 featured: false
 pinned: false
-order: 7
+order: 3
 download: "https://github.com/chenyuqing/chenyuqing.github.io/releases/download/remote-index-tts-dub-v0.18.5/Remote-Index-TTS-Dub-v0.18.5-arm64.dmg"
 downloadVersion: "0.18.5 (build 26)"
 downloadSize: "约 2 MB"
+illo: "/media/illo/products/remote-index-tts-dub.avif"
 icon: "/media/products/remote-index-tts-dub/app-icon.avif"
 gallery:
   - src: "/media/products/remote-index-tts-dub/ui-main.avif"

@@ -7,7 +7,7 @@ status: "experiment"
 type: "media-tool"
 featured: false
 pinned: false
-order: 4
+order: 5
 repo: "https://github.com/chenyuqing/voicewave_profile/tree/feature/podcast-automation"
 illo: "/media/illo/products/voicewave-profile.avif"
 docs: "README"
