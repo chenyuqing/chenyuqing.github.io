@@ -122,6 +122,18 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 3. 截图通道受限记录：`screencapture`（shell 无屏幕录制权限）、CUA screenshot（ZCode Computer Use 屏幕录制未授予）均不可用；app 为原生 UI 无 webview 可用无头 Chrome 渲染。结论：UI 截图需用户自行提供（Cmd+Shift+4+空格 抓窗口）或授予屏幕录制权限。
 4. 验证：build 59 页通过；预览截图确认 icon hero、规格芯片、安装三步、全宽 UI 截图画廊渲染正常。
 
+## 2026-08-29 会话记录（Clip Agent Studio 可下载化）
+
+### 今天完成
+
+1. **Clip Agent Studio v0.5.1 成为第二个可下载产品**（用户确认本机 /Applications 版即最新）：
+   - 打包：1.0GB Electron app（内置 Python 后端 + YOLOv11n + ASD 引擎 + FFmpeg）→ UDZO DMG **473MB**，arm64 专用。
+   - 托管决策（用户拍板）：`clip_agent_2` 源码仓库**保持私有**，DMG 挂公开的 `chenyuqing.github.io` 仓库 Release（tag `clip-agent-studio-v0.5.1`，纯二进制分发）；产品页移除 404 的 GitHub 链接（原指向私有仓库分支）， Featured Band 由通用逻辑自动切换为「下载 macOS 版」主按钮 + 「查看产品」次级。
+   - 仓库同步：当前检出分支为 `backend-upload-improvements`（非 main），88 个文件提交（auth 会话层、云部署文档、前后端调整），**排除运行时用户数据**（data/auth_*.json、history_metadata、processing_status）；推送到其上游 `origin/feature/backend-upload-improvements`（中途误建了无前缀远端分支，已删除）。main 的合并留给用户决定。
+   - 产品页：icon（electron.icns 内的自定义 C+播放图标 → 512px AVIF 16KB）、download/downloadVersion/downloadSize、标题改为 Clip Agent Studio、platform 改 macOS 13+ · Apple Silicon，tagline/description/highlights 按 CHANGELOG 真实能力重写（AI 高光识别 LLM 需自配 DeepSeek/Gemini、YOLOv11n 本地跟踪、6 平台 + 4K 下采样）；英文文案同步。
+   - 有 icon 无截图 → Hero 走单列紧凑排版，右侧留空待截图（同 ASD 流程：用户补图后 gallery 首图自动进 Hero 右栏）。
+2. 验证：release 资产 HTTP 206（496,031,189 字节）；build 59 页；Featured Band 与 PDP 截图确认（下载主按钮、GitHub 按钮消失、统计卡 Live 1 / Beta 3 / Experiment 1 符合 asd→beta 后的现状）。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成
