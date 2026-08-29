@@ -27,10 +27,13 @@ relatedPosts: ["pi-voxcpm-dubbing", "pi-seed-vc-voice-cloning"]
 highlights:
   - title: "本地优先工作流"
     description: "导入、API 翻译或导入译文、逐句 Review、锁定——全部本地完成，译文自动保存，不产生远程服务器费用；完成本地工作后才需要启动远程服务。"
+    illo: "/media/illo/products/rtts-feature-local.avif"
   - title: "本地引擎 / 远程 Index-TTS 双路径"
     description: "内置本地引擎无需设置、自动启动；要更高音质时切换自建远程 Index-TTS 服务，App 可经 SSH 一键启动服务器并等待网关与模型健康检查就绪。"
+    illo: "/media/illo/products/rtts-feature-dualpath.avif"
   - title: "逐句 Review 与交付校验"
     description: "自动识别单/多说话人（Speaker N 标签），语义分段 + 平衡时序默认值；成片下载后逐条校验配音音轨能量，缺音频的句子会拦下而不冒充完成。"
+    illo: "/media/illo/products/rtts-feature-review.avif"
 draft: false
 ---
 

@@ -178,6 +178,12 @@ NO LABELS, NO TEXT, NO TITLE.
 | `glm-subtitle-ocr.png` | GLM Subtitle OCR hero | 小象用捞网从电视机浪花里捞起跃出的字幕条 |
 | `remote-index-tts-dub.png` | Remote Index-TTS Dub hero | 小象在混音台推推子，屏幕视频 + 音箱声波绸带 |
 | `codex-server-console.png` | Codex Server Console hero | 小象在扶手椅对终端说话，电缆连到亮灯的服务器机架 |
+| `rtts-feature-local.png` | Remote TTS Dub / 本地优先 | 小象在圆桌逐句给字幕卷打勾，桌角存钱罐 |
+| `rtts-feature-dualpath.png` | Remote TTS Dub / 双路径 | 小象在岔路口：近处小引擎、远处山坡服务器小屋 |
+| `rtts-feature-review.png` | Remote TTS Dub / 逐句校验 | 戴耳机的小象举着空白声波卡对灯检查 |
+| `csc-feature-dialog.png` | Codex Console / 对话理解 | 小象把乱线团理成三股有序的绳，各连一块磁贴 |
+| `csc-feature-controlled.png` | Codex Console / 受控执行 | 玻璃窗机器里齿轮与命令纸带可见，小象手扶急停杆 |
+| `csc-feature-verify.png` | Codex Console / 完成验证 | 小象放大镜验日志纸带，尾巴拔掉服务器电源插头 |
 
 ---
 

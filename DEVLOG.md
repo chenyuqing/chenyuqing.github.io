@@ -192,6 +192,15 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - PNG + AVIF（53-70KB）双格式入 `public/media/illo/products/`，三个产品 frontmatter 补 `illo` 字段；proddev illo 清单与变更记录同步。
 3. 验证：build 62 页；列表页截图确认 catalog 六卡全带封面、新排序生效。
 
+## 2026-08-29 会话记录（rtts / csc 核心能力插画）
+
+### 今天完成
+
+1. **补齐 Remote Index-TTS Dub 与 Codex Server Console 各 3 张核心能力插画**（illo 技能，xiaoxiang + glm-feature-srt 风格锚，16:9，gpt-image-2 @ image.mlgb7.com；rtts-1 首过、csc-1 首次 502 重试成功，其余一次通过）：
+   - rtts：`rtts-feature-local`（圆桌逐句打勾 + 存钱罐=零远程费用）、`rtts-feature-dualpath`（岔路：近处小引擎 / 山坡服务器小屋）、`rtts-feature-review`（戴耳机举空白声波卡对灯检查）。
+   - csc：`csc-feature-dialog`（乱线团理成三股有序绳连磁贴）、`csc-feature-controlled`（玻璃窗机器齿轮+命令纸带，手扶急停杆）、`csc-feature-verify`（放大镜验日志、尾巴拔服务器电源插头）。
+   - PNG + 1400w AVIF（40-61KB）双格式入 `public/media/illo/products/`；两产品 highlights 接线；proddev illo 清单同步。经验：生图 API 偶发非 JSON 错误（502/空响应），逐张重试即可。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成

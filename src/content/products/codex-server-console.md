@@ -22,10 +22,13 @@ stack: ["SwiftUI", "Codex CLI", "OpenSSH", "Swift Package Manager"]
 highlights:
   - title: "对话负责理解"
     description: "在对话框里描述目标，由你已安装的 Codex CLI 参与理解和编排。它不重建 Agent，也不做通用 SSH 客户端——只做把对话变成受控操作的操作台。"
+    illo: "/media/illo/products/csc-feature-dialog.avif"
   - title: "受控 server-ops 执行"
     description: "通过受控的 server-ops 能力执行远程检查或操作：真实命令、日志、状态和产物在同一界面可见，复用本机 OpenSSH 配置与 Keychain / SSH agent，风险操作需要明确批准。"
+    illo: "/media/illo/products/csc-feature-controlled.avif"
   - title: "完成即验证"
     description: "执行完成后验证远程结果，并提醒释放按小时计费的服务器资源——付费服务器空转和忘记关机，是产品化解决的真实运维风险。"
+    illo: "/media/illo/products/csc-feature-verify.avif"
 draft: false
 ---
 
