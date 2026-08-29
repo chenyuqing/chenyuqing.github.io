@@ -201,6 +201,17 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - csc：`csc-feature-dialog`（乱线团理成三股有序绳连磁贴）、`csc-feature-controlled`（玻璃窗机器齿轮+命令纸带，手扶急停杆）、`csc-feature-verify`（放大镜验日志、尾巴拔服务器电源插头）。
    - PNG + 1400w AVIF（40-61KB）双格式入 `public/media/illo/products/`；两产品 highlights 接线；proddev illo 清单同步。经验：生图 API 偶发非 JSON 错误（502/空响应），逐张重试即可。
 
+## 2026-08-29 会话记录（rtts 换发 0.19.1 remote-only）
+
+### 今天完成
+
+1. **用户指出 Remote Index-TTS Dub「已删除本地引擎，只有远程一条路」**——查证属实：本地引擎只存在于 0.18.x 后期的 WIP 实验，v0.19.0 (build 28) 起移除（commit `94aee5d "app is remote-only again"`）。已发的 0.18.5 二进制里恰好带这个实验 UI（用户截图侧栏有「本地引擎/本地配音」步骤），页面文案与二进制不一致。
+2. **用户拍板换发 0.19.1**：
+   - 删除 v0.18.5 release，新建 `remote-index-tts-dub-v0.19.1`（仓库 dist 现成 DMG 1,837,344 字节，已验证公开可下载）；release notes 注明「自 v0.19.0 起纯远程架构」。
+   - 文案全面改 remote-only：description、feature 卡 2 改「远程 Index-TTS 配音服务」（SSH 启动 + 健康检查 + 服务端合成 + 实时事件日志）、body、gallery 图注/alt、index.astro 英文文案；download 指向 v0.19.1。
+   - 插画替换：原「岔路双路径」图与 remote-only 矛盾，重绘为 `rtts-feature-remote`（小象把字幕卷+胶片盘装上缆车，驶向山坡亮灯的服务器小屋），删 `rtts-feature-dualpath.*`；proddev illo 清单同步。
+3. 教训：**发布前不仅要确认版本号，还要确认该版本的产品形态**——0.18.5 与 0.19.1 的差异不是修复而是架构取舍（本地引擎实验被否决）；用户口述的「产品现状」以最新架构为准。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成
