@@ -212,6 +212,16 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 插画替换：原「岔路双路径」图与 remote-only 矛盾，重绘为 `rtts-feature-remote`（小象把字幕卷+胶片盘装上缆车，驶向山坡亮灯的服务器小屋），删 `rtts-feature-dualpath.*`；proddev illo 清单同步。
 3. 教训：**发布前不仅要确认版本号，还要确认该版本的产品形态**——0.18.5 与 0.19.1 的差异不是修复而是架构取舍（本地引擎实验被否决）；用户口述的「产品现状」以最新架构为准。
 
+## 2026-08-29 会话记录（首页移除 AI 新闻区）
+
+### 今天完成
+
+1. **按用户要求把首页的 AI 新闻区整体删除，只留博客**（news collection 与 /news/ 独立页面不受影响）：
+   - `index.astro`：移除左栏 AI News（featured + 列表 + 更多按钮）、双栏 hover 展开交互与其 JS（lockSplitHeight/expand），博客栏升为整栏主体并改为 h1；frontmatter 清掉 news 相关查询；页面 description 去掉「快讯」。
+   - `global.css` 新增 `.home-blog-section { margin-top: 1.5rem; }`；旧 `.home-split*` 系列规则保留未删（含 /news/ 复用的 news-* 样式，暂无冲突）。
+   - AGENTS.md 首页结构与视觉节奏两行同步更新。
+2. 验证：build 62 页；首页截图确认（播客文章整栏 3 篇 → Contact），左侧小象装饰与新布局无遮挡冲突。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成

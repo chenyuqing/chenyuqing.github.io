@@ -2188,6 +2188,10 @@ main {
   display: none;
 }
 
+.home-blog-section {
+  margin-top: 1.5rem;
+}
+
 .home-split {
   margin-top: 1.5rem;
   display: grid;

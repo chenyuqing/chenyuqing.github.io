@@ -3,14 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
 
-const categoryColors: Record<string, string> = {
-  '模型与智能体': 'category-model',
-  '工具与应用': 'category-tool',
-  '机器人与硬件': 'category-hardware',
-  '商业与生态': 'category-business',
-  '安全与评测': 'category-safety',
-};
-
 const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => {
     const featuredSlug = 'how-to-read-this-site';
@@ -19,126 +11,55 @@ const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
     return b.data.pubDate.getTime() - a.data.pubDate.getTime();
   })
   .slice(0, 3);
-
-const fourteenDaysAgo = new Date();
-fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
-
-const allNewsRecent = (await getCollection('news', ({ data }) => !data.draft))
-  .filter(({ data }) => data.pubDate > fourteenDaysAgo)
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
-
-const newsFeatured = allNewsRecent[0] || null;
-const newsListItems = allNewsRecent.slice(1, 5);
 ---
 
-<BaseLayout title="Tim Chen · AI 时代网志" description="AI 时代的个人网志 — 博客、快讯与思考。" canonical="/">
+<BaseLayout title="Tim Chen · AI 时代网志" description="AI 时代的个人网志 — 博客与思考。" canonical="/">
   <main id="content" class="shell">
-    <section class="home-split reveal">
-      <section class="home-split-col home-split-news">
-        <div class="light-streak" aria-hidden="true"></div>
-        <div class="section-head home-split-head">
-          <p class="eyebrow eyebrow-on-dark" data-i18n="home_news_eyebrow">AI News</p>
-          <h1 class="section-title section-title-on-dark" data-i18n="home_news_title">AI新闻</h1>
-        </div>
-
-        {newsFeatured ? (
-          <a class="news-featured" href={`/news/${newsFeatured.id}/`}>
-            <div class="news-featured-index">01</div>
-            {newsFeatured.data.cover && (
-              <img class="news-featured-img" src={newsFeatured.data.cover} alt={newsFeatured.data.title} />
-            )}
-            <div class="news-featured-body">
-              <span class={`category-pill category-pill-small category-pill-on-dark category-pill-${categoryColors[newsFeatured.data.category]}`}>{newsFeatured.data.category}</span>
-              <h2 class="news-featured-title">{newsFeatured.data.title}</h2>
-              {newsFeatured.data.description && (
-                <p class="news-featured-desc">{newsFeatured.data.description}</p>
+    <section class="home-blog-section reveal">
+      <div class="section-head home-split-head">
+        <p class="eyebrow" data-i18n="home_blog_eyebrow">Podcast</p>
+        <h1 class="section-title" data-i18n="home_blog_title">播客文章</h1>
+      </div>
+        <div class="magazine-list">
+          {blogPosts.length === 0 ? (
+            <article class="magazine-card">
+              <h2 data-i18n="home_blog_empty">暂无文章</h2>
+              <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
+            </article>
+          ) : (
+          blogPosts.map((post, index) => (
+            <article class={`magazine-card ${index === 0 ? 'magazine-card-featured' : ''}`}>
+              {post.data.cover && (
+                <a class="magazine-card-img-link" href={`/blog/${post.id}/`}>
+                  <img class="magazine-card-img" src={post.data.cover} alt={post.data.title} />
+                </a>
               )}
-              <div class="news-meta news-meta-on-dark">
-                <span>{newsFeatured.data.pubDate.toISOString().slice(0, 10)}</span>
-                {newsFeatured.data.tags.slice(0, 3).map((tag) => (
-                  <span class="tag tag-on-dark">{tag}</span>
-                ))}
-              </div>
-            </div>
-          </a>
-        ) : (
-          <p class="muted muted-on-dark" data-i18n="home_news_empty">最近没有新动态。</p>
-        )}
-
-        {newsListItems.length > 0 && (
-          <div class="news-list news-list-home">
-            {newsListItems.map((item, index) => (
-              <article class="news-item news-item-dark">
-                <div class="news-item-index">{String(index + 2).padStart(2, '0')}</div>
-                <div class="news-item-main">
-                  <a class="news-link news-link-on-dark" href={`/news/${item.id}/`}>
-                    <h3>{item.data.title}</h3>
-                  </a>
-                  <div class="news-meta news-meta-on-dark">
-                    <span class={`category-pill category-pill-small category-pill-on-dark category-pill-${categoryColors[item.data.category]}`}>{item.data.category}</span>
-                    <span>{item.data.pubDate.toISOString().slice(0, 10)}</span>
-                    {item.data.tags.slice(0, 2).map((tag) => (
-                      <span class="tag tag-on-dark">{tag}</span>
-                    ))}
-                    {item.data.link && <span class="news-external news-external-on-dark">↗</span>}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
-
-        <div class="section-foot section-foot-on-dark home-split-foot">
-          <a class="button button-on-dark" href="/news/" data-i18n="home_news_more">更多AI新闻</a>
-        </div>
-      </section>
-
-      <section class="home-split-col home-split-blog">
-        <div class="section-head home-split-head">
-          <p class="eyebrow" data-i18n="home_blog_eyebrow">Podcast</p>
-          <h2 class="section-title" data-i18n="home_blog_title">播客文章</h2>
-        </div>
-          <div class="magazine-list">
-            {blogPosts.length === 0 ? (
-              <article class="magazine-card">
-                <h2 data-i18n="home_blog_empty">暂无文章</h2>
-                <p class="muted" data-i18n="home_blog_empty_hint">新文章正在路上。</p>
-              </article>
-            ) : (
-            blogPosts.map((post, index) => (
-              <article class={`magazine-card ${index === 0 ? 'magazine-card-featured' : ''}`}>
-                {post.data.cover && (
-                  <a class="magazine-card-img-link" href={`/blog/${post.id}/`}>
-                    <img class="magazine-card-img" src={post.data.cover} alt={post.data.title} />
-                  </a>
-                )}
-                <div class="magazine-card-body">
-                  <div class="magazine-card-eyebrow">
-                    {post.data.verdict && (
-                      <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
-                    )}
-                  </div>
-                  <a class="magazine-card-title" href={`/blog/${post.id}/`}>
-                    <h3>{post.data.title}</h3>
-                  </a>
-                  {post.data.description && (
-                    <p class="magazine-card-desc">{post.data.description}</p>
+              <div class="magazine-card-body">
+                <div class="magazine-card-eyebrow">
+                  {post.data.verdict && (
+                    <span class={`tag tag-verdict tag-verdict-${post.data.verdict}`}>{post.data.verdict}</span>
                   )}
-                  <div class="post-meta magazine-card-meta">
-                    <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
-                    {post.data.tags.slice(0, 2).map((tag) => (
-                      <span class="tag tag-ai">{tag}</span>
-                    ))}
-                  </div>
                 </div>
-              </article>
-            ))
-          )}
-        </div>
-        <div class="section-foot home-split-foot">
-          <a class="button button-secondary" href="/blog/" data-i18n="home_blog_more">更多播客文章</a>
-        </div>
-      </section>
+                <a class="magazine-card-title" href={`/blog/${post.id}/`}>
+                  <h3>{post.data.title}</h3>
+                </a>
+                {post.data.description && (
+                  <p class="magazine-card-desc">{post.data.description}</p>
+                )}
+                <div class="post-meta magazine-card-meta">
+                  <span>{post.data.pubDate.toISOString().slice(0, 10)}</span>
+                  {post.data.tags.slice(0, 2).map((tag) => (
+                    <span class="tag tag-ai">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))
+        )}
+      </div>
+      <div class="section-foot home-split-foot">
+        <a class="button button-secondary" href="/blog/" data-i18n="home_blog_more">更多播客文章</a>
+      </div>
     </section>
 
     <section class="home-contact-callout reveal">
@@ -152,28 +73,4 @@ const newsListItems = allNewsRecent.slice(1, 5);
       </div>
     </section>
   </main>
-  <script>
-    function lockSplitHeight() {
-      const split = document.querySelector('.home-split');
-      if (!split) return;
-      // Wait for reveal animation and fonts to settle, then lock the natural height
-      window.setTimeout(() => {
-        const naturalHeight = split.getBoundingClientRect().height;
-        split.style.height = `${naturalHeight}px`;
-        split.classList.add('is-locked');
-      }, 600);
-    }
-    document.addEventListener('DOMContentLoaded', lockSplitHeight);
-
-    // Touch-friendly expand for homepage split
-    const splitCols = document.querySelectorAll('.home-split-col');
-    splitCols.forEach((col) => {
-      col.addEventListener('click', function () {
-        if (window.innerWidth <= 980) return; // grid is 1fr, no expand needed
-        const wasExpanded = this.classList.contains('is-expanded');
-        splitCols.forEach((c) => c.classList.remove('is-expanded'));
-        if (!wasExpanded) this.classList.add('is-expanded');
-      });
-    });
-  </script>
 </BaseLayout>

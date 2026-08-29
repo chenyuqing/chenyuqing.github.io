@@ -111,7 +111,7 @@ draft: false
 
 ## 首页结构
 
-Intro（一行定位 + 副标题 + 链接 + AI 问答提示）→ 最新文章（blog 3篇大卡片，cream）→ 最新动态（news 5条小卡片，最近14天，dark surface）→ Contact（橙色 callout）
+最新文章（blog 3 篇大卡片，2026-08-29 起 AI 新闻区已移除，news 仅保留独立 /news/ 页面）→ Contact（橙色 callout）
 
 ## /blog/ 列表页
 
@@ -147,7 +147,7 @@ Featured Band（深色背景大卡 + 产品 illo）+ Catalog 区（卡片/列表
 - 当前方向更接近 warm editorial AI brand：cream canvas + dark product surface + orange callout
 - 标题字体：衬线（`Cormorant Garamond` + `Noto Serif SC`），正文/UI：`Inter`
 - 通用卡片、按钮、导航、footer 使用 1px hairline 边框和近乎无阴影；只有吉祥物/头像等品牌锚点保留较强描边
-- 首页节奏是刻意交替的：浅色内容区 → 深色 news 区 → 橙色 CTA，不要再改回整页同一种卡片节奏
+- 首页节奏：浅色博客区 → 橙色 CTA（2026-08-29 起 AI 新闻区已从首页移除，news 内容只在 /news/ 独立页面）
 
 ## 响应式断点
 
