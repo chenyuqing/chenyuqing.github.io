@@ -12,6 +12,7 @@ download: "https://github.com/chenyuqing/asd-pipeline/releases/download/app-v0.2
 downloadVersion: "0.2.5 (build 16)"
 downloadSize: "约 326 MB"
 illo: "/media/illo/products/asd-pipeline.avif"
+icon: "/media/products/asd-pipeline/app-icon.avif"
 docs: "README"
 platform: "macOS 13+ · Apple Silicon"
 audience: "需要本地点视频找说话人、做竖屏裁剪的视频创作者与工作流开发者"

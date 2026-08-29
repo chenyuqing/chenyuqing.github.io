@@ -330,6 +330,7 @@ class 前缀统一为 `pdp-`（Product Detail Page）：
 
 | 日期 | 变更 |
 |------|------|
+| 2026-08-29 | 可下载产品支持：schema 新增 `download/downloadVersion/downloadSize/icon`；详情页 hero 下载主 CTA + 签名提示，`icon` 存在时 hero 右侧显示真实 app 图标 + 规格芯片（版本/平台/DMG 体积）；新增「获取与安装」三步区（`pdp-install`）；CTA band 二次下载入口；列表页 featured 下载按钮与 catalog「可下载」徽标 |
 | 2026-07-01 | 初始版本：Hero → Highlights → Showcase → Features → Stack → CTA |
 | 2026-07-01 | Highlights 的 `illo` 字段支持，Features 卡片可配插图 |
 | 2026-07-01 | 移除 Highlights Strip（与 Features Grid 重复），改用 `pdp-divider` hairline 分界线 |

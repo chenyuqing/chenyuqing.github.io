@@ -53,6 +53,7 @@ const products = defineCollection({
     docs: z.string().optional(),
     cover: z.string().optional(),
     illo: z.string().optional(),
+    icon: z.string().optional(),
     video: z.string().optional(),
     heroImage: z.string().optional(),
     gallery: z.array(z.object({

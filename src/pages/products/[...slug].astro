@@ -149,15 +149,22 @@ const english = productEnglish[product.id];
           </div>
           {product.data.download && (
             <p class="pdp-download-meta">
-              {product.data.downloadVersion && <span class="pdp-download-version">v{product.data.downloadVersion}</span>}
-              {product.data.downloadSize && <span>{product.data.downloadSize}</span>}
-              <span class="lang-zh">DMG 镜像 · 未公证签名，首次打开请右键 app → 「打开」</span>
-              <span class="lang-en">DMG image · unsigned build — right-click the app and choose Open on first launch</span>
+              <span class="lang-zh">未公证签名构建，首次打开请右键 app → 「打开」</span>
+              <span class="lang-en">Unsigned build — right-click the app and choose Open on first launch</span>
             </p>
           )}
         </div>
         <div class="pdp-hero-illo">
-          {product.data.illo ? (
+          {product.data.icon ? (
+            <div class="pdp-app-identity">
+              <img class="pdp-app-icon" src={product.data.icon} alt={`${product.data.title} app icon`} loading="eager" />
+              <div class="pdp-app-specs">
+                {product.data.downloadVersion && <span class="tag tag-code">v{product.data.downloadVersion}</span>}
+                {product.data.platform && <span class="tag tag-code">{product.data.platform}</span>}
+                {product.data.downloadSize && <span class="tag tag-code">DMG {product.data.downloadSize}</span>}
+              </div>
+            </div>
+          ) : product.data.illo ? (
             <img src={product.data.illo} alt={`${product.data.title} illustration`} loading="eager" />
           ) : product.data.heroImage ? (
             <img src={product.data.heroImage} alt={product.data.title} loading="eager" />
@@ -166,6 +173,37 @@ const english = productEnglish[product.id];
       </section>
 
       <hr class="pdp-divider" />
+
+      {/* ── GET & INSTALL ── */}
+      {product.data.download && (
+        <section class="pdp-install">
+          <p class="eyebrow">Get &amp; Install</p>
+          <h2 class="pdp-section-title"><span class="lang-zh">获取与安装</span><span class="lang-en">Get &amp; Install</span></h2>
+          <ol class="pdp-install-steps">
+            <li>
+              <span class="pdp-install-num">1</span>
+              <div>
+                <strong><span class="lang-zh">下载 DMG 镜像</span><span class="lang-en">Download the DMG</span></strong>
+                <p><span class="lang-zh">点击「下载 macOS 版」，文件约 {product.data.downloadSize || '数百 MB'}，托管在 GitHub Releases。</span><span class="lang-en">Click "Download for macOS" — about {product.data.downloadSize || 'a few hundred MB'}, hosted on GitHub Releases.</span></p>
+              </div>
+            </li>
+            <li>
+              <span class="pdp-install-num">2</span>
+              <div>
+                <strong><span class="lang-zh">拖入 Applications</span><span class="lang-en">Drag to Applications</span></strong>
+                <p><span class="lang-zh">打开 DMG，把 {product.data.title} 拖进 Applications 文件夹，即可像普通 Mac 应用一样使用。</span><span class="lang-en">Open the DMG and drag {product.data.title} into Applications — it then works like any Mac app.</span></p>
+              </div>
+            </li>
+            <li>
+              <span class="pdp-install-num">3</span>
+              <div>
+                <strong><span class="lang-zh">首次打开</span><span class="lang-en">First launch</span></strong>
+                <p><span class="lang-zh">构建未做公证签名：在访达中右键 app → 「打开」。也可以执行 xattr -cr "/Applications/{product.data.title}.app" 清除隔离标记。</span><span class="lang-en">The build is unsigned: right-click the app in Finder and choose Open. You can also run xattr -cr "/Applications/{product.data.title}.app" to clear the quarantine flag.</span></p>
+              </div>
+            </li>
+          </ol>
+        </section>
+      )}
 
       {/* ── SHOWCASE ── */}
       {(product.data.video || (product.data.gallery?.length ?? 0) > 0) && (

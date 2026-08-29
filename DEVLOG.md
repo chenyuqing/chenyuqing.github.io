@@ -108,6 +108,18 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 
 - GLM Subtitle OCR / Remote Index-TTS Dub / Clip Agent Studio（featured，会把「查看产品」降为次级按钮）/ Codex Server Console，逐个确认最新版本号后走同一流程：打包 DMG → Releases（各自仓库或本仓库）→ 产品页文案 + download 字段。
 
+## 2026-08-29 会话记录（ASD Pipeline 发布页专业改版）
+
+### 今天完成
+
+1. 应用户「要专业、带真实产品截图」要求改版详情页（真实 UI 截图待用户补充，页面已留好 gallery 位置）：
+   - 从 app bundle 提取真实 `AppIcon.icns`（iconutil）→ 512px AVIF（12.7KB，含透明通道），放 `/media/products/asd-pipeline/app-icon.avif`；products schema 新增 `icon` 字段。
+   - Hero 右侧：有 `icon` 时显示真实 app 图标（drop-shadow）+ 规格芯片（版本 / macOS 13+ · Apple Silicon / DMG 约 326 MB），替代卡通 illo；无 icon 的产品回退原 illo 逻辑。
+   - 新增「获取与安装」三步区（`pdp-install`，720px 以下单列）：下载 DMG → 拖入 Applications → 首次打开（右键打开 / xattr -cr 命令）；hero 提示行收敛为仅签名提示，版本/体积移到规格芯片，避免信息重复。
+   - `proddev.md` 变更记录同步。
+2. 截图通道受限记录：`screencapture`（shell 无屏幕录制权限）、CUA screenshot（ZCode Computer Use 屏幕录制未授予）均不可用；app 为原生 UI 无 webview 可用无头 Chrome 渲染；机器上无现成 ASD UI 截图。结论：UI 截图需用户自行提供（Cmd+Shift+4+空格 抓窗口）或授予屏幕录制权限。
+3. 验证：build 59 页通过；预览截图确认 icon hero、规格芯片、安装三步、features/stack 区渲染正常。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成
@@ -627,6 +639,8 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - 无头浏览器 CDP 冒烟 12 项全绿：下拉展开/选择/过滤/键盘、自动下载触发、胶囊数值（1 × 1 / 70 B）、桌面两栏、移动单列。
 
 ## 变更历史
+
+- 2026-08-29：ASD Pipeline 发布页专业改版——真实 app 图标 Hero + 规格芯片、获取与安装三步区；UI 截图 gallery 位置预留待补。
 
 - 2026-08-29：ASD Pipeline 成为第一个可下载产品——v0.2.5 (build 16) DMG（326MB）上 GitHub Releases，产品页新增下载 CTA 与真实 app 文案；引擎仓库同步推送（9f7a42b）。
 
