@@ -3086,6 +3086,10 @@ main {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.pdp-hero-illo .pdp-hero-shot {
+  box-shadow: 0 16px 36px rgb(26 24 22 / 0.12);
+}
+
 .pdp-title-icon {
   display: inline-block;
   width: 54px;

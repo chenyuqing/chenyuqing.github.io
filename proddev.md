@@ -66,7 +66,7 @@
 - Tagline：1.1rem，`color-body`，max-width 30rem
 - CTA：橙色主按钮 (`button-primary`) + ghost 次按钮 (`button-ghost`)
 - 右侧：产品主题 illo（小象做对应主题的事），max-width 420px
-- **软件产品变体（有 `icon` 字段）**：hero 单列紧凑排版（`pdp-hero-compact`），小图标 54px 内联在标题左侧，版本/平台/体积/签名提示合并为一行 meta；真实 UI 截图由 Showcase 区承担，hero 不再放任何大图
+- **软件产品变体（有 `icon` 字段）**：左侧小图标 54px 内联标题 + 文案 + meta 行；右侧放 `gallery` 首张真实截图（`pdp-hero-shot`，max-width 420px，圆角 hairline + 柔和投影）；无截图时退化为单列紧凑排版（`pdp-hero-compact`）。hero 用掉的截图不再在 Showcase 重复，后续截图自动落入下方画廊
 - 高度：自适应，不固定 min-height
 - 布局：`grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr)`（compact 变体为单列）
 
@@ -333,6 +333,7 @@ class 前缀统一为 `pdp-`（Product Detail Page）：
 
 | 日期 | 变更 |
 |------|------|
+| 2026-08-29 | Hero 定稿：icon 产品左 logo+文案、右首张截图（420px 缩小版，柔投影），替代「单列 + 下方全宽截图」的大图方案；Showcase 只承载剩余截图 |
 | 2026-08-29 | 区块顺序调整：FEATURES 提到 SHOWCASE 之前（Hero → 核心能力 → 截图 → 安装 → 说明），产品页节奏定稿 |
 | 2026-08-29 | Hero 二轮收敛：icon 产品改单列紧凑排版（54px 小图标内联标题，规格并入 meta 行），废弃 hero 大图标块（`.pdp-hero-illo img` 的 `width:100%;max-width:420px` 特异性曾压过图标尺寸导致 logo 巨大）；Showcase 提到安装引导之前（Hero → 截图 → 安装） |
 | 2026-08-29 | Showcase 画廊改为自然比例不裁切（首张真实 UI 截图接入：ASD Pipeline 主界面，1440w AVIF 55KB） |
