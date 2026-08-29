@@ -135,6 +135,17 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 2. 验证：release 资产 HTTP 206（496,031,189 字节）；build 59 页；Featured Band 与 PDP 截图确认（下载主按钮、GitHub 按钮消失、统计卡 Live 1 / Beta 3 / Experiment 1 符合 asd→beta 后的现状）。
 3. 真实 UI 截图接入（用户提供 `~/Desktop/clip-ksa.png`，2570×1784 PNG 545KB → 1440w AVIF **44KB**）：五步工作流主界面（导入素材/分析高光/选择片段/生成竖屏/结果预览 + 「视频留在本机」隐私徽标 + OpenAI 兼容 provider 配置），gallery 首图自动进 Hero 右栏，布局与 ASD Pipeline 完全一致。截图含用户自配 API 端点（api.fengwind.com）与模型名，API Key 已打码，无敏感信息。
 
+## 2026-08-29 会话记录（GLM Subtitle OCR 可下载化）
+
+### 今天完成
+
+1. **GLM Subtitle OCR v0.1.17 作为第三个可下载产品上线**（全新产品条目，此前产品页没有它；用户确认版本最新、定位「视频硬字幕→SRT」）：
+   - 取证：SwiftUI 原生壳 + PyInstaller 单文件 Python 后端（58MB），60MB 小 app；底层是智谱开源 GLM-OCR（zai-org/glm-ocr，0.9B，Ollama/API 推理）。`my-sys/glm-ocr-local` 是上游克隆（remote 指向 zai-org），**不是用户的壳仓库**，不动它。
+   - 打包：60MB UDZO DMG；挂站点仓库 Release（tag `glm-subtitle-ocr-v0.1.17`，公开可下载已验证 62,392,629 字节）。
+   - 新产品条目 `src/content/products/glm-subtitle-ocr.md`：status beta / type media-tool / order 6（catalog 第三行）、真实图标 AVIF（7KB）、download 三件套、highlights 三卡（无 illo 纯文字版）、relatedPosts 关联 `pi-hard-subtitle-extraction`；英文文案加入 index.astro productEnglish。
+   - 产品统计卡自动更新为 Total 6 / Live 1 / Beta 4 / Experiment 1。
+2. 验证：build 60 页（新增产品页）；PDP 与列表页截图确认（紧凑 Hero、安装三步、统计数字）。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成
