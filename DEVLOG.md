@@ -73,6 +73,23 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - [x] 新增工具专区 `/tools/`，首个工具：Base64 编解码
 - [x] 新增 AI 生图工具 `/tools/image-gen/`（gpt-image-2）
 - [x] 新增浮点数位拆解工具 `/tools/float-bits/`（INT8 / FP8 E4M3·E5M2 / UE8M0 / FP16 / BF16 / FP32 / FP64）
+- [x] 发布博客《给个人网站加一个 AI 生图工具，我把浏览器能踩的坑都踩了一遍》——首篇带插画的 blog（6 张小象插画 AVIF + hero 兼作 cover）
+
+## 2026-08-29 会话记录（发布 AI 生图踩坑复盘）
+
+### 今天完成
+
+1. 把 `articles/ai-image-gen-postmortem.md`（用户私有的文章工作目录，不入库）整理为正式博客 `src/content/blog/ai-image-gen-postmortem.md` 并发布：
+   - frontmatter：tags `["生图", "前端工程"]`、verdict `adopt`、pubDate 2026-08-29、cover 用 hero 插画。
+   - 6 张小象插画从 PNG（~1.4-1.6MB/张）用 sharp 转为 1440 宽 AVIF（44-63KB/张，共约 300KB），放 `public/media/blog/ai-image-gen-postmortem/`。
+   - 图片引用路径从 `assets/postmortem-illustrations/*.png` 改为 `/media/blog/ai-image-gen-postmortem/*.avif`；文末「AI 生图」加了站内工具链接。
+   - hero 图只作 cover（首页/列表/详情页顶部），正文不重复内嵌同一张；01–05 五张嵌在对应章节。
+2. 用户确认的关键口径：**插画是后来才有的做法，此前 12 篇 blog（pi 系列 11 篇 + 导览）保持纯文字原样，不回填插画**；本篇经用户选择「保留 6 张插画」发布。
+3. 验证：`npm run build` 通过（59 页）；dist 中文章页 cover + 5 张正文插画各命中一次，首页与 `/blog/` 列表页 cover 正常引用。
+
+### 约定备忘
+
+- `articles/`、`.tmp-illo/` 是用户私有工作目录，禁止提交；发布文章 = 拷贝整理进 `src/content/blog/`，原图留在原处。
 
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
@@ -593,6 +610,8 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - 无头浏览器 CDP 冒烟 12 项全绿：下拉展开/选择/过滤/键盘、自动下载触发、胶囊数值（1 × 1 / 70 B）、桌面两栏、移动单列。
 
 ## 变更历史
+
+- 2026-08-29：发布《给个人网站加一个 AI 生图工具，我把浏览器能踩的坑都踩了一遍》——首篇带插画的博客（6 张小象插画转 AVIF 共约 300KB，hero 兼作 cover）。
 
 - 2026-08-26：新增浮点数位拆解工具 `/tools/float-bits/`——8 种格式（INT8/E4M3/E5M2/UE8M0/FP16/BF16/FP32/FP64）位格子可视化 + BigInt 精确存储值 + 全格式对比表；修复 int32 截断与 INT8 补码两个编码 bug（67 项单测全绿）。
 
