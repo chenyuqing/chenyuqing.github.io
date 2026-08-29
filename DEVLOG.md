@@ -147,6 +147,21 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 2. 验证：build 60 页（新增产品页）；PDP 与列表页截图确认（紧凑 Hero、安装三步、统计数字）。
 3. 真实 UI 截图接入（用户提供 `~/Desktop/glm-ksa.png`，2442×1728 PNG 328KB → 1440w AVIF **24KB**）并按截图校准文案：本地推理实为 **MLX Metal**（127.0.0.1:18473 一键启动服务，非 Ollama）、输出为**帧级 SRT + 诊断 JSONL**、三档识别质量（快速 4fps / 平衡 6fps / 精细 8fps）、「一条字幕只识别必要的帧」智能跳帧、框选字幕区域交互。description/highlights/英文文案已同步为 MLX 表述，stack 改 SwiftUI/Python/PyInstaller/GLM-OCR/MLX。
 
+## 2026-08-29 会话记录（Remote Index-TTS Dub 可下载化）
+
+### 今天完成
+
+1. **Remote Index-TTS Dub v0.18.5 (build 26) 作为第四个可下载产品上线**（全新产品条目；用户拍板发本机安装版而非仓库 dist 里更新的 0.19.1）：
+   - 取证：4MB SwiftUI 原生壳（macOS 14+），源码在 `cloud-backend/remote-index-tts-dub`（私有仓库，分支 `codex/dmg-native-app`）；README 确认五步工作流 + SSH 启动远程 IndexTTS + 交付校验。截图显示 0.18.5 有「本地引擎」步骤（本地优先/不产生远程费用），文案按截图+README 双源校准。
+   - 打包：1.8MB UDZO DMG（史上最小）；挂站点仓库 Release（tag `remote-index-tts-dub-v0.18.5`，已验证 1,867,551 字节公开可下载）。
+   - 仓库同步：5 个未推送提交已推到私有仓库分支（不动 main）。
+   - 产品条目 `remote-index-tts-dub.md`：status beta / order 7 / platform macOS 14+ · Apple Silicon、真实图标（13KB AVIF）+ 真实截图（35KB AVIF）进 Hero 右栏、三张纯文字 highlights（本地优先 / 双路径合成 / 逐句 Review 与交付校验）、relatedPosts 关联 voxcpm-dubbing 与 seed-vc 两篇；英文文案同步。
+2. 验证：build 61 页；PDP 截图确认（Hero 双栏、规格行、安装三步）。
+
+### 生图挂起备忘
+
+- GLM Subtitle OCR 的 3 张核心能力小象插画：test.mlgb7.com（mlge 后端）整站 502，prompt 已备好在 `/tmp/illo/glm-prompts/`（01-srt / 02-mlx / 03-private，xiaoxiang 角色包 + storybook-plush），run 目录 `/tmp/illo/20260829-145813-40a7`。服务恢复后直接 `illo.py generate --prompt-file ... --ref ~/.config/illo/characters/xiaoxiang/reference.png --aspect 16:9` 重试；第一张过质量关后作为风格锚传第二 `--ref`。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成

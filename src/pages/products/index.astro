@@ -42,6 +42,10 @@ const productEnglish: Record<string, { tagline: string; description: string }> =
     tagline: 'Bring burned-in subtitles back as editable frame-level SRT — local OCR',
     description: 'A native SwiftUI macOS app: drop in a video, mark the subtitle area, and read burned-in subtitles with Zhipu’s open-source GLM-OCR (0.9B) running locally via MLX on Apple Silicon. Timecodes come from video frames, text from local OCR — exports frame-level SRT plus a diagnostic JSONL, fully offline.',
   },
+  'remote-index-tts-dub': {
+    tagline: 'A local-first native macOS dubbing studio: translate, review, then dub with Index-TTS',
+    description: 'A deliberately small native macOS client for video dubbing: import video and SRT, translate through your own OpenAI-compatible API, review and lock every line locally, then synthesize with the built-in local engine or your self-hosted remote Index-TTS service — which the app can start over SSH and health-check before submitting.',
+  },
 };
 
 const products = (await getCollection('products', ({ data }) => !data.draft))
