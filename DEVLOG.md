@@ -145,6 +145,7 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 新产品条目 `src/content/products/glm-subtitle-ocr.md`：status beta / type media-tool / order 6（catalog 第三行）、真实图标 AVIF（7KB）、download 三件套、highlights 三卡（无 illo 纯文字版）、relatedPosts 关联 `pi-hard-subtitle-extraction`；英文文案加入 index.astro productEnglish。
    - 产品统计卡自动更新为 Total 6 / Live 1 / Beta 4 / Experiment 1。
 2. 验证：build 60 页（新增产品页）；PDP 与列表页截图确认（紧凑 Hero、安装三步、统计数字）。
+3. 真实 UI 截图接入（用户提供 `~/Desktop/glm-ksa.png`，2442×1728 PNG 328KB → 1440w AVIF **24KB**）并按截图校准文案：本地推理实为 **MLX Metal**（127.0.0.1:18473 一键启动服务，非 Ollama）、输出为**帧级 SRT + 诊断 JSONL**、三档识别质量（快速 4fps / 平衡 6fps / 精细 8fps）、「一条字幕只识别必要的帧」智能跳帧、框选字幕区域交互。description/highlights/英文文案已同步为 MLX 表述，stack 改 SwiftUI/Python/PyInstaller/GLM-OCR/MLX。
 
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
