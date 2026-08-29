@@ -162,6 +162,21 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 
 - GLM Subtitle OCR 的 3 张核心能力小象插画：test.mlgb7.com（mlge 后端）整站 502，prompt 已备好在 `/tmp/illo/glm-prompts/`（01-srt / 02-mlx / 03-private，xiaoxiang 角色包 + storybook-plush），run 目录 `/tmp/illo/20260829-145813-40a7`。服务恢复后直接 `illo.py generate --prompt-file ... --ref ~/.config/illo/characters/xiaoxiang/reference.png --aspect 16:9` 重试；第一张过质量关后作为风格锚传第二 `--ref`。
 
+## 2026-08-29 会话记录（Codex Server Console 可下载化）
+
+### 今天完成
+
+1. **Codex Server Console v0.9.0 作为第五个可下载产品上线**（全新条目，第一个 `infra` 类型产品；用户未回应确认问题，按既定模式执行：0.9.0 与今日归档副本 VERSION 一致按最新发，截图后补）：
+   - 取证：4.4MB SwiftUI 纯原生壳（macOS 14+，无内嵌后端）。源码唯一副本在今日归档 `Media/workflow-0723-archive-20260829/side_projects/codex-server-console`，**非 git 仓库**（原 workflow-0723 下无此项目）→ 无源码同步步骤，SPEC.md 的「对话负责理解，工具负责执行，远程输出负责证明，用户负责高风险批准」写入产品文案。
+   - 打包：1.7MB UDZO DMG；挂站点仓库 Release（tag `codex-server-console-v0.9.0`，1,737,977 字节已验证）。
+   - 产品条目 `codex-server-console.md`：type infra（首个）、status beta、order 8、真实图标（10KB AVIF）、无 illo/gallery（待截图）、highlights 三卡（对话负责理解 / 受控 server-ops 执行 / 完成即验证+计费资源提醒）、relatedPosts 空；英文文案同步。
+2. 验证：build 62 页；PDP 截图确认。
+
+### 套壳产品化小结（5/5 完整上线）
+
+- ASD Pipeline 0.2.5 / Clip Agent Studio 0.5.1 / GLM Subtitle OCR 0.1.17 / Remote Index-TTS Dub 0.18.5 / Codex Server Console 0.9.0，全部：DMG 挂站点仓库 Release + 产品页（图标+截图+校准文案）+ 线上验证。
+- 待办残留：① GLM 三张小象插画（mlge API 恢复后跑 /tmp/illo/glm-prompts/）；② 各产品截图若用户后补，gallery 首图自动进 Hero；③ Clip Agent Studio featured 卡的下载按钮已生效，其私有仓库 GitHub 链接已移除。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成

@@ -46,6 +46,10 @@ const productEnglish: Record<string, { tagline: string; description: string }> =
     tagline: 'A local-first native macOS dubbing studio: translate, review, then dub with Index-TTS',
     description: 'A deliberately small native macOS client for video dubbing: import video and SRT, translate through your own OpenAI-compatible API, review and lock every line locally, then synthesize with the built-in local engine or your self-hosted remote Index-TTS service — which the app can start over SSH and health-check before submitting.',
   },
+  'codex-server-console': {
+    tagline: 'A conversational ops console: Codex CLI orchestrates, controlled execution, verifiable results',
+    description: 'A native macOS operations console that invokes your installed Codex CLI in conversation to inspect, operate on, and verify remote production servers under controlled server-ops permissions. Real commands, logs, state, and artifacts stay visible in one window; risky actions require explicit approval, and it reminds you to release metered servers when work completes.',
+  },
 };
 
 const products = (await getCollection('products', ({ data }) => !data.draft))
