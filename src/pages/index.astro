@@ -15,8 +15,19 @@ const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
 
 <BaseLayout title="Tim Chen · AI 时代网志" description="AI 时代的个人网志 — 博客与思考。" canonical="/">
   <main id="content" class="shell">
+    <section class="home-hero reveal">
+      <h1 class="home-hero-title" data-i18n="home_hero_title">在 AI 的浪里，搭一座慢站点</h1>
+      <p class="home-hero-desc" data-i18n="home_intro_lead">关注 AI 创作工具、视频工作流和字幕产品，把复杂能力做成简单、可用、好玩的体验。</p>
+      <div class="home-hero-actions">
+        <a class="button button-primary" href="/blog/" data-i18n="home_hero_cta">浏览全部文章</a>
+        <a class="button button-ghost" href="/about/" data-i18n="home_intro_about">关于我</a>
+        <span class="home-hero-hint" data-i18n="home_intro_ai_hint">🤖 试试 AI 问答</span>
+      </div>
+    </section>
+
     <section class="home-blog-section reveal">
       <div class="home-list-topbar">
+        <p class="home-list-label" data-i18n="home_list_label">最新文章</p>
         <div class="products-view-toggle home-view-toggle" role="radiogroup" aria-label="视图切换" data-aria-zh="视图切换" data-aria-en="View options">
           <button class="view-btn view-btn-active" data-view="list" aria-pressed="true" title="列表视图" data-title-zh="列表视图" data-title-en="List view">
             <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="4" x2="15" y2="4"/><line x1="3" y1="9" x2="15" y2="9"/><line x1="3" y1="14" x2="15" y2="14"/></svg>
@@ -62,10 +73,7 @@ const blogPosts = (await getCollection('blog', ({ data }) => !data.draft))
             </article>
           ))
         )}
-      </div>
-      <div class="section-foot home-split-foot">
-        <a class="button button-secondary" href="/blog/" data-i18n="home_blog_more">更多播客文章</a>
-      </div>
+        </div>
     </section>
 
     <section class="home-contact-callout reveal">
