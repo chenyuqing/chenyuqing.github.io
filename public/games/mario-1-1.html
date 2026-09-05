@@ -27,17 +27,17 @@
 <body>
 <main>
  <header><div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>THE 8-BIT ROOM</div><div class="edition">ONE FILE. ONE CLASSIC.</div></header>
- <section class="heading"><div><h1>WORLD <span>1–1</span></h1><p class="sub">익숙한 첫 모험. 이번엔 브라우저에서.</p></div><div class="actions">
- <button class="tool" id="pause" aria-label="일시정지" title="일시정지 (P)"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
- <button class="tool" id="sound" aria-label="소리 켜기" title="소리 켜기 (M)" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M11 4 5 9H2v6h3l6 5zM16 9l6 6m0-6-6 6"/></svg></button>
- <button class="tool" id="fullscreen" aria-label="전체 화면" title="전체 화면 (F)"><svg viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+ <section class="heading"><div><h1>WORLD <span>1–1</span></h1><p class="sub">熟悉的初遇。这次在浏览器里。</p></div><div class="actions">
+ <button class="tool" id="pause" aria-label="暂停" title="暂停 (P)"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
+ <button class="tool" id="sound" aria-label="开启音效" title="开启音效 (M)" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M11 4 5 9H2v6h3l6 5zM16 9l6 6m0-6-6 6"/></svg></button>
+ <button class="tool" id="fullscreen" aria-label="全屏" title="全屏 (F)"><svg viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
  </div></section>
  <div class="screen-shell" id="shell"><div class="screen">
- <canvas id="game" width="864" height="486" tabindex="0" aria-label="슈퍼마리오 1-1 게임. 방향키 이동, 스페이스 점프, Shift 달리기, 아래키 파이프 진입."></canvas>
+ <canvas id="game" width="864" height="486" tabindex="0" aria-label="超级马里奥 1-1 游戏。方向键移动，空格跳跃，Shift 加速，下键进入管道。"></canvas>
  <div class="overlay" id="overlay"><div class="panel"><div class="kicker" id="kicker">SUPER MARIO · WORLD 1–1</div><h2 id="message">LET’S-A GO!</h2><p id="description">吃蘑菇、钻管道、<br>跳上旗杆顶端！</p><button class="primary" id="start">开始游戏 ↗</button><button class="demo-button" id="demo">观看通关演示</button><p class="hint">ENTER 开始 · 戴上耳机体验更佳</p></div></div>
- </div><div class="statusbar"><span id="state-label"><i class="live-dot"></i>READY PLAYER ONE</span><div class="track" role="progressbar" aria-label="스테이지 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress"></span></div><span id="progress-label">0%</span><span>1–1</span></div>
- <div class="touch-controls" aria-label="터치 게임패드"><div class="touch-cluster"><button class="touch" data-action="left" aria-label="왼쪽 이동">◀</button><button class="touch" data-action="right" aria-label="오른쪽 이동">▶</button><button class="touch" data-action="down" aria-label="파이프 진입">↓</button></div><div class="touch-cluster"><button class="touch" data-action="run" aria-label="달리기 및 불꽃">RUN</button><button class="touch" data-action="jump" aria-label="점프">JUMP</button></div></div></div>
- <div class="instructions"><div class="control-group"><span class="keys"><kbd>←</kbd><kbd>→</kbd></span>이동</div><div class="control-group"><kbd>SPACE</kbd>점프 · 길게 누르면 높이</div><div class="control-group"><kbd>SHIFT</kbd>달리기 / 불꽃</div><div class="control-group"><kbd>↓</kbd>파이프</div><div class="control-group"><kbd>R</kbd>처음부터</div></div>
+ </div><div class="statusbar"><span id="state-label"><i class="live-dot"></i>READY PLAYER ONE</span><div class="track" role="progressbar" aria-label="关卡进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress"></span></div><span id="progress-label">0%</span><span>1–1</span></div>
+ <div class="touch-controls" aria-label="触屏手柄"><div class="touch-cluster"><button class="touch" data-action="left" aria-label="向左移动">◀</button><button class="touch" data-action="right" aria-label="向右移动">▶</button><button class="touch" data-action="down" aria-label="进入管道">↓</button></div><div class="touch-cluster"><button class="touch" data-action="run" aria-label="奔跑 / 火焰">RUN</button><button class="touch" data-action="jump" aria-label="跳跃">JUMP</button></div></div></div>
+ <div class="instructions"><div class="control-group"><span class="keys"><kbd>←</kbd><kbd>→</kbd></span>移动</div><div class="control-group"><kbd>SPACE</kbd>跳跃 · 长按跳得更高</div><div class="control-group"><kbd>SHIFT</kbd>奔跑 / 火焰</div><div class="control-group"><kbd>↓</kbd>管道</div><div class="control-group"><kbd>R</kbd>重新开始</div></div>
  <footer class="foot"><span><strong>小提示</strong> · 第四个管道下面有秘密哦</span><span>FAN-MADE RECREATION · OFFLINE READY · <a href="https://lidge-jun.github.io/mario-1-1/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">原作者 lidge-jun ↗</a></span></footer>
  <p class="sr-only" id="announcement" aria-live="polite"></p>
  <noscript>请启用浏览器 JavaScript 以游玩此游戏。</noscript>
@@ -89,20 +89,20 @@ function makeWorld(underground=false){
 }
 function spawn(x=40){player={x,y:GROUND-15,w:12,h:15,vx:0,vy:0,onGround:false,facing:1,power:0,invuln:0,star:0,walk:0};jumpBuffer=0;coyote=0;previousJump=false}
 function clearInput(){keys.clear();touches.clear();pressed.clear();previousJump=false;jumpBuffer=0;document.querySelectorAll('.touch').forEach(b=>b.classList.remove('active'))}
-function setState(next){state=next;const labels={title:'READY PLAYER ONE',playing:'PLAYING',paused:'PAUSED',dying:'TRY AGAIN',gameover:'GAME OVER',winning:'COURSE CLEAR',won:'COURSE CLEAR',pipe:'SECRET PASSAGE'};$('state-label').textContent=labels[next];$('pause').disabled=!['playing','paused'].includes(next);$('pause').setAttribute('aria-label',next==='paused'?'계속하기':'일시정지')}
+function setState(next){state=next;const labels={title:'READY PLAYER ONE',playing:'PLAYING',paused:'PAUSED',dying:'TRY AGAIN',gameover:'GAME OVER',winning:'COURSE CLEAR',won:'COURSE CLEAR',pipe:'SECRET PASSAGE'};$('state-label').textContent=labels[next];$('pause').disabled=!['playing','paused'].includes(next);$('pause').setAttribute('aria-label',next==='paused'?'继续':'暂停')}
 function showPanel(title,description,button,kicker='WORLD 1–1'){ $('message').textContent=title;$('description').textContent=description;$('start').textContent=button;$('kicker').textContent=kicker;$('overlay').hidden=false;announce(title+' '+description)}
-function reset(){demoMode=false;score=0;coins=0;lives=3;checkpoint=0;time=400;camera=0;ticks=0;flagY=48;world=makeWorld();items=[];shots=[];particles=[];popups=[];spawn();clearInput();setState('playing');$('overlay').hidden=true;canvas.focus();nextNote=0;noteIndex=0;announce('월드 1-1 시작!')}
+function reset(){demoMode=false;score=0;coins=0;lives=3;checkpoint=0;time=400;camera=0;ticks=0;flagY=48;world=makeWorld();items=[];shots=[];particles=[];popups=[];spawn();clearInput();setState('playing');$('overlay').hidden=true;canvas.focus();nextNote=0;noteIndex=0;announce('世界 1-1 开始！')}
 function startDemo(){reset();demoMode=true;demoFrame=-3;$('state-label').textContent='演示 · 按方向键接管控制';announce('这是通关演示。按方向键即可亲自游玩。')}
 function takeOver(){if(demoMode){demoMode=false;clearInput();$('state-label').textContent='PLAYING';announce('已切换到手动控制。')}}
 function resume(){clearInput();setState('playing');$('overlay').hidden=true;canvas.focus();nextNote=0}
-function pause(){if(state==='playing'){setState('paused');clearInput();showPanel('잠깐 쉬어가기','준비되면 모험을 이어가세요.','계속하기 ↗','PAUSED')}else if(state==='paused')resume()}
+function pause(){if(state==='playing'){setState('paused');clearInput();showPanel('稍作休息','准备好了就继续冒险吧。','继续 ↗','PAUSED')}else if(state==='paused')resume()}
 /* === SELF-CONTAINED CHIP AUDIO === */
 function tone(freq,duration=.1,delay=0,type='square',gain=.045,endFreq=null){
  if(!soundEnabled||!audio||audio.state!=='running')return;
  const at=audio.currentTime+delay,o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,at);if(endFreq)o.frequency.exponentialRampToValueAtTime(endFreq,at+duration);g.gain.setValueAtTime(gain,at);g.gain.exponentialRampToValueAtTime(.001,at+duration);o.connect(g);g.connect(audio.destination);o.start(at);o.stop(at+duration+.015);
 }
 function sfx(name){const seq={coin:[[988,.07],[1319,.18]],jump:[[220,.14,0,'square',.035,740]],bump:[[125,.075]],stomp:[[160,.08,0,'triangle',.13,50]],power:[[262,.08],[330,.08],[392,.08],[523,.1],[659,.12],[784,.15]],death:[[440,.12],[415,.12],[392,.12],[370,.15],[330,.2],[220,.35]],win:[[262,.1],[330,.1],[392,.1],[523,.2],[392,.12],[523,.35]],fire:[[700,.09,0,'square',.035,120]],pipe:[[220,.1],[165,.1],[110,.15]],life:[[659,.08],[784,.08],[1319,.12],[1047,.08],[1175,.08],[1568,.2]]}[name]||[];let delay=0;for(const n of seq){tone(n[0],n[1],delay,n[3]||'square',n[4]||.04,n[5]);delay+=n[1]*.82}}
-async function toggleSound(){soundEnabled=!soundEnabled;try{if(soundEnabled){audio??=new (window.AudioContext||window.webkitAudioContext)();await audio.resume();nextNote=0}}catch{soundEnabled=false;announce('이 브라우저에서는 소리를 재생할 수 없어요. 게임은 계속할 수 있어요.')}$('sound').setAttribute('aria-pressed',String(soundEnabled));$('sound').setAttribute('aria-label',soundEnabled?'소리 끄기':'소리 켜기');$('sound').title=(soundEnabled?'소리 끄기':'소리 켜기')+' (M)';$('sound').style.color=soundEnabled?'#ffd379':''}
+async function toggleSound(){soundEnabled=!soundEnabled;try{if(soundEnabled){audio??=new (window.AudioContext||window.webkitAudioContext)();await audio.resume();nextNote=0}}catch{soundEnabled=false;announce('此浏览器无法播放音效，游戏仍可继续。')}$('sound').setAttribute('aria-pressed',String(soundEnabled));$('sound').setAttribute('aria-label',soundEnabled?'关闭音效':'开启音效');$('sound').title=(soundEnabled?'关闭音效':'开启音效')+' (M)';$('sound').style.color=soundEnabled?'#ffd379':''}
 const melody=[76,76,0,76,0,72,76,0,79,0,0,0,67,0,0,0,72,0,0,67,0,0,64,0,0,69,0,71,0,70,69,0,67,76,79,81,0,77,79,0,76,0,72,74,71,0,0,0];
 function music(){if(!audio||!soundEnabled||state!=='playing')return;if(audio.currentTime<nextNote)return;const n=melody[noteIndex++%melody.length];if(n)tone(440*2**((n-69)/12),.105,0,'square',.017);if(noteIndex%4===0)tone(world.underground?65:131,.13,0,'triangle',.035);nextNote=audio.currentTime+(time<100?.112:.15)}
 /* === COLLISION: SWEPT, AXIS-SEPARATED, LOCAL TILE QUERY === */
@@ -119,7 +119,7 @@ function move(body,dt,headHits=false){
 }
 function popup(text,x,y,color='#fff'){popups.push({text,x,y,life:1,color})}
 function addScore(n,x=player.x,y=player.y){score+=n;popup(String(n),x,y)}
-function coin(x,y){coins++;score+=200;sfx('coin');popup('200',x,y);particles.push({x:x+4,y,vx:0,vy:-115,life:.5,type:'coin'});if(coins>=100){coins-=100;lives++;sfx('life');announce('코인 100개! 목숨이 늘었어요.')}}
+function coin(x,y){coins++;score+=200;sfx('coin');popup('200',x,y);particles.push({x:x+4,y,vx:0,vy:-115,life:.5,type:'coin'});if(coins>=100){coins-=100;lives++;sfx('life');announce('100 枚金币！获得一条命！')}}
 function bumpBlock(b){
  if(b.type==='ground'||b.type==='stone'||b.used)return sfx('bump');b.bump=.18;
  for(const e of world.enemies)if(!e.dead&&e.x+e.w>b.x&&e.x<b.x+16&&Math.abs(e.y+e.h-b.y)<5)killEnemy(e,100);
@@ -128,9 +128,9 @@ function bumpBlock(b){
  if(b.type==='brick'&&player.power){world.tiles.delete(b.x/T+','+b.y/T);score+=50;sfx('bump');for(let i=0;i<4;i++)particles.push({x:b.x+(i%2)*8,y:b.y+Math.floor(i/2)*8,vx:i%2?65:-65,vy:-150-Math.floor(i/2)*40,life:.7,type:'brick'})}else sfx('bump');
 }
 function grow(power){const old=player.h;player.power=power;player.h=power?27:15;player.y-=player.h-old;player.invuln=1.4}
-function hurt(){if(state!=='playing'||player.invuln>0||player.star>0)return;if(player.power){grow(0);player.invuln=2;sfx('pipe');announce('작아졌어요. 잠시 무적이에요.')}else die()}
-function die(){if(state!=='playing')return;setState('dying');deathClock=0;player.vy=-230;player.vx=0;lives--;clearInput();sfx('death');announce('목숨을 잃었어요. 남은 목숨 '+lives)}
-function respawn(){if(lives<=0){setState('gameover');saveBest();showPanel('GAME OVER','괜찮아요. 다음 점프는 더 멀리! 分数 '+String(score).padStart(6,'0'),'다시 도전 ↗');return}world=makeWorld();items=[];shots=[];particles=[];popups=[];time=400;camera=Math.max(0,checkpoint-110);spawn(checkpoint||40);setState('playing');nextNote=0}
+function hurt(){if(state!=='playing'||player.invuln>0||player.star>0)return;if(player.power){grow(0);player.invuln=2;sfx('pipe');announce('变小了！暂时无敌。')}else die()}
+function die(){if(state!=='playing')return;setState('dying');deathClock=0;player.vy=-230;player.vx=0;lives--;clearInput();sfx('death');announce('失去一条命，剩余生命：'+lives)}
+function respawn(){if(lives<=0){setState('gameover');saveBest();showPanel('GAME OVER','没关系，下次跳得更远！ 分数 '+String(score).padStart(6,'0'),'重新挑战 ↗');return}world=makeWorld();items=[];shots=[];particles=[];popups=[];time=400;camera=Math.max(0,checkpoint-110);spawn(checkpoint||40);setState('playing');nextNote=0}
 function killEnemy(e,points=100){e.dead=.45;e.fly=true;e.vy=-160;addScore(points,e.x,e.y);sfx('stomp')}
 function enemyContact(e,oldBottom){
  if(e.dead||!overlap(player,e))return;
@@ -150,7 +150,7 @@ function updateItems(dt){for(const it of items){if(it.emerge>0){it.emerge-=dt;it
 function fire(){if(player.power!==2||fireCooldown>0||shots.length>=2)return;shots.push({x:player.x+(player.facing>0?13:-6),y:player.y+9,w:6,h:6,vx:player.facing*230,vy:80,life:2});fireCooldown=.22;sfx('fire')}
 function updateShots(dt){for(const s of shots){s.life-=dt;s.vy=Math.min(s.vy+700*dt,250);if(move(s,dt))s.life=0;if(s.onGround)s.vy=-145;for(const e of world.enemies)if(!e.dead&&overlap(s,e)){killEnemy(e,200);s.life=0;break}}shots=shots.filter(s=>s.life>0&&s.y<260)}
 function startPipe(mode){pipeClock=0;pipeMode=mode;setState('pipe');player.vx=0;player.vy=0;clearInput();sfx('pipe')}
-function updatePipe(dt){pipeClock+=dt;player.y+=18*dt;if(pipeClock<.85)return;if(pipeMode==='enter'){world=makeWorld(true);spawn(36);player.y=40;camera=0}else{world=makeWorld();spawn(163*T+10);player.y=11*T-player.h;camera=player.x-100;checkpoint=160*T}player.power=pipePower;player.h=pipePower?27:15;if(pipeMode==='exit')player.y=11*T-player.h;items=[];shots=[];particles=[];setState('playing');announce(pipeMode==='enter'?'비밀 지하 방! 오른쪽 파이프로 나갈 수 있어요.':'다시 지상으로 돌아왔어요.')}
+function updatePipe(dt){pipeClock+=dt;player.y+=18*dt;if(pipeClock<.85)return;if(pipeMode==='enter'){world=makeWorld(true);spawn(36);player.y=40;camera=0}else{world=makeWorld();spawn(163*T+10);player.y=11*T-player.h;camera=player.x-100;checkpoint=160*T}player.power=pipePower;player.h=pipePower?27:15;if(pipeMode==='exit')player.y=11*T-player.h;items=[];shots=[];particles=[];setState('playing');announce(pipeMode==='enter'?'秘密地下室！右边的管道可以出去。':'回到了地面。')}
 let pipePower=0;
 function checkPipe(){if(!held('down')||!player.onGround)return;for(const p of world.pipes)if((p.secret||p.exit)&&Math.abs(player.x+player.w/2-(p.x+16))<9&&Math.abs(player.y+player.h-p.y)<2){pipePower=player.power;startPipe(p.exit?'exit':'enter');break}}
 function startWin(){setState('winning');winClock=0;clearInput();player.vx=0;player.vy=0;player.x=198*T-7;addScore(player.y<70?5000:player.y<110?2000:player.y<150?800:100,player.x,player.y);sfx('win');announce('到达旗杆！关卡通过！')}
@@ -212,7 +212,7 @@ function draw(){ctx.setTransform(canvas.width/VIEW_W,0,0,canvas.height/VIEW_H,0,
 /* === INPUT AND LIFECYCLE === */
 function startAction(){if(state==='paused')resume();else if(['title','gameover','won'].includes(state))reset()}
 $('start').addEventListener('click',startAction);$('pause').addEventListener('click',pause);$('sound').addEventListener('click',toggleSound);$('demo').addEventListener('click',startDemo);
-async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('shell').requestFullscreen()}catch{announce('전체 화면을 사용할 수 없어요. 브라우저 창을 넓혀 주세요.')}}$('fullscreen').addEventListener('click',fullscreen);
+async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('shell').requestFullscreen()}catch{announce('全屏不可用，请加宽浏览器窗口。')}}$('fullscreen').addEventListener('click',fullscreen);
 window.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;const action=keyMap[e.code];if(action){if(e.target instanceof HTMLButtonElement&&e.code==='Space')return;e.preventDefault();takeOver();if(!keys.has(e.code))pressed.add(action);keys.add(e.code)}if(e.repeat)return;if(e.code==='Enter'&&e.target instanceof HTMLButtonElement)return;if(e.code==='Enter'){e.preventDefault();startAction()}if(e.code==='KeyP'||e.code==='Escape')pause();if(e.code==='KeyR')reset();if(e.code==='KeyM')toggleSound();if(e.code==='KeyF')fullscreen()});
 window.addEventListener('keyup',e=>{keys.delete(e.code);if(keyMap[e.code])e.preventDefault()});
 document.querySelectorAll('.touch').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();takeOver();b.setPointerCapture(e.pointerId);touches.set(e.pointerId,b.dataset.action);pressed.add(b.dataset.action);b.classList.add('active')});const release=e=>{touches.delete(e.pointerId);b.classList.remove('active')};b.addEventListener('pointerup',release);b.addEventListener('pointercancel',release);b.addEventListener('lostpointercapture',release)});
