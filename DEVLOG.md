@@ -255,6 +255,16 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
    - 移除列表底部「更多播客文章」按钮（Hero 已有 /blog/ 入口，去重复）。
 2. 验证：build 62 页；列表/网格截图分别确认。首页结构：Hero → 工具栏 → 文章列表 → Contact。
 
+## 2026-08-29 会话记录（GLM / Codex 源码建仓同步）
+
+### 今天完成
+
+1. **为两个无 GitHub 仓库的产品源码创建私有仓库并推送**（推送前完成密钥/大文件审计）：
+   - `chenyuqing/glm-subtitle-ocr`（PRIVATE）：源即 `my-sys/glm-ocr-local`（智谱上游克隆 + 本地改造）。提交 55 个文件：`native_app/`（SwiftUI 壳）、`subtitle_ocr/` + `packaging/`（PyInstaller 后端）、前端 OCR 页与 provider 库、ocr-mcp、MLX 部署文档；`.gitignore` 新增 `dist-v2/`（DMG 构建产物）与 `config.local.yaml`（本地密钥配置，未跟踪）；上游 remote 保留改名为 `upstream`，`origin` 指向新仓库。推送 99MB 历史成功。
+   - `chenyuqing/codex-server-console`（PRIVATE）：源即今日归档目录（原本无版本控制），`git init -b main` 初始提交 185 个文件（SwiftUI 工程 + Tests + deploy 脚本 + SPEC/STATUS/docs）；`.gitignore` 已有 .build/dist/swiftpm，补 `.DS_Store`。
+   - 安全审计结论：GLM 的 `sk-xxx` 命中全为文档占位符误报；`config.local.yaml` 未跟踪不入库；Codex 的 WAAS 动态端点（`*.waas.aigate.cc`）与 127.0.0.1 回环地址进入私有仓库——符合其自身「动态端点不进公开仓库」规则（私有合规）。
+2. 影响：两产品产品页仍无 GitHub 链接（仓库私有，策略不变）；若日后转公开，加回 `repo` 字段即可。
+
 ## 2026-08-26 会话记录（浮点数位拆解工具）
 
 ### 今天完成
@@ -843,3 +853,4 @@ verdict 是「立场判断」，普通 tags 是「主题分类」，两者在 UI
 - 简洁 3D 现增加可见的短路径连线：RMSNorm → Q/attention → attention residual，以及 attention residual → RMSNorm → SwiGLU → MLP residual；两段残差 bypass 以较深的中性色回路连接。
 - 连线复用上游 WebGL line renderer，置于张量块前方，完整模式仍保持原 bbycroft 连线逻辑不变。
 - 浏览器验证：简洁模式的蓝色计算连线、绿色数据流连线及灰色残差回路均可见；无新的应用运行时错误。
+16. **新增游戏「砖块远征」**：从 lidge-jun/mario-1-1 镜像单文件 Super Mario World 1-1 同人复刻至 `public/games/mario-1-1.html`（39939 字节），添加文件头注释 + 页脚署名链接；新建 `src/pages/games/mario-1-1.astro` 路由重定向；games 目录页新增卡片（标题「砖块远征」/「World 1-1」，描述含同人署名声明）。构建确认 dist 产出完整，本地预览 200。镜像已获用户知情（非商用同人场景，风险自担）。

@@ -1,0 +1,225 @@
+<!--
+  Mirrored fan recreation of Super Mario World 1-1.
+  Original author: lidge-jun — https://lidge-jun.github.io/mario-1-1/
+  Original repo (no license declared): https://github.com/lidge-jun/mario-1-1
+  Mirrored for personal, non-commercial display on chenyuqing.github.io.
+  "Super Mario" and World 1-1 are trademarks/copyrights of Nintendo; this is a fan work by its original author.
+  All game code below is unmodified except this comment and the footer credit link.
+-->
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#161719">
+<title>WORLD 1–1 · Super Mario</title>
+<style>
+/* A self-contained cartridge: no network, fonts, images, libraries or build step. */
+:root{color-scheme:dark;--paper:#eee9de;--muted:#a9a9a6;--red:#ef543f;--line:#3d3e3e}
+*{box-sizing:border-box}body{margin:0;background:#161719;color:var(--paper);font-family:ui-monospace,"SFMono-Regular",Consolas,"Apple SD Gothic Neo",monospace;min-height:100svh}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,canvas:focus-visible{outline:3px solid #ffdc76;outline-offset:5px}button:disabled{opacity:.4;cursor:default}button{touch-action:manipulation}main{max-width:1120px;margin:0 auto;padding:38px 40px 24px}header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:27px}.brand{display:flex;align-items:center;gap:13px;font-size:12px;letter-spacing:2px;font-weight:700}.mark{display:grid;grid-template-columns:repeat(3,5px);gap:3px;transform:rotate(-8deg)}.mark i{width:5px;height:5px;background:var(--red)}.mark i:nth-child(5){visibility:hidden}.edition{font-size:10px;letter-spacing:2px;color:var(--muted)}.heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:20px;gap:20px}h1{font-size:clamp(28px,4vw,46px);letter-spacing:-2px;line-height:1;margin:0;font-weight:900}h1 span{color:var(--red)}.sub{margin:11px 0 0;color:var(--muted);font-size:12px;line-height:1.7;word-break:keep-all;text-wrap:balance}.actions{display:flex;gap:7px;flex-shrink:0}.tool{background:transparent;border:1px solid #55565a;border-radius:5px;width:42px;height:42px;display:grid;place-items:center}.tool:hover{background:#303133}.tool svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.screen-shell{padding:8px;background:#303133;border:1px solid #49494b;border-radius:10px;box-shadow:0 14px 45px #0005}.screen{position:relative;aspect-ratio:16/9;background:#5c94fc;overflow:hidden;border-radius:3px}canvas{display:block;width:100%;height:100%;image-rendering:pixelated;outline:none;touch-action:none}.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#0b17366b}.overlay[hidden]{display:none}.panel{padding:26px 32px;text-align:center;background:#181a20f5;border:2px solid #eee9de;box-shadow:7px 7px 0 #0007;max-width:90%}.kicker{color:#ffd379;font-size:10px;letter-spacing:3px;margin:0 0 13px}.panel h2{font-size:clamp(23px,3.3vw,40px);margin:0 0 9px;letter-spacing:-1px;line-height:1.1;text-wrap:balance}.panel p{font-size:12px;color:#cbcbd0;line-height:1.8;margin:0 0 18px;word-break:keep-all;text-wrap:balance}.primary{padding:12px 24px;min-height:44px;background:var(--red);border:0;border-bottom:4px solid #963629;border-radius:3px;font-weight:bold;letter-spacing:.3px}.primary:hover{background:#ff705b}.primary:active{transform:translateY(2px);border-bottom-width:2px}.panel .hint{font-size:10px;margin:12px 0 0;color:#a4a7b0}.statusbar{display:flex;align-items:center;gap:12px;margin:14px 2px 0;font-size:10px;letter-spacing:1px;color:#b8bab9}.live-dot{width:6px;height:6px;background:#acd27a;border-radius:50%;display:inline-block;margin-right:6px}.track{height:3px;flex:1;background:#37393a;overflow:hidden}.track span{display:block;background:var(--red);width:0;height:100%}.instructions{display:flex;justify-content:space-between;gap:20px;padding:24px 0 22px;border-bottom:1px solid var(--line)}.control-group{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--muted)}.keys{display:flex;gap:4px}kbd{font-family:inherit;color:#e7e7e3;border:1px solid #5c5d5f;border-bottom:3px solid #4c4d4f;border-radius:4px;min-width:26px;height:27px;display:inline-grid;place-items:center;font-size:11px;padding:0 7px}.foot{display:flex;justify-content:space-between;gap:16px;color:#92948f;font-size:10px;line-height:1.8;margin-top:17px}.foot strong{color:#cbc9c0;font-weight:400}.touch-controls{display:none;justify-content:space-between;gap:12px;padding-top:18px;user-select:none;-webkit-user-select:none}.touch-cluster{display:flex;gap:9px;align-items:center}.touch{height:54px;min-width:54px;background:#303235;border:1px solid #69696b;border-bottom:4px solid #090a0b;border-radius:10px;touch-action:none;font-size:17px}.touch[data-action=jump]{background:#c54332;border-color:#f17a67;border-radius:50%;width:65px;height:65px;font-size:11px}.touch[data-action=run]{border-radius:50%;font-size:10px}.touch.active{background:#686963;transform:translateY(2px)}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.screen-shell:fullscreen{display:grid;align-items:center;padding:0;background:#0e0e0f;border:0}.screen-shell:fullscreen .screen{width:min(100vw,177.777vh);margin:auto;border-radius:0}.screen-shell:fullscreen .statusbar{display:none}
+@media(pointer:coarse),(max-width:700px){.touch-controls{display:flex}.instructions{flex-wrap:wrap;justify-content:flex-start;gap:14px 22px}.control-group{font-size:10px}.edition{display:none}main{padding:22px 16px}.heading{gap:10px}.actions{gap:5px}.tool{width:36px;height:40px}.sub{font-size:10px;max-width:36ch}.screen-shell{padding:5px}.panel{padding:16px 20px}.panel p{font-size:10px;margin-bottom:12px}.panel .hint{display:none}.kicker{font-size:8px;margin-bottom:8px}.primary{padding:9px 18px}.foot{font-size:9px}.statusbar{font-size:8px;gap:7px}}
+@media(max-width:400px){main{padding:18px 10px}.heading{align-items:center}.tool{width:31px;height:36px}h1{font-size:29px}.sub{max-width:27ch}.panel{padding:10px 16px}.panel h2{font-size:22px}.panel p{line-height:1.4;margin:5px 0 9px}.kicker{display:none}.primary{font-size:11px;min-height:38px}.foot{flex-direction:column;gap:3px}.brand{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.primary:active,.touch.active{transform:none}}
+.demo-button{display:block;margin:12px auto 0;background:transparent;border:0;border-bottom:1px solid #777b86;padding:4px 2px;color:#c4c8d2;font-size:11px;min-height:26px}.demo-button:hover{color:#fff}.screen-shell:fullscreen{display:flex;flex-direction:column;justify-content:center}.screen-shell:fullscreen .touch-controls{width:min(94vw,680px);margin:auto;padding:8px 0}.screen-shell:fullscreen .screen{margin:0 auto}@media(pointer:coarse),(max-width:700px){.screen-shell:fullscreen .screen{width:min(100vw,calc((100dvh - 90px)*16/9))}.demo-button{margin-top:7px;font-size:10px}}@media(max-width:400px){.panel .demo-button{min-height:22px;margin-top:3px}}
+@media(max-width:400px){.touch{min-width:44px;height:48px}.touch[data-action=jump]{width:54px;height:54px}.touch-cluster{gap:6px}.touch-controls{gap:8px}}
+</style>
+</head>
+<body>
+<main>
+ <header><div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>THE 8-BIT ROOM</div><div class="edition">ONE FILE. ONE CLASSIC.</div></header>
+ <section class="heading"><div><h1>WORLD <span>1–1</span></h1><p class="sub">익숙한 첫 모험. 이번엔 브라우저에서.</p></div><div class="actions">
+ <button class="tool" id="pause" aria-label="일시정지" title="일시정지 (P)"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
+ <button class="tool" id="sound" aria-label="소리 켜기" title="소리 켜기 (M)" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M11 4 5 9H2v6h3l6 5zM16 9l6 6m0-6-6 6"/></svg></button>
+ <button class="tool" id="fullscreen" aria-label="전체 화면" title="전체 화면 (F)"><svg viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+ </div></section>
+ <div class="screen-shell" id="shell"><div class="screen">
+ <canvas id="game" width="864" height="486" tabindex="0" aria-label="슈퍼마리오 1-1 게임. 방향키 이동, 스페이스 점프, Shift 달리기, 아래키 파이프 진입."></canvas>
+ <div class="overlay" id="overlay"><div class="panel"><div class="kicker" id="kicker">SUPER MARIO · WORLD 1–1</div><h2 id="message">LET’S-A GO!</h2><p id="description">吃蘑菇、钻管道、<br>跳上旗杆顶端！</p><button class="primary" id="start">开始游戏 ↗</button><button class="demo-button" id="demo">观看通关演示</button><p class="hint">ENTER 开始 · 戴上耳机体验更佳</p></div></div>
+ </div><div class="statusbar"><span id="state-label"><i class="live-dot"></i>READY PLAYER ONE</span><div class="track" role="progressbar" aria-label="스테이지 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress"></span></div><span id="progress-label">0%</span><span>1–1</span></div>
+ <div class="touch-controls" aria-label="터치 게임패드"><div class="touch-cluster"><button class="touch" data-action="left" aria-label="왼쪽 이동">◀</button><button class="touch" data-action="right" aria-label="오른쪽 이동">▶</button><button class="touch" data-action="down" aria-label="파이프 진입">↓</button></div><div class="touch-cluster"><button class="touch" data-action="run" aria-label="달리기 및 불꽃">RUN</button><button class="touch" data-action="jump" aria-label="점프">JUMP</button></div></div></div>
+ <div class="instructions"><div class="control-group"><span class="keys"><kbd>←</kbd><kbd>→</kbd></span>이동</div><div class="control-group"><kbd>SPACE</kbd>점프 · 길게 누르면 높이</div><div class="control-group"><kbd>SHIFT</kbd>달리기 / 불꽃</div><div class="control-group"><kbd>↓</kbd>파이프</div><div class="control-group"><kbd>R</kbd>처음부터</div></div>
+ <footer class="foot"><span><strong>小提示</strong> · 第四个管道下面有秘密哦</span><span>FAN-MADE RECREATION · OFFLINE READY · <a href="https://lidge-jun.github.io/mario-1-1/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">原作者 lidge-jun ↗</a></span></footer>
+ <p class="sr-only" id="announcement" aria-live="polite"></p>
+ <noscript>请启用浏览器 JavaScript 以游玩此游戏。</noscript>
+</main>
+<script>
+(() => {
+'use strict';
+/* === DESIGN / ENGINE CONTRACT ===
+   C2 local game. Pixel-art cartridge; variance 3, motion 7, density D4.
+   Native canvas sprites and synthesized sounds keep this one file offline.
+   World units are NES-like 16px tiles; fixed 60Hz physics do not depend on RAF.
+   Layout reconstructs 1-1; rendering/physics are newly implemented, not a ROM.
+*/
+const $=id=>document.getElementById(id), canvas=$('game'), ctx=canvas.getContext('2d');
+const T=16, GROUND=208, VIEW_W=432, VIEW_H=243, LEVEL_W=3392, DT=1/60;
+const keys=new Set(), touches=new Map(), pressed=new Set();
+const keyMap={ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',ArrowDown:'down',KeyS:'down',Space:'jump',KeyZ:'jump',ArrowUp:'jump',KeyW:'jump',ShiftLeft:'run',ShiftRight:'run',KeyX:'run'};
+let state='title', world, player, camera=0, score=0, coins=0, lives=3, time=400, ticks=0, checkpoint=0, deathClock=0, winClock=0, jumpBuffer=0, coyote=0, fireCooldown=0, pipeClock=0, pipeMode='', best=0;
+let particles=[], popups=[], items=[], shots=[], flagY=48, last=0, accumulator=0, soundEnabled=false, audio=null, nextNote=0, noteIndex=0, previousJump=false;
+let demoMode=false,demoFrame=-3;
+// Recorded controller inputs, not teleportation: the demo runs the same physics.
+const demoJumps=[[89,129],[140,180],[202,242],[257,297],[329,369],[415,455],[470,510],[520,560],[575,615],[645,685],[717,757],[774,814],[852,892],[924,960],[984,1024],[1025,1065],[1092,1132],[1147,1187],[1209,1249],[1250,1290],[1330,1342]];
+try{best=Number(localStorage.getItem('mario11-best-v1'))||0}catch{}
+const held=a=>demoMode?(demoFrame>=0&&(a==='right'||a==='run'||a==='jump'&&demoJumps.some(([start,end])=>demoFrame>=start&&demoFrame<end))):[...keys].some(k=>keyMap[k]===a)||[...touches.values()].includes(a);
+const overlap=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const announce=text=>{$('announcement').textContent=text};
+/* === LEVEL DATA === */
+function makeWorld(underground=false){
+ const w={underground,tiles:new Map(),pipes:[],enemies:[],looseCoins:[],width:underground?384:LEVEL_W};
+ const put=(x,y,type='brick',content=null)=>w.tiles.set(x+','+y,{x:x*T,y:y*T,w:T,h:T,type,content,bump:0,used:false});
+ const span=(a,b,y,type='brick')=>{for(let x=a;x<=b;x++)put(x,y,type)};
+ if(underground){
+  span(0,23,13,'ground');span(0,23,14,'ground');span(0,23,1);for(let y=2;y<13;y++){put(0,y);put(23,y)}
+  for(let x=4;x<18;x++)put(x,10);for(let x=5;x<17;x++)for(let y=6;y<9;y++)w.looseCoins.push({x:x*T+4,y:y*T,w:8,h:12,taken:false});
+  w.pipes.push({x:20*T,y:11*T,w:32,h:32,exit:true});return w;
+ }
+ for(let x=0;x<212;x++)if(!((x>=69&&x<=70)||(x>=86&&x<=88)||(x>=153&&x<=154))){put(x,13,'ground');put(x,14,'ground')}
+ put(16,9,'question','coin');put(20,9);put(21,9,'question','power');put(22,9);put(23,9,'question','coin');put(24,9);put(22,5,'question','coin');
+ for(const [x,h,secret] of [[28,2,false],[38,3,false],[46,4,false],[57,4,true],[163,2,false],[179,2,false]])w.pipes.push({x:x*T,y:GROUND-h*T,w:32,h:h*T,secret});
+ put(64,8,'hidden','life');put(77,9);put(78,9,'question','power');put(79,9);span(80,87,5);span(91,93,5);put(94,5,'question','coin');put(94,9,'brick','multi');
+ put(100,9);put(101,9,'brick','star');for(const x of [106,109,112])put(x,9,'question','coin');put(109,5,'question','power');put(118,9);span(121,123,5);span(128,131,5);put(129,9);put(130,9);w.tiles.get('129,5').type='question';w.tiles.get('129,5').content='coin';w.tiles.get('130,5').type='question';w.tiles.get('130,5').content='coin';
+ for(let n=0;n<4;n++){for(let j=0;j<=n;j++)put(134+n,12-j,'stone');for(let j=0;j<4-n;j++)put(140+n,12-j,'stone')}
+ for(let n=0;n<4;n++){for(let j=0;j<=n;j++)put(148+n,12-j,'stone');for(let j=0;j<4-n;j++)put(155+n,12-j,'stone')}for(let j=0;j<4;j++)put(152,12-j,'stone');
+ put(168,9);put(169,9);put(170,9,'question','coin');put(171,9);
+ for(let n=0;n<8;n++)for(let j=0;j<=n;j++)put(181+n,12-j,'stone');for(let j=0;j<8;j++)put(189,12-j,'stone');put(198,12,'stone');
+ for(const x of [22,40,51,53,80,82,97,99,114,116,124,126,128,174,176])w.enemies.push({x:x*T,y:GROUND-14,w:14,h:14,vx:-26,vy:0,type:'goomba',active:false,dead:0});
+ w.enemies.push({x:107*T,y:GROUND-23,w:14,h:23,vx:-26,vy:0,type:'koopa',active:false,dead:0});return w;
+}
+function spawn(x=40){player={x,y:GROUND-15,w:12,h:15,vx:0,vy:0,onGround:false,facing:1,power:0,invuln:0,star:0,walk:0};jumpBuffer=0;coyote=0;previousJump=false}
+function clearInput(){keys.clear();touches.clear();pressed.clear();previousJump=false;jumpBuffer=0;document.querySelectorAll('.touch').forEach(b=>b.classList.remove('active'))}
+function setState(next){state=next;const labels={title:'READY PLAYER ONE',playing:'PLAYING',paused:'PAUSED',dying:'TRY AGAIN',gameover:'GAME OVER',winning:'COURSE CLEAR',won:'COURSE CLEAR',pipe:'SECRET PASSAGE'};$('state-label').textContent=labels[next];$('pause').disabled=!['playing','paused'].includes(next);$('pause').setAttribute('aria-label',next==='paused'?'계속하기':'일시정지')}
+function showPanel(title,description,button,kicker='WORLD 1–1'){ $('message').textContent=title;$('description').textContent=description;$('start').textContent=button;$('kicker').textContent=kicker;$('overlay').hidden=false;announce(title+' '+description)}
+function reset(){demoMode=false;score=0;coins=0;lives=3;checkpoint=0;time=400;camera=0;ticks=0;flagY=48;world=makeWorld();items=[];shots=[];particles=[];popups=[];spawn();clearInput();setState('playing');$('overlay').hidden=true;canvas.focus();nextNote=0;noteIndex=0;announce('월드 1-1 시작!')}
+function startDemo(){reset();demoMode=true;demoFrame=-3;$('state-label').textContent='演示 · 按方向键接管控制';announce('这是通关演示。按方向键即可亲自游玩。')}
+function takeOver(){if(demoMode){demoMode=false;clearInput();$('state-label').textContent='PLAYING';announce('已切换到手动控制。')}}
+function resume(){clearInput();setState('playing');$('overlay').hidden=true;canvas.focus();nextNote=0}
+function pause(){if(state==='playing'){setState('paused');clearInput();showPanel('잠깐 쉬어가기','준비되면 모험을 이어가세요.','계속하기 ↗','PAUSED')}else if(state==='paused')resume()}
+/* === SELF-CONTAINED CHIP AUDIO === */
+function tone(freq,duration=.1,delay=0,type='square',gain=.045,endFreq=null){
+ if(!soundEnabled||!audio||audio.state!=='running')return;
+ const at=audio.currentTime+delay,o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.setValueAtTime(freq,at);if(endFreq)o.frequency.exponentialRampToValueAtTime(endFreq,at+duration);g.gain.setValueAtTime(gain,at);g.gain.exponentialRampToValueAtTime(.001,at+duration);o.connect(g);g.connect(audio.destination);o.start(at);o.stop(at+duration+.015);
+}
+function sfx(name){const seq={coin:[[988,.07],[1319,.18]],jump:[[220,.14,0,'square',.035,740]],bump:[[125,.075]],stomp:[[160,.08,0,'triangle',.13,50]],power:[[262,.08],[330,.08],[392,.08],[523,.1],[659,.12],[784,.15]],death:[[440,.12],[415,.12],[392,.12],[370,.15],[330,.2],[220,.35]],win:[[262,.1],[330,.1],[392,.1],[523,.2],[392,.12],[523,.35]],fire:[[700,.09,0,'square',.035,120]],pipe:[[220,.1],[165,.1],[110,.15]],life:[[659,.08],[784,.08],[1319,.12],[1047,.08],[1175,.08],[1568,.2]]}[name]||[];let delay=0;for(const n of seq){tone(n[0],n[1],delay,n[3]||'square',n[4]||.04,n[5]);delay+=n[1]*.82}}
+async function toggleSound(){soundEnabled=!soundEnabled;try{if(soundEnabled){audio??=new (window.AudioContext||window.webkitAudioContext)();await audio.resume();nextNote=0}}catch{soundEnabled=false;announce('이 브라우저에서는 소리를 재생할 수 없어요. 게임은 계속할 수 있어요.')}$('sound').setAttribute('aria-pressed',String(soundEnabled));$('sound').setAttribute('aria-label',soundEnabled?'소리 끄기':'소리 켜기');$('sound').title=(soundEnabled?'소리 끄기':'소리 켜기')+' (M)';$('sound').style.color=soundEnabled?'#ffd379':''}
+const melody=[76,76,0,76,0,72,76,0,79,0,0,0,67,0,0,0,72,0,0,67,0,0,64,0,0,69,0,71,0,70,69,0,67,76,79,81,0,77,79,0,76,0,72,74,71,0,0,0];
+function music(){if(!audio||!soundEnabled||state!=='playing')return;if(audio.currentTime<nextNote)return;const n=melody[noteIndex++%melody.length];if(n)tone(440*2**((n-69)/12),.105,0,'square',.017);if(noteIndex%4===0)tone(world.underground?65:131,.13,0,'triangle',.035);nextNote=audio.currentTime+(time<100?.112:.15)}
+/* === COLLISION: SWEPT, AXIS-SEPARATED, LOCAL TILE QUERY === */
+function solids(body,includeHidden=false){const out=[];for(let x=Math.floor(body.x/T)-1;x<=Math.floor((body.x+body.w)/T)+1;x++)for(let y=Math.floor(body.y/T)-1;y<=Math.floor((body.y+body.h)/T)+1;y++){const b=world.tiles.get(x+','+y);if(b&&(b.type!=='hidden'||includeHidden))out.push(b)}return out.concat(world.pipes)}
+function move(body,dt,headHits=false){
+ const dx=body.vx*dt;body.x+=dx;let wall=false;
+ for(const b of solids(body))if(overlap(body,b)){if(dx>0)body.x=b.x-body.w;else if(dx<0)body.x=b.x+b.w;else continue;wall=true}
+ if(wall)body.vx=0;
+ const oldY=body.y,dy=body.vy*dt;body.y+=dy;body.onGround=false;
+ const collisions=solids(body,headHits&&dy<0).filter(b=>overlap(body,b));
+ if(dy>0){let top=Infinity;for(const b of collisions)if(oldY+body.h<=b.y+.1)top=Math.min(top,b.y);if(top!==Infinity){body.y=top-body.h;body.vy=0;body.onGround=true}}
+ if(dy<0){let bottom=-Infinity;for(const b of collisions)if(oldY>=b.y+b.h-.1)bottom=Math.max(bottom,b.y+b.h);if(bottom!==-Infinity){body.y=bottom;body.vy=0;if(headHits){const hit=collisions.filter(b=>b.y+b.h===bottom&&b.type).sort((a,b)=>Math.abs(a.x+8-(body.x+body.w/2))-Math.abs(b.x+8-(body.x+body.w/2)))[0];if(hit)bumpBlock(hit)}}}
+ return wall;
+}
+function popup(text,x,y,color='#fff'){popups.push({text,x,y,life:1,color})}
+function addScore(n,x=player.x,y=player.y){score+=n;popup(String(n),x,y)}
+function coin(x,y){coins++;score+=200;sfx('coin');popup('200',x,y);particles.push({x:x+4,y,vx:0,vy:-115,life:.5,type:'coin'});if(coins>=100){coins-=100;lives++;sfx('life');announce('코인 100개! 목숨이 늘었어요.')}}
+function bumpBlock(b){
+ if(b.type==='ground'||b.type==='stone'||b.used)return sfx('bump');b.bump=.18;
+ for(const e of world.enemies)if(!e.dead&&e.x+e.w>b.x&&e.x<b.x+16&&Math.abs(e.y+e.h-b.y)<5)killEnemy(e,100);
+ for(const it of items)if(it.x+it.w>b.x&&it.x<b.x+16&&Math.abs(it.y+it.h-b.y)<5)it.vy=-170;
+ if(b.content){const content=b.content;if(content==='coin'||content==='multi'){coin(b.x,b.y-12);if(content==='multi'){b.remaining=(b.remaining??10)-1;if(b.remaining>0)return}}else{const kind=content==='power'?(player.power?'flower':'mushroom'):content;items.push({x:b.x+1,y:b.y,w:14,h:14,vx:kind==='flower'?0:42,vy:0,kind,emerge:.4,baseY:b.y});sfx('power')}b.used=true;b.type='used';b.content=null;return}
+ if(b.type==='brick'&&player.power){world.tiles.delete(b.x/T+','+b.y/T);score+=50;sfx('bump');for(let i=0;i<4;i++)particles.push({x:b.x+(i%2)*8,y:b.y+Math.floor(i/2)*8,vx:i%2?65:-65,vy:-150-Math.floor(i/2)*40,life:.7,type:'brick'})}else sfx('bump');
+}
+function grow(power){const old=player.h;player.power=power;player.h=power?27:15;player.y-=player.h-old;player.invuln=1.4}
+function hurt(){if(state!=='playing'||player.invuln>0||player.star>0)return;if(player.power){grow(0);player.invuln=2;sfx('pipe');announce('작아졌어요. 잠시 무적이에요.')}else die()}
+function die(){if(state!=='playing')return;setState('dying');deathClock=0;player.vy=-230;player.vx=0;lives--;clearInput();sfx('death');announce('목숨을 잃었어요. 남은 목숨 '+lives)}
+function respawn(){if(lives<=0){setState('gameover');saveBest();showPanel('GAME OVER','괜찮아요. 다음 점프는 더 멀리! 分数 '+String(score).padStart(6,'0'),'다시 도전 ↗');return}world=makeWorld();items=[];shots=[];particles=[];popups=[];time=400;camera=Math.max(0,checkpoint-110);spawn(checkpoint||40);setState('playing');nextNote=0}
+function killEnemy(e,points=100){e.dead=.45;e.fly=true;e.vy=-160;addScore(points,e.x,e.y);sfx('stomp')}
+function enemyContact(e,oldBottom){
+ if(e.dead||!overlap(player,e))return;
+ if(player.star>0)return killEnemy(e,200);
+ if(e.type==='shell'&&e.vx===0){e.vx=player.x<e.x?210:-210;e.safe=.2;addScore(400,e.x,e.y);return}
+ if(e.safe>0)return;
+ if(player.vy>0&&oldBottom<=e.y+7){player.y=e.y-player.h;player.vy=held('jump')?-255:-175;sfx('stomp');addScore(100,e.x,e.y);if(e.type==='koopa'){e.type='shell';e.y+=e.h-14;e.h=14;e.vx=0;e.safe=.15}else if(e.type==='shell'){e.vx=0;e.safe=.15}else{e.dead=.25;e.fly=false}return}
+ hurt();
+}
+function updateEnemies(dt,oldBottom){
+ for(const e of world.enemies){if(e.dead){e.dead-=dt;if(e.dead<=0)e.remove=true;if(e.fly){e.vy+=650*dt;e.y+=e.vy*dt}continue}if(!e.active&&e.x<camera+VIEW_W+32)e.active=true;if(!e.active)continue;e.safe=Math.max(0,(e.safe||0)-dt);const direction=e.vx;e.vy=Math.min(e.vy+650*dt,330);if(move(e,dt))e.vx=-direction;if(e.y>270){e.remove=true;continue}enemyContact(e,oldBottom);
+  if(e.type==='shell'&&e.vx)for(const other of world.enemies)if(other!==e&&!other.dead&&overlap(e,other))killEnemy(other,200);
+ }
+ world.enemies=world.enemies.filter(e=>!e.remove);
+}
+function updateItems(dt){for(const it of items){if(it.emerge>0){it.emerge-=dt;it.y=it.baseY-14*(1-Math.max(0,it.emerge)/.4);continue}it.vy=Math.min(it.vy+600*dt,300);const vx=it.vx;if(move(it,dt))it.vx=-vx;if(it.kind==='star'&&it.onGround)it.vy=-210;if(overlap(player,it)){it.remove=true;if(it.kind==='life'){lives++;popup('1UP',it.x,it.y,'#a4ff83');sfx('life')}else{addScore(1000,it.x,it.y);sfx('power');if(it.kind==='star')player.star=10;else grow(it.kind==='flower'?2:Math.max(player.power,1))}}if(it.y>280)it.remove=true}items=items.filter(it=>!it.remove)}
+function fire(){if(player.power!==2||fireCooldown>0||shots.length>=2)return;shots.push({x:player.x+(player.facing>0?13:-6),y:player.y+9,w:6,h:6,vx:player.facing*230,vy:80,life:2});fireCooldown=.22;sfx('fire')}
+function updateShots(dt){for(const s of shots){s.life-=dt;s.vy=Math.min(s.vy+700*dt,250);if(move(s,dt))s.life=0;if(s.onGround)s.vy=-145;for(const e of world.enemies)if(!e.dead&&overlap(s,e)){killEnemy(e,200);s.life=0;break}}shots=shots.filter(s=>s.life>0&&s.y<260)}
+function startPipe(mode){pipeClock=0;pipeMode=mode;setState('pipe');player.vx=0;player.vy=0;clearInput();sfx('pipe')}
+function updatePipe(dt){pipeClock+=dt;player.y+=18*dt;if(pipeClock<.85)return;if(pipeMode==='enter'){world=makeWorld(true);spawn(36);player.y=40;camera=0}else{world=makeWorld();spawn(163*T+10);player.y=11*T-player.h;camera=player.x-100;checkpoint=160*T}player.power=pipePower;player.h=pipePower?27:15;if(pipeMode==='exit')player.y=11*T-player.h;items=[];shots=[];particles=[];setState('playing');announce(pipeMode==='enter'?'비밀 지하 방! 오른쪽 파이프로 나갈 수 있어요.':'다시 지상으로 돌아왔어요.')}
+let pipePower=0;
+function checkPipe(){if(!held('down')||!player.onGround)return;for(const p of world.pipes)if((p.secret||p.exit)&&Math.abs(player.x+player.w/2-(p.x+16))<9&&Math.abs(player.y+player.h-p.y)<2){pipePower=player.power;startPipe(p.exit?'exit':'enter');break}}
+function startWin(){setState('winning');winClock=0;clearInput();player.vx=0;player.vy=0;player.x=198*T-7;addScore(player.y<70?5000:player.y<110?2000:player.y<150?800:100,player.x,player.y);sfx('win');announce('到达旗杆！关卡通过！')}
+function saveBest(){best=Math.max(best,score);try{localStorage.setItem('mario11-best-v1',String(best))}catch{}}
+function updateWin(dt){winClock+=dt;flagY=Math.min(180,flagY+85*dt);if(player.y+player.h<192){player.y=Math.min(192-player.h,player.y+85*dt);return}if(winClock<2)return;player.vx=65;player.facing=1;player.vy=Math.min(player.vy+650*dt,300);move(player,dt);player.walk+=dt*12;if(player.x>=204*T){score+=Math.ceil(time)*50;time=0;saveBest();setState('won');showPanel('COURSE CLEAR!','分数 '+String(score).padStart(6,'0')+' · 最佳 '+String(best).padStart(6,'0'),'再来一次 ↗','WORLD 1–1 · 感谢游玩');sfx('win')}}
+/* === FIXED-STEP SIMULATION === */
+function update(dt){
+ if(['paused','title','won','gameover'].includes(state))return;ticks++;if(demoMode&&state==='playing')demoFrame++;
+ for(const b of world.tiles.values())if(b.bump>0)b.bump=Math.max(0,b.bump-dt);
+ for(const p of particles){p.life-=dt;p.vy+=420*dt;p.x+=p.vx*dt;p.y+=p.vy*dt}particles=particles.filter(p=>p.life>0);for(const p of popups){p.life-=dt;p.y-=20*dt}popups=popups.filter(p=>p.life>0);
+ if(state==='dying'){deathClock+=dt;if(deathClock>.2){player.vy+=700*dt;player.y+=player.vy*dt}if(deathClock>1.65)respawn();return}if(state==='winning'){updateWin(dt);return}if(state==='pipe'){updatePipe(dt);return}
+ time=Math.max(0,time-dt*2.5);if(time<=0){die();return}player.invuln=Math.max(0,player.invuln-dt);player.star=Math.max(0,player.star-dt);fireCooldown=Math.max(0,fireCooldown-dt);
+ const oldBottom=player.y+player.h, jumpHeld=held('jump');if((jumpHeld&&!previousJump)||pressed.has('jump'))jumpBuffer=.12;else jumpBuffer=Math.max(0,jumpBuffer-dt);previousJump=jumpHeld;
+ if(player.onGround)coyote=.075;else coyote=Math.max(0,coyote-dt);
+ const dir=Number(held('right'))-Number(held('left')),maxSpeed=held('run')?155:96;
+ if(dir){player.vx=clamp(player.vx+dir*600*dt,-maxSpeed,maxSpeed);player.facing=dir}else{const slow=700*dt;player.vx=Math.abs(player.vx)<=slow?0:player.vx-Math.sign(player.vx)*slow}
+ if(jumpBuffer>0&&coyote>0){player.vy=-310-(Math.abs(player.vx)>110?15:0);player.onGround=false;coyote=0;jumpBuffer=0;sfx('jump')}
+ if(!jumpHeld&&player.vy<-115)player.vy=-115;
+ player.vy=Math.min(330,player.vy+(player.vy<0&&jumpHeld?650:920)*dt);move(player,dt,true);player.x=clamp(player.x,world.underground?16:camera,world.width-player.w);player.walk+=Math.abs(player.vx)*dt*.14;
+ if(player.y>265){die();return}if(held('run')&&pressed.has('run'))fire();pressed.clear();
+ updateEnemies(dt,oldBottom);if(state!=='playing')return;updateItems(dt);updateShots(dt);
+ for(const c of world.looseCoins)if(!c.taken&&overlap(player,c)){c.taken=true;coin(c.x,c.y)}
+ checkPipe();if(!world.underground){camera=clamp(Math.max(camera,player.x-130),0,world.width-VIEW_W);if(player.x>90*T&&player.x<150*T)checkpoint=90*T;if(player.x+player.w>=198*T&&player.y+player.h>32&&state==='playing')startWin()}
+}
+/* === PIXEL SPRITES: AUTHORED INLINE, NO ASSET REQUESTS === */
+const palette={r:'#d83c18',s:'#fcb878',b:'#884410',o:'#b85b18',w:'#fff6d3',k:'#171c21',g:'#70b81d',d:'#246b19',y:'#ffc438'};
+const sprites={
+ mario:['.....rrrrrr.....','....rrrrrrrrr...','....bbbssks.....','...bsbsssksss...','...bsbbsssksss..','....bsssskkkk...','.....ssssss.....','....rrbrrbrr....','...rrrbrrbrrr...','..rrrrbbbbrrrr..','..ssrbwbbwbrss..','..sssbbbbbbsss..','....bbbbbbbb....','....bbb..bbb....','...bbb....bbb...','..bbbb....bbbb..'],
+ goomba:['.....oooooo.....','....oooooooo....','...oooooooooo...','..oooooooooooo..','.ookkoooookkoo..','.oowkwoooowkwoo.','ooowkwoooowkwooo','oooooookkooooooo','ooooookkkkoooooo','..oooooooooooo..','...ssssssssss...','..ssssssssssss..','..kkksssssskkk..','.kkkkksssskkkkk.','.kkkkk....kkkkk.','..kkk......kkk..'],
+ mushroom:['.....rrrrrr.....','...rrrrwwrrrr...','..rrrrwwwwrrrr..','.rrrrrwwwwrrrrr.','.rrwwwrrrrwwwrr.','rrwwwwwrrwwwwwrr','rrwwwwwrrwwwwwrr','rrrwwwrrrrwwwrrr','rrrrrrrrrrrrrrrr','.....ssssss.....','....ssskksss....','....ssskksss....','....ssssssss....','.....ssssss.....'],
+ flower:['.....wwwwww.....','...wwrrrrrrww...','..wrrwwrrwwrrw..','..wrwwwwwwwwrw..','..wrrwwrrwwrrw..','...wwrrrrrrww...','.....wwwwww.....','.......gg.......','..gg...gg...gg..','...ggg.gg.ggg...','....gggggggg....','......gggg......','.......gg.......','.......gg.......'],
+ star:['.......yy.......','......yyyy......','......yyyy......','.yyyyyyyyyyyyyy.','..yyyyyyyyyyyy..','...yykyykyyyy...','....ykyykyyy....','...yyyyyyyyyy...','...yyyyyyyyyy...','..yyyyyyyyyyyy..','..yyyyy..yyyyy..','.yyyy......yyyy.','.yyy........yyy.'],
+ koopa:['......gggg......','.....gggggg.....','.....gwgwgg.....','.....gkgkgg.....','.....gggggg.....','......ssss......','.....ssssss.....','.....gggggg.....','....ggdggdgg....','...ggdggggdgg...','..ggdggddggdgg..','..ggdggddggdgg..','..gggdggggdggg..','..wgggdggdgggw..','...wwggggggww...','....wwwwwwww....','....sss..sss....','...ssss..ssss...'],
+ shell:['....gggggggg....','...ggdggggdgg...','..ggdggddggdgg..','.gggdggddggdggg.','.ggggdggggdgggg.','ggggggddddgggggg','gggggggggggggggg','wwggggggggggggww','.wwwwwwwwwwwwww.']
+};
+function rect(x,y,w,h,color){ctx.fillStyle=color;ctx.fillRect(Math.round(x),Math.round(y),w,h)}
+function sprite(name,x,y,{flip=false,sy=1,pal=palette,frame=0}={}){const rows=sprites[name];ctx.save();ctx.translate(Math.round(x)+(flip?16:0),Math.round(y));if(flip)ctx.scale(-1,1);rows.forEach((row,iy)=>{for(let ix=0;ix<row.length;ix++){const color=pal[row[ix]];if(color){let shift=0;if(name==='mario'&&iy>=13&&frame)shift=(iy>14?frame:-frame);rect(ix+shift,iy*sy,1,sy,color)}}});ctx.restore()}
+function text(str,x,y,size=8,color='#fff',align='left'){ctx.fillStyle=color;ctx.font='bold '+size+'px monospace';ctx.textAlign=align;ctx.textBaseline='top';ctx.fillText(str,Math.round(x),Math.round(y));ctx.textAlign='left'}
+function coinDraw(x,y){const width=[6,4,2,4][Math.floor(ticks/8)%4];rect(x+4-width/2,y,width,11,'#ad5b00');rect(x+5-width/2,y+1,Math.max(1,width-2),8,'#ffda42');rect(x+4,y+2,1,6,'#fff3b6')}
+function tileDraw(b){if(b.type==='hidden')return;const x=b.x,y=b.y-(b.bump>0?Math.sin(b.bump/.18*Math.PI)*5:0);const underground=world.underground;
+ if(b.type==='ground'||b.type==='brick'){const color=underground?'#4576c4':'#bb5420',light=underground?'#9cc7ff':'#fbb17c',dark=underground?'#172849':'#4c2815';rect(x,y,16,16,dark);rect(x+1,y+1,14,14,color);rect(x,y,16,1,light);rect(x,y,1,16,light);rect(x,y+7,16,1,dark);rect(x+7,y+1,1,6,dark);rect(x+3,y+8,1,8,dark);rect(x+12,y+8,1,8,dark);if(b.type==='ground'){rect(x+2,y+2,4,2,light);rect(x+9,y+10,3,2,light)}return}
+ if(b.type==='stone'){rect(x,y,16,16,'#542d0b');rect(x,y,15,15,'#f9b45e');rect(x+2,y+2,12,12,'#ca8033');rect(x+4,y+4,10,10,'#e49942');return}
+ rect(x,y,16,16,'#542a08');rect(x+1,y+1,14,14,b.used?'#b87237':['#ffba45','#f2a735','#df9524'][Math.floor(ticks/12)%3]);rect(x+2,y+2,12,1,b.used?'#d89d5b':'#ffe495');for(const dx of [2,12])for(const dy of [2,12])rect(x+dx,y+dy,1,1,'#633013');if(!b.used){text('?',x+4,y+3,12,'#683217');text('?',x+3,y+2,12,'#fff0b6')}
+}
+function pipeDraw(p){rect(p.x+2,p.y+9,28,p.h-9,'#153d07');rect(p.x+4,p.y+10,24,p.h-10,'#75c724');rect(p.x+6,p.y+10,5,p.h-10,'#c4ed50');rect(p.x+19,p.y+10,5,p.h-10,'#349313');rect(p.x+26,p.y+10,2,p.h-10,'#225b0b');rect(p.x,p.y,32,12,'#153d07');rect(p.x+1,p.y+1,30,9,'#70bc20');rect(p.x+3,p.y+2,5,8,'#c4ed50');rect(p.x+21,p.y+2,6,8,'#328b12');rect(p.x+1,p.y+1,30,1,'#d2f58a')}
+function cloud(x,y,size=1){ctx.save();ctx.translate(x,y);ctx.scale(size,size);const c='#fff9ec',edge='#b9d5ff';rect(4,8,34,12,edge);rect(0,10,42,6,c);rect(5,5,30,13,c);rect(11,0,14,17,c);rect(25,4,9,14,c);rect(8,17,25,3,edge);ctx.restore()}
+function hill(x,y,size=1){ctx.fillStyle='#247719';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+30*size,y-36*size);ctx.lineTo(x+40*size,y-39*size);ctx.lineTo(x+74*size,y);ctx.fill();ctx.fillStyle='#58b62b';ctx.beginPath();ctx.moveTo(x+3,y);ctx.lineTo(x+32*size,y-33*size);ctx.lineTo(x+40*size,y-35*size);ctx.lineTo(x+70*size,y);ctx.fill();rect(x+30*size,y-15*size,3,5,'#216913');rect(x+45*size,y-11*size,3,4,'#216913')}
+function bush(x,y,n=1){for(let i=0;i<n;i++){rect(x+i*14+3,y-10,20,10,'#215e0f');rect(x+i*14+7,y-14,12,13,'#68be25');rect(x+i*14+2,y-7,23,7,'#68be25');rect(x+i*14+11,y-12,2,2,'#215e0f')}}
+function castle(){const x=202*T,y=GROUND-64;for(let row=0;row<4;row++)for(let col=0;col<5;col++)tileDraw({x:x+col*16,y:y+row*16,type:'brick',bump:0});for(const c of [0,2,4])rect(x+c*16,y-7,16,7,'#bb5420');rect(x+26,y+38,27,26,'#251a17');rect(x+31,y+32,17,9,'#251a17');for(const dx of [11,60]){rect(x+dx,y+15,9,14,'#251a17');rect(x+dx+2,y+12,5,4,'#251a17')}}
+function scenery(){if(world.underground)return;for(let i=-1;i<8;i++){const x=i*640;hill(x+5,GROUND,1.15);hill(x+258,GROUND,.6);bush(x+183,GROUND,3);bush(x+375,GROUND,1);bush(x+520,GROUND,2)}for(let i=-1;i<8;i++){const x=i*520;cloud(x+125,40);cloud(x+278,24,1.2);cloud(x+435,53,.85)}rect(198*T+7,40,2,152,'#f3ecd5');rect(198*T+5,35,6,6,'#76b52a');ctx.fillStyle='#faf7e3';ctx.beginPath();ctx.moveTo(198*T+6,flagY);ctx.lineTo(198*T-12,flagY+9);ctx.lineTo(198*T+6,flagY+18);ctx.fill();rect(198*T-2,flagY+7,4,4,'#39a31d');castle()}
+function drawPlayer(){if(player.invuln>0&&Math.floor(ticks/5)%2===0&&state==='playing')return;let pal=palette;if(player.power===2)pal={...palette,r:'#fff3d3',b:'#e6431a'};if(player.star>0)pal={...pal,r:['#ffdc51','#fff','#50d8aa'][Math.floor(ticks/4)%3],b:['#3897ed','#e94e3c','#8bd83f'][Math.floor(ticks/4)%3]};const frame=player.onGround&&Math.abs(player.vx)>5?Math.floor(player.walk)%3-1:0;sprite('mario',player.x-2,player.y,{flip:player.facing<0,sy:player.h/16,pal,frame})}
+function hud(){rect(0,0,VIEW_W,30,world.underground?'#0a101c':'#5c94fc');text('MARIO',14,7,8);text(String(score).padStart(6,'0'),14,17,8);coinDraw(101,10);text('×'+String(coins).padStart(2,'0'),114,17,8);text('WORLD',174,7,8);text(world.underground?'1–1 ↓':'1–1',179,17,8);text('TIME',248,7,8);text(String(Math.ceil(time)).padStart(3,'0'),253,17,8);text('LIVES',324,7,8);text('× '+lives,332,17,8)}
+function draw(){ctx.setTransform(canvas.width/VIEW_W,0,0,canvas.height/VIEW_H,0,0);ctx.imageSmoothingEnabled=false;rect(0,0,VIEW_W,VIEW_H,world.underground?'#080c18':'#5c94fc');ctx.save();ctx.translate(-Math.floor(camera),0);scenery();for(const b of world.tiles.values())if(b.x>camera-16&&b.x<camera+VIEW_W+16)tileDraw(b);for(const c of world.looseCoins)if(!c.taken)coinDraw(c.x,c.y);
+ for(const it of items){const pal=it.kind==='life'?{...palette,r:'#68b83b'}:palette;sprite(it.kind==='star'?'star':it.kind==='flower'?'flower':'mushroom',it.x,it.y,{pal})}
+ for(const e of world.enemies)if(e.active&&e.x>camera-30&&e.x<camera+VIEW_W+30){if(e.dead&&!e.fly){rect(e.x-1,e.y+10,16,4,'#99500f');rect(e.x+2,e.y+11,3,1,'#fff')}else{const height=e.type==='koopa'?23:e.type==='shell'?14:14;const rows=sprites[e.type].length;sprite(e.type,e.x-1,e.y,{flip:e.vx>0,sy:height/rows})}}
+ drawPlayer();for(const p of world.pipes)pipeDraw(p);for(const s of shots){rect(s.x,s.y,6,6,'#ea5319');rect(s.x+1,s.y+1,4,4,'#fff5a6')}for(const p of particles){if(p.type==='coin')coinDraw(p.x,p.y);else rect(p.x,p.y,6,6,world.underground?'#6892d3':'#cd713a')}for(const p of popups)text(p.text,p.x,p.y,7,p.color);ctx.restore();hud();
+ if(ticks%10===0||state==='title'){const pct=state==='won'?100:world.underground?Math.round(57/198*100):clamp(Math.floor((player.x-40)/(198*T-40)*100),0,100);$('progress').style.width=pct+'%';$('progress-label').textContent=pct+'%';document.querySelector('.track').setAttribute('aria-valuenow',pct)}
+}
+/* === INPUT AND LIFECYCLE === */
+function startAction(){if(state==='paused')resume();else if(['title','gameover','won'].includes(state))reset()}
+$('start').addEventListener('click',startAction);$('pause').addEventListener('click',pause);$('sound').addEventListener('click',toggleSound);$('demo').addEventListener('click',startDemo);
+async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('shell').requestFullscreen()}catch{announce('전체 화면을 사용할 수 없어요. 브라우저 창을 넓혀 주세요.')}}$('fullscreen').addEventListener('click',fullscreen);
+window.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;const action=keyMap[e.code];if(action){if(e.target instanceof HTMLButtonElement&&e.code==='Space')return;e.preventDefault();takeOver();if(!keys.has(e.code))pressed.add(action);keys.add(e.code)}if(e.repeat)return;if(e.code==='Enter'&&e.target instanceof HTMLButtonElement)return;if(e.code==='Enter'){e.preventDefault();startAction()}if(e.code==='KeyP'||e.code==='Escape')pause();if(e.code==='KeyR')reset();if(e.code==='KeyM')toggleSound();if(e.code==='KeyF')fullscreen()});
+window.addEventListener('keyup',e=>{keys.delete(e.code);if(keyMap[e.code])e.preventDefault()});
+document.querySelectorAll('.touch').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();takeOver();b.setPointerCapture(e.pointerId);touches.set(e.pointerId,b.dataset.action);pressed.add(b.dataset.action);b.classList.add('active')});const release=e=>{touches.delete(e.pointerId);b.classList.remove('active')};b.addEventListener('pointerup',release);b.addEventListener('pointercancel',release);b.addEventListener('lostpointercapture',release)});
+window.addEventListener('blur',()=>{clearInput();if(state==='playing')pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInput();if(state==='playing')pause()}last=0;accumulator=0});
+function frame(now){if(!last)last=now;const elapsed=Math.min((now-last)/1000,.1);last=now;accumulator+=elapsed;while(accumulator>=DT){update(DT);accumulator-=DT}music();draw();requestAnimationFrame(frame)}
+world=makeWorld();spawn();setState('title');draw();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
